@@ -32,12 +32,15 @@ for (const id of CHARACTER_IDS) test(`ANIM ${id}: six real sprite poses, skill a
     if (speed === 3) { await speed3(page); await start(page, id); }
     await expect(page.locator('[data-action="cast"]')).toBeEnabled();
     await page.locator('[data-action="cast"]').click();
-    await page.waitForFunction(id => window.__game.presentation().cutin.visible && window.__game.presentation().cutin.age >= 80 && window.__game.presentation().skills.includes(id), id);
+    await page.waitForFunction(id => window.__game.presentation().cutin.visible && window.__game.presentation().cutin.age >= 650 && window.__game.presentation().skills.includes(id), id);
     const before = await page.evaluate(() => ({ tick: window.__game.state()!.tick, ...window.__game.presentation() }));
     await page.screenshot({ path: `${dir}/screenshots/${info.project.name}-${id}-skill-${speed}x.png` });
-    await page.waitForTimeout(550);
+    await page.waitForFunction(() => !window.__game.presentation().cutin.visible && !window.__game.presentation().visibleEffects.some((effect: { kind: string }) => effect.kind === 'tactical'));
     const after = await page.evaluate(() => ({ tick: window.__game.state()!.tick, ...window.__game.presentation() }));
-    expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);
+    expect(before.cutin.duration).toBe(1200);
+    const skill = before.visibleEffects.find((effect: { kind: string }) => effect.kind === 'tactical');
+    expect(skill?.duration).toBe(1500); expect(skill?.age).toBeGreaterThanOrEqual(650);
+    expect(before.cutin.age).toBeLessThan(1200); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);
     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);
     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);
     samples.push({ speed, before, after });
@@ -55,12 +58,12 @@ test('ANIM: pause freezes animation and refresh does not replay an old skill', a
   const before = await page.evaluate(async () => { await window.__game.save(); return { tick: window.__game.state()!.tick, view: window.__game.presentation() }; });
   await page.waitForTimeout(200);
   const after = await page.evaluate(() => ({ tick: window.__game.state()!.tick, view: window.__game.presentation() }));
-  expect(after.tick).toBe(before.tick); expect(after.view.clock).toBe(before.view.clock); expect(after.view.poses).toEqual(before.view.poses); expect(after.view.cutin.age).toBe(before.view.cutin.age);
+  expect(after.tick).toBe(before.tick); expect(after.view.clock).toBe(before.view.clock); expect(after.view.poses).toEqual(before.view.poses); expect(after.view.cutin.age).toBe(before.view.cutin.age); expect(after.view.visibleEffects).toEqual(before.view.visibleEffects);
   await page.reload(); await page.waitForFunction(() => !!window.__game);
   await page.locator('[data-action="continue"]').click(); await page.locator('#battle-loading').waitFor({ state: 'detached' });
   expect(await page.locator('#speed-button').innerText()).toBe('3×');
   expect(await page.evaluate(() => window.__game.state()!.tick)).toBe(before.tick);
-  const restored = await page.evaluate(() => window.__game.presentation()); expect(restored.skills).toEqual([]); expect(restored.cutin.visible).toBe(false);
+  const restored = await page.evaluate(() => window.__game.presentation()); expect(restored.skills).toEqual([]); expect(restored.cutin.visible).toBe(false); expect(restored.visibleEffects).toEqual([]);
   await page.locator('[data-action="resume"]').click(); await page.waitForTimeout(200);
   expect(await page.evaluate(() => window.__game.presentation().skills)).toEqual([]);
   writeFileSync(`${dir}/${info.project.name}-pause-recovery.json`, JSON.stringify({ before, after, restored }, null, 2));

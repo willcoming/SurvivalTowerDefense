@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import { CHARACTER_MAP } from '../data/content';
+import { CaptainCutin } from './captain-cutin';
 import type { CharacterId, EnemyId, RunState, VisualEvent } from '../sim/types';
-import { CUTIN_MS, LAYERS, poseFrame, weaponForm, type Detail } from './presentation';
+import { LAYERS, poseFrame, weaponForm, type Detail } from './presentation';
 import { advanceEnemyMotion, createEnemyMotion, ENEMY_POSES, type EnemyMotion, type EnemyMotionMode } from './enemy-motion';
 
 export const enemySize = (id: string) => id.startsWith('B') ? 106 : id === 'E07' ? 60 : id === 'E03' ? 48 : 39;
@@ -14,13 +14,7 @@ export class CombatActors {
   private creatures = new Map<number, Creature>();
   private corpses: Corpse[] = [];
   private deadIds = new Set<number>();
-  private cutin: Phaser.GameObjects.Container;
-  private cutinName: Phaser.GameObjects.Text;
-  private cutinCaption: Phaser.GameObjects.Text;
-  private cutinPortrait: Phaser.GameObjects.Image;
-  private cutinBorn = -Infinity;
-  private cutinId: CharacterId | null = null;
-  private cutinShown = false;
+  private cutin: CaptainCutin;
   private skills = new Set<CharacterId>();
   private forms = new Set<string>();
   private hits = new Set<EnemyId>();
@@ -36,15 +30,7 @@ export class CombatActors {
       const image = scene.add.sprite(this.center(id), 510, `motion-${id}`, 0).setOrigin(.5, 240 / 256).setDisplaySize(84, 84).setDepth(LAYERS.allies);
       this.allies.set(id, { image, attacks: read().weapons.find(w => w.id === id)!.attacks, firedAt: -Infinity, frame: 0, frames: new Set(), facing: 1 });
     }
-    const plate = scene.add.graphics().fillStyle(0x092933, .94).fillRect(0, 0, 370, 92);
-    plate.lineStyle(2, 0x8bf5dc, .85).beginPath().moveTo(0, 0).lineTo(370, 0).strokePath();
-    plate.lineStyle(1, 0x8bf5dc, .3).beginPath().moveTo(128, 74).lineTo(353, 74).strokePath();
-    scene.textures.get('captain-portrait').add('cutin', 0, 148, 25, 472, 368);
-    this.cutinPortrait = scene.add.image(0, 0, 'captain-portrait', 'cutin').setOrigin(0).setDisplaySize(118, 92);
-    this.cutinName = scene.add.text(132, 28, '', { fontSize: '21px', fontFamily: 'sans-serif', fontStyle: 'bold', color: '#fff8e8' });
-    this.cutinCaption = scene.add.text(133, 9, '', { fontSize: '10px', fontFamily: 'sans-serif', color: '#aef5df' });
-    const footer = scene.add.text(133, 59, 'TACTICAL SYSTEM / RELEASE', { fontSize: '8px', fontFamily: 'monospace', color: '#a8c4c2' });
-    this.cutin = scene.add.container(10, 343, [plate, this.cutinPortrait, this.cutinCaption, this.cutinName, footer]).setDepth(LAYERS.cutin).setVisible(false);
+    this.cutin = new CaptainCutin(scene);
   }
   center(id?: CharacterId) { const ids = this.read().config.squadIds, i = ids.indexOf(id!); return i < 0 ? 195 : 195 + (i - (ids.length - 1) / 2) * 70; }
   origin = (id?: CharacterId, targetX?: number) => {
@@ -78,9 +64,7 @@ export class CombatActors {
       }
       if (event.kind === 'death') this.corpse(event, detail);
       if (event.kind === 'tactical' && event.source) {
-        this.cutinBorn = this.clock; this.cutinId = event.source; this.skills.add(event.source);
-        this.cutinName.setText(CHARACTER_MAP[event.source].tacticalName);
-        this.cutinCaption.setText(`${CHARACTER_MAP[event.source].name} / ${CHARACTER_MAP[event.source].role}`);
+        this.cutin.play(event.source, this.clock); this.skills.add(event.source);
         const ally = this.allies.get(event.source); if (ally) ally.firedAt = this.clock;
       }
     }
@@ -135,10 +119,7 @@ export class CombatActors {
       if (t < .12) c.image.setTintFill(0xffeac9); else c.image.setTint(0x809d9f);
       return true;
     });
-    const age = this.clock - this.cutinBorn;
-    this.cutinShown = age >= 0 && age < CUTIN_MS;
-    this.cutin.setVisible(this.cutinShown);
-    if (this.cutinShown) { const alpha = Math.min(1, (age + 16) / 60, (CUTIN_MS - age) / 100); this.cutin.setAlpha(alpha).setX(10 + Math.max(0, 1 - age / 70) * 35); }
+    this.cutin.update(this.clock, detail);
   }
   diagnostics() {
     return {
@@ -149,7 +130,7 @@ export class CombatActors {
       maxCorpses: this.maxCorpses, aliveImages: this.creatures.size,
       enemyMotions: [...this.creatures].map(([id, c]) => ({ id, type: c.defId, mode: c.motion.mode, frame: Number(c.image.frame.name), pose: ENEMY_POSES[c.motion.frame], fps: c.motion.fps, clock: c.motion.time, releases: c.motion.releases, texture: c.image.texture.key })),
       enemyHistory: Object.fromEntries([...this.enemyHistory].map(([id, h]) => [id, { modes: [...h.modes], frames: [...h.frames].sort((a, b) => a - b), releases: h.releases }])),
-      cutin: { visible: this.cutinShown, id: this.cutinId, age: this.clock - this.cutinBorn, duration: CUTIN_MS, top: 343, bottom: 435, depth: LAYERS.cutin },
+      cutin: this.cutin.diagnostics(this.clock),
     };
   }
 }

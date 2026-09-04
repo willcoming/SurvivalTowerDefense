@@ -18,17 +18,17 @@ export function polygon(g: Graphics, x: number, y: number, r: number, sides: num
   const points = Array.from({ length: sides + 1 }, (_, i) => ({ x: x + Math.cos(i * TAU / sides + angle) * r, y: y + Math.sin(i * TAU / sides + angle) * r }));
   line(g, points, color, width, alpha);
 }
-function burst(g: Graphics, x: number, y: number, r: number, color: number, alpha: number, count: number, angle = 0) {
+export function burst(g: Graphics, x: number, y: number, r: number, color: number, alpha: number, count: number, angle = 0) {
   for (let i = 0; i < count; i++) {
     const a = i * TAU / count + angle;
     line(g, [{ x: x + Math.cos(a) * r * .45, y: y + Math.sin(a) * r * .45 }, { x: x + Math.cos(a) * r, y: y + Math.sin(a) * r }], color, i % 2 ? 1 : 2, alpha);
   }
 }
-function reticle(g: Graphics, x: number, y: number, radius: number, color: number, alpha: number) {
+export function reticle(g: Graphics, x: number, y: number, radius: number, color: number, alpha: number) {
   g.lineStyle(1.5, color, alpha).strokeCircle(x, y, radius);
   for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2; line(g, [{ x: x + Math.cos(a) * radius * .65, y: y + Math.sin(a) * radius * .65 }, { x: x + Math.cos(a) * radius * 1.25, y: y + Math.sin(a) * radius * 1.25 }], color, 2, alpha); }
 }
-function glow(g: Graphics, x: number, y: number, r: number, color: number, alpha: number) {
+export function glow(g: Graphics, x: number, y: number, r: number, color: number, alpha: number) {
   g.fillStyle(color, alpha * .09).fillCircle(x, y, r * 1.65);
   g.fillStyle(color, alpha * .24).fillCircle(x, y, r);
   g.fillStyle(0xfffbe7, alpha * .9).fillCircle(x, y, r * .30);
@@ -40,12 +40,12 @@ function muzzle(g: Graphics, from: Point, to: Point, color: number, alpha: numbe
   g.fillStyle(color, alpha * .9).fillTriangle(from.x - uy * width, from.y + ux * width, from.x + uy * width, from.y - ux * width, from.x + ux * length, from.y + uy * length);
   g.fillStyle(0xffffe7, alpha).fillTriangle(from.x - uy * width * .4, from.y + ux * width * .4, from.x + uy * width * .4, from.y - ux * width * .4, from.x + ux * length * .8, from.y + uy * length * .8);
 }
-function laser(g: Graphics, from: Point, to: Point, color: number, width: number, alpha: number) {
+export function laser(g: Graphics, from: Point, to: Point, color: number, width: number, alpha: number) {
   line(g, [from, to], color, width + 10, alpha * .18);
   line(g, [from, to], color, width, alpha);
   line(g, [from, to], 0xf3fff3, Math.max(1.6, width * .32), alpha);
 }
-function bolt(g: Graphics, from: Point, to: Point, color: number, alpha: number, phase: number, compact: boolean) {
+export function bolt(g: Graphics, from: Point, to: Point, color: number, alpha: number, phase: number, compact: boolean) {
   const dx = to.x - from.x, dy = to.y - from.y, len = Math.hypot(dx, dy) || 1;
   const count = compact ? 5 : 8;
   const points = Array.from({ length: count + 1 }, (_, i) => {
@@ -116,7 +116,6 @@ export function drawEffect(g: Graphics, fx: ActiveEffect, now: number, detail: D
   const a = t < .28 ? 1 : Math.pow((1 - t) / .72, 1.25);
   const c = colorOf(e.source), compact = detail === 'compact', evolved = e.weaponRank === 3, branch = e.weaponBranch;
   const from = e.y === 490 ? origin(e.source, e.x2) : { x: e.x, y: e.y }, to = { x: e.x2 ?? e.x, y: e.y2 ?? e.y };
-  if (e.kind === 'tactical') { drawSkill(g, e, t, detail, origin); return; }
   if (e.kind === 'shot') {
     const p = origin(e.source, e.x2);
     muzzle(g, p, to, e.source === 'C05' ? 0xffaa4a : 0x70f6ff, a, e.source === 'C05'); burst(g, p.x, p.y, (e.source === 'C05' ? 20 : 13) * (1 + t * .3), e.source === 'C01' ? 0x9bffff : c, a, compact ? 4 : 7);
@@ -190,34 +189,5 @@ export function drawEffect(g: Graphics, fx: ActiveEffect, now: number, detail: D
     reticle(g, e.x, e.y, 12 + t * 20, 0xc4ffcf, a);
   } else if (e.kind === 'wall-hit') {
     g.fillStyle(0xff634f, a * .16).fillRect(0, 435, 390, 15);
-  }
-}
-
-function drawSkill(g: Graphics, e: VisualEvent, t: number, detail: Detail, origin: Origin) {
-  const id = e.source, c = colorOf(id), a = (1 - t) * .9, r = e.radius ?? 90;
-  if (id === 'C01') {
-    // Actual four damage pulses arrive through tactical hit events; the reticle is decoration.
-    reticle(g, e.x, e.y, r * (.75 + t * .25), 0xffb18d, a);
-    for (let i = -1; i <= 1; i++) line(g, [{ x: e.x + i * 24 - 15, y: e.y - 65 }, { x: e.x + i * 24 + 15, y: e.y + 20 }], c, 1.2, a * .5);
-  } else if (id === 'C02') {
-    const y = 50 + t * 370;
-    for (let i = 0; i < (detail === 'compact' ? 3 : 5); i++) bolt(g, { x: 22, y: 85 + i * 66 }, { x: 368, y: 102 + i * 66 }, c, a * .75, i + t * 10, detail === 'compact');
-    line(g, [{ x: 18, y }, { x: 372, y }], 0xe0d8ff, 2, a);
-  } else if (id === 'C03') {
-    laser(g, origin(id, e.x), { x: e.x, y: e.y }, 0xaad7ff, Math.max(1, 11 * (1 - t)), a);
-    reticle(g, e.x, e.y, 18 + t * 30, 0xd9f6ff, a); polygon(g, e.x, e.y, 30 - t * 13, 4, 0xe6fdff, a, Math.PI / 4);
-  } else if (id === 'C04') {
-    for (let i = 0; i < 3; i++) { const rr = 45 + ((t + i / 3) % 1) * 150; g.lineStyle(2, c, a * .65).strokeEllipse(195, 250, rr * 2, rr); }
-    for (let x = 55; x <= 335; x += 70) line(g, [{ x: x - 9, y: 315 - t * 90 }, { x, y: 300 - t * 90 }, { x: x + 9, y: 315 - t * 90 }], 0xc0ffee, 2, a);
-  } else if (id === 'C05') {
-    const rr = r * (.2 + t);
-    g.fillStyle(0xffb64a, a * .12).fillCircle(e.x, e.y, rr);
-    g.lineStyle(4, 0xffe2a0, a).strokeCircle(e.x, e.y, rr); g.lineStyle(2, c, a * .7).strokeCircle(e.x, e.y, rr * .65);
-    burst(g, e.x, e.y, rr * 1.2, 0xffa258, a, detail === 'compact' ? 8 : 18, .3);
-    line(g, [{ x: e.x, y: 45 }, { x: e.x, y: e.y }], 0xffd091, 2, a * .4);
-  } else if (id === 'C06') {
-    for (let i = 0; i < 7; i++) { const x = 30 + i * 55; polygon(g, x, 425 - t * 12, 28, 6, 0xc4fff3, a, Math.PI / 6, 2); }
-    line(g, [{ x: 0, y: 409 }, { x: 390, y: 409 }], c, 2, a);
-    for (const x of [95, 295]) { polygon(g, x, 390, 12, 3, 0xc8fff3, a, -Math.PI / 2); line(g, [{ x, y: 390 }, { x: 195, y: 425 }], c, 1, a); }
   }
 }

@@ -50,7 +50,7 @@ describe('animation contracts without changing combat rules', () => {
     for (let i = 0; i < 300; i++) emit(state, { kind: 'hit', x: i % 390, y: 100 });
     const cue = state.events.find(e => e.kind === 'tactical')!;
     expect(cue).toMatchObject({ x: 270, y: 150, source: 'C03' });
-    expect(effectLifetime(cue)).toBe(500); expect(state.events).toHaveLength(100); expect(state.rng).toEqual(rng);
+    expect(effectLifetime(cue)).toBe(1500); expect(state.events).toHaveLength(100); expect(state.rng).toEqual(rng);
     const tick = state.tick; stepRun(state); expect(state.tick).toBe(tick + 1);
   });
 });

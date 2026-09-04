@@ -1,0 +1,1190 @@
+{
+  "evidence": "80-enemy presentation fixture with an actual 3× clock and a live captain skill.",
+  "view": {
+    "clock": 406.39999999999986,
+    "poses": {
+      "C05": {
+        "frame": 3,
+        "seen": [
+          0,
+          2,
+          3,
+          4,
+          5
+        ],
+        "texture": "motion-C05"
+      },
+      "C01": {
+        "frame": 1,
+        "seen": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "texture": "motion-C01"
+      },
+      "C02": {
+        "frame": 1,
+        "seen": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "texture": "motion-C02"
+      },
+      "C03": {
+        "frame": 1,
+        "seen": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "texture": "motion-C03"
+      },
+      "C04": {
+        "frame": 1,
+        "seen": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "texture": "motion-C04"
+      }
+    },
+    "forms": [
+      "C05-base",
+      "C01-base",
+      "C02-base",
+      "C03-base",
+      "C04-base"
+    ],
+    "skills": [
+      "C05"
+    ],
+    "hitTypes": [
+      "E02",
+      "E01",
+      "B03",
+      "E03"
+    ],
+    "deathTypes": [
+      "E02",
+      "E01"
+    ],
+    "activeCorpses": 4,
+    "corpseIds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "hurtIds": [
+      7,
+      8,
+      9,
+      10,
+      17,
+      18,
+      19,
+      20,
+      27,
+      28,
+      29,
+      37,
+      38
+    ],
+    "maxCorpses": 4,
+    "aliveImages": 80,
+    "enemyMotions": [
+      {
+        "id": 7,
+        "type": "B03",
+        "mode": "charge",
+        "frame": 10,
+        "pose": "charge-a",
+        "fps": 0,
+        "clock": 404.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-B03"
+      },
+      {
+        "id": 8,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 441.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 9,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 478.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 10,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 515.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 11,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 552.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 12,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 589.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 13,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 626.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 14,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 663.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 15,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 700.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 16,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 737.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 17,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 774.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 18,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 811.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 19,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 848.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 20,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 885.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 21,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 922.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 22,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 959.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 23,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 996.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 24,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 1033.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 25,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 170.19999999999982,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 26,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 207.19999999999982,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 27,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 244.19999999999982,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 28,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 281.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 29,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 318.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 30,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 355.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 31,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 392.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 32,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 429.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 33,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 466.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 34,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 503.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 35,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 540.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 36,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 577.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 37,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 614.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 38,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 651.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 39,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 688.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 40,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 725.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 41,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 762.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 42,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 799.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 43,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 836.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 44,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 873.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 45,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 910.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 46,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 947.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 47,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 984.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 48,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 1021.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 49,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 158.19999999999982,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 50,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 195.19999999999982,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 51,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 232.19999999999982,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 52,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 269.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 53,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 306.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 54,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 343.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 55,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 380.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 56,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 417.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 57,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 454.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 58,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 491.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 59,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 528.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 60,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 565.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 61,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 602.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 62,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 639.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 63,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 676.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 64,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 713.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 65,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 750.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 66,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 787.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 67,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 824.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 68,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 861.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 69,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 898.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 70,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 935.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 71,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 972.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 72,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 1009.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 73,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 146.19999999999982,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 74,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 183.19999999999982,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 75,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 220.19999999999982,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 76,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 257.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 77,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 294.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 78,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 331.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 79,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 368.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 80,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 405.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 81,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 442.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 82,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 479.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 83,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 516.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 84,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 553.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 85,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 590.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 86,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 627.1999999999998,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      }
+    ],
+    "enemyHistory": {
+      "E02": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "releases": 0
+      },
+      "E01": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          2,
+          5,
+          6,
+          7
+        ],
+        "releases": 0
+      },
+      "B03": {
+        "modes": [
+          "charge"
+        ],
+        "frames": [
+          10
+        ],
+        "releases": 0
+      },
+      "E03": {
+        "modes": [
+          "idle"
+        ],
+        "frames": [
+          0,
+          1
+        ],
+        "releases": 0
+      }
+    },
+    "cutin": {
+      "visible": true,
+      "id": "C05",
+      "age": 30.699999999999818,
+      "duration": 1200,
+      "top": 323,
+      "bottom": 435,
+      "depth": 20
+    },
+    "detail": "compact",
+    "activeEffects": 15,
+    "peakEffects": 15,
+    "warnings": {
+      "visible": true,
+      "text": "⚠ 降臨核心 蓄力中\n可使用有效暈眩或位移打斷",
+      "top": 13.318359375,
+      "bottom": 56.681640625,
+      "depth": 100,
+      "geometryDepth": 90
+    },
+    "textureFrames": {
+      "C05": 6,
+      "C01": 6,
+      "C02": 6,
+      "C03": 6,
+      "C04": 6
+    },
+    "effectsDepth": 9,
+    "alliesDepth": 7,
+    "visibleEffects": [
+      {
+        "seq": 95,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 96,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 97,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 98,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 99,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 100,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 101,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 102,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 103,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 104,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 105,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 106,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 107,
+        "kind": "hit",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 260
+      },
+      {
+        "seq": 14,
+        "kind": "explosion",
+        "source": "C04",
+        "age": 364.89999999999986,
+        "duration": 380
+      },
+      {
+        "seq": 108,
+        "kind": "tactical",
+        "source": "C05",
+        "age": 30.699999999999818,
+        "duration": 1500
+      }
+    ],
+    "hostileProjectileImages": 0,
+    "enemyTextureFrames": {
+      "E01": 12,
+      "E02": 12,
+      "E03": 12,
+      "E04": 12,
+      "E05": 12,
+      "E06": 12,
+      "E07": 12,
+      "E08": 12,
+      "B03": 12
+    }
+  }
+}

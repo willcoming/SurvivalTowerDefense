@@ -3,6 +3,7 @@ import { CHARACTER_MAP, ENEMY_MAP, STAGE_MAP } from '../data/content';
 import type { RunState } from '../sim/types';
 import type { GameAudio } from './audio';
 import { CombatActors, enemySize } from './actors';
+import { drawSkill } from './skill-effects';
 import { enemyFrameSize, enemyTexture } from './enemy-motion';
 import { drawEffect, drawField, drawProjectile, polygon, line } from './effects';
 import { capEffects, effectDetail, effectLifetime, LAYERS, type ActiveEffect, type Detail } from './presentation';
@@ -173,7 +174,10 @@ export class BattleScene extends Phaser.Scene {
     fresh.forEach(event => { this.audio.event(event); if (event.kind !== 'spawn') this.flashes.push({ event, born: now, duration: effectLifetime(event) }); });
     this.flashes = capEffects(this.flashes, this.detail); this.peakEffects = Math.max(this.peakEffects, this.flashes.length);
     this.graphics.clear();
-    for (const effect of this.flashes) drawEffect(this.graphics, effect, now, this.detail, this.actors.origin);
+    for (const effect of this.flashes) {
+      if (effect.event.kind === 'tactical') drawSkill(this.graphics, effect, now, this.detail, this.actors.origin);
+      else drawEffect(this.graphics, effect, now, this.detail, this.actors.origin);
+    }
     if (now >= this.endingAt) this.endingDone?.();
   }
   playVictoryEnding(): Promise<void> {

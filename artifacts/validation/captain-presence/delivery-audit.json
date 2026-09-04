@@ -1,0 +1,19 @@
+{
+  "measuredAt": "2026-09-04T15:08:53.205Z",
+  "baseline": "a1e2036",
+  "sourceDigest": "0a955aca28a859b717090bc7208e17da75433d9e35518933cf61bfac3b09a83d",
+  "sourceMatchesPerformance": true,
+  "rulesPassed": 120,
+  "browserPassed": 16,
+  "performance": {
+    "passed": true,
+    "p95FrameTimeMs": 26.10000000000582,
+    "maxFrameTimeMs": 90.80000000000291,
+    "warningMissingFrames": 0
+  },
+  "productionPassed": true,
+  "gameplaySourceUnchanged": true,
+  "documentationLinksExist": true,
+  "passed": true,
+  "limitation": "Desktop browsers and synthetic VFX fixtures; physical phones and human perception remain unverified."
+}
