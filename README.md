@@ -66,6 +66,7 @@ npm run build
 - [最高 3× 加速更新](docs/SPEED_UPDATE.md)
 - [六人戰鬥動畫與特效更新](docs/ANIMATION_UPDATE.md)
 - [敵人逐格動畫與自動技能更新](docs/ENEMY_ANIMATION_UPDATE.md)
+- [攻擊特效與打擊回饋加強](docs/ATTACK_IMPACT_UPDATE.md)
 - [遊戲規格](docs/MVP_SPEC.md)
 - [執行計劃](docs/EXECUTION_PLAN.md)
 - [實作決策與數值修訂](docs/DECISIONS.md)

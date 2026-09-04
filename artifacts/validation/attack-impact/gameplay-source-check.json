@@ -1,0 +1,79 @@
+{
+  "baseline": "7ace394",
+  "files": [
+    {
+      "path": "src/data/content.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/sim/combat.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/sim/draft.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/sim/enemies.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/sim/engine.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/sim/rng.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/sim/spawn.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/sim/types.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/sim/visual.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/sim/weapons.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/storage/repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/ui/app.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/ui/auto-tactical.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/ui/battle.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/ui/format.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/ui/lobby.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/ui/model.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/ui/styles.css",
+      "unchanged": true
+    }
+  ],
+  "passed": true,
+  "note": "Only game presentation files changed; simulation, content, saves and input policy are byte-for-byte identical."
+}

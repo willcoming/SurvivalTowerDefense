@@ -1,0 +1,46 @@
+{
+  "evidence": "Six individual base weapons in the actual game at 3×. Synthetic durable stationary targets isolate attack effects; real weapon cooldowns, projectiles and damage run throughout. Desktop context and responsive widths; not physical-phone evidence.",
+  "widths": [
+    {
+      "width": 320,
+      "bounds": {
+        "x": 0,
+        "y": 218,
+        "width": 320,
+        "height": 426.65625
+      },
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "bounds": {
+        "x": 169,
+        "y": 241,
+        "width": 320,
+        "height": 426.65625
+      },
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "bounds": {
+        "x": 313,
+        "y": 259,
+        "width": 320,
+        "height": 426.65625
+      },
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "bounds": {
+        "x": 508,
+        "y": 158,
+        "width": 422.484375,
+        "height": 563.3125
+      },
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

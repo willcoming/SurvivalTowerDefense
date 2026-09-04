@@ -22,7 +22,8 @@ async function speed3(page: Page) {
 for (const id of CHARACTER_IDS) test(`ANIM ${id}: six real sprite poses, skill at 1× and 3×`, async ({ page }, info) => {
   const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
   await boot(page); await start(page, id);
-  await page.waitForTimeout(1800);
+  // Observe all poses through real gameplay instead of assuming a fixed startup delay.
+  await page.waitForFunction(id => window.__game.presentation().poses[id]?.seen.length === 6, id, { timeout: 12000 });
   const poses = await page.evaluate(id => window.__game.presentation().poses[id], id);
   expect(poses.seen).toEqual([0,1,2,3,4,5]); expect(poses.texture).toBe(`motion-${id}`);
   expect(await page.evaluate(id => window.__game.presentation().textureFrames[id], id)).toBe(6);

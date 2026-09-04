@@ -1,0 +1,287 @@
+{
+  "cases": {
+    "chromium / ANIM C01: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C02: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C03: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "pose-recheck/browser-results/results.json"
+    },
+    "chromium / ANIM C04: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C05: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C06: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM: pause freezes animation and refresh does not replay an old skill": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C01-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C01-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C02-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C02-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C03-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C03-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C04-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C04-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C05-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C05-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C06-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM C06-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM: all eight enemy types and three bosses react and collapse": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM: 3\u00d7 pressure and reduced effects preserve charging warnings above skills": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM: final boss collapse plays before the victory result": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / ANIM: final boss collapse can be interrupted by reload without losing the win": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C01: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C02: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C03: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "pose-recheck/browser-results/results.json"
+    },
+    "webkit / ANIM C04: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C05: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C06: six real sprite poses, skill at 1\u00d7 and 3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM: pause freezes animation and refresh does not replay an old skill": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C01-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C01-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C02-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C02-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C03-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C03-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C04-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C04-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C05-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C05-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C06-A: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM C06-B: evolution form rendered at 1\u00d7/3\u00d7": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM: all eight enemy types and three bosses react and collapse": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM: 3\u00d7 pressure and reduced effects preserve charging warnings above skills": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM: final boss collapse plays before the victory result": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / ANIM: final boss collapse can be interrupted by reload without losing the win": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C01 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C01 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C02 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C02 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C03 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C03 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C04 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C04 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C05 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C05 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C06 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "chromium / IMPACT C06 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C01 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C01 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C02 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C02 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C03 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C03 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C04 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C04 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C05 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C05 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C06 1\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    },
+    "webkit / IMPACT C06 3\u00d7: actual hits remain readable above characters and freeze on pause": {
+      "status": "passed",
+      "source": "browser/browser-results/results.json"
+    }
+  },
+  "distinctCases": 70,
+  "passed": true,
+  "note": "Initial full suite plus focused repeat of the six-pose C03 case after replacing its fixed startup sleep with a condition. Initial failed report is retained."
+}

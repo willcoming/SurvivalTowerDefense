@@ -1,0 +1,54 @@
+{
+  "measuredAt": "2026-09-04T14:50:53.905Z",
+  "baseline": "7ace394",
+  "sourceDigest": "d9769dd4496258fa56202f3be5e311f68d2320b32ca2fcc8a8df4e74dee9d205",
+  "sourceMatchesPerformance": true,
+  "rules": {
+    "passed": true,
+    "count": 120
+  },
+  "browser": {
+    "passed": true,
+    "distinctCases": 70,
+    "initialFailuresRetained": true,
+    "focusedRerun": "C03 six poses, Chromium and WebKit"
+  },
+  "performance": {
+    "passed": true,
+    "p95FrameTimeMs": 27,
+    "gateMs": 33.3,
+    "ticksPerSecond": 90.00811589565657
+  },
+  "production": {
+    "passed": true,
+    "homeInteractiveMs": 654.1304579999999,
+    "battleReadyMs": 3360.9287080000004,
+    "restoredSpeed": 3,
+    "autoTactical": true,
+    "errors": [],
+    "failedRequests": []
+  },
+  "gameplaySourceUnchanged": true,
+  "responsiveWidths": [
+    {
+      "width": 320,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "overflow": false
+    }
+  ],
+  "captureErrors": [],
+  "documentationLinksExist": true,
+  "passed": true,
+  "limitation": "Desktop Chromium/WebKit and synthetic VFX fixtures; physical phones and human perception remain unverified."
+}

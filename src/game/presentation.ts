@@ -3,7 +3,7 @@ import { visualPriority } from '../sim/visual';
 
 export const POSE_NAMES = ['idle', 'ready', 'aim', 'fire', 'recoil', 'recover'] as const;
 export const CUTIN_MS = 500;
-export const LAYERS = { actors: 3, world: 5, effects: 6, allies: 7, cutin: 20, warnings: 90, warningText: 100 } as const;
+export const LAYERS = { actors: 3, world: 5, effects: 9, allies: 7, cutin: 20, warnings: 90, warningText: 100 } as const;
 
 /** Wall-clock poses retain readable fire/recoil frames even when simulation runs at 3×. */
 export function poseFrame(now: number, firedAt: number, untilAttackTicks: number, speed: number, hasTarget: boolean, phaseOffset = 0) {
@@ -26,8 +26,11 @@ export function effectLifetime(event: VisualEvent) {
   if (event.kind === 'tactical') return CUTIN_MS;
   if (event.kind === 'evolution') return 600;
   if (event.kind === 'death') return event.enemyDefId?.startsWith('B') ? 650 : 360;
-  if (event.kind === 'explosion' || event.kind === 'shield') return 260;
-  return event.kind === 'hit' ? 110 : 160;
+  if (event.kind === 'explosion') return event.source === 'C05' ? 460 : 380;
+  if (event.kind === 'shield') return 300;
+  if (event.kind === 'hit') return 260;
+  if (event.kind === 'beam' || event.kind === 'arc') return 300;
+  return 220;
 }
 export interface ActiveEffect { event: VisualEvent; born: number; duration: number }
 export function capEffects(effects: ActiveEffect[], detail: Detail): ActiveEffect[] {

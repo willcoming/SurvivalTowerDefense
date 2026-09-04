@@ -6,7 +6,7 @@ import { advanceEnemyMotion, createEnemyMotion, ENEMY_POSES, type EnemyMotion, t
 
 export const enemySize = (id: string) => id.startsWith('B') ? 106 : id === 'E07' ? 60 : id === 'E03' ? 48 : 39;
 interface Ally { image: Phaser.GameObjects.Sprite; attacks: number; firedAt: number; frame: number; frames: Set<number>; facing: number }
-interface Creature { image: Phaser.GameObjects.Image; defId: EnemyId; hitAt: number; motion: EnemyMotion }
+interface Creature { image: Phaser.GameObjects.Image; defId: EnemyId; hitAt: number; hitPower: number; motion: EnemyMotion }
 interface Corpse { image: Phaser.GameObjects.Image; born: number; duration: number; size: number; id: number; x: number; y: number; boss: boolean }
 
 export class CombatActors {
@@ -73,7 +73,7 @@ export class CombatActors {
         const ally = this.allies.get(event.source); if (ally) ally.facing = (event.x2 ?? event.x) < this.center(event.source) ? -1 : 1;
       }
       if (event.kind === 'hit' && event.targetId !== undefined) {
-        const creature = this.creatures.get(event.targetId); if (creature) creature.hitAt = this.clock;
+        const creature = this.creatures.get(event.targetId); if (creature) { creature.hitAt = this.clock; creature.hitPower = event.skill === 'burn' ? .1 : Math.max(.2, Math.min(1, (event.value ?? 0) / 60)); }
         if (event.enemyDefId) this.hits.add(event.enemyDefId);
       }
       if (event.kind === 'death') this.corpse(event, detail);
@@ -110,7 +110,7 @@ export class CombatActors {
         const image = this.scene.add.image(enemy.x, enemy.y, key, 0).setDisplaySize(enemySize(enemy.defId), enemySize(enemy.defId)).setDepth(LAYERS.actors);
         const motion = createEnemyMotion(enemy);
         if (enemy.lastAction && enemy.lastAction.tick > this.initialTick) motion.cue = '';
-        creature = { image, defId: enemy.defId, motion, hitAt: fresh.some(e => e.kind === 'hit' && e.targetId === enemy.id) ? this.clock : -Infinity }; this.creatures.set(enemy.id, creature);
+        creature = { image, defId: enemy.defId, motion, hitPower: .5, hitAt: fresh.some(e => e.kind === 'hit' && e.targetId === enemy.id) ? this.clock : -Infinity }; this.creatures.set(enemy.id, creature);
       }
       const releases = creature.motion.releases;
       const motion = advanceEnemyMotion(creature.motion, enemy, run.tick, delta, this.speed(), run.phase === 'running');
@@ -118,9 +118,12 @@ export class CombatActors {
       let history = this.enemyHistory.get(enemy.defId);
       if (!history) { history = { modes: new Set(), frames: new Set(), releases: 0 }; this.enemyHistory.set(enemy.defId, history); }
       history.modes.add(motion.mode); history.frames.add(motion.frame); history.releases += motion.releases - releases;
-      const age = this.clock - creature.hitAt, hurt = age < 120;
-      creature.image.setPosition(enemy.x + (hurt ? Math.sin(age / 12) * (1 - age / 120) * (enemy.defId.startsWith('B') ? 1.5 : 3) : 0), enemy.y);
-      if (hurt && age < 45) creature.image.setTintFill(0xe9fff3);
+      const age = this.clock - creature.hitAt, hurt = age < 180;
+      const kick = hurt ? Math.sin(Math.min(1, age / 180) * Math.PI) * creature.hitPower : 0;
+      const size = enemySize(enemy.defId);
+      creature.image.setDisplaySize(size * (1 + kick * .09), size * (1 - kick * .06));
+      creature.image.setPosition(enemy.x + (hurt ? Math.sin(age / 16) * (1 - age / 180) * (enemy.defId.startsWith('B') ? 1.5 : 3) : 0), enemy.y - kick * (enemy.defId.startsWith('B') ? 2 : 6));
+      if (hurt && age < 65) creature.image.setTintFill(0xe9fff3);
       else if (enemy.effects.some(e => e.kind === 'stun')) creature.image.setTint(0x7cffff);
       else if (enemy.effects.some(e => e.kind === 'burn')) creature.image.setTint(0xffca95);
       else creature.image.clearTint();
@@ -142,7 +145,7 @@ export class CombatActors {
       clock: this.clock, poses: Object.fromEntries([...this.allies].map(([id, a]) => [id, { frame: a.frame, seen: [...a.frames].sort(), texture: a.image.texture.key }])),
       forms: [...this.forms], skills: [...this.skills], hitTypes: [...this.hits], deathTypes: [...this.deaths],
       activeCorpses: this.corpses.length, corpseIds: this.corpses.map(c => c.id),
-      hurtIds: [...this.creatures].filter(([, c]) => this.clock - c.hitAt < 120).map(([id]) => id),
+      hurtIds: [...this.creatures].filter(([, c]) => this.clock - c.hitAt < 180).map(([id]) => id),
       maxCorpses: this.maxCorpses, aliveImages: this.creatures.size,
       enemyMotions: [...this.creatures].map(([id, c]) => ({ id, type: c.defId, mode: c.motion.mode, frame: Number(c.image.frame.name), pose: ENEMY_POSES[c.motion.frame], fps: c.motion.fps, clock: c.motion.time, releases: c.motion.releases, texture: c.image.texture.key })),
       enemyHistory: Object.fromEntries([...this.enemyHistory].map(([id, h]) => [id, { modes: [...h.modes], frames: [...h.frames].sort((a, b) => a - b), releases: h.releases }])),
