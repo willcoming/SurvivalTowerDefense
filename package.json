@@ -1,0 +1,31 @@
+{
+  "name": "starfall-defense",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:rules": "vitest run tests/rules tests/storage",
+    "test:simulation": "tsx scripts/validate-balance.ts",
+    "test:e2e": "playwright test",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test:performance": "tsx scripts/benchmark-simulation.ts",
+    "test:assets": "tsx scripts/verify-assets.ts",
+    "test:production": "tsx scripts/verify-production.ts"
+  },
+  "dependencies": {
+    "phaser": "3.90.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@types/node": "26.4.1",
+    "fake-indexeddb": "6.2.5",
+    "tsx": "4.23.13",
+    "typescript": "7.0.2",
+    "vite": "8.2.2",
+    "vitest": "5.0.0"
+  }
+}

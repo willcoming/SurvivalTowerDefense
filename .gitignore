@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.DS_Store
+artifacts/art-sources/
+test-results/
+playwright-report/
+*.log
+artifacts/**/browser-results/test-output/
