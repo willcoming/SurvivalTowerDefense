@@ -72,7 +72,7 @@ export function castTactical(s:RunState):boolean{
   const target=threat(s)[0];if(!target&&id!=='C06')return false;
   const bonus=1+(s.commonRanks.G01??0)*.08,duration=1+(s.commonRanks.G06??0)*.1,radius=1+(s.commonRanks.G03??0)*.1;
   const p:DamagePacket={source:id,skill:'tactical',raw:0,damageType:CHARACTER_MAP[id].damageType,armorIgnore:0,shieldMultiplier:id==='C02'?1.25:1};
-  if(id==='C01'){for(let i=0;i<4;i++)s.scheduled.push({at:s.tick+i*ticks(.2),packet:{...p,raw:35*bonus},x:target.x,y:target.y,radius:90*radius,enemyDamage:0,enemySource:null});}
+  if(id==='C01'){for(const t of area(s,target.x,target.y,90*radius))hitEnemy(s,t,{...p,raw:35*bonus});for(let i=1;i<4;i++)s.scheduled.push({at:s.tick+i*ticks(.2),packet:{...p,raw:35*bonus},x:target.x,y:target.y,radius:90*radius,enemyDamage:0,enemySource:null});}
   if(id==='C02')for(const t of alive(s))hitEnemy(s,t,{...p,raw:60*bonus,stun:ticks(1.5*duration)});
   if(id==='C03'){const t=alive(s).sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];hitEnemy(s,t,{...p,raw:420*bonus,armorIgnore:1});emit(s,{kind:'beam',x:195,y:490,x2:t.x,y2:t.y,source:id});}
   if(id==='C04')for(const t of alive(s))hitEnemy(s,t,{...p,raw:0,slow:{value:.5,duration:ticks(5*duration)},knockback:60});

@@ -12,6 +12,10 @@ export class BattleScene extends Phaser.Scene {
   private audio: GameAudio;
   private low: () => boolean;
   private graphics!: Phaser.GameObjects.Graphics;
+  private worldGraphics!: Phaser.GameObjects.Graphics;
+  private worldTexture!: Phaser.GameObjects.RenderTexture;
+  private worldRun: RunState | null = null;
+  private worldKey = '';
   private creatures = new Map<number, Phaser.GameObjects.Image>();
   private allies: Phaser.GameObjects.Image[] = [];
   private warning!: Phaser.GameObjects.Text;
@@ -46,7 +50,9 @@ export class BattleScene extends Phaser.Scene {
     for (let x = 45; x <= 345; x += 75) { shade.beginPath().moveTo(x, 0).lineTo(x, 450).strokePath(); }
     shade.fillStyle(0x102630, .84).fillRect(0, 450, 390, 70);
     shade.lineStyle(3, 0x72ead8, .8).beginPath().moveTo(0, 450).lineTo(390, 450).strokePath();
-    this.graphics = this.add.graphics().setDepth(5);
+    this.worldGraphics = this.add.graphics().setVisible(false);
+    this.worldTexture = this.add.renderTexture(0, 0, 390, 520).setOrigin(0).setDepth(5);
+    this.graphics = this.add.graphics().setDepth(6);
     const ids = this.read().config.squadIds;
     ids.forEach((id, i) => {
       const x = 195 + (i - (ids.length - 1) / 2) * 70;
@@ -59,9 +65,8 @@ export class BattleScene extends Phaser.Scene {
     if (this.missing.length) this.loading.failed(this.missing);
     else this.loading.ready();
   }
-  update(_time: number, delta: number) {
-    const run = this.read(); if (!this.graphics) return;
-    const g = this.graphics; g.clear(); const currentIds = new Set(run.enemies.map(e => e.id));
+  private drawWorld(run: RunState) {
+    const g = this.worldGraphics; g.clear(); const currentIds = new Set(run.enemies.map(e => e.id));
     for (const [id, image] of this.creatures) if (!currentIds.has(id)) { image.destroy(); this.creatures.delete(id); }
     run.fields.forEach(f => {
       const c = f.kind === 'fire' ? 0xffaa55 : 0x65ecdc;
@@ -106,6 +111,29 @@ export class BattleScene extends Phaser.Scene {
     }
     const shield = run.shields.reduce((sum, s) => sum + s.value, 0);
     if (shield > 0) { g.fillStyle(0x69eedc, .10).fillRect(0, 432, 390, 18); g.lineStyle(3, 0x9cffee, .8).beginPath().moveTo(0, 435).lineTo(390, 435).strokePath(); }
+    for (const weapon of run.weapons) {
+      if (weapon.rank < 3) continue;
+      const x = this.originX(weapon.id); const color = hex(CHARACTER_MAP[weapon.id].color);
+      g.lineStyle(1.5, color, .8).strokeEllipse(x, 497, 53, 13);
+      if (weapon.id === 'C06') {
+        const count = weapon.branch === 'A' ? 2 : 1;
+        for (let i = 0; i < count; i++) { const dx = x + (i === 0 ? -23 : 23), dy = 460 + (this.low() ? 0 : Math.sin(run.tick / 16 + i) * 3); g.fillStyle(0xf0f5df, 1).fillTriangle(dx - 7, dy, dx + 7, dy, dx, dy - 6); g.fillStyle(color).fillCircle(dx, dy - 3, 2); }
+      }
+    }
+    if (!this.low() && run.phase === 'running') this.allies.forEach((image, i) => image.y = 485 + Math.sin(run.tick / 14 + i) * 1.3);
+    // Rasterize unchanged geometry once. The same 390×520 detail is retained;
+    // WebGL no longer re-tessellates hundreds of identical circles every frame.
+    this.worldTexture.clear().draw(this.worldGraphics);
+  }
+  update(_time: number, delta: number) {
+    const run = this.read(); if (!this.graphics) return;
+    const key = `${run.tick}:${run.actionSeq}:${run.eventSeq}:${run.phase}:${run.enemies.length}:${run.projectiles.length}:${run.fields.length}:${run.shields.length}:${this.low()}`;
+    if (run !== this.worldRun || key !== this.worldKey) {
+      this.worldRun = run; this.worldKey = key; this.drawWorld(run);
+    }
+    const g = this.graphics;
+    if (!this.flashes.length && this.lastSeq === run.eventSeq) return;
+    g.clear();
     const fresh = run.events.filter(e => e.seq > this.lastSeq); this.lastSeq = run.eventSeq;
     fresh.forEach(e => { if (e.kind !== 'hit' || !this.low()) this.flashes.push({ event: e, life: e.kind === 'evolution' ? 650 : e.kind === 'tactical' ? 420 : 180 }); this.audio.event(e); });
     this.flashes = this.flashes.filter(f => (f.life -= delta) > 0).slice(-100);
@@ -123,16 +151,7 @@ export class BattleScene extends Phaser.Scene {
       } else if (e.kind === 'wall-hit') { g.fillStyle(0xff634f, alpha * .25).fillRect(0, 435, 390, 25); }
       else if (e.kind === 'hit') g.fillStyle(c, alpha).fillCircle(e.x, e.y, 3);
     }
-    for (const weapon of run.weapons) {
-      if (weapon.rank < 3) continue;
-      const x = this.originX(weapon.id); const color = hex(CHARACTER_MAP[weapon.id].color);
-      g.lineStyle(1.5, color, .8).strokeEllipse(x, 497, 53, 13);
-      if (weapon.id === 'C06') {
-        const count = weapon.branch === 'A' ? 2 : 1;
-        for (let i = 0; i < count; i++) { const dx = x + (i === 0 ? -23 : 23), dy = 460 + (this.low() ? 0 : Math.sin(run.tick / 16 + i) * 3); g.fillStyle(0xf0f5df, 1).fillTriangle(dx - 7, dy, dx + 7, dy, dx, dy - 6); g.fillStyle(color).fillCircle(dx, dy - 3, 2); }
-      }
-    }
-    if (!this.low() && run.phase === 'running') this.allies.forEach((image, i) => image.y = 485 + Math.sin(run.tick / 14 + i) * 1.3);
+
   }
 }
 

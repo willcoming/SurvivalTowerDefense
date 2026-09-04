@@ -17,7 +17,7 @@ export function stepEnemies(s:RunState){
       if(!stunned)e.y+=Math.sign(150-e.y)*Math.min(Math.abs(150-e.y),8/30);
       if(e.summonAt<=s.tick){if(e.defId==='B02'){e.shield=Math.min(1800,e.shield+600);e.summonAt+=ticks(20);}else summon(s,e);}
       if(e.chargeKind&&e.chargeUntil<=s.tick){
-        if(!e.chargeCancelled&&!stunned){if(e.defId==='B02'){for(let i=0;i<3;i++)s.scheduled.push({at:s.tick+i*ticks(.3),packet:null,x:195,y:450,radius:0,enemyDamage:25,enemySource:e.defId});}else hitWall(s,ENEMY_MAP[e.defId].damage,e.defId);}
+        if(!e.chargeCancelled&&!stunned){if(e.defId==='B02'){hitWall(s,25,e.defId);for(let i=1;i<3;i++)s.scheduled.push({at:s.tick+i*ticks(.3),packet:null,x:195,y:450,radius:0,enemyDamage:25,enemySource:e.defId});}else hitWall(s,ENEMY_MAP[e.defId].damage,e.defId);}
         if(e.defId==='B03')e.exposureUntil=s.tick+ticks(6);
         e.chargeKind=null;e.chargeUntil=0;
       }

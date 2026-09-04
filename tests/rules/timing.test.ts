@@ -31,6 +31,18 @@ describe('AC02/AC11 · valid squads and one legal tactical', () => {
     const challenge = createRun({ stageId: 'S01', squadIds: ['C06'], captainId: 'C06', seed: 101, challengeId: 'no-skill' });
     expect(command(challenge, { type: 'cast' })).toBe(false);
   });
+  it('C01 tactical deals its four bursts exactly at cast tick, +6, +12 and +18', () => {
+    const state = base('C01'); state.enemies = []; state.weapons = []; state.spawnPlan = []; state.spawnCursor = 0;
+    const target = createEnemy(state, 'E01', 195, 150); target.speed = 0;
+    expect(command(state, { type: 'cast' })).toBe(true);
+    expect(target.hp).toBe(105);
+    expect(state.scheduled.map(shot => shot.at)).toEqual([6, 12, 18]);
+    for (const [before, at, hp] of [[5, 6, 70], [11, 12, 35], [17, 18, 0]]) {
+      stepRun(state, before - state.tick); expect(target.hp).toBe(hp + 35);
+      stepRun(state); expect(state.tick).toBe(at); expect(target.hp).toBe(hp);
+    }
+    expect(state.stats.damageByCharacter.C01).toBe(140);
+  });
   it('only offers status extension when a currently owned weapon or tactical can apply status', () => {
     expect(getLegalNodeIds(base('C01'))).not.toContain('G06-1');
     expect(getLegalNodeIds(base('C03'))).not.toContain('G06-1');

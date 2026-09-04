@@ -21,9 +21,9 @@ const keyedCopies=manifest.filter(a=>a.path.includes('/enemies/')||a.assetId.end
 const result={contentVersion:CONTENT_VERSION,measuredAt:new Date().toISOString(),requiredAssets:expected.length,manifestAssets:manifest.length,missing,invalidManifest:invalidManifest.map(a=>a.assetId),runtimeBytes,bundles,
   conservativeHomeTransferBytes:bundleGzip+homeImages,
   conservativeFirstBattleBytes:bundleGzip+runtimeBytes,
-  conservativeDecodedBytesIncludingKeyedCopies:decodedAllBytes+keyedCopies,
-  notes:'Static upper bounds: home includes all six portraits; first battle includes ALL runtime artwork. WebP is counted as stored; code uses measured gzip. Decoded estimate includes every manifest texture plus extra keyed combat copies, but excludes browser overhead. Network timing measured separately in production smoke.',
-  passed:missing.length===0&&invalidManifest.length===0&&runtimeBytes<=20*1024**2&&bundleGzip+homeImages<=4*1024**2&&bundleGzip+runtimeBytes<=8*1024**2&&decodedAllBytes+keyedCopies<=128*1024**2,
+  conservativeDecodedBytesIncludingKeyedCopies:decodedAllBytes+keyedCopies+390*520*4,
+  notes:'Static upper bounds: home includes all six portraits; first battle includes ALL runtime artwork. WebP is counted as stored; code uses measured gzip. Decoded estimate includes every manifest texture plus extra keyed combat copies and the390×520 world RenderTexture, but excludes browser/GPU allocation overhead. Network timing measured separately in production smoke.',
+  passed:missing.length===0&&invalidManifest.length===0&&runtimeBytes<=20*1024**2&&bundleGzip+homeImages<=4*1024**2&&bundleGzip+runtimeBytes<=8*1024**2&&decodedAllBytes+keyedCopies+390*520*4<=128*1024**2,
   sha256:files.map(path=>({path,hash:createHash('sha256').update(readFileSync(path)).digest('hex')})),
 };
 mkdirSync(`artifacts/validation/${CONTENT_VERSION}`,{recursive:true});writeFileSync(`artifacts/validation/${CONTENT_VERSION}/asset-budget.json`,JSON.stringify(result,null,2));

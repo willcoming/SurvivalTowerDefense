@@ -104,7 +104,7 @@
 | DRAFT05 | 聚焦僅1/4/7/10/13/16；選角色和未鎖分支後保證合法下一節點；已鎖路線不能改B。 |
 | DRAFT06 | 多次切focus只改focus slot，常規候選、draft RNG相同；target無下一節點提示換人，全隊無節點則常規填入。 |
 | DRAFT07 | II後下一選擇存在E；多E按readyAt和characterId，切到另一合法E不影響名額或普通候選。 |
-| DRAFT08 | focus和E同ID只保留一次，空槽一般卡補，offer至多3張唯一ID；E先focus後的槽位語義固定。 |
+| DRAFT08 | focus和E同ID只保留一次，offer至多3張唯一ID；同時存在focus及E保底時只保留一個固定一般格，兩保底重合顯示2張、分開顯示3張；切換不改一般格。這是 `TEST_POLICIES.md` §3 記錄的規格釐清，不能宣稱去重後必補滿3張。 |
 | DRAFT09 | 共用3 rerolls；只重抽random slots，原slot有替代先排除自己；所有槽不可變時不扣次、不進RNG。 |
 | DRAFT10 | 只剩1／2卡顯示1／2張；空pool接受完成校準、只spent+1不改面板；單人18次可前進至戰鬥。 |
 | DRAFT11 | offerId過期、nodeId不在候選、同offer重複提交、同frame雙擊均拒絕且不額外花選擇；合法選擇命令序號只前進一次。 |
@@ -159,7 +159,7 @@
 | SAVE12 | schema已知旧版執行明確migration保留進度；未知新schema不覆寫原資料，有恢復/放棄選項。 |
 | SAVE13 | contentVersion不相容的active run不得用新效果靜默載入；保留原記錄及可讀profile，顯示重開本局。 |
 | SAVE14 | JSON/字段损坏（NaN HP、未知角色、無效rank、敵人引用）判錯保留raw，不自動清空Profile。 |
-| SAVE15 | reset只有設定中明確確認才刪全部；取消對話不變資料；錯誤恢復不等同reset。 |
+| SAVE15 | reset只有設定中明確確認才清除進度並写入預設資料，revision必須單調增加，阻止清除前舊分頁覆蓋；取消對話不變資料；錯誤恢復不等同reset。 |
 | SAVE16 | page visibility/pagehide嘗試保存但每5s定期仍是主保障；斷網已載入戰鬥不依API仍可運行。 |
 | SAVE17 | dev→preview同origin保持profile；localhost→LAN是不同origin需說明，不宣稱跨裝置同步。 |
 
@@ -183,7 +183,7 @@
 | A06 | 背景暫停音樂/效果，音量和靜音持久化，循環接點無爆音，聆聽記錄不能只用duration非0當通過。 |
 | A07 | 實際首屏gzip/Brotli≤4MiB、首戰≤8MiB、總素材≤20MiB或具拆分按需方案；圖集≤2048²、解碼紋理≤128MiB。 |
 | A08 | 10Mbps/100ms RTT空快取首屏可操作≤5s、首戰≤10s；記錄工具節流參數與實際資源總量。 |
-| PERF01 | 桌面壓測120敵/400可見彈/12場以及Boss召喚＋3E，最重60秒P95並記錄CPU/GPU/瀏覽器；不能把這份數字宣稱真手機。 |
+| PERF01 | 桌面合成壓測固定120敵/400可見彈/12場＋Boss＋3E，分別量測暫停快取及30Hz合成位置/tick/短暫特效更新的60秒P95，記錄CPU/GPU/瀏覽器；後者必須觸發world快取重繪。兩者皆不是合法戰鬥或真手機證據。實際固定步進邏輯另測，不把兩份P95相加假稱端到端P95。 |
 | PERF02 | 固定30Hz邏輯與render分離；低特效不可略過攻擊/敵人/物理效果；比較壓測規則結果。 |
 
 ## 9. 正式平衡與外部驗收

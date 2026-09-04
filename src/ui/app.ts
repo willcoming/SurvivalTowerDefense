@@ -23,6 +23,7 @@ export class GameApp {
   private lastRun: RunState | null = null; private temporary = false; private preservedSave: GameSave | null = null;
   private saveBoundary = ''; private loadFailure = false;
   private sceneReady = false; private assetFailure = false;
+  private overlayKey = '';
   constructor(root: HTMLElement) {
     this.root = root;
     this.root.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLElement>('[data-action]'); if (button && !(button as HTMLButtonElement).disabled) { void this.audio.unlock(); void this.action(button.dataset.action!, button.dataset.id); } });
@@ -50,7 +51,7 @@ export class GameApp {
     this.root.innerHTML = `<main class="loading-screen"><span class="brand-star">!</span><h1>本機紀錄暫時無法讀取</h1><p>${esc(this.vm.message)}</p><div class="result-actions"><button class="button primary" data-action="reload">重新讀取</button>${this.preservedSave ? '<button class="button secondary" data-action="discard-old-run">保留進度，放棄舊版本戰局</button>' : ''}<button class="button secondary" data-action="temporary-play">暫時試玩（不儲存）</button><button class="button secondary" data-action="reset-confirm">重置本機紀錄</button></div><p>重置會清除進度；原有資料不會被默默覆寫。</p></main><div id="global-overlay"></div>`;
   }
   private render() {
-    this.canvas?.destroy(true); this.canvas = null; this.renderedOverlay = '';
+    this.canvas?.destroy(true); this.canvas = null; this.renderedOverlay = ''; this.overlayKey = '';
     const page = this.vm.page; const run = this.save.activeRun ?? this.lastRun;
     if (page === 'battle' && run) {
       this.root.innerHTML = `${this.notice()}${battleShell(run)}`;
@@ -73,7 +74,11 @@ export class GameApp {
   private notice() { return this.vm.message ? `<div class="system-notice" role="alert"><span>${esc(this.vm.message)}</span>${this.temporary ? '' : this.assetFailure ? '<button data-action="reload">重新載入素材</button>' : '<button data-action="save-retry">重試儲存</button><button data-action="reload">讀取最新紀錄</button>'}<button data-action="dismiss-message" aria-label="關閉提示">×</button></div>` : ''; }
   private overlay() {
     const holder = document.getElementById(this.vm.page === 'battle' ? 'battle-overlay' : 'global-overlay'); if (!holder) return;
-    const run = this.save.activeRun; let html = '';
+    const run = this.save.activeRun;
+    const key = `${this.vm.page}:${this.vm.modal}:${this.vm.selectedCard}:${this.vm.showBuild}:${this.vm.saveStatus}:${run?.runId}:${run?.tick}:${run?.actionSeq}:${run?.draft?.id}:${run?.pauseReasons.join(',')}:${this.save.preferences.musicVolume}:${this.save.preferences.sfxVolume}:${this.save.preferences.reducedEffects}`;
+    if (key === this.overlayKey) return;
+    this.overlayKey = key;
+    let html = '';
     if (this.vm.modal === 'reset' || this.vm.modal === 'abandon') {
       const reset = this.vm.modal === 'reset';
       html = `<div class="modal-backdrop"><section class="dialog confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"><span class="eyebrow">${reset ? 'RESET LOCAL DATA' : 'ABANDON OPERATION'}</span><h2 id="confirm-title">${reset ? '重置這個瀏覽器的進度？' : '確定放棄本次行動？'}</h2><p>${reset ? '關卡紀錄、偏好設定與進行中的行動將被刪除。六位角色仍會全部開放。' : '本局改造將結束。妳可以立即重新出擊，不會失去任何戰力資源。'}</p><div class="result-actions"><button class="button secondary" data-action="cancel-confirm">保留紀錄</button><button class="button danger" data-action="${reset ? 'reset' : 'abandon'}">${reset ? '確認重置' : '確認放棄'}</button></div></section></div>`;

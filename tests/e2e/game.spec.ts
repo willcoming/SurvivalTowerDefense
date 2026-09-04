@@ -162,10 +162,10 @@ test('BAL05/AC07/12: browser replays a legitimate complete win and survives five
     await page.locator('.result-actions [data-action="home"]').click();
     await expect(page.locator('[data-action="stage"][data-id="S02"]')).toBeEnabled();
     await page.waitForTimeout(100);
-    cycles.push({ stageId: config.stageId, effectiveSeconds: expected.effectiveSeconds, ...await page.evaluate(() => ({ canvasCount: document.querySelectorAll('canvas').length, pendingAnimationFrames: window.__rafPending, activeRun: window.__game.getSave().activeRun === null, summaryCount: window.__game.getSave().profile.recentRuns.length })) });
+    cycles.push({ stageId: config.stageId, effectiveSeconds: expected.effectiveSeconds, ...await page.evaluate(() => ({ canvasCount: document.querySelectorAll('canvas').length, pendingAnimationFrames: window.__rafPending, activeRunCleared: window.__game.getSave().activeRun === null, summaryCount: window.__game.getSave().profile.recentRuns.length })) });
   }
-  const counts = cycles as { canvasCount: number; pendingAnimationFrames: number; activeRun: boolean }[];
+  const counts = cycles as { canvasCount: number; pendingAnimationFrames: number; activeRunCleared: boolean }[];
   writeFileSync(`${output}/browser-results/${info.project.name}-replay-cycles.json`, JSON.stringify({ contentVersion: CONTENT_VERSION, browser: info.project.name, environment: 'desktop browser engine, not physical mobile', seed: 101, replayedStages: stages, replayPassed: true, cycles }, null, 2));
-  expect(counts.every(c => c.canvasCount === 0 && c.activeRun)).toBe(true);
+  expect(counts.every(c => c.canvasCount === 0 && c.activeRunCleared)).toBe(true);
   expect(counts[4].pendingAnimationFrames).toBeLessThanOrEqual(counts[0].pendingAnimationFrames);
 });

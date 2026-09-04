@@ -13,26 +13,52 @@ export function battleShell(run: RunState) {
 export function buildMarkup(run: RunState) {
   return `<h2>本局構築 <span>${run.choicesSpent} / 18</span></h2>${run.weapons.map(w => `<div class="build-line"><span style="background:${CHARACTER_MAP[w.id].color}"></span><b>${esc(CHARACTER_MAP[w.id].name)}</b><small>${esc(weaponLabel(run, w.id))}</small></div>`).join('')}${COMMON_UPGRADES.filter(c => run.commonRanks[c.id]).map(c => `<p class="common-build">${esc(c.name)} × ${run.commonRanks[c.id]}</p>`).join('')}`;
 }
+interface HudCache {
+  run: RunState | null; key: string; buildKey: string; stripKey: string;
+  values: Map<string, string>; nodes: Map<string, HTMLElement | null>;
+}
+const hudCaches = new WeakMap<HTMLElement, HudCache>();
 export function updateHud(run: RunState) {
-  const set = (id: string, text: string) => { const el = document.getElementById(id); if (el && el.textContent !== text) el.textContent = text; };
-  set('wall-text', `${Math.ceil(run.wallHp)} / ${run.wallMaxHp}`); const shield = Math.ceil(run.shields.reduce((s, n) => s + n.value, 0)); set('shield-text', shield > 0 ? `◈ 護盾 ${shield}` : '');
-  const bar = document.getElementById('wall-bar'); if (bar) { bar.style.width = `${Math.max(0, run.wallHp / run.wallMaxHp * 100)}%`; bar.classList.toggle('critical', run.wallHp / run.wallMaxHp < .3); }
+  const root = document.getElementById('wall-text'); if (!root) return;
+  let cache = hudCaches.get(root);
+  if (!cache) { cache = { run: null, key: '', buildKey: '', stripKey: '', values: new Map(), nodes: new Map() }; hudCaches.set(root, cache); }
+  const shield = Math.ceil(run.shields.reduce((sum, entry) => sum + entry.value, 0));
+  const weaponKey = run.weapons.map(w => `${w.id}:${w.branch}:${w.rank}`).join(',');
+  const commonKey = COMMON_UPGRADES.map(c => run.commonRanks[c.id] ?? 0).join(',');
+  const key = `${run.tick}:${run.actionSeq}:${run.eventSeq}:${run.phase}:${run.wallHp}:${run.wallMaxHp}:${shield}:${run.xp}:${run.choicesSpent}:${run.evolvedCount}:${run.evolutionLimit}:${run.tacticalReadyAt}:${run.enemies.length}:${run.bossKilled}:${weaponKey}:${commonKey}`;
+  if (cache.run === run && cache.key === key) return;
+  cache.run = run; cache.key = key;
+  const node = (id: string) => { if (!cache!.nodes.has(id)) cache!.nodes.set(id, document.getElementById(id)); return cache!.nodes.get(id); };
+  const changed = (id: string, value: string) => { if (cache!.values.get(id) === value) return false; cache!.values.set(id, value); return true; };
+  const set = (id: string, value: string) => { if (changed(id, value)) { const el = node(id); if (el) el.textContent = value; } };
+  const width = (id: string, value: string) => { if (changed(`${id}:width`, value)) node(id)?.style.setProperty('width', value); };
+  set('wall-text', `${Math.ceil(run.wallHp)} / ${run.wallMaxHp}`); set('shield-text', shield > 0 ? `◈ 護盾 ${shield}` : '');
+  width('wall-bar', `${Math.max(0, run.wallHp / run.wallMaxHp * 100)}%`);
+  const critical = run.wallHp / run.wallMaxHp < .3;
+  if (changed('wall:critical', String(critical))) node('wall-bar')?.classList.toggle('critical', critical);
   set('wave-text', run.tick >= 360 * 30 ? '首領降臨' : `WAVE ${Math.min(8, Math.floor(run.tick / (45 * 30)) + 1)} / 8`);
   set('time-text', clock(480 * 30 - run.tick)); set('evolution-text', `進化 ${run.evolvedCount}/${run.evolutionLimit}`);
-  const xp = document.getElementById('xp-bar'); if (xp) xp.style.width = `${run.choicesSpent >= 18 ? 100 : run.xp % 40 / 40 * 100}%`;
+  width('xp-bar', `${run.choicesSpent >= 18 ? 100 : run.xp % 40 / 40 * 100}%`);
   set('xp-text', run.choicesSpent >= 18 ? '改造完成' : `${run.xp % 40} / 40 · ${run.choicesSpent}/18 次`);
   const cooldown = Math.max(0, Math.ceil((run.tacticalReadyAt - run.tick) / 30));
   const noTarget = run.enemies.length === 0 && run.config.captainId !== 'C06';
   const disabled = run.config.challengeId === 'no-skill';
   set('tactical-status', disabled ? '挑戰禁用' : cooldown ? `${cooldown}s` : noTarget ? '等待敵人' : '就緒');
-  const button = document.getElementById('tactical-button') as HTMLButtonElement | null;
-  if (button) { button.disabled = disabled || cooldown > 0 || noTarget || run.phase !== 'running'; button.style.setProperty('--cooldown', `${Math.min(100, cooldown / CHARACTER_MAP[run.config.captainId].cooldown * 100)}%`); }
+  const buttonDisabled = disabled || cooldown > 0 || noTarget || run.phase !== 'running';
+  if (changed('tactical:disabled', String(buttonDisabled))) { const button = node('tactical-button') as HTMLButtonElement | null; if (button) button.disabled = buttonDisabled; }
+  const fill = `${Math.min(100, cooldown / CHARACTER_MAP[run.config.captainId].cooldown * 100)}%`;
+  if (changed('tactical:fill', fill)) node('tactical-button')?.style.setProperty('--cooldown', fill);
   const charge = run.enemies.find(e => e.chargeKind && !e.chargeCancelled);
   const immunity = charge ? [charge.stunImmuneUntil > run.tick ? `免暈 ${Math.ceil((charge.stunImmuneUntil - run.tick) / 30)} 秒` : '', charge.moveImmuneUntil > run.tick ? `免位移 ${Math.ceil((charge.moveImmuneUntil - run.tick) / 30)} 秒` : ''].filter(Boolean).join('、') : '';
   set('threat-note', charge ? `⚠ ${ENEMY_MAP[charge.defId].name} 蓄力中。${immunity || '可使用有效暈眩或位移打斷'}。` : run.bossKilled ? '核心已摧毀，清除剩餘敵人即可完成行動。' : run.tick > 360 * 30 ? '觀察首領的蓄力與曝露窗口，分配技能。' : '攻擊自動進行。預留技能，回應敵人的蓄力。');
-  const build = document.getElementById('live-build'); if (build) { const html = buildMarkup(run); if (build.innerHTML !== html) build.innerHTML = html; }
-  const strip = document.getElementById('weapon-strip'); if (strip) { const html = run.weapons.map(w => `<button data-action="view-build" aria-label="查看${esc(CHARACTER_MAP[w.id].name)}的構築"><span style="--character:${CHARACTER_MAP[w.id].color}">${portrait(w.id)}</span><b>${esc(CHARACTER_MAP[w.id].name)}</b><small>${w.branch ?? '—'} ${['基礎', 'I', 'II', 'E'][w.rank]}</small></button>`).join(''); if (strip.innerHTML !== html) strip.innerHTML = html; }
+  const buildKey = `${weaponKey}:${commonKey}:${run.choicesSpent}`;
+  if (cache.buildKey !== buildKey) { cache.buildKey = buildKey; const build = node('live-build'); if (build) build.innerHTML = buildMarkup(run); }
+  if (cache.stripKey !== weaponKey) {
+    cache.stripKey = weaponKey; const strip = node('weapon-strip');
+    if (strip) strip.innerHTML = run.weapons.map(w => `<button data-action="view-build" aria-label="查看${esc(CHARACTER_MAP[w.id].name)}的構築"><span style="--character:${CHARACTER_MAP[w.id].color}">${portrait(w.id)}</span><b>${esc(CHARACTER_MAP[w.id].name)}</b><small>${w.branch ?? '—'} ${['基礎', 'I', 'II', 'E'][w.rank]}</small></button>`).join('');
+  }
 }
+
 export function upgradeDialog(run: RunState, vm: ViewModel) {
   const offer = run.draft; if (!offer) return '';
   const focused = run.weapons.find(w => w.id === offer.focusId)!; const ready = getReadyEvolutions(run);
