@@ -54,6 +54,7 @@ npm run build
 
 測試／工程紀錄：
 
+- [可玩版交付與驗證結果](docs/DELIVERY.md)
 - [遊戲規格](docs/MVP_SPEC.md)
 - [執行計劃](docs/EXECUTION_PLAN.md)
 - [實作決策與數值修訂](docs/DECISIONS.md)

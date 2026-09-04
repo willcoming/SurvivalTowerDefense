@@ -40,7 +40,7 @@ try {
   await page.locator('[data-action="start"]').click();
   await page.locator('#battle-loading').waitFor({ state: 'detached', timeout: 10000 });
   const battleReadyMs = performance.now() - battleStart;
-  await page.locator('[data-action="tutorial-done"]').click();
+  await page.getByRole('button', { name: '明白，開始防守 →', exact: true }).click();
   await page.locator('[data-action="cast"]').click();
   await page.locator('.upgrade-dialog').waitFor({ timeout: 35000 });
   await page.waitForTimeout(200);

@@ -1,0 +1,582 @@
+{
+  "config": {
+    "argv": [
+      "/Users/willcoming/.hermes/node/bin/node",
+      "/Users/willcoming/code/SurvivalTowerDefense/node_modules/.bin/playwright",
+      "test"
+    ],
+    "configFile": "/Users/willcoming/code/SurvivalTowerDefense/playwright.config.ts",
+    "rootDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "artifacts/validation/0.1.0-dev.2/browser-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev -- --host 0.0.0.0 --port 5173 --strictPort",
+      "url": "http://127.0.0.1:5173",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "game.spec.ts",
+      "file": "game.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "AC01/02: fresh local game, all six characters, legal squad and three responsive widths",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1933,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:26:44.332Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-25f5fd413a2b9a13a44b",
+          "file": "game.spec.ts",
+          "line": 32,
+          "column": 1
+        },
+        {
+          "title": "AC05/06/09: real draft, reroll, reload preservation, explicit card confirmation and pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2973,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:26:46.485Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-239dd1b8d2496bc66b39",
+          "file": "game.spec.ts",
+          "line": 57,
+          "column": 1
+        },
+        {
+          "title": "AC09: denied storage is explicit and allows temporary play without fake saved status",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 934,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:26:49.464Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-d261c37c87f16f52556a",
+          "file": "game.spec.ts",
+          "line": 90,
+          "column": 1
+        },
+        {
+          "title": "AC06/UI05: mobile landscape suspends combat and returning portrait keeps explicit user pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1489,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:26:50.403Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-56844cf8db4fdbfdc14c",
+          "file": "game.spec.ts",
+          "line": 99,
+          "column": 1
+        },
+        {
+          "title": "BAL05/AC07/12: browser replays a legitimate complete win and survives five consecutive menu returns",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4016,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:26:51.898Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-ba351cfe0fdc79004997",
+          "file": "game.spec.ts",
+          "line": 113,
+          "column": 1
+        },
+        {
+          "title": "AC01/02: fresh local game, all six characters, legal squad and three responsive widths",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1829,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:28:00.219Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-b3c3852fd8d07347af53",
+          "file": "game.spec.ts",
+          "line": 32,
+          "column": 1
+        },
+        {
+          "title": "AC05/06/09: real draft, reroll, reload preservation, explicit card confirmation and pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2123,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:28:02.340Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-a42843d57e1d62d383e6",
+          "file": "game.spec.ts",
+          "line": 57,
+          "column": 1
+        },
+        {
+          "title": "AC09: denied storage is explicit and allows temporary play without fake saved status",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 657,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:28:04.468Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-af30c7f75c85426e2501",
+          "file": "game.spec.ts",
+          "line": 90,
+          "column": 1
+        },
+        {
+          "title": "AC06/UI05: mobile landscape suspends combat and returning portrait keeps explicit user pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1154,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:28:05.131Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-23621f54340185855868",
+          "file": "game.spec.ts",
+          "line": 99,
+          "column": 1
+        },
+        {
+          "title": "BAL05/AC07/12: browser replays a legitimate complete win and survives five consecutive menu returns",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3656,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:28:06.290Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-277e5dda2629350780aa",
+          "file": "game.spec.ts",
+          "line": 113,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "performance.spec.ts",
+      "file": "performance.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "PERF01: desktop Chromium 60s synthetic render pressure, separately labeled from real-phone verification",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 63279,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m33.3\u001b[39m\nReceived:    \u001b[31m36.5\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m33.3\u001b[39m\nReceived:    \u001b[31m36.5\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/performance.spec.ts:49:15",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/performance.spec.ts",
+                      "column": 15,
+                      "line": 49
+                    },
+                    "snippet": "  47 |   expect(fixture).toEqual({ enemies: 120, visibleProjectiles: 400, fields: 12, pausedSimulation: true });\n  48 |   expect(frames.length).toBeGreaterThan(1000);\n> 49 |   expect(p95).toBeLessThanOrEqual(33.3);\n     |               ^\n  50 | });\n  51 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/performance.spec.ts",
+                        "column": 15,
+                        "line": 49
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m33.3\u001b[39m\nReceived:    \u001b[31m36.5\u001b[39m\n\n  47 |   expect(fixture).toEqual({ enemies: 120, visibleProjectiles: 400, fields: 12, pausedSimulation: true });\n  48 |   expect(frames.length).toBeGreaterThan(1000);\n> 49 |   expect(p95).toBeLessThanOrEqual(33.3);\n     |               ^\n  50 | });\n  51 |\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/performance.spec.ts:49:15"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:26:55.925Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/performance-PERF01-desktop-82ec6-rom-real-phone-verification-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/performance-PERF01-desktop-82ec6-rom-real-phone-verification-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/performance-PERF01-desktop-82ec6-rom-real-phone-verification-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/performance.spec.ts",
+                    "column": 15,
+                    "line": 49
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b15d6361b2fc38288977-18838d2646e90399b288",
+          "file": "performance.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "PERF01: desktop Chromium 60s synthetic render pressure, separately labeled from real-phone verification",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "One measured desktop stress environment; this is not mobile hardware evidence.",
+                  "location": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/performance.spec.ts",
+                    "line": 10,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 131,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T09:28:09.959Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "One measured desktop stress environment; this is not mobile hardware evidence.",
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/performance.spec.ts",
+                        "line": 10,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "b15d6361b2fc38288977-ef011b968cd0fc4abfa8",
+          "file": "performance.spec.ts",
+          "line": 9,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-04T09:26:44.043Z",
+    "duration": 86077.819,
+    "expected": 10,
+    "skipped": 1,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

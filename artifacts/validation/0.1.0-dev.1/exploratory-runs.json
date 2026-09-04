@@ -1,0 +1,817 @@
+{
+  "createdAt": "2026-09-04T09:08:44.049Z",
+  "contentVersion": "0.1.0-dev.1",
+  "policyVersion": "policy-v1",
+  "sourceRevision": "uncommitted",
+  "sourceDigest": "b644663d90b752fa2f8a3fc23632ec7e50f239e725dc50aa02147768c2ecffc3",
+  "node": "v22.22.3",
+  "platform": "darwin",
+  "arch": "arm64",
+  "command": "npm run test:simulation -- --quick",
+  "formal": false,
+  "summary": [
+    {
+      "buildId": "T01",
+      "runs": 1,
+      "wins": 0,
+      "coreCompletions": 0,
+      "passed": false
+    },
+    {
+      "buildId": "T02",
+      "runs": 1,
+      "wins": 0,
+      "coreCompletions": 0,
+      "passed": false
+    },
+    {
+      "buildId": "T03",
+      "runs": 1,
+      "wins": 0,
+      "coreCompletions": 0,
+      "passed": false
+    }
+  ],
+  "errors": [],
+  "runs": [
+    {
+      "contentVersion": "0.1.0-dev.1",
+      "schemaVersion": 1,
+      "policyVersion": "policy-v1",
+      "buildId": "T01",
+      "seed": 101,
+      "config": {
+        "stageId": "S03",
+        "squadIds": [
+          "C01",
+          "C02",
+          "C04",
+          "C05",
+          "C06"
+        ],
+        "captainId": "C02",
+        "seed": 101,
+        "challengeId": null,
+        "preferredBranches": {
+          "C02": "A",
+          "C01": "A",
+          "C05": "A",
+          "C04": "B",
+          "C06": "A"
+        }
+      },
+      "mode": "timed",
+      "initialSnapshotDigest": "3693c167caed2888ee1a3da393b9f0b13cabf097bebc60cf0639c33f131b0bba",
+      "outcome": "wall",
+      "endTick": 5297,
+      "effectiveSeconds": 176.56666666666666,
+      "wallHp": 0,
+      "wallMaxHp": 1000,
+      "wallHpDamage": 1000,
+      "wallShieldAbsorbed": 0,
+      "choices": [
+        {
+          "tick": 525,
+          "nodeId": "C02-A-1"
+        },
+        {
+          "tick": 1320,
+          "nodeId": "C01-A-1"
+        },
+        {
+          "tick": 2184,
+          "nodeId": "C04-B-1"
+        },
+        {
+          "tick": 2670,
+          "nodeId": "C02-A-2"
+        },
+        {
+          "tick": 3345,
+          "nodeId": "C02-A-3"
+        },
+        {
+          "tick": 4200,
+          "nodeId": "G01-1"
+        },
+        {
+          "tick": 4776,
+          "nodeId": "C01-A-2"
+        }
+      ],
+      "casts": [
+        {
+          "tick": 900,
+          "reason": "eight visible enemies before boss"
+        },
+        {
+          "tick": 2400,
+          "reason": "eight visible enemies before boss"
+        },
+        {
+          "tick": 3900,
+          "reason": "eight visible enemies before boss"
+        }
+      ],
+      "evolvedRoutes": [
+        "C02-A"
+      ],
+      "completedCoreRoutes": [
+        "C02-A"
+      ],
+      "routeRanks": [
+        {
+          "id": "C01-A",
+          "rank": 2
+        },
+        {
+          "id": "C02-A",
+          "rank": 3
+        },
+        {
+          "id": "C04-B",
+          "rank": 1
+        },
+        {
+          "id": "C05--",
+          "rank": 0
+        },
+        {
+          "id": "C06--",
+          "rank": 0
+        }
+      ],
+      "commonRanks": {
+        "G01": 1
+      },
+      "choicesEarned": 7,
+      "choicesSpent": 7,
+      "rerollsRemaining": 3,
+      "characterDamage": {
+        "C01": 4192.923590624999,
+        "C02": 8007.960159375006,
+        "C03": 0,
+        "C04": 3562.2519062499996,
+        "C05": 3806.65109999999,
+        "C06": 2996.759337500003
+      },
+      "wallDamageByEnemy": {
+        "E05": 35,
+        "E02": 265,
+        "E03": 264,
+        "E01": 256,
+        "E08": 180
+      },
+      "controls": {
+        "C01": 0,
+        "C02": 1901,
+        "C03": 0,
+        "C04": 5157,
+        "C05": 0,
+        "C06": 0
+      },
+      "commandLog": [
+        {
+          "tick": 525,
+          "seq": 1,
+          "command": {
+            "type": "focus",
+            "characterId": "C02",
+            "branch": "A"
+          }
+        },
+        {
+          "tick": 525,
+          "seq": 2,
+          "command": {
+            "type": "choose",
+            "offerId": 1,
+            "nodeId": "C02-A-1"
+          }
+        },
+        {
+          "tick": 900,
+          "seq": 3,
+          "command": {
+            "type": "cast"
+          }
+        },
+        {
+          "tick": 1320,
+          "seq": 4,
+          "command": {
+            "type": "choose",
+            "offerId": 2,
+            "nodeId": "C01-A-1"
+          }
+        },
+        {
+          "tick": 2184,
+          "seq": 5,
+          "command": {
+            "type": "choose",
+            "offerId": 3,
+            "nodeId": "C04-B-1"
+          }
+        },
+        {
+          "tick": 2400,
+          "seq": 6,
+          "command": {
+            "type": "cast"
+          }
+        },
+        {
+          "tick": 2670,
+          "seq": 7,
+          "command": {
+            "type": "focus",
+            "characterId": "C02",
+            "branch": "A"
+          }
+        },
+        {
+          "tick": 2670,
+          "seq": 8,
+          "command": {
+            "type": "choose",
+            "offerId": 4,
+            "nodeId": "C02-A-2"
+          }
+        },
+        {
+          "tick": 3345,
+          "seq": 9,
+          "command": {
+            "type": "evolution",
+            "nodeId": "C02-A-3"
+          }
+        },
+        {
+          "tick": 3345,
+          "seq": 10,
+          "command": {
+            "type": "choose",
+            "offerId": 5,
+            "nodeId": "C02-A-3"
+          }
+        },
+        {
+          "tick": 3900,
+          "seq": 11,
+          "command": {
+            "type": "cast"
+          }
+        },
+        {
+          "tick": 4200,
+          "seq": 12,
+          "command": {
+            "type": "choose",
+            "offerId": 6,
+            "nodeId": "G01-1"
+          }
+        },
+        {
+          "tick": 4776,
+          "seq": 13,
+          "command": {
+            "type": "focus",
+            "characterId": "C01",
+            "branch": "A"
+          }
+        },
+        {
+          "tick": 4776,
+          "seq": 14,
+          "command": {
+            "type": "choose",
+            "offerId": 7,
+            "nodeId": "C01-A-2"
+          }
+        }
+      ],
+      "finalDigest": "2c7789d1b997f44947622668d487d0828823d8e73aac5267dee1a165296aa72d",
+      "finalSimulationSteps": 5297
+    },
+    {
+      "contentVersion": "0.1.0-dev.1",
+      "schemaVersion": 1,
+      "policyVersion": "policy-v1",
+      "buildId": "T02",
+      "seed": 101,
+      "config": {
+        "stageId": "S03",
+        "squadIds": [
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C06"
+        ],
+        "captainId": "C03",
+        "seed": 101,
+        "challengeId": null,
+        "preferredBranches": {
+          "C03": "B",
+          "C01": "B",
+          "C06": "A",
+          "C02": "A",
+          "C04": "B"
+        }
+      },
+      "mode": "timed",
+      "initialSnapshotDigest": "6d4d7171683eac067739101a8f945e1ff5fb6b9877d743bf2d0b237380e484e7",
+      "outcome": "wall",
+      "endTick": 5016,
+      "effectiveSeconds": 167.2,
+      "wallHp": 0,
+      "wallMaxHp": 1000,
+      "wallHpDamage": 1000,
+      "wallShieldAbsorbed": 0,
+      "choices": [
+        {
+          "tick": 516,
+          "nodeId": "C03-B-1"
+        },
+        {
+          "tick": 1391,
+          "nodeId": "C06-A-1"
+        },
+        {
+          "tick": 2190,
+          "nodeId": "C02-A-1"
+        },
+        {
+          "tick": 2724,
+          "nodeId": "C03-B-2"
+        },
+        {
+          "tick": 3549,
+          "nodeId": "C03-B-3"
+        },
+        {
+          "tick": 4380,
+          "nodeId": "G01-1"
+        },
+        {
+          "tick": 4802,
+          "nodeId": "C01-B-1"
+        }
+      ],
+      "casts": [
+        {
+          "tick": 1605,
+          "reason": "armored or elite threat in lower battlefield"
+        },
+        {
+          "tick": 3389,
+          "reason": "armored or elite threat in lower battlefield"
+        },
+        {
+          "tick": 4739,
+          "reason": "armored or elite threat in lower battlefield"
+        }
+      ],
+      "evolvedRoutes": [
+        "C03-B"
+      ],
+      "completedCoreRoutes": [
+        "C03-B"
+      ],
+      "routeRanks": [
+        {
+          "id": "C01-B",
+          "rank": 1
+        },
+        {
+          "id": "C02-A",
+          "rank": 1
+        },
+        {
+          "id": "C03-B",
+          "rank": 3
+        },
+        {
+          "id": "C04--",
+          "rank": 0
+        },
+        {
+          "id": "C06-A",
+          "rank": 1
+        }
+      ],
+      "commonRanks": {
+        "G01": 1
+      },
+      "choicesEarned": 7,
+      "choicesSpent": 7,
+      "rerollsRemaining": 3,
+      "characterDamage": {
+        "C01": 4024.7438999999963,
+        "C02": 4309.4528000000055,
+        "C03": 5563.604346000005,
+        "C04": 3719.0779400000047,
+        "C05": 0,
+        "C06": 3486.958400000002
+      },
+      "wallDamageByEnemy": {
+        "E05": 70,
+        "E04": 64,
+        "E01": 376,
+        "E02": 378,
+        "E06": 24,
+        "E03": 88
+      },
+      "controls": {
+        "C01": 0,
+        "C02": 0,
+        "C03": 0,
+        "C04": 5953,
+        "C05": 0,
+        "C06": 0
+      },
+      "commandLog": [
+        {
+          "tick": 516,
+          "seq": 1,
+          "command": {
+            "type": "focus",
+            "characterId": "C03",
+            "branch": "B"
+          }
+        },
+        {
+          "tick": 516,
+          "seq": 2,
+          "command": {
+            "type": "choose",
+            "offerId": 1,
+            "nodeId": "C03-B-1"
+          }
+        },
+        {
+          "tick": 1391,
+          "seq": 3,
+          "command": {
+            "type": "choose",
+            "offerId": 2,
+            "nodeId": "C06-A-1"
+          }
+        },
+        {
+          "tick": 1605,
+          "seq": 4,
+          "command": {
+            "type": "cast"
+          }
+        },
+        {
+          "tick": 2190,
+          "seq": 5,
+          "command": {
+            "type": "choose",
+            "offerId": 3,
+            "nodeId": "C02-A-1"
+          }
+        },
+        {
+          "tick": 2724,
+          "seq": 6,
+          "command": {
+            "type": "focus",
+            "characterId": "C03",
+            "branch": "B"
+          }
+        },
+        {
+          "tick": 2724,
+          "seq": 7,
+          "command": {
+            "type": "choose",
+            "offerId": 4,
+            "nodeId": "C03-B-2"
+          }
+        },
+        {
+          "tick": 3389,
+          "seq": 8,
+          "command": {
+            "type": "cast"
+          }
+        },
+        {
+          "tick": 3549,
+          "seq": 9,
+          "command": {
+            "type": "evolution",
+            "nodeId": "C03-B-3"
+          }
+        },
+        {
+          "tick": 3549,
+          "seq": 10,
+          "command": {
+            "type": "choose",
+            "offerId": 5,
+            "nodeId": "C03-B-3"
+          }
+        },
+        {
+          "tick": 4380,
+          "seq": 11,
+          "command": {
+            "type": "choose",
+            "offerId": 6,
+            "nodeId": "G01-1"
+          }
+        },
+        {
+          "tick": 4739,
+          "seq": 12,
+          "command": {
+            "type": "cast"
+          }
+        },
+        {
+          "tick": 4802,
+          "seq": 13,
+          "command": {
+            "type": "focus",
+            "characterId": "C01",
+            "branch": "B"
+          }
+        },
+        {
+          "tick": 4802,
+          "seq": 14,
+          "command": {
+            "type": "choose",
+            "offerId": 7,
+            "nodeId": "C01-B-1"
+          }
+        }
+      ],
+      "finalDigest": "60c456991c4dc9dbfee76535ea46a0875c528625aaab63b6fff0e47fb45b4774",
+      "finalSimulationSteps": 5016
+    },
+    {
+      "contentVersion": "0.1.0-dev.1",
+      "schemaVersion": 1,
+      "policyVersion": "policy-v1",
+      "buildId": "T03",
+      "seed": 101,
+      "config": {
+        "stageId": "S03",
+        "squadIds": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06"
+        ],
+        "captainId": "C04",
+        "seed": 101,
+        "challengeId": null,
+        "preferredBranches": {
+          "C04": "A",
+          "C05": "A",
+          "C06": "B",
+          "C02": "A",
+          "C03": "B"
+        }
+      },
+      "mode": "timed",
+      "initialSnapshotDigest": "8491c1f641270ba95efdc01943fae90238e438b81142e62bc19b684cf6311af1",
+      "outcome": "wall",
+      "endTick": 5463,
+      "effectiveSeconds": 182.1,
+      "wallHp": 0,
+      "wallMaxHp": 1000,
+      "wallHpDamage": 1000,
+      "wallShieldAbsorbed": 0,
+      "choices": [
+        {
+          "tick": 516,
+          "nodeId": "C04-A-1"
+        },
+        {
+          "tick": 1379,
+          "nodeId": "C02-A-1"
+        },
+        {
+          "tick": 2189,
+          "nodeId": "C04-A-2"
+        },
+        {
+          "tick": 2684,
+          "nodeId": "C05-A-1"
+        },
+        {
+          "tick": 3552,
+          "nodeId": "C04-A-3"
+        },
+        {
+          "tick": 4272,
+          "nodeId": "C02-A-2"
+        },
+        {
+          "tick": 4812,
+          "nodeId": "C05-A-2"
+        }
+      ],
+      "casts": [
+        {
+          "tick": 1740,
+          "reason": "crowd advancing into lower battlefield"
+        },
+        {
+          "tick": 3240,
+          "reason": "crowd advancing into lower battlefield"
+        },
+        {
+          "tick": 4740,
+          "reason": "artillery charge or three enemies in lower battlefield"
+        }
+      ],
+      "evolvedRoutes": [
+        "C04-A"
+      ],
+      "completedCoreRoutes": [
+        "C04-A"
+      ],
+      "routeRanks": [
+        {
+          "id": "C02-A",
+          "rank": 2
+        },
+        {
+          "id": "C03--",
+          "rank": 0
+        },
+        {
+          "id": "C04-A",
+          "rank": 3
+        },
+        {
+          "id": "C05-A",
+          "rank": 2
+        },
+        {
+          "id": "C06--",
+          "rank": 0
+        }
+      ],
+      "commonRanks": {},
+      "choicesEarned": 7,
+      "choicesSpent": 7,
+      "rerollsRemaining": 3,
+      "characterDamage": {
+        "C01": 0,
+        "C02": 4717.845700000001,
+        "C03": 4659.363800000002,
+        "C04": 4308.660500000015,
+        "C05": 6505.0090999999875,
+        "C06": 3123.145000000012
+      },
+      "wallDamageByEnemy": {
+        "E05": 70,
+        "E02": 266,
+        "E03": 308,
+        "E01": 146,
+        "E08": 210
+      },
+      "controls": {
+        "C01": 0,
+        "C02": 0,
+        "C03": 0,
+        "C04": 17594,
+        "C05": 0,
+        "C06": 0
+      },
+      "commandLog": [
+        {
+          "tick": 516,
+          "seq": 1,
+          "command": {
+            "type": "focus",
+            "characterId": "C04",
+            "branch": "A"
+          }
+        },
+        {
+          "tick": 516,
+          "seq": 2,
+          "command": {
+            "type": "choose",
+            "offerId": 1,
+            "nodeId": "C04-A-1"
+          }
+        },
+        {
+          "tick": 1379,
+          "seq": 3,
+          "command": {
+            "type": "choose",
+            "offerId": 2,
+            "nodeId": "C02-A-1"
+          }
+        },
+        {
+          "tick": 1740,
+          "seq": 4,
+          "command": {
+            "type": "cast"
+          }
+        },
+        {
+          "tick": 2189,
+          "seq": 5,
+          "command": {
+            "type": "choose",
+            "offerId": 3,
+            "nodeId": "C04-A-2"
+          }
+        },
+        {
+          "tick": 2684,
+          "seq": 6,
+          "command": {
+            "type": "focus",
+            "characterId": "C05",
+            "branch": "A"
+          }
+        },
+        {
+          "tick": 2684,
+          "seq": 7,
+          "command": {
+            "type": "choose",
+            "offerId": 4,
+            "nodeId": "C05-A-1"
+          }
+        },
+        {
+          "tick": 3240,
+          "seq": 8,
+          "command": {
+            "type": "cast"
+          }
+        },
+        {
+          "tick": 3552,
+          "seq": 9,
+          "command": {
+            "type": "evolution",
+            "nodeId": "C04-A-3"
+          }
+        },
+        {
+          "tick": 3552,
+          "seq": 10,
+          "command": {
+            "type": "choose",
+            "offerId": 5,
+            "nodeId": "C04-A-3"
+          }
+        },
+        {
+          "tick": 4272,
+          "seq": 11,
+          "command": {
+            "type": "choose",
+            "offerId": 6,
+            "nodeId": "C02-A-2"
+          }
+        },
+        {
+          "tick": 4740,
+          "seq": 12,
+          "command": {
+            "type": "cast"
+          }
+        },
+        {
+          "tick": 4812,
+          "seq": 13,
+          "command": {
+            "type": "focus",
+            "characterId": "C05",
+            "branch": "A"
+          }
+        },
+        {
+          "tick": 4812,
+          "seq": 14,
+          "command": {
+            "type": "choose",
+            "offerId": 7,
+            "nodeId": "C05-A-2"
+          }
+        }
+      ],
+      "finalDigest": "fa2c5c0283e6716cdafc50a3a67200d7506c0ff4e0f0ce086e4007dc647fa4c0",
+      "finalSimulationSteps": 5463
+    }
+  ]
+}

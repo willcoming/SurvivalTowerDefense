@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-04T09:35:07.409Z",
+  "errors": [],
+  "sampled": {
+    "samples": 426,
+    "p95": 25.300000000000182,
+    "mean": 11.743192488262913,
+    "mutations": 0
+  },
+  "hud": "進化 3/3",
+  "limitation": "Only 5 seconds diagnosis on exact synthetic fixture. Not the formal60secondgate."
+}

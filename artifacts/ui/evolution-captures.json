@@ -1,0 +1,194 @@
+{
+  "date": "2026-09-04T09:24:40.293Z",
+  "method": "Legal S01 runs with seed101. Select focus / ready evolution through public commands; choose common upgrades otherwise. Advance real fixed ticks. No damage, HP, XP, spawn or weapon-rank edits. Each screenshot follows first post-evolution attack.",
+  "browser": "152.0.7977.76",
+  "errors": [],
+  "captures": [
+    {
+      "owner": "C01",
+      "branch": "A",
+      "rank": 3,
+      "tick": 1650,
+      "phase": "running",
+      "fields": [],
+      "choices": [
+        "C01-A-1",
+        "C01-A-2",
+        "C01-A-3"
+      ],
+      "outcome": null
+    },
+    {
+      "owner": "C01",
+      "branch": "B",
+      "rank": 3,
+      "tick": 1650,
+      "phase": "running",
+      "fields": [],
+      "choices": [
+        "C01-B-1",
+        "C01-B-2",
+        "C01-B-3"
+      ],
+      "outcome": null
+    },
+    {
+      "owner": "C02",
+      "branch": "A",
+      "rank": 3,
+      "tick": 2904,
+      "phase": "running",
+      "fields": [],
+      "choices": [
+        "C02-A-1",
+        "C01-A-1",
+        "C04-B-1",
+        "C02-A-2",
+        "C02-A-3"
+      ],
+      "outcome": null
+    },
+    {
+      "owner": "C02",
+      "branch": "B",
+      "rank": 3,
+      "tick": 2922,
+      "phase": "running",
+      "fields": [],
+      "choices": [
+        "C02-B-1",
+        "C01-A-1",
+        "C04-B-1",
+        "C02-B-2",
+        "C02-B-3"
+      ],
+      "outcome": null
+    },
+    {
+      "owner": "C03",
+      "branch": "A",
+      "rank": 3,
+      "tick": 2250,
+      "phase": "running",
+      "fields": [],
+      "choices": [
+        "C03-A-1",
+        "C01-A-1",
+        "C03-A-2",
+        "C03-A-3"
+      ],
+      "outcome": null
+    },
+    {
+      "owner": "C03",
+      "branch": "B",
+      "rank": 3,
+      "tick": 2250,
+      "phase": "running",
+      "fields": [],
+      "choices": [
+        "C03-B-1",
+        "C01-A-1",
+        "C03-B-2",
+        "C03-B-3"
+      ],
+      "outcome": null
+    },
+    {
+      "owner": "C04",
+      "branch": "A",
+      "rank": 3,
+      "tick": 2250,
+      "phase": "running",
+      "fields": [
+        "gravity"
+      ],
+      "choices": [
+        "C04-A-1",
+        "C01-A-1",
+        "C04-A-2",
+        "C04-A-3"
+      ],
+      "outcome": null
+    },
+    {
+      "owner": "C04",
+      "branch": "B",
+      "rank": 3,
+      "tick": 2250,
+      "phase": "running",
+      "fields": [],
+      "choices": [
+        "C04-B-1",
+        "C01-A-1",
+        "C04-B-2",
+        "C04-B-3"
+      ],
+      "outcome": null
+    },
+    {
+      "owner": "C05",
+      "branch": "A",
+      "rank": 3,
+      "tick": 2940,
+      "phase": "running",
+      "fields": [],
+      "choices": [
+        "C05-A-1",
+        "C01-A-1",
+        "C04-A-1",
+        "C05-A-2",
+        "C05-A-3"
+      ],
+      "outcome": null
+    },
+    {
+      "owner": "C05",
+      "branch": "B",
+      "rank": 3,
+      "tick": 2964,
+      "phase": "running",
+      "fields": [],
+      "choices": [
+        "C05-B-1",
+        "C01-A-1",
+        "C04-A-1",
+        "C05-B-2",
+        "C05-B-3"
+      ],
+      "outcome": null
+    },
+    {
+      "owner": "C06",
+      "branch": "A",
+      "rank": 3,
+      "tick": 2910,
+      "phase": "running",
+      "fields": [],
+      "choices": [
+        "C06-A-1",
+        "C01-A-1",
+        "C04-A-1",
+        "C06-A-2",
+        "C06-A-3"
+      ],
+      "outcome": null
+    },
+    {
+      "owner": "C06",
+      "branch": "B",
+      "rank": 3,
+      "tick": 2906,
+      "phase": "running",
+      "fields": [],
+      "choices": [
+        "C06-B-1",
+        "C01-A-1",
+        "C04-A-1",
+        "C06-B-2",
+        "C06-B-3"
+      ],
+      "outcome": null
+    }
+  ]
+}

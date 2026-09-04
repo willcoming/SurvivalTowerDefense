@@ -1,0 +1,10 @@
+{
+  "createdAt": "2026-09-04T09:18:09.464256+00:00",
+  "command": "npm ci --no-audit --no-fund",
+  "isolation": "new temporary directory, no node_modules",
+  "lockSha256": "5c87ddb4050eb978b755ea148a3d08f9d2b126d54b12835d8e8894ef7e407666",
+  "exitCode": 0,
+  "elapsedSeconds": 3.325,
+  "stdout": "\nadded 53 packages in 3s\n",
+  "stderr": ""
+}

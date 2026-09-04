@@ -1,0 +1,6 @@
+{
+  "error": "Error: locator.click: Error: strict mode violation: locator('[data-action=\"tutorial-done\"]') resolved to 2 elements:\n    1) <button class=\"button primary\" data-action=\"tutorial-done\">明白，開始防守 →</button> aka getByRole('button', { name: '明白，開始防守 →' })\n    2) <button class=\"text-button\" data-action=\"tutorial-done\">跳過引導</button> aka getByRole('button', { name: '跳過引導' })\n\nCall log:\n\u001b[2m  - waiting for locator('[data-action=\"tutorial-done\"]')\u001b[22m\n",
+  "errors": [],
+  "failed": [],
+  "body": "防線 1000 / 1000\nⅡ\nWAVE 1 / 8\n08:00\n進化 0/3\n共鳴經驗\n0 / 40 · 0/18 次\n璃音\n— 基礎\n雷娜\n— 基礎\n米菈\n— 基礎\n芙蕾\n— 基礎\n希雅\n— 基礎\n✦\n隊長 · 雷娜\n電磁靜默\n就緒\nFIRST DEPLOYMENT\n指揮官，準備好了嗎？\n01\n守住共同防線\n小隊自動索敵射擊。防線歸零，行動失敗。\n02\n把火力，改造成妳的答案\n共鳴經驗達標後三選一；每人 I → II → E，全隊最多三把 E。\n03\n在關鍵時刻下令\n點擊底部隊長技能。敵人蓄力時，控場能打斷攻擊。\n04\n換個搭配，立即重試\n不用農資源。失敗可保留相同戰局，重新分配火力。\n明白，開始防守 →\n跳過引導"
+}

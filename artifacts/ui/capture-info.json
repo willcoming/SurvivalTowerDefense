@@ -1,0 +1,39 @@
+{
+  "date": "2026-09-04T09:20:35.325Z",
+  "browser": "152.0.7977.76",
+  "environment": "Local Google Chrome via Playwright, desktop CPU, CSS viewport simulation",
+  "errors": [],
+  "scope": "Home, roster, battle and upgrade complete with final assets; 12 legal evolution-state captures in evolution-captures.json.",
+  "battle": {
+    "date": "2026-09-04T09:22:59.294Z",
+    "errors": [],
+    "state": {
+      "tick": 2455,
+      "phase": "running",
+      "missing": 0,
+      "audio": {
+        "voices": 0,
+        "contextState": "locked",
+        "loop": "battle",
+        "musicVolume": 0.35,
+        "sfxVolume": 0.65
+      }
+    },
+    "viewports": [
+      "390x844",
+      "360x740",
+      "360x640",
+      "430x932",
+      "1440x1024"
+    ],
+    "note": "Actual legal S01 simulation, no rule state edits; icons still pending only in codex/upgrade."
+  },
+  "upgrade": {
+    "date": "2026-09-04T09:24:40.294Z",
+    "viewports": [
+      "390x844",
+      "360x740"
+    ],
+    "errors": []
+  }
+}
