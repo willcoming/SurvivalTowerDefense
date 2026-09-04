@@ -860,5 +860,659 @@
     "sha256": "61ab582da88d144e9d6cad2156c5427b26547fb91ccfd7021e567d68ffa1acb1",
     "loadGroup": "battle-fx",
     "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C01-motion",
+    "path": "/assets/animations/C01-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 235438,
+    "sha256": "6d9f4304a18f7d9a17cfd1ed9127276e34554d5e51bfb0c95e8689654d5eaff5",
+    "source": "artifacts/animation-sources/C01-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: RION, 22: coral-red short hair, expressive amber eyes, cropped red/white/navy armored jacket, dark bodysuit. Compact cyan crystal plasma carbine held with both hands. Fire/recoil with raised elbows and shoulders rocking back; recover arms lower.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        512,
+        1024,
+        1536
+      ],
+      "ys": [
+        0,
+        512,
+        1024
+      ]
+    },
+    "scale": 0.47,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "ab0e2db1c18b1235efc1e0855261bc78114d3c4389890ec933d80b068b32a856",
+        "sourceBounds": {
+          "left": 143,
+          "top": 58,
+          "right": 425,
+          "bottom": 492,
+          "center": 259.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "354b99b96c2cc6b61da71924ab014dd87094096cb2deb997bb7e32591b5a975f",
+        "sourceBounds": {
+          "left": 614,
+          "top": 68,
+          "right": 900,
+          "bottom": 491,
+          "center": 738
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "af13b986c10110062d77f711ac9427cfb331c6f8ec2b003d161a4880f730d33f",
+        "sourceBounds": {
+          "left": 1089,
+          "top": 66,
+          "right": 1404,
+          "bottom": 491,
+          "center": 1222.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "f03232800d0566bbd5d2ee69dda0139dcdbdfc122d435cadd602bdbfbb2309ee",
+        "sourceBounds": {
+          "left": 114,
+          "top": 550,
+          "right": 492,
+          "bottom": 962,
+          "center": 250
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "0a70432a93171d6471dd748ddfab3c84c4264c93b11efdaab1c762ca1c8034d7",
+        "sourceBounds": {
+          "left": 567,
+          "top": 557,
+          "right": 905,
+          "bottom": 962,
+          "center": 763
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "e83bda61aeb8633153408bebd563e9b6bb8206ddc6567ccb0a0947f0d156eeee",
+        "sourceBounds": {
+          "left": 1090,
+          "top": 547,
+          "right": 1373,
+          "bottom": 971,
+          "center": 1207
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C02-motion",
+    "path": "/assets/animations/C02-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 291084,
+    "sha256": "c742e7cb46caf9f5de962f6128228c61e0d371993384d11c70840c4a2372c3ff",
+    "source": "artifacts/animation-sources/C02-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: RENA, 24: long dark indigo-purple hair, white/navy research coat armor, circular segmented conductive back-ring. Large two-pronged electric arc rifle with chains, violet-blue core. Ready aims fork rifle, firing extends both hands, recoil opens the back-ring and lifts coat tips; recovery closes it.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        512,
+        1024,
+        1536
+      ],
+      "ys": [
+        0,
+        512,
+        1024
+      ]
+    },
+    "scale": 0.43856332703213613,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "478890406f8599a9543eae4f9c0214fa44d1db4a2ef53cbac72f7f238d1eb614",
+        "sourceBounds": {
+          "left": 56,
+          "top": 67,
+          "right": 473,
+          "bottom": 465,
+          "center": 250.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "a759ae7452f431500f2d7decf91af6e63a9829a0d2a413cbe6ccf15201821825",
+        "sourceBounds": {
+          "left": 568,
+          "top": 71,
+          "right": 976,
+          "bottom": 465,
+          "center": 760.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "c9b75c93f11d7c31cfc3570c0cb7e7b0565efb1b7ced8c285ea60807120a84b4",
+        "sourceBounds": {
+          "left": 1039,
+          "top": 69,
+          "right": 1462,
+          "bottom": 465,
+          "center": 1251.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "2dc7504eb6d6ce214ad2b254fb97529fba4409f89f77d7cbfd4d48af2178cf30",
+        "sourceBounds": {
+          "left": 56,
+          "top": 561,
+          "right": 510,
+          "bottom": 948,
+          "center": 246.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "aef63e726cae13430d83356dfb0cb62b8e4982faeaef8b87c9072fc29d0f2e38",
+        "sourceBounds": {
+          "left": 531,
+          "top": 558,
+          "right": 1010,
+          "bottom": 949,
+          "center": 763
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "c623d09d3f3c1e752de070d3fa06bb01389b46f48a458b47af6a980732ab826c",
+        "sourceBounds": {
+          "left": 1048,
+          "top": 561,
+          "right": 1449,
+          "bottom": 948,
+          "center": 1238.5
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C03-motion",
+    "path": "/assets/animations/C03-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 213130,
+    "sha256": "5df460c865e3d4e79eb428406955592c4ec6e4f0a738fb00b6481718f205fd2d",
+    "source": "artifacts/animation-sources/C03-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: RITSUKI, 23: long silver-white hair, ice-blue eyes, dark navy flowing cloak over white/navy armored suit. Long slim cyan rail sniper rifle. Ready braces stock against shoulder, aim head lowers to sight, firing tiny cyan flash, recoil shoulder moves back and front knee bends, recovery lifts head. SAME long rifle geometry every frame.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        505,
+        1018,
+        1536
+      ],
+      "ys": [
+        0,
+        512,
+        1024
+      ]
+    },
+    "scale": 0.3938879456706282,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "5f6b4ffa3a3620549358a79f1b90378f5cf503f1217be749f57e199d4776c6b9",
+        "sourceBounds": {
+          "left": 67,
+          "top": 81,
+          "right": 450,
+          "bottom": 496,
+          "center": 248.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "177141f324742bcaa63621240aabbed8365af9301755d4bc518d00afad8a3f83",
+        "sourceBounds": {
+          "left": 555,
+          "top": 83,
+          "right": 972,
+          "bottom": 493,
+          "center": 741.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "3b3a2ede947feed983507ffcc4cd24bbb92456cfe367d63ed910af08befd1eb5",
+        "sourceBounds": {
+          "left": 1025,
+          "top": 98,
+          "right": 1499,
+          "bottom": 493,
+          "center": 1208
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "3440aae38a778d04a1a0ea12e4d3b072e68b9d0ed869f3afc4a1d683b67531ce",
+        "sourceBounds": {
+          "left": 52,
+          "top": 562,
+          "right": 504,
+          "bottom": 955,
+          "center": 211.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "faff9d94ab0ea0573513de528f28e9f06dd5a8e38e40acdfdd57db6e9dc35f03",
+        "sourceBounds": {
+          "left": 505,
+          "top": 579,
+          "right": 991,
+          "bottom": 955,
+          "center": 697.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "86504ec04c1f97561c1f9f7e54bf7ec4dbcc4f87b59dc366cfaf8237fa50bb71",
+        "sourceBounds": {
+          "left": 1019,
+          "top": 568,
+          "right": 1433,
+          "bottom": 960,
+          "center": 1184
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C04-motion",
+    "path": "/assets/animations/C04-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 297656,
+    "sha256": "5c99712378bea2ea80ddb6c14915c0153718bc275c6290e03b7f59a754a89007",
+    "source": "artifacts/animation-sources/C04-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: MIRA, 21: mint-green twin-tails, teal short jacket, tool belt, dark/white armored suit. Compact cyan-crystal gravity projector surrounded by thin floating teal rings. Idle holds lowered projector; aim raises with both hands; casting rotates rings and extends arms; recoil leans against gravitational force with twin-tails flowing; recovery lowers hands.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        500,
+        1024,
+        1536
+      ],
+      "ys": [
+        0,
+        512,
+        1024
+      ]
+    },
+    "scale": 0.4352720450281426,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "d612db3a8ce1de5cf76b611f1227e36fad7814727dc4db7d6b09d66730f6ad2c",
+        "sourceBounds": {
+          "left": 28,
+          "top": 44,
+          "right": 399,
+          "bottom": 484,
+          "center": 210
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "93c611fc05b7bf8a929d634359a04b82984f89af602ee4cc6405145a8bb836cb",
+        "sourceBounds": {
+          "left": 541,
+          "top": 45,
+          "right": 956,
+          "bottom": 485,
+          "center": 732
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "a4ec29506839f0c1b5627512450116d8be4665ddc93ca87987d829f2f83d8cb0",
+        "sourceBounds": {
+          "left": 1040,
+          "top": 45,
+          "right": 1485,
+          "bottom": 485,
+          "center": 1235.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "16a722f8400a3fed4b5438e2345f2b4f42dff9d415991339e3f73052fab083a9",
+        "sourceBounds": {
+          "left": 36,
+          "top": 533,
+          "right": 482,
+          "bottom": 961,
+          "center": 226
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "5962750f34156a6346759e87f1e5e674c2755d8c7a2c8840c691322aeeb12acd",
+        "sourceBounds": {
+          "left": 501,
+          "top": 543,
+          "right": 982,
+          "bottom": 959,
+          "center": 766.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "400975bc616d435b089b12ff9bc9b940a8e41c8a9f5bd957ffa24d2b9168db09",
+        "sourceBounds": {
+          "left": 1051,
+          "top": 536,
+          "right": 1413,
+          "bottom": 961,
+          "center": 1229.5
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C05-motion",
+    "path": "/assets/animations/C05-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 270618,
+    "sha256": "bbb87c3c5d5ae82ec303709cc9e2a59a6dc7434c7023c3ebd771af15d93cb8c1",
+    "source": "artifacts/animation-sources/C05-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: FLARE, 25: orange-gold high ponytail, black/orange heavy armor. Huge orange molten-core mortar cannon resting over right shoulder. Idle heavy cannon supported; aim bends front knee and angles barrel up; firing small orange flash; recoil deep knee compression, body/pony-tail rock backward while cannon remains shouldered; recover stands tall. Keep barrel full length and visible.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        512,
+        1024,
+        1536
+      ],
+      "ys": [
+        0,
+        512,
+        1024
+      ]
+    },
+    "scale": 0.4393939393939394,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "aa983fa97462ea4107d2df230fc8db66c093535ce0a6c9fbfbf577dc605d0d75",
+        "sourceBounds": {
+          "left": 77,
+          "top": 50,
+          "right": 469,
+          "bottom": 489,
+          "center": 251.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "539bc262de934e1c4d21c2d628f499f2871b8c5acf2afbdebe68e5e0e56c211a",
+        "sourceBounds": {
+          "left": 577,
+          "top": 48,
+          "right": 966,
+          "bottom": 491,
+          "center": 744.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "d529d2773f14ce2bcfba1ceeb70884bed4ea157b766ad9e95490bcd223ae4eff",
+        "sourceBounds": {
+          "left": 1059,
+          "top": 46,
+          "right": 1459,
+          "bottom": 490,
+          "center": 1246.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "8e282fdf1ce716cfb8191ce5dc7b51a60d968b2ab28518680825fe54b9774659",
+        "sourceBounds": {
+          "left": 58,
+          "top": 517,
+          "right": 485,
+          "bottom": 968,
+          "center": 252.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "46a6008be6eb529b2b7f1fef234d9ba17a463d69785fed64ab57c3663562a80e",
+        "sourceBounds": {
+          "left": 513,
+          "top": 533,
+          "right": 951,
+          "bottom": 969,
+          "center": 776
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "0bc5d5cd3fa324746905b3537fddaf72600266fef9d52e0852a8dbdaaa7010db",
+        "sourceBounds": {
+          "left": 1051,
+          "top": 536,
+          "right": 1423,
+          "bottom": 972,
+          "center": 1216
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C06-motion",
+    "path": "/assets/animations/C06-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 257116,
+    "sha256": "2779c53d5e502589d7aa83a9eb3c00b02d7f6f9c306b9387e09edd5185fafea9",
+    "source": "artifacts/animation-sources/C06-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: SIA, 24: short pale blonde bob, teal eyes, white/teal long split coat and dark bodysuit. Handheld drone command tablet and TWO tiny triangular cyan prism drones. Replace rifle poses with distinct command gestures: idle looks at low tablet; ready raises tablet; aim right hand points upward with eyes focused; fire swipes hand outward and two drones tilt forward; followthrough hand extends fully; recover hand returns to tablet. Keep drone identities, coat, and tablet fixed.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        512,
+        1024,
+        1536
+      ],
+      "ys": [
+        0,
+        527,
+        1024
+      ]
+    },
+    "scale": 0.40347826086956523,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "8109bcd28b873ff847bfa92b2b3d44b5bb96e4d83121a6a0e6ebe238ffb0b52a",
+        "sourceBounds": {
+          "left": 75,
+          "top": 37,
+          "right": 461,
+          "bottom": 526,
+          "center": 249.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "4dc601c03c0b11454264a032a2cba7f1b142ae78dccd74d89f9e2d96ba020822",
+        "sourceBounds": {
+          "left": 563,
+          "top": 39,
+          "right": 950,
+          "bottom": 525,
+          "center": 735.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "c84f4b1e5cf0e2cfd62e0a4e8df114e9fee6b37f7f6ed508b5337e54a3ae35ef",
+        "sourceBounds": {
+          "left": 1045,
+          "top": 38,
+          "right": 1429,
+          "bottom": 526,
+          "center": 1214
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "99b718576e389579702edb77cfb5c868f85524d3b3a12d5e1f14af5dd1933a2c",
+        "sourceBounds": {
+          "left": 52,
+          "top": 541,
+          "right": 500,
+          "bottom": 992,
+          "center": 238
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "69bb6dd06032527ff917972f6358de7e02f69ac30f7dd408b607126f1232fb85",
+        "sourceBounds": {
+          "left": 524,
+          "top": 551,
+          "right": 967,
+          "bottom": 988,
+          "center": 680.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "358ecc6ffe355bac2f1ac3119426d39b7a314001bced02313b72801fed7029be",
+        "sourceBounds": {
+          "left": 1051,
+          "top": 540,
+          "right": 1412,
+          "bottom": 1007,
+          "center": 1208
+        }
+      }
+    ]
   }
 ]

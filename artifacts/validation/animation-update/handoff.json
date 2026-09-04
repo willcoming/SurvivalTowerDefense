@@ -1,0 +1,158 @@
+{
+  "completedAt": "2026-09-04T13:47:43.038Z",
+  "baseRevision": "9356affc4a2c76a5c8516832b6879dead5293108",
+  "testedWithUncommittedChanges": true,
+  "runtimeSourceSha256": [
+    {
+      "path": "src/data/content.ts",
+      "sha256": "3eff4db947be3d7600b8259b647a8b0ecb45a41f0e6047432988681eb0edb910"
+    },
+    {
+      "path": "src/game/actors.ts",
+      "sha256": "34e0f01da1d53d38e617a952e5fba286601f9b473595475a83456194a59c8ef8"
+    },
+    {
+      "path": "src/game/audio.ts",
+      "sha256": "80b7a717dd65e9bbce6c1ccb9775de0c8a6f4f5350ff7e2ed6456c3863052cf6"
+    },
+    {
+      "path": "src/game/chroma.ts",
+      "sha256": "fe9d120a02efbc61b8d97cd89be10ca40d6e0cb10b500fc8cb5a9d370ac09215"
+    },
+    {
+      "path": "src/game/effects.ts",
+      "sha256": "a6a2be1b528d28dbf591315d1421398698c1b15ee0f2a0789d3d261e53270c3a"
+    },
+    {
+      "path": "src/game/presentation.ts",
+      "sha256": "f1389cf1b3db52a1fb2e4ab51d7d20c937a57e4d7b49352f9b17f9f2d992af06"
+    },
+    {
+      "path": "src/game/scene.ts",
+      "sha256": "65bbebd71d9970b5e7434189dfda44088efff2d7cb6c686b162b7bfcc844cb41"
+    },
+    {
+      "path": "src/main.ts",
+      "sha256": "3b6da529fd4f9f1fccc77a476e15e008f59172e848ca7b587ced4ad716f4aa98"
+    },
+    {
+      "path": "src/sim/combat.ts",
+      "sha256": "42be2ad6b15976f274c4b4ff7cfa66701ab8f16166b3ef134ed259d7cc7cbfbb"
+    },
+    {
+      "path": "src/sim/draft.ts",
+      "sha256": "eecf6369f3668b0aac250d4bb5aa6b124b798d9116e8291ede7071c82ee0588d"
+    },
+    {
+      "path": "src/sim/enemies.ts",
+      "sha256": "a6f7540508e3c79dc63eac8b84568c27f89910b87fe66a5a799a4a5f956335d9"
+    },
+    {
+      "path": "src/sim/engine.ts",
+      "sha256": "761e65aec9536563baf11c207552bed1a70245430cefa0ed95a6f759c5349e10"
+    },
+    {
+      "path": "src/sim/rng.ts",
+      "sha256": "3d5b09cf4f385474623bbf14082dd6c1b3bc8b59a3d496f0a9e336a3319aa7a1"
+    },
+    {
+      "path": "src/sim/spawn.ts",
+      "sha256": "87f96338578334c647990611751430d6f1bc7abf0b6e95795a62be10996057db"
+    },
+    {
+      "path": "src/sim/types.ts",
+      "sha256": "be61a4d32a541f11d1fe1356318b7733571d0dd72e6a012965bf7ead2f449183"
+    },
+    {
+      "path": "src/sim/visual.ts",
+      "sha256": "4df0fd73e313c1560aa1f0b341eeaf5b824318093b5b2704b65cd2c548703fe4"
+    },
+    {
+      "path": "src/sim/weapons.ts",
+      "sha256": "49c36b0e9d68e35ba71138533075d95abc45bb7f532f1f93ed54a62cfb39794c"
+    },
+    {
+      "path": "src/storage/repository.ts",
+      "sha256": "3f7398fc709fef37ae6b8d6e84ec7797710186de52ad84e66794b452fdc59c85"
+    },
+    {
+      "path": "src/ui/app.ts",
+      "sha256": "4ac114a9926add6eaf223a658216b70ed9dc3e72e99873818627893326480f55"
+    },
+    {
+      "path": "src/ui/battle.ts",
+      "sha256": "b2fb0d7911deb4d5bdff24cbb6300c3a413f69b457902a06aaf93f8d89acea55"
+    },
+    {
+      "path": "src/ui/format.ts",
+      "sha256": "e5216f329393f24a4b0d1c6ceecf51eadc84f4541cca1f38bc6ff79a9f20153d"
+    },
+    {
+      "path": "src/ui/lobby.ts",
+      "sha256": "1ccad47bfa4085a92faf0290947747a515120f68b22ec259fa02fd8a826a536b"
+    },
+    {
+      "path": "src/ui/model.ts",
+      "sha256": "6e4f7d1746351d489bc04e50363713d8f35997eb7725e49789ec13c76850e065"
+    },
+    {
+      "path": "src/ui/styles.css",
+      "sha256": "1fc61bc2613e2b4331a386a33a3cc92a23d6cdb78b9c3110abd487e32c68ab03"
+    }
+  ],
+  "productionFiles": [
+    {
+      "path": "dist/assets/index-B77g1J2l.css",
+      "sha256": "486cac1ed14c4a8dd161147f27c02f18c7b98c3e5b1572a8942d901db5b76cd8"
+    },
+    {
+      "path": "dist/assets/index-BhVOWlxC.js",
+      "sha256": "5bd75f944ae52895ac28090336b0085565f9ad49f8f2db0d1fb86a878ba49c42"
+    },
+    {
+      "path": "dist/index.html",
+      "sha256": "9c6ffa5f31f3f767c1178ee7a3b15f5e56fac2ff34e7a79578485f3ec61422a2"
+    }
+  ],
+  "checks": {
+    "rules": {
+      "passed": 97,
+      "total": 97
+    },
+    "browser": {
+      "startTime": "2026-09-04T13:41:39.728Z",
+      "duration": 191169.218,
+      "expected": 54,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "finale": {
+      "startTime": "2026-09-04T13:45:40.175Z",
+      "duration": 34826.722,
+      "expected": 8,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "uniqueBrowserCases": 58,
+    "formalGameplayUnchanged": true,
+    "production": true,
+    "assets": true,
+    "pressure": {
+      "passed": true,
+      "p95Ms": 30.09999999999991,
+      "ticksPerSecond": 90.00723123627482,
+      "sourceDigest": "c402799f0764b2370e3b1d48a29c13d1a82f0ec86f006cd6480b6957cd773e6c"
+    }
+  },
+  "visualQA": [
+    "36 real pose frames",
+    "Six live skill cut-ins and six distinct weapon actions",
+    "All 12 evolution forms at 3×",
+    "11 enemy hit/death fixtures",
+    "Mid-collapse of the final boss before result",
+    "3× warning text above 120-enemy/400-projectile pressure"
+  ],
+  "limitation": "Desktop Chromium/WebKit only. Peak-pressure measurement precedes the final victory-transition correction; subsequent targeted browser checks cover that correction, pause, persistence and repeated scene teardown. Actual phones and human playtests remain pending."
+}

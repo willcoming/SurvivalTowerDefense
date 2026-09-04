@@ -69,16 +69,16 @@ export function stepWeapons(s:RunState){
 export function tacticalCooldown(s:RunState){return ticks(CHARACTER_MAP[s.config.captainId].cooldown*(1-(s.commonRanks.G04??0)*.06));}
 export function castTactical(s:RunState):boolean{
   const id=s.config.captainId;if(s.tick<s.tacticalReadyAt||s.config.challengeId==='no-skill')return false;
-  const target=threat(s)[0];if(!target&&id!=='C06')return false;
+  const target=threat(s)[0];if(!target&&id!=='C06')return false;let visualTarget=target;
   const bonus=1+(s.commonRanks.G01??0)*.08,duration=1+(s.commonRanks.G06??0)*.1,radius=1+(s.commonRanks.G03??0)*.1;
   const p:DamagePacket={source:id,skill:'tactical',raw:0,damageType:CHARACTER_MAP[id].damageType,armorIgnore:0,shieldMultiplier:id==='C02'?1.25:1};
   if(id==='C01'){for(const t of area(s,target.x,target.y,90*radius))hitEnemy(s,t,{...p,raw:35*bonus});for(let i=1;i<4;i++)s.scheduled.push({at:s.tick+i*ticks(.2),packet:{...p,raw:35*bonus},x:target.x,y:target.y,radius:90*radius,enemyDamage:0,enemySource:null});}
   if(id==='C02')for(const t of alive(s))hitEnemy(s,t,{...p,raw:60*bonus,stun:ticks(1.5*duration)});
-  if(id==='C03'){const t=alive(s).sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];hitEnemy(s,t,{...p,raw:420*bonus,armorIgnore:1});emit(s,{kind:'beam',x:195,y:490,x2:t.x,y2:t.y,source:id});}
+  if(id==='C03'){const t=alive(s).sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];visualTarget=t;hitEnemy(s,t,{...p,raw:420*bonus,armorIgnore:1});emit(s,{kind:'beam',x:195,y:490,x2:t.x,y2:t.y,source:id,skill:'tactical'});}
   if(id==='C04')for(const t of alive(s))hitEnemy(s,t,{...p,raw:0,slow:{value:.5,duration:ticks(5*duration)},knockback:60});
   if(id==='C05')for(const t of area(s,target.x,target.y,100*radius))hitEnemy(s,t,{...p,raw:160*bonus,burn:{dps:12*bonus,duration:ticks(5*duration),armorIgnore:.5,key:'tactical'}});
   if(id==='C06')addShield(s,'tactical:C06',220,ticks(8));
-  s.tacticalReadyAt=s.tick+tacticalCooldown(s);s.stats.casts.push(s.tick);emit(s,{kind:'tactical',x:target?.x??195,y:target?.y??450,source:id,radius:100});return true;
+  s.tacticalReadyAt=s.tick+tacticalCooldown(s);s.stats.casts.push(s.tick);emit(s,{kind:'tactical',x:visualTarget?.x??195,y:visualTarget?.y??450,source:id,radius:(id==='C01'?90:100)*radius});return true;
 }
 export function applyUpgrade(s:RunState,nodeId:string){
   const before=new Map(s.weapons.map(w=>[w.id,weaponStats(s,w).interval]));const oldCooldown=tacticalCooldown(s);

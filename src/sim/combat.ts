@@ -1,9 +1,15 @@
 import { CHARACTER_MAP, ENEMY_MAP, ticks, WORLD } from '../data/content';
 import type { CharacterId, DamagePacket, Effect, Enemy, EnemyId, RunState, VisualEvent } from './types';
+import { visualPriority } from './visual';
 export const boss=(e:Enemy)=>e.defId.startsWith('B');
 export const alive=(s:RunState)=>s.enemies.filter(e=>e.hp>0);
 export const distance=(a:{x:number,y:number},b:{x:number,y:number})=>Math.hypot(a.x-b.x,a.y-b.y);
-export function emit(s:RunState,e:Omit<VisualEvent,'seq'|'tick'>){s.events.push({...e,seq:++s.eventSeq,tick:s.tick});if(s.events.length>100)s.events.splice(0,s.events.length-100);}
+export function emit(s:RunState,e:Omit<VisualEvent,'seq'|'tick'>){
+  const weapon=e.source?s.weapons.find(w=>w.id===e.source):undefined;
+  s.events.push({...e,...(weapon?{weaponRank:weapon.rank,weaponBranch:weapon.branch}:{}),seq:++s.eventSeq,tick:s.tick});
+  // Shed old decoration before primary attacks, and primary attacks before skill cues.
+  if(s.events.length>100){let index=0,priority=4;for(let i=0;i<s.events.length;i++){const p=visualPriority(s.events[i]);if(p<priority){index=i;priority=p;if(!p)break;}}s.events.splice(index,1);}
+}
 export function threat(s:RunState):Enemy[]{
   const rank=(e:Enemy)=>(e.chargeKind&&e.chargeUntil>s.tick)?(boss(e)?4:e.defId==='E05'?3:0):(e.y>=WORLD.wallY?2:0);
   return alive(s).sort((a,b)=>rank(b)-rank(a)||b.y-a.y||a.id-b.id);
@@ -51,11 +57,11 @@ export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
   const result=computeDamage(raw,e.shield,e.armor,p.armorIgnore,exposure,p.shieldMultiplier);
   const previousShield=e.shield;e.shield-=result.shieldDamage;const damage=Math.min(e.hp,result.hpDamage);e.hp-=damage;
   s.stats.damageByCharacter[p.source]+=damage;s.stats.shieldDamageByCharacter[p.source]+=result.shieldDamage;
-  emit(s,{kind:'hit',x:e.x,y:e.y,value:damage+result.shieldDamage,source:p.source,color:CHARACTER_MAP[p.source].color});
+  emit(s,{kind:'hit',x:e.x,y:e.y,value:damage+result.shieldDamage,source:p.source,color:CHARACTER_MAP[p.source].color,targetId:e.id,enemyDefId:e.defId,skill:p.skill});
   if(previousShield>0&&e.shield<=0&&e.defId==='B02'){interrupt(s,e);e.exposureUntil=s.tick+ticks(6);}
   if(e.hp<=0){
     s.stats.kills++;s.xp+=e.xp;s.choicesEarned=Math.min(18,Math.floor(s.xp/40));
-    if(boss(e))s.bossKilled=true;emit(s,{kind:'death',x:e.x,y:e.y,source:p.source});return;
+    if(boss(e))s.bossKilled=true;emit(s,{kind:'death',x:e.x,y:e.y,source:p.source,targetId:e.id,enemyDefId:e.defId});return;
   }
   if(p.burn)applyEffect(s,e,{id:`burn:${p.source}:${p.burn.key}`,kind:'burn',source:p.source,value:p.burn.dps,expires:s.tick+p.burn.duration,nextTick:s.tick+15,armorIgnore:p.burn.armorIgnore});
   if(p.slow)applyEffect(s,e,{id:`slow:${p.source}:${p.skill}`,kind:'slow',source:p.source,value:p.slow.value,expires:s.tick+p.slow.duration,nextTick:0,armorIgnore:0});

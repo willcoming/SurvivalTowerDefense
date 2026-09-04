@@ -7,7 +7,7 @@ import { digest, runPolicy, replayCommands, replayDigest, type RunReport } from 
 
 const quick = process.argv.includes('--quick');
 const seeds: readonly number[] = quick ? [101] : FORMAL_SEEDS;
-const dir = resolve('artifacts', 'validation', CONTENT_VERSION);
+const dir = process.env.VALIDATION_OUTPUT_DIR ? resolve(process.env.VALIDATION_OUTPUT_DIR) : resolve('artifacts', 'validation', CONTENT_VERSION);
 mkdirSync(dir, { recursive: true });
 const runs: RunReport[] = [];
 const errors: { buildId: string; seed: number; error: string }[] = [];

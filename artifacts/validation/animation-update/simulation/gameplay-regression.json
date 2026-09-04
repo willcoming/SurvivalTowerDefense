@@ -1,0 +1,158 @@
+{
+  "baseline": "artifacts/validation/0.1.0-dev.2/balance-runs.json",
+  "current": "artifacts/validation/animation-update/simulation/balance-runs.json",
+  "compared": "All per-run fields, including damage, timing, choices, commands, RNG-sensitive simulation digest, outcome.",
+  "comparisons": [
+    {
+      "build": "T01",
+      "seed": 101,
+      "identical": true
+    },
+    {
+      "build": "T01",
+      "seed": 211,
+      "identical": true
+    },
+    {
+      "build": "T01",
+      "seed": 307,
+      "identical": true
+    },
+    {
+      "build": "T01",
+      "seed": 401,
+      "identical": true
+    },
+    {
+      "build": "T01",
+      "seed": 503,
+      "identical": true
+    },
+    {
+      "build": "T01",
+      "seed": 601,
+      "identical": true
+    },
+    {
+      "build": "T01",
+      "seed": 709,
+      "identical": true
+    },
+    {
+      "build": "T01",
+      "seed": 809,
+      "identical": true
+    },
+    {
+      "build": "T01",
+      "seed": 907,
+      "identical": true
+    },
+    {
+      "build": "T01",
+      "seed": 1009,
+      "identical": true
+    },
+    {
+      "build": "T02",
+      "seed": 101,
+      "identical": true
+    },
+    {
+      "build": "T02",
+      "seed": 211,
+      "identical": true
+    },
+    {
+      "build": "T02",
+      "seed": 307,
+      "identical": true
+    },
+    {
+      "build": "T02",
+      "seed": 401,
+      "identical": true
+    },
+    {
+      "build": "T02",
+      "seed": 503,
+      "identical": true
+    },
+    {
+      "build": "T02",
+      "seed": 601,
+      "identical": true
+    },
+    {
+      "build": "T02",
+      "seed": 709,
+      "identical": true
+    },
+    {
+      "build": "T02",
+      "seed": 809,
+      "identical": true
+    },
+    {
+      "build": "T02",
+      "seed": 907,
+      "identical": true
+    },
+    {
+      "build": "T02",
+      "seed": 1009,
+      "identical": true
+    },
+    {
+      "build": "T03",
+      "seed": 101,
+      "identical": true
+    },
+    {
+      "build": "T03",
+      "seed": 211,
+      "identical": true
+    },
+    {
+      "build": "T03",
+      "seed": 307,
+      "identical": true
+    },
+    {
+      "build": "T03",
+      "seed": 401,
+      "identical": true
+    },
+    {
+      "build": "T03",
+      "seed": 503,
+      "identical": true
+    },
+    {
+      "build": "T03",
+      "seed": 601,
+      "identical": true
+    },
+    {
+      "build": "T03",
+      "seed": 709,
+      "identical": true
+    },
+    {
+      "build": "T03",
+      "seed": 809,
+      "identical": true
+    },
+    {
+      "build": "T03",
+      "seed": 907,
+      "identical": true
+    },
+    {
+      "build": "T03",
+      "seed": 1009,
+      "identical": true
+    }
+  ],
+  "passed": true
+}

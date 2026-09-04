@@ -1,0 +1,26 @@
+{
+  "samples": [
+    {
+      "speed": 1,
+      "ticksPerSecond": 29.729952926696484
+    },
+    {
+      "speed": 2,
+      "ticksPerSecond": 58.877187164278745
+    },
+    {
+      "speed": 3,
+      "ticksPerSecond": 89.76063829876166
+    }
+  ],
+  "layout": {
+    "overflow": false,
+    "width": 44,
+    "height": 44,
+    "overlap": false
+  },
+  "restoredSpeed": 3,
+  "pausedTick": 225,
+  "draftTick": 469,
+  "errors": []
+}

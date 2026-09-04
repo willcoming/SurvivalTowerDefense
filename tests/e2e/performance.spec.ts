@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { arch, cpus, platform, release } from 'node:os';
 import { CONTENT_VERSION } from '../../src/data/content';
+const output = process.env.VALIDATION_OUTPUT_DIR ?? `artifacts/validation/${CONTENT_VERSION}`;
 function sourceFiles(dir: string): string[] { return readdirSync(dir, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? sourceFiles(resolve(dir, entry.name)) : [resolve(dir, entry.name)]).sort(); }
 test.beforeEach(async ({ page }) => { await page.routeWebSocket('**/*', socket => socket.close()); });
 test.use({ trace: 'off' });
@@ -81,9 +82,10 @@ for (const dynamic of [false, true]) test(`PERF01: desktop Chromium 60s ${dynami
   const p95 = sorted[Math.floor(sorted.length * .95)];
   const host = { cpu: cpus()[0]?.model ?? 'unknown', logicalCpus: cpus().length, platform: platform(), release: release(), architecture: arch() };
   const artifact = { contentVersion: CONTENT_VERSION, sourceDigest, measuredAt: new Date().toISOString(), host, browser: info.project.name, browserVersion: await page.evaluate(() => navigator.userAgent), viewport: page.viewportSize(), fixture: { ...fixture, syntheticPresentationUpdatesHz: dynamic ? 30 : 0, transientEffectsPerUpdate: dynamic ? 3 : 0 }, renderer, tracingEnabled: false, durationMs: frames.reduce((n, t) => n + t, 0), samples: frames.length, p95FrameTimeMs: p95, maxFrameTimeMs: sorted.at(-1), gateReferenceMs: 33.3, desktopRenderPassed: p95 <= 33.3, limitation: `Synthetic paused game logic, active Phaser render${dynamic ? ' with synthetic 30Hz tick/position/event changes to rebuild cached world geometry' : ' using the paused world cache'}. Desktop headless Chromium only; not a real iPhone/Android GPU or live combat logic performance result. Playwright tracing disabled during measurement; screenshot taken afterward.`, frameTimesMs: frames };
-  mkdirSync(`artifacts/validation/${CONTENT_VERSION}/browser-results`, { recursive: true });
-  writeFileSync(`artifacts/validation/${CONTENT_VERSION}/browser-results/desktop-render-performance${dynamic ? '-dynamic' : ''}.json`, JSON.stringify(artifact, null, 2));
-  await page.screenshot({ path: `artifacts/validation/${CONTENT_VERSION}/screenshots/desktop-render-stress${dynamic ? '-dynamic' : ''}.png` });
+  mkdirSync(`${output}/browser-results`, { recursive: true });
+  mkdirSync(`${output}/screenshots`, { recursive: true });
+  writeFileSync(`${output}/browser-results/desktop-render-performance${dynamic ? '-dynamic' : ''}.json`, JSON.stringify(artifact, null, 2));
+  await page.screenshot({ path: `${output}/screenshots/desktop-render-stress${dynamic ? '-dynamic' : ''}.png` });
   expect(fixture).toEqual({ enemies: 120, visibleProjectiles: 400, fields: 12, bossId: 'B01', stageId: 'S01', pausedSimulation: true });
   expect(frames.length).toBeGreaterThan(1000);
   expect(p95).toBeLessThanOrEqual(33.3);

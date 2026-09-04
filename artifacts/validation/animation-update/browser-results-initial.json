@@ -1,0 +1,2349 @@
+{
+  "config": {
+    "argv": [
+      "/Users/willcoming/.hermes/node/bin/node",
+      "/Users/willcoming/code/SurvivalTowerDefense/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/animation.spec.ts",
+      "tests/e2e/game.spec.ts",
+      "--reporter=list,json"
+    ],
+    "configFile": "/Users/willcoming/code/SurvivalTowerDefense/playwright.config.ts",
+    "rootDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev -- --host 0.0.0.0 --port 5173 --strictPort",
+      "url": "http://127.0.0.1:5173",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "animation.spec.ts",
+      "file": "animation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ANIM C01: six real sprite poses, skill at 1× and 3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8668,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:30:59.389Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-1e509ebae751c1a96b59",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM C02: six real sprite poses, skill at 1× and 3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5012,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:08.213Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-5c272681fea35702b063",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM C03: six real sprite poses, skill at 1× and 3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8439,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:13.231Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-827c9dcb649442bd1216",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM C04: six real sprite poses, skill at 1× and 3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4859,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:21.675Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-fb7872313a022d49b50e",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM C05: six real sprite poses, skill at 1× and 3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4856,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:26.540Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-a675ac827c1737bfd6b6",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM C06: six real sprite poses, skill at 1× and 3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4843,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:31.401Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-25df8cbc4c9e9c58c794",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM: pause freezes animation and refresh does not replay an old skill",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3387,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:36.249Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-21fc090e510d5b062910",
+          "file": "animation.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "ANIM C01-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1526,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:39.640Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-0a37d44cf594faa9b662",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C01-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1566,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:41.171Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-4b7caeb16865302e8fa4",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C02-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1887,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:42.742Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-a5bfc84f29197417a72e",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C02-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1538,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:44.633Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-5a27f8edb93007e4122d",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C03-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1712,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:46.176Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-636ee48297bdbfd47b51",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C03-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1519,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:47.892Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-a3497244a3d183c92194",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C04-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1529,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:49.415Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-df3c5fd4f0b1a1b78b27",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C04-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1574,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:50.949Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-c509f6fc24b20d85c0d4",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C05-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1746,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:52.527Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-1ceedc79702d11d6a072",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C05-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1527,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:54.278Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-6d580c19cfe534d75a7d",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C06-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1481,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:55.808Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-747cfed3308175a1e125",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C06-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1552,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:57.295Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-8adc440d429e62c31bd1",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM: all eight enemy types and three bosses react and collapse",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2565,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:106:99",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                      "column": 99,
+                      "line": 106
+                    },
+                    "snippet": "  104 |       await page.evaluate(async targetId => { const path='/src/sim/combat.ts';const {hitEnemy}=await import(path);const s=window.__game.state()!,e=s.enemies.find(e=>e.id===targetId)!;hitEnemy(s,e,{source:'C01',skill:'animation-fixture',raw:100000,damageType:'plasma',armorIgnore:1,shieldMultiplier:1}); },targetId);\n  105 |       await page.waitForFunction(defId=>window.__game.presentation().deathTypes.includes(defId),defId);\n> 106 |       const view=await page.evaluate(()=>window.__game.presentation());expect(view.activeCorpses).toBeGreaterThan(0);\n      |                                                                                                   ^\n  107 |       await page.screenshot({path:`${dir}/screenshots/${info.project.name}-${defId}-death.png`});\n  108 |       await page.waitForTimeout(720);\n  109 |       expect(await page.evaluate(()=>window.__game.presentation().activeCorpses)).toBe(0);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                        "column": 99,
+                        "line": 106
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n\n  104 |       await page.evaluate(async targetId => { const path='/src/sim/combat.ts';const {hitEnemy}=await import(path);const s=window.__game.state()!,e=s.enemies.find(e=>e.id===targetId)!;hitEnemy(s,e,{source:'C01',skill:'animation-fixture',raw:100000,damageType:'plasma',armorIgnore:1,shieldMultiplier:1}); },targetId);\n  105 |       await page.waitForFunction(defId=>window.__game.presentation().deathTypes.includes(defId),defId);\n> 106 |       const view=await page.evaluate(()=>window.__game.presentation());expect(view.activeCorpses).toBeGreaterThan(0);\n      |                                                                                                   ^\n  107 |       await page.screenshot({path:`${dir}/screenshots/${info.project.name}-${defId}-death.png`});\n  108 |       await page.waitForTimeout(720);\n  109 |       expect(await page.evaluate(()=>window.__game.presentation().activeCorpses)).toBe(0);\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:106:99"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:31:58.851Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-all-eight-e-5744a-e-bosses-react-and-collapse-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-all-eight-e-5744a-e-bosses-react-and-collapse-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-all-eight-e-5744a-e-bosses-react-and-collapse-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                    "column": 99,
+                    "line": 106
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-6f538fe6f35baef72fd4",
+          "file": "animation.spec.ts",
+          "line": 94,
+          "column": 1
+        },
+        {
+          "title": "ANIM: 3× pressure and reduced effects preserve charging warnings above skills",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2067,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:32:01.815Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-ed97b2ac94f41d7e31ec",
+          "file": "animation.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "ANIM C01: six real sprite poses, skill at 1× and 3×",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 8168,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                      "column": 33,
+                      "line": 41
+                    },
+                    "snippet": "  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                        "column": 33,
+                        "line": 41
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n\n  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:32:27.313Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C01-six-real-sprite-poses-skill-at-1×-and-3×-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C01-six-real-sprite-poses-skill-at-1×-and-3×-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C01-six-real-sprite-poses-skill-at-1×-and-3×-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                    "column": 33,
+                    "line": 41
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-3d69e9b197886396fc1a",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM C02: six real sprite poses, skill at 1× and 3×",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7672,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                      "column": 33,
+                      "line": 41
+                    },
+                    "snippet": "  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                        "column": 33,
+                        "line": 41
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n\n  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:32:36.411Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C02-six-real-sprite-poses-skill-at-1×-and-3×-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C02-six-real-sprite-poses-skill-at-1×-and-3×-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C02-six-real-sprite-poses-skill-at-1×-and-3×-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                    "column": 33,
+                    "line": 41
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-57574514e518de9def06",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM C03: six real sprite poses, skill at 1× and 3×",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7999,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                      "column": 33,
+                      "line": 41
+                    },
+                    "snippet": "  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                        "column": 33,
+                        "line": 41
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n\n  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:32:44.607Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C03-six-real-sprite-poses-skill-at-1×-and-3×-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C03-six-real-sprite-poses-skill-at-1×-and-3×-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C03-six-real-sprite-poses-skill-at-1×-and-3×-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                    "column": 33,
+                    "line": 41
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-681af2f5f461cf2dc2e6",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM C04: six real sprite poses, skill at 1× and 3×",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7698,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                      "column": 33,
+                      "line": 41
+                    },
+                    "snippet": "  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                        "column": 33,
+                        "line": 41
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n\n  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:32:53.152Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C04-six-real-sprite-poses-skill-at-1×-and-3×-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C04-six-real-sprite-poses-skill-at-1×-and-3×-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C04-six-real-sprite-poses-skill-at-1×-and-3×-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                    "column": 33,
+                    "line": 41
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-211c407c4e4badc77160",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM C05: six real sprite poses, skill at 1× and 3×",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7713,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                      "column": 33,
+                      "line": 41
+                    },
+                    "snippet": "  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                        "column": 33,
+                        "line": 41
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n\n  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:01.393Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C05-six-real-sprite-poses-skill-at-1×-and-3×-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C05-six-real-sprite-poses-skill-at-1×-and-3×-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C05-six-real-sprite-poses-skill-at-1×-and-3×-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                    "column": 33,
+                    "line": 41
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-c28c6329aca4fe4c35cf",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM C06: six real sprite poses, skill at 1× and 3×",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4594,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                      "column": 33,
+                      "line": 41
+                    },
+                    "snippet": "  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                        "column": 33,
+                        "line": 41
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n\n  39 |     expect(before.cutin.duration).toBe(500); expect(before.cutin.top).toBeGreaterThan(before.warnings.bottom);\n  40 |     expect(before.warnings.depth).toBeGreaterThan(before.cutin.depth);\n> 41 |     expect(after.cutin.visible).toBe(false); expect(after.tick).toBeGreaterThan(before.tick);\n     |                                 ^\n  42 |     samples.push({ speed, before, after });\n  43 |   }\n  44 |   writeFileSync(`${dir}/${info.project.name}-${id}-skills.json`, JSON.stringify({ evidence: 'Real-time legal initial battles and DOM skill casts; no combat fixture edits.', samples, errors }, null, 2));\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:41:33"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:09.643Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C06-six-real-sprite-poses-skill-at-1×-and-3×-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C06-six-real-sprite-poses-skill-at-1×-and-3×-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-C06-six-real-sprite-poses-skill-at-1×-and-3×-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                    "column": 33,
+                    "line": 41
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-3b0359a85698f0f0fe8c",
+          "file": "animation.spec.ts",
+          "line": 22,
+          "column": 33
+        },
+        {
+          "title": "ANIM: pause freezes animation and refresh does not replay an old skill",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2824,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:14.727Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-56aaeaa4eb34505f3914",
+          "file": "animation.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "ANIM C01-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1260,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:17.703Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-5cbfc60f088a2bbaa078",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C01-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1281,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:18.968Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-c1f57372582cb620ce41",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C02-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1330,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:20.252Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-471af69c93c2643ec5c2",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C02-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1291,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:21.587Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-f498c7227ff33a8674dd",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C03-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1337,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:22.882Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-a8ee3de531d47adbdd08",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C03-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1340,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:24.223Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-cd00c940fe12877f7e82",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C04-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1321,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:25.566Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-efc931e72b0a6dc10d7e",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C04-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1272,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:26.892Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-bd1bd1a04bdb3032c30c",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C05-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1353,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:28.169Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-3097465404dfa5af63ea",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C05-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1297,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:29.527Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-b467e7de3acbfddbb024",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C06-A: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1330,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:30.828Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-4efe1bbd2514505c47b3",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM C06-B: evolution form rendered at 1×/3×",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1323,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:32.163Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-6cdf3fcdd6c15099581b",
+          "file": "animation.spec.ts",
+          "line": 68,
+          "column": 74
+        },
+        {
+          "title": "ANIM: all eight enemy types and three bosses react and collapse",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 10305,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:109:83",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                      "column": 83,
+                      "line": 109
+                    },
+                    "snippet": "  107 |       await page.screenshot({path:`${dir}/screenshots/${info.project.name}-${defId}-death.png`});\n  108 |       await page.waitForTimeout(720);\n> 109 |       expect(await page.evaluate(()=>window.__game.presentation().activeCorpses)).toBe(0);\n      |                                                                                   ^\n  110 |       samples.push({defId,view});\n  111 |     }\n  112 |   }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                        "column": 83,
+                        "line": 109
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n  107 |       await page.screenshot({path:`${dir}/screenshots/${info.project.name}-${defId}-death.png`});\n  108 |       await page.waitForTimeout(720);\n> 109 |       expect(await page.evaluate(()=>window.__game.presentation().activeCorpses)).toBe(0);\n      |                                                                                   ^\n  110 |       samples.push({defId,view});\n  111 |     }\n  112 |   }\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts:109:83"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:33.490Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-all-eight-e-5744a-e-bosses-react-and-collapse-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-all-eight-e-5744a-e-bosses-react-and-collapse-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/animation-ANIM-all-eight-e-5744a-e-bosses-react-and-collapse-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation.spec.ts",
+                    "column": 83,
+                    "line": 109
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-d0c8f7044dc9d3dea287",
+          "file": "animation.spec.ts",
+          "line": 94,
+          "column": 1
+        },
+        {
+          "title": "ANIM: 3× pressure and reduced effects preserve charging warnings above skills",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1506,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:44.282Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "79e75bce57fbccf461eb-bb3b553516345f26284b",
+          "file": "animation.spec.ts",
+          "line": 116,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "game.spec.ts",
+      "file": "game.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "AC01/02: fresh local game, all six characters, legal squad and three responsive widths",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1475,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:32:03.984Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-25f5fd413a2b9a13a44b",
+          "file": "game.spec.ts",
+          "line": 34,
+          "column": 1
+        },
+        {
+          "title": "AC05/06/09: real draft, reroll, reload preservation, explicit card confirmation and pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2857,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:32:05.463Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-239dd1b8d2496bc66b39",
+          "file": "game.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "AC09: denied storage is explicit and allows temporary play without fake saved status",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 901,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:32:08.324Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-d261c37c87f16f52556a",
+          "file": "game.spec.ts",
+          "line": 92,
+          "column": 1
+        },
+        {
+          "title": "AC06/UI05: mobile landscape suspends combat and returning portrait keeps explicit user pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1539,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:32:09.230Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-56844cf8db4fdbfdc14c",
+          "file": "game.spec.ts",
+          "line": 101,
+          "column": 1
+        },
+        {
+          "title": "BAL05/AC07/12: browser replays a legitimate complete win and survives five consecutive menu returns",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4563,
+                  "error": {
+                    "message": "Error: ENOENT: no such file or directory, open 'artifacts/validation/animation-update/regression/browser-results/chromium-replay-cycles.json'",
+                    "stack": "Error: ENOENT: no such file or directory, open 'artifacts/validation/animation-update/regression/browser-results/chromium-replay-cycles.json'\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/game.spec.ts:170:3",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/game.spec.ts",
+                      "column": 3,
+                      "line": 170
+                    },
+                    "snippet": "  168 |   }\n  169 |   const counts = cycles as { canvasCount: number; pendingAnimationFrames: number; activeRunCleared: boolean }[];\n> 170 |   writeFileSync(`${output}/browser-results/${info.project.name}-replay-cycles.json`, JSON.stringify({ contentVersion: CONTENT_VERSION, browser: info.project.name, environment: 'desktop browser engine, not physical mobile', seed: 101, replayedStages: stages, replayPassed: true, cycles }, null, 2));\n      |   ^\n  171 |   expect(counts.every(c => c.canvasCount === 0 && c.activeRunCleared)).toBe(true);\n  172 |   expect(counts[4].pendingAnimationFrames).toBeLessThanOrEqual(counts[0].pendingAnimationFrames);\n  173 | });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/game.spec.ts",
+                        "column": 3,
+                        "line": 170
+                      },
+                      "message": "Error: ENOENT: no such file or directory, open 'artifacts/validation/animation-update/regression/browser-results/chromium-replay-cycles.json'\n\n  168 |   }\n  169 |   const counts = cycles as { canvasCount: number; pendingAnimationFrames: number; activeRunCleared: boolean }[];\n> 170 |   writeFileSync(`${output}/browser-results/${info.project.name}-replay-cycles.json`, JSON.stringify({ contentVersion: CONTENT_VERSION, browser: info.project.name, environment: 'desktop browser engine, not physical mobile', seed: 101, replayedStages: stages, replayPassed: true, cycles }, null, 2));\n      |   ^\n  171 |   expect(counts.every(c => c.canvasCount === 0 && c.activeRunCleared)).toBe(true);\n  172 |   expect(counts[4].pendingAnimationFrames).toBeLessThanOrEqual(counts[0].pendingAnimationFrames);\n  173 | });\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/game.spec.ts:170:3"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:32:10.775Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/game-BAL05-AC07-12-browser-02aed-ve-consecutive-menu-returns-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/game-BAL05-AC07-12-browser-02aed-ve-consecutive-menu-returns-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/game-BAL05-AC07-12-browser-02aed-ve-consecutive-menu-returns-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/game.spec.ts",
+                    "column": 3,
+                    "line": 170
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-ba351cfe0fdc79004997",
+          "file": "game.spec.ts",
+          "line": 115,
+          "column": 1
+        },
+        {
+          "title": "SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore the local preference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11254,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:32:15.762Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-6ec6599a92bc811533b7",
+          "file": "game.spec.ts",
+          "line": 175,
+          "column": 1
+        },
+        {
+          "title": "AC01/02: fresh local game, all six characters, legal squad and three responsive widths",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1550,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:45.958Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-b3c3852fd8d07347af53",
+          "file": "game.spec.ts",
+          "line": 34,
+          "column": 1
+        },
+        {
+          "title": "AC05/06/09: real draft, reroll, reload preservation, explicit card confirmation and pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2665,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:47.512Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-a42843d57e1d62d383e6",
+          "file": "game.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "AC09: denied storage is explicit and allows temporary play without fake saved status",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 843,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:50.183Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-af30c7f75c85426e2501",
+          "file": "game.spec.ts",
+          "line": 92,
+          "column": 1
+        },
+        {
+          "title": "AC06/UI05: mobile landscape suspends combat and returning portrait keeps explicit user pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1826,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:51.033Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-23621f54340185855868",
+          "file": "game.spec.ts",
+          "line": 101,
+          "column": 1
+        },
+        {
+          "title": "BAL05/AC07/12: browser replays a legitimate complete win and survives five consecutive menu returns",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3968,
+                  "error": {
+                    "message": "Error: ENOENT: no such file or directory, open 'artifacts/validation/animation-update/regression/browser-results/webkit-replay-cycles.json'",
+                    "stack": "Error: ENOENT: no such file or directory, open 'artifacts/validation/animation-update/regression/browser-results/webkit-replay-cycles.json'\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/game.spec.ts:170:3",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/game.spec.ts",
+                      "column": 3,
+                      "line": 170
+                    },
+                    "snippet": "  168 |   }\n  169 |   const counts = cycles as { canvasCount: number; pendingAnimationFrames: number; activeRunCleared: boolean }[];\n> 170 |   writeFileSync(`${output}/browser-results/${info.project.name}-replay-cycles.json`, JSON.stringify({ contentVersion: CONTENT_VERSION, browser: info.project.name, environment: 'desktop browser engine, not physical mobile', seed: 101, replayedStages: stages, replayPassed: true, cycles }, null, 2));\n      |   ^\n  171 |   expect(counts.every(c => c.canvasCount === 0 && c.activeRunCleared)).toBe(true);\n  172 |   expect(counts[4].pendingAnimationFrames).toBeLessThanOrEqual(counts[0].pendingAnimationFrames);\n  173 | });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/game.spec.ts",
+                        "column": 3,
+                        "line": 170
+                      },
+                      "message": "Error: ENOENT: no such file or directory, open 'artifacts/validation/animation-update/regression/browser-results/webkit-replay-cycles.json'\n\n  168 |   }\n  169 |   const counts = cycles as { canvasCount: number; pendingAnimationFrames: number; activeRunCleared: boolean }[];\n> 170 |   writeFileSync(`${output}/browser-results/${info.project.name}-replay-cycles.json`, JSON.stringify({ contentVersion: CONTENT_VERSION, browser: info.project.name, environment: 'desktop browser engine, not physical mobile', seed: 101, replayedStages: stages, replayPassed: true, cycles }, null, 2));\n      |   ^\n  171 |   expect(counts.every(c => c.canvasCount === 0 && c.activeRunCleared)).toBe(true);\n  172 |   expect(counts[4].pendingAnimationFrames).toBeLessThanOrEqual(counts[0].pendingAnimationFrames);\n  173 | });\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/game.spec.ts:170:3"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:52.864Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/game-BAL05-AC07-12-browser-02aed-ve-consecutive-menu-returns-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/game-BAL05-AC07-12-browser-02aed-ve-consecutive-menu-returns-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.1.0-dev.2/browser-results/test-output/game-BAL05-AC07-12-browser-02aed-ve-consecutive-menu-returns-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/game.spec.ts",
+                    "column": 3,
+                    "line": 170
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-277e5dda2629350780aa",
+          "file": "game.spec.ts",
+          "line": 115,
+          "column": 1
+        },
+        {
+          "title": "SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore the local preference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9855,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T13:33:57.212Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-936daa66dfd90408886d",
+          "file": "game.spec.ts",
+          "line": 175,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-04T13:30:59.080Z",
+    "duration": 188193.261,
+    "expected": 44,
+    "skipped": 0,
+    "unexpected": 10,
+    "flaky": 0
+  }
+}

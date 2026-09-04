@@ -5,14 +5,17 @@ import { BUILD_POLICIES, configFor } from '../simulation/policies';
 import { runPolicy } from '../simulation/runner';
 import type { Command, RunConfig, RunState } from '../../src/sim/types';
 import type { GameSave } from '../../src/storage/repository';
+import type { BattleScene } from '../../src/game/scene';
 
 interface BrowserApi {
   state(): RunState | null; getSave(): GameSave; command(command: Command): boolean;
   ticks(count: number): void; start(config: RunConfig): Promise<void>; save(): Promise<void>; route(page: string): void;
+  presentation(): ReturnType<BattleScene['diagnostics']>;
 }
 declare global { interface Window { __game: BrowserApi; __rafPending: number } }
 const output = process.env.VALIDATION_OUTPUT_DIR ?? `artifacts/validation/${CONTENT_VERSION}`;
 mkdirSync(`${output}/screenshots`, { recursive: true });
+mkdirSync(`${output}/browser-results`, { recursive: true });
 // Production has no Vite HMR socket; isolate tests from unrelated asset/document writes.
 test.beforeEach(async ({ page }) => { await page.routeWebSocket('**/*', socket => socket.close()); });
 
@@ -218,7 +221,7 @@ test('SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore t
   });
   expect(layout.overflow).toBe(false); expect(layout.overlap).toBe(false);
   expect(layout.width).toBeGreaterThanOrEqual(44); expect(layout.height).toBeGreaterThanOrEqual(44);
-  const dir = 'artifacts/validation/speed-update'; mkdirSync(dir, { recursive: true });
+  const dir = process.env.VALIDATION_OUTPUT_DIR ?? 'artifacts/validation/speed-update'; mkdirSync(dir, { recursive: true });
   await page.screenshot({ path: `${dir}/${info.project.name}-3x-320.png`, fullPage: true });
   writeFileSync(`${dir}/${info.project.name}.json`, JSON.stringify({ samples, layout, restoredSpeed: 3, pausedTick: paused.tick, draftTick: draft.tick, errors }, null, 2));
   expect(errors).toEqual([]);

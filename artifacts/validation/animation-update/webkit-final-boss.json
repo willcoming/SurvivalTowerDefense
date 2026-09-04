@@ -1,0 +1,187 @@
+{
+  "evidence": "Synthetic final-hit setup; the actual weapon and simulation trigger victory, with normal immediate completion persistence.",
+  "before": {
+    "tick": 10,
+    "view": {
+      "clock": 332,
+      "poses": {
+        "C03": {
+          "frame": 3,
+          "seen": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C03"
+        },
+        "C01": {
+          "frame": 5,
+          "seen": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C01"
+        },
+        "C02": {
+          "frame": 5,
+          "seen": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C02"
+        },
+        "C04": {
+          "frame": 5,
+          "seen": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C04"
+        },
+        "C05": {
+          "frame": 5,
+          "seen": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C05"
+        }
+      },
+      "forms": [
+        "C03-base",
+        "C01-base",
+        "C02-base",
+        "C04-base",
+        "C05-base"
+      ],
+      "skills": [],
+      "hitTypes": [
+        "E01",
+        "B01"
+      ],
+      "deathTypes": [
+        "B01",
+        "E01"
+      ],
+      "activeCorpses": 4,
+      "corpseIds": [
+        6,
+        1,
+        2,
+        3
+      ],
+      "hurtIds": [],
+      "maxCorpses": 4,
+      "aliveImages": 0,
+      "cutin": {
+        "visible": false,
+        "id": null,
+        "age": null,
+        "duration": 500,
+        "top": 343,
+        "bottom": 435,
+        "depth": 20
+      },
+      "detail": "full",
+      "activeEffects": 8,
+      "peakEffects": 8,
+      "warnings": {
+        "visible": false,
+        "text": "",
+        "top": 21.1640625,
+        "bottom": 48.8359375,
+        "depth": 100,
+        "geometryDepth": 90
+      },
+      "textureFrames": {
+        "C03": 6,
+        "C01": 6,
+        "C02": 6,
+        "C04": 6,
+        "C05": 6
+      }
+    },
+    "profile": {
+      "schemaVersion": 1,
+      "cleared": [
+        "S01"
+      ],
+      "seenEnemies": [
+        "E01",
+        "B01"
+      ],
+      "best": {
+        "S01": {
+          "time": 10,
+          "hp": 1000
+        }
+      },
+      "challengeClears": [],
+      "recentRuns": [
+        {
+          "runId": "5392ed9e-692c-4083-951b-6f044e12a87e",
+          "stageId": "S01",
+          "seed": 101,
+          "squadIds": [
+            "C03",
+            "C01",
+            "C02",
+            "C04",
+            "C05"
+          ],
+          "captainId": "C03",
+          "outcome": "victory",
+          "tick": 10,
+          "wallHp": 1000,
+          "stats": {
+            "kills": 1,
+            "damageByCharacter": {
+              "C01": 0,
+              "C02": 26,
+              "C03": 69,
+              "C04": 31,
+              "C05": 0,
+              "C06": 0
+            },
+            "shieldDamageByCharacter": {
+              "C01": 0,
+              "C02": 0,
+              "C03": 0,
+              "C04": 0,
+              "C05": 0,
+              "C06": 0
+            },
+            "wallDamageByEnemy": {},
+            "shieldAbsorbed": 0,
+            "controlTicks": {
+              "C01": 0,
+              "C02": 0,
+              "C03": 0,
+              "C04": 8,
+              "C05": 0,
+              "C06": 0
+            },
+            "choices": [],
+            "casts": [],
+            "encountered": [
+              "E01",
+              "B01"
+            ]
+          },
+          "challengeId": null
+        }
+      ]
+    }
+  },
+  "reload": false,
+  "passed": true
+}

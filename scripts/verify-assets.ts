@@ -6,6 +6,7 @@ import { CONTENT_VERSION, CHARACTER_IDS, ENEMIES, STAGES } from '../src/data/con
 const expected = [
   ...CHARACTER_IDS.flatMap(id => [`characters/${id}-portrait.webp`, `characters/${id}-chibi.webp`, `weapons/${id}.webp`, `evolutions/${id}-A.webp`, `evolutions/${id}-B.webp`]),
   ...ENEMIES.map(e => `enemies/${e.id}.webp`), ...STAGES.map(s => `stages/${s.id}.webp`),
+  ...CHARACTER_IDS.map(id => `animations/${id}-motion.webp`),
 ];
 const manifest = JSON.parse(readFileSync('public/assets/manifest.json', 'utf8')) as {assetId:string;path:string;width:number;height:number;bytes:number}[];
 const missing = expected.filter(path => !existsSync(`public/assets/${path}`));
@@ -26,6 +27,7 @@ const result={contentVersion:CONTENT_VERSION,measuredAt:new Date().toISOString()
   passed:missing.length===0&&invalidManifest.length===0&&runtimeBytes<=20*1024**2&&bundleGzip+homeImages<=4*1024**2&&bundleGzip+runtimeBytes<=8*1024**2&&decodedAllBytes+keyedCopies+390*520*4<=128*1024**2,
   sha256:files.map(path=>({path,hash:createHash('sha256').update(readFileSync(path)).digest('hex')})),
 };
-mkdirSync(`artifacts/validation/${CONTENT_VERSION}`,{recursive:true});writeFileSync(`artifacts/validation/${CONTENT_VERSION}/asset-budget.json`,JSON.stringify(result,null,2));
+const outputDir=process.env.VALIDATION_OUTPUT_DIR??`artifacts/validation/${CONTENT_VERSION}`;
+mkdirSync(outputDir,{recursive:true});writeFileSync(`${outputDir}/asset-budget.json`,JSON.stringify(result,null,2));
 console.log(JSON.stringify({...result,sha256:undefined},null,2));
 if(!result.passed)process.exitCode=1;

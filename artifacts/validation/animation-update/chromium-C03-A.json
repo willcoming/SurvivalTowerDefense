@@ -1,0 +1,250 @@
+{
+  "evidence": "Synthetic presentation fixture with explicit evolution/target setup; normal combat/render loop drives the effects.",
+  "samples": [
+    {
+      "speed": 1,
+      "view": {
+        "clock": 250.89999999999986,
+        "poses": {
+          "C03": {
+            "frame": 4,
+            "seen": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C03"
+          },
+          "C01": {
+            "frame": 0,
+            "seen": [
+              0,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C01"
+          },
+          "C02": {
+            "frame": 0,
+            "seen": [
+              0,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C02"
+          },
+          "C04": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C04"
+          },
+          "C05": {
+            "frame": 1,
+            "seen": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C05"
+          }
+        },
+        "forms": [
+          "C03-base",
+          "C01-base",
+          "C02-base",
+          "C04-base",
+          "C05-base",
+          "C03-A"
+        ],
+        "skills": [],
+        "hitTypes": [
+          "E01",
+          "E02",
+          "E03"
+        ],
+        "deathTypes": [
+          "E02",
+          "E01"
+        ],
+        "activeCorpses": 4,
+        "corpseIds": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "hurtIds": [
+          7,
+          11
+        ],
+        "maxCorpses": 4,
+        "aliveImages": 8,
+        "cutin": {
+          "visible": false,
+          "id": null,
+          "age": null,
+          "duration": 500,
+          "top": 343,
+          "bottom": 435,
+          "depth": 20
+        },
+        "detail": "full",
+        "activeEffects": 8,
+        "peakEffects": 10,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1591796875,
+          "bottom": 48.8408203125,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C03": 6,
+          "C01": 6,
+          "C02": 6,
+          "C04": 6,
+          "C05": 6
+        }
+      }
+    },
+    {
+      "speed": 3,
+      "view": {
+        "clock": 424.29999999999995,
+        "poses": {
+          "C03": {
+            "frame": 4,
+            "seen": [
+              0,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C03"
+          },
+          "C01": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C01"
+          },
+          "C02": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C02"
+          },
+          "C04": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C04"
+          },
+          "C05": {
+            "frame": 1,
+            "seen": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C05"
+          }
+        },
+        "forms": [
+          "C03-base",
+          "C01-base",
+          "C02-base",
+          "C04-base",
+          "C05-base",
+          "C03-A"
+        ],
+        "skills": [],
+        "hitTypes": [
+          "E01",
+          "E02",
+          "E03"
+        ],
+        "deathTypes": [
+          "E02",
+          "E01"
+        ],
+        "activeCorpses": 4,
+        "corpseIds": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "hurtIds": [
+          7,
+          11
+        ],
+        "maxCorpses": 4,
+        "aliveImages": 8,
+        "cutin": {
+          "visible": false,
+          "id": null,
+          "age": null,
+          "duration": 500,
+          "top": 343,
+          "bottom": 435,
+          "depth": 20
+        },
+        "detail": "full",
+        "activeEffects": 4,
+        "peakEffects": 10,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1591796875,
+          "bottom": 48.8408203125,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C03": 6,
+          "C01": 6,
+          "C02": 6,
+          "C04": 6,
+          "C05": 6
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "evidence": "80-enemy presentation fixture with an actual 3× clock and a live captain skill.",
+  "view": {
+    "clock": 308.79999999999995,
+    "poses": {
+      "C05": {
+        "frame": 4,
+        "seen": [
+          0,
+          2,
+          3,
+          4,
+          5
+        ],
+        "texture": "motion-C05"
+      },
+      "C01": {
+        "frame": 0,
+        "seen": [
+          0,
+          2,
+          3,
+          5
+        ],
+        "texture": "motion-C01"
+      },
+      "C02": {
+        "frame": 1,
+        "seen": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ],
+        "texture": "motion-C02"
+      },
+      "C03": {
+        "frame": 1,
+        "seen": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ],
+        "texture": "motion-C03"
+      },
+      "C04": {
+        "frame": 1,
+        "seen": [
+          1,
+          2,
+          3,
+          5
+        ],
+        "texture": "motion-C04"
+      }
+    },
+    "forms": [
+      "C05-base",
+      "C01-base",
+      "C02-base",
+      "C03-base",
+      "C04-base"
+    ],
+    "skills": [
+      "C05"
+    ],
+    "hitTypes": [
+      "E02",
+      "E01",
+      "B03",
+      "E03"
+    ],
+    "deathTypes": [
+      "E02",
+      "E01"
+    ],
+    "activeCorpses": 4,
+    "corpseIds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "hurtIds": [
+      7,
+      8,
+      9,
+      10,
+      17,
+      18,
+      19,
+      20,
+      27,
+      28,
+      29,
+      37,
+      38
+    ],
+    "maxCorpses": 4,
+    "aliveImages": 80,
+    "cutin": {
+      "visible": true,
+      "id": "C05",
+      "age": 47.299999999999955,
+      "duration": 500,
+      "top": 343,
+      "bottom": 435,
+      "depth": 20
+    },
+    "detail": "compact",
+    "activeEffects": 14,
+    "peakEffects": 15,
+    "warnings": {
+      "visible": true,
+      "text": "⚠ 降臨核心 蓄力中\n可使用有效暈眩或位移打斷",
+      "top": 13.318359375,
+      "bottom": 56.681640625,
+      "depth": 100,
+      "geometryDepth": 90
+    },
+    "textureFrames": {
+      "C05": 6,
+      "C01": 6,
+      "C02": 6,
+      "C03": 6,
+      "C04": 6
+    }
+  }
+}

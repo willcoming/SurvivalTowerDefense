@@ -1,0 +1,469 @@
+{
+  "evidence": "Real-time legal initial battles and DOM skill casts; no combat fixture edits.",
+  "samples": [
+    {
+      "speed": 1,
+      "before": {
+        "tick": 166,
+        "clock": 5537.7,
+        "poses": {
+          "C01": {
+            "frame": 5,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C01"
+          },
+          "C02": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C02"
+          },
+          "C03": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C03"
+          },
+          "C04": {
+            "frame": 0,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C04"
+          },
+          "C05": {
+            "frame": 0,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C05"
+          }
+        },
+        "forms": [
+          "C01-base",
+          "C02-base",
+          "C03-base",
+          "C04-base",
+          "C05-base"
+        ],
+        "skills": [
+          "C01"
+        ],
+        "hitTypes": [
+          "E01"
+        ],
+        "deathTypes": [
+          "E01"
+        ],
+        "activeCorpses": 1,
+        "corpseIds": [
+          10
+        ],
+        "hurtIds": [
+          11
+        ],
+        "maxCorpses": 2,
+        "aliveImages": 2,
+        "cutin": {
+          "visible": true,
+          "id": "C01",
+          "age": 93.29999999999927,
+          "duration": 500,
+          "top": 343,
+          "bottom": 435,
+          "depth": 20
+        },
+        "detail": "full",
+        "activeEffects": 5,
+        "peakEffects": 10,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1591796875,
+          "bottom": 48.8408203125,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C01": 6,
+          "C02": 6,
+          "C03": 6,
+          "C04": 6,
+          "C05": 6
+        }
+      },
+      "after": {
+        "tick": 185,
+        "clock": 6193.5,
+        "poses": {
+          "C01": {
+            "frame": 4,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C01"
+          },
+          "C02": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C02"
+          },
+          "C03": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C03"
+          },
+          "C04": {
+            "frame": 2,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C04"
+          },
+          "C05": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C05"
+          }
+        },
+        "forms": [
+          "C01-base",
+          "C02-base",
+          "C03-base",
+          "C04-base",
+          "C05-base"
+        ],
+        "skills": [
+          "C01"
+        ],
+        "hitTypes": [
+          "E01"
+        ],
+        "deathTypes": [
+          "E01"
+        ],
+        "activeCorpses": 1,
+        "corpseIds": [
+          11
+        ],
+        "hurtIds": [],
+        "maxCorpses": 2,
+        "aliveImages": 1,
+        "cutin": {
+          "visible": false,
+          "id": "C01",
+          "age": 749.0999999999995,
+          "duration": 500,
+          "top": 343,
+          "bottom": 435,
+          "depth": 20
+        },
+        "detail": "full",
+        "activeEffects": 2,
+        "peakEffects": 10,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1591796875,
+          "bottom": 48.8408203125,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C01": 6,
+          "C02": 6,
+          "C03": 6,
+          "C04": 6,
+          "C05": 6
+        }
+      }
+    },
+    {
+      "speed": 3,
+      "before": {
+        "tick": 40,
+        "clock": 459.10000000000036,
+        "poses": {
+          "C01": {
+            "frame": 4,
+            "seen": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C01"
+          },
+          "C02": {
+            "frame": 1,
+            "seen": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C02"
+          },
+          "C03": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              5
+            ],
+            "texture": "motion-C03"
+          },
+          "C04": {
+            "frame": 3,
+            "seen": [
+              1,
+              2,
+              3,
+              5
+            ],
+            "texture": "motion-C04"
+          },
+          "C05": {
+            "frame": 2,
+            "seen": [
+              1,
+              2,
+              3,
+              5
+            ],
+            "texture": "motion-C05"
+          }
+        },
+        "forms": [
+          "C01-base",
+          "C02-base",
+          "C03-base",
+          "C04-base",
+          "C05-base"
+        ],
+        "skills": [
+          "C01"
+        ],
+        "hitTypes": [
+          "E01"
+        ],
+        "deathTypes": [
+          "E01"
+        ],
+        "activeCorpses": 2,
+        "corpseIds": [
+          1,
+          2
+        ],
+        "hurtIds": [
+          3
+        ],
+        "maxCorpses": 2,
+        "aliveImages": 1,
+        "cutin": {
+          "visible": true,
+          "id": "C01",
+          "age": 85.00000000000091,
+          "duration": 500,
+          "top": 343,
+          "bottom": 435,
+          "depth": 20
+        },
+        "detail": "full",
+        "activeEffects": 15,
+        "peakEffects": 17,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1591796875,
+          "bottom": 48.8408203125,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C01": 6,
+          "C02": 6,
+          "C03": 6,
+          "C04": 6,
+          "C05": 6
+        }
+      },
+      "after": {
+        "tick": 96,
+        "clock": 1089.3999999999996,
+        "poses": {
+          "C01": {
+            "frame": 0,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C01"
+          },
+          "C02": {
+            "frame": 0,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C02"
+          },
+          "C03": {
+            "frame": 0,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              5
+            ],
+            "texture": "motion-C03"
+          },
+          "C04": {
+            "frame": 0,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C04"
+          },
+          "C05": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              5
+            ],
+            "texture": "motion-C05"
+          }
+        },
+        "forms": [
+          "C01-base",
+          "C02-base",
+          "C03-base",
+          "C04-base",
+          "C05-base"
+        ],
+        "skills": [
+          "C01"
+        ],
+        "hitTypes": [
+          "E01"
+        ],
+        "deathTypes": [
+          "E01"
+        ],
+        "activeCorpses": 0,
+        "corpseIds": [],
+        "hurtIds": [],
+        "maxCorpses": 3,
+        "aliveImages": 0,
+        "cutin": {
+          "visible": false,
+          "id": "C01",
+          "age": 715.3000000000002,
+          "duration": 500,
+          "top": 343,
+          "bottom": 435,
+          "depth": 20
+        },
+        "detail": "full",
+        "activeEffects": 0,
+        "peakEffects": 17,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1591796875,
+          "bottom": 48.8408203125,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C01": 6,
+          "C02": 6,
+          "C03": 6,
+          "C04": 6,
+          "C05": 6
+        }
+      }
+    }
+  ],
+  "errors": []
+}

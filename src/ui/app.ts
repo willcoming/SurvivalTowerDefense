@@ -7,7 +7,7 @@ import { header, home, intel, roster, codex, stories, settings } from './lobby';
 import { battleShell, updateHud, upgradeDialog, pauseDialog, tutorialDialog, result } from './battle';
 import { esc } from './format';
 import { GameAudio } from '../game/audio';
-import { createBattleCanvas } from '../game/scene';
+import { BattleScene, createBattleCanvas } from '../game/scene';
 import { keyInterfaceImage } from '../game/chroma';
 
 export class GameApp {
@@ -57,11 +57,11 @@ export class GameApp {
       this.root.innerHTML = `${this.notice()}${battleShell(run, this.save.preferences.battleSpeed)}`;
       this.sceneReady = false;
       document.getElementById('battle-canvas')!.insertAdjacentHTML('beforeend', '<div id="battle-loading" class="battle-loading" role="status">正在載入戰場 · 0%</div>');
-      this.canvas = createBattleCanvas(document.getElementById('battle-canvas')!, () => this.save.activeRun!, this.audio, () => this.save.preferences.reducedEffects, {
+      this.canvas = createBattleCanvas(document.getElementById('battle-canvas')!, () => run, this.audio, () => this.save.preferences.reducedEffects, {
         ready: () => { this.sceneReady = true; this.assetFailure = false; this.lastFrame = performance.now(); this.accumulator = 0; document.getElementById('battle-loading')?.remove(); if (run.pauseReasons.includes('error')) void this.persist().then(() => { if (this.vm.saveStatus === '已儲存在本機') { command(run, { type: 'pause', reason: 'user' }); command(run, { type: 'resume', reason: 'error' }); this.overlay(); } }); },
         progress: ratio => { const el = document.getElementById('battle-loading'); if (el) el.textContent = `正在載入戰場 · ${Math.round(ratio * 100)}%`; },
         failed: paths => { this.assetFailure = true; this.vm.message = `有 ${paths.length} 個戰場素材未能載入。行動已暫停，請重新載入後繼續。`; command(run, { type: 'pause', reason: 'error' }); document.getElementById('battle-loading')?.remove(); this.root.insertAdjacentHTML('afterbegin', this.notice()); this.overlay(); void this.persist(); },
-      });
+      }, () => this.save.preferences.battleSpeed);
       updateHud(run, this.save.preferences.battleSpeed); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
       const screens = { home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.save, this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run) : home(this.save, this.vm), battle: () => '' };
@@ -157,7 +157,11 @@ export class GameApp {
   }
   private async finish() {
     const run = this.save.activeRun; if (!run || this.endedId === run.runId) return;
-    this.endedId = run.runId; this.lastRun = run; completeRun(this.save, run); this.audio.feedback(run.outcome === 'victory' ? 'win' : 'lose'); this.go('result'); await this.persist();
+    this.endedId = run.runId; this.lastRun = run; completeRun(this.save, run); this.audio.feedback(run.outcome === 'victory' ? 'win' : 'lose');
+    const saved = this.persist();
+    if (run.outcome === 'victory' && this.vm.page === 'battle' && this.sceneReady) await (this.canvas?.scene.getScene('battle') as BattleScene | undefined)?.playVictoryEnding();
+    if (this.lastRun === run) this.go('result');
+    await saved;
   }
   private persist() {
     if (!this.ready || this.temporary) return Promise.resolve();
@@ -264,6 +268,7 @@ export class GameApp {
       state: () => this.save.activeRun ?? this.lastRun,
       getSave: () => this.save,
       audio: () => this.audio.stats(),
+      presentation: () => (this.canvas?.scene.getScene('battle') as BattleScene | undefined)?.diagnostics(),
       command: (cmd: Command) => this.execute(cmd),
       ticks: (count: number) => { if (this.save.activeRun) { stepRun(this.save.activeRun, count); this.lastFrame = performance.now(); this.overlay(); updateHud(this.save.activeRun, this.save.preferences.battleSpeed); if (this.save.activeRun.phase === 'ended') void this.finish(); } },
       start: (config: RunConfig) => this.start(config),
