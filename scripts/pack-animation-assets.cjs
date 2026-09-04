@@ -52,7 +52,7 @@ for (const asset of input) {
   const bytes = fs.readFileSync(output), meta = await sharp(bytes).metadata();
   report.push({ assetId: `${asset.id}-motion`, path: output.replace('public', ''), width: 768, height: 512, frameWidth: 256, frameHeight: 256, frameCount: 6, origin: { x: .5, y: 240 / 256 }, hasAlpha: meta.hasAlpha, bytes: bytes.length, sha256: crypto.createHash('sha256').update(bytes).digest('hex'), source, backgroundMode: 'alpha-keyed-from-magenta', tool: 'imagegen built-in', prompt: asset.prompt, loadGroup: 'battle-motion', gridCuts: { xs, ys }, scale, frames });
 }
-const old = JSON.parse(fs.readFileSync('public/assets/manifest.json')).filter(a => !a.assetId.endsWith('-motion'));
+const old = JSON.parse(fs.readFileSync('public/assets/manifest.json')).filter(a => !/^C0[1-6]-motion$/.test(a.assetId));
 fs.writeFileSync('public/assets/manifest.json', JSON.stringify([...old, ...report], null, 2));
 fs.writeFileSync('artifacts/validation/animation-update/assets.json', JSON.stringify(report, null, 2));
 console.log(JSON.stringify(report.map(a => ({ id: a.assetId, bytes: a.bytes, frames: a.frameCount, alpha: a.hasAlpha, gridCuts: a.gridCuts })), null, 2));

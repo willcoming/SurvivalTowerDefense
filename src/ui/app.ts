@@ -9,6 +9,7 @@ import { esc } from './format';
 import { GameAudio } from '../game/audio';
 import { BattleScene, createBattleCanvas } from '../game/scene';
 import { keyInterfaceImage } from '../game/chroma';
+import { shouldAutoCast } from './auto-tactical';
 
 export class GameApp {
   private root: HTMLElement;
@@ -54,7 +55,7 @@ export class GameApp {
     this.canvas?.destroy(true); this.canvas = null; this.renderedOverlay = ''; this.overlayKey = '';
     const page = this.vm.page; const run = this.save.activeRun ?? this.lastRun;
     if (page === 'battle' && run) {
-      this.root.innerHTML = `${this.notice()}${battleShell(run, this.save.preferences.battleSpeed)}`;
+      this.root.innerHTML = `${this.notice()}${battleShell(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical)}`;
       this.sceneReady = false;
       document.getElementById('battle-canvas')!.insertAdjacentHTML('beforeend', '<div id="battle-loading" class="battle-loading" role="status">正在載入戰場 · 0%</div>');
       this.canvas = createBattleCanvas(document.getElementById('battle-canvas')!, () => run, this.audio, () => this.save.preferences.reducedEffects, {
@@ -62,7 +63,7 @@ export class GameApp {
         progress: ratio => { const el = document.getElementById('battle-loading'); if (el) el.textContent = `正在載入戰場 · ${Math.round(ratio * 100)}%`; },
         failed: paths => { this.assetFailure = true; this.vm.message = `有 ${paths.length} 個戰場素材未能載入。行動已暫停，請重新載入後繼續。`; command(run, { type: 'pause', reason: 'error' }); document.getElementById('battle-loading')?.remove(); this.root.insertAdjacentHTML('afterbegin', this.notice()); this.overlay(); void this.persist(); },
       }, () => this.save.preferences.battleSpeed);
-      updateHud(run, this.save.preferences.battleSpeed); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
+      updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
       const screens = { home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.save, this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run) : home(this.save, this.vm), battle: () => '' };
       this.root.innerHTML = `${header(page, this.vm.saveStatus)}${this.notice()}${screens[page]()}<footer class="site-footer"><span>星骸防線 / 黎明反攻</span><span>免登入 · 全角色開放 · ${this.temporary ? '暫時試玩，不儲存進度' : '進度保存在目前瀏覽器'}</span></footer><div id="global-overlay"></div>`;
@@ -75,7 +76,7 @@ export class GameApp {
   private overlay() {
     const holder = document.getElementById(this.vm.page === 'battle' ? 'battle-overlay' : 'global-overlay'); if (!holder) return;
     const run = this.save.activeRun;
-    const key = `${this.vm.page}:${this.vm.modal}:${this.vm.selectedCard}:${this.vm.showBuild}:${this.vm.saveStatus}:${run?.runId}:${run?.tick}:${run?.actionSeq}:${run?.draft?.id}:${run?.pauseReasons.join(',')}:${this.save.preferences.musicVolume}:${this.save.preferences.sfxVolume}:${this.save.preferences.reducedEffects}`;
+    const key = `${this.vm.page}:${this.vm.modal}:${this.vm.selectedCard}:${this.vm.showBuild}:${this.vm.saveStatus}:${run?.runId}:${run?.tick}:${run?.actionSeq}:${run?.draft?.id}:${run?.pauseReasons.join(',')}:${this.save.preferences.musicVolume}:${this.save.preferences.sfxVolume}:${this.save.preferences.reducedEffects}:${this.save.preferences.autoTactical}`;
     if (key === this.overlayKey) return;
     this.overlayKey = key;
     let html = '';
@@ -112,7 +113,7 @@ export class GameApp {
   private execute(cmd: Command) {
     const run = this.save.activeRun; if (!run) return false;
     const accepted = command(run, cmd);
-    if (accepted) { if (cmd.type === 'choose') { this.vm.selectedCard = null; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed); void this.persist(); }
+    if (accepted) { if (cmd.type === 'choose') { this.vm.selectedCard = null; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); void this.persist(); }
     return accepted;
   }
   private pauseFor(reason: 'hidden' | 'orientation') {
@@ -142,10 +143,10 @@ export class GameApp {
       const maxSteps = 5 * speed;
       this.accumulator = Math.min(maxSteps * 1000 / 30, this.accumulator + elapsed * speed);
       let steps = 0;
-      while (this.accumulator >= 1000 / 30 && run.phase === 'running' && steps++ < maxSteps) { stepRun(run); this.accumulator -= 1000 / 30; }
+      while (this.accumulator >= 1000 / 30 && run.phase === 'running' && steps++ < maxSteps) { if (shouldAutoCast(run, this.save.preferences.autoTactical)) this.execute({ type: 'cast' }); stepRun(run); this.accumulator -= 1000 / 30; }
     }
     else this.accumulator = 0;
-    updateHud(run, this.save.preferences.battleSpeed); this.overlay();
+    updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); this.overlay();
     let discovered = false;
     for (const id of run.stats.encountered) if (!this.save.profile.seenEnemies.includes(id)) { this.save.profile.seenEnemies.push(id); discovered = true; }
     if (discovered) void this.persist();
@@ -206,7 +207,12 @@ export class GameApp {
         const speed = this.save.preferences.battleSpeed;
         this.save.preferences.battleSpeed = speed === 3 ? 1 : speed === 2 ? 3 : 2;
         this.lastFrame = performance.now(); this.accumulator = 0;
-        updateHud(run, this.save.preferences.battleSpeed); void this.persist(); break;
+        updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); void this.persist(); break;
+      }
+      case 'auto-tactical': {
+        const run = this.save.activeRun; if (!run || run.config.challengeId === 'no-skill') break;
+        this.save.preferences.autoTactical = !this.save.preferences.autoTactical;
+        updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); void this.persist(); break;
       }
       case 'cast': this.execute({ type: 'cast' }); break;
       case 'pause': this.execute({ type: 'pause', reason: 'user' }); break;
@@ -236,6 +242,7 @@ export class GameApp {
   private change(input: HTMLInputElement | HTMLSelectElement) {
     const action = input.dataset.change; const run = this.save.activeRun;
     if (action === 'branch') this.save.preferences.branches[input.dataset.id as CharacterId] = input.value as Branch;
+    if (action === 'auto-tactical') this.save.preferences.autoTactical = (input as HTMLInputElement).checked;
     if (action === 'music') this.save.preferences.musicVolume = Number(input.value);
     if (action === 'sfx') this.save.preferences.sfxVolume = Number(input.value);
     if (action === 'reduced') { this.save.preferences.reducedEffects = (input as HTMLInputElement).checked; this.root.classList.toggle('reduced-effects', this.save.preferences.reducedEffects); }
@@ -270,7 +277,7 @@ export class GameApp {
       audio: () => this.audio.stats(),
       presentation: () => (this.canvas?.scene.getScene('battle') as BattleScene | undefined)?.diagnostics(),
       command: (cmd: Command) => this.execute(cmd),
-      ticks: (count: number) => { if (this.save.activeRun) { stepRun(this.save.activeRun, count); this.lastFrame = performance.now(); this.overlay(); updateHud(this.save.activeRun, this.save.preferences.battleSpeed); if (this.save.activeRun.phase === 'ended') void this.finish(); } },
+      ticks: (count: number) => { if (this.save.activeRun) { stepRun(this.save.activeRun, count); this.lastFrame = performance.now(); this.overlay(); updateHud(this.save.activeRun, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); if (this.save.activeRun.phase === 'ended') void this.finish(); } },
       start: (config: RunConfig) => this.start(config),
       save: () => this.persist(),
       route: (page: Page) => this.go(page),

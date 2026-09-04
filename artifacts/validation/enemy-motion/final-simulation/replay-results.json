@@ -1,0 +1,19 @@
+{
+  "createdAt": "2026-09-04T14:22:40.197Z",
+  "contentVersion": "0.1.0-dev.2",
+  "policyVersion": "policy-v3",
+  "sourceRevision": "2dc796b7909eeaefa8425a595a7ba1ab156eed45",
+  "sourceDigest": "e6f6e0d69da0bd32c2aecad0948e5b61883cb64f6d38f9fbbbc6949fc7b154a3",
+  "node": "v22.22.3",
+  "platform": "darwin",
+  "arch": "arm64",
+  "command": "npm run test:simulation",
+  "formal": true,
+  "type": "pure simulation; browser replay is separate",
+  "sample": {
+    "buildId": "T01",
+    "seed": 101
+  },
+  "passed": true,
+  "error": null
+}

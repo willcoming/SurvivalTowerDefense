@@ -32,7 +32,7 @@ describe('AC09/SAVE01–06 · complete reproducible local snapshots', () => {
     const repository = repo();
     const save = await repository.load();
     expect(save).toEqual(createDefaultSave());
-    save.preferences.battleSpeed = 3;
+    save.preferences.battleSpeed = 3; save.preferences.autoTactical = true;
     save.activeRun = run();
     save.activeRun.choicesEarned = 1;
     stepRun(save.activeRun);
@@ -89,6 +89,22 @@ describe('AC09/SAVE01–06 · complete reproducible local snapshots', () => {
     recovered.preferences.battleSpeed = 3;
     await repository.save(recovered);
     expect((await repository.load()).preferences.battleSpeed).toBe(3);
+  });
+
+  it('migrates missing auto-skill preference to off and preserves an old battle', async () => {
+    const name = `test-auto-migration-${++counter}`, save = createDefaultSave(); save.activeRun = run(); stepRun(save.activeRun, 120);
+    const { autoTactical: _auto, ...preferences } = save.preferences;
+    const legacy = { ...save, preferences }; await raw(name, legacy);
+    const repository = repo(name), recovered = await repository.load();
+    expect(recovered.preferences.autoTactical).toBe(false); expect(recovered.activeRun).toEqual(save.activeRun);
+    expect(await raw(name)).toEqual(legacy);
+    recovered.preferences.autoTactical = true; await repository.save(recovered);
+    expect((await repository.load()).preferences.autoTactical).toBe(true);
+  });
+  it('preserves an invalid auto-skill preference for recovery', async () => {
+    const name = `test-auto-invalid-${++counter}`, save = createDefaultSave();
+    const invalid = { ...save, preferences: { ...save.preferences, autoTactical: 'true' } };
+    await raw(name, invalid); await expect(repo(name).load()).rejects.toBeInstanceOf(SaveValidationError); expect(await raw(name)).toEqual(invalid);
   });
 
   it.each([0, 4, '3', null])('preserves a save with invalid battle speed %s for recovery', async speed => {

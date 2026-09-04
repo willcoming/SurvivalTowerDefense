@@ -3,7 +3,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { CHARACTER_IDS } from '../../src/data/content';
 import type { CharacterId, EnemyId, StageId } from '../../src/sim/types';
 
-const dir = 'artifacts/validation/animation-update';
+const dir = process.env.VALIDATION_OUTPUT_DIR ?? 'artifacts/validation/animation-update';
 mkdirSync(`${dir}/screenshots`, { recursive: true });
 test.beforeEach(async ({ page }) => { await page.routeWebSocket('**/*', socket => socket.close()); });
 async function boot(page: Page) { await page.goto('/'); await page.waitForFunction(() => !!window.__game); }

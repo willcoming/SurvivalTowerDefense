@@ -1,0 +1,2741 @@
+[
+  {
+    "assetId": "enemy-E01-motion",
+    "enemyId": "E01",
+    "path": "/assets/enemy-animations/E01-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 110402,
+    "sha256": "b59bdc55abb2107bb8b5c98e266609ed85deee68a437dd784f80f71c97d9ee07",
+    "source": "artifacts/enemy-motion-sources/E01-generated.png",
+    "sourceSha256": "4b7d893303c8e87b0fb89d72811790b94d733c63eb193e87cec55e1ad531e3c1",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: small six-legged crawler beetle. Preserve: rounded split ivory shell, dark navy hexagonal armor, orange dorsal crystal, two ivory curved front pincers. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, raise pincers] [9 attack release, snap them forward] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: alternate the left and right tripod leg groups, visibly bend and lift individual knees, opening and closing front pincers. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          400,
+          770,
+          1141,
+          1536
+        ],
+        [
+          0,
+          398,
+          761,
+          1133,
+          1536
+        ],
+        [
+          0,
+          389,
+          772,
+          1116,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        374,
+        679,
+        1024
+      ]
+    },
+    "scale": 0.45141065830721006,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "7bfeb1b60fcce80c2f288ac6852988c24268f539c76c1de328a180d6f531f644",
+        "sourceBounds": {
+          "left": 56,
+          "right": 361,
+          "top": 76,
+          "bottom": 344,
+          "pixels": 42973
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 121
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "608837d5df0d23f49898bb61623d09103f08932a15e538bb98a99af78beb8b8b",
+        "sourceBounds": {
+          "left": 438,
+          "right": 743,
+          "top": 80,
+          "bottom": 344,
+          "pixels": 42120
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 120
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "e22aac8f00a41530e4d540f1e4b5b66280a8ab064c8a81a775e7b9cf9c25146e",
+        "sourceBounds": {
+          "left": 796,
+          "right": 1111,
+          "top": 84,
+          "bottom": 341,
+          "pixels": 41868
+        },
+        "outputSize": {
+          "width": 143,
+          "height": 116
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "ff9cfb5cb2ff0543939428c6bd5e925202cbb569bc9418d5f2bdf5dd2891cbd2",
+        "sourceBounds": {
+          "left": 1170,
+          "right": 1466,
+          "top": 89,
+          "bottom": 340,
+          "pixels": 42191
+        },
+        "outputSize": {
+          "width": 134,
+          "height": 114
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "dfc07c26fe8a53ad0c99c2c7ca9c4a6ed5ad7ef3ed1fcd106dc3ddd80575e3da",
+        "sourceBounds": {
+          "left": 54,
+          "right": 372,
+          "top": 403,
+          "bottom": 648,
+          "pixels": 38775
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 111
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "1cabe2df878d3821561f50f107c0b872a496035e87ea2a166ae152a8cfdde65c",
+        "sourceBounds": {
+          "left": 424,
+          "right": 725,
+          "top": 404,
+          "bottom": 648,
+          "pixels": 36766
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 111
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "d0fbb964ac4bf782c047e70a34ff2ed1ae3f0dd091c696ca50e236b11b8b4f71",
+        "sourceBounds": {
+          "left": 797,
+          "right": 1102,
+          "top": 410,
+          "bottom": 637,
+          "pixels": 34809
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 103
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "f7c2a8b53dbe97486bbbe48938dd6971dcbce15929a50183eb10fc8e3c7c2d80",
+        "sourceBounds": {
+          "left": 1163,
+          "right": 1468,
+          "top": 410,
+          "bottom": 639,
+          "pixels": 33562
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 104
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "ec3b7c33ff20a0ea23f5ec649a090de5a8584252960657f86ad3daee4a7f348f",
+        "sourceBounds": {
+          "left": 48,
+          "right": 349,
+          "top": 710,
+          "bottom": 924,
+          "pixels": 35918
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 97
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "26e56358f7b71d1227b7134942b9fa683ab427bcbba3b3f1ea89cdca01c85f80",
+        "sourceBounds": {
+          "left": 429,
+          "right": 722,
+          "top": 718,
+          "bottom": 935,
+          "pixels": 33526
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 98
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "fd95449454c66b04bbca0390fdb704ebe92a82a30b5a0eaba08b1f173e2c172b",
+        "sourceBounds": {
+          "left": 822,
+          "right": 1071,
+          "top": 718,
+          "bottom": 932,
+          "pixels": 37112
+        },
+        "outputSize": {
+          "width": 113,
+          "height": 97
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "5f3353d5a8ce0c15596f99ba4e40ad5374524696b18651ba2287683cb8ce843e",
+        "sourceBounds": {
+          "left": 1160,
+          "right": 1459,
+          "top": 711,
+          "bottom": 949,
+          "pixels": 47496
+        },
+        "outputSize": {
+          "width": 135,
+          "height": 108
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E02-motion",
+    "enemyId": "E02",
+    "path": "/assets/enemy-animations/E02-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 96102,
+    "sha256": "d10b4178f7d5452cfd2ef4e18a456f86ba49a0a43a4432d31624619c1d6dc324",
+    "source": "artifacts/enemy-motion-sources/E02-generated.png",
+    "sourceSha256": "bca013cea8d8f8658502ba080c727e5329766e96cdd44132a27fc842456085ec",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: fast four-legged bladed alien hound. Preserve: sleek dark navy armor, orange seams and eyes, long curved tail and swept-back blade fins. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, crouch back] [9 attack release, lunge with front claws extended] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: galloping cycle: front legs reach, contact, tuck, rear legs push, front legs extend, body settles; tail bends with the stride. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          415,
+          771,
+          1146,
+          1536
+        ],
+        [
+          0,
+          366,
+          724,
+          1137,
+          1536
+        ],
+        [
+          0,
+          347,
+          757,
+          1117,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        402,
+        690,
+        1024
+      ]
+    },
+    "scale": 0.38095238095238093,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "d4ba6ab0908334d1c4cb0c111fcfad5933b0d9d34c5ece1582c5bc260c538e49",
+        "sourceBounds": {
+          "left": 44,
+          "right": 408,
+          "top": 58,
+          "bottom": 390,
+          "pixels": 42257
+        },
+        "outputSize": {
+          "width": 139,
+          "height": 127
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "c8ba116ceb8a84a547e77b2bd61a27ccd31f09ea1d72ba4da1e07938b31071ec",
+        "sourceBounds": {
+          "left": 422,
+          "right": 761,
+          "top": 57,
+          "bottom": 377,
+          "pixels": 41270
+        },
+        "outputSize": {
+          "width": 130,
+          "height": 122
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "a02b45ce2f62f4ae50a66c16fd48abfe505e0ede5df58f36325a3794350c8358",
+        "sourceBounds": {
+          "left": 781,
+          "right": 1137,
+          "top": 58,
+          "bottom": 369,
+          "pixels": 36928
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 119
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "2ff965772f5f47b756863cc3f31d44590bb783184402598c9d9268163e28db4d",
+        "sourceBounds": {
+          "left": 1154,
+          "right": 1504,
+          "top": 84,
+          "bottom": 346,
+          "pixels": 32750
+        },
+        "outputSize": {
+          "width": 134,
+          "height": 100
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "862fd68e5ea30b96020918126bc847631439a8189381b9d10c9ec3112b2aad78",
+        "sourceBounds": {
+          "left": 27,
+          "right": 330,
+          "top": 419,
+          "bottom": 652,
+          "pixels": 30681
+        },
+        "outputSize": {
+          "width": 116,
+          "height": 89
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "a9f2d9bda00fe2aafb2e4208e3b489f1869e69f2ed8134bbb3d93ebf34f778cb",
+        "sourceBounds": {
+          "left": 402,
+          "right": 679,
+          "top": 422,
+          "bottom": 647,
+          "pixels": 28352
+        },
+        "outputSize": {
+          "width": 106,
+          "height": 86
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "9ab8dc85012eeaf7c8a7cdea933ed8445d1737e04b0376fb6b26300b4b7d45e3",
+        "sourceBounds": {
+          "left": 768,
+          "right": 1125,
+          "top": 437,
+          "bottom": 648,
+          "pixels": 30066
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 81
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "4abaefaf71487b366240bd8788b8415e1caa6f7869c9d6c51b31f9e634669d92",
+        "sourceBounds": {
+          "left": 1148,
+          "right": 1507,
+          "top": 413,
+          "bottom": 669,
+          "pixels": 33693
+        },
+        "outputSize": {
+          "width": 137,
+          "height": 98
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "f03db41a6a414979a8a6c3b165c784f56c4e144b05bd9ec63036a791677033fa",
+        "sourceBounds": {
+          "left": 41,
+          "right": 321,
+          "top": 711,
+          "bottom": 972,
+          "pixels": 30610
+        },
+        "outputSize": {
+          "width": 107,
+          "height": 100
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "544e99537d9b3d3d760e8ba009ca62836a12c9b217412f4ff56ffa4232ed045a",
+        "sourceBounds": {
+          "left": 373,
+          "right": 750,
+          "top": 729,
+          "bottom": 960,
+          "pixels": 30618
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 88
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "fc222689fadb62f0b3f6a768dcf7d52466d92cd51ba6b3e5abb179514a8d6d47",
+        "sourceBounds": {
+          "left": 763,
+          "right": 1110,
+          "top": 714,
+          "bottom": 984,
+          "pixels": 37006
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 103
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "93a7502ecfeb28efce156964b4b7ab4520524dcf59c8eefd625fa143107eda03",
+        "sourceBounds": {
+          "left": 1124,
+          "right": 1499,
+          "top": 719,
+          "bottom": 983,
+          "pixels": 38487
+        },
+        "outputSize": {
+          "width": 143,
+          "height": 101
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E03-motion",
+    "enemyId": "E03",
+    "path": "/assets/enemy-animations/E03-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 112530,
+    "sha256": "2a058d0183c37c643cd8d96ab3341de31e3c82e63f3e85a221c3659b535cd3b3",
+    "source": "artifacts/enemy-motion-sources/E03-generated.png",
+    "sourceSha256": "356e990eac5d25de4c47627c27b301ea0416090ce92248ba63f11acb3a0cec22",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: heavy four-legged armored alien beast. Preserve: broad cracked ivory shoulder plates, navy shell, orange diamond reactor in the upper back, thick forearms. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, brace shoulders and lift one forearm] [9 attack release, slam both claws down] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: heavy alternating left/right steps with obvious lifted armored feet, bent knees, and shoulder compression. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          386,
+          766,
+          1143,
+          1536
+        ],
+        [
+          0,
+          383,
+          750,
+          1116,
+          1536
+        ],
+        [
+          0,
+          383,
+          756,
+          1121,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        356,
+        645,
+        1024
+      ]
+    },
+    "scale": 0.4472049689440994,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "5f821e322747460d9b477660e4a4acb1cfacbce79d17723cc735cc0ee4fa4529",
+        "sourceBounds": {
+          "left": 58,
+          "right": 352,
+          "top": 72,
+          "bottom": 328,
+          "pixels": 48953
+        },
+        "outputSize": {
+          "width": 132,
+          "height": 115
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "a7bf3e07fbe98daa86663ff451cce22364eef0356d2dd24717f46488d62a322e",
+        "sourceBounds": {
+          "left": 419,
+          "right": 732,
+          "top": 72,
+          "bottom": 331,
+          "pixels": 48899
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 116
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "478e6e11ccc1d4ba12cf32cce644479d837845ed1a8ba344c0d5eca998ec09e6",
+        "sourceBounds": {
+          "left": 799,
+          "right": 1112,
+          "top": 90,
+          "bottom": 324,
+          "pixels": 46465
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 105
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "42a021d83020038fd8a485f8f7862e0a7a54b5542241d762ff70bac96ba7f21a",
+        "sourceBounds": {
+          "left": 1173,
+          "right": 1493,
+          "top": 88,
+          "bottom": 331,
+          "pixels": 45750
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 109
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "569377271ddbb0693b481a919eb4c7017f760f15d2ab7d35133e8d21b8435164",
+        "sourceBounds": {
+          "left": 42,
+          "right": 355,
+          "top": 394,
+          "bottom": 620,
+          "pixels": 44168
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 102
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "fb432c1840b49ea20c2b6711652866c9865e8cbef3baabf7fc98dc056a6438d5",
+        "sourceBounds": {
+          "left": 410,
+          "right": 726,
+          "top": 395,
+          "bottom": 614,
+          "pixels": 44500
+        },
+        "outputSize": {
+          "width": 142,
+          "height": 98
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "e31c60af3201f8654cc30dfae8dff4af441eacd275cfa1907a1418484ab38045",
+        "sourceBounds": {
+          "left": 773,
+          "right": 1086,
+          "top": 382,
+          "bottom": 613,
+          "pixels": 43358
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 104
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "91b14e3677ea36121b3eba9ff1cf6e5e922ee4021c0a5312984880678fdb2736",
+        "sourceBounds": {
+          "left": 1145,
+          "right": 1458,
+          "top": 381,
+          "bottom": 616,
+          "pixels": 44319
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 106
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "ce9f16f92e0000106619575da6df5e1086c5a49d827f2f57a7303486bdc33486",
+        "sourceBounds": {
+          "left": 54,
+          "right": 361,
+          "top": 685,
+          "bottom": 916,
+          "pixels": 48455
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 104
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "052b7a7b6cf967866921984f1cb558ea1b7f96263126d96d43f16ad0dad5a2b6",
+        "sourceBounds": {
+          "left": 404,
+          "right": 725,
+          "top": 694,
+          "bottom": 931,
+          "pixels": 46635
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 106
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "6a7e4c47bb70af49387ce2d52491136d8dee942851d1a7f954043c8b7f1d84f5",
+        "sourceBounds": {
+          "left": 786,
+          "right": 1083,
+          "top": 682,
+          "bottom": 929,
+          "pixels": 49741
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 111
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "a27f5369854de973aa15a8152fec2c9cbc9c34264bef428332db1eefd31993f9",
+        "sourceBounds": {
+          "left": 1158,
+          "right": 1468,
+          "top": 669,
+          "bottom": 935,
+          "pixels": 56703
+        },
+        "outputSize": {
+          "width": 139,
+          "height": 119
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E04-motion",
+    "enemyId": "E04",
+    "path": "/assets/enemy-animations/E04-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 105936,
+    "sha256": "0d1600ead02a229fc765ab269599eb2c8852e1674b14b769d4559a73bafce503",
+    "source": "artifacts/enemy-motion-sources/E04-generated.png",
+    "sourceSha256": "2b89566f7873825920d8f2f7c2be9a348175bd1c784672deedc76d9b67655432",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: floating diamond shield sentinel. Preserve: vertical ivory diamond armor fins, dark navy center, large luminous cyan faceted shield sphere. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, fold shield fins inward] [9 attack release, thrust both fins outward] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: six hovering propulsion phases: side armor vanes open and angle in alternating directions, lower stabilizers articulate, cyan core membrane expands/contracts; never add legs. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          401,
+          755,
+          1138,
+          1536
+        ],
+        [
+          0,
+          396,
+          760,
+          1119,
+          1536
+        ],
+        [
+          0,
+          340,
+          758,
+          1132,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        355,
+        665,
+        1024
+      ]
+    },
+    "scale": 0.4485981308411215,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "8a4e4c829c2f8c3d5cf850638cf14ffb48b2e22a19a6c53e5ff2563ab3a9e802",
+        "sourceBounds": {
+          "left": 107,
+          "right": 337,
+          "top": 32,
+          "bottom": 348,
+          "pixels": 35420
+        },
+        "outputSize": {
+          "width": 104,
+          "height": 142
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "af64384f63dde80f6441ec23aeaf0b0297ed819cd564f68c849d8fb32938f182",
+        "sourceBounds": {
+          "left": 464,
+          "right": 694,
+          "top": 32,
+          "bottom": 348,
+          "pixels": 34371
+        },
+        "outputSize": {
+          "width": 104,
+          "height": 142
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "efe5bb2105ef2f8b68b9fb0725e1da7aedf8fd1b8f10e136c86a775884a1699d",
+        "sourceBounds": {
+          "left": 815,
+          "right": 1081,
+          "top": 33,
+          "bottom": 340,
+          "pixels": 35292
+        },
+        "outputSize": {
+          "width": 120,
+          "height": 138
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "feee8ab4d360675d75b3e95d1c9b6d4b8696f2af1c6cbe3b30a400b358405d30",
+        "sourceBounds": {
+          "left": 1195,
+          "right": 1448,
+          "top": 32,
+          "bottom": 342,
+          "pixels": 35008
+        },
+        "outputSize": {
+          "width": 114,
+          "height": 140
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "e7b20a0747f030a68a23c486a0e9341b2f40e4007d62e037950f454702f00fa4",
+        "sourceBounds": {
+          "left": 89,
+          "right": 337,
+          "top": 362,
+          "bottom": 657,
+          "pixels": 30694
+        },
+        "outputSize": {
+          "width": 112,
+          "height": 133
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "aee4db4d9bfe2a3e83245da233a5486405206bb073294ef31ceb87ba17680958",
+        "sourceBounds": {
+          "left": 454,
+          "right": 691,
+          "top": 362,
+          "bottom": 659,
+          "pixels": 31276
+        },
+        "outputSize": {
+          "width": 107,
+          "height": 134
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "0c7dad3c6f83234d959ccf3feef29f5d315059711d03e28e93ddb243374a80e3",
+        "sourceBounds": {
+          "left": 829,
+          "right": 1050,
+          "top": 362,
+          "bottom": 656,
+          "pixels": 30033
+        },
+        "outputSize": {
+          "width": 100,
+          "height": 132
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "a9226828dff47da9471cf7079f91ba6d21fd7e571ac72c2e9381b8cedf73bcec",
+        "sourceBounds": {
+          "left": 1188,
+          "right": 1417,
+          "top": 362,
+          "bottom": 651,
+          "pixels": 30274
+        },
+        "outputSize": {
+          "width": 103,
+          "height": 130
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "c6ae395923954e7f7a6fab3c08f7b9b895505850482b8c110ad9ecf6757a7a11",
+        "sourceBounds": {
+          "left": 123,
+          "right": 283,
+          "top": 689,
+          "bottom": 981,
+          "pixels": 27336
+        },
+        "outputSize": {
+          "width": 72,
+          "height": 131
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "dd222c36737ca1cd9e50361d70249027a4a1b2f38a62911e3180e5cb43fac242",
+        "sourceBounds": {
+          "left": 396,
+          "right": 716,
+          "top": 690,
+          "bottom": 981,
+          "pixels": 34034
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 131
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "3a8926ca7a0435bad937716982d39d0739f493546cdc0955322252abcc0bf1f8",
+        "sourceBounds": {
+          "left": 799,
+          "right": 1088,
+          "top": 672,
+          "bottom": 966,
+          "pixels": 39929
+        },
+        "outputSize": {
+          "width": 130,
+          "height": 132
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "8fc526f0394950a29496856d568eeedc36061e6b12752acd3e50c78d65cb822e",
+        "sourceBounds": {
+          "left": 1176,
+          "right": 1441,
+          "top": 671,
+          "bottom": 973,
+          "pixels": 38811
+        },
+        "outputSize": {
+          "width": 119,
+          "height": 136
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E05-motion",
+    "enemyId": "E05",
+    "path": "/assets/enemy-animations/E05-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 113410,
+    "sha256": "238b941c1ccb09c4be76c7e8c0a651dde8258e2a0ca37c4b0e558d63343befbf",
+    "source": "artifacts/enemy-motion-sources/E05-generated.png",
+    "sourceSha256": "07d4824602eae8bdc3974a4e1cc25e6613de0b6199b060ebe3062bd4a1508a2c",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: six-legged organic artillery crawler. Preserve: tall orange translucent dorsal cannon sac, forward circular cannon barrel, ivory ring armor, dark blue legs. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, cannon tilts and sac compresses] [9 attack release, barrel recoils backward as sac expands] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: alternating crawling footfalls under the stable cannon; left and right legs visibly lift, plant and push in successive frames. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          396,
+          753,
+          1111,
+          1536
+        ],
+        [
+          0,
+          378,
+          755,
+          1117,
+          1536
+        ],
+        [
+          0,
+          377,
+          730,
+          1099,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        371,
+        686,
+        1024
+      ]
+    },
+    "scale": 0.44036697247706424,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "d51303d538ddd94f7d7af523d971d55450d7eff3d52addfb48fecfb053a73354",
+        "sourceBounds": {
+          "left": 59,
+          "right": 364,
+          "top": 36,
+          "bottom": 361,
+          "pixels": 41813
+        },
+        "outputSize": {
+          "width": 135,
+          "height": 144
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "c700f99ae05a1b8cd25b0c076614955eb04573aaca44bfbea8261fbc8c4a6838",
+        "sourceBounds": {
+          "left": 428,
+          "right": 728,
+          "top": 35,
+          "bottom": 361,
+          "pixels": 42228
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 144
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "7ef0743adaaec83fe9f7ba29c05eaa0eaf6e411c590d6e5e4d27f245c600d8a9",
+        "sourceBounds": {
+          "left": 778,
+          "right": 1086,
+          "top": 41,
+          "bottom": 357,
+          "pixels": 40831
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 140
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "b9fbfffa2db52663f9a8802f8b6f69baafd722870dd2a5d7225d7ca299098eff",
+        "sourceBounds": {
+          "left": 1136,
+          "right": 1457,
+          "top": 40,
+          "bottom": 349,
+          "pixels": 40135
+        },
+        "outputSize": {
+          "width": 142,
+          "height": 137
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "0273596dd4182160d63980de9a84f475308c0ac8562fdca37e13ed88ce825c41",
+        "sourceBounds": {
+          "left": 60,
+          "right": 342,
+          "top": 389,
+          "bottom": 677,
+          "pixels": 32937
+        },
+        "outputSize": {
+          "width": 125,
+          "height": 127
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "d9b7c81bd0cb1537a38fdf4fc476e59f8d27234171b2146005f8d24379f2290a",
+        "sourceBounds": {
+          "left": 414,
+          "right": 714,
+          "top": 387,
+          "bottom": 673,
+          "pixels": 33335
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 126
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "f9fe88628132bb8c4fad20bb3b41eab5ae16047ea4b54c961fb1858774b83f6c",
+        "sourceBounds": {
+          "left": 795,
+          "right": 1070,
+          "top": 380,
+          "bottom": 677,
+          "pixels": 35908
+        },
+        "outputSize": {
+          "width": 122,
+          "height": 131
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "81b52288e240be38edd3e7979d56dd2b98a6bf7d4533f0102a364642cf57e6b1",
+        "sourceBounds": {
+          "left": 1163,
+          "right": 1440,
+          "top": 386,
+          "bottom": 673,
+          "pixels": 35824
+        },
+        "outputSize": {
+          "width": 122,
+          "height": 127
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "4800389038dce8604ce8e47064be173257dd20d1c38d10d008e07b6969eeae46",
+        "sourceBounds": {
+          "left": 54,
+          "right": 342,
+          "top": 716,
+          "bottom": 987,
+          "pixels": 36268
+        },
+        "outputSize": {
+          "width": 127,
+          "height": 120
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "e818f5ebb5b0b2c8443a85cc6bd5e445b2567d3bd9d13fb73cc7b106655c4caf",
+        "sourceBounds": {
+          "left": 412,
+          "right": 684,
+          "top": 696,
+          "bottom": 990,
+          "pixels": 36690
+        },
+        "outputSize": {
+          "width": 120,
+          "height": 130
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "ab89afeb32bf4180a8b48cbbc92ab952a0c1d97346a4814d30ec8922d1820d7d",
+        "sourceBounds": {
+          "left": 776,
+          "right": 1058,
+          "top": 702,
+          "bottom": 995,
+          "pixels": 41278
+        },
+        "outputSize": {
+          "width": 125,
+          "height": 129
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "2617d400707ac2a7261d9d77adfe4e64900e10774d6a39463d1920ff54a5bd1c",
+        "sourceBounds": {
+          "left": 1140,
+          "right": 1411,
+          "top": 694,
+          "bottom": 995,
+          "pixels": 44341
+        },
+        "outputSize": {
+          "width": 120,
+          "height": 133
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E06-motion",
+    "enemyId": "E06",
+    "path": "/assets/enemy-animations/E06-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 108322,
+    "sha256": "496ea191fcc22034cc36bddbcc1cf575484895f00a74795662432a13238d0b34",
+    "source": "artifacts/enemy-motion-sources/E06-generated.png",
+    "sourceSha256": "837bcb6114e6f0bec88dcf5f58d27ad653fd479b9eea322ff21357d858d0c00a",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: floating repair drone with articulated tendrils. Preserve: round navy and ivory shell, twin curved green tanks, bright green eye, six dangling jointed ivory/navy tendrils. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, tendrils coil inward] [9 attack release, reach forward with spread repair claws] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: hover cycle with articulated tendrils curling and extending in alternating pairs, green propulsion vents opening and closing. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          386,
+          771,
+          1143,
+          1536
+        ],
+        [
+          0,
+          405,
+          765,
+          1114,
+          1536
+        ],
+        [
+          0,
+          358,
+          791,
+          1135,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        372,
+        692,
+        1024
+      ]
+    },
+    "scale": 0.4022346368715084,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "dd707d1bf790ef7d271dc98278f80c0f295ad04c5650e4d48f1b0a748cb5d532",
+        "sourceBounds": {
+          "left": 49,
+          "right": 364,
+          "top": 51,
+          "bottom": 343,
+          "pixels": 36301
+        },
+        "outputSize": {
+          "width": 127,
+          "height": 118
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "d9e02d3de3309052252762263ff0f575177c20638c98cf42fca1916ddb116f29",
+        "sourceBounds": {
+          "left": 407,
+          "right": 753,
+          "top": 52,
+          "bottom": 344,
+          "pixels": 38529
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 118
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "25a1c9aeca939d1ae4a94915d2e6dd521d9f01d24ae73d95d5b35689a765d210",
+        "sourceBounds": {
+          "left": 788,
+          "right": 1131,
+          "top": 52,
+          "bottom": 343,
+          "pixels": 38864
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 117
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "57f4a52d11ea8018ac8bd3bd7e704149375955a8fc438237e6e97de5cf9a5baf",
+        "sourceBounds": {
+          "left": 1154,
+          "right": 1497,
+          "top": 53,
+          "bottom": 339,
+          "pixels": 36205
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 115
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "d63377fc660336fca24cf36f2879e63dc9c0e4a88085fdb66549a3247fb5ab71",
+        "sourceBounds": {
+          "left": 27,
+          "right": 384,
+          "top": 400,
+          "bottom": 660,
+          "pixels": 35811
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 105
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "afd0f2b05871fd4a3e85fb41fe357babc9d6acc302b794c23573e9acb13afc6a",
+        "sourceBounds": {
+          "left": 426,
+          "right": 731,
+          "top": 404,
+          "bottom": 663,
+          "pixels": 34508
+        },
+        "outputSize": {
+          "width": 123,
+          "height": 105
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "7022436311fe5ce2c1a6c8dd487d5ff671dabe1dd3248a820df9200d683a630a",
+        "sourceBounds": {
+          "left": 798,
+          "right": 1077,
+          "top": 405,
+          "bottom": 661,
+          "pixels": 34135
+        },
+        "outputSize": {
+          "width": 113,
+          "height": 103
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "3e78864f8958f83c91a9c927943419c4dd21a045219033a111fd574356a9fc2c",
+        "sourceBounds": {
+          "left": 1150,
+          "right": 1483,
+          "top": 405,
+          "bottom": 655,
+          "pixels": 34121
+        },
+        "outputSize": {
+          "width": 134,
+          "height": 101
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "1ab1262f6c216f07e8a47dbea78845408f85f68f3003f40ae41a88ce2b9ff5d2",
+        "sourceBounds": {
+          "left": 105,
+          "right": 309,
+          "top": 721,
+          "bottom": 947,
+          "pixels": 30782
+        },
+        "outputSize": {
+          "width": 82,
+          "height": 91
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "2c26500f97a2e13bfbd73e0e0f9386a472061b025120e1828fc58d2581608f15",
+        "sourceBounds": {
+          "left": 406,
+          "right": 742,
+          "top": 721,
+          "bottom": 970,
+          "pixels": 36509
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 101
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "724377b86dd1057e88243db6fe8602848d2a52c0caac21b6890372a1bdefdfee",
+        "sourceBounds": {
+          "left": 840,
+          "right": 1065,
+          "top": 721,
+          "bottom": 946,
+          "pixels": 36947
+        },
+        "outputSize": {
+          "width": 91,
+          "height": 91
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "132bc3fce3e4bf76873a827d3246ce62e654942585ce91569e0596b500ceb72e",
+        "sourceBounds": {
+          "left": 1204,
+          "right": 1428,
+          "top": 724,
+          "bottom": 951,
+          "pixels": 37604
+        },
+        "outputSize": {
+          "width": 91,
+          "height": 92
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E07-motion",
+    "enemyId": "E07",
+    "path": "/assets/enemy-animations/E07-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 131248,
+    "sha256": "d453c1555bb94600bcf06f701cb3498449e325a78fbfaa3a51b8667f9189f2f2",
+    "source": "artifacts/enemy-motion-sources/E07-generated.png",
+    "sourceSha256": "39b1d5ce65e0f7c896d78ec938cfce4a3fb5e17c78d1264029a4340995dcffe5",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: elite heavy four-legged armored beast. Preserve: tall three-point ivory crown and massive ivory shoulder armor, navy body, bright cyan reactor and accents, distinct from orange E03. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, raise thick forearms and brace crown] [9 attack release, slam forward] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: weighty alternating front claw steps and rear-leg pushes, segmented shoulders tilt and cyan reactor stays centered. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          405,
+          791,
+          1164,
+          1536
+        ],
+        [
+          0,
+          405,
+          744,
+          1128,
+          1536
+        ],
+        [
+          0,
+          389,
+          736,
+          1126,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        363,
+        675,
+        1024
+      ]
+    },
+    "scale": 0.4222873900293255,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "90bbea71aeb89406e7a914e6fe9f693062ce9390c88e0f87168c232a4f7423a5",
+        "sourceBounds": {
+          "left": 42,
+          "right": 382,
+          "top": 39,
+          "bottom": 336,
+          "pixels": 65075
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 126
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "3b65e0d075b47444db1388c2b7845cd083036671456f5b28f8ff561009fd3823",
+        "sourceBounds": {
+          "left": 427,
+          "right": 761,
+          "top": 39,
+          "bottom": 342,
+          "pixels": 63769
+        },
+        "outputSize": {
+          "width": 141,
+          "height": 128
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "370763739bbf50d994d90361a576659edabbfa0d27618e0dbb55cc6ab3bf8ce6",
+        "sourceBounds": {
+          "left": 821,
+          "right": 1139,
+          "top": 48,
+          "bottom": 351,
+          "pixels": 55478
+        },
+        "outputSize": {
+          "width": 135,
+          "height": 128
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "15a93c75454c9c47604c6ab89c901c84a84d8a197dffdb1686e920460c66b0c9",
+        "sourceBounds": {
+          "left": 1188,
+          "right": 1491,
+          "top": 48,
+          "bottom": 351,
+          "pixels": 56582
+        },
+        "outputSize": {
+          "width": 128,
+          "height": 128
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "bd2f38462cc1c91f56fe7e15c947c07ad24f8999de4dbb305ef603606a082cdf",
+        "sourceBounds": {
+          "left": 51,
+          "right": 373,
+          "top": 374,
+          "bottom": 649,
+          "pixels": 51361
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 117
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "f79c0efa49aed877e935a2ba801b4576846767a642b254f29d1b7d5efd0cf25c",
+        "sourceBounds": {
+          "left": 437,
+          "right": 704,
+          "top": 374,
+          "bottom": 664,
+          "pixels": 48593
+        },
+        "outputSize": {
+          "width": 113,
+          "height": 123
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "bb5ec7154ff32b65833dd3c32d5a9186603bd60d1a561a3cb6c6c5d9f7fbdfbf",
+        "sourceBounds": {
+          "left": 783,
+          "right": 1074,
+          "top": 374,
+          "bottom": 650,
+          "pixels": 47512
+        },
+        "outputSize": {
+          "width": 123,
+          "height": 117
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "e0ab46b18900f58397ab82094dd5aa1b831740dc27d717808289c2ecd6cfab10",
+        "sourceBounds": {
+          "left": 1181,
+          "right": 1474,
+          "top": 374,
+          "bottom": 651,
+          "pixels": 47453
+        },
+        "outputSize": {
+          "width": 124,
+          "height": 117
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "e97ff3b7890b9f68fa3e4516cce92c1074c53591291b05145e3508cf6e19eb92",
+        "sourceBounds": {
+          "left": 51,
+          "right": 352,
+          "top": 687,
+          "bottom": 976,
+          "pixels": 51545
+        },
+        "outputSize": {
+          "width": 128,
+          "height": 122
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "4d36307290efee695fa4a4da093e6557123156185a3e91108c72241f437e55ed",
+        "sourceBounds": {
+          "left": 426,
+          "right": 700,
+          "top": 713,
+          "bottom": 988,
+          "pixels": 49001
+        },
+        "outputSize": {
+          "width": 116,
+          "height": 117
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "e85cd5a85eb557a2bb4de188287a785bd07d195563905bd211409b0029889f06",
+        "sourceBounds": {
+          "left": 772,
+          "right": 1093,
+          "top": 686,
+          "bottom": 974,
+          "pixels": 60655
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 122
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "f73b7cd3a19a1d536efd0addf5a28a28f14639abf9372bb840dba00d871eb4df",
+        "sourceBounds": {
+          "left": 1159,
+          "right": 1482,
+          "top": 686,
+          "bottom": 974,
+          "pixels": 61230
+        },
+        "outputSize": {
+          "width": 137,
+          "height": 122
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E08-motion",
+    "enemyId": "E08",
+    "path": "/assets/enemy-animations/E08-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 126688,
+    "sha256": "3e34a23b9ecacb82b23142bab5a057d5b2593924e301b4aa1df56385971efc11",
+    "source": "artifacts/enemy-motion-sources/E08-generated.png",
+    "sourceSha256": "54efeed2e60fc9c69e055121660dd7d351d12ddc63615304ffa83a440d243cf4",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: elite four-legged bladed alien hound. Preserve: navy armor, large blade wings, ivory claws, cyan glowing thruster joints and eyes, long segmented tail. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, deep crouch with blades folded] [9 attack release, pounce with claws extended and blade wings flared] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: full gallop with distinct extended and tucked leg poses, blade wings changing angle, cyan thruster vents opening during push. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          405,
+          772,
+          1135,
+          1536
+        ],
+        [
+          0,
+          395,
+          743,
+          1102,
+          1536
+        ],
+        [
+          0,
+          407,
+          793,
+          1130,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        362,
+        653,
+        1024
+      ]
+    },
+    "scale": 0.4350453172205438,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "de513edf0cf5b07ea65c7fff0b37c9b1c38a59b9dd786c2f63259169c56d984e",
+        "sourceBounds": {
+          "left": 52,
+          "right": 376,
+          "top": 50,
+          "bottom": 349,
+          "pixels": 40021
+        },
+        "outputSize": {
+          "width": 141,
+          "height": 131
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "90c72b8d6000a0fc82e0f21c3914e8d2c8ab7f2a55a99b8e9d480bb20838d49a",
+        "sourceBounds": {
+          "left": 433,
+          "right": 729,
+          "top": 50,
+          "bottom": 346,
+          "pixels": 36138
+        },
+        "outputSize": {
+          "width": 129,
+          "height": 129
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "83586202c69d69b5ef0ac42ee1e1202bbc4b8b0205aa4c2c2d2b778db7cb9228",
+        "sourceBounds": {
+          "left": 814,
+          "right": 1095,
+          "top": 80,
+          "bottom": 331,
+          "pixels": 34781
+        },
+        "outputSize": {
+          "width": 123,
+          "height": 110
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "c56ab272e575da4ab14ce88377217a10924b6c491f7610c5ba7efd6fd4ab24ec",
+        "sourceBounds": {
+          "left": 1174,
+          "right": 1469,
+          "top": 63,
+          "bottom": 329,
+          "pixels": 34033
+        },
+        "outputSize": {
+          "width": 129,
+          "height": 116
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "f32fa6b9c58640dbb877a137a47f5f5a1c8a5c36100007605b3f27d5f41ac7cc",
+        "sourceBounds": {
+          "left": 48,
+          "right": 352,
+          "top": 384,
+          "bottom": 628,
+          "pixels": 33149
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 107
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "3dad4c8bb33db255757b35e6745f8abe1b17284ffe7530eab46e8744cc5eb7f7",
+        "sourceBounds": {
+          "left": 438,
+          "right": 694,
+          "top": 383,
+          "bottom": 621,
+          "pixels": 27424
+        },
+        "outputSize": {
+          "width": 112,
+          "height": 104
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "f3a7173dde15e645f6dcf424465c7ac65ae74439c138ab3f451f44dde59796ca",
+        "sourceBounds": {
+          "left": 792,
+          "right": 1074,
+          "top": 374,
+          "bottom": 625,
+          "pixels": 31206
+        },
+        "outputSize": {
+          "width": 123,
+          "height": 110
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "645b4f040454bff08ec09bd6948789341f07c9a52cfb83c57f61ff812951985f",
+        "sourceBounds": {
+          "left": 1129,
+          "right": 1407,
+          "top": 382,
+          "bottom": 642,
+          "pixels": 32084
+        },
+        "outputSize": {
+          "width": 121,
+          "height": 114
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "b1cd72b79c0d991397a169b262e11e192b548cdd70d6bece1ee29dc16ed00a38",
+        "sourceBounds": {
+          "left": 71,
+          "right": 377,
+          "top": 721,
+          "bottom": 948,
+          "pixels": 33476
+        },
+        "outputSize": {
+          "width": 134,
+          "height": 99
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "696c1bdf980b0710eded58ffcea5272ab5616af1e665511cd1d59ab8be80c7db",
+        "sourceBounds": {
+          "left": 437,
+          "right": 767,
+          "top": 686,
+          "bottom": 916,
+          "pixels": 35343
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 100
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "742cbac0518d42ec83a4eda8d8fd857f4cabe3e857bf3ca2ada201a66578a518",
+        "sourceBounds": {
+          "left": 819,
+          "right": 1113,
+          "top": 664,
+          "bottom": 952,
+          "pixels": 43845
+        },
+        "outputSize": {
+          "width": 128,
+          "height": 126
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "ff1dd61c65469e32b0980cc9621523a68fb51bbe1c7943cfafbdef537d149d8e",
+        "sourceBounds": {
+          "left": 1146,
+          "right": 1466,
+          "top": 668,
+          "bottom": 952,
+          "pixels": 45109
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 124
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-B01-motion",
+    "enemyId": "B01",
+    "path": "/assets/enemy-animations/B01-motion.webp",
+    "width": 896,
+    "height": 672,
+    "frameWidth": 224,
+    "frameHeight": 224,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 202302,
+    "sha256": "f41217ff470609fbd3a661d5eb88fd2ad83b1a347a76a0b2cad2d7a451206340",
+    "source": "artifacts/enemy-motion-sources/B01-generated.png",
+    "sourceSha256": "1054b548223031db71e0d7219c8c427b37eb1c623f1627218967db076b566573",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: massive six-legged hive crab boss. Preserve: three giant orange dorsal brood sacs, cracked ivory carapace, dark navy plated face, two enormous ivory pincers. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, huge pincers lift apart] [9 attack release, slam together toward the viewer] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: slow asymmetric tripod steps, knee joints visibly lift and plant, enormous pincers swing in counterphase with legs, brood sacs breathe subtly. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          396,
+          744,
+          1124,
+          1536
+        ],
+        [
+          0,
+          397,
+          739,
+          1110,
+          1536
+        ],
+        [
+          0,
+          402,
+          740,
+          1108,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        369,
+        652,
+        1024
+      ]
+    },
+    "scale": 0.5683060109289617,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "60564f8b8ef42a3400d5d71a306d71cb9bed699eb1c06c6416f6f0a1ca47b991",
+        "sourceBounds": {
+          "left": 59,
+          "right": 371,
+          "top": 58,
+          "bottom": 335,
+          "pixels": 52003
+        },
+        "outputSize": {
+          "width": 178,
+          "height": 158
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "d28922fde51f055747488def15772f6d64f1434441d29c89cdda4ae8d091b4a4",
+        "sourceBounds": {
+          "left": 420,
+          "right": 737,
+          "top": 61,
+          "bottom": 337,
+          "pixels": 49946
+        },
+        "outputSize": {
+          "width": 181,
+          "height": 157
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "cef1803a2e4ca76653db0c728da6ad74511194ac7a903560fae9fb4b668b2af9",
+        "sourceBounds": {
+          "left": 751,
+          "right": 1101,
+          "top": 68,
+          "bottom": 354,
+          "pixels": 52899
+        },
+        "outputSize": {
+          "width": 199,
+          "height": 163
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "5d92b443912392e219e5c04b6872479a74653939513c4b6062dccc36c0056c8d",
+        "sourceBounds": {
+          "left": 1146,
+          "right": 1485,
+          "top": 62,
+          "bottom": 352,
+          "pixels": 54002
+        },
+        "outputSize": {
+          "width": 193,
+          "height": 165
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "ad4843679f625d8e8c535d960e74d218367789af7fafe93910c3658ea54e18b4",
+        "sourceBounds": {
+          "left": 30,
+          "right": 373,
+          "top": 384,
+          "bottom": 638,
+          "pixels": 47092
+        },
+        "outputSize": {
+          "width": 195,
+          "height": 145
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "4366c896c2039de44c9bb6fb09df9430ddc528c36bc7399bf49ec02bccaceb16",
+        "sourceBounds": {
+          "left": 420,
+          "right": 723,
+          "top": 388,
+          "bottom": 642,
+          "pixels": 45355
+        },
+        "outputSize": {
+          "width": 173,
+          "height": 145
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "bdb90309d1fb117b6ed5436d6b5b2712c59047e66b8e2852774624d8fb0fc296",
+        "sourceBounds": {
+          "left": 755,
+          "right": 1089,
+          "top": 387,
+          "bottom": 643,
+          "pixels": 44240
+        },
+        "outputSize": {
+          "width": 190,
+          "height": 146
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "2caec62c41fe5e01ab87c779a618dc29ae1752ce32625041393c36c850c50c87",
+        "sourceBounds": {
+          "left": 1131,
+          "right": 1465,
+          "top": 387,
+          "bottom": 639,
+          "pixels": 44317
+        },
+        "outputSize": {
+          "width": 190,
+          "height": 144
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "3a03af31543e5bcb514c839f5271500228ebad0f66bc5116ded7c57245ce490f",
+        "sourceBounds": {
+          "left": 27,
+          "right": 392,
+          "top": 661,
+          "bottom": 944,
+          "pixels": 56117
+        },
+        "outputSize": {
+          "width": 208,
+          "height": 161
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "c426a45c8b118ce3a3dc978b82665c6f570950d3f8243c5eb72080c9ab077e25",
+        "sourceBounds": {
+          "left": 412,
+          "right": 718,
+          "top": 697,
+          "bottom": 931,
+          "pixels": 48112
+        },
+        "outputSize": {
+          "width": 174,
+          "height": 134
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "2ebf08149c31913edb54591d23902a20f9368f839f203468b6eef5bf843472ff",
+        "sourceBounds": {
+          "left": 761,
+          "right": 1087,
+          "top": 686,
+          "bottom": 944,
+          "pixels": 49821
+        },
+        "outputSize": {
+          "width": 186,
+          "height": 147
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "d836fdd3803e6a4d9c766d9321965e80af361df49b92c1b80ca8554823efe663",
+        "sourceBounds": {
+          "left": 1129,
+          "right": 1484,
+          "top": 678,
+          "bottom": 945,
+          "pixels": 58339
+        },
+        "outputSize": {
+          "width": 202,
+          "height": 152
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-B02-motion",
+    "enemyId": "B02",
+    "path": "/assets/enemy-animations/B02-motion.webp",
+    "width": 896,
+    "height": 672,
+    "frameWidth": 224,
+    "frameHeight": 224,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 215276,
+    "sha256": "f92c7b50903d8e4e55432e0f5a26d773373feef06f29640985991f2396941222",
+    "source": "artifacts/enemy-motion-sources/B02-generated.png",
+    "sourceSha256": "f2bfb16e1d60856ed2ca3fbc32baedc6945c7337a29fd4f5b5cad62d947be2d4",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: large floating prismatic shield overseer boss. Preserve: towering ivory crown fins, navy armored housing, huge cyan faceted shield sphere, four amber emitter ports underneath. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, four amber emitters gather inward] [9 attack release, open and point downward to fire] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: floating cycle with articulated side shield slabs tilting inward/outward, lower amber emitters swiveling, crown tips shifting; retain symmetric overall silhouette. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          387,
+          755,
+          1124,
+          1536
+        ],
+        [
+          0,
+          388,
+          754,
+          1126,
+          1536
+        ],
+        [
+          0,
+          378,
+          725,
+          1110,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        389,
+        696,
+        1024
+      ]
+    },
+    "scale": 0.5667574931880109,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "af40014cfa1eeb59f45934371104096c78b0014651e84fd6332fa0500a4b5eb7",
+        "sourceBounds": {
+          "left": 50,
+          "right": 350,
+          "top": 19,
+          "bottom": 385,
+          "pixels": 58306
+        },
+        "outputSize": {
+          "width": 171,
+          "height": 208
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "6654bbc8964f42db27b5bf955ce580e824c888e67f1451334a701f5ce5f0448f",
+        "sourceBounds": {
+          "left": 424,
+          "right": 721,
+          "top": 24,
+          "bottom": 386,
+          "pixels": 57858
+        },
+        "outputSize": {
+          "width": 169,
+          "height": 206
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "989d55d30ef426fd834e9599a77c4470f69e092e04c8e5cc421e68fcf17dd74c",
+        "sourceBounds": {
+          "left": 789,
+          "right": 1100,
+          "top": 31,
+          "bottom": 386,
+          "pixels": 58258
+        },
+        "outputSize": {
+          "width": 177,
+          "height": 202
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "f0a3990160ff9df564645b859bf155d1179ce39aa843c06ef3d9f0ae5f08bebc",
+        "sourceBounds": {
+          "left": 1148,
+          "right": 1489,
+          "top": 31,
+          "bottom": 386,
+          "pixels": 59326
+        },
+        "outputSize": {
+          "width": 194,
+          "height": 202
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "6958d3531130c64196e96b73e9e42aeb8acf052e0a22726c13ae700804906d4d",
+        "sourceBounds": {
+          "left": 20,
+          "right": 372,
+          "top": 391,
+          "bottom": 688,
+          "pixels": 54347
+        },
+        "outputSize": {
+          "width": 200,
+          "height": 169
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "6edb758c3e97995a0a4d51d918aab8b27499cbeb45575159c83581a2956a9b7e",
+        "sourceBounds": {
+          "left": 403,
+          "right": 739,
+          "top": 394,
+          "bottom": 686,
+          "pixels": 52352
+        },
+        "outputSize": {
+          "width": 191,
+          "height": 166
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "3f54be80ec37f5e7f46a4724206e460c02e67c39662e2c5e703826d48897eb37",
+        "sourceBounds": {
+          "left": 769,
+          "right": 1114,
+          "top": 396,
+          "bottom": 688,
+          "pixels": 51707
+        },
+        "outputSize": {
+          "width": 196,
+          "height": 166
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "0331e31673633aec1f25ed265d25ac25f705075253be48731f68db67dfbe6192",
+        "sourceBounds": {
+          "left": 1138,
+          "right": 1491,
+          "top": 397,
+          "bottom": 689,
+          "pixels": 53190
+        },
+        "outputSize": {
+          "width": 201,
+          "height": 166
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "0919cec5620e5beb89b938a26ea10eaf86b2f78f4f454150edbd707187a55d10",
+        "sourceBounds": {
+          "left": 85,
+          "right": 300,
+          "top": 716,
+          "bottom": 993,
+          "pixels": 40208
+        },
+        "outputSize": {
+          "width": 122,
+          "height": 158
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "90944cc21677804e4f8d2dec99d3a87602d8e01649f2bae10af3b3a592a0d0b1",
+        "sourceBounds": {
+          "left": 456,
+          "right": 674,
+          "top": 709,
+          "bottom": 1003,
+          "pixels": 42724
+        },
+        "outputSize": {
+          "width": 124,
+          "height": 167
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "901c5a36512cb1fba0518035184f6af57161985f783334beced6d828b78e41cb",
+        "sourceBounds": {
+          "left": 776,
+          "right": 1082,
+          "top": 704,
+          "bottom": 986,
+          "pixels": 50812
+        },
+        "outputSize": {
+          "width": 174,
+          "height": 160
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "12bfc2c620ae848f660bb591ce50829eb6950875bf34f124f7b6a8513d303bbb",
+        "sourceBounds": {
+          "left": 1137,
+          "right": 1473,
+          "top": 702,
+          "bottom": 993,
+          "pixels": 57316
+        },
+        "outputSize": {
+          "width": 191,
+          "height": 165
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-B03-motion",
+    "enemyId": "B03",
+    "path": "/assets/enemy-animations/B03-motion.webp",
+    "width": 896,
+    "height": 672,
+    "frameWidth": 224,
+    "frameHeight": 224,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 245648,
+    "sha256": "e4fc773de7332d7600d8ae2133e7f7a240dc5a24667432b29b40ea3d4182f6fd",
+    "source": "artifacts/enemy-motion-sources/B03-generated.png",
+    "sourceSha256": "c8c7a2ecbbfdb2724ff1103c2fb85f4c0a91f1ec41e82a2f4f545f1de9b77366",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: large invasion reactor boss. Preserve: huge orange spherical faceted reactor, orbiting broken ivory armor arcs with cyan hubs, navy body, four stabilizer claws. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, stabilizer claws brace wide as orbit arcs open,] [9 attack release, reactor armor snaps inward and claws thrust forward] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: heavy stabilizer claw steps with obvious raised and planted feet, segmented orbit arcs progressively rotate around the stable orange core. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          396,
+          770,
+          1145,
+          1536
+        ],
+        [
+          0,
+          388,
+          763,
+          1156,
+          1536
+        ],
+        [
+          0,
+          418,
+          766,
+          1143,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        350,
+        675,
+        1024
+      ]
+    },
+    "scale": 0.5621621621621622,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "c34ada045b37976fdc4cf513bd706ebb4d5f24538611e3f96e465c08bb9c5d6f",
+        "sourceBounds": {
+          "left": 45,
+          "right": 375,
+          "top": 20,
+          "bottom": 346,
+          "pixels": 60967
+        },
+        "outputSize": {
+          "width": 186,
+          "height": 184
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "6b7541641dced4c8ecbca2b3290d8f2212a2d616653ed469c8f68780da4281c8",
+        "sourceBounds": {
+          "left": 417,
+          "right": 747,
+          "top": 20,
+          "bottom": 346,
+          "pixels": 59665
+        },
+        "outputSize": {
+          "width": 186,
+          "height": 184
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "3e635f2a83f8e6f099fdeb652636f1102e7ab9a386ff0386cc001576beb3b88f",
+        "sourceBounds": {
+          "left": 792,
+          "right": 1121,
+          "top": 20,
+          "bottom": 346,
+          "pixels": 53464
+        },
+        "outputSize": {
+          "width": 186,
+          "height": 184
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "ea81a5e73206a44a828843fa5bc3b4b59f17261f1ee0cd30a83b6db2f0e72a28",
+        "sourceBounds": {
+          "left": 1169,
+          "right": 1491,
+          "top": 36,
+          "bottom": 347,
+          "pixels": 55664
+        },
+        "outputSize": {
+          "width": 182,
+          "height": 175
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "0a55d160680a34d93ca95f850b9e6b14e6ec07fa8fa7921a11b8178b495ce5c8",
+        "sourceBounds": {
+          "left": 29,
+          "right": 370,
+          "top": 355,
+          "bottom": 654,
+          "pixels": 54267
+        },
+        "outputSize": {
+          "width": 192,
+          "height": 169
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "2fba8e979973d947d58825b62ab9924fc5722214f7b80865aea647723f6e6832",
+        "sourceBounds": {
+          "left": 406,
+          "right": 747,
+          "top": 353,
+          "bottom": 665,
+          "pixels": 56389
+        },
+        "outputSize": {
+          "width": 192,
+          "height": 176
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "b02a57c5f9d2210c2229749155357db7f6343069f750bad0b5e00463dd9f71a6",
+        "sourceBounds": {
+          "left": 779,
+          "right": 1127,
+          "top": 360,
+          "bottom": 670,
+          "pixels": 55366
+        },
+        "outputSize": {
+          "width": 196,
+          "height": 175
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "12871803b971d4d9bc409bb09cf717e6595780a86bb3c6ec435e31bd456d199b",
+        "sourceBounds": {
+          "left": 1184,
+          "right": 1491,
+          "top": 364,
+          "bottom": 668,
+          "pixels": 53887
+        },
+        "outputSize": {
+          "width": 173,
+          "height": 171
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "e892d228866daff727e0215c2f23ae6c33e0a8e186de0b7f74ad29cd2e42b316",
+        "sourceBounds": {
+          "left": 25,
+          "right": 394,
+          "top": 680,
+          "bottom": 998,
+          "pixels": 56953
+        },
+        "outputSize": {
+          "width": 208,
+          "height": 179
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "7b1d2256798996092a0546099174d936ac91c53aefbe11107e6ac2fe14084625",
+        "sourceBounds": {
+          "left": 441,
+          "right": 738,
+          "top": 697,
+          "bottom": 977,
+          "pixels": 49839
+        },
+        "outputSize": {
+          "width": 168,
+          "height": 158
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "dee6e4e4b2a1315d84086f901ad0025c3994ed5effda37fa6522dd86b4c51697",
+        "sourceBounds": {
+          "left": 793,
+          "right": 1124,
+          "top": 696,
+          "bottom": 994,
+          "pixels": 56383
+        },
+        "outputSize": {
+          "width": 187,
+          "height": 168
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "c65e450b6db3ff14db579a9aaa6564a689868a7bbe643b8358e02bc1f5f3e698",
+        "sourceBounds": {
+          "left": 1162,
+          "right": 1503,
+          "top": 690,
+          "bottom": 998,
+          "pixels": 57847
+        },
+        "outputSize": {
+          "width": 192,
+          "height": 174
+        }
+      }
+    ]
+  }
+]

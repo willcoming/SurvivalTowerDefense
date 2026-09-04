@@ -45,12 +45,17 @@ try {
   assert.equal(await speed.innerText(), '1×');
   await speed.click(); assert.equal(await speed.innerText(), '2×');
   await speed.click(); assert.equal(await speed.innerText(), '3×');
-  await page.locator('[data-action="cast"]').click();
+  const auto = page.getByRole('button', { name: '自動施放隊長技能', exact: true });
+  assert.equal(await auto.getAttribute('aria-pressed'), 'false');
+  await auto.click(); assert.equal(await auto.getAttribute('aria-pressed'), 'true');
+  await page.screenshot({ path: `${dir}/auto-tactical-battle.png` });
   await page.locator('.upgrade-dialog').waitFor({ timeout: 35000 });
   await page.waitForTimeout(200);
   const before = await readSave();
   assert.ok(before.activeRun?.draft, 'Earned upgrade was saved');
   assert.equal(before.preferences.battleSpeed, 3);
+  assert.equal(before.preferences.autoTactical, true);
+  assert.ok(before.activeRun.stats.casts.length > 0, 'Auto input cast the actual captain skill');
   await page.screenshot({ path: `${dir}/earned-upgrade.png`, fullPage: true });
   await page.reload();
   await page.locator('[data-action="continue"]').click();
@@ -64,6 +69,9 @@ try {
   assert.deepEqual(after.activeRun?.draft, before.activeRun?.draft);
   assert.deepEqual(after.activeRun?.rng, before.activeRun?.rng);
   assert.equal(after.preferences.battleSpeed, 3);
+  assert.equal(after.preferences.autoTactical, true);
+  assert.equal(await auto.getAttribute('aria-pressed'), 'true');
+  assert.equal(after.activeRun?.tacticalReadyAt, before.activeRun?.tacticalReadyAt);
   assert.equal(await speed.innerText(), '3×');
   await page.locator('.upgrade-card').first().click();
   await page.locator('[data-action="confirm-card"]').click();
@@ -76,7 +84,7 @@ try {
   assert.deepEqual(errors, []); assert.deepEqual(failed, []);
   assert.ok(homeInteractiveMs <= 5000, `Home load ${homeInteractiveMs}ms exceeds 5000ms`);
   assert.ok(battleReadyMs <= 10000, `Battle load ${battleReadyMs}ms exceeds 10000ms`);
-  const result = { contentVersion: CONTENT_VERSION, measuredAt: new Date().toISOString(), browser: browser.version(), userAgent: await page.evaluate(() => navigator.userAgent), origin: 'http://127.0.0.1:5173', server: 'vite preview of production dist', viewport: page.viewportSize(), network: '10 Mbps / 100 ms RTT, empty browser context, HTTP cache disabled', homeInteractiveMs, battleReadyMs, snapshotTick: before.activeRun?.tick, phaseAfterRecovery: chosen.activeRun?.phase, savedChoices: chosen.activeRun?.choicesSpent, battleSpeed: chosen.preferences.battleSpeed, productionDebugApiAbsent: true, consoleErrors: errors, failedRequests: failed, passed: true, limitation: 'Desktop Chromium emulating mobile viewport/network; not actual phone hardware. Real-time gameplay earned the first upgrade without simulation hooks.' };
+  const result = { contentVersion: CONTENT_VERSION, measuredAt: new Date().toISOString(), browser: browser.version(), userAgent: await page.evaluate(() => navigator.userAgent), origin: 'http://127.0.0.1:5173', server: 'vite preview of production dist', viewport: page.viewportSize(), network: '10 Mbps / 100 ms RTT, empty browser context, HTTP cache disabled', homeInteractiveMs, battleReadyMs, snapshotTick: before.activeRun?.tick, phaseAfterRecovery: chosen.activeRun?.phase, savedChoices: chosen.activeRun?.choicesSpent, battleSpeed: chosen.preferences.battleSpeed, autoTactical: chosen.preferences.autoTactical, actualAutoCasts: before.activeRun.stats.casts.length, productionDebugApiAbsent: true, consoleErrors: errors, failedRequests: failed, passed: true, limitation: 'Desktop Chromium emulating mobile viewport/network; not actual phone hardware. Real-time gameplay earned the first upgrade without simulation hooks.' };
   writeFileSync(`${dir}/smoke.json`, JSON.stringify(result, null, 2));
   console.log(JSON.stringify(result, null, 2));
 } catch (error) {

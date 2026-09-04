@@ -1,0 +1,59 @@
+{
+  "scope": [
+    "11 enemy types, 132 poses, actual movement/idle/charge/release",
+    "stun/pause and existing hit/death integration",
+    "3x readable gait and preserved warnings",
+    "persistent optional automatic captain skill, six captains, manual control",
+    "old local saves compatible; unchanged combat balance"
+  ],
+  "rules": {
+    "passed": 120,
+    "failed": 0
+  },
+  "browser": {
+    "startTime": "2026-09-04T14:22:39.328Z",
+    "duration": 277141.679,
+    "expected": 76,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "performance": {
+    "p95Ms": 26.100000000000364,
+    "ticksPerSecond": 89.99296851829018,
+    "warningMissingFrames": 0,
+    "passed": true
+  },
+  "production": {
+    "contentVersion": "0.1.0-dev.2",
+    "measuredAt": "2026-09-04T14:28:20.655Z",
+    "browser": "151.0.7922.34",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "origin": "http://127.0.0.1:5173",
+    "server": "vite preview of production dist",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "network": "10 Mbps / 100 ms RTT, empty browser context, HTTP cache disabled",
+    "homeInteractiveMs": 657.713834,
+    "battleReadyMs": 3357.21875,
+    "snapshotTick": 470,
+    "phaseAfterRecovery": "paused",
+    "savedChoices": 1,
+    "battleSpeed": 3,
+    "autoTactical": true,
+    "actualAutoCasts": 1,
+    "productionDebugApiAbsent": true,
+    "consoleErrors": [],
+    "failedRequests": [],
+    "passed": true,
+    "limitation": "Desktop Chromium emulating mobile viewport/network; not actual phone hardware. Real-time gameplay earned the first upgrade without simulation hooks."
+  },
+  "gameplayIdentical": true,
+  "assetBudgetPassed": true,
+  "assetIntegrityPassed": true,
+  "performanceSourceMatchesFinalSource": true,
+  "deferred": "Physical phone, actual Safari app and human playtesting remain deferred per agreed delivery scope.",
+  "passed": true
+}

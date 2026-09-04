@@ -1,0 +1,46 @@
+{
+  "first": {
+    "tick": 26,
+    "ready": 1526
+  },
+  "due": 62,
+  "draft": {
+    "tick": 95,
+    "casts": [
+      26,
+      62,
+      90
+    ]
+  },
+  "evidence": {
+    "preferences": {
+      "squadIds": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "captainId": "C02",
+      "branches": {
+        "C01": "A",
+        "C02": "A",
+        "C03": "A",
+        "C04": "A",
+        "C05": "A",
+        "C06": "A"
+      },
+      "musicVolume": 0.35,
+      "sfxVolume": 0.65,
+      "reducedEffects": false,
+      "tutorialSeen": true,
+      "battleSpeed": 3,
+      "autoTactical": true
+    },
+    "casts": [
+      26,
+      62,
+      90
+    ]
+  }
+}

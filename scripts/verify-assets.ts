@@ -7,6 +7,7 @@ const expected = [
   ...CHARACTER_IDS.flatMap(id => [`characters/${id}-portrait.webp`, `characters/${id}-chibi.webp`, `weapons/${id}.webp`, `evolutions/${id}-A.webp`, `evolutions/${id}-B.webp`]),
   ...ENEMIES.map(e => `enemies/${e.id}.webp`), ...STAGES.map(s => `stages/${s.id}.webp`),
   ...CHARACTER_IDS.map(id => `animations/${id}-motion.webp`),
+  ...ENEMIES.map(e => `enemy-animations/${e.id}-motion.webp`),
 ];
 const manifest = JSON.parse(readFileSync('public/assets/manifest.json', 'utf8')) as {assetId:string;path:string;width:number;height:number;bytes:number}[];
 const missing = expected.filter(path => !existsSync(`public/assets/${path}`));

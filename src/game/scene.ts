@@ -2,8 +2,8 @@ import Phaser from 'phaser';
 import { CHARACTER_MAP, ENEMY_MAP, STAGE_MAP } from '../data/content';
 import type { RunState } from '../sim/types';
 import type { GameAudio } from './audio';
-import { keyPixels } from './chroma';
 import { CombatActors, enemySize } from './actors';
+import { enemyFrameSize, enemyTexture } from './enemy-motion';
 import { drawEffect, drawField, drawProjectile, polygon, line } from './effects';
 import { capEffects, effectDetail, effectLifetime, LAYERS, type ActiveEffect, type Detail } from './presentation';
 import type { BattleSpeed } from '../storage/repository';
@@ -28,6 +28,8 @@ export class BattleScene extends Phaser.Scene {
   private endingAt = Infinity;
   private endingDone: (() => void) | null = null;
   private spriteKeys = new Map<string, string>();
+  private hostileBolts: Phaser.GameObjects.Image[] = [];
+  private visibleHostileBolts = 0;
   private previousShields = new Map<number, number>(); private previousCharges = new Set<number>(); private previousCooldown = 0;
   private originX(id?: string) { const ids = this.read().config.squadIds; const i = ids.findIndex(c => c === id); return i < 0 ? 195 : 195 + (i - (ids.length - 1) / 2) * 70; }
   private loading: SceneLoading; private missing: string[] = [];
@@ -39,16 +41,11 @@ export class BattleScene extends Phaser.Scene {
     this.load.image('stage', `/assets/stages/${run.config.stageId}.webp`);
     run.config.squadIds.forEach(id => this.load.spritesheet(`motion-${id}`, `/assets/animations/${id}-motion.webp`, { frameWidth: 256, frameHeight: 256 }));
     this.load.image('captain-portrait', `/assets/characters/${run.config.captainId}-portrait.webp`);
-    [...new Set([...STAGE_MAP[run.config.stageId].enemyIds, STAGE_MAP[run.config.stageId].bossId])].forEach(id => this.load.image(id, `/assets/enemies/${id}.webp`));
+    [...new Set([...STAGE_MAP[run.config.stageId].enemyIds, STAGE_MAP[run.config.stageId].bossId])].forEach(id => this.load.spritesheet(enemyTexture(id), `/assets/enemy-animations/${id}-motion.webp`, { frameWidth: enemyFrameSize(id), frameHeight: enemyFrameSize(id) }));
   }
   create() {
     Object.keys(ENEMY_MAP).forEach(id => {
-      if (!this.textures.exists(id)) return;
-      const source = this.textures.get(id).getSourceImage() as HTMLImageElement;
-      const canvas = this.textures.createCanvas(`keyed-${id}`, source.width, source.height);
-      if (!canvas) return;
-      canvas.context.drawImage(source, 0, 0);
-      keyPixels(canvas.context, source.width, source.height); canvas.refresh(); this.spriteKeys.set(id, `keyed-${id}`);
+      if (this.textures.exists(enemyTexture(id))) this.spriteKeys.set(id, enemyTexture(id));
     });
     this.cameras.main.setBackgroundColor('#132c38');
     if (this.textures.exists('stage')) { const bg = this.add.image(195, 260, 'stage'); bg.setDisplaySize(390, 520).setAlpha(.60); }
@@ -60,6 +57,12 @@ export class BattleScene extends Phaser.Scene {
     this.worldGraphics = this.add.graphics().setVisible(false);
     this.worldTexture = this.add.renderTexture(0, 0, 390, 520).setOrigin(0).setDepth(5);
     this.graphics = this.add.graphics().setDepth(LAYERS.effects);
+    // Rasterize the small hostile projectile core once; reuse quads instead of
+    // tessellating the same circle hundreds of times on every simulation update.
+    const bolt = this.make.graphics({ x: 0, y: 0 });
+    bolt.fillStyle(0xff654e, 1).fillCircle(8, 8, 4.5).generateTexture('hostile-bolt-compact', 16, 16);
+    bolt.fillStyle(0xffffff, .9).fillCircle(8, 8, 1.2).generateTexture('hostile-bolt-full', 16, 16);
+    bolt.destroy();
     this.warnings = this.add.graphics().setDepth(LAYERS.warnings);
     this.actors = new CombatActors(this, this.read, this.speed, this.spriteKeys);
     const ids = this.read().config.squadIds;
@@ -93,7 +96,19 @@ export class BattleScene extends Phaser.Scene {
     if (this.previousCooldown > 0 && cooldown === 0) this.audio.feedback('ready'); this.previousCooldown = cooldown;
     this.warning.setVisible(!!charging);
     if (charging) { const stun = Math.max(0, Math.ceil((charging.stunImmuneUntil - run.tick) / 30)), move = Math.max(0, Math.ceil((charging.moveImmuneUntil - run.tick) / 30)); const immunity = [stun ? `免暈 ${stun}s` : '', move ? `免位移 ${move}s` : ''].filter(Boolean).join(' / '); this.warning.setText(`⚠ ${ENEMY_MAP[charging.defId].name} 蓄力中\n${immunity || '可使用有效暈眩或位移打斷'}`); }
-    for (const p of run.projectiles) drawProjectile(g, p, run, this.actors.origin, this.detail);
+    let boltIndex = 0;
+    for (const p of run.projectiles) {
+      if (p.enemyDamage && !p.packet && !p.impactAt) {
+        const key = `hostile-bolt-${this.detail}`;
+        let sprite = this.hostileBolts[boltIndex++];
+        if (!sprite) { sprite = this.add.image(p.x, p.y, key).setDepth(LAYERS.world + .1); this.hostileBolts.push(sprite); }
+        if (sprite.texture.key !== key) sprite.setTexture(key);
+        sprite.setVisible(true).setPosition(p.x, p.y);
+        if (p.vx || p.vy) line(g, [{ x: p.x - p.vx * .014, y: p.y - p.vy * .014 }, p], 0xff654e, 4, .75);
+      } else drawProjectile(g, p, run, this.actors.origin, this.detail);
+    }
+    for (let i = boltIndex; i < this.hostileBolts.length; i++) this.hostileBolts[i].setVisible(false);
+    this.visibleHostileBolts = boltIndex;
     const shield = run.shields.reduce((sum, s) => sum + s.value, 0);
     if (shield > 0) { g.fillStyle(0x69eedc, .10).fillRect(0, 432, 390, 18); g.lineStyle(3, 0x9cffee, .8).beginPath().moveTo(0, 435).lineTo(390, 435).strokePath(); }
     for (const weapon of run.weapons) {
@@ -176,6 +191,8 @@ export class BattleScene extends Phaser.Scene {
     return { ...this.actors.diagnostics(), detail: this.detail, activeEffects: this.flashes.length, peakEffects: this.peakEffects,
       warnings: { visible: this.warning.visible, text: this.warning.text, top: bounds.top, bottom: bounds.bottom, depth: this.warning.depth, geometryDepth: this.warnings.depth },
       textureFrames: Object.fromEntries(this.read().config.squadIds.map(id => [id, this.textures.get(`motion-${id}`).frameTotal - 1])),
+      hostileProjectileImages: this.visibleHostileBolts,
+      enemyTextureFrames: Object.fromEntries([...this.spriteKeys].map(([id, key]) => [id, this.textures.get(key).frameTotal - 1])),
     };
   }
 

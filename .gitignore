@@ -3,6 +3,7 @@ dist/
 .DS_Store
 artifacts/art-sources/
 artifacts/animation-sources/*.png
+artifacts/enemy-motion-sources/*.png
 test-results/
 playwright-report/
 *.log

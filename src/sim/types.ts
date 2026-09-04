@@ -41,6 +41,8 @@ export interface Enemy {
   chargeUntil: number; chargeKind: 'shot' | 'rush' | 'boss' | null; chargeCancelled: boolean;
   phaseTriggered: boolean; rushUntil: number; stunImmuneUntil: number; moveImmuneUntil: number;
   exposureUntil: number; summonCount: number; arcCharges: number;
+  /** Optional presentation cue. Never used to calculate damage, movement or cooldowns. */
+  lastAction?: { tick: number; kind: 'melee' | 'shot' | 'blast' | 'burst' | 'rush' | 'summon' | 'repair' | 'shield' };
 }
 export interface DamagePacket {
   source: CharacterId; skill: string; raw: number; damageType: DamageType;

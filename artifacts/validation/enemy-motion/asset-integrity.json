@@ -1,0 +1,82 @@
+{
+  "assets": [
+    {
+      "id": "E01",
+      "frames": 12,
+      "hashMatches": true,
+      "uniqueFrames": true,
+      "alpha": true
+    },
+    {
+      "id": "E02",
+      "frames": 12,
+      "hashMatches": true,
+      "uniqueFrames": true,
+      "alpha": true
+    },
+    {
+      "id": "E03",
+      "frames": 12,
+      "hashMatches": true,
+      "uniqueFrames": true,
+      "alpha": true
+    },
+    {
+      "id": "E04",
+      "frames": 12,
+      "hashMatches": true,
+      "uniqueFrames": true,
+      "alpha": true
+    },
+    {
+      "id": "E05",
+      "frames": 12,
+      "hashMatches": true,
+      "uniqueFrames": true,
+      "alpha": true
+    },
+    {
+      "id": "E06",
+      "frames": 12,
+      "hashMatches": true,
+      "uniqueFrames": true,
+      "alpha": true
+    },
+    {
+      "id": "E07",
+      "frames": 12,
+      "hashMatches": true,
+      "uniqueFrames": true,
+      "alpha": true
+    },
+    {
+      "id": "E08",
+      "frames": 12,
+      "hashMatches": true,
+      "uniqueFrames": true,
+      "alpha": true
+    },
+    {
+      "id": "B01",
+      "frames": 12,
+      "hashMatches": true,
+      "uniqueFrames": true,
+      "alpha": true
+    },
+    {
+      "id": "B02",
+      "frames": 12,
+      "hashMatches": true,
+      "uniqueFrames": true,
+      "alpha": true
+    },
+    {
+      "id": "B03",
+      "frames": 12,
+      "hashMatches": true,
+      "uniqueFrames": true,
+      "alpha": true
+    }
+  ],
+  "passed": true
+}

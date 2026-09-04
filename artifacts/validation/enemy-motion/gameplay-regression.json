@@ -1,0 +1,10 @@
+{
+  "baseline": "artifacts/validation/0.1.0-dev.2/balance-runs.json",
+  "current": "artifacts/validation/enemy-motion/final-simulation/balance-runs.json",
+  "sourceDigest": "e6f6e0d69da0bd32c2aecad0948e5b61883cb64f6d38f9fbbbc6949fc7b154a3",
+  "allRunFieldsIdentical": true,
+  "summaryIdentical": true,
+  "runs": 30,
+  "passed": true,
+  "notes": "Auto input is off by default and separate from simulation. Only report timestamp, revision and source digest differ; every complete per-run record, including final simulation digest, is identical."
+}

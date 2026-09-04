@@ -1,0 +1,289 @@
+{
+  "contentVersion": "0.1.0-dev.2",
+  "measuredAt": "2026-09-04T14:22:42.356Z",
+  "requiredAssets": 61,
+  "manifestAssets": 62,
+  "missing": [],
+  "invalidManifest": [],
+  "runtimeBytes": 7480352,
+  "bundles": [
+    {
+      "path": "dist/assets/index-CVZReAsS.js",
+      "rawBytes": 1325067,
+      "gzipBytes": 363218
+    },
+    {
+      "path": "dist/assets/index-_AZlSxva.css",
+      "rawBytes": 48316,
+      "gzipBytes": 10198
+    },
+    {
+      "path": "dist/index.html",
+      "rawBytes": 626,
+      "gzipBytes": 464
+    }
+  ],
+  "conservativeHomeTransferBytes": 1248466,
+  "conservativeFirstBattleBytes": 7854232,
+  "conservativeDecodedBytesIncludingKeyedCopies": 81340864,
+  "notes": "Static upper bounds: home includes all six portraits; first battle includes ALL runtime artwork. WebP is counted as stored; code uses measured gzip. Decoded estimate includes every manifest texture plus extra keyed combat copies and the390×520 world RenderTexture, but excludes browser/GPU allocation overhead. Network timing measured separately in production smoke.",
+  "passed": true,
+  "sha256": [
+    {
+      "path": "public/assets/animations/C01-motion.webp",
+      "hash": "6d9f4304a18f7d9a17cfd1ed9127276e34554d5e51bfb0c95e8689654d5eaff5"
+    },
+    {
+      "path": "public/assets/animations/C02-motion.webp",
+      "hash": "c742e7cb46caf9f5de962f6128228c61e0d371993384d11c70840c4a2372c3ff"
+    },
+    {
+      "path": "public/assets/animations/C03-motion.webp",
+      "hash": "5df460c865e3d4e79eb428406955592c4ec6e4f0a738fb00b6481718f205fd2d"
+    },
+    {
+      "path": "public/assets/animations/C04-motion.webp",
+      "hash": "5c99712378bea2ea80ddb6c14915c0153718bc275c6290e03b7f59a754a89007"
+    },
+    {
+      "path": "public/assets/animations/C05-motion.webp",
+      "hash": "bbb87c3c5d5ae82ec303709cc9e2a59a6dc7434c7023c3ebd771af15d93cb8c1"
+    },
+    {
+      "path": "public/assets/animations/C06-motion.webp",
+      "hash": "2779c53d5e502589d7aa83a9eb3c00b02d7f6f9c306b9387e09edd5185fafea9"
+    },
+    {
+      "path": "public/assets/characters/C01-chibi.webp",
+      "hash": "0e6e0e5f76a0c95c9f4f3dbc134117c4b97343d61f406c9505f87e6bf179b49f"
+    },
+    {
+      "path": "public/assets/characters/C01-portrait.webp",
+      "hash": "5d4f10874d89a5f94699b0d31d23ffad977529693184fc56ccba2ab6769b2655"
+    },
+    {
+      "path": "public/assets/characters/C02-chibi.webp",
+      "hash": "c12471d15bac0f831e026f0975714e792cd4e92678447ee0884af2a62b88a3cf"
+    },
+    {
+      "path": "public/assets/characters/C02-portrait.webp",
+      "hash": "f979ac9f1f0f0b0c347ce2c0fc83c48f8c749fa261672677b6700b39f647904c"
+    },
+    {
+      "path": "public/assets/characters/C03-chibi.webp",
+      "hash": "9062d8e52a3742842d5c0dcdbdee19c3a9255f006de139f915f3ce6fdb14df6b"
+    },
+    {
+      "path": "public/assets/characters/C03-portrait.webp",
+      "hash": "9fddfb68d29012ec6b0d5e0c23227f0644e64f2f29d410732201131f333fdf7a"
+    },
+    {
+      "path": "public/assets/characters/C04-chibi.webp",
+      "hash": "03cbfa409b60fe8323c5f2c17d4a00776eb5499283a54409cd4f8ebcc30c779b"
+    },
+    {
+      "path": "public/assets/characters/C04-portrait.webp",
+      "hash": "67d22c9d04bb6011251731d5acc34948ace05fa0dc1e9b40e236d95ea7fd4bd5"
+    },
+    {
+      "path": "public/assets/characters/C05-chibi.webp",
+      "hash": "83b6c982095e29d9e5dba0118e4542c284302718de838f56460b5217468a14d2"
+    },
+    {
+      "path": "public/assets/characters/C05-portrait.webp",
+      "hash": "91d8785c90a4acc3276afc9e6eb64903b5d9db059087484894946cf1699c1ee1"
+    },
+    {
+      "path": "public/assets/characters/C06-chibi.webp",
+      "hash": "ce4d9186300722a0dbcda34d1fd153a00a031236ef239726a94c9731ca925aa6"
+    },
+    {
+      "path": "public/assets/characters/C06-portrait.webp",
+      "hash": "b95bb62b317d52d46d671777c4912c8ce95be7d1575deca052888dfa202ca206"
+    },
+    {
+      "path": "public/assets/effects/common.json",
+      "hash": "a691fbdf654416300d6e2e3de0cc5d946121aa41fc40a40b0af2a1f42046ebbd"
+    },
+    {
+      "path": "public/assets/effects/common.webp",
+      "hash": "61ab582da88d144e9d6cad2156c5427b26547fb91ccfd7021e567d68ffa1acb1"
+    },
+    {
+      "path": "public/assets/enemies/B01.webp",
+      "hash": "4cd2408c82b78d12695d06848d84386774fda0496fb3cf1591753a90ee1dc6cf"
+    },
+    {
+      "path": "public/assets/enemies/B02.webp",
+      "hash": "fa781e7b02ea5da47e842868a89cc59b62934437948ec72db5d216666c1bc381"
+    },
+    {
+      "path": "public/assets/enemies/B03.webp",
+      "hash": "2d672716ebe28d9cf5af238fc24c2ecdadc312472366d223cbb8e1ab38201204"
+    },
+    {
+      "path": "public/assets/enemies/E01.webp",
+      "hash": "1b1f566a5777771c154af762188cda4bb9e109674de6265fd2e4c1cd78277c6c"
+    },
+    {
+      "path": "public/assets/enemies/E02.webp",
+      "hash": "128f0aadd197c3ef9fad755bbfa7925abf097840a78b9747207b2233542afb48"
+    },
+    {
+      "path": "public/assets/enemies/E03.webp",
+      "hash": "14fa2fb04bea4cdcfd671a1574a6e8776651f40d13d5399b4a350bba16b6eb2d"
+    },
+    {
+      "path": "public/assets/enemies/E04.webp",
+      "hash": "cf1bb50976a5dc570e7b24acfb941de6d52837eb966181d261f67cd4bf6f9ef2"
+    },
+    {
+      "path": "public/assets/enemies/E05.webp",
+      "hash": "8cd484374bdbdfdb1faabb9679fb96cb827eccb19e678e6274080d74bbcb8796"
+    },
+    {
+      "path": "public/assets/enemies/E06.webp",
+      "hash": "c2c33d55a380f8d972933fe66cf05c588a24cadb0182eeeaee18be1d8d9e5366"
+    },
+    {
+      "path": "public/assets/enemies/E07.webp",
+      "hash": "6b0b4e65eeecc2fe1542e4d0441cdd6837599782cff5e14b2c620727eeaaafd2"
+    },
+    {
+      "path": "public/assets/enemies/E08.webp",
+      "hash": "74cf31e6fabd0b5e558d460398ded552368e6347f763258226cc759c26e9b4b5"
+    },
+    {
+      "path": "public/assets/enemy-animations/B01-motion.webp",
+      "hash": "f41217ff470609fbd3a661d5eb88fd2ad83b1a347a76a0b2cad2d7a451206340"
+    },
+    {
+      "path": "public/assets/enemy-animations/B02-motion.webp",
+      "hash": "f92c7b50903d8e4e55432e0f5a26d773373feef06f29640985991f2396941222"
+    },
+    {
+      "path": "public/assets/enemy-animations/B03-motion.webp",
+      "hash": "e4fc773de7332d7600d8ae2133e7f7a240dc5a24667432b29b40ea3d4182f6fd"
+    },
+    {
+      "path": "public/assets/enemy-animations/E01-motion.webp",
+      "hash": "b59bdc55abb2107bb8b5c98e266609ed85deee68a437dd784f80f71c97d9ee07"
+    },
+    {
+      "path": "public/assets/enemy-animations/E02-motion.webp",
+      "hash": "d10b4178f7d5452cfd2ef4e18a456f86ba49a0a43a4432d31624619c1d6dc324"
+    },
+    {
+      "path": "public/assets/enemy-animations/E03-motion.webp",
+      "hash": "2a058d0183c37c643cd8d96ab3341de31e3c82e63f3e85a221c3659b535cd3b3"
+    },
+    {
+      "path": "public/assets/enemy-animations/E04-motion.webp",
+      "hash": "0d1600ead02a229fc765ab269599eb2c8852e1674b14b769d4559a73bafce503"
+    },
+    {
+      "path": "public/assets/enemy-animations/E05-motion.webp",
+      "hash": "238b941c1ccb09c4be76c7e8c0a651dde8258e2a0ca37c4b0e558d63343befbf"
+    },
+    {
+      "path": "public/assets/enemy-animations/E06-motion.webp",
+      "hash": "496ea191fcc22034cc36bddbcc1cf575484895f00a74795662432a13238d0b34"
+    },
+    {
+      "path": "public/assets/enemy-animations/E07-motion.webp",
+      "hash": "d453c1555bb94600bcf06f701cb3498449e325a78fbfaa3a51b8667f9189f2f2"
+    },
+    {
+      "path": "public/assets/enemy-animations/E08-motion.webp",
+      "hash": "3e34a23b9ecacb82b23142bab5a057d5b2593924e301b4aa1df56385971efc11"
+    },
+    {
+      "path": "public/assets/evolutions/C01-A.webp",
+      "hash": "ae6517b7456770f9e34b3e9c53c07504250c2c26c195b3c85c99532bbe0b5a5e"
+    },
+    {
+      "path": "public/assets/evolutions/C01-B.webp",
+      "hash": "a06e7d764c5b08690b37449f2514067db4112b13b4f3b339e839f8f001989fc4"
+    },
+    {
+      "path": "public/assets/evolutions/C02-A.webp",
+      "hash": "17b2dbafa35c698a63f4e2601066af5c6ca2971a2f0afba260d2773ccb04e37e"
+    },
+    {
+      "path": "public/assets/evolutions/C02-B.webp",
+      "hash": "81e83554a44f6d980d15f950051054703248ab201a05f47b927b5313372c24f5"
+    },
+    {
+      "path": "public/assets/evolutions/C03-A.webp",
+      "hash": "0561d2f718ae3a2f35f030fcf21544ac1a4b2d8e3bdd867b25819f20b0197e3c"
+    },
+    {
+      "path": "public/assets/evolutions/C03-B.webp",
+      "hash": "9568d693dc24040beb84cb7ed04127db90fe1180a8f51e1b3c478a023f499614"
+    },
+    {
+      "path": "public/assets/evolutions/C04-A.webp",
+      "hash": "542291103789858f9462289730e8b763f1f74db1dc4647bb365f0358018a8cd0"
+    },
+    {
+      "path": "public/assets/evolutions/C04-B.webp",
+      "hash": "6c0659965205386090647295935bb8d2462edfdedc71a3ad8ab04e9f6302e0e8"
+    },
+    {
+      "path": "public/assets/evolutions/C05-A.webp",
+      "hash": "5e0996bba97bebfc94b483300653797e347bd388c95d8103387a299690d7f7cc"
+    },
+    {
+      "path": "public/assets/evolutions/C05-B.webp",
+      "hash": "3bb75e79049463354a54ad5757d7d4004a289f3c83a536e46c4d667922110c36"
+    },
+    {
+      "path": "public/assets/evolutions/C06-A.webp",
+      "hash": "4d640f4ccd3bd865efbf486006fdbcda66804ce6afbdd8cab349a152f2a7cea4"
+    },
+    {
+      "path": "public/assets/evolutions/C06-B.webp",
+      "hash": "8ec8f2fec9a41181092d689dc2d90df93c690204bad78f04a0886c083895add2"
+    },
+    {
+      "path": "public/assets/manifest.json",
+      "hash": "172243f47f2d698fba796a71a1faa912f4cb7fac58e5bbeb02ba48511b82cb2b"
+    },
+    {
+      "path": "public/assets/stages/S01.webp",
+      "hash": "9ed1d5f7fb4a2efcc732326490c4a379078e2fb4e190bc05ec7ec74fcc5c2a78"
+    },
+    {
+      "path": "public/assets/stages/S02.webp",
+      "hash": "58008397785aa9259d0651ddaff14d75a0f5794ecbce6647708359ef57ce0964"
+    },
+    {
+      "path": "public/assets/stages/S03.webp",
+      "hash": "8b5b28f8209d46dd39607717120fa34420cfa2660c306cc8136335ca8168b5c0"
+    },
+    {
+      "path": "public/assets/weapons/C01.webp",
+      "hash": "fb851b138699541ce8907613a3161f9f5e11af3f0aa9ac84c4969e24cfea1bd8"
+    },
+    {
+      "path": "public/assets/weapons/C02.webp",
+      "hash": "669deac968cea9018ceded8da78f96f6525d4add08908927161ab9258759169e"
+    },
+    {
+      "path": "public/assets/weapons/C03.webp",
+      "hash": "446c2c1ef04964f995f2ce7d72676c64ec12f92f7f1197c9561d851d8c7f8908"
+    },
+    {
+      "path": "public/assets/weapons/C04.webp",
+      "hash": "60a93691bbd04391ecb297095233e03040a5a9d9448067ae89854eb6735a79d2"
+    },
+    {
+      "path": "public/assets/weapons/C05.webp",
+      "hash": "a64b11876c161f69f80c71a01f5fb83d505e5a3ada3b52c358326e4ee2b50e33"
+    },
+    {
+      "path": "public/assets/weapons/C06.webp",
+      "hash": "e593b9e9033b2f9ef88599d4e5dca40b7301be7f2f9dae77437c9e8a65f654ff"
+    }
+  ]
+}

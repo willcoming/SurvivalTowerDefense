@@ -1,0 +1,239 @@
+{
+  "config": {
+    "argv": [
+      "/Users/willcoming/.hermes/node/bin/node",
+      "/Users/willcoming/code/SurvivalTowerDefense/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/auto-tactical.spec.ts"
+    ],
+    "configFile": "/Users/willcoming/code/SurvivalTowerDefense/playwright.config.ts",
+    "rootDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/enemy-motion/auto-first/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/enemy-motion/auto-first/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "artifacts/validation/enemy-motion/auto-first/browser-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev -- --host 0.0.0.0 --port 5173 --strictPort",
+      "url": "http://127.0.0.1:5173",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "auto-tactical.spec.ts",
+      "file": "auto-tactical.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "AUTO: toggle casts on cooldown, waits for targets, pauses, saves and keeps manual control",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 60647,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/auto-tactical.spec.ts",
+                        "column": 154,
+                        "line": 27
+                      },
+                      "message": "Error: locator.waitFor: Test timeout of 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.upgrade-dialog') to be visible\u001b[22m\n\n\n  25 |   expect(await page.evaluate(()=>window.__game.state()!.stats.casts.length)).toBe(2);await page.locator('[data-action=\"cast\"]').click();expect(await page.evaluate(()=>window.__game.state()!.stats.casts.length)).toBe(3);\n  26 |   // Automatic input must stop at the real earned-upgrade boundary.\n> 27 |   await page.evaluate(()=>{const s=window.__game.state()!;s.xp=40;s.tacticalReadyAt=s.tick+9;});await auto.click();await page.locator('.upgrade-dialog').waitFor();\n     |                                                                                                                                                          ^\n  28 |   const draft=await page.evaluate(()=>({tick:window.__game.state()!.tick,casts:[...window.__game.state()!.stats.casts]}));await page.waitForTimeout(200);expect(await page.evaluate(()=>({tick:window.__game.state()!.tick,casts:[...window.__game.state()!.stats.casts]}))).toEqual(draft);\n  29 |   await page.evaluate(()=>{const s=window.__game.state()!;s.xp=0;s.draft=null;s.pauseReasons=[];s.phase='running';s.config.challengeId='no-skill';s.tacticalReadyAt=s.tick;});await page.waitForTimeout(200);expect(await page.evaluate(()=>window.__game.state()!.stats.casts)).toEqual(draft.casts);\n  30 |   mkdirSync(`${dir}/screenshots`,{recursive:true});\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/auto-tactical.spec.ts:27:154"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T14:18:47.554Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/enemy-motion/auto-first/browser-results/test-output/auto-tactical-AUTO-toggle--8576c-es-and-keeps-manual-control-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/enemy-motion/auto-first/browser-results/test-output/auto-tactical-AUTO-toggle--8576c-es-and-keeps-manual-control-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/enemy-motion/auto-first/browser-results/test-output/auto-tactical-AUTO-toggle--8576c-es-and-keeps-manual-control-chromium/trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a59a29038bd2646c81a3-b91661715bdfc44d77ab",
+          "file": "auto-tactical.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "AUTO: toggle casts on cooldown, waits for targets, pauses, saves and keeps manual control",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 60550,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/auto-tactical.spec.ts",
+                        "column": 154,
+                        "line": 27
+                      },
+                      "message": "Error: locator.waitFor: Test timeout of 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.upgrade-dialog') to be visible\u001b[22m\n\n\n  25 |   expect(await page.evaluate(()=>window.__game.state()!.stats.casts.length)).toBe(2);await page.locator('[data-action=\"cast\"]').click();expect(await page.evaluate(()=>window.__game.state()!.stats.casts.length)).toBe(3);\n  26 |   // Synthetic earned count exercises the real upgrade pause boundary.\n> 27 |   await auto.click();await page.evaluate(()=>{const s=window.__game.state()!;s.xp=40;s.choicesEarned=1;s.tacticalReadyAt=s.tick+9;});await page.locator('.upgrade-dialog').waitFor();\n     |                                                                                                                                                          ^\n  28 |   const draft=await page.evaluate(()=>({tick:window.__game.state()!.tick,casts:[...window.__game.state()!.stats.casts]}));await page.waitForTimeout(200);expect(await page.evaluate(()=>({tick:window.__game.state()!.tick,casts:[...window.__game.state()!.stats.casts]}))).toEqual(draft);\n  29 |   await page.evaluate(()=>{const s=window.__game.state()!;s.xp=0;s.choicesEarned=0;s.draft=null;s.pauseReasons=[];s.phase='running';s.config.challengeId='no-skill';s.tacticalReadyAt=s.tick;});await page.waitForTimeout(200);expect(await page.evaluate(()=>window.__game.state()!.stats.casts)).toEqual(draft.casts);\n  30 |   mkdirSync(`${dir}/screenshots`,{recursive:true});\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/auto-tactical.spec.ts:27:154"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T14:19:49.065Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/enemy-motion/auto-first/browser-results/test-output/auto-tactical-AUTO-toggle--8576c-es-and-keeps-manual-control-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/enemy-motion/auto-first/browser-results/test-output/auto-tactical-AUTO-toggle--8576c-es-and-keeps-manual-control-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/enemy-motion/auto-first/browser-results/test-output/auto-tactical-AUTO-toggle--8576c-es-and-keeps-manual-control-webkit/trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a59a29038bd2646c81a3-b4f8eaa33ba06a0996c5",
+          "file": "auto-tactical.spec.ts",
+          "line": 4,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-04T14:18:47.307Z",
+    "duration": 123037.46100000001,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}
