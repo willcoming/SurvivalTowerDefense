@@ -11,7 +11,7 @@ interface BrowserApi {
   ticks(count: number): void; start(config: RunConfig): Promise<void>; save(): Promise<void>; route(page: string): void;
 }
 declare global { interface Window { __game: BrowserApi; __rafPending: number } }
-const output = `artifacts/validation/${CONTENT_VERSION}`;
+const output = process.env.VALIDATION_OUTPUT_DIR ?? `artifacts/validation/${CONTENT_VERSION}`;
 mkdirSync(`${output}/screenshots`, { recursive: true });
 // Production has no Vite HMR socket; isolate tests from unrelated asset/document writes.
 test.beforeEach(async ({ page }) => { await page.routeWebSocket('**/*', socket => socket.close()); });
@@ -168,4 +168,58 @@ test('BAL05/AC07/12: browser replays a legitimate complete win and survives five
   writeFileSync(`${output}/browser-results/${info.project.name}-replay-cycles.json`, JSON.stringify({ contentVersion: CONTENT_VERSION, browser: info.project.name, environment: 'desktop browser engine, not physical mobile', seed: 101, replayedStages: stages, replayPassed: true, cycles }, null, 2));
   expect(counts.every(c => c.canvasCount === 0 && c.activeRunCleared)).toBe(true);
   expect(counts[4].pendingAnimationFrames).toBeLessThanOrEqual(counts[0].pendingAnimationFrames);
+});
+
+test('SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore the local preference', async ({ page }, info) => {
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  await ready(page); await startUi(page);
+  const speed = page.locator('#speed-button');
+  const samples: { speed: number; ticksPerSecond: number }[] = [];
+  for (const multiplier of [1, 2, 3]) {
+    await expect(speed).toHaveText(`${multiplier}×`);
+    const before = await page.evaluate(() => ({ tick: window.__game.state()!.tick, time: performance.now() }));
+    await page.waitForTimeout(1200);
+    const after = await page.evaluate(() => ({ tick: window.__game.state()!.tick, time: performance.now(), phase: window.__game.state()!.phase }));
+    const ticksPerSecond = (after.tick - before.tick) * 1000 / (after.time - before.time);
+    expect(after.phase).toBe('running');
+    expect(ticksPerSecond).toBeGreaterThan(30 * multiplier * .9);
+    expect(ticksPerSecond).toBeLessThan(30 * multiplier * 1.1);
+    samples.push({ speed: multiplier, ticksPerSecond });
+    if (multiplier < 3) await speed.click();
+  }
+  await speed.click(); await expect(speed).toHaveText('1×');
+  await speed.click(); await speed.click(); await expect(speed).toHaveText('3×');
+  await page.locator('[data-action="pause"]').click();
+  const paused = await page.evaluate(async () => { await window.__game.save(); return structuredClone(window.__game.state()!); });
+  await page.waitForTimeout(400);
+  expect(await page.evaluate(() => window.__game.state()!.tick)).toBe(paused.tick);
+  await page.reload(); await page.waitForFunction(() => !!window.__game);
+  expect(await page.evaluate(() => window.__game.getSave().preferences.battleSpeed)).toBe(3);
+  await page.locator('[data-action="continue"]').click();
+  await page.locator('#battle-loading').waitFor({ state: 'detached' });
+  await expect(speed).toHaveText('3×');
+  expect(await page.evaluate(() => window.__game.state()!.tick)).toBe(paused.tick);
+  await page.locator('[data-action="resume"]').click();
+  await expect(page.locator('.upgrade-dialog')).toBeVisible({ timeout: 12000 });
+  const draft = await page.evaluate(() => structuredClone(window.__game.state()!));
+  await page.waitForTimeout(400);
+  const stillDraft = await page.evaluate(() => structuredClone(window.__game.state()!));
+  expect(stillDraft.tick).toBe(draft.tick); expect(stillDraft.draft).toEqual(draft.draft);
+  await page.locator('.upgrade-card').first().click();
+  await page.locator('[data-action="confirm-card"]').click();
+  await expect(speed).toHaveText('3×');
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.waitForTimeout(100);
+  const layout = await page.evaluate(() => {
+    const speed = document.getElementById('speed-button')!.getBoundingClientRect();
+    const pause = document.querySelector('[data-action="pause"]')!.getBoundingClientRect();
+    const hp = document.querySelector('.wall-hud')!.getBoundingClientRect();
+    return { overflow: document.documentElement.scrollWidth > innerWidth, width: speed.width, height: speed.height, overlap: hp.right > speed.left || speed.right > pause.left };
+  });
+  expect(layout.overflow).toBe(false); expect(layout.overlap).toBe(false);
+  expect(layout.width).toBeGreaterThanOrEqual(44); expect(layout.height).toBeGreaterThanOrEqual(44);
+  const dir = 'artifacts/validation/speed-update'; mkdirSync(dir, { recursive: true });
+  await page.screenshot({ path: `${dir}/${info.project.name}-3x-320.png`, fullPage: true });
+  writeFileSync(`${dir}/${info.project.name}.json`, JSON.stringify({ samples, layout, restoredSpeed: 3, pausedTick: paused.tick, draftTick: draft.tick, errors }, null, 2));
+  expect(errors).toEqual([]);
 });

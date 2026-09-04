@@ -54,7 +54,7 @@ export class GameApp {
     this.canvas?.destroy(true); this.canvas = null; this.renderedOverlay = ''; this.overlayKey = '';
     const page = this.vm.page; const run = this.save.activeRun ?? this.lastRun;
     if (page === 'battle' && run) {
-      this.root.innerHTML = `${this.notice()}${battleShell(run)}`;
+      this.root.innerHTML = `${this.notice()}${battleShell(run, this.save.preferences.battleSpeed)}`;
       this.sceneReady = false;
       document.getElementById('battle-canvas')!.insertAdjacentHTML('beforeend', '<div id="battle-loading" class="battle-loading" role="status">正在載入戰場 · 0%</div>');
       this.canvas = createBattleCanvas(document.getElementById('battle-canvas')!, () => this.save.activeRun!, this.audio, () => this.save.preferences.reducedEffects, {
@@ -62,7 +62,7 @@ export class GameApp {
         progress: ratio => { const el = document.getElementById('battle-loading'); if (el) el.textContent = `正在載入戰場 · ${Math.round(ratio * 100)}%`; },
         failed: paths => { this.assetFailure = true; this.vm.message = `有 ${paths.length} 個戰場素材未能載入。行動已暫停，請重新載入後繼續。`; command(run, { type: 'pause', reason: 'error' }); document.getElementById('battle-loading')?.remove(); this.root.insertAdjacentHTML('afterbegin', this.notice()); this.overlay(); void this.persist(); },
       });
-      updateHud(run); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
+      updateHud(run, this.save.preferences.battleSpeed); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
       const screens = { home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.save, this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run) : home(this.save, this.vm), battle: () => '' };
       this.root.innerHTML = `${header(page, this.vm.saveStatus)}${this.notice()}${screens[page]()}<footer class="site-footer"><span>星骸防線 / 黎明反攻</span><span>免登入 · 全角色開放 · ${this.temporary ? '暫時試玩，不儲存進度' : '進度保存在目前瀏覽器'}</span></footer><div id="global-overlay"></div>`;
@@ -112,7 +112,7 @@ export class GameApp {
   private execute(cmd: Command) {
     const run = this.save.activeRun; if (!run) return false;
     const accepted = command(run, cmd);
-    if (accepted) { if (cmd.type === 'choose') { this.vm.selectedCard = null; this.audio.feedback('choose'); } this.overlay(); updateHud(run); void this.persist(); }
+    if (accepted) { if (cmd.type === 'choose') { this.vm.selectedCard = null; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed); void this.persist(); }
     return accepted;
   }
   private pauseFor(reason: 'hidden' | 'orientation') {
@@ -136,9 +136,16 @@ export class GameApp {
     const run = this.save.activeRun;
     if (!this.ready || this.vm.page !== 'battle' || !run || !this.sceneReady) return;
     if (run.phase === 'running' && rawElapsed > 500 && !document.hidden) { command(run, { type: 'pause', reason: 'user' }); this.accumulator = 0; this.vm.message = '畫面曾短暫停頓，確認後繼續行動。'; const old = this.root.querySelector('.system-notice'); if (old) old.outerHTML = this.notice(); else this.root.insertAdjacentHTML('afterbegin', this.notice()); void this.persist(); }
-    if (run.phase === 'running') { this.accumulator = Math.min(5 * 1000 / 30, this.accumulator + elapsed); let frames = 0; while (this.accumulator >= 1000 / 30 && run.phase === 'running' && frames++ < 5) { stepRun(run); this.accumulator -= 1000 / 30; } }
+    if (run.phase === 'running') {
+      const speed = this.save.preferences.battleSpeed;
+      // Keep fixed 30 Hz rule steps; scale wall-clock time, including catch-up capacity.
+      const maxSteps = 5 * speed;
+      this.accumulator = Math.min(maxSteps * 1000 / 30, this.accumulator + elapsed * speed);
+      let steps = 0;
+      while (this.accumulator >= 1000 / 30 && run.phase === 'running' && steps++ < maxSteps) { stepRun(run); this.accumulator -= 1000 / 30; }
+    }
     else this.accumulator = 0;
-    updateHud(run); this.overlay();
+    updateHud(run, this.save.preferences.battleSpeed); this.overlay();
     let discovered = false;
     for (const id of run.stats.encountered) if (!this.save.profile.seenEnemies.includes(id)) { this.save.profile.seenEnemies.push(id); discovered = true; }
     if (discovered) void this.persist();
@@ -189,6 +196,14 @@ export class GameApp {
       case 'build': { const build = BUILDS.find(b => b.id === id)!; this.save.preferences.squadIds = [...build.squadIds].slice(0, this.vm.challengeId === 'four' ? 4 : 5); this.save.preferences.captainId = this.save.preferences.squadIds.includes(build.captainId) ? build.captainId : this.save.preferences.squadIds[0]; build.routes.forEach(r => { this.save.preferences.branches[r.slice(0, 3) as CharacterId] = r.slice(-1) as Branch; }); this.render(); void this.persist(); break; }
       case 'start': await this.start(); break;
       case 'continue': if (this.save.activeRun) { this.go('battle'); this.orientation(); } break;
+      case 'speed': {
+        const run = this.save.activeRun;
+        if (this.vm.page !== 'battle' || run?.phase !== 'running') break;
+        const speed = this.save.preferences.battleSpeed;
+        this.save.preferences.battleSpeed = speed === 3 ? 1 : speed === 2 ? 3 : 2;
+        this.lastFrame = performance.now(); this.accumulator = 0;
+        updateHud(run, this.save.preferences.battleSpeed); void this.persist(); break;
+      }
       case 'cast': this.execute({ type: 'cast' }); break;
       case 'pause': this.execute({ type: 'pause', reason: 'user' }); break;
       case 'resume': if (this.save.activeRun && !this.save.activeRun.pauseReasons.includes('error') && !this.save.activeRun.pauseReasons.includes('orientation')) { for (const reason of ['user', 'hidden'] as const) command(this.save.activeRun, { type: 'resume', reason }); if (this.vm.message.startsWith('畫面曾短暫停頓')) { this.vm.message = ''; this.root.querySelector('.system-notice')?.remove(); } this.overlay(); void this.persist(); } break;
@@ -250,7 +265,7 @@ export class GameApp {
       getSave: () => this.save,
       audio: () => this.audio.stats(),
       command: (cmd: Command) => this.execute(cmd),
-      ticks: (count: number) => { if (this.save.activeRun) { stepRun(this.save.activeRun, count); this.lastFrame = performance.now(); this.overlay(); updateHud(this.save.activeRun); if (this.save.activeRun.phase === 'ended') void this.finish(); } },
+      ticks: (count: number) => { if (this.save.activeRun) { stepRun(this.save.activeRun, count); this.lastFrame = performance.now(); this.overlay(); updateHud(this.save.activeRun, this.save.preferences.battleSpeed); if (this.save.activeRun.phase === 'ended') void this.finish(); } },
       start: (config: RunConfig) => this.start(config),
       save: () => this.persist(),
       route: (page: Page) => this.go(page),

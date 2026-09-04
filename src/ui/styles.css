@@ -21,3 +21,6 @@
 @media(max-width:360px){.sticky-action{margin-left:-14px;margin-right:-14px;padding-left:14px;padding-right:14px}}
 h1[tabindex="-1"]:focus{outline:none}.battle-loading{position:absolute;inset:0;z-index:20;display:grid;place-items:center;background:#102c35;color:#edf5dc;font-size:14px;letter-spacing:.03em}
 .briefing-dialogue{border-left:3px solid var(--teal);padding:4px 20px;margin:0 0 32px}.briefing-dialogue p{font-size:14px;line-height:1.9;color:var(--muted);margin:7px 0}.upgrade-counter{display:block;font-size:12px;color:var(--teal);margin-top:5px;line-height:1.7}
+
+/* Compact speed control keeps the existing portrait battlefield height. */
+.battle-hud{grid-template-columns:minmax(0,1fr) auto}.battle-header-controls{display:flex;gap:6px;align-items:center}.speed-button{min-width:44px;min-height:44px;padding:0 8px;border:1px solid #597879;border-radius:4px;background:transparent;color:#dce8df;font:700 15px ui-monospace,monospace;font-variant-numeric:tabular-nums}.speed-button.accelerated{background:#b7ecda;color:#102b36;border-color:#b7ecda}.wall-hud{min-width:0;align-self:center}.wall-hud>div:first-child{flex-wrap:wrap;gap:2px 6px}.wall-hud b{white-space:nowrap}

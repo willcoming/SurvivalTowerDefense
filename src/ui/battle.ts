@@ -1,14 +1,14 @@
 import { CHARACTER_MAP, ROUTE_MAP, STAGE_MAP, ENEMY_MAP, COMMON_UPGRADES } from '../data/content';
 import { getReadyEvolutions, getLegalNodeIds } from '../sim/engine';
 import type { RunState } from '../sim/types';
-import type { GameSave } from '../storage/repository';
+import type { BattleSpeed, GameSave } from '../storage/repository';
 import type { ViewModel } from './model';
 import { esc, clock, num, cardInfo, cardPreview, portrait, weaponLabel } from './format';
 import { settings } from './lobby';
 
-export function battleShell(run: RunState) {
+export function battleShell(run: RunState, speed: BattleSpeed = 1) {
   const captain = CHARACTER_MAP[run.config.captainId];
-  return `<main class="battle-layout"><aside class="battle-aside"><span class="eyebrow">LIVE OPERATION / ${run.config.stageId}</span><h1>${esc(STAGE_MAP[run.config.stageId].name)}</h1><p>守住防線。<br>讓每一份火力，都有意義。</p><div class="mission-objective"><span>MISSION</span><h2>08:00 內擊破首領</h2><p>首領於 06:00 降臨；擊破後清除殘敵。</p></div><div class="live-build" id="live-build"></div><div class="keyboard-hints"><kbd>SPACE</kbd> 隊長技能 <kbd>ESC</kbd> 暫停</div></aside><section class="battle-phone" aria-label="戰鬥畫面"><header class="battle-hud"><div class="wall-hud"><div><b>防線 <span id="wall-text"></span></b><span id="shield-text"></span></div><div class="hp-track"><i id="wall-bar"></i></div></div><button class="icon-button" data-action="pause" aria-label="暫停戰鬥">Ⅱ</button><div class="time-hud"><span id="wave-text"></span><strong id="time-text"></strong><span id="evolution-text"></span></div><div class="xp-track"><i id="xp-bar"></i></div><div class="xp-caption"><span>共鳴經驗</span><span id="xp-text"></span></div></header><div id="battle-canvas" class="battle-canvas" role="img" aria-label="敵人從上方進攻，五人小隊在底部自動防守"></div><div id="weapon-strip" class="weapon-strip"></div><div class="tactical-control"><button class="tactical-button" data-action="cast" id="tactical-button"><span class="tactical-icon">✦</span><span><small>隊長 · ${esc(captain.name)}</small><b>${esc(captain.tacticalName)}</b></span><strong id="tactical-status">就緒</strong></button></div></section><aside class="battle-right"><span class="eyebrow">FIELD COMMANDER</span><div class="battle-captain">${portrait(captain.id)}<div><strong>${esc(captain.name)}</strong><span>${esc(captain.english)}</span></div></div><p>${esc(captain.tacticalDescription)}</p><div class="tactical-note"><span>TACTICAL NOTE</span><p id="threat-note">攻擊自動進行。預留技能，回應敵人的蓄力。</p></div><p class="battle-autosave">本機自動保存<br><small>切換到背景時會暫停。</small></p></aside></main><div id="battle-overlay"></div>`;
+  return `<main class="battle-layout"><aside class="battle-aside"><span class="eyebrow">LIVE OPERATION / ${run.config.stageId}</span><h1>${esc(STAGE_MAP[run.config.stageId].name)}</h1><p>守住防線。<br>讓每一份火力，都有意義。</p><div class="mission-objective"><span>MISSION</span><h2>08:00 內擊破首領</h2><p>首領於 06:00 降臨；擊破後清除殘敵。</p></div><div class="live-build" id="live-build"></div><div class="keyboard-hints"><kbd>SPACE</kbd> 隊長技能 <kbd>ESC</kbd> 暫停</div></aside><section class="battle-phone" aria-label="戰鬥畫面"><header class="battle-hud"><div class="wall-hud"><div><b>防線 <span id="wall-text"></span></b><span id="shield-text"></span></div><div class="hp-track"><i id="wall-bar"></i></div></div><div class="battle-header-controls"><button class="speed-button ${speed > 1 ? 'accelerated' : ''}" id="speed-button" data-action="speed" aria-label="戰鬥速度 ${speed} 倍，點擊切換至 ${speed === 3 ? 1 : speed + 1} 倍" title="切換戰鬥速度：1× → 2× → 3×">${speed}×</button><button class="icon-button" data-action="pause" aria-label="暫停戰鬥">Ⅱ</button></div><div class="time-hud"><span id="wave-text"></span><strong id="time-text"></strong><span id="evolution-text"></span></div><div class="xp-track"><i id="xp-bar"></i></div><div class="xp-caption"><span>共鳴經驗</span><span id="xp-text"></span></div></header><div id="battle-canvas" class="battle-canvas" role="img" aria-label="敵人從上方進攻，五人小隊在底部自動防守"></div><div id="weapon-strip" class="weapon-strip"></div><div class="tactical-control"><button class="tactical-button" data-action="cast" id="tactical-button"><span class="tactical-icon">✦</span><span><small>隊長 · ${esc(captain.name)}</small><b>${esc(captain.tacticalName)}</b></span><strong id="tactical-status">就緒</strong></button></div></section><aside class="battle-right"><span class="eyebrow">FIELD COMMANDER</span><div class="battle-captain">${portrait(captain.id)}<div><strong>${esc(captain.name)}</strong><span>${esc(captain.english)}</span></div></div><p>${esc(captain.tacticalDescription)}</p><div class="tactical-note"><span>TACTICAL NOTE</span><p id="threat-note">攻擊自動進行。預留技能，回應敵人的蓄力。</p></div><p class="battle-autosave">本機自動保存<br><small>切換到背景時會暫停。</small></p></aside></main><div id="battle-overlay"></div>`;
 }
 export function buildMarkup(run: RunState) {
   return `<h2>本局構築 <span>${run.choicesSpent} / 18</span></h2>${run.weapons.map(w => `<div class="build-line"><span style="background:${CHARACTER_MAP[w.id].color}"></span><b>${esc(CHARACTER_MAP[w.id].name)}</b><small>${esc(weaponLabel(run, w.id))}</small></div>`).join('')}${COMMON_UPGRADES.filter(c => run.commonRanks[c.id]).map(c => `<p class="common-build">${esc(c.name)} × ${run.commonRanks[c.id]}</p>`).join('')}`;
@@ -18,20 +18,26 @@ interface HudCache {
   values: Map<string, string>; nodes: Map<string, HTMLElement | null>;
 }
 const hudCaches = new WeakMap<HTMLElement, HudCache>();
-export function updateHud(run: RunState) {
+export function updateHud(run: RunState, speed: BattleSpeed = 1) {
   const root = document.getElementById('wall-text'); if (!root) return;
   let cache = hudCaches.get(root);
   if (!cache) { cache = { run: null, key: '', buildKey: '', stripKey: '', values: new Map(), nodes: new Map() }; hudCaches.set(root, cache); }
   const shield = Math.ceil(run.shields.reduce((sum, entry) => sum + entry.value, 0));
   const weaponKey = run.weapons.map(w => `${w.id}:${w.branch}:${w.rank}`).join(',');
   const commonKey = COMMON_UPGRADES.map(c => run.commonRanks[c.id] ?? 0).join(',');
-  const key = `${run.tick}:${run.actionSeq}:${run.eventSeq}:${run.phase}:${run.wallHp}:${run.wallMaxHp}:${shield}:${run.xp}:${run.choicesSpent}:${run.evolvedCount}:${run.evolutionLimit}:${run.tacticalReadyAt}:${run.enemies.length}:${run.bossKilled}:${weaponKey}:${commonKey}`;
+  const key = `${speed}:${run.tick}:${run.actionSeq}:${run.eventSeq}:${run.phase}:${run.wallHp}:${run.wallMaxHp}:${shield}:${run.xp}:${run.choicesSpent}:${run.evolvedCount}:${run.evolutionLimit}:${run.tacticalReadyAt}:${run.enemies.length}:${run.bossKilled}:${weaponKey}:${commonKey}`;
   if (cache.run === run && cache.key === key) return;
   cache.run = run; cache.key = key;
   const node = (id: string) => { if (!cache!.nodes.has(id)) cache!.nodes.set(id, document.getElementById(id)); return cache!.nodes.get(id); };
   const changed = (id: string, value: string) => { if (cache!.values.get(id) === value) return false; cache!.values.set(id, value); return true; };
   const set = (id: string, value: string) => { if (changed(id, value)) { const el = node(id); if (el) el.textContent = value; } };
   const width = (id: string, value: string) => { if (changed(`${id}:width`, value)) node(id)?.style.setProperty('width', value); };
+  set('speed-button', `${speed}×`);
+  if (changed('speed:state', String(speed))) {
+    const button = node('speed-button');
+    button?.setAttribute('aria-label', `戰鬥速度 ${speed} 倍，點擊切換至 ${speed === 3 ? 1 : speed + 1} 倍`);
+    button?.classList.toggle('accelerated', speed > 1);
+  }
   set('wall-text', `${Math.ceil(run.wallHp)} / ${run.wallMaxHp}`); set('shield-text', shield > 0 ? `◈ 護盾 ${shield}` : '');
   width('wall-bar', `${Math.max(0, run.wallHp / run.wallMaxHp * 100)}%`);
   const critical = run.wallHp / run.wallMaxHp < .3;

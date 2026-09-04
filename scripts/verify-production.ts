@@ -14,7 +14,7 @@ await session.send('Network.emulateNetworkConditions', { offline: false, latency
 const errors: string[] = [], failed: string[] = [];
 page.on('pageerror', e => errors.push(e.message));
 page.on('response', response => { if (response.status() >= 400) failed.push(`${response.status()} ${response.url()}`); });
-const dir = `artifacts/validation/${CONTENT_VERSION}/production`;
+const dir = process.env.VALIDATION_OUTPUT_DIR ?? `artifacts/validation/${CONTENT_VERSION}/production`;
 mkdirSync(dir, { recursive: true });
 async function readSave(): Promise<GameSave> {
   return page.evaluate(() => new Promise<GameSave>((resolve, reject) => {
@@ -41,11 +41,16 @@ try {
   await page.locator('#battle-loading').waitFor({ state: 'detached', timeout: 10000 });
   const battleReadyMs = performance.now() - battleStart;
   await page.getByRole('button', { name: '明白，開始防守 →', exact: true }).click();
+  const speed = page.locator('#speed-button');
+  assert.equal(await speed.innerText(), '1×');
+  await speed.click(); assert.equal(await speed.innerText(), '2×');
+  await speed.click(); assert.equal(await speed.innerText(), '3×');
   await page.locator('[data-action="cast"]').click();
   await page.locator('.upgrade-dialog').waitFor({ timeout: 35000 });
   await page.waitForTimeout(200);
   const before = await readSave();
   assert.ok(before.activeRun?.draft, 'Earned upgrade was saved');
+  assert.equal(before.preferences.battleSpeed, 3);
   await page.screenshot({ path: `${dir}/earned-upgrade.png`, fullPage: true });
   await page.reload();
   await page.locator('[data-action="continue"]').click();
@@ -58,6 +63,8 @@ try {
   assert.equal(after.activeRun?.tick, before.activeRun?.tick);
   assert.deepEqual(after.activeRun?.draft, before.activeRun?.draft);
   assert.deepEqual(after.activeRun?.rng, before.activeRun?.rng);
+  assert.equal(after.preferences.battleSpeed, 3);
+  assert.equal(await speed.innerText(), '3×');
   await page.locator('.upgrade-card').first().click();
   await page.locator('[data-action="confirm-card"]').click();
   await page.locator('[data-action="pause"]').click();
@@ -69,7 +76,7 @@ try {
   assert.deepEqual(errors, []); assert.deepEqual(failed, []);
   assert.ok(homeInteractiveMs <= 5000, `Home load ${homeInteractiveMs}ms exceeds 5000ms`);
   assert.ok(battleReadyMs <= 10000, `Battle load ${battleReadyMs}ms exceeds 10000ms`);
-  const result = { contentVersion: CONTENT_VERSION, measuredAt: new Date().toISOString(), browser: browser.version(), userAgent: await page.evaluate(() => navigator.userAgent), origin: 'http://127.0.0.1:5173', server: 'vite preview of production dist', viewport: page.viewportSize(), network: '10 Mbps / 100 ms RTT, empty browser context, HTTP cache disabled', homeInteractiveMs, battleReadyMs, snapshotTick: before.activeRun?.tick, phaseAfterRecovery: chosen.activeRun?.phase, savedChoices: chosen.activeRun?.choicesSpent, productionDebugApiAbsent: true, consoleErrors: errors, failedRequests: failed, passed: true, limitation: 'Desktop Chromium emulating mobile viewport/network; not actual phone hardware. Real-time gameplay earned the first upgrade without simulation hooks.' };
+  const result = { contentVersion: CONTENT_VERSION, measuredAt: new Date().toISOString(), browser: browser.version(), userAgent: await page.evaluate(() => navigator.userAgent), origin: 'http://127.0.0.1:5173', server: 'vite preview of production dist', viewport: page.viewportSize(), network: '10 Mbps / 100 ms RTT, empty browser context, HTTP cache disabled', homeInteractiveMs, battleReadyMs, snapshotTick: before.activeRun?.tick, phaseAfterRecovery: chosen.activeRun?.phase, savedChoices: chosen.activeRun?.choicesSpent, battleSpeed: chosen.preferences.battleSpeed, productionDebugApiAbsent: true, consoleErrors: errors, failedRequests: failed, passed: true, limitation: 'Desktop Chromium emulating mobile viewport/network; not actual phone hardware. Real-time gameplay earned the first upgrade without simulation hooks.' };
   writeFileSync(`${dir}/smoke.json`, JSON.stringify(result, null, 2));
   console.log(JSON.stringify(result, null, 2));
 } catch (error) {

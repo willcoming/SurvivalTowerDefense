@@ -2,17 +2,18 @@ import { CHARACTER_IDS, CONTENT_VERSION, SCHEMA_VERSION, STAGE_MAP } from '../da
 import { restoreRun } from '../sim/engine';
 import type { Branch, CharacterId, EnemyId, RunState, StageId } from '../sim/types';
 export const DB_NAME='starfall-defense';export const STORE_NAME='records';export const SAVE_KEY='save';
+export type BattleSpeed = 1 | 2 | 3;
 export interface RunSummary {runId:string;stageId:StageId;seed:number;squadIds:CharacterId[];captainId:CharacterId;outcome:RunState['outcome'];tick:number;wallHp:number;stats:RunState['stats'];challengeId:RunState['config']['challengeId']}
 export interface GameSave {
  revision:number;
  profile:{schemaVersion:1;cleared:StageId[];seenEnemies:EnemyId[];best:Record<string,{time:number;hp:number}>;challengeClears:string[];recentRuns:RunSummary[]};
- preferences:{squadIds:CharacterId[];captainId:CharacterId;branches:Record<CharacterId,Branch>;musicVolume:number;sfxVolume:number;reducedEffects:boolean;tutorialSeen:boolean};
+ preferences:{squadIds:CharacterId[];captainId:CharacterId;branches:Record<CharacterId,Branch>;musicVolume:number;sfxVolume:number;reducedEffects:boolean;tutorialSeen:boolean;battleSpeed:BattleSpeed};
  activeRun:RunState|null;
 }
 export class SaveConflictError extends Error {constructor(){super('另一個分頁已更新存檔，請重新讀取最新進度');this.name='SaveConflictError';}}
 export class SaveValidationError extends Error {constructor(message='本機紀錄格式損壞，原始資料已保留'){super(message);this.name='SaveValidationError';}}
 export class IncompatibleRunError extends SaveValidationError {preservedSave:GameSave;constructor(save:GameSave){super('本局內容版本不相容；可保留解鎖進度並放棄舊局');this.name='IncompatibleRunError';this.preservedSave=structuredClone(save);}}
-export function createDefaultSave():GameSave{return{revision:0,profile:{schemaVersion:1,cleared:[],seenEnemies:[],best:{},challengeClears:[],recentRuns:[]},preferences:{squadIds:['C01','C02','C04','C05','C06'],captainId:'C02',branches:Object.fromEntries(CHARACTER_IDS.map(id=>[id,'A'])) as Record<CharacterId,Branch>,musicVolume:.35,sfxVolume:.65,reducedEffects:false,tutorialSeen:false},activeRun:null};}
+export function createDefaultSave():GameSave{return{revision:0,profile:{schemaVersion:1,cleared:[],seenEnemies:[],best:{},challengeClears:[],recentRuns:[]},preferences:{squadIds:['C01','C02','C04','C05','C06'],captainId:'C02',branches:Object.fromEntries(CHARACTER_IDS.map(id=>[id,'A'])) as Record<CharacterId,Branch>,musicVolume:.35,sfxVolume:.65,reducedEffects:false,tutorialSeen:false,battleSpeed:1},activeRun:null};}
 export function summarizeRun(run:RunState):RunSummary{return structuredClone({runId:run.runId,stageId:run.config.stageId,seed:run.config.seed,squadIds:run.config.squadIds,captainId:run.config.captainId,outcome:run.outcome,tick:run.tick,wallHp:run.wallHp,stats:run.stats,challengeId:run.config.challengeId??null});}
 export function completeRun(save:GameSave,run:RunState){
  if(!run.outcome)throw new Error('戰局尚未結束');
@@ -26,15 +27,18 @@ export function completeRun(save:GameSave,run:RunState){
  if(save.activeRun?.runId===run.runId)save.activeRun=null;
 }
 function validSave(raw:unknown):GameSave{
- if(!raw||typeof raw!=='object')throw new SaveValidationError();const s=raw as GameSave;
+ if(!raw||typeof raw!=='object')throw new SaveValidationError();const s=structuredClone(raw) as GameSave;
  if(s.profile?.schemaVersion!==SCHEMA_VERSION)throw new SaveValidationError('存檔版本不相容，原始資料已保留');
  const p=s.preferences;
  if(!Number.isInteger(s.revision)||s.revision<0||!Array.isArray(s.profile.cleared)||s.profile.cleared.some(id=>!STAGE_MAP[id])||!Array.isArray(s.profile.seenEnemies)||!Array.isArray(s.profile.recentRuns)||!Array.isArray(s.profile.challengeClears)||!s.profile.best||!p||!Array.isArray(p.squadIds)||p.squadIds.length>5||new Set(p.squadIds).size!==p.squadIds.length||p.squadIds.some(id=>!CHARACTER_IDS.includes(id))||!CHARACTER_IDS.includes(p.captainId)||!p.branches||CHARACTER_IDS.some(id=>!['A','B'].includes(p.branches[id]))||![p.musicVolume,p.sfxVolume].every(v=>Number.isFinite(v)&&v>=0&&v<=1)||typeof p.tutorialSeen!=='boolean'||typeof p.reducedEffects!=='boolean')throw new SaveValidationError();
+ // Older local saves have no speed preference; their active run remains unchanged.
+ if(p.battleSpeed===undefined)p.battleSpeed=1;
+ if(![1,2,3].includes(p.battleSpeed))throw new SaveValidationError();
  if(s.activeRun!==null){
    if(s.activeRun?.schemaVersion!==SCHEMA_VERSION||s.activeRun?.contentVersion!==CONTENT_VERSION)throw new IncompatibleRunError(s);
    try{restoreRun(s.activeRun);}catch{throw new SaveValidationError('進行中戰局損壞，原始資料已保留');}
  }
- return structuredClone(s);
+ return s;
 }
 export class GameRepository {
  private dbPromise:Promise<IDBDatabase>|null=null;private queue:Promise<unknown>=Promise.resolve();private revision=0;private loaded=false;

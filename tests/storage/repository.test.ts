@@ -32,6 +32,7 @@ describe('AC09/SAVE01–06 · complete reproducible local snapshots', () => {
     const repository = repo();
     const save = await repository.load();
     expect(save).toEqual(createDefaultSave());
+    save.preferences.battleSpeed = 3;
     save.activeRun = run();
     save.activeRun.choicesEarned = 1;
     stepRun(save.activeRun);
@@ -72,6 +73,31 @@ describe('AC09/SAVE01–06 · complete reproducible local snapshots', () => {
     await expect(first).resolves.toBe(1);
     await expect(second).resolves.toBe(2);
     expect((await repository.load()).preferences.musicVolume).toBe(.8);
+  });
+
+  it('loads an older save at 1× without changing or discarding its battle snapshot', async () => {
+    const name = `test-speed-migration-${++counter}`;
+    const save = createDefaultSave(); save.activeRun = run(); stepRun(save.activeRun, 120);
+    const { battleSpeed: _speed, ...preferences } = save.preferences;
+    const legacy = { ...save, preferences };
+    await raw(name, legacy);
+    const repository = repo(name);
+    const recovered = await repository.load();
+    expect(recovered.preferences.battleSpeed).toBe(1);
+    expect(recovered.activeRun).toEqual(save.activeRun);
+    expect(await raw(name)).toEqual(legacy);
+    recovered.preferences.battleSpeed = 3;
+    await repository.save(recovered);
+    expect((await repository.load()).preferences.battleSpeed).toBe(3);
+  });
+
+  it.each([0, 4, '3', null])('preserves a save with invalid battle speed %s for recovery', async speed => {
+    const name = `test-invalid-speed-${++counter}`;
+    const save = createDefaultSave();
+    const invalid = { ...save, preferences: { ...save.preferences, battleSpeed: speed } };
+    await raw(name, invalid);
+    await expect(repo(name).load()).rejects.toBeInstanceOf(SaveValidationError);
+    expect(await raw(name)).toEqual(invalid);
   });
 });
 
