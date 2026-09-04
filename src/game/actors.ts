@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { inWeaponRange } from '../sim/range';
 import { CaptainCutin } from './captain-cutin';
 import type { CharacterId, EnemyId, RunState, VisualEvent } from '../sim/types';
 import { LAYERS, poseFrame, weaponForm, type Detail } from './presentation';
@@ -62,19 +63,23 @@ export class CombatActors {
         const creature = this.creatures.get(event.targetId); if (creature) { creature.hitAt = this.clock; creature.hitPower = event.skill === 'burn' ? .1 : Math.max(.2, Math.min(1, (event.value ?? 0) / 60)); }
         if (event.enemyDefId) this.hits.add(event.enemyDefId);
       }
+      if (event.kind === 'explosion') for (const id of event.affectedIds ?? []) {
+        const creature = this.creatures.get(id); if (creature) { creature.hitAt = this.clock; creature.hitPower = .65; }
+      }
       if (event.kind === 'death') this.corpse(event, detail);
       if (event.kind === 'tactical' && event.source) {
         this.cutin.play(event.source, this.clock); this.skills.add(event.source);
         const ally = this.allies.get(event.source); if (ally) ally.firedAt = this.clock;
       }
     }
-    const target = run.enemies.filter(e => e.hp > 0).sort((a, b) => b.y - a.y)[0];
     for (const w of run.weapons) {
+      const eligible = run.enemies.filter(e => inWeaponRange(run, w.id, e));
+      const target = eligible.sort((a, b) => b.y - a.y)[0];
       const ally = this.allies.get(w.id)!;
       if (w.attacks !== ally.attacks) { ally.attacks = w.attacks; ally.firedAt = this.clock; this.forms.add(weaponForm(w.id, w.rank, w.branch)); }
       const frame = poseFrame(this.clock, ally.firedAt, w.nextAttack - run.tick, this.speed(), !!target, run.config.squadIds.indexOf(w.id) * 90);
       if (frame === 2 && target) {
-        const aim = w.id === 'C03' ? run.enemies.reduce((a, b) => a.maxHp >= b.maxHp ? a : b) : target;
+        const aim = w.id === 'C03' ? eligible.reduce((a, b) => a.maxHp >= b.maxHp ? a : b) : target;
         ally.facing = aim.x < this.center(w.id) ? -1 : 1;
       }
       if (frame !== ally.frame) { ally.frame = frame; ally.image.setFrame(frame); }
@@ -94,8 +99,9 @@ export class CombatActors {
         const image = this.scene.add.image(enemy.x, enemy.y, key, 0).setDisplaySize(enemySize(enemy.defId), enemySize(enemy.defId)).setDepth(LAYERS.actors);
         const motion = createEnemyMotion(enemy);
         if (enemy.lastAction && enemy.lastAction.tick > this.initialTick) motion.cue = '';
-        creature = { image, defId: enemy.defId, motion, hitPower: .5, hitAt: fresh.some(e => e.kind === 'hit' && e.targetId === enemy.id) ? this.clock : -Infinity }; this.creatures.set(enemy.id, creature);
+        creature = { image, defId: enemy.defId, motion, hitPower: .5, hitAt: fresh.some(e => e.kind === 'hit' && e.targetId === enemy.id || e.kind === 'explosion' && e.affectedIds?.includes(enemy.id)) ? this.clock : -Infinity }; this.creatures.set(enemy.id, creature);
       }
+      creature.image.setVisible(run.bossIntro?.enemyId !== enemy.id);
       const releases = creature.motion.releases;
       const motion = advanceEnemyMotion(creature.motion, enemy, run.tick, delta, this.speed(), run.phase === 'running');
       if (Number(creature.image.frame.name) !== motion.frame) creature.image.setFrame(motion.frame);
@@ -108,8 +114,8 @@ export class CombatActors {
       creature.image.setDisplaySize(size * (1 + kick * .09), size * (1 - kick * .06));
       creature.image.setPosition(enemy.x + (hurt ? Math.sin(age / 16) * (1 - age / 180) * (enemy.defId.startsWith('B') ? 1.5 : 3) : 0), enemy.y - kick * (enemy.defId.startsWith('B') ? 2 : 6));
       if (hurt && age < 65) creature.image.setTintFill(0xe9fff3);
-      else if (enemy.effects.some(e => e.kind === 'stun')) creature.image.setTint(0x7cffff);
-      else if (enemy.effects.some(e => e.kind === 'burn')) creature.image.setTint(0xffca95);
+      else if (enemy.effects.some(e => e.kind === 'stun' && e.expires > run.tick)) creature.image.setTint(0x7cffff);
+      else if (enemy.effects.some(e => e.kind === 'burn' && e.expires > run.tick)) creature.image.setTint(0xffca95);
       else creature.image.clearTint();
     }
     this.corpses = this.corpses.filter(c => {

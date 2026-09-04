@@ -59,16 +59,16 @@ export function drawField(g: Graphics, field: Field, tick: number, detail: Detai
   const { x, y, radius: r } = field, phase = tick / 22 + field.id;
   if (field.kind === 'gravity') {
     g.fillStyle(0x4de0c7, .08).fillCircle(x, y, r);
-    g.lineStyle(2, 0x65f4da, .6).strokeEllipse(x, y, r * 2, r * 1.05);
+    g.lineStyle(3, 0x65f4da, .9).strokeCircle(x, y, r);
     g.lineStyle(1, 0xb1ffff, .5).strokeEllipse(x, y, r * 1.4, r * .72);
     polygon(g, x, y, r * .42, 6, 0xb2fff1, .7, phase, 1);
     g.fillStyle(0x092f37, .9).fillCircle(x, y, r * .17);
     if (detail === 'full') for (let i = 0; i < 6; i++) { const a = phase + i * TAU / 6; const rr = r * (.45 + .4 * ((tick / 40 + i / 6) % 1)); g.fillStyle(0xb2fff1, .7).fillCircle(x + Math.cos(a) * rr, y + Math.sin(a) * rr * .5, 2); }
   } else {
-    g.fillStyle(0xff572c, .1).fillEllipse(x, y, r * 2, r * 1.35);
-    g.lineStyle(1.5, 0xffa553, .55).strokeEllipse(x, y, r * 2, r * 1.35);
+    g.fillStyle(0xff572c, .16).fillCircle(x, y, r);
+    g.lineStyle(3, 0xffb761, .9).strokeCircle(x, y, r);
     for (let i = 0; i < (detail === 'full' ? 9 : 4); i++) {
-      const a = i * 2.399, rr = r * Math.sqrt((i + 1) / 10), fx = x + Math.cos(a) * rr, fy = y + Math.sin(a) * rr * .65;
+      const a = i * 2.399, rr = r * Math.sqrt((i + 1) / 10), fx = x + Math.cos(a) * rr, fy = y + Math.sin(a) * rr;
       const h = 9 + (Math.sin(phase * 2 + i) + 1) * 6;
       g.fillStyle(0xff8a3a, .55).fillTriangle(fx - 4, fy, fx + 5, fy, fx + 2, fy - h);
       g.fillStyle(0xffe8a5, .8).fillTriangle(fx - 2, fy, fx + 2, fy, fx, fy - h * .55);
@@ -141,6 +141,10 @@ export function drawEffect(g: Graphics, fx: ActiveEffect, now: number, detail: D
     } else laser(g, from, to, c, 2, a);
   } else if (e.kind === 'explosion') {
     const radius = e.radius ?? 35, r = radius * (.2 + Math.sqrt(t) * .85);
+    // The stationary outer edge is the actual damage radius; expanding sparks are decorative.
+    const boundary = t < .65 ? 1 : (1 - t) / .35;
+    g.fillStyle(c, .07 * boundary).fillCircle(e.x, e.y, radius);
+    g.lineStyle(2.5, e.source === 'C05' ? 0xffd088 : c, .95 * boundary).strokeCircle(e.x, e.y, radius);
     glow(g, e.x, e.y, radius * (1 - t) * .55, e.source === 'C04' ? c : e.source === 'C02' ? c : 0xffa34a, a);
     if (e.source === 'C04') {
       const p = origin(e.source, e.x);
@@ -168,7 +172,7 @@ export function drawEffect(g: Graphics, fx: ActiveEffect, now: number, detail: D
   } else if (e.kind === 'hit') {
     const r = 11 + t * 17;
     const impact = e.skill === 'burn' ? .35 : 1;
-    glow(g, e.x, e.y, (e.source === 'C03' ? 16 : 10) * (1 - t * .6), c, a * impact);
+    if (!compact) glow(g, e.x, e.y, (e.source === 'C03' ? 16 : 10) * (1 - t * .6), c, a * impact);
     if (e.source === 'C03') line(g, [{ x: e.x - r, y: e.y + r }, { x: e.x + r, y: e.y - r }], 0xecfbff, 4, a);
     else if (e.source === 'C04') polygon(g, e.x, e.y, r, 4, c, a, t * 2);
     else if (e.source === 'C06') polygon(g, e.x, e.y, r, 6, c, a);

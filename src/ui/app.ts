@@ -1,5 +1,5 @@
 import { CHARACTERS, CHARACTER_MAP, STAGES, BUILDS } from '../data/content';
-import { createRun, stepRun, command, restoreRun } from '../sim/engine';
+import { createRun, stepRun, command, restoreRun, advanceBossIntro } from '../sim/engine';
 import { GameRepository, createDefaultSave, completeRun, IncompatibleRunError, SaveConflictError, type GameSave } from '../storage/repository';
 import type { Branch, CharacterId, ChallengeId, Command, RunConfig, RunState, StageId } from '../sim/types';
 import type { Page, ViewModel } from './model';
@@ -25,6 +25,7 @@ export class GameApp {
   private saveBoundary = ''; private loadFailure = false;
   private sceneReady = false; private assetFailure = false;
   private overlayKey = '';
+  private selectedRange: CharacterId | null = null;
   constructor(root: HTMLElement) {
     this.root = root;
     this.root.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLElement>('[data-action]'); if (button && !(button as HTMLButtonElement).disabled) { void this.audio.unlock(); void this.action(button.dataset.action!, button.dataset.id); } });
@@ -62,8 +63,8 @@ export class GameApp {
         ready: () => { this.sceneReady = true; this.assetFailure = false; this.lastFrame = performance.now(); this.accumulator = 0; document.getElementById('battle-loading')?.remove(); if (run.pauseReasons.includes('error')) void this.persist().then(() => { if (this.vm.saveStatus === '已儲存在本機') { command(run, { type: 'pause', reason: 'user' }); command(run, { type: 'resume', reason: 'error' }); this.overlay(); } }); },
         progress: ratio => { const el = document.getElementById('battle-loading'); if (el) el.textContent = `正在載入戰場 · ${Math.round(ratio * 100)}%`; },
         failed: paths => { this.assetFailure = true; this.vm.message = `有 ${paths.length} 個戰場素材未能載入。行動已暫停，請重新載入後繼續。`; command(run, { type: 'pause', reason: 'error' }); document.getElementById('battle-loading')?.remove(); this.root.insertAdjacentHTML('afterbegin', this.notice()); this.overlay(); void this.persist(); },
-      }, () => this.save.preferences.battleSpeed);
-      updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
+      }, () => this.save.preferences.battleSpeed, () => this.selectedRange);
+      updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
       const screens = { home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.save, this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run) : home(this.save, this.vm), battle: () => '' };
       this.root.innerHTML = `${header(page, this.vm.saveStatus)}${this.notice()}${screens[page]()}<footer class="site-footer"><span>星骸防線 / 黎明反攻</span><span>免登入 · 全角色開放 · ${this.temporary ? '暫時試玩，不儲存進度' : '進度保存在目前瀏覽器'}</span></footer><div id="global-overlay"></div>`;
@@ -85,7 +86,7 @@ export class GameApp {
       html = `<div class="modal-backdrop"><section class="dialog confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"><span class="eyebrow">${reset ? 'RESET LOCAL DATA' : 'ABANDON OPERATION'}</span><h2 id="confirm-title">${reset ? '重置這個瀏覽器的進度？' : '確定放棄本次行動？'}</h2><p>${reset ? '關卡紀錄、偏好設定與進行中的行動將被刪除。六位角色仍會全部開放。' : '本局改造將結束。妳可以立即重新出擊，不會失去任何戰力資源。'}</p><div class="result-actions"><button class="button secondary" data-action="cancel-confirm">保留紀錄</button><button class="button danger" data-action="${reset ? 'reset' : 'abandon'}">${reset ? '確認重置' : '確認放棄'}</button></div></section></div>`;
     } else if (this.vm.page === 'battle' && run) {
       if (run.pauseReasons.includes('tutorial')) html = tutorialDialog();
-      else if (run.pauseReasons.some(r => r !== 'upgrade')) html = pauseDialog(run, this.save, this.vm);
+      else if (run.pauseReasons.some(r => r !== 'upgrade' && r !== 'boss-intro')) html = pauseDialog(run, this.save, this.vm);
       else if (run.draft) html = upgradeDialog(run, this.vm);
     }
     if (html === this.renderedOverlay) return;
@@ -106,14 +107,14 @@ export class GameApp {
     if (this.save.activeRun && this.save.activeRun.phase !== 'ended' && !config) { this.vm.message = '已有進行中的行動，請先繼續或放棄。'; this.go('home'); return; }
     const prefs = this.save.preferences;
     const run = createRun(config ?? { stageId: this.vm.stageId, squadIds: [...prefs.squadIds], captainId: prefs.captainId, preferredBranches: { ...prefs.branches }, seed: this.vm.retrySeed ?? this.seed(), challengeId: this.vm.challengeId });
-    this.save.activeRun = run; this.lastRun = null; this.vm.selectedCard = null; this.vm.retrySeed = null; this.endedId = ''; this.saveBoundary = '';
+    this.save.activeRun = run; this.lastRun = null; this.vm.selectedCard = null; this.vm.retrySeed = null; this.endedId = ''; this.saveBoundary = ''; this.selectedRange = null;
     if (!this.save.preferences.tutorialSeen) command(run, { type: 'pause', reason: 'tutorial' });
     this.audio.feedback('start'); this.go('battle'); this.orientation(); await this.persist();
   }
   private execute(cmd: Command) {
     const run = this.save.activeRun; if (!run) return false;
     const accepted = command(run, cmd);
-    if (accepted) { if (cmd.type === 'choose') { this.vm.selectedCard = null; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); void this.persist(); }
+    if (accepted) { if (cmd.type === 'choose') { this.vm.selectedCard = null; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); }
     return accepted;
   }
   private pauseFor(reason: 'hidden' | 'orientation') {
@@ -136,8 +137,10 @@ export class GameApp {
     const rawElapsed = time - this.lastFrame; const elapsed = Math.max(0, rawElapsed); this.lastFrame = time;
     const run = this.save.activeRun;
     if (!this.ready || this.vm.page !== 'battle' || !run || !this.sceneReady) return;
-    if (run.phase === 'running' && rawElapsed > 500 && !document.hidden) { command(run, { type: 'pause', reason: 'user' }); this.accumulator = 0; this.vm.message = '畫面曾短暫停頓，確認後繼續行動。'; const old = this.root.querySelector('.system-notice'); if (old) old.outerHTML = this.notice(); else this.root.insertAdjacentHTML('afterbegin', this.notice()); void this.persist(); }
-    if (run.phase === 'running') {
+    if ((run.phase === 'running' || run.bossIntro && run.pauseReasons.length === 1) && rawElapsed > 500 && !document.hidden) { command(run, { type: 'pause', reason: 'user' }); this.accumulator = 0; this.vm.message = '畫面曾短暫停頓，確認後繼續行動。'; const old = this.root.querySelector('.system-notice'); if (old) old.outerHTML = this.notice(); else this.root.insertAdjacentHTML('afterbegin', this.notice()); void this.persist(); }
+    const entering = !!run.bossIntro;
+    if (entering && advanceBossIntro(run, elapsed)) { this.lastFrame = time; void this.persist(); }
+    if (!entering && run.phase === 'running') {
       const speed = this.save.preferences.battleSpeed;
       // Keep fixed 30 Hz rule steps; scale wall-clock time, including catch-up capacity.
       const maxSteps = 5 * speed;
@@ -146,7 +149,7 @@ export class GameApp {
       while (this.accumulator >= 1000 / 30 && run.phase === 'running' && steps++ < maxSteps) { if (shouldAutoCast(run, this.save.preferences.autoTactical)) this.execute({ type: 'cast' }); stepRun(run); this.accumulator -= 1000 / 30; }
     }
     else this.accumulator = 0;
-    updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); this.overlay();
+    updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); this.overlay();
     let discovered = false;
     for (const id of run.stats.encountered) if (!this.save.profile.seenEnemies.includes(id)) { this.save.profile.seenEnemies.push(id); discovered = true; }
     if (discovered) void this.persist();
@@ -207,12 +210,12 @@ export class GameApp {
         const speed = this.save.preferences.battleSpeed;
         this.save.preferences.battleSpeed = speed === 3 ? 1 : speed === 2 ? 3 : 2;
         this.lastFrame = performance.now(); this.accumulator = 0;
-        updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); void this.persist(); break;
+        updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); break;
       }
       case 'auto-tactical': {
         const run = this.save.activeRun; if (!run || run.config.challengeId === 'no-skill') break;
         this.save.preferences.autoTactical = !this.save.preferences.autoTactical;
-        updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); void this.persist(); break;
+        updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); break;
       }
       case 'cast': this.execute({ type: 'cast' }); break;
       case 'pause': this.execute({ type: 'pause', reason: 'user' }); break;
@@ -220,6 +223,11 @@ export class GameApp {
       case 'select-card': this.vm.selectedCard = id!; this.overlay(); break;
       case 'confirm-card': if (this.save.activeRun?.draft && this.vm.selectedCard) this.execute({ type: 'choose', offerId: this.save.activeRun.draft.id, nodeId: this.vm.selectedCard }); break;
       case 'reroll': if (this.save.activeRun?.draft) { if (this.execute({ type: 'reroll', offerId: this.save.activeRun.draft.id })) this.vm.selectedCard = null; this.overlay(); } break;
+      case 'view-range': {
+        const run = this.save.activeRun; if (!run?.config.squadIds.includes(id as CharacterId)) break;
+        this.selectedRange = this.selectedRange === id ? null : id as CharacterId;
+        updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); break;
+      }
       case 'view-build': this.vm.showBuild = !this.vm.showBuild; if (!this.save.activeRun?.draft) this.execute({ type: 'pause', reason: 'user' }); this.overlay(); break;
       case 'tutorial-done': this.save.preferences.tutorialSeen = true; this.execute({ type: 'resume', reason: 'tutorial' }); break;
       case 'save-home': await this.persist(); this.go('home'); break;
@@ -261,7 +269,7 @@ export class GameApp {
     }
     if (event.key === 'Escape') {
       if (this.vm.modal === 'reset' || this.vm.modal === 'abandon') { this.vm.modal = null; this.overlay(); return; }
-      if (this.vm.page === 'battle' && !this.save.activeRun?.draft && !this.save.activeRun?.pauseReasons.includes('tutorial')) { event.preventDefault(); void this.action(this.save.activeRun?.phase === 'running' ? 'pause' : 'resume'); }
+      if (this.vm.page === 'battle' && !this.save.activeRun?.draft && !this.save.activeRun?.pauseReasons.includes('tutorial')) { event.preventDefault(); void this.action(this.save.activeRun?.phase === 'running' || this.save.activeRun?.bossIntro && this.save.activeRun.pauseReasons.length === 1 ? 'pause' : 'resume'); }
     }
     if (event.code === 'Space' && this.vm.page === 'battle' && !dialog && !['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes((event.target as HTMLElement).tagName)) { event.preventDefault(); if (!event.repeat) void this.action('cast'); }
   }
@@ -277,7 +285,7 @@ export class GameApp {
       audio: () => this.audio.stats(),
       presentation: () => (this.canvas?.scene.getScene('battle') as BattleScene | undefined)?.diagnostics(),
       command: (cmd: Command) => this.execute(cmd),
-      ticks: (count: number) => { if (this.save.activeRun) { stepRun(this.save.activeRun, count); this.lastFrame = performance.now(); this.overlay(); updateHud(this.save.activeRun, this.save.preferences.battleSpeed, this.save.preferences.autoTactical); if (this.save.activeRun.phase === 'ended') void this.finish(); } },
+      ticks: (count: number) => { if (this.save.activeRun) { stepRun(this.save.activeRun, count); this.lastFrame = performance.now(); this.overlay(); updateHud(this.save.activeRun, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); if (this.save.activeRun.phase === 'ended') void this.finish(); } },
       start: (config: RunConfig) => this.start(config),
       save: () => this.persist(),
       route: (page: Page) => this.go(page),

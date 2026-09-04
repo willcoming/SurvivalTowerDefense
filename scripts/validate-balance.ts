@@ -64,7 +64,15 @@ if (!quick) {
     const winImprovement = baseline.outcome !== 'victory' && adjusted.outcome === 'victory';
     comparisons.push({ comparisonId: 'CMP05', seed: 211, buildId: 'T02', baseline, adjusted, identicalInitialState: baseline.initialSnapshotDigest === adjusted.initialSnapshotDigest, identicalSpawnPlan: baseline.spawnPlanDigest === adjusted.spawnPlanDigest, improvement, winImprovement, passed: baseline.initialSnapshotDigest === adjusted.initialSnapshotDigest && baseline.spawnPlanDigest === adjusted.spawnPlanDigest && (winImprovement || (improvement !== null && improvement >= .2)) });
   } catch (error) { comparisons.push({ comparisonId: 'CMP05', seed: 211, buildId: 'T02', error: String(error), passed: false }); }
-  writeFileSync(resolve(dir, 'comparisons.json'), JSON.stringify({ ...metadata, comparisonPolicyVersion: 'comparison-v3', comparisons }, null, 2));
+  // CMP06 is declared in TEST_POLICIES before execution; preserve every failed hypothesis above.
+  try {
+    const baseline = runPolicy({ ...t02, cores: ['C04-A', 'C01-B', 'C06-A'], supports: ['C02-A', 'C03-B'] }, 211, { mode: 'immediate' }).report;
+    const adjusted = runPolicy(t02, 211, { mode: 'immediate' }).report;
+    const improvement = baseline.wallHpDamage > 0 ? (baseline.wallHpDamage - adjusted.wallHpDamage) / baseline.wallHpDamage : null;
+    const winImprovement = baseline.outcome !== 'victory' && adjusted.outcome === 'victory';
+    comparisons.push({ comparisonId: 'CMP06', seed: 211, buildId: 'T02', baseline, adjusted, identicalInitialState: baseline.initialSnapshotDigest === adjusted.initialSnapshotDigest, identicalSpawnPlan: baseline.spawnPlanDigest === adjusted.spawnPlanDigest, improvement, winImprovement, passed: baseline.initialSnapshotDigest === adjusted.initialSnapshotDigest && baseline.spawnPlanDigest === adjusted.spawnPlanDigest && (winImprovement || (improvement !== null && improvement >= .2)) });
+  } catch (error) { comparisons.push({ comparisonId: 'CMP06', seed: 211, buildId: 'T02', error: String(error), passed: false }); }
+  writeFileSync(resolve(dir, 'comparisons.json'), JSON.stringify({ ...metadata, comparisonPolicyVersion: 'comparison-v4', comparisons }, null, 2));
   const sample = runs.find(r => r.outcome === 'victory');
   let replayPassed = false;
   let replayError: string | null = null;

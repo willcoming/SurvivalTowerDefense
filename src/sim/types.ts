@@ -4,7 +4,7 @@ export type EnemyId = 'E01' | 'E02' | 'E03' | 'E04' | 'E05' | 'E06' | 'E07' | 'E
 export type Branch = 'A' | 'B';
 export type DamageType = 'plasma' | 'arc' | 'kinetic' | 'gravity' | 'thermal';
 export type ChallengeId = 'four' | 'no-skill' | 'two-evolutions' | null;
-export type PauseReason = 'user' | 'upgrade' | 'hidden' | 'orientation' | 'tutorial' | 'error';
+export type PauseReason = 'user' | 'upgrade' | 'hidden' | 'orientation' | 'tutorial' | 'error' | 'boss-intro';
 export interface RunConfig {
   stageId: StageId; squadIds: CharacterId[]; captainId: CharacterId;
   preferredBranches?: Partial<Record<CharacterId, Branch>>; seed: number; challengeId?: ChallengeId;
@@ -55,6 +55,7 @@ export interface Projectile {
   expires: number; hitIds: number[]; remaining: number; falloff: number[];
   radius: number; blastRadius: number; packet: DamagePacket | null;
   enemyDamage: number; enemySource: EnemyId | null; impactAt: number;
+  travelRemaining?: number;
   fire?: { radius: number; dps: number; duration: number; burnDuration: number; armorIgnore: number };
 }
 export interface Field {
@@ -72,6 +73,7 @@ export interface ScheduledHit { at: number; packet: DamagePacket | null; x: numb
 export interface VisualEvent {
   seq: number; tick: number; kind: 'shot' | 'beam' | 'arc' | 'explosion' | 'hit' | 'death' | 'shield' | 'evolution' | 'tactical' | 'wall-hit' | 'spawn' | 'interrupt';
   x: number; y: number; x2?: number; y2?: number; radius?: number; value?: number; source?: CharacterId; color?: string;
+  affectedIds?: number[];
   targetId?: number; enemyDefId?: EnemyId; skill?: string; weaponRank?: number; weaponBranch?: Branch | null;
 }
 export interface ActionRecord { tick: number; seq: number; command: Command }
@@ -88,6 +90,7 @@ export interface RunState {
   weapons: WeaponState[]; commonRanks: Record<string, number>; preferredBranches: Record<CharacterId, Branch>;
   enemies: Enemy[]; projectiles: Projectile[]; fields: Field[]; scheduled: ScheduledHit[];
   spawnPlan: SpawnEntry[]; spawnCursor: number; bossSpawned: boolean; bossKilled: boolean;
+  bossIntro?: { enemyId: number; remainingMs: number };
   rng: { spawn: number; draft: number; visual: number }; nextEntityId: number;
   draft: DraftOffer | null; nextOfferId: number; events: VisualEvent[]; eventSeq: number;
   actions: ActionRecord[]; actionSeq: number; stats: RunStats;
@@ -95,6 +98,7 @@ export interface RunState {
 }
 export type Command =
   | { type: 'cast' }
+  | { type: 'finish-boss-intro' }
   | { type: 'pause'; reason: PauseReason }
   | { type: 'resume'; reason: PauseReason }
   | { type: 'choose'; offerId: number; nodeId: string }

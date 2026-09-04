@@ -1,4 +1,4 @@
-import { CHARACTER_IDS, CONTENT_VERSION, SCHEMA_VERSION, STAGE_MAP } from '../data/content';
+import { CHARACTER_IDS, supportedContent, SCHEMA_VERSION, STAGE_MAP } from '../data/content';
 import { restoreRun } from '../sim/engine';
 import type { Branch, CharacterId, EnemyId, RunState, StageId } from '../sim/types';
 export const DB_NAME='starfall-defense';export const STORE_NAME='records';export const SAVE_KEY='save';
@@ -37,7 +37,7 @@ function validSave(raw:unknown):GameSave{
  if(p.autoTactical===undefined)p.autoTactical=false;
  if(typeof p.autoTactical!=='boolean')throw new SaveValidationError();
  if(s.activeRun!==null){
-   if(s.activeRun?.schemaVersion!==SCHEMA_VERSION||s.activeRun?.contentVersion!==CONTENT_VERSION)throw new IncompatibleRunError(s);
+   if(s.activeRun?.schemaVersion!==SCHEMA_VERSION||!supportedContent(s.activeRun?.contentVersion))throw new IncompatibleRunError(s);
    try{restoreRun(s.activeRun);}catch{throw new SaveValidationError('進行中戰局損壞，原始資料已保留');}
  }
  return s;

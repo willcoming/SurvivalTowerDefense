@@ -41,6 +41,10 @@ try {
   await page.locator('#battle-loading').waitFor({ state: 'detached', timeout: 10000 });
   const battleReadyMs = performance.now() - battleStart;
   await page.getByRole('button', { name: '明白，開始防守 →', exact: true }).click();
+  const range = page.locator('#range-C02');
+  await range.click(); assert.equal(await range.getAttribute('aria-pressed'), 'true');
+  assert.match(await page.locator('#range-info').innerText(), /近程/);
+  await range.click(); assert.equal(await range.getAttribute('aria-pressed'), 'false');
   const speed = page.locator('#speed-button');
   assert.equal(await speed.innerText(), '1×');
   await speed.click(); assert.equal(await speed.innerText(), '2×');
@@ -53,6 +57,7 @@ try {
   await page.waitForTimeout(200);
   const before = await readSave();
   assert.ok(before.activeRun?.draft, 'Earned upgrade was saved');
+  assert.equal(before.activeRun.contentVersion, CONTENT_VERSION);
   assert.equal(before.preferences.battleSpeed, 3);
   assert.equal(before.preferences.autoTactical, true);
   assert.ok(before.activeRun.stats.casts.length > 0, 'Auto input cast the actual captain skill');

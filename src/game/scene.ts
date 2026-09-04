@@ -1,12 +1,16 @@
 import Phaser from 'phaser';
 import { CHARACTER_MAP, ENEMY_MAP, STAGE_MAP } from '../data/content';
-import type { RunState } from '../sim/types';
+import type { CharacterId, RunState } from '../sim/types';
 import type { GameAudio } from './audio';
 import { CombatActors, enemySize } from './actors';
 import { drawSkill } from './skill-effects';
 import { enemyFrameSize, enemyTexture } from './enemy-motion';
 import { drawEffect, drawField, drawProjectile, polygon, line } from './effects';
 import { capEffects, effectDetail, effectLifetime, LAYERS, type ActiveEffect, type Detail } from './presentation';
+import { StatusEffects } from './status-effects';
+import { BossEntrance } from './boss-entrance';
+import { drawRange } from './range-overlay';
+import { inWeaponRange, weaponRange } from '../sim/range';
 import type { BattleSpeed } from '../storage/repository';
 
 const hex = (color: string) => parseInt(color.replace('#', ''), 16);
@@ -21,6 +25,10 @@ export class BattleScene extends Phaser.Scene {
   private worldRun: RunState | null = null;
   private worldKey = '';
   private actors!: CombatActors;
+  private statuses!: StatusEffects;
+  private entrance!: BossEntrance;
+  private rangeGraphics!: Phaser.GameObjects.Graphics;
+  private rangeKey = "";
   private warnings!: Phaser.GameObjects.Graphics;
   private detail: Detail = 'full'; private slowFrames = 0; private peakEffects = 0;
   private warning!: Phaser.GameObjects.Text;
@@ -34,7 +42,7 @@ export class BattleScene extends Phaser.Scene {
   private previousShields = new Map<number, number>(); private previousCharges = new Set<number>(); private previousCooldown = 0;
   private originX(id?: string) { const ids = this.read().config.squadIds; const i = ids.findIndex(c => c === id); return i < 0 ? 195 : 195 + (i - (ids.length - 1) / 2) * 70; }
   private loading: SceneLoading; private missing: string[] = [];
-  constructor(read: () => RunState, audio: GameAudio, low: () => boolean, loading: SceneLoading, private speed: () => BattleSpeed = () => 1) { super('battle'); this.read = read; this.audio = audio; this.low = low; this.loading = loading; }
+  constructor(read: () => RunState, audio: GameAudio, low: () => boolean, loading: SceneLoading, private speed: () => BattleSpeed = () => 1, private selectedRange: () => CharacterId | null = () => null) { super('battle'); this.read = read; this.audio = audio; this.low = low; this.loading = loading; }
   preload() {
     this.load.on('progress', (progress: number) => this.loading.progress(progress));
     this.load.on('loaderror', (file: Phaser.Loader.File) => { this.missing.push(String(file.src)); });
@@ -66,6 +74,9 @@ export class BattleScene extends Phaser.Scene {
     bolt.destroy();
     this.warnings = this.add.graphics().setDepth(LAYERS.warnings);
     this.actors = new CombatActors(this, this.read, this.speed, this.spriteKeys);
+    this.statuses = new StatusEffects(this);
+    this.entrance = new BossEntrance(this, enemyTexture(STAGE_MAP[this.read().config.stageId].bossId));
+    this.rangeGraphics = this.add.graphics().setDepth(6);
     const ids = this.read().config.squadIds;
     ids.forEach((id, i) => {
       const x = 195 + (i - (ids.length - 1) / 2) * 70;
@@ -80,12 +91,11 @@ export class BattleScene extends Phaser.Scene {
     const g = this.worldGraphics; g.clear();
     run.fields.forEach(f => drawField(g, f, run.tick, this.detail));
     for (const enemy of run.enemies) {
+      if (run.bossIntro?.enemyId === enemy.id) continue;
       const boss = enemy.defId.startsWith('B'), size = enemySize(enemy.defId);
       const w = boss ? 84 : 26; const hpY = enemy.y - size / 2 - 4;
       if (enemy.hp < enemy.maxHp || boss) { g.fillStyle(0x091e25, .9).fillRect(enemy.x - w / 2, hpY, w, boss ? 5 : 3); g.fillStyle(boss ? 0xff8666 : 0xf2dab8).fillRect(enemy.x - w / 2, hpY, w * Math.max(0, enemy.hp / enemy.maxHp), boss ? 5 : 3); }
       if (enemy.shield > 0) { g.lineStyle(1.5, 0x7eebff, .75).strokeCircle(enemy.x, enemy.y, size * .47); }
-      if (enemy.effects.some(e => e.kind === 'burn')) g.fillStyle(0xff983e, .6).fillCircle(enemy.x + 10, enemy.y + 10, 4);
-      if (enemy.effects.some(e => e.kind === 'exposure') || enemy.exposureUntil > run.tick) g.lineStyle(2, 0xffdf64, 1).strokeCircle(enemy.x, enemy.y, size * .44);
     }
     const charging = run.enemies.find(e => e.chargeKind && !e.chargeCancelled);
     for (const e of run.enemies) {
@@ -170,8 +180,12 @@ export class BattleScene extends Phaser.Scene {
     const key = `${run.tick}:${run.actionSeq}:${run.eventSeq}:${run.phase}:${run.enemies.length}:${run.projectiles.length}:${run.fields.length}:${run.shields.length}:${this.detail}`;
     if (run !== this.worldRun || key !== this.worldKey) { this.worldRun = run; this.worldKey = key; this.drawWorld(run); }
     const now = this.actors.clock;
+    this.statuses.update(run, now, fresh, this.detail);
+    this.entrance.update(run, this.detail);
+    const rangeKey = `${key}:${this.selectedRange()}`;
+    if (rangeKey !== this.rangeKey) { this.rangeKey = rangeKey; drawRange(this.rangeGraphics, run, this.selectedRange()); }
     this.flashes = this.flashes.filter(f => now - f.born < f.duration);
-    fresh.forEach(event => { this.audio.event(event); if (event.kind !== 'spawn') this.flashes.push({ event, born: now, duration: effectLifetime(event) }); });
+    fresh.forEach(event => { this.audio.event(event); if (event.kind !== 'spawn' && event.skill !== 'burn') this.flashes.push({ event, born: now, duration: effectLifetime(event) }); });
     this.flashes = capEffects(this.flashes, this.detail); this.peakEffects = Math.max(this.peakEffects, this.flashes.length);
     this.graphics.clear();
     for (const effect of this.flashes) {
@@ -191,8 +205,10 @@ export class BattleScene extends Phaser.Scene {
     });
   }
   diagnostics() {
-    const bounds = this.warning.getBounds();
-    return { ...this.actors.diagnostics(), detail: this.detail, activeEffects: this.flashes.length, peakEffects: this.peakEffects,
+    const bounds = this.warning.getBounds(), selected = this.selectedRange(), run = this.read();
+    return { ...this.actors.diagnostics(), ...this.statuses.diagnostics(),
+      bossIntro: run.bossIntro ? { ...run.bossIntro, type: run.enemies.find(e => e.id === run.bossIntro?.enemyId)?.defId, visible: true, depth: 30 } : null,
+      range: selected ? { id: selected, radius: weaponRange(run, selected), insideIds: run.enemies.filter(e => inWeaponRange(run, selected, e)).map(e => e.id) } : null, detail: this.detail, activeEffects: this.flashes.length, peakEffects: this.peakEffects,
       warnings: { visible: this.warning.visible, text: this.warning.text, top: bounds.top, bottom: bounds.bottom, depth: this.warning.depth, geometryDepth: this.warnings.depth },
       textureFrames: Object.fromEntries(this.read().config.squadIds.map(id => [id, this.textures.get(`motion-${id}`).frameTotal - 1])),
       effectsDepth: this.graphics.depth, alliesDepth: LAYERS.allies,
@@ -204,6 +220,8 @@ export class BattleScene extends Phaser.Scene {
 
 }
 
-export function createBattleCanvas(parent: HTMLElement, read: () => RunState, audio: GameAudio, low: () => boolean, loading: SceneLoading, speed: () => BattleSpeed = () => 1) {
-  return new Phaser.Game({ type: Phaser.AUTO, width: 390, height: 520, parent, backgroundColor: '#102c35', antialias: true, audio: { noAudio: true }, scene: new BattleScene(read, audio, low, loading, speed), scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, render: { roundPixels: false }, fps: { target: 60 } });
+export function createBattleCanvas(parent: HTMLElement, read: () => RunState, audio: GameAudio, low: () => boolean, loading: SceneLoading, speed: () => BattleSpeed = () => 1, selectedRange: () => CharacterId | null = () => null) {
+  // Keep linear filtering for the illustrated sprites. The 2D canvas does not need
+  // a multisampled WebGL backbuffer, whose resolves dominate dense mobile rendering.
+  return new Phaser.Game({ type: Phaser.AUTO, width: 390, height: 520, parent, backgroundColor: '#102c35', antialias: true, audio: { noAudio: true }, scene: new BattleScene(read, audio, low, loading, speed, selectedRange), scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, render: { roundPixels: false, antialiasGL: false }, fps: { target: 60 } });
 }

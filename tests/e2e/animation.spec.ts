@@ -7,11 +7,11 @@ const dir = process.env.VALIDATION_OUTPUT_DIR ?? 'artifacts/validation/animation
 mkdirSync(`${dir}/screenshots`, { recursive: true });
 test.beforeEach(async ({ page }) => { await page.routeWebSocket('**/*', socket => socket.close()); });
 async function boot(page: Page) { await page.goto('/'); await page.waitForFunction(() => !!window.__game); }
-async function start(page: Page, id: CharacterId, stageId: StageId = 'S01') {
-  await page.evaluate(async ({ id, stageId }) => {
+async function start(page: Page, id: CharacterId, stageId: StageId = 'S01', solo = false) {
+  await page.evaluate(async ({ id, stageId, solo }) => {
     const all: CharacterId[] = ['C01','C02','C03','C04','C05','C06'];
-    await window.__game.start({ stageId, squadIds: [id, ...all.filter(c => c !== id)].slice(0,5), captainId: id, seed: 101 });
-  }, { id, stageId });
+    await window.__game.start({ stageId, squadIds: solo ? [id] : [id, ...all.filter(c => c !== id)].slice(0,5), captainId: id, seed: 101 });
+  }, { id, stageId, solo });
   await page.locator('#battle-loading').waitFor({ state: 'detached' });
   if (await page.locator('[data-action="tutorial-done"]').count()) await page.locator('[data-action="tutorial-done"]').first().click();
 }
@@ -21,8 +21,9 @@ async function speed3(page: Page) {
 
 for (const id of CHARACTER_IDS) test(`ANIM ${id}: six real sprite poses, skill at 1× and 3×`, async ({ page }, info) => {
   const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
-  await boot(page); await start(page, id);
-  // Observe all poses through real gameplay instead of assuming a fixed startup delay.
+  await boot(page); await start(page, id, 'S01', true);
+  // A legal solo squad lets short-range weapons acquire targets before distant allies kill them.
+  // Observe the entire aim/fire/recovery sequence through the real combat loop.
   await page.waitForFunction(id => window.__game.presentation().poses[id]?.seen.length === 6, id, { timeout: 12000 });
   const poses = await page.evaluate(id => window.__game.presentation().poses[id], id);
   expect(poses.seen).toEqual([0,1,2,3,4,5]); expect(poses.texture).toBe(`motion-${id}`);

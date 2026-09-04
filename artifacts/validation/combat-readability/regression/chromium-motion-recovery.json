@@ -1,0 +1,6662 @@
+{
+  "frozen": {
+    "view": [
+      {
+        "id": 6,
+        "type": "E01",
+        "mode": "stunned",
+        "frame": 3,
+        "pose": "move-2",
+        "fps": 0,
+        "clock": 735.5,
+        "releases": 0,
+        "texture": "enemy-motion-E01"
+      },
+      {
+        "id": 7,
+        "type": "E02",
+        "mode": "stunned",
+        "frame": 4,
+        "pose": "move-3",
+        "fps": 0,
+        "clock": 772.5,
+        "releases": 0,
+        "texture": "enemy-motion-E02"
+      },
+      {
+        "id": 8,
+        "type": "E03",
+        "mode": "stunned",
+        "frame": 3,
+        "pose": "move-2",
+        "fps": 0,
+        "clock": 809.5,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 9,
+        "type": "E04",
+        "mode": "stunned",
+        "frame": 5,
+        "pose": "move-4",
+        "fps": 0,
+        "clock": 846.5,
+        "releases": 0,
+        "texture": "enemy-motion-E04"
+      },
+      {
+        "id": 10,
+        "type": "E05",
+        "mode": "stunned",
+        "frame": 6,
+        "pose": "move-5",
+        "fps": 0,
+        "clock": 883.5,
+        "releases": 0,
+        "texture": "enemy-motion-E05"
+      },
+      {
+        "id": 11,
+        "type": "E06",
+        "mode": "stunned",
+        "frame": 7,
+        "pose": "move-6",
+        "fps": 0,
+        "clock": 920.5,
+        "releases": 0,
+        "texture": "enemy-motion-E06"
+      },
+      {
+        "id": 12,
+        "type": "E07",
+        "mode": "stunned",
+        "frame": 6,
+        "pose": "move-5",
+        "fps": 0,
+        "clock": 957.5,
+        "releases": 0,
+        "texture": "enemy-motion-E07"
+      },
+      {
+        "id": 13,
+        "type": "E08",
+        "mode": "stunned",
+        "frame": 4,
+        "pose": "move-3",
+        "fps": 0,
+        "clock": 994.5,
+        "releases": 0,
+        "texture": "enemy-motion-E08"
+      },
+      {
+        "id": 14,
+        "type": "B03",
+        "mode": "stunned",
+        "frame": 2,
+        "pose": "move-1",
+        "fps": 0,
+        "clock": 1031.5,
+        "releases": 0,
+        "texture": "enemy-motion-B03"
+      }
+    ],
+    "ys": [
+      69.53333333333325,
+      98.66666666666677,
+      60.33333333333344,
+      63.399999999999935,
+      60.33333333333344,
+      133.40000000000026,
+      130.3333333333332,
+      157.9333333333335,
+      127.26666666666662
+    ]
+  },
+  "paused": [
+    {
+      "id": 6,
+      "type": "E01",
+      "mode": "stunned",
+      "frame": 3,
+      "pose": "move-2",
+      "fps": 0,
+      "clock": 735.5,
+      "releases": 0,
+      "texture": "enemy-motion-E01"
+    },
+    {
+      "id": 7,
+      "type": "E02",
+      "mode": "stunned",
+      "frame": 4,
+      "pose": "move-3",
+      "fps": 0,
+      "clock": 772.5,
+      "releases": 0,
+      "texture": "enemy-motion-E02"
+    },
+    {
+      "id": 8,
+      "type": "E03",
+      "mode": "stunned",
+      "frame": 3,
+      "pose": "move-2",
+      "fps": 0,
+      "clock": 809.5,
+      "releases": 0,
+      "texture": "enemy-motion-E03"
+    },
+    {
+      "id": 9,
+      "type": "E04",
+      "mode": "stunned",
+      "frame": 5,
+      "pose": "move-4",
+      "fps": 0,
+      "clock": 846.5,
+      "releases": 0,
+      "texture": "enemy-motion-E04"
+    },
+    {
+      "id": 10,
+      "type": "E05",
+      "mode": "stunned",
+      "frame": 6,
+      "pose": "move-5",
+      "fps": 0,
+      "clock": 883.5,
+      "releases": 0,
+      "texture": "enemy-motion-E05"
+    },
+    {
+      "id": 11,
+      "type": "E06",
+      "mode": "stunned",
+      "frame": 7,
+      "pose": "move-6",
+      "fps": 0,
+      "clock": 920.5,
+      "releases": 0,
+      "texture": "enemy-motion-E06"
+    },
+    {
+      "id": 12,
+      "type": "E07",
+      "mode": "stunned",
+      "frame": 6,
+      "pose": "move-5",
+      "fps": 0,
+      "clock": 957.5,
+      "releases": 0,
+      "texture": "enemy-motion-E07"
+    },
+    {
+      "id": 13,
+      "type": "E08",
+      "mode": "stunned",
+      "frame": 4,
+      "pose": "move-3",
+      "fps": 0,
+      "clock": 994.5,
+      "releases": 0,
+      "texture": "enemy-motion-E08"
+    },
+    {
+      "id": 14,
+      "type": "B03",
+      "mode": "stunned",
+      "frame": 2,
+      "pose": "move-1",
+      "fps": 0,
+      "clock": 1031.5,
+      "releases": 0,
+      "texture": "enemy-motion-B03"
+    }
+  ],
+  "saved": {
+    "schemaVersion": 1,
+    "contentVersion": "0.1.0-dev.3",
+    "runId": "8ce0578f-b95d-4690-ba13-82a82abf56f4",
+    "config": {
+      "stageId": "S03",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "captainId": "C05",
+      "seed": 101
+    },
+    "tick": 85,
+    "phase": "paused",
+    "pauseReasons": [
+      "user"
+    ],
+    "wallHp": 1000000,
+    "wallMaxHp": 1000000,
+    "shields": [],
+    "xp": 0,
+    "choicesEarned": 0,
+    "choicesSpent": 0,
+    "rerollsRemaining": 3,
+    "evolvedCount": 0,
+    "evolutionLimit": 3,
+    "tacticalReadyAt": 0,
+    "weapons": [
+      {
+        "id": "C01",
+        "branch": null,
+        "rank": 0,
+        "readyAt": 0,
+        "nextAttack": 90008,
+        "attacks": 0,
+        "droneAttacks": [
+          0,
+          0
+        ],
+        "shieldAt": 0
+      },
+      {
+        "id": "C02",
+        "branch": null,
+        "rank": 0,
+        "readyAt": 0,
+        "nextAttack": 90008,
+        "attacks": 0,
+        "droneAttacks": [
+          0,
+          0
+        ],
+        "shieldAt": 0
+      },
+      {
+        "id": "C03",
+        "branch": null,
+        "rank": 0,
+        "readyAt": 0,
+        "nextAttack": 90008,
+        "attacks": 1,
+        "droneAttacks": [
+          0,
+          0
+        ],
+        "shieldAt": 0
+      },
+      {
+        "id": "C04",
+        "branch": null,
+        "rank": 0,
+        "readyAt": 0,
+        "nextAttack": 90008,
+        "attacks": 0,
+        "droneAttacks": [
+          0,
+          0
+        ],
+        "shieldAt": 0
+      },
+      {
+        "id": "C05",
+        "branch": null,
+        "rank": 0,
+        "readyAt": 0,
+        "nextAttack": 90008,
+        "attacks": 1,
+        "droneAttacks": [
+          0,
+          0
+        ],
+        "shieldAt": 0
+      }
+    ],
+    "commonRanks": {},
+    "preferredBranches": {
+      "C01": "A",
+      "C02": "A",
+      "C03": "A",
+      "C04": "A",
+      "C05": "A",
+      "C06": "A"
+    },
+    "enemies": [
+      {
+        "id": 6,
+        "defId": "E01",
+        "x": 40,
+        "y": 71.13333333333324,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0,
+        "speed": 16,
+        "radius": 12,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 8,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 7,
+        "defId": "E02",
+        "x": 116,
+        "y": 102.16666666666679,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0,
+        "speed": 35,
+        "radius": 11,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 8,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 8,
+        "defId": "E03",
+        "x": 192,
+        "y": 61.33333333333345,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.55,
+        "speed": 10,
+        "radius": 17,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 8,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 9,
+        "defId": "E04",
+        "x": 268,
+        "y": 64.59999999999994,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 360,
+        "armor": 0.1,
+        "speed": 12,
+        "radius": 15,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 8,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 10,
+        "defId": "E05",
+        "x": 344,
+        "y": 61.33333333333345,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0,
+        "speed": 10,
+        "radius": 14,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 8,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 11,
+        "defId": "E06",
+        "x": 40,
+        "y": 134.60000000000028,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.1,
+        "speed": 12,
+        "radius": 13,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 8,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 12,
+        "defId": "E07",
+        "x": 116,
+        "y": 131.33333333333323,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.55,
+        "speed": 10,
+        "radius": 21,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 8,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 13,
+        "defId": "E08",
+        "x": 192,
+        "y": 160.73333333333352,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.1,
+        "speed": 28,
+        "radius": 17,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 8,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 14,
+        "defId": "B03",
+        "x": 268,
+        "y": 150,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.2,
+        "speed": 0,
+        "radius": 43,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 8,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 175,
+        "chargeKind": "boss",
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0,
+        "lastAction": {
+          "tick": 84,
+          "kind": "summon"
+        }
+      }
+    ],
+    "projectiles": [],
+    "fields": [],
+    "scheduled": [],
+    "spawnPlan": [
+      {
+        "at": 0,
+        "defId": "E02",
+        "x": 40.200823199003935,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 0,
+        "defId": "E02",
+        "x": 340.2585762515664,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 0,
+        "defId": "E01",
+        "x": 125.68859612196684,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 0,
+        "defId": "E01",
+        "x": 271.78622176125646,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 150,
+        "defId": "E01",
+        "x": 338.4824076332152,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 150,
+        "defId": "E01",
+        "x": 351.3882701396942,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 150,
+        "defId": "E01",
+        "x": 193.39618234708905,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 150,
+        "defId": "E02",
+        "x": 195.76634454354644,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 300,
+        "defId": "E01",
+        "x": 202.25067656114697,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 300,
+        "defId": "E01",
+        "x": 118.68888733163476,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 300,
+        "defId": "E01",
+        "x": 39.086472906172276,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 300,
+        "defId": "E02",
+        "x": 200.28789952397346,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 450,
+        "defId": "E01",
+        "x": 342.0467159897089,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 450,
+        "defId": "E01",
+        "x": 267.1618516817689,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 450,
+        "defId": "E02",
+        "x": 37.187898717820644,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 450,
+        "defId": "E01",
+        "x": 345.8803736716509,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 600,
+        "defId": "E03",
+        "x": 196.1494719348848,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 600,
+        "defId": "E01",
+        "x": 274.2457387186587,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 600,
+        "defId": "E01",
+        "x": 115.67267944663763,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 600,
+        "defId": "E03",
+        "x": 49.43673434481025,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 750,
+        "defId": "E01",
+        "x": 352.6827725470066,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 750,
+        "defId": "E01",
+        "x": 266.14769414812326,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 750,
+        "defId": "E01",
+        "x": 114.43431997671723,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 750,
+        "defId": "E01",
+        "x": 121.93448838964105,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 900,
+        "defId": "E01",
+        "x": 275.4492647945881,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 900,
+        "defId": "E01",
+        "x": 344.33085867762566,
+        "xp": 3,
+        "wave": 1
+      },
+      {
+        "at": 900,
+        "defId": "E01",
+        "x": 194.5989219546318,
+        "xp": 2,
+        "wave": 1
+      },
+      {
+        "at": 900,
+        "defId": "E03",
+        "x": 127.86468114703894,
+        "xp": 2,
+        "wave": 1
+      },
+      {
+        "at": 1050,
+        "defId": "E03",
+        "x": 46.81276725232601,
+        "xp": 2,
+        "wave": 1
+      },
+      {
+        "at": 1050,
+        "defId": "E02",
+        "x": 201.1538487561047,
+        "xp": 2,
+        "wave": 1
+      },
+      {
+        "at": 1050,
+        "defId": "E01",
+        "x": 270.1177114918828,
+        "xp": 2,
+        "wave": 1
+      },
+      {
+        "at": 1050,
+        "defId": "E01",
+        "x": 196.97817232832313,
+        "xp": 2,
+        "wave": 1
+      },
+      {
+        "at": 1350,
+        "defId": "E01",
+        "x": 202.45434482768178,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1350,
+        "defId": "E02",
+        "x": 196.96154491230845,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1350,
+        "defId": "E01",
+        "x": 345.6056827194989,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1350,
+        "defId": "E04",
+        "x": 42.548743147403,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1350,
+        "defId": "E05",
+        "x": 50.95449762791395,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1500,
+        "defId": "E02",
+        "x": 350.7593756057322,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1500,
+        "defId": "E01",
+        "x": 42.06886291131377,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1500,
+        "defId": "E04",
+        "x": 52.814587604254484,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1500,
+        "defId": "E02",
+        "x": 202.38656264916062,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1500,
+        "defId": "E01",
+        "x": 268.48136642575264,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1650,
+        "defId": "E01",
+        "x": 112.90871338546276,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1650,
+        "defId": "E01",
+        "x": 262.50377007573843,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1650,
+        "defId": "E01",
+        "x": 43.5244732350111,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1650,
+        "defId": "E01",
+        "x": 39.91831070557237,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1800,
+        "defId": "E01",
+        "x": 115.47127961739898,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1800,
+        "defId": "E02",
+        "x": 351.29874048382044,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1800,
+        "defId": "E04",
+        "x": 45.152417208999395,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1800,
+        "defId": "E02",
+        "x": 347.1822257973254,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1950,
+        "defId": "E01",
+        "x": 52.39300302788615,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1950,
+        "defId": "E02",
+        "x": 345.94586846604943,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1950,
+        "defId": "E01",
+        "x": 113.0472273491323,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 1950,
+        "defId": "E01",
+        "x": 344.0676789842546,
+        "xp": 3,
+        "wave": 2
+      },
+      {
+        "at": 2100,
+        "defId": "E01",
+        "x": 51.255946546792984,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2100,
+        "defId": "E05",
+        "x": 52.46029610559344,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2100,
+        "defId": "E01",
+        "x": 268.4912822395563,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2100,
+        "defId": "E02",
+        "x": 122.54875371977687,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2250,
+        "defId": "E01",
+        "x": 201.08311671763659,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2250,
+        "defId": "E01",
+        "x": 198.64021753892303,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2250,
+        "defId": "E01",
+        "x": 121.1565034352243,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2250,
+        "defId": "E01",
+        "x": 270.84152875095606,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2400,
+        "defId": "E02",
+        "x": 117.0221159234643,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2400,
+        "defId": "E01",
+        "x": 119.3217143714428,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2400,
+        "defId": "E01",
+        "x": 197.55993349850178,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2400,
+        "defId": "E04",
+        "x": 352.43381510302424,
+        "xp": 2,
+        "wave": 2
+      },
+      {
+        "at": 2700,
+        "defId": "E01",
+        "x": 121.83240217342973,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 2700,
+        "defId": "E01",
+        "x": 43.45491946861148,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 2700,
+        "defId": "E03",
+        "x": 51.21658918634057,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 2700,
+        "defId": "E04",
+        "x": 340.4740544743836,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 2850,
+        "defId": "E06",
+        "x": 274.5303139016032,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 2850,
+        "defId": "E01",
+        "x": 349.53581303730607,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 2850,
+        "defId": "E01",
+        "x": 126.9725381322205,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 2850,
+        "defId": "E01",
+        "x": 345.4264915473759,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3000,
+        "defId": "E03",
+        "x": 262.49988447502255,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3000,
+        "defId": "E01",
+        "x": 41.653843350708485,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3000,
+        "defId": "E04",
+        "x": 126.81840287148952,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3000,
+        "defId": "E01",
+        "x": 350.5301989875734,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3150,
+        "defId": "E04",
+        "x": 188.0349718146026,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3150,
+        "defId": "E01",
+        "x": 46.62075591087341,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3150,
+        "defId": "E04",
+        "x": 48.13554186746478,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3150,
+        "defId": "E01",
+        "x": 40.70593219995499,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3300,
+        "defId": "E01",
+        "x": 269.83504808321595,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3300,
+        "defId": "E03",
+        "x": 37.67132683098316,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3300,
+        "defId": "E01",
+        "x": 345.09267884492874,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3300,
+        "defId": "E01",
+        "x": 271.61014683544636,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3450,
+        "defId": "E01",
+        "x": 127.08232079073787,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3450,
+        "defId": "E01",
+        "x": 127.84501940384507,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3450,
+        "defId": "E06",
+        "x": 42.110197097063065,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3450,
+        "defId": "E03",
+        "x": 202.9952935501933,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3600,
+        "defId": "E01",
+        "x": 199.95878910645843,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3600,
+        "defId": "E03",
+        "x": 39.08451369032264,
+        "xp": 3,
+        "wave": 3
+      },
+      {
+        "at": 3600,
+        "defId": "E01",
+        "x": 342.873168874532,
+        "xp": 2,
+        "wave": 3
+      },
+      {
+        "at": 3600,
+        "defId": "E01",
+        "x": 45.7824522331357,
+        "xp": 2,
+        "wave": 3
+      },
+      {
+        "at": 3750,
+        "defId": "E01",
+        "x": 42.128514520823956,
+        "xp": 2,
+        "wave": 3
+      },
+      {
+        "at": 3750,
+        "defId": "E01",
+        "x": 115.07827264815569,
+        "xp": 2,
+        "wave": 3
+      },
+      {
+        "at": 3750,
+        "defId": "E03",
+        "x": 127.98807548359036,
+        "xp": 2,
+        "wave": 3
+      },
+      {
+        "at": 3750,
+        "defId": "E01",
+        "x": 120.30920714884996,
+        "xp": 2,
+        "wave": 3
+      },
+      {
+        "at": 4050,
+        "defId": "E01",
+        "x": 273.90315718203783,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4050,
+        "defId": "E01",
+        "x": 120.79837884381413,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4050,
+        "defId": "E01",
+        "x": 194.18034886941314,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4050,
+        "defId": "E02",
+        "x": 263.32679156959057,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4050,
+        "defId": "E01",
+        "x": 274.7083382308483,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4200,
+        "defId": "E01",
+        "x": 119.90359623357654,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4200,
+        "defId": "E02",
+        "x": 194.83920561522245,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4200,
+        "defId": "E05",
+        "x": 352.1149966567755,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4200,
+        "defId": "E02",
+        "x": 38.81211882457137,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4200,
+        "defId": "E01",
+        "x": 193.51479832455516,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4350,
+        "defId": "E01",
+        "x": 200.87819285318255,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4350,
+        "defId": "E02",
+        "x": 340.8729812465608,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4350,
+        "defId": "E01",
+        "x": 202.4153110012412,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4350,
+        "defId": "E01",
+        "x": 348.9479829631746,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4350,
+        "defId": "E02",
+        "x": 276.79308212548494,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4500,
+        "defId": "E01",
+        "x": 265.09620578214526,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4500,
+        "defId": "E01",
+        "x": 191.52015594393015,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4500,
+        "defId": "E01",
+        "x": 41.45393030717969,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4500,
+        "defId": "E01",
+        "x": 341.95695938915014,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4650,
+        "defId": "E08",
+        "x": 196.37284722179174,
+        "xp": 3,
+        "wave": 4
+      },
+      {
+        "at": 4650,
+        "defId": "E02",
+        "x": 200.88538145273924,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 4650,
+        "defId": "E01",
+        "x": 114.17378569021821,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 4650,
+        "defId": "E05",
+        "x": 338.51360685005784,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 4800,
+        "defId": "E02",
+        "x": 42.934203170239925,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 4800,
+        "defId": "E02",
+        "x": 124.66956977173686,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 4800,
+        "defId": "E05",
+        "x": 201.4096376672387,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 4800,
+        "defId": "E02",
+        "x": 46.91171095892787,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 4950,
+        "defId": "E05",
+        "x": 344.6312308497727,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 4950,
+        "defId": "E01",
+        "x": 47.38762650638819,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 4950,
+        "defId": "E01",
+        "x": 265.8934865742922,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 4950,
+        "defId": "E01",
+        "x": 113.16747041791677,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 5100,
+        "defId": "E01",
+        "x": 44.40158495679498,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 5100,
+        "defId": "E01",
+        "x": 263.44099678099155,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 5100,
+        "defId": "E02",
+        "x": 201.2907203324139,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 5100,
+        "defId": "E01",
+        "x": 194.196534357965,
+        "xp": 2,
+        "wave": 4
+      },
+      {
+        "at": 5400,
+        "defId": "E05",
+        "x": 49.891354102641344,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5400,
+        "defId": "E01",
+        "x": 272.81395242363214,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5400,
+        "defId": "E01",
+        "x": 195.33234206587076,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5400,
+        "defId": "E03",
+        "x": 38.55046024173498,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5400,
+        "defId": "E01",
+        "x": 202.98334714397788,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5550,
+        "defId": "E01",
+        "x": 119.68464675173163,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5550,
+        "defId": "E04",
+        "x": 337.3338231444359,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5550,
+        "defId": "E04",
+        "x": 44.320506785064936,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5550,
+        "defId": "E01",
+        "x": 337.09895834699273,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5550,
+        "defId": "E04",
+        "x": 352.29223881289363,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5700,
+        "defId": "E01",
+        "x": 263.4226871468127,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5700,
+        "defId": "E01",
+        "x": 342.2935214154422,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5700,
+        "defId": "E03",
+        "x": 197.05046616122127,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5700,
+        "defId": "E03",
+        "x": 268.91221417859197,
+        "xp": 3,
+        "wave": 5
+      },
+      {
+        "at": 5700,
+        "defId": "E01",
+        "x": 42.30405617877841,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 5850,
+        "defId": "E05",
+        "x": 266.25494457036257,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 5850,
+        "defId": "E01",
+        "x": 113.20568788051605,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 5850,
+        "defId": "E01",
+        "x": 271.39079862833023,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 5850,
+        "defId": "E03",
+        "x": 202.81663212180138,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 5850,
+        "defId": "E01",
+        "x": 352.2434553578496,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6000,
+        "defId": "E01",
+        "x": 350.5217396616936,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6000,
+        "defId": "E01",
+        "x": 340.59999845549464,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6000,
+        "defId": "E01",
+        "x": 193.68015205860138,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6000,
+        "defId": "E01",
+        "x": 201.6056985631585,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6000,
+        "defId": "E03",
+        "x": 39.46381812542677,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6150,
+        "defId": "E01",
+        "x": 187.72242184355855,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6150,
+        "defId": "E01",
+        "x": 267.9261667691171,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6150,
+        "defId": "E03",
+        "x": 352.4450469687581,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6150,
+        "defId": "E01",
+        "x": 191.8316747881472,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6150,
+        "defId": "E04",
+        "x": 46.59911822527647,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6300,
+        "defId": "E03",
+        "x": 348.4246755428612,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6300,
+        "defId": "E05",
+        "x": 348.31424997374415,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6300,
+        "defId": "E01",
+        "x": 117.37608896940947,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6300,
+        "defId": "E01",
+        "x": 338.7765996195376,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6450,
+        "defId": "E01",
+        "x": 274.25198424980044,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6450,
+        "defId": "E01",
+        "x": 268.12671441212296,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6450,
+        "defId": "E05",
+        "x": 338.9515223316848,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6450,
+        "defId": "E03",
+        "x": 197.01636336371303,
+        "xp": 2,
+        "wave": 5
+      },
+      {
+        "at": 6750,
+        "defId": "E01",
+        "x": 193.6199048049748,
+        "xp": 3,
+        "wave": 6
+      },
+      {
+        "at": 6750,
+        "defId": "E01",
+        "x": 270.07189097628,
+        "xp": 3,
+        "wave": 6
+      },
+      {
+        "at": 6750,
+        "defId": "E01",
+        "x": 269.00666885077953,
+        "xp": 3,
+        "wave": 6
+      },
+      {
+        "at": 6750,
+        "defId": "E06",
+        "x": 122.76834097132087,
+        "xp": 3,
+        "wave": 6
+      },
+      {
+        "at": 6750,
+        "defId": "E01",
+        "x": 127.80324389412999,
+        "xp": 3,
+        "wave": 6
+      },
+      {
+        "at": 6750,
+        "defId": "E04",
+        "x": 187.91171076521277,
+        "xp": 3,
+        "wave": 6
+      },
+      {
+        "at": 6900,
+        "defId": "E02",
+        "x": 188.2338614165783,
+        "xp": 3,
+        "wave": 6
+      },
+      {
+        "at": 6900,
+        "defId": "E01",
+        "x": 124.68999051302671,
+        "xp": 3,
+        "wave": 6
+      },
+      {
+        "at": 6900,
+        "defId": "E01",
+        "x": 41.691192869096994,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 6900,
+        "defId": "E02",
+        "x": 123.60541062057018,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 6900,
+        "defId": "E01",
+        "x": 191.10914529114962,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7050,
+        "defId": "E06",
+        "x": 264.51900409534574,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7050,
+        "defId": "E01",
+        "x": 266.5999094545841,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7050,
+        "defId": "E02",
+        "x": 265.5163363516331,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7050,
+        "defId": "E04",
+        "x": 274.6868917271495,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7050,
+        "defId": "E01",
+        "x": 39.85312054306269,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7200,
+        "defId": "E02",
+        "x": 340.49640141427517,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7200,
+        "defId": "E02",
+        "x": 343.73203717917204,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7200,
+        "defId": "E01",
+        "x": 116.5098681487143,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7200,
+        "defId": "E06",
+        "x": 348.96023803576827,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7200,
+        "defId": "E04",
+        "x": 190.33503878489137,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7350,
+        "defId": "E01",
+        "x": 113.03816440701485,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7350,
+        "defId": "E01",
+        "x": 277.7685938440263,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7350,
+        "defId": "E04",
+        "x": 122.78513333573937,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7350,
+        "defId": "E01",
+        "x": 118.92004064098,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7350,
+        "defId": "E01",
+        "x": 126.47443749010563,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7500,
+        "defId": "E02",
+        "x": 338.1120379753411,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7500,
+        "defId": "E01",
+        "x": 342.63872454315424,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7500,
+        "defId": "E01",
+        "x": 268.0049107670784,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7500,
+        "defId": "E02",
+        "x": 196.00475358963013,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7500,
+        "defId": "E02",
+        "x": 38.21708167344332,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7650,
+        "defId": "E02",
+        "x": 352.4894659742713,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7650,
+        "defId": "E01",
+        "x": 346.8519924432039,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7650,
+        "defId": "E01",
+        "x": 40.952403742820024,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7650,
+        "defId": "E02",
+        "x": 120.32822240144014,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7650,
+        "defId": "E01",
+        "x": 268.27156142145395,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7800,
+        "defId": "E01",
+        "x": 273.6958183720708,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7800,
+        "defId": "E01",
+        "x": 347.87534506618977,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7800,
+        "defId": "E04",
+        "x": 340.75407633185387,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7800,
+        "defId": "E01",
+        "x": 120.66408371552825,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 7800,
+        "defId": "E04",
+        "x": 201.43113850057125,
+        "xp": 2,
+        "wave": 6
+      },
+      {
+        "at": 8100,
+        "defId": "E01",
+        "x": 45.38280412182212,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8100,
+        "defId": "E01",
+        "x": 188.79392340406775,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8100,
+        "defId": "E01",
+        "x": 122.82826943695545,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8100,
+        "defId": "E01",
+        "x": 121.87961934506893,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8100,
+        "defId": "E01",
+        "x": 277.06605011224747,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8250,
+        "defId": "E01",
+        "x": 46.90159373730421,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8250,
+        "defId": "E03",
+        "x": 201.18124113231897,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8250,
+        "defId": "E01",
+        "x": 41.022653106600046,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8250,
+        "defId": "E01",
+        "x": 343.02185924351215,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8250,
+        "defId": "E03",
+        "x": 187.82840257138014,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8400,
+        "defId": "E01",
+        "x": 44.68797494471073,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8400,
+        "defId": "E06",
+        "x": 340.5076567642391,
+        "xp": 3,
+        "wave": 7
+      },
+      {
+        "at": 8400,
+        "defId": "E01",
+        "x": 268.49996435269713,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8400,
+        "defId": "E01",
+        "x": 49.46168842166662,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8400,
+        "defId": "E03",
+        "x": 46.733253605663776,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8550,
+        "defId": "E05",
+        "x": 42.94266603142023,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8550,
+        "defId": "E03",
+        "x": 268.96307215839624,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8550,
+        "defId": "E05",
+        "x": 195.65119475126266,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8550,
+        "defId": "E01",
+        "x": 189.73381747305393,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8550,
+        "defId": "E01",
+        "x": 113.09381207451224,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8700,
+        "defId": "E07",
+        "x": 39.352026987820864,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8700,
+        "defId": "E01",
+        "x": 49.475155267864466,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8700,
+        "defId": "E06",
+        "x": 187.49489556998014,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8700,
+        "defId": "E03",
+        "x": 271.197788733989,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8700,
+        "defId": "E01",
+        "x": 49.867410354316235,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8850,
+        "defId": "E01",
+        "x": 274.99529092758894,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8850,
+        "defId": "E01",
+        "x": 195.63066829741,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8850,
+        "defId": "E05",
+        "x": 344.5210665874183,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8850,
+        "defId": "E03",
+        "x": 275.8453746624291,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 8850,
+        "defId": "E01",
+        "x": 49.912041161209345,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 9000,
+        "defId": "E03",
+        "x": 38.10070079565048,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 9000,
+        "defId": "E01",
+        "x": 112.75902289897203,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 9000,
+        "defId": "E01",
+        "x": 277.96769700944424,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 9000,
+        "defId": "E01",
+        "x": 349.5308825187385,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 9000,
+        "defId": "E05",
+        "x": 344.46853524819016,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 9150,
+        "defId": "E01",
+        "x": 51.89866605401039,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 9150,
+        "defId": "E01",
+        "x": 189.37666077539325,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 9150,
+        "defId": "E03",
+        "x": 38.32498572021723,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 9150,
+        "defId": "E01",
+        "x": 117.70713931694627,
+        "xp": 2,
+        "wave": 7
+      },
+      {
+        "at": 9450,
+        "defId": "E02",
+        "x": 50.1897097080946,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9450,
+        "defId": "E05",
+        "x": 268.24710627645254,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9450,
+        "defId": "E01",
+        "x": 48.27159136533737,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9450,
+        "defId": "E01",
+        "x": 345.5473532564938,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9450,
+        "defId": "E02",
+        "x": 201.66163926199079,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9450,
+        "defId": "E01",
+        "x": 123.59408919513226,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9450,
+        "defId": "E06",
+        "x": 44.59242057427764,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9600,
+        "defId": "E03",
+        "x": 42.78686885163188,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9600,
+        "defId": "E01",
+        "x": 38.85504476353526,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9600,
+        "defId": "E02",
+        "x": 194.30227274820209,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9600,
+        "defId": "E01",
+        "x": 112.0391507036984,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9600,
+        "defId": "E01",
+        "x": 198.93415692448616,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9600,
+        "defId": "E04",
+        "x": 46.11675450205803,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9600,
+        "defId": "E01",
+        "x": 198.30967039242387,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9750,
+        "defId": "E02",
+        "x": 50.514442548155785,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9750,
+        "defId": "E03",
+        "x": 37.01549397036433,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9750,
+        "defId": "E03",
+        "x": 114.36472234502435,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9750,
+        "defId": "E02",
+        "x": 267.2140905149281,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9750,
+        "defId": "E01",
+        "x": 50.231202118098736,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9750,
+        "defId": "E01",
+        "x": 262.43316109851,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9750,
+        "defId": "E02",
+        "x": 345.91168390214443,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9900,
+        "defId": "E05",
+        "x": 187.5304095670581,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9900,
+        "defId": "E02",
+        "x": 268.02441250532866,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9900,
+        "defId": "E06",
+        "x": 344.7729260362685,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9900,
+        "defId": "E01",
+        "x": 351.5496250279248,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9900,
+        "defId": "E04",
+        "x": 196.4256102181971,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9900,
+        "defId": "E02",
+        "x": 200.90617008507252,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 9900,
+        "defId": "E05",
+        "x": 112.76126078888774,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 10050,
+        "defId": "E08",
+        "x": 118.04508253931999,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 10050,
+        "defId": "E07",
+        "x": 262.5114695318043,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 10050,
+        "defId": "E01",
+        "x": 125.34878140315413,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 10050,
+        "defId": "E01",
+        "x": 262.2572313658893,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 10050,
+        "defId": "E01",
+        "x": 112.40499342605472,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 10050,
+        "defId": "E01",
+        "x": 339.62448127940297,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 10050,
+        "defId": "E02",
+        "x": 52.84560799226165,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 10200,
+        "defId": "E01",
+        "x": 346.9398581571877,
+        "xp": 2,
+        "wave": 8
+      },
+      {
+        "at": 10200,
+        "defId": "E01",
+        "x": 351.115605648607,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10200,
+        "defId": "E01",
+        "x": 351.7162517234683,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10200,
+        "defId": "E01",
+        "x": 48.90462352335453,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10200,
+        "defId": "E03",
+        "x": 43.57932323217392,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10200,
+        "defId": "E04",
+        "x": 197.42558785527945,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10200,
+        "defId": "E05",
+        "x": 117.78898942098022,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10350,
+        "defId": "E02",
+        "x": 351.5426697395742,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10350,
+        "defId": "E03",
+        "x": 121.30408500880003,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10350,
+        "defId": "E04",
+        "x": 268.89862245321274,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10350,
+        "defId": "E01",
+        "x": 273.83757822215557,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10350,
+        "defId": "E01",
+        "x": 37.71540544554591,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10350,
+        "defId": "E01",
+        "x": 46.11775342002511,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10500,
+        "defId": "E03",
+        "x": 266.1991625279188,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10500,
+        "defId": "E03",
+        "x": 264.3405213020742,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10500,
+        "defId": "E03",
+        "x": 267.6428695246577,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10500,
+        "defId": "E01",
+        "x": 342.9837422259152,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10500,
+        "defId": "E01",
+        "x": 277.76998810470104,
+        "xp": 1,
+        "wave": 8
+      },
+      {
+        "at": 10500,
+        "defId": "E01",
+        "x": 43.67720953375101,
+        "xp": 1,
+        "wave": 8
+      }
+    ],
+    "spawnCursor": 305,
+    "bossSpawned": true,
+    "bossKilled": false,
+    "rng": {
+      "spawn": 1792399786,
+      "draft": 3249262870,
+      "visual": 3175992527
+    },
+    "nextEntityId": 15,
+    "draft": null,
+    "nextOfferId": 1,
+    "events": [
+      {
+        "kind": "spawn",
+        "x": 40.200823199003935,
+        "y": 20,
+        "seq": 1,
+        "tick": 0
+      },
+      {
+        "kind": "spawn",
+        "x": 340.2585762515664,
+        "y": 20,
+        "seq": 2,
+        "tick": 0
+      },
+      {
+        "kind": "spawn",
+        "x": 125.68859612196684,
+        "y": 20,
+        "seq": 3,
+        "tick": 0
+      },
+      {
+        "kind": "spawn",
+        "x": 271.78622176125646,
+        "y": 20,
+        "seq": 4,
+        "tick": 0
+      },
+      {
+        "kind": "beam",
+        "x": 195,
+        "y": 490,
+        "x2": 125.68859612196684,
+        "y2": 20,
+        "source": "C03",
+        "weaponRank": 0,
+        "weaponBranch": null,
+        "seq": 5,
+        "tick": 1
+      },
+      {
+        "kind": "hit",
+        "x": 125.68859612196684,
+        "y": 20,
+        "value": 68,
+        "source": "C03",
+        "color": "#93bcdc",
+        "targetId": 3,
+        "enemyDefId": "E01",
+        "skill": "weapon",
+        "weaponRank": 0,
+        "weaponBranch": null,
+        "seq": 6,
+        "tick": 1
+      },
+      {
+        "kind": "shot",
+        "x": 195,
+        "y": 490,
+        "x2": 40.200823199003935,
+        "y2": 20,
+        "source": "C05",
+        "weaponRank": 0,
+        "weaponBranch": null,
+        "seq": 7,
+        "tick": 1
+      },
+      {
+        "kind": "spawn",
+        "x": 40,
+        "y": 45,
+        "seq": 8,
+        "tick": 8
+      },
+      {
+        "kind": "spawn",
+        "x": 116,
+        "y": 45,
+        "seq": 9,
+        "tick": 8
+      },
+      {
+        "kind": "spawn",
+        "x": 192,
+        "y": 45,
+        "seq": 10,
+        "tick": 8
+      },
+      {
+        "kind": "spawn",
+        "x": 268,
+        "y": 45,
+        "seq": 11,
+        "tick": 8
+      },
+      {
+        "kind": "spawn",
+        "x": 344,
+        "y": 45,
+        "seq": 12,
+        "tick": 8
+      },
+      {
+        "kind": "spawn",
+        "x": 40,
+        "y": 115,
+        "seq": 13,
+        "tick": 8
+      },
+      {
+        "kind": "spawn",
+        "x": 116,
+        "y": 115,
+        "seq": 14,
+        "tick": 8
+      },
+      {
+        "kind": "spawn",
+        "x": 192,
+        "y": 115,
+        "seq": 15,
+        "tick": 8
+      },
+      {
+        "kind": "spawn",
+        "x": 268,
+        "y": 115,
+        "seq": 16,
+        "tick": 8
+      }
+    ],
+    "eventSeq": 16,
+    "actions": [
+      {
+        "tick": 0,
+        "seq": 1,
+        "command": {
+          "type": "pause",
+          "reason": "tutorial"
+        }
+      },
+      {
+        "tick": 0,
+        "seq": 2,
+        "command": {
+          "type": "resume",
+          "reason": "tutorial"
+        }
+      },
+      {
+        "tick": 82,
+        "seq": 3,
+        "command": {
+          "type": "pause",
+          "reason": "user"
+        }
+      },
+      {
+        "tick": 82,
+        "seq": 4,
+        "command": {
+          "type": "resume",
+          "reason": "user"
+        }
+      },
+      {
+        "tick": 85,
+        "seq": 5,
+        "command": {
+          "type": "pause",
+          "reason": "user"
+        }
+      }
+    ],
+    "actionSeq": 5,
+    "stats": {
+      "kills": 0,
+      "damageByCharacter": {
+        "C01": 0,
+        "C02": 0,
+        "C03": 68,
+        "C04": 0,
+        "C05": 0,
+        "C06": 0
+      },
+      "shieldDamageByCharacter": {
+        "C01": 0,
+        "C02": 0,
+        "C03": 0,
+        "C04": 0,
+        "C05": 0,
+        "C06": 0
+      },
+      "wallDamageByEnemy": {},
+      "shieldAbsorbed": 0,
+      "controlTicks": {
+        "C01": 0,
+        "C02": 252,
+        "C03": 0,
+        "C04": 0,
+        "C05": 0,
+        "C06": 0
+      },
+      "choices": [],
+      "casts": [],
+      "encountered": [
+        "E02",
+        "E01",
+        "E03",
+        "E04",
+        "E05",
+        "E06",
+        "E07",
+        "E08",
+        "B03"
+      ]
+    },
+    "outcome": null
+  },
+  "restored": {
+    "state": {
+      "schemaVersion": 1,
+      "contentVersion": "0.1.0-dev.3",
+      "runId": "8ce0578f-b95d-4690-ba13-82a82abf56f4",
+      "config": {
+        "stageId": "S03",
+        "squadIds": [
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C05"
+        ],
+        "captainId": "C05",
+        "seed": 101
+      },
+      "tick": 85,
+      "phase": "paused",
+      "pauseReasons": [
+        "user"
+      ],
+      "wallHp": 1000000,
+      "wallMaxHp": 1000000,
+      "shields": [],
+      "xp": 0,
+      "choicesEarned": 0,
+      "choicesSpent": 0,
+      "rerollsRemaining": 3,
+      "evolvedCount": 0,
+      "evolutionLimit": 3,
+      "tacticalReadyAt": 0,
+      "weapons": [
+        {
+          "id": "C01",
+          "branch": null,
+          "rank": 0,
+          "readyAt": 0,
+          "nextAttack": 90008,
+          "attacks": 0,
+          "droneAttacks": [
+            0,
+            0
+          ],
+          "shieldAt": 0
+        },
+        {
+          "id": "C02",
+          "branch": null,
+          "rank": 0,
+          "readyAt": 0,
+          "nextAttack": 90008,
+          "attacks": 0,
+          "droneAttacks": [
+            0,
+            0
+          ],
+          "shieldAt": 0
+        },
+        {
+          "id": "C03",
+          "branch": null,
+          "rank": 0,
+          "readyAt": 0,
+          "nextAttack": 90008,
+          "attacks": 1,
+          "droneAttacks": [
+            0,
+            0
+          ],
+          "shieldAt": 0
+        },
+        {
+          "id": "C04",
+          "branch": null,
+          "rank": 0,
+          "readyAt": 0,
+          "nextAttack": 90008,
+          "attacks": 0,
+          "droneAttacks": [
+            0,
+            0
+          ],
+          "shieldAt": 0
+        },
+        {
+          "id": "C05",
+          "branch": null,
+          "rank": 0,
+          "readyAt": 0,
+          "nextAttack": 90008,
+          "attacks": 1,
+          "droneAttacks": [
+            0,
+            0
+          ],
+          "shieldAt": 0
+        }
+      ],
+      "commonRanks": {},
+      "preferredBranches": {
+        "C01": "A",
+        "C02": "A",
+        "C03": "A",
+        "C04": "A",
+        "C05": "A",
+        "C06": "A"
+      },
+      "enemies": [
+        {
+          "id": 6,
+          "defId": "E01",
+          "x": 40,
+          "y": 71.13333333333324,
+          "hp": 1000000000,
+          "maxHp": 1000000000,
+          "shield": 0,
+          "armor": 0,
+          "speed": 16,
+          "radius": 12,
+          "xp": 0,
+          "wave": 9,
+          "spawnedAt": 8,
+          "effects": [],
+          "attackAt": 0,
+          "abilityAt": 999999,
+          "summonAt": 999999,
+          "chargeUntil": 0,
+          "chargeKind": null,
+          "chargeCancelled": false,
+          "phaseTriggered": false,
+          "rushUntil": 0,
+          "stunImmuneUntil": 0,
+          "moveImmuneUntil": 0,
+          "exposureUntil": 0,
+          "summonCount": 0,
+          "arcCharges": 0
+        },
+        {
+          "id": 7,
+          "defId": "E02",
+          "x": 116,
+          "y": 102.16666666666679,
+          "hp": 1000000000,
+          "maxHp": 1000000000,
+          "shield": 0,
+          "armor": 0,
+          "speed": 35,
+          "radius": 11,
+          "xp": 0,
+          "wave": 9,
+          "spawnedAt": 8,
+          "effects": [],
+          "attackAt": 0,
+          "abilityAt": 999999,
+          "summonAt": 999999,
+          "chargeUntil": 0,
+          "chargeKind": null,
+          "chargeCancelled": false,
+          "phaseTriggered": false,
+          "rushUntil": 0,
+          "stunImmuneUntil": 0,
+          "moveImmuneUntil": 0,
+          "exposureUntil": 0,
+          "summonCount": 0,
+          "arcCharges": 0
+        },
+        {
+          "id": 8,
+          "defId": "E03",
+          "x": 192,
+          "y": 61.33333333333345,
+          "hp": 1000000000,
+          "maxHp": 1000000000,
+          "shield": 0,
+          "armor": 0.55,
+          "speed": 10,
+          "radius": 17,
+          "xp": 0,
+          "wave": 9,
+          "spawnedAt": 8,
+          "effects": [],
+          "attackAt": 0,
+          "abilityAt": 999999,
+          "summonAt": 999999,
+          "chargeUntil": 0,
+          "chargeKind": null,
+          "chargeCancelled": false,
+          "phaseTriggered": false,
+          "rushUntil": 0,
+          "stunImmuneUntil": 0,
+          "moveImmuneUntil": 0,
+          "exposureUntil": 0,
+          "summonCount": 0,
+          "arcCharges": 0
+        },
+        {
+          "id": 9,
+          "defId": "E04",
+          "x": 268,
+          "y": 64.59999999999994,
+          "hp": 1000000000,
+          "maxHp": 1000000000,
+          "shield": 360,
+          "armor": 0.1,
+          "speed": 12,
+          "radius": 15,
+          "xp": 0,
+          "wave": 9,
+          "spawnedAt": 8,
+          "effects": [],
+          "attackAt": 0,
+          "abilityAt": 999999,
+          "summonAt": 999999,
+          "chargeUntil": 0,
+          "chargeKind": null,
+          "chargeCancelled": false,
+          "phaseTriggered": false,
+          "rushUntil": 0,
+          "stunImmuneUntil": 0,
+          "moveImmuneUntil": 0,
+          "exposureUntil": 0,
+          "summonCount": 0,
+          "arcCharges": 0
+        },
+        {
+          "id": 10,
+          "defId": "E05",
+          "x": 344,
+          "y": 61.33333333333345,
+          "hp": 1000000000,
+          "maxHp": 1000000000,
+          "shield": 0,
+          "armor": 0,
+          "speed": 10,
+          "radius": 14,
+          "xp": 0,
+          "wave": 9,
+          "spawnedAt": 8,
+          "effects": [],
+          "attackAt": 0,
+          "abilityAt": 999999,
+          "summonAt": 999999,
+          "chargeUntil": 0,
+          "chargeKind": null,
+          "chargeCancelled": false,
+          "phaseTriggered": false,
+          "rushUntil": 0,
+          "stunImmuneUntil": 0,
+          "moveImmuneUntil": 0,
+          "exposureUntil": 0,
+          "summonCount": 0,
+          "arcCharges": 0
+        },
+        {
+          "id": 11,
+          "defId": "E06",
+          "x": 40,
+          "y": 134.60000000000028,
+          "hp": 1000000000,
+          "maxHp": 1000000000,
+          "shield": 0,
+          "armor": 0.1,
+          "speed": 12,
+          "radius": 13,
+          "xp": 0,
+          "wave": 9,
+          "spawnedAt": 8,
+          "effects": [],
+          "attackAt": 0,
+          "abilityAt": 999999,
+          "summonAt": 999999,
+          "chargeUntil": 0,
+          "chargeKind": null,
+          "chargeCancelled": false,
+          "phaseTriggered": false,
+          "rushUntil": 0,
+          "stunImmuneUntil": 0,
+          "moveImmuneUntil": 0,
+          "exposureUntil": 0,
+          "summonCount": 0,
+          "arcCharges": 0
+        },
+        {
+          "id": 12,
+          "defId": "E07",
+          "x": 116,
+          "y": 131.33333333333323,
+          "hp": 1000000000,
+          "maxHp": 1000000000,
+          "shield": 0,
+          "armor": 0.55,
+          "speed": 10,
+          "radius": 21,
+          "xp": 0,
+          "wave": 9,
+          "spawnedAt": 8,
+          "effects": [],
+          "attackAt": 0,
+          "abilityAt": 999999,
+          "summonAt": 999999,
+          "chargeUntil": 0,
+          "chargeKind": null,
+          "chargeCancelled": false,
+          "phaseTriggered": false,
+          "rushUntil": 0,
+          "stunImmuneUntil": 0,
+          "moveImmuneUntil": 0,
+          "exposureUntil": 0,
+          "summonCount": 0,
+          "arcCharges": 0
+        },
+        {
+          "id": 13,
+          "defId": "E08",
+          "x": 192,
+          "y": 160.73333333333352,
+          "hp": 1000000000,
+          "maxHp": 1000000000,
+          "shield": 0,
+          "armor": 0.1,
+          "speed": 28,
+          "radius": 17,
+          "xp": 0,
+          "wave": 9,
+          "spawnedAt": 8,
+          "effects": [],
+          "attackAt": 0,
+          "abilityAt": 999999,
+          "summonAt": 999999,
+          "chargeUntil": 0,
+          "chargeKind": null,
+          "chargeCancelled": false,
+          "phaseTriggered": false,
+          "rushUntil": 0,
+          "stunImmuneUntil": 0,
+          "moveImmuneUntil": 0,
+          "exposureUntil": 0,
+          "summonCount": 0,
+          "arcCharges": 0
+        },
+        {
+          "id": 14,
+          "defId": "B03",
+          "x": 268,
+          "y": 150,
+          "hp": 1000000000,
+          "maxHp": 1000000000,
+          "shield": 0,
+          "armor": 0.2,
+          "speed": 0,
+          "radius": 43,
+          "xp": 0,
+          "wave": 9,
+          "spawnedAt": 8,
+          "effects": [],
+          "attackAt": 0,
+          "abilityAt": 999999,
+          "summonAt": 999999,
+          "chargeUntil": 175,
+          "chargeKind": "boss",
+          "chargeCancelled": false,
+          "phaseTriggered": false,
+          "rushUntil": 0,
+          "stunImmuneUntil": 0,
+          "moveImmuneUntil": 0,
+          "exposureUntil": 0,
+          "summonCount": 0,
+          "arcCharges": 0,
+          "lastAction": {
+            "tick": 84,
+            "kind": "summon"
+          }
+        }
+      ],
+      "projectiles": [],
+      "fields": [],
+      "scheduled": [],
+      "spawnPlan": [
+        {
+          "at": 0,
+          "defId": "E02",
+          "x": 40.200823199003935,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 0,
+          "defId": "E02",
+          "x": 340.2585762515664,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 0,
+          "defId": "E01",
+          "x": 125.68859612196684,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 0,
+          "defId": "E01",
+          "x": 271.78622176125646,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 150,
+          "defId": "E01",
+          "x": 338.4824076332152,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 150,
+          "defId": "E01",
+          "x": 351.3882701396942,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 150,
+          "defId": "E01",
+          "x": 193.39618234708905,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 150,
+          "defId": "E02",
+          "x": 195.76634454354644,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 300,
+          "defId": "E01",
+          "x": 202.25067656114697,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 300,
+          "defId": "E01",
+          "x": 118.68888733163476,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 300,
+          "defId": "E01",
+          "x": 39.086472906172276,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 300,
+          "defId": "E02",
+          "x": 200.28789952397346,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 450,
+          "defId": "E01",
+          "x": 342.0467159897089,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 450,
+          "defId": "E01",
+          "x": 267.1618516817689,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 450,
+          "defId": "E02",
+          "x": 37.187898717820644,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 450,
+          "defId": "E01",
+          "x": 345.8803736716509,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 600,
+          "defId": "E03",
+          "x": 196.1494719348848,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 600,
+          "defId": "E01",
+          "x": 274.2457387186587,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 600,
+          "defId": "E01",
+          "x": 115.67267944663763,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 600,
+          "defId": "E03",
+          "x": 49.43673434481025,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 750,
+          "defId": "E01",
+          "x": 352.6827725470066,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 750,
+          "defId": "E01",
+          "x": 266.14769414812326,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 750,
+          "defId": "E01",
+          "x": 114.43431997671723,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 750,
+          "defId": "E01",
+          "x": 121.93448838964105,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 900,
+          "defId": "E01",
+          "x": 275.4492647945881,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 900,
+          "defId": "E01",
+          "x": 344.33085867762566,
+          "xp": 3,
+          "wave": 1
+        },
+        {
+          "at": 900,
+          "defId": "E01",
+          "x": 194.5989219546318,
+          "xp": 2,
+          "wave": 1
+        },
+        {
+          "at": 900,
+          "defId": "E03",
+          "x": 127.86468114703894,
+          "xp": 2,
+          "wave": 1
+        },
+        {
+          "at": 1050,
+          "defId": "E03",
+          "x": 46.81276725232601,
+          "xp": 2,
+          "wave": 1
+        },
+        {
+          "at": 1050,
+          "defId": "E02",
+          "x": 201.1538487561047,
+          "xp": 2,
+          "wave": 1
+        },
+        {
+          "at": 1050,
+          "defId": "E01",
+          "x": 270.1177114918828,
+          "xp": 2,
+          "wave": 1
+        },
+        {
+          "at": 1050,
+          "defId": "E01",
+          "x": 196.97817232832313,
+          "xp": 2,
+          "wave": 1
+        },
+        {
+          "at": 1350,
+          "defId": "E01",
+          "x": 202.45434482768178,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1350,
+          "defId": "E02",
+          "x": 196.96154491230845,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1350,
+          "defId": "E01",
+          "x": 345.6056827194989,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1350,
+          "defId": "E04",
+          "x": 42.548743147403,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1350,
+          "defId": "E05",
+          "x": 50.95449762791395,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1500,
+          "defId": "E02",
+          "x": 350.7593756057322,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1500,
+          "defId": "E01",
+          "x": 42.06886291131377,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1500,
+          "defId": "E04",
+          "x": 52.814587604254484,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1500,
+          "defId": "E02",
+          "x": 202.38656264916062,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1500,
+          "defId": "E01",
+          "x": 268.48136642575264,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1650,
+          "defId": "E01",
+          "x": 112.90871338546276,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1650,
+          "defId": "E01",
+          "x": 262.50377007573843,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1650,
+          "defId": "E01",
+          "x": 43.5244732350111,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1650,
+          "defId": "E01",
+          "x": 39.91831070557237,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1800,
+          "defId": "E01",
+          "x": 115.47127961739898,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1800,
+          "defId": "E02",
+          "x": 351.29874048382044,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1800,
+          "defId": "E04",
+          "x": 45.152417208999395,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1800,
+          "defId": "E02",
+          "x": 347.1822257973254,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1950,
+          "defId": "E01",
+          "x": 52.39300302788615,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1950,
+          "defId": "E02",
+          "x": 345.94586846604943,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1950,
+          "defId": "E01",
+          "x": 113.0472273491323,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 1950,
+          "defId": "E01",
+          "x": 344.0676789842546,
+          "xp": 3,
+          "wave": 2
+        },
+        {
+          "at": 2100,
+          "defId": "E01",
+          "x": 51.255946546792984,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2100,
+          "defId": "E05",
+          "x": 52.46029610559344,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2100,
+          "defId": "E01",
+          "x": 268.4912822395563,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2100,
+          "defId": "E02",
+          "x": 122.54875371977687,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2250,
+          "defId": "E01",
+          "x": 201.08311671763659,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2250,
+          "defId": "E01",
+          "x": 198.64021753892303,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2250,
+          "defId": "E01",
+          "x": 121.1565034352243,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2250,
+          "defId": "E01",
+          "x": 270.84152875095606,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2400,
+          "defId": "E02",
+          "x": 117.0221159234643,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2400,
+          "defId": "E01",
+          "x": 119.3217143714428,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2400,
+          "defId": "E01",
+          "x": 197.55993349850178,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2400,
+          "defId": "E04",
+          "x": 352.43381510302424,
+          "xp": 2,
+          "wave": 2
+        },
+        {
+          "at": 2700,
+          "defId": "E01",
+          "x": 121.83240217342973,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 2700,
+          "defId": "E01",
+          "x": 43.45491946861148,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 2700,
+          "defId": "E03",
+          "x": 51.21658918634057,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 2700,
+          "defId": "E04",
+          "x": 340.4740544743836,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 2850,
+          "defId": "E06",
+          "x": 274.5303139016032,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 2850,
+          "defId": "E01",
+          "x": 349.53581303730607,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 2850,
+          "defId": "E01",
+          "x": 126.9725381322205,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 2850,
+          "defId": "E01",
+          "x": 345.4264915473759,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3000,
+          "defId": "E03",
+          "x": 262.49988447502255,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3000,
+          "defId": "E01",
+          "x": 41.653843350708485,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3000,
+          "defId": "E04",
+          "x": 126.81840287148952,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3000,
+          "defId": "E01",
+          "x": 350.5301989875734,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3150,
+          "defId": "E04",
+          "x": 188.0349718146026,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3150,
+          "defId": "E01",
+          "x": 46.62075591087341,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3150,
+          "defId": "E04",
+          "x": 48.13554186746478,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3150,
+          "defId": "E01",
+          "x": 40.70593219995499,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3300,
+          "defId": "E01",
+          "x": 269.83504808321595,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3300,
+          "defId": "E03",
+          "x": 37.67132683098316,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3300,
+          "defId": "E01",
+          "x": 345.09267884492874,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3300,
+          "defId": "E01",
+          "x": 271.61014683544636,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3450,
+          "defId": "E01",
+          "x": 127.08232079073787,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3450,
+          "defId": "E01",
+          "x": 127.84501940384507,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3450,
+          "defId": "E06",
+          "x": 42.110197097063065,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3450,
+          "defId": "E03",
+          "x": 202.9952935501933,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3600,
+          "defId": "E01",
+          "x": 199.95878910645843,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3600,
+          "defId": "E03",
+          "x": 39.08451369032264,
+          "xp": 3,
+          "wave": 3
+        },
+        {
+          "at": 3600,
+          "defId": "E01",
+          "x": 342.873168874532,
+          "xp": 2,
+          "wave": 3
+        },
+        {
+          "at": 3600,
+          "defId": "E01",
+          "x": 45.7824522331357,
+          "xp": 2,
+          "wave": 3
+        },
+        {
+          "at": 3750,
+          "defId": "E01",
+          "x": 42.128514520823956,
+          "xp": 2,
+          "wave": 3
+        },
+        {
+          "at": 3750,
+          "defId": "E01",
+          "x": 115.07827264815569,
+          "xp": 2,
+          "wave": 3
+        },
+        {
+          "at": 3750,
+          "defId": "E03",
+          "x": 127.98807548359036,
+          "xp": 2,
+          "wave": 3
+        },
+        {
+          "at": 3750,
+          "defId": "E01",
+          "x": 120.30920714884996,
+          "xp": 2,
+          "wave": 3
+        },
+        {
+          "at": 4050,
+          "defId": "E01",
+          "x": 273.90315718203783,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4050,
+          "defId": "E01",
+          "x": 120.79837884381413,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4050,
+          "defId": "E01",
+          "x": 194.18034886941314,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4050,
+          "defId": "E02",
+          "x": 263.32679156959057,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4050,
+          "defId": "E01",
+          "x": 274.7083382308483,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4200,
+          "defId": "E01",
+          "x": 119.90359623357654,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4200,
+          "defId": "E02",
+          "x": 194.83920561522245,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4200,
+          "defId": "E05",
+          "x": 352.1149966567755,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4200,
+          "defId": "E02",
+          "x": 38.81211882457137,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4200,
+          "defId": "E01",
+          "x": 193.51479832455516,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4350,
+          "defId": "E01",
+          "x": 200.87819285318255,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4350,
+          "defId": "E02",
+          "x": 340.8729812465608,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4350,
+          "defId": "E01",
+          "x": 202.4153110012412,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4350,
+          "defId": "E01",
+          "x": 348.9479829631746,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4350,
+          "defId": "E02",
+          "x": 276.79308212548494,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4500,
+          "defId": "E01",
+          "x": 265.09620578214526,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4500,
+          "defId": "E01",
+          "x": 191.52015594393015,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4500,
+          "defId": "E01",
+          "x": 41.45393030717969,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4500,
+          "defId": "E01",
+          "x": 341.95695938915014,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4650,
+          "defId": "E08",
+          "x": 196.37284722179174,
+          "xp": 3,
+          "wave": 4
+        },
+        {
+          "at": 4650,
+          "defId": "E02",
+          "x": 200.88538145273924,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 4650,
+          "defId": "E01",
+          "x": 114.17378569021821,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 4650,
+          "defId": "E05",
+          "x": 338.51360685005784,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 4800,
+          "defId": "E02",
+          "x": 42.934203170239925,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 4800,
+          "defId": "E02",
+          "x": 124.66956977173686,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 4800,
+          "defId": "E05",
+          "x": 201.4096376672387,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 4800,
+          "defId": "E02",
+          "x": 46.91171095892787,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 4950,
+          "defId": "E05",
+          "x": 344.6312308497727,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 4950,
+          "defId": "E01",
+          "x": 47.38762650638819,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 4950,
+          "defId": "E01",
+          "x": 265.8934865742922,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 4950,
+          "defId": "E01",
+          "x": 113.16747041791677,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 5100,
+          "defId": "E01",
+          "x": 44.40158495679498,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 5100,
+          "defId": "E01",
+          "x": 263.44099678099155,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 5100,
+          "defId": "E02",
+          "x": 201.2907203324139,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 5100,
+          "defId": "E01",
+          "x": 194.196534357965,
+          "xp": 2,
+          "wave": 4
+        },
+        {
+          "at": 5400,
+          "defId": "E05",
+          "x": 49.891354102641344,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5400,
+          "defId": "E01",
+          "x": 272.81395242363214,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5400,
+          "defId": "E01",
+          "x": 195.33234206587076,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5400,
+          "defId": "E03",
+          "x": 38.55046024173498,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5400,
+          "defId": "E01",
+          "x": 202.98334714397788,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5550,
+          "defId": "E01",
+          "x": 119.68464675173163,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5550,
+          "defId": "E04",
+          "x": 337.3338231444359,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5550,
+          "defId": "E04",
+          "x": 44.320506785064936,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5550,
+          "defId": "E01",
+          "x": 337.09895834699273,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5550,
+          "defId": "E04",
+          "x": 352.29223881289363,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5700,
+          "defId": "E01",
+          "x": 263.4226871468127,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5700,
+          "defId": "E01",
+          "x": 342.2935214154422,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5700,
+          "defId": "E03",
+          "x": 197.05046616122127,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5700,
+          "defId": "E03",
+          "x": 268.91221417859197,
+          "xp": 3,
+          "wave": 5
+        },
+        {
+          "at": 5700,
+          "defId": "E01",
+          "x": 42.30405617877841,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 5850,
+          "defId": "E05",
+          "x": 266.25494457036257,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 5850,
+          "defId": "E01",
+          "x": 113.20568788051605,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 5850,
+          "defId": "E01",
+          "x": 271.39079862833023,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 5850,
+          "defId": "E03",
+          "x": 202.81663212180138,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 5850,
+          "defId": "E01",
+          "x": 352.2434553578496,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6000,
+          "defId": "E01",
+          "x": 350.5217396616936,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6000,
+          "defId": "E01",
+          "x": 340.59999845549464,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6000,
+          "defId": "E01",
+          "x": 193.68015205860138,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6000,
+          "defId": "E01",
+          "x": 201.6056985631585,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6000,
+          "defId": "E03",
+          "x": 39.46381812542677,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6150,
+          "defId": "E01",
+          "x": 187.72242184355855,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6150,
+          "defId": "E01",
+          "x": 267.9261667691171,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6150,
+          "defId": "E03",
+          "x": 352.4450469687581,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6150,
+          "defId": "E01",
+          "x": 191.8316747881472,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6150,
+          "defId": "E04",
+          "x": 46.59911822527647,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6300,
+          "defId": "E03",
+          "x": 348.4246755428612,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6300,
+          "defId": "E05",
+          "x": 348.31424997374415,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6300,
+          "defId": "E01",
+          "x": 117.37608896940947,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6300,
+          "defId": "E01",
+          "x": 338.7765996195376,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6450,
+          "defId": "E01",
+          "x": 274.25198424980044,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6450,
+          "defId": "E01",
+          "x": 268.12671441212296,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6450,
+          "defId": "E05",
+          "x": 338.9515223316848,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6450,
+          "defId": "E03",
+          "x": 197.01636336371303,
+          "xp": 2,
+          "wave": 5
+        },
+        {
+          "at": 6750,
+          "defId": "E01",
+          "x": 193.6199048049748,
+          "xp": 3,
+          "wave": 6
+        },
+        {
+          "at": 6750,
+          "defId": "E01",
+          "x": 270.07189097628,
+          "xp": 3,
+          "wave": 6
+        },
+        {
+          "at": 6750,
+          "defId": "E01",
+          "x": 269.00666885077953,
+          "xp": 3,
+          "wave": 6
+        },
+        {
+          "at": 6750,
+          "defId": "E06",
+          "x": 122.76834097132087,
+          "xp": 3,
+          "wave": 6
+        },
+        {
+          "at": 6750,
+          "defId": "E01",
+          "x": 127.80324389412999,
+          "xp": 3,
+          "wave": 6
+        },
+        {
+          "at": 6750,
+          "defId": "E04",
+          "x": 187.91171076521277,
+          "xp": 3,
+          "wave": 6
+        },
+        {
+          "at": 6900,
+          "defId": "E02",
+          "x": 188.2338614165783,
+          "xp": 3,
+          "wave": 6
+        },
+        {
+          "at": 6900,
+          "defId": "E01",
+          "x": 124.68999051302671,
+          "xp": 3,
+          "wave": 6
+        },
+        {
+          "at": 6900,
+          "defId": "E01",
+          "x": 41.691192869096994,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 6900,
+          "defId": "E02",
+          "x": 123.60541062057018,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 6900,
+          "defId": "E01",
+          "x": 191.10914529114962,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7050,
+          "defId": "E06",
+          "x": 264.51900409534574,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7050,
+          "defId": "E01",
+          "x": 266.5999094545841,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7050,
+          "defId": "E02",
+          "x": 265.5163363516331,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7050,
+          "defId": "E04",
+          "x": 274.6868917271495,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7050,
+          "defId": "E01",
+          "x": 39.85312054306269,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7200,
+          "defId": "E02",
+          "x": 340.49640141427517,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7200,
+          "defId": "E02",
+          "x": 343.73203717917204,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7200,
+          "defId": "E01",
+          "x": 116.5098681487143,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7200,
+          "defId": "E06",
+          "x": 348.96023803576827,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7200,
+          "defId": "E04",
+          "x": 190.33503878489137,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7350,
+          "defId": "E01",
+          "x": 113.03816440701485,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7350,
+          "defId": "E01",
+          "x": 277.7685938440263,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7350,
+          "defId": "E04",
+          "x": 122.78513333573937,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7350,
+          "defId": "E01",
+          "x": 118.92004064098,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7350,
+          "defId": "E01",
+          "x": 126.47443749010563,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7500,
+          "defId": "E02",
+          "x": 338.1120379753411,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7500,
+          "defId": "E01",
+          "x": 342.63872454315424,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7500,
+          "defId": "E01",
+          "x": 268.0049107670784,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7500,
+          "defId": "E02",
+          "x": 196.00475358963013,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7500,
+          "defId": "E02",
+          "x": 38.21708167344332,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7650,
+          "defId": "E02",
+          "x": 352.4894659742713,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7650,
+          "defId": "E01",
+          "x": 346.8519924432039,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7650,
+          "defId": "E01",
+          "x": 40.952403742820024,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7650,
+          "defId": "E02",
+          "x": 120.32822240144014,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7650,
+          "defId": "E01",
+          "x": 268.27156142145395,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7800,
+          "defId": "E01",
+          "x": 273.6958183720708,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7800,
+          "defId": "E01",
+          "x": 347.87534506618977,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7800,
+          "defId": "E04",
+          "x": 340.75407633185387,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7800,
+          "defId": "E01",
+          "x": 120.66408371552825,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 7800,
+          "defId": "E04",
+          "x": 201.43113850057125,
+          "xp": 2,
+          "wave": 6
+        },
+        {
+          "at": 8100,
+          "defId": "E01",
+          "x": 45.38280412182212,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8100,
+          "defId": "E01",
+          "x": 188.79392340406775,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8100,
+          "defId": "E01",
+          "x": 122.82826943695545,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8100,
+          "defId": "E01",
+          "x": 121.87961934506893,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8100,
+          "defId": "E01",
+          "x": 277.06605011224747,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8250,
+          "defId": "E01",
+          "x": 46.90159373730421,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8250,
+          "defId": "E03",
+          "x": 201.18124113231897,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8250,
+          "defId": "E01",
+          "x": 41.022653106600046,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8250,
+          "defId": "E01",
+          "x": 343.02185924351215,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8250,
+          "defId": "E03",
+          "x": 187.82840257138014,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8400,
+          "defId": "E01",
+          "x": 44.68797494471073,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8400,
+          "defId": "E06",
+          "x": 340.5076567642391,
+          "xp": 3,
+          "wave": 7
+        },
+        {
+          "at": 8400,
+          "defId": "E01",
+          "x": 268.49996435269713,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8400,
+          "defId": "E01",
+          "x": 49.46168842166662,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8400,
+          "defId": "E03",
+          "x": 46.733253605663776,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8550,
+          "defId": "E05",
+          "x": 42.94266603142023,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8550,
+          "defId": "E03",
+          "x": 268.96307215839624,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8550,
+          "defId": "E05",
+          "x": 195.65119475126266,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8550,
+          "defId": "E01",
+          "x": 189.73381747305393,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8550,
+          "defId": "E01",
+          "x": 113.09381207451224,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8700,
+          "defId": "E07",
+          "x": 39.352026987820864,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8700,
+          "defId": "E01",
+          "x": 49.475155267864466,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8700,
+          "defId": "E06",
+          "x": 187.49489556998014,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8700,
+          "defId": "E03",
+          "x": 271.197788733989,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8700,
+          "defId": "E01",
+          "x": 49.867410354316235,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8850,
+          "defId": "E01",
+          "x": 274.99529092758894,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8850,
+          "defId": "E01",
+          "x": 195.63066829741,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8850,
+          "defId": "E05",
+          "x": 344.5210665874183,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8850,
+          "defId": "E03",
+          "x": 275.8453746624291,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 8850,
+          "defId": "E01",
+          "x": 49.912041161209345,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 9000,
+          "defId": "E03",
+          "x": 38.10070079565048,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 9000,
+          "defId": "E01",
+          "x": 112.75902289897203,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 9000,
+          "defId": "E01",
+          "x": 277.96769700944424,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 9000,
+          "defId": "E01",
+          "x": 349.5308825187385,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 9000,
+          "defId": "E05",
+          "x": 344.46853524819016,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 9150,
+          "defId": "E01",
+          "x": 51.89866605401039,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 9150,
+          "defId": "E01",
+          "x": 189.37666077539325,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 9150,
+          "defId": "E03",
+          "x": 38.32498572021723,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 9150,
+          "defId": "E01",
+          "x": 117.70713931694627,
+          "xp": 2,
+          "wave": 7
+        },
+        {
+          "at": 9450,
+          "defId": "E02",
+          "x": 50.1897097080946,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9450,
+          "defId": "E05",
+          "x": 268.24710627645254,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9450,
+          "defId": "E01",
+          "x": 48.27159136533737,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9450,
+          "defId": "E01",
+          "x": 345.5473532564938,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9450,
+          "defId": "E02",
+          "x": 201.66163926199079,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9450,
+          "defId": "E01",
+          "x": 123.59408919513226,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9450,
+          "defId": "E06",
+          "x": 44.59242057427764,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9600,
+          "defId": "E03",
+          "x": 42.78686885163188,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9600,
+          "defId": "E01",
+          "x": 38.85504476353526,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9600,
+          "defId": "E02",
+          "x": 194.30227274820209,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9600,
+          "defId": "E01",
+          "x": 112.0391507036984,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9600,
+          "defId": "E01",
+          "x": 198.93415692448616,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9600,
+          "defId": "E04",
+          "x": 46.11675450205803,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9600,
+          "defId": "E01",
+          "x": 198.30967039242387,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9750,
+          "defId": "E02",
+          "x": 50.514442548155785,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9750,
+          "defId": "E03",
+          "x": 37.01549397036433,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9750,
+          "defId": "E03",
+          "x": 114.36472234502435,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9750,
+          "defId": "E02",
+          "x": 267.2140905149281,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9750,
+          "defId": "E01",
+          "x": 50.231202118098736,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9750,
+          "defId": "E01",
+          "x": 262.43316109851,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9750,
+          "defId": "E02",
+          "x": 345.91168390214443,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9900,
+          "defId": "E05",
+          "x": 187.5304095670581,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9900,
+          "defId": "E02",
+          "x": 268.02441250532866,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9900,
+          "defId": "E06",
+          "x": 344.7729260362685,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9900,
+          "defId": "E01",
+          "x": 351.5496250279248,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9900,
+          "defId": "E04",
+          "x": 196.4256102181971,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9900,
+          "defId": "E02",
+          "x": 200.90617008507252,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 9900,
+          "defId": "E05",
+          "x": 112.76126078888774,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 10050,
+          "defId": "E08",
+          "x": 118.04508253931999,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 10050,
+          "defId": "E07",
+          "x": 262.5114695318043,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 10050,
+          "defId": "E01",
+          "x": 125.34878140315413,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 10050,
+          "defId": "E01",
+          "x": 262.2572313658893,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 10050,
+          "defId": "E01",
+          "x": 112.40499342605472,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 10050,
+          "defId": "E01",
+          "x": 339.62448127940297,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 10050,
+          "defId": "E02",
+          "x": 52.84560799226165,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 10200,
+          "defId": "E01",
+          "x": 346.9398581571877,
+          "xp": 2,
+          "wave": 8
+        },
+        {
+          "at": 10200,
+          "defId": "E01",
+          "x": 351.115605648607,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10200,
+          "defId": "E01",
+          "x": 351.7162517234683,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10200,
+          "defId": "E01",
+          "x": 48.90462352335453,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10200,
+          "defId": "E03",
+          "x": 43.57932323217392,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10200,
+          "defId": "E04",
+          "x": 197.42558785527945,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10200,
+          "defId": "E05",
+          "x": 117.78898942098022,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10350,
+          "defId": "E02",
+          "x": 351.5426697395742,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10350,
+          "defId": "E03",
+          "x": 121.30408500880003,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10350,
+          "defId": "E04",
+          "x": 268.89862245321274,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10350,
+          "defId": "E01",
+          "x": 273.83757822215557,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10350,
+          "defId": "E01",
+          "x": 37.71540544554591,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10350,
+          "defId": "E01",
+          "x": 46.11775342002511,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10500,
+          "defId": "E03",
+          "x": 266.1991625279188,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10500,
+          "defId": "E03",
+          "x": 264.3405213020742,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10500,
+          "defId": "E03",
+          "x": 267.6428695246577,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10500,
+          "defId": "E01",
+          "x": 342.9837422259152,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10500,
+          "defId": "E01",
+          "x": 277.76998810470104,
+          "xp": 1,
+          "wave": 8
+        },
+        {
+          "at": 10500,
+          "defId": "E01",
+          "x": 43.67720953375101,
+          "xp": 1,
+          "wave": 8
+        }
+      ],
+      "spawnCursor": 305,
+      "bossSpawned": true,
+      "bossKilled": false,
+      "rng": {
+        "spawn": 1792399786,
+        "draft": 3249262870,
+        "visual": 3175992527
+      },
+      "nextEntityId": 15,
+      "draft": null,
+      "nextOfferId": 1,
+      "events": [
+        {
+          "kind": "spawn",
+          "x": 40.200823199003935,
+          "y": 20,
+          "seq": 1,
+          "tick": 0
+        },
+        {
+          "kind": "spawn",
+          "x": 340.2585762515664,
+          "y": 20,
+          "seq": 2,
+          "tick": 0
+        },
+        {
+          "kind": "spawn",
+          "x": 125.68859612196684,
+          "y": 20,
+          "seq": 3,
+          "tick": 0
+        },
+        {
+          "kind": "spawn",
+          "x": 271.78622176125646,
+          "y": 20,
+          "seq": 4,
+          "tick": 0
+        },
+        {
+          "kind": "beam",
+          "x": 195,
+          "y": 490,
+          "x2": 125.68859612196684,
+          "y2": 20,
+          "source": "C03",
+          "weaponRank": 0,
+          "weaponBranch": null,
+          "seq": 5,
+          "tick": 1
+        },
+        {
+          "kind": "hit",
+          "x": 125.68859612196684,
+          "y": 20,
+          "value": 68,
+          "source": "C03",
+          "color": "#93bcdc",
+          "targetId": 3,
+          "enemyDefId": "E01",
+          "skill": "weapon",
+          "weaponRank": 0,
+          "weaponBranch": null,
+          "seq": 6,
+          "tick": 1
+        },
+        {
+          "kind": "shot",
+          "x": 195,
+          "y": 490,
+          "x2": 40.200823199003935,
+          "y2": 20,
+          "source": "C05",
+          "weaponRank": 0,
+          "weaponBranch": null,
+          "seq": 7,
+          "tick": 1
+        },
+        {
+          "kind": "spawn",
+          "x": 40,
+          "y": 45,
+          "seq": 8,
+          "tick": 8
+        },
+        {
+          "kind": "spawn",
+          "x": 116,
+          "y": 45,
+          "seq": 9,
+          "tick": 8
+        },
+        {
+          "kind": "spawn",
+          "x": 192,
+          "y": 45,
+          "seq": 10,
+          "tick": 8
+        },
+        {
+          "kind": "spawn",
+          "x": 268,
+          "y": 45,
+          "seq": 11,
+          "tick": 8
+        },
+        {
+          "kind": "spawn",
+          "x": 344,
+          "y": 45,
+          "seq": 12,
+          "tick": 8
+        },
+        {
+          "kind": "spawn",
+          "x": 40,
+          "y": 115,
+          "seq": 13,
+          "tick": 8
+        },
+        {
+          "kind": "spawn",
+          "x": 116,
+          "y": 115,
+          "seq": 14,
+          "tick": 8
+        },
+        {
+          "kind": "spawn",
+          "x": 192,
+          "y": 115,
+          "seq": 15,
+          "tick": 8
+        },
+        {
+          "kind": "spawn",
+          "x": 268,
+          "y": 115,
+          "seq": 16,
+          "tick": 8
+        }
+      ],
+      "eventSeq": 16,
+      "actions": [
+        {
+          "tick": 0,
+          "seq": 1,
+          "command": {
+            "type": "pause",
+            "reason": "tutorial"
+          }
+        },
+        {
+          "tick": 0,
+          "seq": 2,
+          "command": {
+            "type": "resume",
+            "reason": "tutorial"
+          }
+        },
+        {
+          "tick": 82,
+          "seq": 3,
+          "command": {
+            "type": "pause",
+            "reason": "user"
+          }
+        },
+        {
+          "tick": 82,
+          "seq": 4,
+          "command": {
+            "type": "resume",
+            "reason": "user"
+          }
+        },
+        {
+          "tick": 85,
+          "seq": 5,
+          "command": {
+            "type": "pause",
+            "reason": "user"
+          }
+        }
+      ],
+      "actionSeq": 5,
+      "stats": {
+        "kills": 0,
+        "damageByCharacter": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 68,
+          "C04": 0,
+          "C05": 0,
+          "C06": 0
+        },
+        "shieldDamageByCharacter": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 0,
+          "C04": 0,
+          "C05": 0,
+          "C06": 0
+        },
+        "wallDamageByEnemy": {},
+        "shieldAbsorbed": 0,
+        "controlTicks": {
+          "C01": 0,
+          "C02": 252,
+          "C03": 0,
+          "C04": 0,
+          "C05": 0,
+          "C06": 0
+        },
+        "choices": [],
+        "casts": [],
+        "encountered": [
+          "E02",
+          "E01",
+          "E03",
+          "E04",
+          "E05",
+          "E06",
+          "E07",
+          "E08",
+          "B03"
+        ]
+      },
+      "outcome": null
+    },
+    "view": {
+      "clock": 0,
+      "poses": {
+        "C01": {
+          "frame": 0,
+          "seen": [
+            0
+          ],
+          "texture": "motion-C01"
+        },
+        "C02": {
+          "frame": 0,
+          "seen": [
+            0
+          ],
+          "texture": "motion-C02"
+        },
+        "C03": {
+          "frame": 0,
+          "seen": [
+            0
+          ],
+          "texture": "motion-C03"
+        },
+        "C04": {
+          "frame": 0,
+          "seen": [
+            0
+          ],
+          "texture": "motion-C04"
+        },
+        "C05": {
+          "frame": 0,
+          "seen": [
+            0
+          ],
+          "texture": "motion-C05"
+        }
+      },
+      "forms": [],
+      "skills": [],
+      "hitTypes": [],
+      "deathTypes": [],
+      "activeCorpses": 0,
+      "corpseIds": [],
+      "hurtIds": [],
+      "maxCorpses": 0,
+      "aliveImages": 9,
+      "enemyMotions": [
+        {
+          "id": 6,
+          "type": "E01",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 0,
+          "clock": 222,
+          "releases": 0,
+          "texture": "enemy-motion-E01"
+        },
+        {
+          "id": 7,
+          "type": "E02",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 0,
+          "clock": 259,
+          "releases": 0,
+          "texture": "enemy-motion-E02"
+        },
+        {
+          "id": 8,
+          "type": "E03",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 0,
+          "clock": 296,
+          "releases": 0,
+          "texture": "enemy-motion-E03"
+        },
+        {
+          "id": 9,
+          "type": "E04",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 0,
+          "clock": 333,
+          "releases": 0,
+          "texture": "enemy-motion-E04"
+        },
+        {
+          "id": 10,
+          "type": "E05",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 0,
+          "clock": 370,
+          "releases": 0,
+          "texture": "enemy-motion-E05"
+        },
+        {
+          "id": 11,
+          "type": "E06",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 0,
+          "clock": 407,
+          "releases": 0,
+          "texture": "enemy-motion-E06"
+        },
+        {
+          "id": 12,
+          "type": "E07",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 0,
+          "clock": 444,
+          "releases": 0,
+          "texture": "enemy-motion-E07"
+        },
+        {
+          "id": 13,
+          "type": "E08",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 0,
+          "clock": 481,
+          "releases": 0,
+          "texture": "enemy-motion-E08"
+        },
+        {
+          "id": 14,
+          "type": "B03",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 0,
+          "clock": 518,
+          "releases": 0,
+          "texture": "enemy-motion-B03"
+        }
+      ],
+      "enemyHistory": {
+        "E01": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0
+          ],
+          "releases": 0
+        },
+        "E02": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0
+          ],
+          "releases": 0
+        },
+        "E03": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0
+          ],
+          "releases": 0
+        },
+        "E04": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0
+          ],
+          "releases": 0
+        },
+        "E05": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0
+          ],
+          "releases": 0
+        },
+        "E06": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0
+          ],
+          "releases": 0
+        },
+        "E07": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0
+          ],
+          "releases": 0
+        },
+        "E08": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0
+          ],
+          "releases": 0
+        },
+        "B03": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0
+          ],
+          "releases": 0
+        }
+      },
+      "cutin": {
+        "visible": false,
+        "id": null,
+        "age": null,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      },
+      "statuses": [],
+      "burnNumbers": [],
+      "bossIntro": null,
+      "range": null,
+      "detail": "compact",
+      "activeEffects": 0,
+      "peakEffects": 0,
+      "warnings": {
+        "visible": true,
+        "text": "⚠ 降臨核心 蓄力中\n可使用有效暈眩或位移打斷",
+        "top": 13.318359375,
+        "bottom": 56.681640625,
+        "depth": 100,
+        "geometryDepth": 90
+      },
+      "textureFrames": {
+        "C01": 6,
+        "C02": 6,
+        "C03": 6,
+        "C04": 6,
+        "C05": 6
+      },
+      "effectsDepth": 9,
+      "alliesDepth": 7,
+      "visibleEffects": [],
+      "hostileProjectileImages": 0,
+      "enemyTextureFrames": {
+        "E01": 12,
+        "E02": 12,
+        "E03": 12,
+        "E04": 12,
+        "E05": 12,
+        "E06": 12,
+        "E07": 12,
+        "E08": 12,
+        "B03": 12
+      }
+    }
+  },
+  "resumed": {
+    "clock": 16.200000000000045,
+    "poses": {
+      "C01": {
+        "frame": 0,
+        "seen": [
+          0
+        ],
+        "texture": "motion-C01"
+      },
+      "C02": {
+        "frame": 0,
+        "seen": [
+          0
+        ],
+        "texture": "motion-C02"
+      },
+      "C03": {
+        "frame": 0,
+        "seen": [
+          0
+        ],
+        "texture": "motion-C03"
+      },
+      "C04": {
+        "frame": 0,
+        "seen": [
+          0
+        ],
+        "texture": "motion-C04"
+      },
+      "C05": {
+        "frame": 0,
+        "seen": [
+          0
+        ],
+        "texture": "motion-C05"
+      }
+    },
+    "forms": [],
+    "skills": [],
+    "hitTypes": [],
+    "deathTypes": [],
+    "activeCorpses": 0,
+    "corpseIds": [],
+    "hurtIds": [],
+    "maxCorpses": 0,
+    "aliveImages": 9,
+    "enemyMotions": [
+      {
+        "id": 6,
+        "type": "E01",
+        "mode": "move",
+        "frame": 2,
+        "pose": "move-1",
+        "fps": 14,
+        "clock": 238.20000000000005,
+        "releases": 0,
+        "texture": "enemy-motion-E01"
+      },
+      {
+        "id": 7,
+        "type": "E02",
+        "mode": "move",
+        "frame": 3,
+        "pose": "move-2",
+        "fps": 14,
+        "clock": 275.20000000000005,
+        "releases": 0,
+        "texture": "enemy-motion-E02"
+      },
+      {
+        "id": 8,
+        "type": "E03",
+        "mode": "move",
+        "frame": 4,
+        "pose": "move-3",
+        "fps": 10.5,
+        "clock": 312.20000000000005,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 9,
+        "type": "E04",
+        "mode": "move",
+        "frame": 5,
+        "pose": "move-4",
+        "fps": 12.25,
+        "clock": 349.20000000000005,
+        "releases": 0,
+        "texture": "enemy-motion-E04"
+      },
+      {
+        "id": 10,
+        "type": "E05",
+        "mode": "move",
+        "frame": 6,
+        "pose": "move-5",
+        "fps": 12.25,
+        "clock": 386.20000000000005,
+        "releases": 0,
+        "texture": "enemy-motion-E05"
+      },
+      {
+        "id": 11,
+        "type": "E06",
+        "mode": "move",
+        "frame": 7,
+        "pose": "move-6",
+        "fps": 12.25,
+        "clock": 423.20000000000005,
+        "releases": 0,
+        "texture": "enemy-motion-E06"
+      },
+      {
+        "id": 12,
+        "type": "E07",
+        "mode": "move",
+        "frame": 2,
+        "pose": "move-1",
+        "fps": 9.625,
+        "clock": 460.20000000000005,
+        "releases": 0,
+        "texture": "enemy-motion-E07"
+      },
+      {
+        "id": 13,
+        "type": "E08",
+        "mode": "move",
+        "frame": 3,
+        "pose": "move-2",
+        "fps": 14,
+        "clock": 497.20000000000005,
+        "releases": 0,
+        "texture": "enemy-motion-E08"
+      },
+      {
+        "id": 14,
+        "type": "B03",
+        "mode": "charge",
+        "frame": 10,
+        "pose": "charge-a",
+        "fps": 0,
+        "clock": 534.2,
+        "releases": 0,
+        "texture": "enemy-motion-B03"
+      }
+    ],
+    "enemyHistory": {
+      "E01": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          2
+        ],
+        "releases": 0
+      },
+      "E02": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          3
+        ],
+        "releases": 0
+      },
+      "E03": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          4
+        ],
+        "releases": 0
+      },
+      "E04": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          5
+        ],
+        "releases": 0
+      },
+      "E05": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          6
+        ],
+        "releases": 0
+      },
+      "E06": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          7
+        ],
+        "releases": 0
+      },
+      "E07": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          2
+        ],
+        "releases": 0
+      },
+      "E08": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          3
+        ],
+        "releases": 0
+      },
+      "B03": {
+        "modes": [
+          "idle",
+          "charge"
+        ],
+        "frames": [
+          0,
+          10
+        ],
+        "releases": 0
+      }
+    },
+    "cutin": {
+      "visible": false,
+      "id": null,
+      "age": null,
+      "duration": 1200,
+      "top": 323,
+      "bottom": 435,
+      "depth": 20
+    },
+    "statuses": [],
+    "burnNumbers": [],
+    "bossIntro": null,
+    "range": null,
+    "detail": "compact",
+    "activeEffects": 0,
+    "peakEffects": 0,
+    "warnings": {
+      "visible": true,
+      "text": "⚠ 降臨核心 蓄力中\n可使用有效暈眩或位移打斷",
+      "top": 13.318359375,
+      "bottom": 56.681640625,
+      "depth": 100,
+      "geometryDepth": 90
+    },
+    "textureFrames": {
+      "C01": 6,
+      "C02": 6,
+      "C03": 6,
+      "C04": 6,
+      "C05": 6
+    },
+    "effectsDepth": 9,
+    "alliesDepth": 7,
+    "visibleEffects": [],
+    "hostileProjectileImages": 0,
+    "enemyTextureFrames": {
+      "E01": 12,
+      "E02": 12,
+      "E03": 12,
+      "E04": 12,
+      "E05": 12,
+      "E06": 12,
+      "E07": 12,
+      "E08": 12,
+      "B03": 12
+    }
+  },
+  "warning": {
+    "clock": 94.79999999999995,
+    "poses": {
+      "C01": {
+        "frame": 0,
+        "seen": [
+          0
+        ],
+        "texture": "motion-C01"
+      },
+      "C02": {
+        "frame": 0,
+        "seen": [
+          0
+        ],
+        "texture": "motion-C02"
+      },
+      "C03": {
+        "frame": 0,
+        "seen": [
+          0
+        ],
+        "texture": "motion-C03"
+      },
+      "C04": {
+        "frame": 0,
+        "seen": [
+          0
+        ],
+        "texture": "motion-C04"
+      },
+      "C05": {
+        "frame": 3,
+        "seen": [
+          0,
+          3
+        ],
+        "texture": "motion-C05"
+      }
+    },
+    "forms": [],
+    "skills": [
+      "C05"
+    ],
+    "hitTypes": [
+      "B03",
+      "E08",
+      "E04",
+      "E03"
+    ],
+    "deathTypes": [],
+    "activeCorpses": 0,
+    "corpseIds": [],
+    "hurtIds": [
+      8,
+      9,
+      13,
+      14
+    ],
+    "maxCorpses": 0,
+    "aliveImages": 9,
+    "enemyMotions": [
+      {
+        "id": 6,
+        "type": "E01",
+        "mode": "move",
+        "frame": 3,
+        "pose": "move-2",
+        "fps": 14,
+        "clock": 316.79999999999995,
+        "releases": 0,
+        "texture": "enemy-motion-E01"
+      },
+      {
+        "id": 7,
+        "type": "E02",
+        "mode": "move",
+        "frame": 4,
+        "pose": "move-3",
+        "fps": 14,
+        "clock": 353.79999999999995,
+        "releases": 0,
+        "texture": "enemy-motion-E02"
+      },
+      {
+        "id": 8,
+        "type": "E03",
+        "mode": "move",
+        "frame": 4,
+        "pose": "move-3",
+        "fps": 10.5,
+        "clock": 390.79999999999995,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 9,
+        "type": "E04",
+        "mode": "move",
+        "frame": 6,
+        "pose": "move-5",
+        "fps": 12.25,
+        "clock": 427.79999999999995,
+        "releases": 0,
+        "texture": "enemy-motion-E04"
+      },
+      {
+        "id": 10,
+        "type": "E05",
+        "mode": "move",
+        "frame": 7,
+        "pose": "move-6",
+        "fps": 12.25,
+        "clock": 464.79999999999995,
+        "releases": 0,
+        "texture": "enemy-motion-E05"
+      },
+      {
+        "id": 11,
+        "type": "E06",
+        "mode": "move",
+        "frame": 2,
+        "pose": "move-1",
+        "fps": 12.25,
+        "clock": 501.79999999999995,
+        "releases": 0,
+        "texture": "enemy-motion-E06"
+      },
+      {
+        "id": 12,
+        "type": "E07",
+        "mode": "move",
+        "frame": 2,
+        "pose": "move-1",
+        "fps": 9.625,
+        "clock": 538.8,
+        "releases": 0,
+        "texture": "enemy-motion-E07"
+      },
+      {
+        "id": 13,
+        "type": "E08",
+        "mode": "move",
+        "frame": 4,
+        "pose": "move-3",
+        "fps": 14,
+        "clock": 575.8,
+        "releases": 0,
+        "texture": "enemy-motion-E08"
+      },
+      {
+        "id": 14,
+        "type": "B03",
+        "mode": "charge",
+        "frame": 10,
+        "pose": "charge-a",
+        "fps": 0,
+        "clock": 612.8,
+        "releases": 0,
+        "texture": "enemy-motion-B03"
+      }
+    ],
+    "enemyHistory": {
+      "E01": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          2,
+          3
+        ],
+        "releases": 0
+      },
+      "E02": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          3,
+          4
+        ],
+        "releases": 0
+      },
+      "E03": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          4
+        ],
+        "releases": 0
+      },
+      "E04": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          5,
+          6
+        ],
+        "releases": 0
+      },
+      "E05": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          6,
+          7
+        ],
+        "releases": 0
+      },
+      "E06": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          2,
+          7
+        ],
+        "releases": 0
+      },
+      "E07": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          2
+        ],
+        "releases": 0
+      },
+      "E08": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          3,
+          4
+        ],
+        "releases": 0
+      },
+      "B03": {
+        "modes": [
+          "idle",
+          "charge"
+        ],
+        "frames": [
+          0,
+          10
+        ],
+        "releases": 0
+      }
+    },
+    "cutin": {
+      "visible": true,
+      "id": "C05",
+      "age": 24.700000000000045,
+      "duration": 1200,
+      "top": 323,
+      "bottom": 435,
+      "depth": 20
+    },
+    "statuses": [
+      {
+        "id": 8,
+        "states": [
+          "burn"
+        ]
+      },
+      {
+        "id": 9,
+        "states": [
+          "burn"
+        ]
+      },
+      {
+        "id": 13,
+        "states": [
+          "burn"
+        ]
+      },
+      {
+        "id": 14,
+        "states": [
+          "burn"
+        ]
+      }
+    ],
+    "burnNumbers": [],
+    "bossIntro": null,
+    "range": null,
+    "detail": "compact",
+    "activeEffects": 5,
+    "peakEffects": 5,
+    "warnings": {
+      "visible": true,
+      "text": "⚠ 降臨核心 蓄力中\n可使用有效暈眩或位移打斷",
+      "top": 13.318359375,
+      "bottom": 56.681640625,
+      "depth": 100,
+      "geometryDepth": 90
+    },
+    "textureFrames": {
+      "C01": 6,
+      "C02": 6,
+      "C03": 6,
+      "C04": 6,
+      "C05": 6
+    },
+    "effectsDepth": 9,
+    "alliesDepth": 7,
+    "visibleEffects": [
+      {
+        "seq": 17,
+        "kind": "hit",
+        "source": "C05",
+        "age": 24.700000000000045,
+        "duration": 260
+      },
+      {
+        "seq": 18,
+        "kind": "hit",
+        "source": "C05",
+        "age": 24.700000000000045,
+        "duration": 260
+      },
+      {
+        "seq": 19,
+        "kind": "hit",
+        "source": "C05",
+        "age": 24.700000000000045,
+        "duration": 260
+      },
+      {
+        "seq": 20,
+        "kind": "hit",
+        "source": "C05",
+        "age": 24.700000000000045,
+        "duration": 260
+      },
+      {
+        "seq": 21,
+        "kind": "tactical",
+        "source": "C05",
+        "age": 24.700000000000045,
+        "duration": 1500
+      }
+    ],
+    "hostileProjectileImages": 0,
+    "enemyTextureFrames": {
+      "E01": 12,
+      "E02": 12,
+      "E03": 12,
+      "E04": 12,
+      "E05": 12,
+      "E06": 12,
+      "E07": 12,
+      "E08": 12,
+      "B03": 12
+    }
+  }
+}

@@ -84,6 +84,7 @@ export function runPolicy(policy: BuildPolicy, seed: number, options: { mode?: '
   while (state.phase !== 'ended') {
     if (++safety > 16000) throw new Error(`Run did not terminate within 480s plus choices: ${policy.id}/${seed} tick=${state.tick}`);
     if (state.draft) { resolvePolicyDraft(state, policy); continue; }
+    if (state.bossIntro && command(state, { type: 'finish-boss-intro' })) continue;
     if (state.pauseReasons.length) throw new Error(`Unexpected autonomous pause: ${state.pauseReasons.join(',')}`);
     const decision = castDecision(state, policy, mode);
     if (decision && command(state, decision.command)) casts.push({ tick: state.tick, reason: decision.reason });

@@ -1,9 +1,10 @@
-import { CHARACTER_IDS, ENEMY_MAP, CONTENT_VERSION, SCHEMA_VERSION, STAGE_MAP, ticks } from '../data/content';
+import { CHARACTER_IDS, ENEMY_MAP, CONTENT_VERSION, BOSS_INTRO_MS, supportedContent, SCHEMA_VERSION, STAGE_MAP, ticks } from '../data/content';
 import { alive, applyEffect, area, boss, createEnemy, distance, emit, hitEnemy, hitWall, stepEffects } from './combat';
 import { getLegalNodeIds, getReadyEvolutions, openDraft, rebuildDraft, rerollDraft } from './draft';
 import { stepEnemies } from './enemies';
 import { seedValue } from './rng';
 import { makeSpawnPlan } from './spawn';
+import { usesRangeRules } from './range';
 import type { CharacterId, Command, RunConfig, RunState } from './types';
 import { applyUpgrade, castTactical, stepWeapons } from './weapons';
 export { getLegalNodeIds, getReadyEvolutions } from './draft';
@@ -18,8 +19,9 @@ export function createRun(config:RunConfig):RunState{
 export function getPhase(s:RunState):RunState['phase']{return s.outcome?'ended':s.pauseReasons.includes('upgrade')?'choosing':s.pauseReasons.length?'paused':'running';}
 export function command(s:RunState,cmd:Command):boolean{
   if(s.outcome)return false;let accepted=false;
-  if(cmd.type==='pause'&&!s.pauseReasons.includes(cmd.reason)&&cmd.reason!=='upgrade'){s.pauseReasons.push(cmd.reason);accepted=true;}
-  if(cmd.type==='resume'&&cmd.reason!=='upgrade'&&s.pauseReasons.includes(cmd.reason)){s.pauseReasons=s.pauseReasons.filter(r=>r!==cmd.reason);accepted=true;}
+  if(cmd.type==='pause'&&!s.pauseReasons.includes(cmd.reason)&&cmd.reason!=='upgrade'&&cmd.reason!=='boss-intro'){s.pauseReasons.push(cmd.reason);accepted=true;}
+  if(cmd.type==='resume'&&cmd.reason!=='upgrade'&&cmd.reason!=='boss-intro'&&s.pauseReasons.includes(cmd.reason)){s.pauseReasons=s.pauseReasons.filter(r=>r!==cmd.reason);accepted=true;}
+  if(cmd.type==='finish-boss-intro'&&s.bossIntro&&s.pauseReasons.every(r=>r==='boss-intro')){delete s.bossIntro;s.pauseReasons=s.pauseReasons.filter(r=>r!=='boss-intro');accepted=true;}
   if(cmd.type==='cast'&&getPhase(s)==='running')accepted=castTactical(s);
   if(cmd.type==='abandon'){s.outcome='abandoned';accepted=true;}
   if(cmd.type==='choose'&&s.draft?.id===cmd.offerId&&s.draft.cards.some(c=>c.nodeId===cmd.nodeId)&&(cmd.nodeId==='EMPTY'||getLegalNodeIds(s).includes(cmd.nodeId))){
@@ -38,16 +40,16 @@ export function command(s:RunState,cmd:Command):boolean{
 }
 function stepProjectiles(s:RunState){
   for(const p of s.projectiles){
-    if(p.impactAt){if(s.tick<p.impactAt)continue;for(const e of area(s,p.tx,p.ty,p.blastRadius))if(p.packet)hitEnemy(s,e,p.packet);emit(s,{kind:'explosion',x:p.tx,y:p.ty,radius:p.blastRadius,source:p.packet?.source});
+    if(p.impactAt){if(s.tick<p.impactAt)continue;const targets=area(s,p.tx,p.ty,p.blastRadius);for(const e of targets)if(p.packet)hitEnemy(s,e,p.packet);emit(s,{affectedIds:targets.map(e=>e.id),kind:'explosion',x:p.tx,y:p.ty,radius:p.blastRadius,source:p.packet?.source});
       if(p.fire&&p.packet){const own=s.fields.filter(f=>f.source===p.packet!.source&&f.kind==='fire').sort((a,b)=>a.id-b.id);if(own.length>=2)s.fields=s.fields.filter(f=>f.id!==own[0].id);s.fields.push({id:s.nextEntityId++,source:p.packet.source,kind:'fire',x:p.tx,y:p.ty,radius:p.fire.radius,expires:s.tick+p.fire.duration,nextTick:s.tick,dps:p.fire.dps,damageType:'thermal',slow:0,slowDuration:0,pull:0,burnDuration:p.fire.burnDuration,armorIgnore:p.fire.armorIgnore});}p.remaining=0;continue;
     }
-    const old={x:p.x,y:p.y};p.x+=p.vx/30;p.y+=p.vy/30;
+    const old={x:p.x,y:p.y},stepLength=Math.hypot(p.vx,p.vy)/30,travel=p.travelRemaining===undefined?1:Math.min(1,p.travelRemaining/(stepLength||1));p.x+=p.vx/30*travel;p.y+=p.vy/30*travel;if(p.travelRemaining!==undefined)p.travelRemaining=Math.max(0,p.travelRemaining-stepLength);
     if(p.enemySource){if(p.y>=450){hitWall(s,p.enemyDamage,p.enemySource);p.remaining=0;}continue;}
     const dx=p.x-old.x,dy=p.y-old.y,len2=dx*dx+dy*dy;
     const contacts=alive(s).filter(e=>!p.hitIds.includes(e.id)).map(e=>{const t=Math.max(0,Math.min(1,((e.x-old.x)*dx+(e.y-old.y)*dy)/(len2||1)));return {e,t,d:distance(e,{x:old.x+t*dx,y:old.y+t*dy})};}).filter(x=>x.d<=x.e.radius+p.radius).sort((a,b)=>a.t-b.t||a.e.id-b.e.id);
     for(const {e} of contacts){if(!p.remaining)break;if(p.packet)hitEnemy(s,e,{...p.packet,raw:p.packet.raw*(p.falloff[p.hitIds.length]??1)});p.hitIds.push(e.id);p.remaining--;}
   }
-  s.projectiles=s.projectiles.filter(p=>p.remaining>0&&p.expires>s.tick&&p.y>=-50);
+  s.projectiles=s.projectiles.filter(p=>p.remaining>0&&(p.travelRemaining===undefined||p.travelRemaining>0)&&p.expires>s.tick&&p.y>=-50);
 }
 function stepFields(s:RunState){
   for(const f of s.fields){
@@ -70,11 +72,12 @@ export function stepRun(s:RunState,count=1):void{
     if(getPhase(s)!=='running')break;
     s.tick++;
     while(s.spawnCursor<s.spawnPlan.length&&s.spawnPlan[s.spawnCursor].at<=s.tick){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,20,p.xp,p.wave);}
-    if(!s.bossSpawned&&s.tick>=ticks(360)){s.bossSpawned=true;createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,9);}
+    if(!usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(360)){s.bossSpawned=true;createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,9);}
     s.shields=s.shields.filter(x=>x.value>0&&x.expires>s.tick);
     stepEffects(s);stepWeapons(s);stepProjectiles(s);stepFields(s);
     for(const h of s.scheduled.filter(h=>h.at<=s.tick)){if(h.packet)for(const e of area(s,h.x,h.y,h.radius))hitEnemy(s,e,h.packet);else if(h.enemySource)hitWall(s,h.enemyDamage,h.enemySource);}s.scheduled=s.scheduled.filter(h=>h.at>s.tick);
     stepEnemies(s);s.enemies=s.enemies.filter(e=>e.hp>0);
+    if(usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(360)&&s.wallHp>0){s.bossSpawned=true;const entering=createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,9);s.bossIntro={enemyId:entering.id,remainingMs:BOSS_INTRO_MS};s.pauseReasons.push('boss-intro');}
     if(s.wallHp<=0)s.outcome='wall';
     else if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!s.enemies.length)s.outcome='victory';
     else if(s.tick>=ticks(480))s.outcome='timeout';
@@ -84,13 +87,15 @@ export function stepRun(s:RunState,count=1):void{
 export function snapshotRun(s:RunState):RunState{return structuredClone(s);}
 export function restoreRun(raw:unknown):RunState{
   if(!raw||typeof raw!=='object')throw new Error('戰局快照損壞');const s=raw as RunState;
-  if(s.schemaVersion!==SCHEMA_VERSION||s.contentVersion!==CONTENT_VERSION)throw new Error('戰局版本不相容，請保留進度並重開本局');
+  if(s.schemaVersion!==SCHEMA_VERSION||!supportedContent(s.contentVersion))throw new Error('戰局版本不相容，請保留進度並重開本局');
   createRun(s.config);
   const finite=(v:unknown):boolean=>typeof v==='number'?Number.isFinite(v):Array.isArray(v)?v.every(finite):v&&typeof v==='object'?Object.values(v).every(finite):true;
   if(!finite(s)||!Number.isInteger(s.tick)||s.tick<0||s.tick>ticks(480)||!Array.isArray(s.enemies)||!Array.isArray(s.projectiles)||!Array.isArray(s.fields)||!Array.isArray(s.spawnPlan)||!Array.isArray(s.pauseReasons)||!Array.isArray(s.actions)||!s.rng||!s.stats||s.wallHp<0||s.wallHp>s.wallMaxHp||s.choicesSpent>s.choicesEarned||s.evolvedCount>s.evolutionLimit||s.weapons.length!==s.config.squadIds.length)throw new Error('戰局快照損壞');
+  if(!!s.bossIntro!==s.pauseReasons.includes('boss-intro')||s.bossIntro&&(!usesRangeRules(s)||!s.bossSpawned||!Number.isSafeInteger(s.bossIntro.enemyId)||!Number.isFinite(s.bossIntro.remainingMs)||s.bossIntro.remainingMs<0||s.bossIntro.remainingMs>BOSS_INTRO_MS||!s.enemies.some(e=>e.id===s.bossIntro!.enemyId&&e.defId===STAGE_MAP[s.config.stageId].bossId)))throw new Error('首領登場紀錄損壞');
+  if(s.projectiles.some(p=>p.travelRemaining!==undefined&&(!Number.isFinite(p.travelRemaining)||p.travelRemaining<0)))throw new Error('彈體射程紀錄損壞');
   const validInteger=(n:unknown,min=0,max=Number.MAX_SAFE_INTEGER)=>typeof n==='number'&&Number.isSafeInteger(n)&&n>=min&&n<=max;
   const required=['weapons','shields','scheduled','events','actions','spawnPlan'] as const;
-  if(required.some(key=>!Array.isArray(s[key]))||s.enemies.length>2000||s.projectiles.length>2000||s.fields.length>20||!s.runId||!['running','choosing','paused','ended'].includes(s.phase)||s.pauseReasons.some(p=>!['user','upgrade','hidden','orientation','tutorial','error'].includes(p))||new Set(s.pauseReasons).size!==s.pauseReasons.length||s.phase!==getPhase(s))throw new Error('戰局狀態損壞');
+  if(required.some(key=>!Array.isArray(s[key]))||s.enemies.length>2000||s.projectiles.length>2000||s.fields.length>20||!s.runId||!['running','choosing','paused','ended'].includes(s.phase)||s.pauseReasons.some(p=>!['user','upgrade','hidden','orientation','tutorial','error','boss-intro'].includes(p))||new Set(s.pauseReasons).size!==s.pauseReasons.length||s.phase!==getPhase(s))throw new Error('戰局狀態損壞');
   if(!validInteger(s.choicesSpent,0,18)||!validInteger(s.choicesEarned,0,18)||!validInteger(s.rerollsRemaining,0,3)||!validInteger(s.spawnCursor,0,s.spawnPlan.length)||!validInteger(s.nextEntityId,1)||!Object.values(s.rng).every(n=>validInteger(n,1,0xffffffff)))throw new Error('戰局計數損壞');
   if(new Set(s.weapons.map(w=>w.id)).size!==s.weapons.length||s.weapons.some(w=>!s.config.squadIds.includes(w.id)||!validInteger(w.rank,0,3)||(w.rank===0?w.branch!==null:!['A','B'].includes(w.branch??''))||!validInteger(w.nextAttack)||!validInteger(w.attacks)||!Array.isArray(w.droneAttacks)||w.droneAttacks.length!==2||!w.droneAttacks.every(n=>validInteger(n)))||Object.entries(s.commonRanks).some(([id,rank])=>!/^G0[1-6]$/.test(id)||!validInteger(rank,0,2)))throw new Error('武器改造紀錄損壞');
   if(s.enemies.some(e=>!ENEMY_MAP[e.defId]||!validInteger(e.id,1)||e.hp<0||e.hp>e.maxHp||e.shield<0||!Array.isArray(e.effects)||e.effects.some(f=>!['slow','stun','exposure','burn'].includes(f.kind)||!CHARACTER_IDS.includes(f.source as CharacterId)&&f.source!=='boss'||!validInteger(f.expires)||!validInteger(f.nextTick)))||s.spawnPlan.some(p=>!ENEMY_MAP[p.defId]||!validInteger(p.at)||!validInteger(p.xp)))throw new Error('敵人或波次紀錄損壞');
@@ -100,4 +105,11 @@ export function restoreRun(raw:unknown):RunState{
   const entityIds=[...s.enemies,...s.projectiles,...s.fields].map(e=>e.id);if(new Set(entityIds).size!==entityIds.length)throw new Error('戰局物件重複');
   if(s.draft&&(!validInteger(s.draft.id,1)||!Array.isArray(s.draft.cards)||s.draft.cards.length<1||s.draft.cards.length>3||new Set(s.draft.cards.map(c=>c.nodeId)).size!==s.draft.cards.length||s.draft.cards.some(c=>c.nodeId!=='EMPTY'&&!getLegalNodeIds(s).includes(c.nodeId))))throw new Error('改造候選紀錄損壞');
   return structuredClone(s);
+}
+
+/** Only the entrance clock advances while combat is frozen; other pause reasons take precedence. */
+export function advanceBossIntro(s: RunState, elapsedMs: number) {
+  if (!s.bossIntro || s.outcome || s.pauseReasons.some(r => r !== 'boss-intro') || !Number.isFinite(elapsedMs) || elapsedMs < 0 || elapsedMs > 500) return false;
+  s.bossIntro.remainingMs = Math.max(0, s.bossIntro.remainingMs - elapsedMs);
+  return s.bossIntro.remainingMs === 0 && command(s, { type: 'finish-boss-intro' });
 }

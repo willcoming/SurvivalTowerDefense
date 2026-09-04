@@ -1,0 +1,51 @@
+{
+  "baseline": "cbb2128",
+  "checkedAt": "2026-09-04T16:44:11.324Z",
+  "rows": [
+    {
+      "path": "src/sim/spawn.ts",
+      "baseline": "87f96338578334c647990611751430d6f1bc7abf0b6e95795a62be10996057db",
+      "current": "87f96338578334c647990611751430d6f1bc7abf0b6e95795a62be10996057db",
+      "fileUnchanged": true,
+      "rulesUnchanged": true
+    },
+    {
+      "path": "src/sim/enemies.ts",
+      "baseline": "cc3106d7fa27a96507736278fa36dab053f6fb266a16fba4490f5b6974877280",
+      "current": "cc3106d7fa27a96507736278fa36dab053f6fb266a16fba4490f5b6974877280",
+      "fileUnchanged": true,
+      "rulesUnchanged": true
+    },
+    {
+      "path": "src/sim/combat.ts",
+      "baseline": "42be2ad6b15976f274c4b4ff7cfa66701ab8f16166b3ef134ed259d7cc7cbfbb",
+      "current": "b0df4da9dd051ecc3b44a2e61aabc94f6878d5c8e865ca2460f1cfbd41acaf04",
+      "fileUnchanged": false,
+      "rulesUnchanged": true,
+      "visualOnlyChange": "Expire old delivery-queue cues before applying priority; damage, RNG, stats, eventSeq and all other combat code unchanged."
+    },
+    {
+      "path": "src/sim/draft.ts",
+      "baseline": "eecf6369f3668b0aac250d4bb5aa6b124b798d9116e8291ede7071c82ee0588d",
+      "current": "eecf6369f3668b0aac250d4bb5aa6b124b798d9116e8291ede7071c82ee0588d",
+      "fileUnchanged": true,
+      "rulesUnchanged": true
+    },
+    {
+      "path": "src/sim/rng.ts",
+      "baseline": "3d5b09cf4f385474623bbf14082dd6c1b3bc8b59a3d496f0a9e336a3319aa7a1",
+      "current": "3d5b09cf4f385474623bbf14082dd6c1b3bc8b59a3d496f0a9e336a3319aa7a1",
+      "fileUnchanged": true,
+      "rulesUnchanged": true
+    },
+    {
+      "path": "src/ui/auto-tactical.ts",
+      "baseline": "22d0530020019cc01c0a2029593479a648c2892243b6e6447a02f98366b11e83",
+      "current": "22d0530020019cc01c0a2029593479a648c2892243b6e6447a02f98366b11e83",
+      "fileUnchanged": true,
+      "rulesUnchanged": true
+    }
+  ],
+  "contentBodyUnchanged": true,
+  "passed": true
+}

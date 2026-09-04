@@ -1,4 +1,5 @@
 import { CHARACTER_MAP, ticks, WORLD } from '../data/content';
+import { inWeaponRange, weaponRange, usesRangeRules } from './range';
 import { addShield, alive, applyEffect, area, distance, emit, hitEnemy, threat } from './combat';
 import type { CharacterId, DamagePacket, Enemy, RunState, WeaponState } from './types';
 export function weaponStats(s:RunState,w:WeaponState){
@@ -19,34 +20,35 @@ function packet(s:RunState,w:WeaponState):DamagePacket{
 }
 function scaled(p:DamagePacket,n:number){return {...p,raw:p.raw*n};}
 function beam(s:RunState,w:WeaponState,e:Enemy,p:DamagePacket){emit(s,{kind:'beam',x:195,y:490,x2:e.x,y2:e.y,source:w.id});hitEnemy(s,e,p);}
-function lineTargets(s:RunState,target:Enemy,count:number):Enemy[]{
+function lineTargets(s:RunState,target:Enemy,count:number,id:CharacterId):Enemy[]{
   const dx=target.x-195,dy=target.y-490,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len;
-  return alive(s).filter(e=>{const x=e.x-195,y=e.y-490;return x*ux+y*uy>=0&&Math.abs(x*uy-y*ux)<=e.radius+7;}).sort((a,b)=>distance(a,WORLD_ORIGIN)-distance(b,WORLD_ORIGIN)||a.id-b.id).slice(0,count);
+  return alive(s).filter(e=>inWeaponRange(s,id,e)).filter(e=>{const x=e.x-195,y=e.y-490;return x*ux+y*uy>=0&&Math.abs(x*uy-y*ux)<=e.radius+7;}).sort((a,b)=>distance(a,WORLD_ORIGIN)-distance(b,WORLD_ORIGIN)||a.id-b.id).slice(0,count);
 }
 const WORLD_ORIGIN={x:WORLD.originX,y:WORLD.originY};
 function fireBullet(s:RunState,target:Enemy,p:DamagePacket,count:number){
   const dx=target.x-195,dy=target.y-490,len=Math.hypot(dx,dy);
-  s.projectiles.push({id:s.nextEntityId++,x:195,y:490,tx:target.x,ty:target.y,vx:dx/len*700,vy:dy/len*700,expires:s.tick+ticks(1.2),hitIds:[],remaining:count,falloff:[1,.8,.8],radius:4,blastRadius:0,packet:p,enemyDamage:0,enemySource:null,impactAt:0});
+  s.projectiles.push({...(usesRangeRules(s)?{travelRemaining:weaponRange(s,p.source)}:{}),id:s.nextEntityId++,x:195,y:490,tx:target.x,ty:target.y,vx:dx/len*700,vy:dy/len*700,expires:s.tick+ticks(1.2),hitIds:[],remaining:count,falloff:[1,.8,.8],radius:4,blastRadius:0,packet:p,enemyDamage:0,enemySource:null,impactAt:0});
   emit(s,{kind:'shot',x:195,y:490,x2:target.x,y2:target.y,source:p.source});
 }
 function attack(s:RunState,w:WeaponState){
-  const all=threat(s);if(!all.length)return false;let target=all[0];const n=weaponStats(s,w),p=packet(s,w),e=w.rank===3,a=w.branch==='A';w.attacks++;
+  const all=threat(s).filter(t=>inWeaponRange(s,w.id,t));if(!all.length)return false;let target=all[0];const n=weaponStats(s,w),p=packet(s,w),e=w.rank===3,a=w.branch==='A';w.attacks++;
   if(w.id==='C01'){for(const t of all.slice(0,e&&a?3:1))fireBullet(s,t,p,e&&!a?3:1);}
   if(w.id==='C02'){
     beam(s,w,target,p);
-    if(e&&!a){if(target.hp>0&&++target.arcCharges>=3){target.arcCharges=0;for(const t of area(s,target.x,target.y,70*n.radiusMultiplier))hitEnemy(s,t,{...p,skill:'magnetic-burst',raw:70*(1+(s.commonRanks.G01??0)*.08),stun:ticks(n.duration)});emit(s,{kind:'explosion',x:target.x,y:target.y,radius:70*n.radiusMultiplier,source:w.id});}}
+    if(e&&!a){if(target.hp>0&&++target.arcCharges>=3){target.arcCharges=0;const targets=area(s,target.x,target.y,70*n.radiusMultiplier);for(const t of targets)hitEnemy(s,t,{...p,skill:'magnetic-burst',raw:70*(1+(s.commonRanks.G01??0)*.08),stun:ticks(n.duration)});emit(s,{kind:'explosion',affectedIds:targets.map(t=>t.id),x:target.x,y:target.y,radius:70*n.radiusMultiplier,source:w.id});}}
     else {const hits=new Set([target.id]);const jumps=e&&a?4:1;const coefficient=a&&w.rank>=2?.75:.6;const range=90*(a&&w.rank>=1?1.2:1);let factor=1;
       for(let i=0;i<jumps;i++){const next=alive(s).filter(t=>!hits.has(t.id)&&distance(t,target)<=range).sort((x,y)=>distance(x,target)-distance(y,target)||x.id-y.id)[0];if(!next)break;factor*=coefficient;emit(s,{kind:'arc',x:target.x,y:target.y,x2:next.x,y2:next.y,source:w.id});hitEnemy(s,next,scaled(p,factor));hits.add(next.id);target=next;}
     }
   }
   if(w.id==='C03'){
-    target=all.sort((x,y)=>y.maxHp-x.maxHp||x.id-y.id)[0];const targets=e&&!a?[target]:lineTargets(s,target,e&&a?6:2);const falloff=e&&a?[1,.9,.8,.7,.6,.5]:[1,.7];
-    emit(s,{kind:'beam',x:195,y:490,x2:target.x,y2:target.y,source:w.id});
+    target=all.sort((x,y)=>y.maxHp-x.maxHp||x.id-y.id)[0];const targets=e&&!a?[target]:lineTargets(s,target,e&&a?6:2,w.id);const falloff=e&&a?[1,.9,.8,.7,.6,.5]:[1,.7];
+    const end=usesRangeRules(s)&&targets.length?targets.reduce((far,t)=>distance(t,WORLD_ORIGIN)>distance(far,WORLD_ORIGIN)?t:far,target):target;
+    emit(s,{kind:'beam',x:195,y:490,x2:end.x,y2:end.y,source:w.id});
     targets.forEach((t,i)=>hitEnemy(s,t,scaled(p,(falloff[i]??1)*(!a&&w.rank>=1&&['E07','E08','B01','B02','B03'].includes(t.defId)?(1+n.bonus+.2)/(1+n.bonus):1))));
   }
   if(w.id==='C04'){
     if(e&&a){s.fields=s.fields.filter(f=>!(f.source===w.id&&f.kind==='gravity'));s.fields.push({id:s.nextEntityId++,source:w.id,kind:'gravity',x:target.x,y:target.y,radius:n.radius,expires:s.tick+ticks(3),nextTick:s.tick+15,dps:n.damage,damageType:'gravity',slow:.3,slowDuration:ticks(.6*n.duration),pull:18,burnDuration:0,armorIgnore:0});}
-    else {for(const t of area(s,target.x,target.y,n.radius))hitEnemy(s,t,{...p,slow:{value:.2,duration:ticks(1.5*n.duration)},knockback:e&&!a&&w.attacks%5===0?70:0});emit(s,{kind:'explosion',x:target.x,y:target.y,radius:n.radius,source:w.id});}
+    else {const targets=area(s,target.x,target.y,n.radius);for(const t of targets)hitEnemy(s,t,{...p,slow:{value:.2,duration:ticks(1.5*n.duration)},knockback:e&&!a&&w.attacks%5===0?70:0});emit(s,{kind:'explosion',affectedIds:targets.map(t=>t.id),x:target.x,y:target.y,radius:n.radius,source:w.id});}
   }
   if(w.id==='C05'){
     if(!(e&&!a))p.burn={dps:4*n.burnDamage,duration:ticks(3*n.duration),armorIgnore:.5,key:'weapon'};
@@ -54,7 +56,7 @@ function attack(s:RunState,w:WeaponState){
   }
   if(w.id==='C06'){
     for(let drone=0;drone<(e&&a?2:1);drone++){
-      const t=threat(s)[0];if(!t)break;beam(s,w,t,p);w.droneAttacks[drone]++;
+      const t=threat(s).find(t=>inWeaponRange(s,w.id,t));if(!t)break;beam(s,w,t,p);w.droneAttacks[drone]++;
       if(w.droneAttacks[drone]%4===0)applyEffect(s,t,{id:`exposure:${w.id}`,kind:'exposure',source:w.id,value:e&&a?.2:.1,expires:s.tick+ticks((4+(a&&w.rank>=2?2:0))*n.duration),armorIgnore:0,nextTick:0});
     }
   }

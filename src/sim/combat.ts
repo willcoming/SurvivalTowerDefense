@@ -8,7 +8,14 @@ export function emit(s:RunState,e:Omit<VisualEvent,'seq'|'tick'>){
   const weapon=e.source?s.weapons.find(w=>w.id===e.source):undefined;
   s.events.push({...e,...(weapon?{weaponRank:weapon.rank,weaponBranch:weapon.branch}:{}),seq:++s.eventSeq,tick:s.tick});
   // Shed old decoration before primary attacks, and primary attacks before skill cues.
-  if(s.events.length>100){let index=0,priority=4;for(let i=0;i<s.events.length;i++){const p=visualPriority(s.events[i]);if(p<priority){index=i;priority=p;if(!p)break;}}s.events.splice(index,1);}
+  if(s.events.length>100){
+    // Already-presented old attacks must not permanently crowd out new hit/DoT cues.
+    // Active visual lifetimes are owned by the renderer, independently of this delivery queue.
+    // Retain at least one complete 3× catch-up batch (15 simulation steps).
+    let index=s.events.findIndex(event=>event.tick<s.tick-15);
+    if(index<0){index=0;let priority=4;for(let i=0;i<s.events.length;i++){const p=visualPriority(s.events[i]);if(p<priority){index=i;priority=p;if(!p)break;}}}
+    s.events.splice(index,1);
+  }
 }
 export function threat(s:RunState):Enemy[]{
   const rank=(e:Enemy)=>(e.chargeKind&&e.chargeUntil>s.tick)?(boss(e)?4:e.defId==='E05'?3:0):(e.y>=WORLD.wallY?2:0);

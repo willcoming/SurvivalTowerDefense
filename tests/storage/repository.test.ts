@@ -1,4 +1,5 @@
 import 'fake-indexeddb/auto';
+import { CONTENT_VERSION, LEGACY_CONTENT_VERSION } from '../../src/data/content';
 import { afterEach, describe, expect, it } from 'vitest';
 import { command, createRun, restoreRun, snapshotRun, stepRun } from '../../src/sim/engine';
 import { createEnemy, applyEffect, addShield } from '../../src/sim/combat';
@@ -28,6 +29,20 @@ async function raw(name: string, value?: unknown): Promise<unknown> {
 }
 
 describe('AC09/SAVE01–06 · complete reproducible local snapshots', () => {
+  it('keeps dev.2 active combat and unlocked progress through save/load; only a new run adopts dev.3', async () => {
+    const repository = repo(), save = await repository.load();
+    save.activeRun = run(); save.activeRun.contentVersion = LEGACY_CONTENT_VERSION;
+    stepRun(save.activeRun, 30); command(save.activeRun, { type: 'pause', reason: 'user' });
+    save.preferences.battleSpeed = 3; save.preferences.autoTactical = true;
+    save.profile.cleared = ['S01', 'S02']; save.profile.challengeClears = ['S01:four'];
+    await repository.save(save);
+    const recovered = await repository.load();
+    expect(recovered.activeRun).toEqual(save.activeRun); expect(recovered.profile).toEqual(save.profile);
+    expect(recovered.preferences).toEqual(save.preferences);
+    recovered.activeRun = run(); await repository.save(recovered);
+    const fresh = await repository.load();
+    expect(fresh.activeRun!.contentVersion).toBe(CONTENT_VERSION); expect(fresh.profile).toEqual(save.profile); expect(fresh.preferences).toEqual(save.preferences);
+  });
   it('starts without an account and round-trips preferences, combat, offer and RNG through IndexedDB', async () => {
     const repository = repo();
     const save = await repository.load();

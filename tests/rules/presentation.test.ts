@@ -5,6 +5,21 @@ import { castTactical } from '../../src/sim/weapons';
 import { capEffects, effectDetail, effectLifetime, LAYERS, poseFrame, type ActiveEffect } from '../../src/game/presentation';
 
 describe('animation contracts without changing combat rules', () => {
+  it('delivers new burn/hit cues after old primary attacks fill the event queue', () => {
+    const s = createRun({ stageId: 'S01', squadIds: ['C05'], captainId: 'C05', seed: 101 });
+    for (let i = 0; i < 100; i++) emit(s, { kind: 'shot', source: 'C05', x: 195, y: 490 });
+    s.tick += 16;
+    for (let i = 0; i < 20; i++) emit(s, { kind: 'hit', skill: 'burn', source: 'C05', targetId: i + 1, value: 4, x: 195, y: 200 });
+    expect(s.events.filter(e => e.skill === 'burn')).toHaveLength(20);
+    expect(s.events).toHaveLength(100);
+  });
+  it('retains a skill cue throughout the maximum 15-step catch-up batch', () => {
+    const s = createRun({ stageId: 'S01', squadIds: ['C05'], captainId: 'C05', seed: 101 });
+    emit(s, { kind: 'tactical', source: 'C05', x: 195, y: 200 });
+    s.tick += 15;
+    for (let i = 0; i < 120; i++) emit(s, { kind: 'hit', skill: 'burn', source: 'C05', value: 4, x: 195, y: 200 });
+    expect(s.events.some(e => e.kind === 'tactical')).toBe(true);
+  });
   it.each([1, 3])('retains distinct fire, recoil and recovery frames at %s×', speed => {
     expect([0, 39, 40, 79, 80, 119].map(age => poseFrame(1000 + age, 1000, 60, speed, true))).toEqual([3, 3, 4, 4, 5, 5]);
     expect(poseFrame(1300, 1000, 3 * speed, speed, true)).toBe(2);

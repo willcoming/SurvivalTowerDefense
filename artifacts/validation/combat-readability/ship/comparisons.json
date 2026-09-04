@@ -1,0 +1,6152 @@
+{
+  "createdAt": "2026-09-04T16:43:20.217Z",
+  "contentVersion": "0.1.0-dev.3",
+  "policyVersion": "policy-v3",
+  "sourceRevision": "cbb21289eb5302b1d1bd49b3596f2a14a6a4697a",
+  "sourceDigest": "de5683f98995379c03677b3244043f0aa690e103e45bd3d597850fec13d43dd3",
+  "node": "v22.22.3",
+  "platform": "darwin",
+  "arch": "arm64",
+  "command": "npm run test:simulation",
+  "formal": true,
+  "comparisonPolicyVersion": "comparison-v4",
+  "comparisons": [
+    {
+      "comparisonId": "CMP01",
+      "seed": 101,
+      "buildId": "T01",
+      "baseline": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T01",
+        "seed": 101,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C01",
+            "C02",
+            "C04",
+            "C05",
+            "C06"
+          ],
+          "captainId": "C02",
+          "seed": 101,
+          "challengeId": null,
+          "preferredBranches": {
+            "C02": "A",
+            "C01": "A",
+            "C05": "A",
+            "C04": "B",
+            "C06": "A"
+          }
+        },
+        "mode": "immediate",
+        "initialSnapshotDigest": "3693c167caed2888ee1a3da393b9f0b13cabf097bebc60cf0639c33f131b0bba",
+        "spawnPlanDigest": "5554f4a79d0ba7cd3c42e3128f36b02b9bc5a1ed41bbc4ea677af390ad5d43ca",
+        "outcome": "victory",
+        "endTick": 13315,
+        "effectiveSeconds": 443.8333333333333,
+        "wallHp": 400,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 600,
+        "wallShieldAbsorbed": 0,
+        "choices": [
+          {
+            "tick": 642,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 1455,
+            "nodeId": "C01-A-1"
+          },
+          {
+            "tick": 2058,
+            "nodeId": "C04-B-1"
+          },
+          {
+            "tick": 2500,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 3263,
+            "nodeId": "C02-A-3"
+          },
+          {
+            "tick": 3893,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 4515,
+            "nodeId": "C01-A-2"
+          },
+          {
+            "tick": 4785,
+            "nodeId": "C01-A-3"
+          },
+          {
+            "tick": 5321,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 6092,
+            "nodeId": "C05-A-1"
+          },
+          {
+            "tick": 6767,
+            "nodeId": "C05-A-2"
+          },
+          {
+            "tick": 7169,
+            "nodeId": "C05-A-3"
+          },
+          {
+            "tick": 7731,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 8425,
+            "nodeId": "C04-B-2"
+          },
+          {
+            "tick": 9045,
+            "nodeId": "G02-2"
+          },
+          {
+            "tick": 9728,
+            "nodeId": "C06-A-1"
+          },
+          {
+            "tick": 10258,
+            "nodeId": "C06-A-2"
+          },
+          {
+            "tick": 11239,
+            "nodeId": "G06-1"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 0,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 1500,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 3000,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 4500,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 6000,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 7500,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 9000,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 10500,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 12000,
+            "reason": "baseline: ready and a live target"
+          }
+        ],
+        "evolvedRoutes": [
+          "C01-A",
+          "C02-A",
+          "C05-A"
+        ],
+        "completedCoreRoutes": [
+          "C02-A",
+          "C01-A",
+          "C05-A"
+        ],
+        "routeRanks": [
+          {
+            "id": "C01-A",
+            "rank": 3
+          },
+          {
+            "id": "C02-A",
+            "rank": 3
+          },
+          {
+            "id": "C04-B",
+            "rank": 2
+          },
+          {
+            "id": "C05-A",
+            "rank": 3
+          },
+          {
+            "id": "C06-A",
+            "rank": 2
+          }
+        ],
+        "commonRanks": {
+          "G01": 2,
+          "G02": 2,
+          "G06": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 2,
+        "characterDamage": {
+          "C01": 23759.28664187501,
+          "C02": 20560.36363812492,
+          "C03": 0,
+          "C04": 9942.019083750041,
+          "C05": 17032.13923187491,
+          "C06": 10794.391404374968
+        },
+        "wallDamageByEnemy": {
+          "B03": 600
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 4043,
+          "C03": 0,
+          "C04": 10407,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 0,
+            "seq": 1,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 642,
+            "seq": 2,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 642,
+            "seq": 3,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 1455,
+            "seq": 4,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C01-A-1"
+            }
+          },
+          {
+            "tick": 1500,
+            "seq": 5,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 2058,
+            "seq": 6,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C04-B-1"
+            }
+          },
+          {
+            "tick": 2500,
+            "seq": 7,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 2500,
+            "seq": 8,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 3000,
+            "seq": 9,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 3263,
+            "seq": 10,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C02-A-3"
+            }
+          },
+          {
+            "tick": 3263,
+            "seq": 11,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C02-A-3"
+            }
+          },
+          {
+            "tick": 3893,
+            "seq": 12,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 4500,
+            "seq": 13,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 4515,
+            "seq": 14,
+            "command": {
+              "type": "focus",
+              "characterId": "C01",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 4515,
+            "seq": 15,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C01-A-2"
+            }
+          },
+          {
+            "tick": 4785,
+            "seq": 16,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C01-A-3"
+            }
+          },
+          {
+            "tick": 4785,
+            "seq": 17,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C01-A-3"
+            }
+          },
+          {
+            "tick": 5321,
+            "seq": 18,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 6000,
+            "seq": 19,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 6092,
+            "seq": 20,
+            "command": {
+              "type": "focus",
+              "characterId": "C05",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 6092,
+            "seq": 21,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "C05-A-1"
+            }
+          },
+          {
+            "tick": 6767,
+            "seq": 22,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C05-A-2"
+            }
+          },
+          {
+            "tick": 7169,
+            "seq": 23,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C05-A-3"
+            }
+          },
+          {
+            "tick": 7169,
+            "seq": 24,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "C05-A-3"
+            }
+          },
+          {
+            "tick": 7500,
+            "seq": 25,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 7731,
+            "seq": 26,
+            "command": {
+              "type": "focus",
+              "characterId": "C04",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 7731,
+            "seq": 27,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 8425,
+            "seq": 28,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "C04-B-2"
+            }
+          },
+          {
+            "tick": 9000,
+            "seq": 29,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 9045,
+            "seq": 30,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 9728,
+            "seq": 31,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 9728,
+            "seq": 32,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C06-A-1"
+            }
+          },
+          {
+            "tick": 10258,
+            "seq": 33,
+            "command": {
+              "type": "reroll",
+              "offerId": 17
+            }
+          },
+          {
+            "tick": 10258,
+            "seq": 34,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "C06-A-2"
+            }
+          },
+          {
+            "tick": 10500,
+            "seq": 35,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 36,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 11239,
+            "seq": 37,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G06-1"
+            }
+          },
+          {
+            "tick": 12000,
+            "seq": 38,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "b4bba09a02eccb33f9852a414733eef41de5caa53cd9f5134cbab14477fc3c6f",
+        "finalSimulationSteps": 13315
+      },
+      "adjusted": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T01",
+        "seed": 101,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C01",
+            "C02",
+            "C04",
+            "C05",
+            "C06"
+          ],
+          "captainId": "C02",
+          "seed": 101,
+          "challengeId": null,
+          "preferredBranches": {
+            "C02": "A",
+            "C01": "A",
+            "C05": "A",
+            "C04": "B",
+            "C06": "A"
+          }
+        },
+        "mode": "timed",
+        "initialSnapshotDigest": "3693c167caed2888ee1a3da393b9f0b13cabf097bebc60cf0639c33f131b0bba",
+        "spawnPlanDigest": "5554f4a79d0ba7cd3c42e3128f36b02b9bc5a1ed41bbc4ea677af390ad5d43ca",
+        "outcome": "victory",
+        "endTick": 13356,
+        "effectiveSeconds": 445.2,
+        "wallHp": 640,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 360,
+        "wallShieldAbsorbed": 0,
+        "choices": [
+          {
+            "tick": 636,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 1386,
+            "nodeId": "C01-A-1"
+          },
+          {
+            "tick": 2085,
+            "nodeId": "C04-B-1"
+          },
+          {
+            "tick": 2445,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 3255,
+            "nodeId": "C02-A-3"
+          },
+          {
+            "tick": 3886,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 4498,
+            "nodeId": "C01-A-2"
+          },
+          {
+            "tick": 4830,
+            "nodeId": "C01-A-3"
+          },
+          {
+            "tick": 5326,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 6114,
+            "nodeId": "C05-A-1"
+          },
+          {
+            "tick": 6767,
+            "nodeId": "C05-A-2"
+          },
+          {
+            "tick": 7163,
+            "nodeId": "C05-A-3"
+          },
+          {
+            "tick": 7716,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 8425,
+            "nodeId": "C04-B-2"
+          },
+          {
+            "tick": 9065,
+            "nodeId": "G02-2"
+          },
+          {
+            "tick": 9770,
+            "nodeId": "C06-A-1"
+          },
+          {
+            "tick": 10236,
+            "nodeId": "C06-A-2"
+          },
+          {
+            "tick": 11239,
+            "nodeId": "G06-1"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 750,
+            "reason": "eight visible enemies before boss"
+          },
+          {
+            "tick": 2250,
+            "reason": "eight visible enemies before boss"
+          },
+          {
+            "tick": 3750,
+            "reason": "eight visible enemies before boss"
+          },
+          {
+            "tick": 5550,
+            "reason": "eight visible enemies before boss"
+          },
+          {
+            "tick": 7050,
+            "reason": "eight visible enemies before boss"
+          },
+          {
+            "tick": 8550,
+            "reason": "eight visible enemies before boss"
+          },
+          {
+            "tick": 10050,
+            "reason": "eight visible enemies before boss"
+          },
+          {
+            "tick": 11565,
+            "reason": "boss charge within 0.5s"
+          },
+          {
+            "tick": 13185,
+            "reason": "boss charge within 0.5s"
+          }
+        ],
+        "evolvedRoutes": [
+          "C01-A",
+          "C02-A",
+          "C05-A"
+        ],
+        "completedCoreRoutes": [
+          "C02-A",
+          "C01-A",
+          "C05-A"
+        ],
+        "routeRanks": [
+          {
+            "id": "C01-A",
+            "rank": 3
+          },
+          {
+            "id": "C02-A",
+            "rank": 3
+          },
+          {
+            "id": "C04-B",
+            "rank": 2
+          },
+          {
+            "id": "C05-A",
+            "rank": 3
+          },
+          {
+            "id": "C06-A",
+            "rank": 2
+          }
+        ],
+        "commonRanks": {
+          "G01": 2,
+          "G02": 2,
+          "G06": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 2,
+        "characterDamage": {
+          "C01": 23695.73480749997,
+          "C02": 19680.665743749923,
+          "C03": 0,
+          "C04": 9750.466379375051,
+          "C05": 18062.71813124992,
+          "C06": 10915.414938124966
+        },
+        "wallDamageByEnemy": {
+          "B03": 360
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 3584,
+          "C03": 0,
+          "C04": 10475,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 636,
+            "seq": 1,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 636,
+            "seq": 2,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 750,
+            "seq": 3,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 1386,
+            "seq": 4,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C01-A-1"
+            }
+          },
+          {
+            "tick": 2085,
+            "seq": 5,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C04-B-1"
+            }
+          },
+          {
+            "tick": 2250,
+            "seq": 6,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 2445,
+            "seq": 7,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 2445,
+            "seq": 8,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 3255,
+            "seq": 9,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C02-A-3"
+            }
+          },
+          {
+            "tick": 3255,
+            "seq": 10,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C02-A-3"
+            }
+          },
+          {
+            "tick": 3750,
+            "seq": 11,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 3886,
+            "seq": 12,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 4498,
+            "seq": 13,
+            "command": {
+              "type": "focus",
+              "characterId": "C01",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 4498,
+            "seq": 14,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C01-A-2"
+            }
+          },
+          {
+            "tick": 4830,
+            "seq": 15,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C01-A-3"
+            }
+          },
+          {
+            "tick": 4830,
+            "seq": 16,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C01-A-3"
+            }
+          },
+          {
+            "tick": 5326,
+            "seq": 17,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 5550,
+            "seq": 18,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 6114,
+            "seq": 19,
+            "command": {
+              "type": "focus",
+              "characterId": "C05",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 6114,
+            "seq": 20,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "C05-A-1"
+            }
+          },
+          {
+            "tick": 6767,
+            "seq": 21,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C05-A-2"
+            }
+          },
+          {
+            "tick": 7050,
+            "seq": 22,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 7163,
+            "seq": 23,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C05-A-3"
+            }
+          },
+          {
+            "tick": 7163,
+            "seq": 24,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "C05-A-3"
+            }
+          },
+          {
+            "tick": 7716,
+            "seq": 25,
+            "command": {
+              "type": "focus",
+              "characterId": "C04",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 7716,
+            "seq": 26,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 8425,
+            "seq": 27,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "C04-B-2"
+            }
+          },
+          {
+            "tick": 8550,
+            "seq": 28,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 9065,
+            "seq": 29,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 9770,
+            "seq": 30,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 9770,
+            "seq": 31,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C06-A-1"
+            }
+          },
+          {
+            "tick": 10050,
+            "seq": 32,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 10236,
+            "seq": 33,
+            "command": {
+              "type": "reroll",
+              "offerId": 17
+            }
+          },
+          {
+            "tick": 10236,
+            "seq": 34,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "C06-A-2"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 35,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 11239,
+            "seq": 36,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G06-1"
+            }
+          },
+          {
+            "tick": 11565,
+            "seq": 37,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 13185,
+            "seq": 38,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "1651fc61617914e248c2b0bcaa912691edd01c82beed2113559ec8633ed9ca61",
+        "finalSimulationSteps": 13356
+      },
+      "identicalInitialState": true,
+      "identicalSpawnPlan": true,
+      "improvement": 0.4,
+      "winImprovement": false,
+      "passed": true
+    },
+    {
+      "comparisonId": "CMP02",
+      "seed": 211,
+      "buildId": "T02",
+      "baseline": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T02",
+        "seed": 211,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C01",
+            "C02",
+            "C03",
+            "C04",
+            "C06"
+          ],
+          "captainId": "C03",
+          "seed": 211,
+          "challengeId": null,
+          "preferredBranches": {
+            "C03": "B",
+            "C01": "B",
+            "C06": "A",
+            "C02": "A",
+            "C04": "B"
+          }
+        },
+        "mode": "immediate",
+        "initialSnapshotDigest": "6d4d7171683eac067739101a8f945e1ff5fb6b9877d743bf2d0b237380e484e7",
+        "spawnPlanDigest": "a3ea7b7e818e26f00626bf380b577516fa6d53672bb3743466813cfd165445c3",
+        "outcome": "victory",
+        "endTick": 12407,
+        "effectiveSeconds": 413.56666666666666,
+        "wallHp": 640,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 360,
+        "wallShieldAbsorbed": 0,
+        "choices": [
+          {
+            "tick": 662,
+            "nodeId": "C03-B-1"
+          },
+          {
+            "tick": 1264,
+            "nodeId": "C01-B-1"
+          },
+          {
+            "tick": 1840,
+            "nodeId": "C03-B-2"
+          },
+          {
+            "tick": 2350,
+            "nodeId": "C01-B-2"
+          },
+          {
+            "tick": 3302,
+            "nodeId": "C03-B-3"
+          },
+          {
+            "tick": 3923,
+            "nodeId": "C01-B-3"
+          },
+          {
+            "tick": 4382,
+            "nodeId": "C06-A-1"
+          },
+          {
+            "tick": 4658,
+            "nodeId": "C06-A-2"
+          },
+          {
+            "tick": 5313,
+            "nodeId": "C06-A-3"
+          },
+          {
+            "tick": 6166,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 6693,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 7164,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 7738,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 8431,
+            "nodeId": "G02-2"
+          },
+          {
+            "tick": 9039,
+            "nodeId": "C04-B-1"
+          },
+          {
+            "tick": 9667,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 10196,
+            "nodeId": "C04-B-2"
+          },
+          {
+            "tick": 11269,
+            "nodeId": "G04-1"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 0,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 1350,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 2700,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 4050,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 5400,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 6750,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 8100,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 9450,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 10800,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 12098,
+            "reason": "baseline: ready and a live target"
+          }
+        ],
+        "evolvedRoutes": [
+          "C01-B",
+          "C03-B",
+          "C06-A"
+        ],
+        "completedCoreRoutes": [
+          "C03-B",
+          "C01-B",
+          "C06-A"
+        ],
+        "routeRanks": [
+          {
+            "id": "C01-B",
+            "rank": 3
+          },
+          {
+            "id": "C02-A",
+            "rank": 2
+          },
+          {
+            "id": "C03-B",
+            "rank": 3
+          },
+          {
+            "id": "C04-B",
+            "rank": 2
+          },
+          {
+            "id": "C06-A",
+            "rank": 3
+          }
+        ],
+        "commonRanks": {
+          "G01": 2,
+          "G02": 2,
+          "G04": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 2,
+        "characterDamage": {
+          "C01": 26480.953131999933,
+          "C02": 8717.110979999983,
+          "C03": 23392.092384000018,
+          "C04": 8675.871179999993,
+          "C05": 0,
+          "C06": 14466.732323999957
+        },
+        "wallDamageByEnemy": {
+          "B03": 360
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 0,
+          "C04": 8321,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 0,
+            "seq": 1,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 662,
+            "seq": 2,
+            "command": {
+              "type": "focus",
+              "characterId": "C03",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 662,
+            "seq": 3,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C03-B-1"
+            }
+          },
+          {
+            "tick": 1264,
+            "seq": 4,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C01-B-1"
+            }
+          },
+          {
+            "tick": 1350,
+            "seq": 5,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 1840,
+            "seq": 6,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C03-B-2"
+            }
+          },
+          {
+            "tick": 2350,
+            "seq": 7,
+            "command": {
+              "type": "focus",
+              "characterId": "C01",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 2350,
+            "seq": 8,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C01-B-2"
+            }
+          },
+          {
+            "tick": 2700,
+            "seq": 9,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 3302,
+            "seq": 10,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3302,
+            "seq": 11,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3923,
+            "seq": 12,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 3923,
+            "seq": 13,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 4050,
+            "seq": 14,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 15,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 16,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C06-A-1"
+            }
+          },
+          {
+            "tick": 4658,
+            "seq": 17,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C06-A-2"
+            }
+          },
+          {
+            "tick": 5313,
+            "seq": 18,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 5313,
+            "seq": 19,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 5400,
+            "seq": 20,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 6166,
+            "seq": 21,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 6166,
+            "seq": 22,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 6693,
+            "seq": 23,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 6750,
+            "seq": 24,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 7164,
+            "seq": 25,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 7738,
+            "seq": 26,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 7738,
+            "seq": 27,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 8100,
+            "seq": 28,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 8431,
+            "seq": 29,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 9039,
+            "seq": 30,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "C04-B-1"
+            }
+          },
+          {
+            "tick": 9450,
+            "seq": 31,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 9667,
+            "seq": 32,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 9667,
+            "seq": 33,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 10196,
+            "seq": 34,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "C04-B-2"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 35,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 36,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 11269,
+            "seq": 37,
+            "command": {
+              "type": "reroll",
+              "offerId": 18
+            }
+          },
+          {
+            "tick": 11269,
+            "seq": 38,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G04-1"
+            }
+          },
+          {
+            "tick": 12098,
+            "seq": 39,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "324c55d642d1d444695691b79337f5dfa34874c82590d3f4d9ba6355e0fb7bd4",
+        "finalSimulationSteps": 12407
+      },
+      "adjusted": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T02",
+        "seed": 211,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C01",
+            "C02",
+            "C03",
+            "C04",
+            "C06"
+          ],
+          "captainId": "C03",
+          "seed": 211,
+          "challengeId": null,
+          "preferredBranches": {
+            "C03": "B",
+            "C01": "B",
+            "C06": "A",
+            "C02": "A",
+            "C04": "B"
+          }
+        },
+        "mode": "timed",
+        "initialSnapshotDigest": "6d4d7171683eac067739101a8f945e1ff5fb6b9877d743bf2d0b237380e484e7",
+        "spawnPlanDigest": "a3ea7b7e818e26f00626bf380b577516fa6d53672bb3743466813cfd165445c3",
+        "outcome": "victory",
+        "endTick": 12451,
+        "effectiveSeconds": 415.03333333333336,
+        "wallHp": 640,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 360,
+        "wallShieldAbsorbed": 0,
+        "choices": [
+          {
+            "tick": 689,
+            "nodeId": "C03-B-1"
+          },
+          {
+            "tick": 1274,
+            "nodeId": "C01-B-1"
+          },
+          {
+            "tick": 1874,
+            "nodeId": "C03-B-2"
+          },
+          {
+            "tick": 2369,
+            "nodeId": "C01-B-2"
+          },
+          {
+            "tick": 3329,
+            "nodeId": "C03-B-3"
+          },
+          {
+            "tick": 3910,
+            "nodeId": "C01-B-3"
+          },
+          {
+            "tick": 4382,
+            "nodeId": "C06-A-1"
+          },
+          {
+            "tick": 4691,
+            "nodeId": "C06-A-2"
+          },
+          {
+            "tick": 5293,
+            "nodeId": "C06-A-3"
+          },
+          {
+            "tick": 6229,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 6796,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 7182,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 7740,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 8475,
+            "nodeId": "G02-2"
+          },
+          {
+            "tick": 9109,
+            "nodeId": "C04-B-1"
+          },
+          {
+            "tick": 9715,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 10225,
+            "nodeId": "C04-B-2"
+          },
+          {
+            "tick": 11260,
+            "nodeId": "G04-1"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 10263,
+            "reason": "armored or elite threat in lower battlefield"
+          },
+          {
+            "tick": 11592,
+            "reason": "boss exposure window"
+          }
+        ],
+        "evolvedRoutes": [
+          "C01-B",
+          "C03-B",
+          "C06-A"
+        ],
+        "completedCoreRoutes": [
+          "C03-B",
+          "C01-B",
+          "C06-A"
+        ],
+        "routeRanks": [
+          {
+            "id": "C01-B",
+            "rank": 3
+          },
+          {
+            "id": "C02-A",
+            "rank": 2
+          },
+          {
+            "id": "C03-B",
+            "rank": 3
+          },
+          {
+            "id": "C04-B",
+            "rank": 2
+          },
+          {
+            "id": "C06-A",
+            "rank": 3
+          }
+        ],
+        "commonRanks": {
+          "G01": 2,
+          "G02": 2,
+          "G04": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 2,
+        "characterDamage": {
+          "C01": 26514.249193999935,
+          "C02": 10022.376776000026,
+          "C03": 20890.73303000001,
+          "C04": 10050.661627999987,
+          "C05": 0,
+          "C06": 14168.339372000015
+        },
+        "wallDamageByEnemy": {
+          "B03": 360
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 0,
+          "C04": 9813,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 689,
+            "seq": 1,
+            "command": {
+              "type": "focus",
+              "characterId": "C03",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 689,
+            "seq": 2,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C03-B-1"
+            }
+          },
+          {
+            "tick": 1274,
+            "seq": 3,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C01-B-1"
+            }
+          },
+          {
+            "tick": 1874,
+            "seq": 4,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C03-B-2"
+            }
+          },
+          {
+            "tick": 2369,
+            "seq": 5,
+            "command": {
+              "type": "focus",
+              "characterId": "C01",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 2369,
+            "seq": 6,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C01-B-2"
+            }
+          },
+          {
+            "tick": 3329,
+            "seq": 7,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3329,
+            "seq": 8,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3910,
+            "seq": 9,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 3910,
+            "seq": 10,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 11,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 12,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C06-A-1"
+            }
+          },
+          {
+            "tick": 4691,
+            "seq": 13,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C06-A-2"
+            }
+          },
+          {
+            "tick": 5293,
+            "seq": 14,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 5293,
+            "seq": 15,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 6229,
+            "seq": 16,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 6229,
+            "seq": 17,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 6796,
+            "seq": 18,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 7182,
+            "seq": 19,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 7740,
+            "seq": 20,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 7740,
+            "seq": 21,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 8475,
+            "seq": 22,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 9109,
+            "seq": 23,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "C04-B-1"
+            }
+          },
+          {
+            "tick": 9715,
+            "seq": 24,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 9715,
+            "seq": 25,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 10225,
+            "seq": 26,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "C04-B-2"
+            }
+          },
+          {
+            "tick": 10263,
+            "seq": 27,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 28,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 11260,
+            "seq": 29,
+            "command": {
+              "type": "reroll",
+              "offerId": 18
+            }
+          },
+          {
+            "tick": 11260,
+            "seq": 30,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G04-1"
+            }
+          },
+          {
+            "tick": 11592,
+            "seq": 31,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "37983f940a6c4ab71b6b7a9df29bd3fd16fa68fedb5c35842520d7ddb089c63a",
+        "finalSimulationSteps": 12451
+      },
+      "identicalInitialState": true,
+      "identicalSpawnPlan": true,
+      "improvement": 0,
+      "winImprovement": false,
+      "passed": false
+    },
+    {
+      "comparisonId": "CMP03",
+      "seed": 307,
+      "buildId": "T03",
+      "baseline": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T03",
+        "seed": 307,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C02",
+            "C03",
+            "C04",
+            "C05",
+            "C06"
+          ],
+          "captainId": "C04",
+          "seed": 307,
+          "challengeId": null,
+          "preferredBranches": {
+            "C04": "A",
+            "C05": "A",
+            "C06": "B",
+            "C02": "A",
+            "C03": "B"
+          }
+        },
+        "mode": "immediate",
+        "initialSnapshotDigest": "8491c1f641270ba95efdc01943fae90238e438b81142e62bc19b684cf6311af1",
+        "spawnPlanDigest": "5b612f9a6aba3be00d921479d30508209824c11e46fedb780668799cb9caff57",
+        "outcome": "victory",
+        "endTick": 13916,
+        "effectiveSeconds": 463.8666666666667,
+        "wallHp": 480,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 520,
+        "wallShieldAbsorbed": 200,
+        "choices": [
+          {
+            "tick": 806,
+            "nodeId": "C04-A-1"
+          },
+          {
+            "tick": 1244,
+            "nodeId": "C04-A-2"
+          },
+          {
+            "tick": 1860,
+            "nodeId": "C04-A-3"
+          },
+          {
+            "tick": 2269,
+            "nodeId": "C05-A-1"
+          },
+          {
+            "tick": 3255,
+            "nodeId": "C06-B-1"
+          },
+          {
+            "tick": 3835,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 4470,
+            "nodeId": "C05-A-2"
+          },
+          {
+            "tick": 4847,
+            "nodeId": "C05-A-3"
+          },
+          {
+            "tick": 5238,
+            "nodeId": "C03-B-1"
+          },
+          {
+            "tick": 6102,
+            "nodeId": "C06-B-2"
+          },
+          {
+            "tick": 6788,
+            "nodeId": "C06-B-3"
+          },
+          {
+            "tick": 7418,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 7894,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 8532,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 9363,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 9897,
+            "nodeId": "C03-B-2"
+          },
+          {
+            "tick": 10449,
+            "nodeId": "G06-1"
+          },
+          {
+            "tick": 11840,
+            "nodeId": "G02-2"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 0,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 1500,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 3000,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 4500,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 6000,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 7500,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 9000,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 10500,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 12000,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 13500,
+            "reason": "baseline: ready and a live target"
+          }
+        ],
+        "evolvedRoutes": [
+          "C04-A",
+          "C05-A",
+          "C06-B"
+        ],
+        "completedCoreRoutes": [
+          "C04-A",
+          "C05-A",
+          "C06-B"
+        ],
+        "routeRanks": [
+          {
+            "id": "C02-A",
+            "rank": 2
+          },
+          {
+            "id": "C03-B",
+            "rank": 2
+          },
+          {
+            "id": "C04-A",
+            "rank": 3
+          },
+          {
+            "id": "C05-A",
+            "rank": 3
+          },
+          {
+            "id": "C06-B",
+            "rank": 3
+          }
+        ],
+        "commonRanks": {
+          "G01": 2,
+          "G02": 2,
+          "G06": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 3,
+        "characterDamage": {
+          "C01": 0,
+          "C02": 11825.503353000067,
+          "C03": 20077.105029999933,
+          "C04": 8299.730876000081,
+          "C05": 27380.695944999752,
+          "C06": 15673.364796000005
+        },
+        "wallDamageByEnemy": {
+          "B03": 520
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 0,
+          "C04": 43909,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 0,
+            "seq": 1,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 806,
+            "seq": 2,
+            "command": {
+              "type": "focus",
+              "characterId": "C04",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 806,
+            "seq": 3,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C04-A-1"
+            }
+          },
+          {
+            "tick": 1244,
+            "seq": 4,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C04-A-2"
+            }
+          },
+          {
+            "tick": 1500,
+            "seq": 5,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 1860,
+            "seq": 6,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C04-A-3"
+            }
+          },
+          {
+            "tick": 1860,
+            "seq": 7,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C04-A-3"
+            }
+          },
+          {
+            "tick": 2269,
+            "seq": 8,
+            "command": {
+              "type": "focus",
+              "characterId": "C05",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 2269,
+            "seq": 9,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C05-A-1"
+            }
+          },
+          {
+            "tick": 3000,
+            "seq": 10,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 3255,
+            "seq": 11,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C06-B-1"
+            }
+          },
+          {
+            "tick": 3835,
+            "seq": 12,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 4470,
+            "seq": 13,
+            "command": {
+              "type": "focus",
+              "characterId": "C05",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 4470,
+            "seq": 14,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C05-A-2"
+            }
+          },
+          {
+            "tick": 4500,
+            "seq": 15,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 4847,
+            "seq": 16,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C05-A-3"
+            }
+          },
+          {
+            "tick": 4847,
+            "seq": 17,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C05-A-3"
+            }
+          },
+          {
+            "tick": 5238,
+            "seq": 18,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "C03-B-1"
+            }
+          },
+          {
+            "tick": 6000,
+            "seq": 19,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 6102,
+            "seq": 20,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 6102,
+            "seq": 21,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "C06-B-2"
+            }
+          },
+          {
+            "tick": 6788,
+            "seq": 22,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C06-B-3"
+            }
+          },
+          {
+            "tick": 6788,
+            "seq": 23,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C06-B-3"
+            }
+          },
+          {
+            "tick": 7418,
+            "seq": 24,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 7500,
+            "seq": 25,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 7894,
+            "seq": 26,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 7894,
+            "seq": 27,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 8532,
+            "seq": 28,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 9000,
+            "seq": 29,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 9363,
+            "seq": 30,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 9897,
+            "seq": 31,
+            "command": {
+              "type": "focus",
+              "characterId": "C03",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 9897,
+            "seq": 32,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C03-B-2"
+            }
+          },
+          {
+            "tick": 10449,
+            "seq": 33,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "G06-1"
+            }
+          },
+          {
+            "tick": 10500,
+            "seq": 34,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 35,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 11840,
+            "seq": 36,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 12000,
+            "seq": 37,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 13500,
+            "seq": 38,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "8b7829af54e0fd900ed7d37586699d81dccd46656b0fd79d5004997d09349481",
+        "finalSimulationSteps": 13916
+      },
+      "adjusted": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T03",
+        "seed": 307,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C02",
+            "C03",
+            "C04",
+            "C05",
+            "C06"
+          ],
+          "captainId": "C04",
+          "seed": 307,
+          "challengeId": null,
+          "preferredBranches": {
+            "C04": "A",
+            "C05": "A",
+            "C06": "B",
+            "C02": "A",
+            "C03": "B"
+          }
+        },
+        "mode": "timed",
+        "initialSnapshotDigest": "8491c1f641270ba95efdc01943fae90238e438b81142e62bc19b684cf6311af1",
+        "spawnPlanDigest": "5b612f9a6aba3be00d921479d30508209824c11e46fedb780668799cb9caff57",
+        "outcome": "victory",
+        "endTick": 13534,
+        "effectiveSeconds": 451.1333333333333,
+        "wallHp": 720,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 280,
+        "wallShieldAbsorbed": 200,
+        "choices": [
+          {
+            "tick": 779,
+            "nodeId": "C04-A-1"
+          },
+          {
+            "tick": 1230,
+            "nodeId": "C04-A-2"
+          },
+          {
+            "tick": 1837,
+            "nodeId": "C04-A-3"
+          },
+          {
+            "tick": 2293,
+            "nodeId": "C05-A-1"
+          },
+          {
+            "tick": 3206,
+            "nodeId": "C06-B-1"
+          },
+          {
+            "tick": 3835,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 4646,
+            "nodeId": "C05-A-2"
+          },
+          {
+            "tick": 5010,
+            "nodeId": "C05-A-3"
+          },
+          {
+            "tick": 5396,
+            "nodeId": "C03-B-1"
+          },
+          {
+            "tick": 6136,
+            "nodeId": "C06-B-2"
+          },
+          {
+            "tick": 6892,
+            "nodeId": "C06-B-3"
+          },
+          {
+            "tick": 7567,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 7970,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 8586,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 9298,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 9945,
+            "nodeId": "C03-B-2"
+          },
+          {
+            "tick": 10423,
+            "nodeId": "G06-1"
+          },
+          {
+            "tick": 11749,
+            "nodeId": "G02-2"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 4246,
+            "reason": "crowd advancing into lower battlefield"
+          },
+          {
+            "tick": 7060,
+            "reason": "crowd advancing into lower battlefield"
+          },
+          {
+            "tick": 9538,
+            "reason": "crowd advancing into lower battlefield"
+          },
+          {
+            "tick": 11038,
+            "reason": "boss charge within 0.5s"
+          },
+          {
+            "tick": 12645,
+            "reason": "boss charge within 0.5s"
+          }
+        ],
+        "evolvedRoutes": [
+          "C04-A",
+          "C05-A",
+          "C06-B"
+        ],
+        "completedCoreRoutes": [
+          "C04-A",
+          "C05-A",
+          "C06-B"
+        ],
+        "routeRanks": [
+          {
+            "id": "C02-A",
+            "rank": 2
+          },
+          {
+            "id": "C03-B",
+            "rank": 2
+          },
+          {
+            "id": "C04-A",
+            "rank": 3
+          },
+          {
+            "id": "C05-A",
+            "rank": 3
+          },
+          {
+            "id": "C06-B",
+            "rank": 3
+          }
+        ],
+        "commonRanks": {
+          "G01": 2,
+          "G02": 2,
+          "G06": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 3,
+        "characterDamage": {
+          "C01": 0,
+          "C02": 13182.7069000001,
+          "C03": 19225.092073999956,
+          "C04": 9132.203710000122,
+          "C05": 25632.831719999824,
+          "C06": 14913.565596000022
+        },
+        "wallDamageByEnemy": {
+          "B03": 280
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 0,
+          "C04": 37070,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 779,
+            "seq": 1,
+            "command": {
+              "type": "focus",
+              "characterId": "C04",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 779,
+            "seq": 2,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C04-A-1"
+            }
+          },
+          {
+            "tick": 1230,
+            "seq": 3,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C04-A-2"
+            }
+          },
+          {
+            "tick": 1837,
+            "seq": 4,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C04-A-3"
+            }
+          },
+          {
+            "tick": 1837,
+            "seq": 5,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C04-A-3"
+            }
+          },
+          {
+            "tick": 2293,
+            "seq": 6,
+            "command": {
+              "type": "focus",
+              "characterId": "C05",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 2293,
+            "seq": 7,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C05-A-1"
+            }
+          },
+          {
+            "tick": 3206,
+            "seq": 8,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C06-B-1"
+            }
+          },
+          {
+            "tick": 3835,
+            "seq": 9,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 4246,
+            "seq": 10,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 4646,
+            "seq": 11,
+            "command": {
+              "type": "focus",
+              "characterId": "C05",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 4646,
+            "seq": 12,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C05-A-2"
+            }
+          },
+          {
+            "tick": 5010,
+            "seq": 13,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C05-A-3"
+            }
+          },
+          {
+            "tick": 5010,
+            "seq": 14,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C05-A-3"
+            }
+          },
+          {
+            "tick": 5396,
+            "seq": 15,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "C03-B-1"
+            }
+          },
+          {
+            "tick": 6136,
+            "seq": 16,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 6136,
+            "seq": 17,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "C06-B-2"
+            }
+          },
+          {
+            "tick": 6892,
+            "seq": 18,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C06-B-3"
+            }
+          },
+          {
+            "tick": 6892,
+            "seq": 19,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C06-B-3"
+            }
+          },
+          {
+            "tick": 7060,
+            "seq": 20,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 7567,
+            "seq": 21,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 7970,
+            "seq": 22,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 7970,
+            "seq": 23,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 8586,
+            "seq": 24,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 9298,
+            "seq": 25,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 9538,
+            "seq": 26,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 9945,
+            "seq": 27,
+            "command": {
+              "type": "focus",
+              "characterId": "C03",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 9945,
+            "seq": 28,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C03-B-2"
+            }
+          },
+          {
+            "tick": 10423,
+            "seq": 29,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "G06-1"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 30,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 11038,
+            "seq": 31,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 11749,
+            "seq": 32,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 12645,
+            "seq": 33,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "43792cf271c49278fa5c8f9a6b9847d791763216bdd3acd51651344c77668fe8",
+        "finalSimulationSteps": 13534
+      },
+      "identicalInitialState": true,
+      "identicalSpawnPlan": true,
+      "improvement": 0.46153846153846156,
+      "winImprovement": false,
+      "passed": true
+    },
+    {
+      "comparisonId": "CMP04",
+      "seed": 211,
+      "buildId": "T02",
+      "baseline": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T02",
+        "seed": 211,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C01",
+            "C02",
+            "C03",
+            "C04",
+            "C06"
+          ],
+          "captainId": "C03",
+          "seed": 211,
+          "challengeId": null,
+          "preferredBranches": {
+            "C03": "A",
+            "C01": "B",
+            "C06": "A",
+            "C02": "A",
+            "C04": "B"
+          }
+        },
+        "mode": "timed",
+        "initialSnapshotDigest": "6d4d7171683eac067739101a8f945e1ff5fb6b9877d743bf2d0b237380e484e7",
+        "spawnPlanDigest": "a3ea7b7e818e26f00626bf380b577516fa6d53672bb3743466813cfd165445c3",
+        "outcome": "victory",
+        "endTick": 12564,
+        "effectiveSeconds": 418.8,
+        "wallHp": 640,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 360,
+        "wallShieldAbsorbed": 0,
+        "choices": [
+          {
+            "tick": 689,
+            "nodeId": "C03-A-1"
+          },
+          {
+            "tick": 1273,
+            "nodeId": "C01-B-1"
+          },
+          {
+            "tick": 1852,
+            "nodeId": "C03-A-2"
+          },
+          {
+            "tick": 2345,
+            "nodeId": "C01-B-2"
+          },
+          {
+            "tick": 3311,
+            "nodeId": "C03-A-3"
+          },
+          {
+            "tick": 3848,
+            "nodeId": "C01-B-3"
+          },
+          {
+            "tick": 4328,
+            "nodeId": "C06-A-1"
+          },
+          {
+            "tick": 4730,
+            "nodeId": "C06-A-2"
+          },
+          {
+            "tick": 5269,
+            "nodeId": "C06-A-3"
+          },
+          {
+            "tick": 6272,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 6821,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 7212,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 7742,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 8499,
+            "nodeId": "G02-2"
+          },
+          {
+            "tick": 8995,
+            "nodeId": "C04-B-1"
+          },
+          {
+            "tick": 9723,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 10209,
+            "nodeId": "C04-B-2"
+          },
+          {
+            "tick": 11282,
+            "nodeId": "G04-1"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 4808,
+            "reason": "armored or elite threat in lower battlefield"
+          },
+          {
+            "tick": 6559,
+            "reason": "armored or elite threat in lower battlefield"
+          },
+          {
+            "tick": 10255,
+            "reason": "armored or elite threat in lower battlefield"
+          },
+          {
+            "tick": 11586,
+            "reason": "boss exposure window"
+          }
+        ],
+        "evolvedRoutes": [
+          "C01-B",
+          "C03-A",
+          "C06-A"
+        ],
+        "completedCoreRoutes": [
+          "C03-A",
+          "C01-B",
+          "C06-A"
+        ],
+        "routeRanks": [
+          {
+            "id": "C01-B",
+            "rank": 3
+          },
+          {
+            "id": "C02-A",
+            "rank": 2
+          },
+          {
+            "id": "C03-A",
+            "rank": 3
+          },
+          {
+            "id": "C04-B",
+            "rank": 2
+          },
+          {
+            "id": "C06-A",
+            "rank": 3
+          }
+        ],
+        "commonRanks": {
+          "G01": 2,
+          "G02": 2,
+          "G04": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 2,
+        "characterDamage": {
+          "C01": 24321.945247999956,
+          "C02": 9937.77534000002,
+          "C03": 24059.58920800002,
+          "C04": 9344.661901999996,
+          "C05": 0,
+          "C06": 14049.828301999984
+        },
+        "wallDamageByEnemy": {
+          "B03": 360
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 0,
+          "C04": 9475,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 689,
+            "seq": 1,
+            "command": {
+              "type": "focus",
+              "characterId": "C03",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 689,
+            "seq": 2,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C03-A-1"
+            }
+          },
+          {
+            "tick": 1273,
+            "seq": 3,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C01-B-1"
+            }
+          },
+          {
+            "tick": 1852,
+            "seq": 4,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C03-A-2"
+            }
+          },
+          {
+            "tick": 2345,
+            "seq": 5,
+            "command": {
+              "type": "focus",
+              "characterId": "C01",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 2345,
+            "seq": 6,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C01-B-2"
+            }
+          },
+          {
+            "tick": 3311,
+            "seq": 7,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C03-A-3"
+            }
+          },
+          {
+            "tick": 3311,
+            "seq": 8,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C03-A-3"
+            }
+          },
+          {
+            "tick": 3848,
+            "seq": 9,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 3848,
+            "seq": 10,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 4328,
+            "seq": 11,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 4328,
+            "seq": 12,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C06-A-1"
+            }
+          },
+          {
+            "tick": 4730,
+            "seq": 13,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C06-A-2"
+            }
+          },
+          {
+            "tick": 4808,
+            "seq": 14,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 5269,
+            "seq": 15,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 5269,
+            "seq": 16,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 6272,
+            "seq": 17,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 6272,
+            "seq": 18,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 6559,
+            "seq": 19,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 6821,
+            "seq": 20,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 7212,
+            "seq": 21,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 7742,
+            "seq": 22,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 7742,
+            "seq": 23,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 8499,
+            "seq": 24,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 8995,
+            "seq": 25,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "C04-B-1"
+            }
+          },
+          {
+            "tick": 9723,
+            "seq": 26,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 9723,
+            "seq": 27,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 10209,
+            "seq": 28,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "C04-B-2"
+            }
+          },
+          {
+            "tick": 10255,
+            "seq": 29,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 30,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 11282,
+            "seq": 31,
+            "command": {
+              "type": "reroll",
+              "offerId": 18
+            }
+          },
+          {
+            "tick": 11282,
+            "seq": 32,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G04-1"
+            }
+          },
+          {
+            "tick": 11586,
+            "seq": 33,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "b5975534b2d5edd8e7883c46eeef58112c838cc8be4fea7705ee6feebdacbae4",
+        "finalSimulationSteps": 12564
+      },
+      "adjusted": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T02",
+        "seed": 211,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C01",
+            "C02",
+            "C03",
+            "C04",
+            "C06"
+          ],
+          "captainId": "C03",
+          "seed": 211,
+          "challengeId": null,
+          "preferredBranches": {
+            "C03": "B",
+            "C01": "B",
+            "C06": "A",
+            "C02": "A",
+            "C04": "B"
+          }
+        },
+        "mode": "timed",
+        "initialSnapshotDigest": "6d4d7171683eac067739101a8f945e1ff5fb6b9877d743bf2d0b237380e484e7",
+        "spawnPlanDigest": "a3ea7b7e818e26f00626bf380b577516fa6d53672bb3743466813cfd165445c3",
+        "outcome": "victory",
+        "endTick": 12451,
+        "effectiveSeconds": 415.03333333333336,
+        "wallHp": 640,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 360,
+        "wallShieldAbsorbed": 0,
+        "choices": [
+          {
+            "tick": 689,
+            "nodeId": "C03-B-1"
+          },
+          {
+            "tick": 1274,
+            "nodeId": "C01-B-1"
+          },
+          {
+            "tick": 1874,
+            "nodeId": "C03-B-2"
+          },
+          {
+            "tick": 2369,
+            "nodeId": "C01-B-2"
+          },
+          {
+            "tick": 3329,
+            "nodeId": "C03-B-3"
+          },
+          {
+            "tick": 3910,
+            "nodeId": "C01-B-3"
+          },
+          {
+            "tick": 4382,
+            "nodeId": "C06-A-1"
+          },
+          {
+            "tick": 4691,
+            "nodeId": "C06-A-2"
+          },
+          {
+            "tick": 5293,
+            "nodeId": "C06-A-3"
+          },
+          {
+            "tick": 6229,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 6796,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 7182,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 7740,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 8475,
+            "nodeId": "G02-2"
+          },
+          {
+            "tick": 9109,
+            "nodeId": "C04-B-1"
+          },
+          {
+            "tick": 9715,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 10225,
+            "nodeId": "C04-B-2"
+          },
+          {
+            "tick": 11260,
+            "nodeId": "G04-1"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 10263,
+            "reason": "armored or elite threat in lower battlefield"
+          },
+          {
+            "tick": 11592,
+            "reason": "boss exposure window"
+          }
+        ],
+        "evolvedRoutes": [
+          "C01-B",
+          "C03-B",
+          "C06-A"
+        ],
+        "completedCoreRoutes": [
+          "C03-B",
+          "C01-B",
+          "C06-A"
+        ],
+        "routeRanks": [
+          {
+            "id": "C01-B",
+            "rank": 3
+          },
+          {
+            "id": "C02-A",
+            "rank": 2
+          },
+          {
+            "id": "C03-B",
+            "rank": 3
+          },
+          {
+            "id": "C04-B",
+            "rank": 2
+          },
+          {
+            "id": "C06-A",
+            "rank": 3
+          }
+        ],
+        "commonRanks": {
+          "G01": 2,
+          "G02": 2,
+          "G04": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 2,
+        "characterDamage": {
+          "C01": 26514.249193999935,
+          "C02": 10022.376776000026,
+          "C03": 20890.73303000001,
+          "C04": 10050.661627999987,
+          "C05": 0,
+          "C06": 14168.339372000015
+        },
+        "wallDamageByEnemy": {
+          "B03": 360
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 0,
+          "C04": 9813,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 689,
+            "seq": 1,
+            "command": {
+              "type": "focus",
+              "characterId": "C03",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 689,
+            "seq": 2,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C03-B-1"
+            }
+          },
+          {
+            "tick": 1274,
+            "seq": 3,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C01-B-1"
+            }
+          },
+          {
+            "tick": 1874,
+            "seq": 4,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C03-B-2"
+            }
+          },
+          {
+            "tick": 2369,
+            "seq": 5,
+            "command": {
+              "type": "focus",
+              "characterId": "C01",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 2369,
+            "seq": 6,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C01-B-2"
+            }
+          },
+          {
+            "tick": 3329,
+            "seq": 7,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3329,
+            "seq": 8,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3910,
+            "seq": 9,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 3910,
+            "seq": 10,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 11,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 12,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C06-A-1"
+            }
+          },
+          {
+            "tick": 4691,
+            "seq": 13,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C06-A-2"
+            }
+          },
+          {
+            "tick": 5293,
+            "seq": 14,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 5293,
+            "seq": 15,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 6229,
+            "seq": 16,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 6229,
+            "seq": 17,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 6796,
+            "seq": 18,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 7182,
+            "seq": 19,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 7740,
+            "seq": 20,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 7740,
+            "seq": 21,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 8475,
+            "seq": 22,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 9109,
+            "seq": 23,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "C04-B-1"
+            }
+          },
+          {
+            "tick": 9715,
+            "seq": 24,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 9715,
+            "seq": 25,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 10225,
+            "seq": 26,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "C04-B-2"
+            }
+          },
+          {
+            "tick": 10263,
+            "seq": 27,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 28,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 11260,
+            "seq": 29,
+            "command": {
+              "type": "reroll",
+              "offerId": 18
+            }
+          },
+          {
+            "tick": 11260,
+            "seq": 30,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G04-1"
+            }
+          },
+          {
+            "tick": 11592,
+            "seq": 31,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "37983f940a6c4ab71b6b7a9df29bd3fd16fa68fedb5c35842520d7ddb089c63a",
+        "finalSimulationSteps": 12451
+      },
+      "identicalInitialState": true,
+      "identicalSpawnPlan": true,
+      "improvement": 0,
+      "winImprovement": false,
+      "passed": false
+    },
+    {
+      "comparisonId": "CMP05",
+      "seed": 211,
+      "buildId": "T02",
+      "baseline": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T02",
+        "seed": 211,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C01",
+            "C02",
+            "C03",
+            "C04",
+            "C06"
+          ],
+          "captainId": "C03",
+          "seed": 211,
+          "challengeId": null,
+          "preferredBranches": {
+            "C03": "B",
+            "C01": "B",
+            "C06": "A",
+            "C02": "A",
+            "C04": "B"
+          }
+        },
+        "mode": "timed",
+        "initialSnapshotDigest": "6d4d7171683eac067739101a8f945e1ff5fb6b9877d743bf2d0b237380e484e7",
+        "spawnPlanDigest": "a3ea7b7e818e26f00626bf380b577516fa6d53672bb3743466813cfd165445c3",
+        "outcome": "victory",
+        "endTick": 12451,
+        "effectiveSeconds": 415.03333333333336,
+        "wallHp": 640,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 360,
+        "wallShieldAbsorbed": 0,
+        "choices": [
+          {
+            "tick": 689,
+            "nodeId": "C03-B-1"
+          },
+          {
+            "tick": 1274,
+            "nodeId": "C01-B-1"
+          },
+          {
+            "tick": 1874,
+            "nodeId": "C03-B-2"
+          },
+          {
+            "tick": 2369,
+            "nodeId": "C01-B-2"
+          },
+          {
+            "tick": 3329,
+            "nodeId": "C03-B-3"
+          },
+          {
+            "tick": 3910,
+            "nodeId": "C01-B-3"
+          },
+          {
+            "tick": 4382,
+            "nodeId": "C06-A-1"
+          },
+          {
+            "tick": 4691,
+            "nodeId": "C06-A-2"
+          },
+          {
+            "tick": 5293,
+            "nodeId": "C06-A-3"
+          },
+          {
+            "tick": 6229,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 6796,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 7182,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 7740,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 8475,
+            "nodeId": "G02-2"
+          },
+          {
+            "tick": 9109,
+            "nodeId": "C04-B-1"
+          },
+          {
+            "tick": 9715,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 10225,
+            "nodeId": "C04-B-2"
+          },
+          {
+            "tick": 11260,
+            "nodeId": "G04-1"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 10263,
+            "reason": "armored or elite threat in lower battlefield"
+          },
+          {
+            "tick": 11592,
+            "reason": "boss exposure window"
+          }
+        ],
+        "evolvedRoutes": [
+          "C01-B",
+          "C03-B",
+          "C06-A"
+        ],
+        "completedCoreRoutes": [
+          "C03-B",
+          "C01-B",
+          "C06-A"
+        ],
+        "routeRanks": [
+          {
+            "id": "C01-B",
+            "rank": 3
+          },
+          {
+            "id": "C02-A",
+            "rank": 2
+          },
+          {
+            "id": "C03-B",
+            "rank": 3
+          },
+          {
+            "id": "C04-B",
+            "rank": 2
+          },
+          {
+            "id": "C06-A",
+            "rank": 3
+          }
+        ],
+        "commonRanks": {
+          "G01": 2,
+          "G02": 2,
+          "G04": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 2,
+        "characterDamage": {
+          "C01": 26514.249193999935,
+          "C02": 10022.376776000026,
+          "C03": 20890.73303000001,
+          "C04": 10050.661627999987,
+          "C05": 0,
+          "C06": 14168.339372000015
+        },
+        "wallDamageByEnemy": {
+          "B03": 360
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 0,
+          "C04": 9813,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 689,
+            "seq": 1,
+            "command": {
+              "type": "focus",
+              "characterId": "C03",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 689,
+            "seq": 2,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C03-B-1"
+            }
+          },
+          {
+            "tick": 1274,
+            "seq": 3,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C01-B-1"
+            }
+          },
+          {
+            "tick": 1874,
+            "seq": 4,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C03-B-2"
+            }
+          },
+          {
+            "tick": 2369,
+            "seq": 5,
+            "command": {
+              "type": "focus",
+              "characterId": "C01",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 2369,
+            "seq": 6,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C01-B-2"
+            }
+          },
+          {
+            "tick": 3329,
+            "seq": 7,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3329,
+            "seq": 8,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3910,
+            "seq": 9,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 3910,
+            "seq": 10,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 11,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 12,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C06-A-1"
+            }
+          },
+          {
+            "tick": 4691,
+            "seq": 13,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C06-A-2"
+            }
+          },
+          {
+            "tick": 5293,
+            "seq": 14,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 5293,
+            "seq": 15,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 6229,
+            "seq": 16,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 6229,
+            "seq": 17,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 6796,
+            "seq": 18,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 7182,
+            "seq": 19,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 7740,
+            "seq": 20,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 7740,
+            "seq": 21,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 8475,
+            "seq": 22,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 9109,
+            "seq": 23,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "C04-B-1"
+            }
+          },
+          {
+            "tick": 9715,
+            "seq": 24,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 9715,
+            "seq": 25,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 10225,
+            "seq": 26,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "C04-B-2"
+            }
+          },
+          {
+            "tick": 10263,
+            "seq": 27,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 28,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 11260,
+            "seq": 29,
+            "command": {
+              "type": "reroll",
+              "offerId": 18
+            }
+          },
+          {
+            "tick": 11260,
+            "seq": 30,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G04-1"
+            }
+          },
+          {
+            "tick": 11592,
+            "seq": 31,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "37983f940a6c4ab71b6b7a9df29bd3fd16fa68fedb5c35842520d7ddb089c63a",
+        "finalSimulationSteps": 12451
+      },
+      "adjusted": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T02",
+        "seed": 211,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C01",
+            "C02",
+            "C03",
+            "C04",
+            "C06"
+          ],
+          "captainId": "C03",
+          "seed": 211,
+          "challengeId": null,
+          "preferredBranches": {
+            "C03": "B",
+            "C01": "B",
+            "C06": "A",
+            "C02": "A",
+            "C04": "B"
+          }
+        },
+        "mode": "immediate",
+        "initialSnapshotDigest": "6d4d7171683eac067739101a8f945e1ff5fb6b9877d743bf2d0b237380e484e7",
+        "spawnPlanDigest": "a3ea7b7e818e26f00626bf380b577516fa6d53672bb3743466813cfd165445c3",
+        "outcome": "victory",
+        "endTick": 12407,
+        "effectiveSeconds": 413.56666666666666,
+        "wallHp": 640,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 360,
+        "wallShieldAbsorbed": 0,
+        "choices": [
+          {
+            "tick": 662,
+            "nodeId": "C03-B-1"
+          },
+          {
+            "tick": 1264,
+            "nodeId": "C01-B-1"
+          },
+          {
+            "tick": 1840,
+            "nodeId": "C03-B-2"
+          },
+          {
+            "tick": 2350,
+            "nodeId": "C01-B-2"
+          },
+          {
+            "tick": 3302,
+            "nodeId": "C03-B-3"
+          },
+          {
+            "tick": 3923,
+            "nodeId": "C01-B-3"
+          },
+          {
+            "tick": 4382,
+            "nodeId": "C06-A-1"
+          },
+          {
+            "tick": 4658,
+            "nodeId": "C06-A-2"
+          },
+          {
+            "tick": 5313,
+            "nodeId": "C06-A-3"
+          },
+          {
+            "tick": 6166,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 6693,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 7164,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 7738,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 8431,
+            "nodeId": "G02-2"
+          },
+          {
+            "tick": 9039,
+            "nodeId": "C04-B-1"
+          },
+          {
+            "tick": 9667,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 10196,
+            "nodeId": "C04-B-2"
+          },
+          {
+            "tick": 11269,
+            "nodeId": "G04-1"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 0,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 1350,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 2700,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 4050,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 5400,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 6750,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 8100,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 9450,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 10800,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 12098,
+            "reason": "baseline: ready and a live target"
+          }
+        ],
+        "evolvedRoutes": [
+          "C01-B",
+          "C03-B",
+          "C06-A"
+        ],
+        "completedCoreRoutes": [
+          "C03-B",
+          "C01-B",
+          "C06-A"
+        ],
+        "routeRanks": [
+          {
+            "id": "C01-B",
+            "rank": 3
+          },
+          {
+            "id": "C02-A",
+            "rank": 2
+          },
+          {
+            "id": "C03-B",
+            "rank": 3
+          },
+          {
+            "id": "C04-B",
+            "rank": 2
+          },
+          {
+            "id": "C06-A",
+            "rank": 3
+          }
+        ],
+        "commonRanks": {
+          "G01": 2,
+          "G02": 2,
+          "G04": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 2,
+        "characterDamage": {
+          "C01": 26480.953131999933,
+          "C02": 8717.110979999983,
+          "C03": 23392.092384000018,
+          "C04": 8675.871179999993,
+          "C05": 0,
+          "C06": 14466.732323999957
+        },
+        "wallDamageByEnemy": {
+          "B03": 360
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 0,
+          "C04": 8321,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 0,
+            "seq": 1,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 662,
+            "seq": 2,
+            "command": {
+              "type": "focus",
+              "characterId": "C03",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 662,
+            "seq": 3,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C03-B-1"
+            }
+          },
+          {
+            "tick": 1264,
+            "seq": 4,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C01-B-1"
+            }
+          },
+          {
+            "tick": 1350,
+            "seq": 5,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 1840,
+            "seq": 6,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C03-B-2"
+            }
+          },
+          {
+            "tick": 2350,
+            "seq": 7,
+            "command": {
+              "type": "focus",
+              "characterId": "C01",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 2350,
+            "seq": 8,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C01-B-2"
+            }
+          },
+          {
+            "tick": 2700,
+            "seq": 9,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 3302,
+            "seq": 10,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3302,
+            "seq": 11,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3923,
+            "seq": 12,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 3923,
+            "seq": 13,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 4050,
+            "seq": 14,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 15,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 16,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C06-A-1"
+            }
+          },
+          {
+            "tick": 4658,
+            "seq": 17,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C06-A-2"
+            }
+          },
+          {
+            "tick": 5313,
+            "seq": 18,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 5313,
+            "seq": 19,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 5400,
+            "seq": 20,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 6166,
+            "seq": 21,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 6166,
+            "seq": 22,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 6693,
+            "seq": 23,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 6750,
+            "seq": 24,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 7164,
+            "seq": 25,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 7738,
+            "seq": 26,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 7738,
+            "seq": 27,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 8100,
+            "seq": 28,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 8431,
+            "seq": 29,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 9039,
+            "seq": 30,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "C04-B-1"
+            }
+          },
+          {
+            "tick": 9450,
+            "seq": 31,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 9667,
+            "seq": 32,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 9667,
+            "seq": 33,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 10196,
+            "seq": 34,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "C04-B-2"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 35,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 36,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 11269,
+            "seq": 37,
+            "command": {
+              "type": "reroll",
+              "offerId": 18
+            }
+          },
+          {
+            "tick": 11269,
+            "seq": 38,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G04-1"
+            }
+          },
+          {
+            "tick": 12098,
+            "seq": 39,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "324c55d642d1d444695691b79337f5dfa34874c82590d3f4d9ba6355e0fb7bd4",
+        "finalSimulationSteps": 12407
+      },
+      "identicalInitialState": true,
+      "identicalSpawnPlan": true,
+      "improvement": 0,
+      "winImprovement": false,
+      "passed": false
+    },
+    {
+      "comparisonId": "CMP06",
+      "seed": 211,
+      "buildId": "T02",
+      "baseline": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T02",
+        "seed": 211,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C01",
+            "C02",
+            "C03",
+            "C04",
+            "C06"
+          ],
+          "captainId": "C03",
+          "seed": 211,
+          "challengeId": null,
+          "preferredBranches": {
+            "C04": "A",
+            "C01": "B",
+            "C06": "A",
+            "C02": "A",
+            "C03": "B"
+          }
+        },
+        "mode": "immediate",
+        "initialSnapshotDigest": "6d4d7171683eac067739101a8f945e1ff5fb6b9877d743bf2d0b237380e484e7",
+        "spawnPlanDigest": "a3ea7b7e818e26f00626bf380b577516fa6d53672bb3743466813cfd165445c3",
+        "outcome": "victory",
+        "endTick": 12915,
+        "effectiveSeconds": 430.5,
+        "wallHp": 520,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 480,
+        "wallShieldAbsorbed": 0,
+        "choices": [
+          {
+            "tick": 662,
+            "nodeId": "C04-A-1"
+          },
+          {
+            "tick": 1264,
+            "nodeId": "C01-B-1"
+          },
+          {
+            "tick": 1857,
+            "nodeId": "C03-B-1"
+          },
+          {
+            "tick": 2352,
+            "nodeId": "C04-A-2"
+          },
+          {
+            "tick": 3311,
+            "nodeId": "C04-A-3"
+          },
+          {
+            "tick": 3993,
+            "nodeId": "C06-A-1"
+          },
+          {
+            "tick": 4436,
+            "nodeId": "C01-B-2"
+          },
+          {
+            "tick": 4931,
+            "nodeId": "C01-B-3"
+          },
+          {
+            "tick": 5347,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 6190,
+            "nodeId": "C06-A-2"
+          },
+          {
+            "tick": 6875,
+            "nodeId": "C06-A-3"
+          },
+          {
+            "tick": 7281,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 7824,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 8441,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 9222,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 9816,
+            "nodeId": "C03-B-2"
+          },
+          {
+            "tick": 10382,
+            "nodeId": "G02-2"
+          },
+          {
+            "tick": 11604,
+            "nodeId": "G04-1"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 0,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 1350,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 2700,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 4050,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 5400,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 6750,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 8100,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 9450,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 10800,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 12118,
+            "reason": "baseline: ready and a live target"
+          }
+        ],
+        "evolvedRoutes": [
+          "C01-B",
+          "C04-A",
+          "C06-A"
+        ],
+        "completedCoreRoutes": [
+          "C04-A",
+          "C01-B",
+          "C06-A"
+        ],
+        "routeRanks": [
+          {
+            "id": "C01-B",
+            "rank": 3
+          },
+          {
+            "id": "C02-A",
+            "rank": 2
+          },
+          {
+            "id": "C03-B",
+            "rank": 2
+          },
+          {
+            "id": "C04-A",
+            "rank": 3
+          },
+          {
+            "id": "C06-A",
+            "rank": 3
+          }
+        ],
+        "commonRanks": {
+          "G02": 2,
+          "G01": 2,
+          "G04": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 1,
+        "characterDamage": {
+          "C01": 27124.039389999893,
+          "C02": 11891.45569600007,
+          "C03": 21307.273855999974,
+          "C04": 7372.521900000013,
+          "C05": 0,
+          "C06": 13933.909157999924
+        },
+        "wallDamageByEnemy": {
+          "B03": 480
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 0,
+          "C04": 22230,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 0,
+            "seq": 1,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 662,
+            "seq": 2,
+            "command": {
+              "type": "focus",
+              "characterId": "C04",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 662,
+            "seq": 3,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C04-A-1"
+            }
+          },
+          {
+            "tick": 1264,
+            "seq": 4,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C01-B-1"
+            }
+          },
+          {
+            "tick": 1350,
+            "seq": 5,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 1857,
+            "seq": 6,
+            "command": {
+              "type": "reroll",
+              "offerId": 3
+            }
+          },
+          {
+            "tick": 1857,
+            "seq": 7,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C03-B-1"
+            }
+          },
+          {
+            "tick": 2352,
+            "seq": 8,
+            "command": {
+              "type": "focus",
+              "characterId": "C04",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 2352,
+            "seq": 9,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C04-A-2"
+            }
+          },
+          {
+            "tick": 2700,
+            "seq": 10,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 3311,
+            "seq": 11,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C04-A-3"
+            }
+          },
+          {
+            "tick": 3311,
+            "seq": 12,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C04-A-3"
+            }
+          },
+          {
+            "tick": 3993,
+            "seq": 13,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "C06-A-1"
+            }
+          },
+          {
+            "tick": 4050,
+            "seq": 14,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 4436,
+            "seq": 15,
+            "command": {
+              "type": "focus",
+              "characterId": "C01",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 4436,
+            "seq": 16,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C01-B-2"
+            }
+          },
+          {
+            "tick": 4931,
+            "seq": 17,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 4931,
+            "seq": 18,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 5347,
+            "seq": 19,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 5400,
+            "seq": 20,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 6190,
+            "seq": 21,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 6190,
+            "seq": 22,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "C06-A-2"
+            }
+          },
+          {
+            "tick": 6750,
+            "seq": 23,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 6875,
+            "seq": 24,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 6875,
+            "seq": 25,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 7281,
+            "seq": 26,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 7824,
+            "seq": 27,
+            "command": {
+              "type": "focus",
+              "characterId": "C03",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 7824,
+            "seq": 28,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 8100,
+            "seq": 29,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 8441,
+            "seq": 30,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 9222,
+            "seq": 31,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 9450,
+            "seq": 32,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 9816,
+            "seq": 33,
+            "command": {
+              "type": "focus",
+              "characterId": "C03",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 9816,
+            "seq": 34,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C03-B-2"
+            }
+          },
+          {
+            "tick": 10382,
+            "seq": 35,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 36,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 37,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 11604,
+            "seq": 38,
+            "command": {
+              "type": "reroll",
+              "offerId": 18
+            }
+          },
+          {
+            "tick": 11604,
+            "seq": 39,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G04-1"
+            }
+          },
+          {
+            "tick": 12118,
+            "seq": 40,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "d7af74e7093d51d2add55bb59cc9b4181d29676c043c570313c277bd6eed3e5c",
+        "finalSimulationSteps": 12915
+      },
+      "adjusted": {
+        "contentVersion": "0.1.0-dev.3",
+        "schemaVersion": 1,
+        "policyVersion": "policy-v3",
+        "buildId": "T02",
+        "seed": 211,
+        "config": {
+          "stageId": "S03",
+          "squadIds": [
+            "C01",
+            "C02",
+            "C03",
+            "C04",
+            "C06"
+          ],
+          "captainId": "C03",
+          "seed": 211,
+          "challengeId": null,
+          "preferredBranches": {
+            "C03": "B",
+            "C01": "B",
+            "C06": "A",
+            "C02": "A",
+            "C04": "B"
+          }
+        },
+        "mode": "immediate",
+        "initialSnapshotDigest": "6d4d7171683eac067739101a8f945e1ff5fb6b9877d743bf2d0b237380e484e7",
+        "spawnPlanDigest": "a3ea7b7e818e26f00626bf380b577516fa6d53672bb3743466813cfd165445c3",
+        "outcome": "victory",
+        "endTick": 12407,
+        "effectiveSeconds": 413.56666666666666,
+        "wallHp": 640,
+        "wallMaxHp": 1000,
+        "wallHpDamage": 360,
+        "wallShieldAbsorbed": 0,
+        "choices": [
+          {
+            "tick": 662,
+            "nodeId": "C03-B-1"
+          },
+          {
+            "tick": 1264,
+            "nodeId": "C01-B-1"
+          },
+          {
+            "tick": 1840,
+            "nodeId": "C03-B-2"
+          },
+          {
+            "tick": 2350,
+            "nodeId": "C01-B-2"
+          },
+          {
+            "tick": 3302,
+            "nodeId": "C03-B-3"
+          },
+          {
+            "tick": 3923,
+            "nodeId": "C01-B-3"
+          },
+          {
+            "tick": 4382,
+            "nodeId": "C06-A-1"
+          },
+          {
+            "tick": 4658,
+            "nodeId": "C06-A-2"
+          },
+          {
+            "tick": 5313,
+            "nodeId": "C06-A-3"
+          },
+          {
+            "tick": 6166,
+            "nodeId": "G01-1"
+          },
+          {
+            "tick": 6693,
+            "nodeId": "C02-A-1"
+          },
+          {
+            "tick": 7164,
+            "nodeId": "G02-1"
+          },
+          {
+            "tick": 7738,
+            "nodeId": "G01-2"
+          },
+          {
+            "tick": 8431,
+            "nodeId": "G02-2"
+          },
+          {
+            "tick": 9039,
+            "nodeId": "C04-B-1"
+          },
+          {
+            "tick": 9667,
+            "nodeId": "C02-A-2"
+          },
+          {
+            "tick": 10196,
+            "nodeId": "C04-B-2"
+          },
+          {
+            "tick": 11269,
+            "nodeId": "G04-1"
+          }
+        ],
+        "casts": [
+          {
+            "tick": 0,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 1350,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 2700,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 4050,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 5400,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 6750,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 8100,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 9450,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 10800,
+            "reason": "baseline: ready and a live target"
+          },
+          {
+            "tick": 12098,
+            "reason": "baseline: ready and a live target"
+          }
+        ],
+        "evolvedRoutes": [
+          "C01-B",
+          "C03-B",
+          "C06-A"
+        ],
+        "completedCoreRoutes": [
+          "C03-B",
+          "C01-B",
+          "C06-A"
+        ],
+        "routeRanks": [
+          {
+            "id": "C01-B",
+            "rank": 3
+          },
+          {
+            "id": "C02-A",
+            "rank": 2
+          },
+          {
+            "id": "C03-B",
+            "rank": 3
+          },
+          {
+            "id": "C04-B",
+            "rank": 2
+          },
+          {
+            "id": "C06-A",
+            "rank": 3
+          }
+        ],
+        "commonRanks": {
+          "G01": 2,
+          "G02": 2,
+          "G04": 1
+        },
+        "choicesEarned": 18,
+        "choicesSpent": 18,
+        "rerollsRemaining": 2,
+        "characterDamage": {
+          "C01": 26480.953131999933,
+          "C02": 8717.110979999983,
+          "C03": 23392.092384000018,
+          "C04": 8675.871179999993,
+          "C05": 0,
+          "C06": 14466.732323999957
+        },
+        "wallDamageByEnemy": {
+          "B03": 360
+        },
+        "controls": {
+          "C01": 0,
+          "C02": 0,
+          "C03": 0,
+          "C04": 8321,
+          "C05": 0,
+          "C06": 0
+        },
+        "commandLog": [
+          {
+            "tick": 0,
+            "seq": 1,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 662,
+            "seq": 2,
+            "command": {
+              "type": "focus",
+              "characterId": "C03",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 662,
+            "seq": 3,
+            "command": {
+              "type": "choose",
+              "offerId": 1,
+              "nodeId": "C03-B-1"
+            }
+          },
+          {
+            "tick": 1264,
+            "seq": 4,
+            "command": {
+              "type": "choose",
+              "offerId": 2,
+              "nodeId": "C01-B-1"
+            }
+          },
+          {
+            "tick": 1350,
+            "seq": 5,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 1840,
+            "seq": 6,
+            "command": {
+              "type": "choose",
+              "offerId": 3,
+              "nodeId": "C03-B-2"
+            }
+          },
+          {
+            "tick": 2350,
+            "seq": 7,
+            "command": {
+              "type": "focus",
+              "characterId": "C01",
+              "branch": "B"
+            }
+          },
+          {
+            "tick": 2350,
+            "seq": 8,
+            "command": {
+              "type": "choose",
+              "offerId": 4,
+              "nodeId": "C01-B-2"
+            }
+          },
+          {
+            "tick": 2700,
+            "seq": 9,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 3302,
+            "seq": 10,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3302,
+            "seq": 11,
+            "command": {
+              "type": "choose",
+              "offerId": 5,
+              "nodeId": "C03-B-3"
+            }
+          },
+          {
+            "tick": 3923,
+            "seq": 12,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 3923,
+            "seq": 13,
+            "command": {
+              "type": "choose",
+              "offerId": 6,
+              "nodeId": "C01-B-3"
+            }
+          },
+          {
+            "tick": 4050,
+            "seq": 14,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 15,
+            "command": {
+              "type": "focus",
+              "characterId": "C06",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 4382,
+            "seq": 16,
+            "command": {
+              "type": "choose",
+              "offerId": 7,
+              "nodeId": "C06-A-1"
+            }
+          },
+          {
+            "tick": 4658,
+            "seq": 17,
+            "command": {
+              "type": "choose",
+              "offerId": 8,
+              "nodeId": "C06-A-2"
+            }
+          },
+          {
+            "tick": 5313,
+            "seq": 18,
+            "command": {
+              "type": "evolution",
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 5313,
+            "seq": 19,
+            "command": {
+              "type": "choose",
+              "offerId": 9,
+              "nodeId": "C06-A-3"
+            }
+          },
+          {
+            "tick": 5400,
+            "seq": 20,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 6166,
+            "seq": 21,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 6166,
+            "seq": 22,
+            "command": {
+              "type": "choose",
+              "offerId": 10,
+              "nodeId": "G01-1"
+            }
+          },
+          {
+            "tick": 6693,
+            "seq": 23,
+            "command": {
+              "type": "choose",
+              "offerId": 11,
+              "nodeId": "C02-A-1"
+            }
+          },
+          {
+            "tick": 6750,
+            "seq": 24,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 7164,
+            "seq": 25,
+            "command": {
+              "type": "choose",
+              "offerId": 12,
+              "nodeId": "G02-1"
+            }
+          },
+          {
+            "tick": 7738,
+            "seq": 26,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 7738,
+            "seq": 27,
+            "command": {
+              "type": "choose",
+              "offerId": 13,
+              "nodeId": "G01-2"
+            }
+          },
+          {
+            "tick": 8100,
+            "seq": 28,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 8431,
+            "seq": 29,
+            "command": {
+              "type": "choose",
+              "offerId": 14,
+              "nodeId": "G02-2"
+            }
+          },
+          {
+            "tick": 9039,
+            "seq": 30,
+            "command": {
+              "type": "choose",
+              "offerId": 15,
+              "nodeId": "C04-B-1"
+            }
+          },
+          {
+            "tick": 9450,
+            "seq": 31,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 9667,
+            "seq": 32,
+            "command": {
+              "type": "focus",
+              "characterId": "C02",
+              "branch": "A"
+            }
+          },
+          {
+            "tick": 9667,
+            "seq": 33,
+            "command": {
+              "type": "choose",
+              "offerId": 16,
+              "nodeId": "C02-A-2"
+            }
+          },
+          {
+            "tick": 10196,
+            "seq": 34,
+            "command": {
+              "type": "choose",
+              "offerId": 17,
+              "nodeId": "C04-B-2"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 35,
+            "command": {
+              "type": "finish-boss-intro"
+            }
+          },
+          {
+            "tick": 10800,
+            "seq": 36,
+            "command": {
+              "type": "cast"
+            }
+          },
+          {
+            "tick": 11269,
+            "seq": 37,
+            "command": {
+              "type": "reroll",
+              "offerId": 18
+            }
+          },
+          {
+            "tick": 11269,
+            "seq": 38,
+            "command": {
+              "type": "choose",
+              "offerId": 18,
+              "nodeId": "G04-1"
+            }
+          },
+          {
+            "tick": 12098,
+            "seq": 39,
+            "command": {
+              "type": "cast"
+            }
+          }
+        ],
+        "finalDigest": "324c55d642d1d444695691b79337f5dfa34874c82590d3f4d9ba6355e0fb7bd4",
+        "finalSimulationSteps": 12407
+      },
+      "identicalInitialState": true,
+      "identicalSpawnPlan": true,
+      "improvement": 0.25,
+      "winImprovement": false,
+      "passed": true
+    }
+  ]
+}

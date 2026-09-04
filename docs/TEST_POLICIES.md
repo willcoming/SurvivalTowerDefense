@@ -127,6 +127,12 @@ onDraft(state, offer):
 
 ## 6. 正式輸出契約
 
+### dev.3 射程更新對照（comparison-v4，執行 CMP06 前宣告）
+
+首次 dev.3 正式執行中三流派皆 10/10 通關，但 CMP02、CMP04、CMP05 的兩邊均承受 360 防線傷害，未達改善門檻；原結果保留於 `artifacts/validation/combat-readability/formal/`，不修改敵人、波次或門檻來取得通過。
+
+新增 **CMP06**：固定 S03 / seed 211、同 T02 隊伍與 C03 隊長，兩邊都採技能即時施放、18 選及 3E。基線將第三把單體主力的進化預算改給控場：核心順序為 `C04-A, C01-B, C06-A`，支援為 `C02-A, C03-B`；調整版維持 T02 `C03-B, C01-B, C06-A`、支援 `C02-A, C04-B`。假說：面對 Boss，控場偏重且 C03 停在 II 的搭配，應比保留 C03-B-E 單體火力更慢，承受更多防線傷害。只比較合法選牌所得的結果；仍以同初始面板／波表、至少 20% 防線傷害改善或敗轉勝判定。未成立也保留，不改用擊殺時間作通過標準。
+
 每局輸出：`contentVersion, policyVersion, buildId, seed, initialSnapshotDigest, stageId, squadIds, captainId, preferredBranches, challengeId, choices[{tick,index,offerId,nodeId}], casts[{tick,reason}], rerolls, focusChanges, readyEvolutionChanges, commandLog, outcome, endTick, wallHp, wallMaxHp, wallHpDamage, wallShieldAbsorbed, evolvedRoutes, characterDamage, wallDamageByEnemy, controls, failureReason`。
 
 每套彙總成功數／10及核心E實際完成比例，附全部失敗的原因。正式30局報告需要對照目前source/data版本，不能在調參後保留舊passed標记。瀏覽器代表性重播使用同commandLog，不能把console直接寫入勝利狀態當完成流程。

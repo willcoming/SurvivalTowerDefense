@@ -1,0 +1,177 @@
+{
+  "config": {
+    "argv": [
+      "/Users/willcoming/.hermes/node/bin/node",
+      "/Users/willcoming/code/SurvivalTowerDefense/node_modules/.bin/playwright",
+      "test",
+      "animation-performance.spec.ts",
+      "--project=chromium"
+    ],
+    "configFile": "/Users/willcoming/code/SurvivalTowerDefense/playwright.config.ts",
+    "rootDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/combat-readability/performance-atlas/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/combat-readability/performance-atlas/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "artifacts/validation/combat-readability/performance-atlas/browser-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev -- --host 0.0.0.0 --port 5173 --strictPort",
+      "url": "http://127.0.0.1:5173",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "animation-performance.spec.ts",
+      "file": "animation-performance.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ANIM PERF: 60 seconds of live 3× simulation and animation under synthetic peak density",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 62108,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation-performance.spec.ts:70:18",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation-performance.spec.ts",
+                      "column": 18,
+                      "line": 70
+                    },
+                    "snippet": "  68 |   writeFileSync(`${dir}/live-3x-performance.json`, JSON.stringify({ measuredAt: new Date().toISOString(), sourceDigest: createHash('sha256').update(JSON.stringify(sourceFiles(resolve('src')).map(p => [p.replace(`${process.cwd()}/`, ''), readFileSync(p, 'utf8')]))).digest('hex'), host: { cpu: cpus()[0]?.model, platform: platform(), release: release(), architecture: arch() }, browser: info.project.name, userAgent: await page.evaluate(() => navigator.userAgent), viewport: page.viewportSize(), renderer, fixture, durationMs: elapsed, p95FrameTimeMs: p95, maxFrameTimeMs: sorted.at(-1), ticksPerSecond, gateMs: 33.3, passed, errors, limitation: 'Synthetic peak-density fixture, not a legally earned build or balance test. Immortal targets of all eight normal enemy types keep their actual movement speeds; positions recycle at the edge of the travel lane, while inert hostile projectiles sustain density; the real 3× simulation, automatic attacks, timed captain skills, animation, rendering and autosave run throughout. Desktop Chromium/SwiftShader only, not phone hardware. Tracing disabled and screenshot taken after measurement.', ...measured }, null, 2));\n  69 |   await page.screenshot({ path: `${dir}/screenshots/live-3x-pressure.png` });\n> 70 |   expect(passed).toBe(true);\n     |                  ^\n  71 | });\n  72 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation-performance.spec.ts",
+                        "column": 18,
+                        "line": 70
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  68 |   writeFileSync(`${dir}/live-3x-performance.json`, JSON.stringify({ measuredAt: new Date().toISOString(), sourceDigest: createHash('sha256').update(JSON.stringify(sourceFiles(resolve('src')).map(p => [p.replace(`${process.cwd()}/`, ''), readFileSync(p, 'utf8')]))).digest('hex'), host: { cpu: cpus()[0]?.model, platform: platform(), release: release(), architecture: arch() }, browser: info.project.name, userAgent: await page.evaluate(() => navigator.userAgent), viewport: page.viewportSize(), renderer, fixture, durationMs: elapsed, p95FrameTimeMs: p95, maxFrameTimeMs: sorted.at(-1), ticksPerSecond, gateMs: 33.3, passed, errors, limitation: 'Synthetic peak-density fixture, not a legally earned build or balance test. Immortal targets of all eight normal enemy types keep their actual movement speeds; positions recycle at the edge of the travel lane, while inert hostile projectiles sustain density; the real 3× simulation, automatic attacks, timed captain skills, animation, rendering and autosave run throughout. Desktop Chromium/SwiftShader only, not phone hardware. Tracing disabled and screenshot taken after measurement.', ...measured }, null, 2));\n  69 |   await page.screenshot({ path: `${dir}/screenshots/live-3x-pressure.png` });\n> 70 |   expect(passed).toBe(true);\n     |                  ^\n  71 | });\n  72 |\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation-performance.spec.ts:70:18"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-04T16:34:37.370Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/combat-readability/performance-atlas/browser-results/test-output/animation-performance-ANIM-6b8aa-nder-synthetic-peak-density-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/combat-readability/performance-atlas/browser-results/test-output/animation-performance-ANIM-6b8aa-nder-synthetic-peak-density-chromium/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/animation-performance.spec.ts",
+                    "column": 18,
+                    "line": 70
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "18a00668c2b73e6f348e-3020a939b027381d6f87",
+          "file": "animation-performance.spec.ts",
+          "line": 10,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-04T16:34:37.178Z",
+    "duration": 62512.366,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

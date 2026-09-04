@@ -4,7 +4,7 @@
 
 **一句話定位：組成最多五人的美少女防衛隊，將回收的外星武器改造成不同流派，在八分鐘內守住地球反攻據點。**
 
-本文件保留訪談確認後的產品、遊戲設計與工程初稿。後續已依授權進入實作；目前數值及抽選邊界修訂以 [DECISIONS.md](DECISIONS.md) 為準，工程結果見 [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md)。下方初稿數值不冒充最新實測結果。
+本文件保留訪談確認後的產品、遊戲設計與工程初稿。後續已依授權進入實作；目前數值及抽選邊界修訂以 [DECISIONS.md](DECISIONS.md) 為準；dev.3 的射程與 Boss 登場行為見 [戰鬥可讀性更新](COMBAT_READABILITY_UPDATE.md)，工程結果見 [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md)。下方初稿數值不冒充最新實測結果。
 
 ## 0. 決策狀態與閱讀方式
 

@@ -1,0 +1,56 @@
+{
+  "contentVersion": "0.1.0-dev.3",
+  "browser": "chromium",
+  "environment": "desktop browser engine, not physical mobile",
+  "seed": 101,
+  "replayedStages": [
+    "S01",
+    "S02",
+    "S03",
+    "S01",
+    "S02"
+  ],
+  "replayPassed": true,
+  "cycles": [
+    {
+      "stageId": "S01",
+      "effectiveSeconds": 392.1333333333333,
+      "canvasCount": 0,
+      "pendingAnimationFrames": 1,
+      "activeRunCleared": true,
+      "summaryCount": 2
+    },
+    {
+      "stageId": "S02",
+      "effectiveSeconds": 427.7,
+      "canvasCount": 0,
+      "pendingAnimationFrames": 1,
+      "activeRunCleared": true,
+      "summaryCount": 3
+    },
+    {
+      "stageId": "S03",
+      "effectiveSeconds": 445.2,
+      "canvasCount": 0,
+      "pendingAnimationFrames": 1,
+      "activeRunCleared": true,
+      "summaryCount": 4
+    },
+    {
+      "stageId": "S01",
+      "effectiveSeconds": 392.1333333333333,
+      "canvasCount": 0,
+      "pendingAnimationFrames": 1,
+      "activeRunCleared": true,
+      "summaryCount": 5
+    },
+    {
+      "stageId": "S02",
+      "effectiveSeconds": 427.7,
+      "canvasCount": 0,
+      "pendingAnimationFrames": 1,
+      "activeRunCleared": true,
+      "summaryCount": 6
+    }
+  ]
+}

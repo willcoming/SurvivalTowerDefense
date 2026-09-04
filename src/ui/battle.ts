@@ -1,6 +1,7 @@
 import { CHARACTER_MAP, ROUTE_MAP, STAGE_MAP, ENEMY_MAP, COMMON_UPGRADES } from '../data/content';
 import { getReadyEvolutions, getLegalNodeIds } from '../sim/engine';
-import type { RunState } from '../sim/types';
+import { inWeaponRange, RANGE_LABEL, usesRangeRules } from '../sim/range';
+import type { CharacterId, RunState } from '../sim/types';
 import type { BattleSpeed, GameSave } from '../storage/repository';
 import type { ViewModel } from './model';
 import { esc, clock, num, cardInfo, cardPreview, portrait, weaponLabel } from './format';
@@ -8,7 +9,7 @@ import { settings } from './lobby';
 
 export function battleShell(run: RunState, speed: BattleSpeed = 1, autoTactical = false) {
   const captain = CHARACTER_MAP[run.config.captainId];
-  return `<main class="battle-layout"><aside class="battle-aside"><span class="eyebrow">LIVE OPERATION / ${run.config.stageId}</span><h1>${esc(STAGE_MAP[run.config.stageId].name)}</h1><p>守住防線。<br>讓每一份火力，都有意義。</p><div class="mission-objective"><span>MISSION</span><h2>08:00 內擊破首領</h2><p>首領於 06:00 降臨；擊破後清除殘敵。</p></div><div class="live-build" id="live-build"></div><div class="keyboard-hints"><kbd>SPACE</kbd> 隊長技能 <kbd>ESC</kbd> 暫停</div></aside><section class="battle-phone" aria-label="戰鬥畫面"><header class="battle-hud"><div class="wall-hud"><div><b>防線 <span id="wall-text"></span></b><span id="shield-text"></span></div><div class="hp-track"><i id="wall-bar"></i></div></div><div class="battle-header-controls"><button class="speed-button ${speed > 1 ? 'accelerated' : ''}" id="speed-button" data-action="speed" aria-label="戰鬥速度 ${speed} 倍，點擊切換至 ${speed === 3 ? 1 : speed + 1} 倍" title="切換戰鬥速度：1× → 2× → 3×">${speed}×</button><button class="icon-button" data-action="pause" aria-label="暫停戰鬥">Ⅱ</button></div><div class="time-hud"><span id="wave-text"></span><strong id="time-text"></strong><span id="evolution-text"></span></div><div class="xp-track"><i id="xp-bar"></i></div><div class="xp-caption"><span>共鳴經驗</span><span id="xp-text"></span></div></header><div id="battle-canvas" class="battle-canvas" role="img" aria-label="敵人從上方進攻，五人小隊在底部自動防守"></div><div id="weapon-strip" class="weapon-strip"></div><div class="tactical-control"><button class="tactical-button" data-action="cast" id="tactical-button"><span class="tactical-icon">✦</span><span><small>隊長 · ${esc(captain.name)}</small><b>${esc(captain.tacticalName)}</b></span><strong id="tactical-status">就緒</strong></button><button class="auto-tactical-button" id="auto-tactical-button" data-action="auto-tactical" aria-label="自動施放隊長技能" aria-pressed="${autoTactical}" ${run.config.challengeId === 'no-skill' ? 'disabled' : ''}><span>自動施放</span><b id="auto-tactical-status">${autoTactical ? '已開啟' : '已關閉'}</b></button></div></section><aside class="battle-right"><span class="eyebrow">FIELD COMMANDER</span><div class="battle-captain">${portrait(captain.id)}<div><strong>${esc(captain.name)}</strong><span>${esc(captain.english)}</span></div></div><p>${esc(captain.tacticalDescription)}</p><div class="tactical-note"><span>TACTICAL NOTE</span><p id="threat-note">攻擊自動進行。預留技能，回應敵人的蓄力。</p></div><p class="battle-autosave">本機自動保存<br><small>切換到背景時會暫停。</small></p></aside></main><div id="battle-overlay"></div>`;
+  return `<main class="battle-layout"><aside class="battle-aside"><span class="eyebrow">LIVE OPERATION / ${run.config.stageId}</span><h1>${esc(STAGE_MAP[run.config.stageId].name)}</h1><p>守住防線。<br>讓每一份火力，都有意義。</p><div class="mission-objective"><span>MISSION</span><h2>08:00 內擊破首領</h2><p>首領於 06:00 降臨；擊破後清除殘敵。</p></div><div class="live-build" id="live-build"></div><div class="keyboard-hints"><kbd>SPACE</kbd> 隊長技能 <kbd>ESC</kbd> 暫停</div></aside><section class="battle-phone" aria-label="戰鬥畫面"><header class="battle-hud"><div class="wall-hud"><div><b>防線 <span id="wall-text"></span></b><span id="shield-text"></span></div><div class="hp-track"><i id="wall-bar"></i></div></div><div class="battle-header-controls"><button class="speed-button ${speed > 1 ? 'accelerated' : ''}" id="speed-button" data-action="speed" aria-label="戰鬥速度 ${speed} 倍，點擊切換至 ${speed === 3 ? 1 : speed + 1} 倍" title="切換戰鬥速度：1× → 2× → 3×">${speed}×</button><button class="icon-button" data-action="pause" aria-label="暫停戰鬥">Ⅱ</button></div><div class="time-hud"><span id="wave-text"></span><strong id="time-text"></strong><span id="evolution-text"></span></div><div class="xp-track"><i id="xp-bar"></i></div><div class="xp-caption"><span>共鳴經驗</span><span id="xp-text"></span></div></header><div id="battle-canvas" class="battle-canvas" role="img" aria-label="敵人從上方進攻，五人小隊在底部自動防守"></div><div id="weapon-strip" class="weapon-strip"></div><div class="range-toolbar"><span id="range-info" role="status">點選角色查看射程</span><button data-action="view-build" aria-label="查看本局構築">構築</button></div><div class="tactical-control"><button class="tactical-button" data-action="cast" id="tactical-button"><span class="tactical-icon">✦</span><span><small>隊長 · ${esc(captain.name)}</small><b>${esc(captain.tacticalName)}</b></span><strong id="tactical-status">就緒</strong></button><button class="auto-tactical-button" id="auto-tactical-button" data-action="auto-tactical" aria-label="自動施放隊長技能" aria-pressed="${autoTactical}" ${run.config.challengeId === 'no-skill' ? 'disabled' : ''}><span>自動施放</span><b id="auto-tactical-status">${autoTactical ? '已開啟' : '已關閉'}</b></button></div></section><aside class="battle-right"><span class="eyebrow">FIELD COMMANDER</span><div class="battle-captain">${portrait(captain.id)}<div><strong>${esc(captain.name)}</strong><span>${esc(captain.english)}</span></div></div><p>${esc(captain.tacticalDescription)}</p><div class="tactical-note"><span>TACTICAL NOTE</span><p id="threat-note">攻擊自動進行。預留技能，回應敵人的蓄力。</p></div><p class="battle-autosave">本機自動保存<br><small>切換到背景時會暫停。</small></p></aside></main><div id="battle-overlay"></div>`;
 }
 export function buildMarkup(run: RunState) {
   return `<h2>本局構築 <span>${run.choicesSpent} / 18</span></h2>${run.weapons.map(w => `<div class="build-line"><span style="background:${CHARACTER_MAP[w.id].color}"></span><b>${esc(CHARACTER_MAP[w.id].name)}</b><small>${esc(weaponLabel(run, w.id))}</small></div>`).join('')}${COMMON_UPGRADES.filter(c => run.commonRanks[c.id]).map(c => `<p class="common-build">${esc(c.name)} × ${run.commonRanks[c.id]}</p>`).join('')}`;
@@ -18,14 +19,14 @@ interface HudCache {
   values: Map<string, string>; nodes: Map<string, HTMLElement | null>;
 }
 const hudCaches = new WeakMap<HTMLElement, HudCache>();
-export function updateHud(run: RunState, speed: BattleSpeed = 1, autoTactical = false) {
+export function updateHud(run: RunState, speed: BattleSpeed = 1, autoTactical = false, selectedRange: CharacterId | null = null) {
   const root = document.getElementById('wall-text'); if (!root) return;
   let cache = hudCaches.get(root);
   if (!cache) { cache = { run: null, key: '', buildKey: '', stripKey: '', values: new Map(), nodes: new Map() }; hudCaches.set(root, cache); }
   const shield = Math.ceil(run.shields.reduce((sum, entry) => sum + entry.value, 0));
   const weaponKey = run.weapons.map(w => `${w.id}:${w.branch}:${w.rank}`).join(',');
   const commonKey = COMMON_UPGRADES.map(c => run.commonRanks[c.id] ?? 0).join(',');
-  const key = `${autoTactical}:${speed}:${run.tick}:${run.actionSeq}:${run.eventSeq}:${run.phase}:${run.wallHp}:${run.wallMaxHp}:${shield}:${run.xp}:${run.choicesSpent}:${run.evolvedCount}:${run.evolutionLimit}:${run.tacticalReadyAt}:${run.enemies.length}:${run.bossKilled}:${weaponKey}:${commonKey}`;
+  const key = `${selectedRange}:${autoTactical}:${speed}:${run.tick}:${run.actionSeq}:${run.eventSeq}:${run.phase}:${run.wallHp}:${run.wallMaxHp}:${shield}:${run.xp}:${run.choicesSpent}:${run.evolvedCount}:${run.evolutionLimit}:${run.tacticalReadyAt}:${run.enemies.length}:${run.bossKilled}:${weaponKey}:${commonKey}`;
   if (cache.run === run && cache.key === key) return;
   cache.run = run; cache.key = key;
   const node = (id: string) => { if (!cache!.nodes.has(id)) cache!.nodes.set(id, document.getElementById(id)); return cache!.nodes.get(id); };
@@ -62,9 +63,13 @@ export function updateHud(run: RunState, speed: BattleSpeed = 1, autoTactical = 
   const buildKey = `${weaponKey}:${commonKey}:${run.choicesSpent}`;
   if (cache.buildKey !== buildKey) { cache.buildKey = buildKey; const build = node('live-build'); if (build) build.innerHTML = buildMarkup(run); }
   if (cache.stripKey !== weaponKey) {
-    cache.stripKey = weaponKey; const strip = node('weapon-strip');
-    if (strip) strip.innerHTML = run.weapons.map(w => `<button data-action="view-build" aria-label="查看${esc(CHARACTER_MAP[w.id].name)}的構築"><span style="--character:${CHARACTER_MAP[w.id].color}">${portrait(w.id)}</span><b>${esc(CHARACTER_MAP[w.id].name)}</b><small>${w.branch ?? '—'} ${['基礎', 'I', 'II', 'E'][w.rank]}</small></button>`).join('');
+    cache.stripKey = weaponKey; for (const w of run.weapons) { cache.nodes.delete(`range-${w.id}`); cache.values.delete(`range-selected-${w.id}`); } const strip = node('weapon-strip');
+    if (strip) strip.innerHTML = run.weapons.map(w => `<button id="range-${w.id}" data-action="view-range" data-id="${w.id}" aria-pressed="false" aria-label="查看${esc(CHARACTER_MAP[w.id].name)}的射程"><span style="--character:${CHARACTER_MAP[w.id].color}">${portrait(w.id)}</span><b>${esc(CHARACTER_MAP[w.id].name)}</b><small>${usesRangeRules(run) ? RANGE_LABEL[w.id] : '全域'}·${['基礎', 'I', 'II', 'E'][w.rank]}</small></button>`).join('');
   }
+
+  for (const w of run.weapons) if (changed(`range-selected-${w.id}`, String(selectedRange === w.id))) node(`range-${w.id}`)?.setAttribute('aria-pressed', String(selectedRange === w.id));
+  const rangeInfo = !usesRangeRules(run) ? '舊局沿用全域索敵 · 新局啟用射程' : selectedRange ? `${CHARACTER_MAP[selectedRange].name} · ${RANGE_LABEL[selectedRange]}｜${run.enemies.some(e => inWeaponRange(run, selectedRange, e)) ? '射程內有目標' : '等待敵人進入射程'}` : '點選角色查看射程';
+  set('range-info', rangeInfo);
 }
 
 export function upgradeDialog(run: RunState, vm: ViewModel) {
