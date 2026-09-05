@@ -1,0 +1,291 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:5175/SurvivalTowerDefense/",
+  "contentVersion": "0.4.0-dev.1",
+  "checkedAt": "2026-09-05T07:31:01.707Z",
+  "browsers": [
+    {
+      "browser": "chromium",
+      "commit": "bd81008ff402ced2d9e15cd3331385d3d6de71d8",
+      "poolEntries": 10,
+      "stages": 15,
+      "widths": [
+        320,
+        768,
+        1024,
+        1440
+      ],
+      "checkedAssets": [
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C01-portrait.webp",
+          "sha256": "5d4f10874d89a5f94699b0d31d23ffad977529693184fc56ccba2ab6769b2655"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C01-summer.webp",
+          "sha256": "251eec84820a871a38f211efb9270bec573fbea5c7c6621712eb7bdeb1b57bf9"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C02-portrait.webp",
+          "sha256": "f979ac9f1f0f0b0c347ce2c0fc83c48f8c749fa261672677b6700b39f647904c"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C02-summer.webp",
+          "sha256": "551034c9853aae64cfc11f1ad5c715ae861c6d261d45916c4f9972ab8cba1486"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C03-portrait.webp",
+          "sha256": "9fddfb68d29012ec6b0d5e0c23227f0644e64f2f29d410732201131f333fdf7a"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C03-summer.webp",
+          "sha256": "7a1d488f2d25ff46eae3f6295aef2b24923467b54ad91d78a54beb1a4e7ef50a"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C04-portrait.webp",
+          "sha256": "67d22c9d04bb6011251731d5acc34948ace05fa0dc1e9b40e236d95ea7fd4bd5"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C04-summer.webp",
+          "sha256": "7295e372020db43074b1071bdec1aa1ad2c5b41b23448b0752f7d97fb9c322c7"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C05-portrait.webp",
+          "sha256": "91d8785c90a4acc3276afc9e6eb64903b5d9db059087484894946cf1699c1ee1"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C05-summer.webp",
+          "sha256": "5425e30b4e4320ea74a1fb3ca62e402dcea6f6075f2baae9c8d0aba77e1f1112"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C06-portrait.webp",
+          "sha256": "b95bb62b317d52d46d671777c4912c8ce95be7d1575deca052888dfa202ca206"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C06-summer.webp",
+          "sha256": "f2343d4c0488d4bf7f5704356cca0d28f377c5d1ec66257f5322a47b96f5109a"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C07-original-stage-v3.webp",
+          "sha256": "ffcee71bfe73f132e1d5b7a627d2e9dcbd8960a464a87c6a4b7fb588f63c7a30"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C07-summer-pose-v4.webp",
+          "sha256": "3cdd78fafd9db3010ec41688c9cf78c05674bc68a4552342936394017b99c5fe"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C08-original-stage-v3.webp",
+          "sha256": "0e94c1b63895586d36946aaf625b39cc930f66b667d93108af75186e03958d4c"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C08-summer-pose-v4.webp",
+          "sha256": "ad3a3e64fbac8d885b3d1a8aaacc8d9ea707b8fecd06ba84a6843593dae9fd68"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/stages/S01.webp",
+          "sha256": "9ed1d5f7fb4a2efcc732326490c4a379078e2fb4e190bc05ec7ec74fcc5c2a78"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/stages/S02.webp",
+          "sha256": "58008397785aa9259d0651ddaff14d75a0f5794ecbce6647708359ef57ce0964"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/stages/S03.webp",
+          "sha256": "8b5b28f8209d46dd39607717120fa34420cfa2660c306cc8136335ca8168b5c0"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/campaign/coast.webp",
+          "sha256": "5c338cd675aadc96e35f083d338c149088cc43fd7ca01cc651adb7028a7c4e37"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/campaign/resonance.webp",
+          "sha256": "d8530735ffb4d93948649a259daa7141fb3d3fdef044efec5e2d5f9f654d8071"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/campaign/hive.webp",
+          "sha256": "3d10d9f860121f05482cf20565c5cb3ea2c522b6766651c7d9b0fa03f6444cbd"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/campaign/summer.webp",
+          "sha256": "ae47c0feaf38c8fb33c0a753848d70b66df4b9e785cc218ef3b9f6bbc3f6a120"
+        }
+      ],
+      "requests": [
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/index-Cy1b2uY6.js",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/index-B1Q7fJrr.css",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/stages/S01.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C02-portrait.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C01-portrait.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C04-portrait.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C05-portrait.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C06-portrait.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C01-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C02-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C03-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C04-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C05-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C06-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C07-original-stage-v3.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C07-summer-pose-v4.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C08-original-stage-v3.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C08-summer-pose-v4.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/weapons/C01.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E01.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E02.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E03.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E04.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E05.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E06.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E07.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E08.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/B01.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/B02.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/B03.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C03-portrait.webp"
+      ],
+      "errors": [],
+      "passed": true
+    },
+    {
+      "browser": "webkit",
+      "commit": "bd81008ff402ced2d9e15cd3331385d3d6de71d8",
+      "poolEntries": 10,
+      "stages": 15,
+      "widths": [
+        320,
+        768,
+        1024,
+        1440
+      ],
+      "checkedAssets": [
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C01-portrait.webp",
+          "sha256": "5d4f10874d89a5f94699b0d31d23ffad977529693184fc56ccba2ab6769b2655"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C01-summer.webp",
+          "sha256": "251eec84820a871a38f211efb9270bec573fbea5c7c6621712eb7bdeb1b57bf9"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C02-portrait.webp",
+          "sha256": "f979ac9f1f0f0b0c347ce2c0fc83c48f8c749fa261672677b6700b39f647904c"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C02-summer.webp",
+          "sha256": "551034c9853aae64cfc11f1ad5c715ae861c6d261d45916c4f9972ab8cba1486"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C03-portrait.webp",
+          "sha256": "9fddfb68d29012ec6b0d5e0c23227f0644e64f2f29d410732201131f333fdf7a"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C03-summer.webp",
+          "sha256": "7a1d488f2d25ff46eae3f6295aef2b24923467b54ad91d78a54beb1a4e7ef50a"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C04-portrait.webp",
+          "sha256": "67d22c9d04bb6011251731d5acc34948ace05fa0dc1e9b40e236d95ea7fd4bd5"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C04-summer.webp",
+          "sha256": "7295e372020db43074b1071bdec1aa1ad2c5b41b23448b0752f7d97fb9c322c7"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C05-portrait.webp",
+          "sha256": "91d8785c90a4acc3276afc9e6eb64903b5d9db059087484894946cf1699c1ee1"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C05-summer.webp",
+          "sha256": "5425e30b4e4320ea74a1fb3ca62e402dcea6f6075f2baae9c8d0aba77e1f1112"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/characters/C06-portrait.webp",
+          "sha256": "b95bb62b317d52d46d671777c4912c8ce95be7d1575deca052888dfa202ca206"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C06-summer.webp",
+          "sha256": "f2343d4c0488d4bf7f5704356cca0d28f377c5d1ec66257f5322a47b96f5109a"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C07-original-stage-v3.webp",
+          "sha256": "ffcee71bfe73f132e1d5b7a627d2e9dcbd8960a464a87c6a4b7fb588f63c7a30"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C07-summer-pose-v4.webp",
+          "sha256": "3cdd78fafd9db3010ec41688c9cf78c05674bc68a4552342936394017b99c5fe"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C08-original-stage-v3.webp",
+          "sha256": "0e94c1b63895586d36946aaf625b39cc930f66b667d93108af75186e03958d4c"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/forms/C08-summer-pose-v4.webp",
+          "sha256": "ad3a3e64fbac8d885b3d1a8aaacc8d9ea707b8fecd06ba84a6843593dae9fd68"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/stages/S01.webp",
+          "sha256": "9ed1d5f7fb4a2efcc732326490c4a379078e2fb4e190bc05ec7ec74fcc5c2a78"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/stages/S02.webp",
+          "sha256": "58008397785aa9259d0651ddaff14d75a0f5794ecbce6647708359ef57ce0964"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/stages/S03.webp",
+          "sha256": "8b5b28f8209d46dd39607717120fa34420cfa2660c306cc8136335ca8168b5c0"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/campaign/coast.webp",
+          "sha256": "5c338cd675aadc96e35f083d338c149088cc43fd7ca01cc651adb7028a7c4e37"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/campaign/resonance.webp",
+          "sha256": "d8530735ffb4d93948649a259daa7141fb3d3fdef044efec5e2d5f9f654d8071"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/campaign/hive.webp",
+          "sha256": "3d10d9f860121f05482cf20565c5cb3ea2c522b6766651c7d9b0fa03f6444cbd"
+        },
+        {
+          "path": "/SurvivalTowerDefense/assets/campaign/summer.webp",
+          "sha256": "ae47c0feaf38c8fb33c0a753848d70b66df4b9e785cc218ef3b9f6bbc3f6a120"
+        }
+      ],
+      "requests": [
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/index-Cy1b2uY6.js",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/index-B1Q7fJrr.css",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/stages/S01.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C02-portrait.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C01-portrait.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C04-portrait.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C05-portrait.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C06-portrait.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C01-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C02-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C03-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C04-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C05-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C06-summer.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C07-original-stage-v3.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C07-summer-pose-v4.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C08-original-stage-v3.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/forms/C08-summer-pose-v4.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/weapons/C01.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E01.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E02.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E03.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E04.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E05.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E06.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E07.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/E08.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/B01.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/B02.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/enemies/B03.webp",
+        "http://127.0.0.1:5175/SurvivalTowerDefense/assets/characters/C03-portrait.webp"
+      ],
+      "errors": [],
+      "passed": true
+    }
+  ],
+  "note": "Isolated fresh browser contexts; no player save mutation, debug API, seeded rewards or ownership. Exact art bytes, public collection, keyboard navigation and responsive layouts checked. Real gameplay is verified separately by verify-production.ts."
+}

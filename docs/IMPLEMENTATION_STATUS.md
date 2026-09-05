@@ -18,7 +18,7 @@
 | 平衡研究 | 完成本輪 | 1,500 場全勝、1,500 次恢復、50 命令重播一致、200 診斷探針；未證明任意構築平衡 |
 | 真機效能與觸控 | 待執行 | 實際 iPhone Safari、中階 Android Chrome；[測試表](EXTERNAL_PLAYTEST.md) |
 | 真人理解度與趣味性 | 待執行 | 五位玩家自主配點、調整搭配與選擇負擔觀察 |
-| 公開部署 | 尚未執行 | 已有本地／同 Wi-Fi preview 與靜態 dist |
+| 公開部署 | 完成 | [GitHub Pages](https://willcoming.github.io/SurvivalTowerDefense/)；HTTPS、來源 SHA、線上資產與正式流程通過，見 [部署紀錄](GITHUB_PAGES.md) |
 | 裝備掉落 | 延後 | 技能樹平衡驗收後另提設計 |
 
-本次文件同步不改遊戲規則，也未重跑或改寫既有驗證數據。詳細量測環境、限制與原始連結集中於 [交付報告](DELIVERY.md)；後續工作依 [執行計劃](EXECUTION_PLAN.md) 進行。
+既有遊戲規則與交付數據保持原紀錄，新增的發布驗證另列於 [部署紀錄](GITHUB_PAGES.md)。詳細量測環境、限制與原始連結集中於 [交付報告](DELIVERY.md)；後續工作依 [執行計劃](EXECUTION_PLAN.md) 進行。

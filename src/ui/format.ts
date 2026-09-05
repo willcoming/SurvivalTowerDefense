@@ -1,3 +1,4 @@
+import { assetUrl } from '../assets';
 import { DEEP_NODE_MAP, DEEP_TREE_MAP, usesFreeSkills } from '../data/deep-trees';
 import { deepUltimate } from '../sim/deep-tree';
 import { NODE_MAP, TREE_MAP, usesSkillTrees } from '../data/skill-trees';
@@ -13,14 +14,14 @@ export const num = (v: number) => Math.round(v).toLocaleString('zh-TW');
 export const portrait = (id: CharacterId, cls = '') => `<img class="${cls}" data-owner="${id}" src="${formPortrait(originalForm(id))}" alt="${esc(CHARACTER_MAP[id].name)}" loading="lazy">`;
 export const characterName = (id: string) => CHARACTERS.find(c => c.id === id)?.name ?? id;
 export function cardInfo(nodeId: string) {
-  if(DEEP_NODE_MAP[nodeId]){const n=DEEP_NODE_MAP[nodeId];return {name:n.name,owner:n.ownerId==='common'?'全隊共用':characterName(n.ownerId),effect:n.description,previous:DEEP_TREE_MAP[n.treeId].name,tradeoff:'確認後本局不能洗點。',rank:n.kind==='ultimate'?'終極':n.kind==='entry'?'入口':'模組',icon:n.ownerId==='common'?'':STARTER_IDS.includes(n.ownerId)?`/assets/weapons/${n.ownerId}.webp`:formPortrait(originalForm(n.ownerId)),ownerId:n.ownerId==='common'?null:n.ownerId,route:null};}
-  if (NODE_MAP[nodeId]) { const node=NODE_MAP[nodeId],tree=TREE_MAP[node.treeId];return {name:node.name,owner:characterName(node.ownerId),effect:node.description,previous:tree.name,tradeoff:node.kind==='ultimate'?'取得後，本角色其他終極鎖定；普通節點仍可取得。':'可跨樹混搭，確認後本局不洗點。',rank:node.kind==='ultimate'?'終極':node.kind==='entry'?'入口':'分支',icon:`/assets/weapons/${node.ownerId}.webp`,ownerId:node.ownerId,route:null};}
+  if(DEEP_NODE_MAP[nodeId]){const n=DEEP_NODE_MAP[nodeId];return {name:n.name,owner:n.ownerId==='common'?'全隊共用':characterName(n.ownerId),effect:n.description,previous:DEEP_TREE_MAP[n.treeId].name,tradeoff:'確認後本局不能洗點。',rank:n.kind==='ultimate'?'終極':n.kind==='entry'?'入口':'模組',icon:n.ownerId==='common'?'':STARTER_IDS.includes(n.ownerId)?assetUrl(`weapons/${n.ownerId}.webp`):formPortrait(originalForm(n.ownerId)),ownerId:n.ownerId==='common'?null:n.ownerId,route:null};}
+  if (NODE_MAP[nodeId]) { const node=NODE_MAP[nodeId],tree=TREE_MAP[node.treeId];return {name:node.name,owner:characterName(node.ownerId),effect:node.description,previous:tree.name,tradeoff:node.kind==='ultimate'?'取得後，本角色其他終極鎖定；普通節點仍可取得。':'可跨樹混搭，確認後本局不洗點。',rank:node.kind==='ultimate'?'終極':node.kind==='entry'?'入口':'分支',icon:assetUrl(`weapons/${node.ownerId}.webp`),ownerId:node.ownerId,route:null};}
   if (nodeId === 'EMPTY') return { name: '完成本次校準', owner: '全隊', effect: '所有可用改造已完成。確認後繼續守護防線。', previous: '全部校準完成', tradeoff: '', rank: '', icon: '', ownerId: null, route: null };
   const match = nodeId.match(/^(C\d\d-[AB])-(\d)$/);
   if (match) {
     const route = ROUTES.find(r => r.id === match[1])!;
     const rank = Number(match[2]);
-    return { name: route.name, owner: characterName(route.ownerId), effect: route.nodes[rank - 1], previous: rank === 1 ? '基礎武器' : route.nodes[rank - 2], tradeoff: route.tradeoff, rank: ['', 'I', 'II', 'E'][rank], icon: `/assets/evolutions/${route.id}.webp`, ownerId: route.ownerId, route };
+    return { name: route.name, owner: characterName(route.ownerId), effect: route.nodes[rank - 1], previous: rank === 1 ? '基礎武器' : route.nodes[rank - 2], tradeoff: route.tradeoff, rank: ['', 'I', 'II', 'E'][rank], icon: assetUrl(`evolutions/${route.id}.webp`), ownerId: route.ownerId, route };
   }
   const common = COMMON_UPGRADES.find(c => nodeId.startsWith(`${c.id}-`));
   return { name: common?.name ?? nodeId, owner: '全隊共鳴', effect: common?.description ?? '', previous: '共通面板', tradeoff: '僅本局生效，新戰局重置。', rank: nodeId.split('-').pop() ?? '', icon: '', ownerId: null, route: null };

@@ -13,6 +13,7 @@
 | 每個節點的數值、前置及終極 | [186 節點完整清單](FREE_SKILL_NODES.md) |
 | 已完成的工作與後續順序 | [執行計劃](EXECUTION_PLAN.md)、[實作狀態](IMPLEMENTATION_STATUS.md) |
 | 本次工程交付與實測數據 | [0.4 交付](COLLECTION_UPDATE.md)；[0.3 歷史交付](DELIVERY.md) |
+| 線上遊戲、發布方式與路徑驗證 | [GitHub Pages 部署](GITHUB_PAGES.md) |
 | 測試覆蓋、重現方式與平衡研究 | [驗收矩陣](VALIDATION_MATRIX.md)、[測試策略](TEST_POLICIES.md)、[研究結果](FREE_SKILL_VALIDATION.md) |
 | 角色與變裝的統一畫風 | [角色畫風基準](CHARACTER_ART_DIRECTION.md) |
 | 畫面、計時、音訊與模組 | [介面與音訊](UI_AUDIO.md) |

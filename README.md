@@ -4,7 +4,7 @@
 
 免登入；初始六位角色原裝免費開放。關卡與挑戰首通提供免費招募機會，獎池包含八套夏日裝與兩位新角色原裝。重打不發招募資源；沒有付費抽獎、永久等級、體力或每日任務。
 
-目前新局為 **0.4.0-dev.1 星際夏日招募與章節版**。玩法、執行狀態與驗證結果見 [文件總覽](docs/README.md)。
+目前新局為 **0.4.0-dev.1 星際夏日招募與章節版**。[線上遊玩](https://willcoming.github.io/SurvivalTowerDefense/) · [公開原始碼](https://github.com/willcoming/SurvivalTowerDefense)。玩法、執行狀態與驗證結果見 [文件總覽](docs/README.md)。
 
 ## 本機啟動
 
@@ -18,7 +18,7 @@ npm run preview
 
 電腦開啟 [本機遊戲](http://localhost:5173/)。手機連上同一個 Wi-Fi，再開啟終端輸出的 `Network` 網址；區網 IP 會隨網路改變，請以當次輸出為準。主機需保持開機且 preview 仍在執行。
 
-開發時使用 `npm run dev`。dev 與 preview 都固定 **5173** 且拒絕自動換埠，只能同時啟動其中一個；先在原終端按 Ctrl+C，再換另一個命令。不要直接雙擊 `index.html`。`dist/` 是可交付靜態網站，尚未公開部署。
+開發時使用 `npm run dev`。dev 與 preview 都固定 **5173** 且拒絕自動換埠，只能同時啟動其中一個；先在原終端按 Ctrl+C，再換另一個命令。不要直接雙擊 `index.html`。`dist/` 是建置後的靜態網站；已發布至 [GitHub Pages](https://willcoming.github.io/SurvivalTowerDefense/)。
 
 ## 操作
 
@@ -91,7 +91,7 @@ npm run build
 
 ## Git 版本紀錄
 
-專案沿用既有本地 Git 歷史，**`v0.3.0-dev.1`** 標記自由技能樹可玩版。原始碼、測試、文件、遊戲素材及版本化驗證證據納入版控；依賴、建置輸出、暫存測試檔與本地環境設定由 `.gitignore` 排除。目前尚未設定遠端倉庫。
+專案沿用既有本地 Git 歷史，**`v0.3.0-dev.1`** 標記自由技能樹可玩版。原始碼、測試、文件、遊戲素材及版本化驗證證據納入版控；依賴、建置輸出、暫存測試檔與本地環境設定由 `.gitignore` 排除。公開 GitHub 遠端已建立，使用 `npm run deploy:pages` 發布；設定、版本比對與上線結果見 [部署紀錄](docs/GITHUB_PAGES.md)。
 
 ```sh
 git status

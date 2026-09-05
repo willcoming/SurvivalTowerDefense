@@ -1,0 +1,4 @@
+{
+  "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator:  locator('.dossier-art img')\nExpected: \"汐音\"\nReceived: \"汐音・原始形態\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"to.have.attribute.value\" with timeout 5000ms\n  - waiting for locator('.dossier-art img')\n    14 × locator resolved to <img class=\"\" alt=\"汐音・原始形態\" loading=\"lazy\" data-owner=\"C07\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAMACAYAAABSD99OAAAQAElEQVR4Aex9B4AcZ339+74p2/f2ej/dnXrvsmxZ7nLvxsZgQm8hhEAChPZPQgKhpJCEEHozBmzjjrtlNVuyLFlW7+0kXe9323en/N83kmy5ALZx18zttzM75Stv9/a93/vNzEr4k4+Aj4CPgI+Aj4CPwEmHgC8ATrq33B+wj4CPgI+Aj4CPAOALAP9T4CPgI+Aj4CPgI3ASIuALgJPwTfeH7CPgI+Aj4CNwciOgRu8LAIWCX3wEfAR8BHwEfAROMgR8AXCSveH+cH0EfAR8BHwETnYEjo7fFwBHcfCffQR8BHwEfAR8BE4qBHwBcFK93f5gfQR8BHwEfAROdgSOj98XAMeR8Oc+Aj4CPgI+Aj4CJxEC…/>\n       - unexpected value \"汐音・原始形態\"\n",
+  "errors": []
+}

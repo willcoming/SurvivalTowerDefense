@@ -1,3 +1,4 @@
+import { assetUrl } from '../assets';
 import { usesFreeSkills } from '../data/deep-trees';
 import { usesSkillTrees } from '../data/skill-trees';
 import { treeMods, ultimateFor } from '../sim/skill-tree';
@@ -56,9 +57,9 @@ export class BattleScene extends Phaser.Scene {
     this.load.on('loaderror', (file: Phaser.Loader.File) => { this.missing.push(String(file.src)); });
     const run = this.read();
     this.load.image('stage', stageArt(run.config.stageId));
-    run.config.squadIds.forEach(id => {const f=equippedForm(run,id);if(f.theme==='original'&&STARTER_IDS.includes(id))this.load.spritesheet(`motion-${id}`, `/assets/animations/${id}-motion.webp`, { frameWidth: 256, frameHeight: 256 });else this.load.image(`motion-${id}`,formPortrait(f.id));});
+    run.config.squadIds.forEach(id => {const f=equippedForm(run,id);if(f.theme==='original'&&STARTER_IDS.includes(id))this.load.spritesheet(`motion-${id}`, assetUrl(`animations/${id}-motion.webp`), { frameWidth: 256, frameHeight: 256 });else this.load.image(`motion-${id}`,formPortrait(f.id));});
     this.load.image('captain-portrait', formPortrait(equippedForm(run,run.config.captainId).id));
-    [...new Set([...STAGE_MAP[run.config.stageId].enemyIds, STAGE_MAP[run.config.stageId].bossId])].forEach(id => this.load.spritesheet(enemyTexture(id), `/assets/enemy-animations/${id}-motion.webp`, { frameWidth: enemyFrameSize(id), frameHeight: enemyFrameSize(id) }));
+    [...new Set([...STAGE_MAP[run.config.stageId].enemyIds, STAGE_MAP[run.config.stageId].bossId])].forEach(id => this.load.spritesheet(enemyTexture(id), assetUrl(`enemy-animations/${id}-motion.webp`), { frameWidth: enemyFrameSize(id), frameHeight: enemyFrameSize(id) }));
   }
   create() {
     for(const id of this.read().config.squadIds){const f=equippedForm(this.read(),id);if(f.theme==='original'&&STARTER_IDS.includes(id))continue;const key=`motion-${id}`,source=this.textures.get(key).getSourceImage() as HTMLImageElement,canvas=this.textures.createCanvas(`keyed-${id}`,source.width,source.height)!;canvas.context.drawImage(source,0,0);keyPixels(canvas.context,source.width,source.height);canvas.refresh();}

@@ -1,3 +1,4 @@
+import { assetUrl } from '../assets';
 import type { StageDef, StageId } from '../sim/types';
 
 export const CHAPTERS=[
@@ -17,7 +18,7 @@ export function stageUnlocked(id:StageId,cleared:StageId[]){
 export function nextStage(id:StageId){const ids=SIDE_IDS.includes(id)?SIDE_IDS:MAIN_IDS;return ids[ids.indexOf(id)+1]??null;}
 export function chapterName(id:StageId){return CHAPTERS.find(c=>(c.ids as readonly string[]).includes(id))!.name;}
 /** Chapters share locations, not a falsely unique copy of the same image per stage. */
-export function stageArt(id:StageId){return ['S01','S02','S03'].includes(id)?`/assets/stages/${id}.webp`:`/assets/campaign/${SIDE_IDS.includes(id)?'summer':MAIN_IDS.indexOf(id)<6?'coast':MAIN_IDS.indexOf(id)<9?'resonance':'hive'}.webp`;}
+export function stageArt(id:StageId){return ['S01','S02','S03'].includes(id)?assetUrl(`stages/${id}.webp`):assetUrl(`campaign/${SIDE_IDS.includes(id)?'summer':MAIN_IDS.indexOf(id)<6?'coast':MAIN_IDS.indexOf(id)<9?'resonance':'hive'}.webp`);}
 export const CAMPAIGN_STAGES:StageDef[]=[
   {id:'S04',name:'靜默潮站',subtitle:'COAST · 04',description:'海岸浮標突然失聯。守住接收天線，找回海上撤離隊的訊號。',hpMultiplier:1.2,bossId:'B01',color:'#71bcc5',enemyIds:['E01','E02','E04','E05','E06','B01'],waves:['C22 R8','C20 R10 A2','C20 S4 R6','C22 R8 M2','C22 S6 A3','C22 R10 S4','C24 A4 M2','C24 R10 S6 A4'],intro:['希雅：浮標沒有損毀，是有人把訊號整段切斷。','雷娜：岸邊的電磁噪音正在變強。先讓天線活下來。','璃音：對岸還有人在等回覆。我們接上這條線。'],outro:['陌生聲音：這裡是海岸工兵隊……還有人收到嗎？','希雅：收到了。請保持頻道，我們正在過去。','凜月：訊號來自防波堤，也有敵人的補給軌跡。']},
   {id:'S05',name:'防波堤伏線',subtitle:'BREAKWATER · 05',description:'清除盤踞防波堤的重裝群，掩護工兵隊修復潮汐閘門。',hpMultiplier:1.22,bossId:'B02',color:'#6fc9ce',enemyIds:['E01','E03','E04','E05','E06','E07','B02'],waves:['C20 P5','C20 P6 S2','C20 S4 A3','C22 P6 M2','C22 P8 S3','C22 S6 A3 H1','C24 P8 M2','C24 P8 S4 A4 H1'],intro:['汐音：別走黃色標線。那裡是我留給它們的歡迎禮。','米菈：妳把共鳴核心做成地雷了？','汐音：提前準備，比臨時祈禱可靠。先守住閘門！'],outro:['汐音：工兵全員撤出。這條路現在歸妳們。','璃音：不是歸我們，是一起守住的。','汐音：那我就把剩下的佈雷圖，交給晨星頻道。']},

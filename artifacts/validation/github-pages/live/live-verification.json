@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-05T06:21:34.855Z",
+  "commit": "027f7ec86247366f8f41e4020717e7606106883b",
+  "remoteMain": "027f7ec86247366f8f41e4020717e7606106883b",
+  "contentVersion": "0.3.0-dev.1",
+  "url": "https://willcoming.github.io/SurvivalTowerDefense/?v=027f7ec86247366f8f41e4020717e7606106883b",
+  "version": {
+    "commit": "027f7ec86247366f8f41e4020717e7606106883b",
+    "contentVersion": "0.3.0-dev.1"
+  },
+  "files": [
+    {
+      "path": "index.html",
+      "sha256": "2144f0312ced58f1517f6b4a6b19bf2337c2888fd30d4d5210a1d6e4fc7e5434"
+    },
+    {
+      "path": "assets/index-BSBq0G4q.css",
+      "sha256": "8cb049855836bb5f77089e50dce517992e4039f34dac14a934a560522d14409b",
+      "bytes": 57772
+    },
+    {
+      "path": "assets/index-mEfQWsSW.js",
+      "sha256": "b89b336f8b9774e52ae5d61991d169afa86d9a00db89e549f277bfb97481fe4a",
+      "bytes": 1412725
+    }
+  ]
+}

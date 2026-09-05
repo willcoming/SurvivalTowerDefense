@@ -1,0 +1,73 @@
+{
+  "contentVersion": "0.3.0-dev.1",
+  "basedOnCommit": "6b1ce14ff233a899b09a26f70d951a966883ebd6",
+  "branch": "codex/pages-publish",
+  "recordedAt": "2026-09-05T06:22:12.499Z",
+  "sourceDigest": "cbfafad0a386efe8dab6f54cbc149787e3bbbbdfc0b88a7aac6bf2d5d973ec4b",
+  "rules": {
+    "passed": 254,
+    "failed": 0,
+    "evidence": "rules.json"
+  },
+  "builds": {
+    "root": true,
+    "projectSubpath": true
+  },
+  "assets": {
+    "passed": true,
+    "required": 61,
+    "manifest": 62,
+    "evidence": "asset-budget.json"
+  },
+  "production": [
+    {
+      "base": "/",
+      "passed": true,
+      "homeInteractiveMs": 679.901209,
+      "battleReadyMs": 3351.9762089999995,
+      "assetRequests": 24,
+      "partialPointRecovery": true,
+      "firstCastTick": 1500,
+      "evidence": "local-root/smoke.json"
+    },
+    {
+      "base": "/SurvivalTowerDefense/",
+      "passed": true,
+      "homeInteractiveMs": 710.6397499999999,
+      "battleReadyMs": 3386.6782090000006,
+      "assetRequests": 24,
+      "partialPointRecovery": true,
+      "firstCastTick": 1500,
+      "evidence": "local-subpath/smoke.json"
+    }
+  ],
+  "remote": {
+    "created": true,
+    "repository": "https://github.com/willcoming/SurvivalTowerDefense",
+    "visibility": "public",
+    "pagesDeployed": true,
+    "site": "https://willcoming.github.io/SurvivalTowerDefense/",
+    "httpsEnforced": true,
+    "sourceCommit": "027f7ec86247366f8f41e4020717e7606106883b",
+    "pagesCommit": "72687477b520f5b0191a0d331a4c3941cf0c10cc",
+    "evidence": "live/pages-settings.json"
+  },
+  "limitations": [
+    "Desktop Chromium with mobile viewport and simulated network; real phone testing remains outstanding.",
+    "Live evidence records the first published source commit; later documentation-only commits are separately checked by npm run verify:pages.",
+    "Concurrent new-character and new-stage work in the original checkout is not part of this deployment baseline."
+  ],
+  "live": {
+    "passed": true,
+    "sourceCommit": "027f7ec86247366f8f41e4020717e7606106883b",
+    "homeInteractiveMs": 3541.2171249999997,
+    "battleReadyMs": 3919.1429590000007,
+    "partialPointRecovery": true,
+    "firstCastTick": 1500,
+    "assetRequests": 24,
+    "consoleErrors": [],
+    "failedRequests": [],
+    "evidence": "live/smoke.json",
+    "filesEvidence": "live/live-verification.json"
+  }
+}

@@ -1,3 +1,4 @@
+import { assetUrl } from '../assets';
 import type { CharacterId, DamageType, EnemyId, FormId, RunState } from '../sim/types';
 
 export const COLLECTION_CONTENT_VERSION = '0.4.0-dev.1';
@@ -37,8 +38,8 @@ export const isSummer=(s:RunState,id:CharacterId)=>equippedForm(s,id).theme==='s
 export const attackType=(s:RunState,id:CharacterId)=>equippedForm(s,id).damageType;
 export function formPortrait(id:FormId){
   const form=FORM_MAP[id];
-  if(form.theme==='original'&&STARTER_IDS.includes(form.ownerId))return `/assets/characters/${form.ownerId}-portrait.webp`;
+  if(form.theme==='original'&&STARTER_IDS.includes(form.ownerId))return assetUrl(`characters/${form.ownerId}-portrait.webp`);
   const revision=form.ownerId==='C07'||form.ownerId==='C08'?(form.theme==='summer'?'-pose-v4':'-stage-v3'):'';
-  return `/assets/forms/${id}${revision}.webp`;
+  return assetUrl(`forms/${id}${revision}.webp`);
 }
-export const formMotion=(id:FormId)=>FORM_MAP[id].theme==='original'&&STARTER_IDS.includes(FORM_MAP[id].ownerId)?`/assets/animations/${FORM_MAP[id].ownerId}-motion.webp`:formPortrait(id);
+export const formMotion=(id:FormId)=>FORM_MAP[id].theme==='original'&&STARTER_IDS.includes(FORM_MAP[id].ownerId)?assetUrl(`animations/${FORM_MAP[id].ownerId}-motion.webp`):formPortrait(id);

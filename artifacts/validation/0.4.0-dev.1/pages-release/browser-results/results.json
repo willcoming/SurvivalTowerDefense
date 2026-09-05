@@ -1,0 +1,972 @@
+{
+  "config": {
+    "argv": [
+      "/Users/willcoming/.hermes/node/bin/node",
+      "/Users/willcoming/code/SurvivalTowerDefense/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/collection.spec.ts",
+      "tests/e2e/game.spec.ts"
+    ],
+    "configFile": "/Users/willcoming/code/SurvivalTowerDefense/playwright.config.ts",
+    "rootDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.4.0-dev.1/pages-release/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.4.0-dev.1/pages-release/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "artifacts/validation/0.4.0-dev.1/pages-release/browser-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev -- --host 0.0.0.0 --port 5174 --strictPort",
+      "url": "http://127.0.0.1:5174",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "collection.spec.ts",
+      "file": "collection.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "COLLECTION: free pool, disabled draws, full artwork and responsive layouts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3178,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:29:27.536Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-1b57efbb8ce20a441829",
+          "file": "collection.spec.ts",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: a double click draws once, commits first, and survives reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2253,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:29:30.926Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-044f1475c291f5c84d4f",
+          "file": "collection.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: summer-first exchange directly unlocks one character, not original form",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2310,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:29:33.186Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-0fcba8760f76ccd9cfe0",
+          "file": "collection.spec.ts",
+          "line": 34,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: all 51 goals grant full collection once and stop spending",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2052,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:29:35.503Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-5767555b61fbd4dc11fb",
+          "file": "collection.spec.ts",
+          "line": 44,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: codex keyboard navigation and native form selection use current artwork without old portraits",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2246,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:29:37.558Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-29ca0a5869955e984cef",
+          "file": "collection.spec.ts",
+          "line": 49,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: new captain mechanics, elemental portraits, skills and restore",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3714,
+                  "error": {
+                    "message": "Error: page.evaluate: Resulting promise was garbage collected.",
+                    "stack": "Error: page.evaluate: Resulting promise was garbage collected.\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/collection.spec.ts:73:16",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/collection.spec.ts",
+                      "column": 16,
+                      "line": 73
+                    },
+                    "snippet": "  71 |     await page.evaluate(async({captainId,theme})=>{const s=window.__game.getSave();s.preferences.tutorialSeen=true;const loading=window.__game.start({stageId:'S04',squadIds:['C07','C08','C06'],captainId,seed:101,forms:{C07:`C07-${theme}`,C08:`C08-${theme}`}});window.__game.command({type:'pause',reason:'user'});await loading;},{captainId,theme});\n  72 |     await page.locator('#battle-loading').waitFor({state:'detached'});\n> 73 |     await page.evaluate(async()=>{const api=window.__game,s=api.state()!;const p='/src/sim/combat.ts';const {createEnemy}=await import(p);const e=createEnemy(s,'E03',195,250);e.hp=e.maxHp=100000;e.speed=0;e.attackAt=s.tick+90000;s.tacticalReadyAt=0;api.command({type:'resume',reason:'user'});api.ticks(80);});\n     |                ^\n  74 |     await expect(page.locator('#tactical-button')).toBeEnabled();await page.locator('#tactical-button').click();\n  75 |     await expect.poll(()=>page.evaluate(()=>window.__game.presentation().cutin.visible)).toBe(true);\n  76 |     await page.screenshot({path:dir+'/'+info.project.name+'-'+captainId+'-'+theme+'-skill.png'});"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/collection.spec.ts",
+                        "column": 16,
+                        "line": 73
+                      },
+                      "message": "Error: page.evaluate: Resulting promise was garbage collected.\n\n  71 |     await page.evaluate(async({captainId,theme})=>{const s=window.__game.getSave();s.preferences.tutorialSeen=true;const loading=window.__game.start({stageId:'S04',squadIds:['C07','C08','C06'],captainId,seed:101,forms:{C07:`C07-${theme}`,C08:`C08-${theme}`}});window.__game.command({type:'pause',reason:'user'});await loading;},{captainId,theme});\n  72 |     await page.locator('#battle-loading').waitFor({state:'detached'});\n> 73 |     await page.evaluate(async()=>{const api=window.__game,s=api.state()!;const p='/src/sim/combat.ts';const {createEnemy}=await import(p);const e=createEnemy(s,'E03',195,250);e.hp=e.maxHp=100000;e.speed=0;e.attackAt=s.tick+90000;s.tacticalReadyAt=0;api.command({type:'resume',reason:'user'});api.ticks(80);});\n     |                ^\n  74 |     await expect(page.locator('#tactical-button')).toBeEnabled();await page.locator('#tactical-button').click();\n  75 |     await expect.poll(()=>page.evaluate(()=>window.__game.presentation().cutin.visible)).toBe(true);\n  76 |     await page.screenshot({path:dir+'/'+info.project.name+'-'+captainId+'-'+theme+'-skill.png'});\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/collection.spec.ts:73:16"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:29:39.808Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.4.0-dev.1/pages-release/browser-results/test-output/collection-COLLECTION-new--f8342-ortraits-skills-and-restore-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.4.0-dev.1/pages-release/browser-results/test-output/collection-COLLECTION-new--f8342-ortraits-skills-and-restore-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.4.0-dev.1/pages-release/browser-results/test-output/collection-COLLECTION-new--f8342-ortraits-skills-and-restore-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/collection.spec.ts",
+                    "column": 16,
+                    "line": 73
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-e441d8d5ae7bfffeaff2",
+          "file": "collection.spec.ts",
+          "line": 68,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: free pool, disabled draws, full artwork and responsive layouts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3360,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:14.994Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-94191556a55b9f7dbcc0",
+          "file": "collection.spec.ts",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: a double click draws once, commits first, and survives reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1606,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:18.527Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-0fbc6de011b9ef80a1a6",
+          "file": "collection.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: summer-first exchange directly unlocks one character, not original form",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1857,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:20.138Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-53b91d02166d05d8306e",
+          "file": "collection.spec.ts",
+          "line": 34,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: all 51 goals grant full collection once and stop spending",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1279,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:21.999Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-4f17c55c3ba3e4e5a6a3",
+          "file": "collection.spec.ts",
+          "line": 44,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: codex keyboard navigation and native form selection use current artwork without old portraits",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2345,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:23.282Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-0b525d1b557b38c41b24",
+          "file": "collection.spec.ts",
+          "line": 49,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: new captain mechanics, elemental portraits, skills and restore",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5571,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:25.632Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-88f4f5b6d505432104a9",
+          "file": "collection.spec.ts",
+          "line": 68,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "game.spec.ts",
+      "file": "game.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "AC01/02: fresh local game, all six characters, legal squad and three responsive widths",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1711,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:29:43.998Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-25f5fd413a2b9a13a44b",
+          "file": "game.spec.ts",
+          "line": 36,
+          "column": 1
+        },
+        {
+          "title": "AC05/06/09: real draft, reroll, reload preservation, explicit card confirmation and pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3401,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:29:45.790Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-239dd1b8d2496bc66b39",
+          "file": "game.spec.ts",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "AC09: denied storage is explicit and allows temporary play without fake saved status",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 861,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:29:49.196Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-d261c37c87f16f52556a",
+          "file": "game.spec.ts",
+          "line": 97,
+          "column": 1
+        },
+        {
+          "title": "AC06/UI05: mobile landscape suspends combat and returning portrait keeps explicit user pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1575,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:29:50.061Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-56844cf8db4fdbfdc14c",
+          "file": "game.spec.ts",
+          "line": 106,
+          "column": 1
+        },
+        {
+          "title": "BAL05/AC07/12: browser replays a legitimate legacy complete win and survives five consecutive menu returns",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9469,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:29:51.640Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-77618af84fee6fdcc238",
+          "file": "game.spec.ts",
+          "line": 120,
+          "column": 1
+        },
+        {
+          "title": "SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore the local preference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13627,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:01.117Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-6ec6599a92bc811533b7",
+          "file": "game.spec.ts",
+          "line": 180,
+          "column": 1
+        },
+        {
+          "title": "AC01/02: fresh local game, all six characters, legal squad and three responsive widths",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1324,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:31.233Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-b3c3852fd8d07347af53",
+          "file": "game.spec.ts",
+          "line": 36,
+          "column": 1
+        },
+        {
+          "title": "AC05/06/09: real draft, reroll, reload preservation, explicit card confirmation and pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2357,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:32.563Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-a42843d57e1d62d383e6",
+          "file": "game.spec.ts",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "AC09: denied storage is explicit and allows temporary play without fake saved status",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 591,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:34.927Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-af30c7f75c85426e2501",
+          "file": "game.spec.ts",
+          "line": 97,
+          "column": 1
+        },
+        {
+          "title": "AC06/UI05: mobile landscape suspends combat and returning portrait keeps explicit user pause",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1150,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:35.523Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-23621f54340185855868",
+          "file": "game.spec.ts",
+          "line": 106,
+          "column": 1
+        },
+        {
+          "title": "BAL05/AC07/12: browser replays a legitimate legacy complete win and survives five consecutive menu returns",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8369,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:36.678Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-d1dc19d4828cdd733af3",
+          "file": "game.spec.ts",
+          "line": 120,
+          "column": 1
+        },
+        {
+          "title": "SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore the local preference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12963,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:30:45.051Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8b1bb1493a64c9fc3ab6-936daa66dfd90408886d",
+          "file": "game.spec.ts",
+          "line": 180,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-05T07:29:26.940Z",
+    "duration": 91140.741,
+    "expected": 23,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
