@@ -52,7 +52,8 @@ try {
   const remotePages = read(['ls-remote', 'origin', 'refs/heads/gh-pages'], publish).split(/\s+/)[0];
   if (remotePages !== pagesCommit) throw new Error('Remote Pages branch differs from the built website.');
   writeFileSync(join(root, 'dist', 'deployment-receipt.json'), JSON.stringify({ sourceCommit, remoteMain, pagesCommit, remotePages, siteUrl, publishedAt: new Date().toISOString() }, null, 2) + '\n');
-  console.log(`Source and website pushed. Await Pages publication, then verify ${siteUrl}?v=${sourceCommit}`);
+  console.log(`Source and website pushed. Verifying ${siteUrl}?v=${sourceCommit}`);
+  run('npm', ['run', 'verify:pages']);
 } finally {
   rmSync(stage, { recursive: true, force: true });
 }

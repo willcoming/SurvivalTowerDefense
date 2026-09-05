@@ -14,7 +14,7 @@
 npm run deploy:pages
 ```
 
-[部署腳本](../scripts/deploy-pages.mjs) 確认 origin 是本專案且工作目錄乾淨，然後執行規則／存檔測試、型別檢查與 Pages 路徑 build、素材容量檢查。通過後才推送來源與網站，保留兩個分支的歷史，不強制推送。它會比對本機／遠端的原始碼與網站 SHA，產生本機 `dist/deployment-receipt.json`。
+[部署腳本](../scripts/deploy-pages.mjs) 確认 origin 是本專案且工作目錄乾淨，然後執行規則／存檔測試、型別檢查與 Pages 路徑 build、素材容量檢查。通過後才推送來源與網站，保留兩個分支的歷史，不強制推送。它會比對本機／遠端的原始碼與網站 SHA，產生本機 `dist/deployment-receipt.json`，再等待最多五分鐘核對公開頁面與資產。線上比對結果保存在 `dist/live-verification.json`，也可單獨執行 `npm run verify:pages`。
 
 `git push origin main` 只更新原始碼。因為此專案使用 Vite，網站需由上述指令先建置，再發布 `gh-pages`。只有建置產物進入網站分支，依賴、原始測試報告與開發檔不納入網站。
 
