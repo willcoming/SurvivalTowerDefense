@@ -17,7 +17,7 @@ export function deepGraph(tree:DeepTree,run?:RunState,selected?:string|null){
   })).join('');
   return `<div class="deep-graph" style="height:${height}px" aria-label="${esc(tree.name)}前置路線"><svg class="deep-connections" viewBox="0 0 360 ${height}" preserveAspectRatio="none" aria-hidden="true">${edges}</svg>${tree.nodes.map(n=>{
     const owned=!!run&&deepHas(run,n.id),reason=run?deepLock(run,n.id):null,state=owned?'owned':reason?'locked':'available';
-    return `<button class="deep-node ${state} ${n.kind} ${selected===n.id?'inspecting':''}" style="left:${(n.lane*120+60)/3.6}%;top:${n.layer*104+12}px" data-action="${run?'deep-node':'codex-node'}" data-id="${n.id}" data-state="${state}" aria-pressed="${selected===n.id}" aria-label="${esc(n.name)}，${owned?'已取得':reason??'1 點可取得'}"><span class="node-symbol">${owned?'✓':n.kind==='ultimate'?'✦':reason?'◇':'＋'}</span><strong>${esc(n.name)}</strong><small>${owned?'已取得':reason?'查看前置':n.kind==='ultimate'?'終極 · 1 點':'1 技能點'}</small></button>`;
+    return `<button class="deep-node ${state} ${n.kind} ${selected===n.id?'inspecting':''}" style="left:${(n.lane*120+60)/3.6}%;top:${n.layer*104+12}px" data-action="${run?'deep-node':'codex-node'}" data-id="${n.id}" data-state="${state}" data-layer="${n.layer}" aria-pressed="${selected===n.id}" aria-label="${esc(n.name)}，${owned?'已取得':reason??'1 點可取得'}"><span class="node-symbol">${owned?'✓':n.kind==='ultimate'?'✦':reason?'◇':'＋'}</span><strong>${esc(n.name)}</strong><small>${owned?'已取得':reason?'查看前置':n.kind==='ultimate'?'終極 · 1 點':'1 技能點'}</small></button>`;
   }).join('')}</div>`;
 }
 function battlefieldIntel(run:RunState){
@@ -33,7 +33,7 @@ export function deepTreePanel(run:RunState,vm:ViewModel){
   const name=owner==='common'?'全隊共用':CHARACTER_MAP[owner].name,color=owner==='common'?'#558577':CHARACTER_MAP[owner].color;
   const remaining=run.draft?(run.draft.pointTarget??0)-run.choicesSpent:0;
   const weapon=owner==='common'?undefined:run.weapons.find(w=>w.id===owner),stats=weapon?weaponStats(run,weapon):null;
-  return `<div class="modal-backdrop tree-backdrop"><section class="tree-panel deep-panel" role="dialog" aria-modal="true" aria-labelledby="deep-title" style="--character:${color}">
+  return `<div class="modal-backdrop tree-backdrop"><section class="tree-panel deep-panel" data-tree-id="${tree.id}" role="dialog" aria-modal="true" aria-labelledby="deep-title" style="--character:${color}">
     <header class="tree-header"><div><span class="eyebrow">NEURAL NETWORK / 戰鬥已暫停</span><h2 id="deep-title">${remaining?'配置技能':'本局技能樹'} <small>${run.choicesSpent} / 24 點</small></h2></div>${remaining?`<span class="points-left" role="status">尚需配置 <b>${remaining}</b> 點</span>`:'<button class="icon-button" data-action="tree-close" aria-label="關閉技能樹">×</button>'}</header>
     <div class="tree-scroll">${battlefieldIntel(run)}
     <nav class="tree-characters deep-characters" aria-label="選擇角色或共用技能">${[...run.config.squadIds,'common' as const].map(id=>`<button data-action="deep-owner" data-id="${id}" aria-pressed="${id===owner}" class="${id===owner?'active':''}">${id==='common'?'<span class="common-emblem">◇</span>':portrait(id)}<span>${id==='common'?'共用技能':esc(CHARACTER_MAP[id].name)}</span><small>${(run.treeNodes??[]).filter(n=>DEEP_NODE_MAP[n]?.ownerId===id).length} 點</small></button>`).join('')}</nav>

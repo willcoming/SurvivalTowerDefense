@@ -1,0 +1,80 @@
+@media (max-width: 800px) {
+  .mobile-app > .system-notice.mobile-notice {
+    position: fixed;
+    z-index: 140;
+    top: max(3px, env(safe-area-inset-top));
+    right: auto;
+    left: max(12px, env(safe-area-inset-left));
+    display: block;
+    width: auto;
+    max-width: calc(100vw - 120px);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+  }
+
+  .mobile-app:has(> .mobile-notice) > .masthead .wordmark {
+    visibility: hidden;
+  }
+
+  .mobile-notice > .button.mobile-notice-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    max-width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #dcab68;
+    border-radius: 4px;
+    background: #263b3d;
+    color: #ffe2ad;
+    box-shadow: 0 3px 10px #071c2933;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .mobile-notice-symbol {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    font-weight: 800;
+  }
+
+  .mobile-notice .mobile-notice-content {
+    display: grid;
+    gap: 12px;
+    color: var(--ink);
+  }
+
+  .mobile-notice-content > span {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+  }
+
+  .mobile-notice-content > button {
+    min-height: 44px;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .mobile-notice-content > [data-action="save-retry"] {
+    border-color: #a8e0cc;
+    background: #a8e0cc;
+    color: #123139;
+  }
+}

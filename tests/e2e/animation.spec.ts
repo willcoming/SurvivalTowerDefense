@@ -132,7 +132,7 @@ test('ANIM: 3× pressure and reduced effects preserve charging warnings above sk
   await page.waitForFunction(()=>window.__game.presentation().cutin.visible&&window.__game.presentation().warnings.visible);
   const view=await page.evaluate(()=>window.__game.presentation());expect(view.detail).toBe('compact');expect(view.warnings.bottom).toBeLessThan(view.cutin.top);expect(view.warnings.depth).toBeGreaterThan(view.cutin.depth);expect(view.activeEffects).toBeLessThanOrEqual(34);
   await page.screenshot({path:`${dir}/screenshots/${info.project.name}-3x-warning-cutin.png`});
-  await page.locator('[data-action="pause"]').click();await page.locator('#reduced').check();await page.locator('[data-action="resume"]').click();
+  await page.locator('[data-action="pause"]').click();await page.getByRole('button',{name:'音量與戰鬥設定',exact:true}).click();await page.locator('#reduced').check();await page.getByRole('button',{name:'關閉詳細資訊',exact:true}).click();await page.locator('[data-action="resume"]').click();
   await page.waitForFunction(()=>window.__game.presentation().detail==='compact');
   expect(await page.evaluate(()=>window.__game.presentation().warnings.visible)).toBe(true);
   writeFileSync(`${dir}/${info.project.name}-warning-priority.json`,JSON.stringify({evidence:'80-enemy presentation fixture with an actual 3× clock and a live captain skill.',view},null,2));

@@ -3,6 +3,12 @@ import {mkdirSync} from 'node:fs';
 const dir=(process.env.VALIDATION_OUTPUT_DIR??'artifacts/validation/0.4.0-dev.1')+'/screenshots/collection';
 mkdirSync(dir,{recursive:true});
 async function ready(page:Page){await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);}
+async function chooseCollection(page:Page,index:number){
+  if(await page.locator('.mobile-recruitment').count()){
+    await page.getByRole('button',{name:'收藏與兌換',exact:true}).click();
+    await page.locator('.mobile-collection-chooser select').selectOption(String(index));
+  }
+}
 async function seed(page:Page,kind:'tickets'|'exchange'|'complete'|'forms'){
   await page.evaluate(async kind=>{const s=window.__game.getSave();if(kind==='tickets')s.profile.cleared=['S01','S02','S03'];if(kind==='exchange')s.collection.fragments=100;
     if(kind==='forms')s.collection.owned.push('C07-original','C07-summer','C08-original','C08-summer');
@@ -15,10 +21,20 @@ test('COLLECTION: free pool, disabled draws, full artwork and responsive layouts
   await expect(page.locator('.collection-card')).toHaveCount(10);await expect(page.locator('[data-action="draw"]')).toBeDisabled();
   await expect(page.locator('.collection-card').filter({hasText:'晴海狙擊'})).toHaveCount(1);await expect(page.locator('.collection-card').filter({hasText:'深藍潛航'})).toHaveCount(0);
   for(const [width,height] of [[320,720],[768,1024],[1024,1400],[1440,1600]]){
-    await page.setViewportSize({width,height});for(const card of await page.locator('.collection-card').all()){await card.scrollIntoViewIfNeeded();await expect.poll(()=>card.locator('img').evaluate(i=>(i as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);}await page.locator('.recruitment-banner').scrollIntoViewIfNeeded();
+    await page.setViewportSize({width,height});
+    for(const [index,card] of (await page.locator('.collection-card').all()).entries()){
+      await chooseCollection(page,index);
+      const details=card.getByRole('button',{name:'形態能力與完整立繪',exact:true});
+      if(await details.count())await details.click();else await card.scrollIntoViewIfNeeded();
+      await expect.poll(()=>card.locator('img').evaluateAll(images=>images.every(image=>(image as HTMLImageElement).naturalWidth>0))).toBe(true);
+      if(await details.count())await page.getByRole('button',{name:'關閉詳細資訊',exact:true}).click();
+    }
+    if(await page.locator('.mobile-recruitment').count())await page.getByRole('button',{name:'獎池說明與取得方式',exact:true}).click();
+    await page.locator('.recruitment-banner').scrollIntoViewIfNeeded();
     await expect.poll(()=>page.locator('.collection-card img').evaluateAll(imgs=>imgs.every(i=>(i as HTMLImageElement).naturalWidth>0))).toBe(true);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
     await page.screenshot({path:dir+'/'+info.project.name+'-collection-'+width+'.png',fullPage:true});
+    if(await page.locator('dialog.mobile-detail[open]').count())await page.getByRole('button',{name:'關閉詳細資訊',exact:true}).click();
   }expect(errors).toEqual([]);for(const owner of ['C07','C08'])for(const theme of ['original','summer'])expect(loaded.has(`/assets/forms/${owner}-${theme}-${theme==='summer'?'pose-v4':'stage-v3'}.webp`)).toBe(true);
   expect([...loaded].some(path=>/\/C0[78]-(original|summer)(-stage-v2)?\.webp$|\/C0[78]-summer-stage-v3\.webp$/.test(path))).toBe(false);
 });
@@ -32,10 +48,12 @@ test('COLLECTION: a double click draws once, commits first, and survives reload'
   expect(await page.evaluate(()=>window.__game.getSave().collection)).toEqual(c);await expect(page.locator('.recruitment-receipt')).toContainText('#1');
 });
 test('COLLECTION: summer-first exchange directly unlocks one character, not original form',async({page},info)=>{
-  await ready(page);await seed(page,'exchange');await page.locator('.main-nav [data-action="recruitment"]').click();await page.locator('[data-action="exchange"][data-id="C07-summer"]').click();
+  await ready(page);await seed(page,'exchange');await page.locator('.main-nav [data-action="recruitment"]').click();
+  const exchangeIndex=await page.locator('.collection-card').evaluateAll(cards=>cards.findIndex(card=>card.querySelector('[data-action="exchange"][data-id="C07-summer"]')));
+  await chooseCollection(page,exchangeIndex);await page.locator('[data-action="exchange"][data-id="C07-summer"]').click();
   await expect(page.locator('.recruitment-receipt')).toContainText('汐音');await page.locator('.main-nav [data-action="roster"]').click();
   await expect(page.locator('#form-C07')).toHaveValue('C07-summer');await expect(page.locator('#form-C07 option[value="C07-original"]')).toBeDisabled();
-  await page.locator('.filled-slot').first().click();await page.locator('.add-character[data-id="C07"]').click();await page.locator('.captain-button[data-id="C07"]').click();
+  await page.locator('.filled-slot').first().click();await page.getByRole('combobox',{name:'選擇隊員',exact:true}).selectOption({index:6});await page.locator('.add-character[data-id="C07"]').click();await page.locator('.captain-button[data-id="C07"]').click();
   await page.locator('[data-action="start"]').click();await page.locator('#battle-loading').waitFor({state:'detached'});await page.locator('[data-action="tutorial-done"]').first().click();
   await expect(page.locator('#mechanic-readout')).toContainText('地雷');await expect(page.locator('#range-C07 .element-badge')).toContainText('電漿');
   expect(await page.evaluate(()=>window.__game.state()!.config.forms!.C07)).toBe('C07-summer');
@@ -58,7 +76,9 @@ test('COLLECTION: codex keyboard navigation and native form selection use curren
     // navigation for buttons/focus and use its supported native-option driver.
     if(info.project.name==='webkit')await control.selectOption(`${id}-summer`);else{await page.keyboard.press('ArrowDown');await page.keyboard.press('Enter');}await expect(control).toHaveValue(`${id}-summer`);
     await expect(page.locator('.dossier-art img')).toHaveAttribute('alt',id==='C07'?'汐音・潮汐布雷師':'熾夏・海風快槍');await expect(page.locator('.weapon-info img')).toHaveAttribute('src',/^data:image/);
+    await page.getByRole('button',{name:'角色與武器詳情',exact:true}).focus();await page.keyboard.press('Enter');
     await page.screenshot({path:dir+'/'+info.project.name+'-'+id+'-codex.png'});
+    await page.keyboard.press('Escape');
     await control.focus();if(info.project.name==='webkit')await control.selectOption(`${id}-original`);else{await page.keyboard.press('ArrowUp');await page.keyboard.press('Enter');}await expect(control).toHaveValue(`${id}-original`);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
   }

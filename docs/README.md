@@ -17,6 +17,7 @@
 | 測試覆蓋、重現方式與平衡研究 | [驗收矩陣](VALIDATION_MATRIX.md)、[測試策略](TEST_POLICIES.md)、[研究結果](FREE_SKILL_VALIDATION.md) |
 | 角色與變裝的統一畫風 | [角色畫風基準](CHARACTER_ART_DIRECTION.md) |
 | 畫面、計時、音訊與模組 | [介面與音訊](UI_AUDIO.md) |
+| 手機全螢幕操作、分頁與詳細面板 | [手機介面更新](MOBILE_LAYOUT_UPDATE.md) |
 | 尚待執行的手機與真人測試 | [外部測試表](EXTERNAL_PLAYTEST.md) |
 | 版本演進與原始設計 | [決策紀錄](DECISIONS.md)、[歷史索引](history/README.md) |
 

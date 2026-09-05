@@ -48,7 +48,8 @@ test('ENEMY: stun freezes every pose, compact effects retain gait, pause and sav
   await page.waitForFunction(()=>window.__game.presentation().enemyMotions.every(m=>m.mode==='stunned'));
   const frozen=await page.evaluate(()=>({view:window.__game.presentation().enemyMotions,ys:window.__game.state()!.enemies.map(e=>e.y)}));await page.waitForTimeout(250);
   expect(await page.evaluate(()=>({view:window.__game.presentation().enemyMotions,ys:window.__game.state()!.enemies.map(e=>e.y)}))).toEqual(frozen);
-  await page.locator('[data-action="pause"]').click();await page.locator('#reduced').check();
+  await page.locator('[data-action="pause"]').click();await page.getByRole('button',{name:'音量與戰鬥設定',exact:true}).click();await page.locator('#reduced').check();
+  await page.getByRole('button',{name:'關閉詳細資訊',exact:true}).click();
   const paused=await page.evaluate(()=>window.__game.presentation().enemyMotions);await page.waitForTimeout(200);expect(await page.evaluate(()=>window.__game.presentation().enemyMotions)).toEqual(paused);
   await page.evaluate(()=>{const s=window.__game.state()!;s.enemies.forEach(e=>{e.effects=[];});});
   await page.locator('[data-action="resume"]').click();await page.waitForFunction(()=>window.__game.presentation().enemyMotions.every(m=>m.mode==='move'));

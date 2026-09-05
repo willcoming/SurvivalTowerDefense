@@ -1,0 +1,124 @@
+@media (max-width: 800px) {
+  .battle-layout { height: 100dvh; min-height: 0; overflow: hidden; }
+  .battle-phone { height: 100%; min-height: 0; max-height: none; }
+  .battle-hud { padding: max(6px, env(safe-area-inset-top)) 12px 6px; gap: 5px; }
+  .battle-hud .icon-button { width: 44px; min-width: 44px; }
+  .battle-header-controls { gap: 4px; }
+  .time-hud > strong { font-size: 22px; }
+  .time-hud > span, .time-hud #evolution-text, .xp-caption { font-size: 11px; }
+  .xp-caption { margin-top: 0; }
+  .operation-event { grid-column: 1 / -1; padding-top: 0; font-size: 11px; }
+  .weapon-strip { gap: 4px; padding: 4px 10px 2px; }
+  .weapon-strip > button { min-width: 44px; min-height: 56px; }
+  .weapon-strip b { font-size: 12px; }
+  .weapon-strip small { font-size: 10px; }
+  .range-toolbar { padding: 0 10px; }
+  .range-toolbar > span { font-size: 12px; }
+  .tactical-control { gap: 6px; padding: 4px 10px max(6px, env(safe-area-inset-bottom)); }
+  .tactical-control .tactical-button, .auto-tactical-button { min-height: 52px; }
+  .tactical-control .tactical-button { padding: 7px 10px; }
+  .tactical-button b { font-size: 14px; }
+  .tactical-button small { font-size: 11px; margin-bottom: 2px; }
+  .auto-tactical-button { flex-basis: 68px; gap: 4px; padding: 4px; }
+
+  .mobile-tree { height: 100dvh; max-height: 100dvh; }
+  .mobile-tree .tree-header { padding: max(6px, env(safe-area-inset-top)) 10px 6px; min-height: 52px; gap: 6px; }
+  .mobile-tree .tree-header .eyebrow { display: none; }
+  .mobile-tree .tree-header h2 { font-size: 20px; margin: 0; }
+  .mobile-tree .tree-header h2 small { font-size: 12px; margin-left: 5px; }
+  .mobile-tree .points-left { font-size: 12px; }
+  .mobile-tree .points-left b { font-size: 21px; margin: 0 2px; }
+  .mobile-tree .tree-scroll { display: flex; flex-direction: column; gap: 7px; padding: 8px 10px; overflow: hidden; }
+  .mobile-tree .tree-characters { margin: 0; gap: 3px; flex-shrink: 0; }
+  .mobile-tree .tree-characters button { min-width: 44px; min-height: 44px; padding: 3px 0; gap: 1px; font-size: 12px; }
+  .mobile-tree .tree-characters img, .mobile-tree .tree-characters .common-emblem { display: none; }
+  .mobile-tree .tree-characters small { font-size: 11px; }
+  .mobile-tree .tree-tabs { position: static; margin: 0; padding: 0; gap: 4px; flex-shrink: 0; }
+  .mobile-tree .tree-tabs button { min-height: 44px; padding: 3px; gap: 2px; font-size: 12px; }
+  .mobile-tree .tree-tabs small { font-size: 11px; }
+  .mobile-combat-toolbar { display: flex; align-items: center; gap: 6px; flex-shrink: 0; min-width: 0; }
+  .mobile-combat-toolbar .mobile-pager { flex: 1; min-width: 0; margin: 0; }
+  .mobile-combat-toolbar .mobile-pager > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .mobile-combat-toolbar .mobile-pager select { width: 100%; min-height: 44px; padding: 6px; font-size: 16px; }
+  .mobile-combat-toolbar > .mobile-detail-trigger { min-height: 44px; padding: 6px 9px; font-size: 12px; white-space: nowrap; }
+  .mobile-tree .tree-scroll > .deep-graph, .mobile-tree .tree-scroll > .node-graph { display: flex; flex: 1; min-height: 70px; height: auto !important; margin: 0; padding: 3px; width: 100%; }
+  .mobile-tree .deep-connections, .mobile-tree .node-graph::before { display: none; }
+  .mobile-node-page { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; align-content: stretch; }
+  .mobile-node-page[hidden], .mobile-tutorial li[hidden], .mobile-upgrade .upgrade-card[hidden] { display: none !important; }
+  .mobile-node-page > .deep-node, .mobile-node-page > .skill-node { position: relative; left: auto !important; top: auto !important; transform: none; width: 100%; min-height: 64px; height: 100%; max-height: 180px; grid-column: auto; grid-row: auto; align-self: center; padding: 6px 3px; gap: 5px; }
+  .mobile-node-page > :only-child { grid-column: 1 / -1; max-width: 280px; justify-self: center; }
+  .mobile-node-page .node-symbol { width: 20px; height: 20px; font-size: 14px; }
+  .mobile-node-page strong { font-size: 13px; line-height: 1.4; }
+  .mobile-node-page small { font-size: 11px; line-height: 1.4; }
+  .mobile-tree .node-preview { padding: 8px 10px max(6px, env(safe-area-inset-bottom)); max-height: none; overflow: visible; }
+  .mobile-node-summary { display: flex; align-items: center; gap: 8px; min-height: 60px; }
+  .mobile-node-copy { flex: 1; min-width: 0; }
+  .mobile-node-copy h3 { margin: 0 0 3px; font-size: 15px; }
+  .mobile-node-copy p { margin: 0; font-size: 13px; line-height: 1.45; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+  .mobile-node-copy .mobile-node-lock { display: block; margin-top: 3px; font-size: 12px; line-height: 1.4; color: #875336; }
+  .mobile-node-summary > .button { width: auto; margin: 0; padding: 6px 8px; min-height: 44px; font-size: 12px; white-space: nowrap; }
+  .mobile-tree .node-preview > .button { min-height: 44px; margin-top: 7px; padding: 8px; font-size: 14px; }
+  .mobile-tree .deep-footer-note { gap: 6px; }
+  .mobile-tree .deep-footer-note small { font-size: 11px; line-height: 1.4; }
+  .mobile-tree .deep-footer-note .text-button { min-height: 44px; padding: 4px; font-size: 12px; }
+  .mobile-tree .tree-confirm-note { margin-top: 6px; font-size: 11px; line-height: 1.4; }
+  .mobile-tree .mobile-detail-body { text-align: left; }
+  .mobile-tree .mobile-detail-body p { display: block; font-size: 14px; line-height: 1.65; margin: 8px 0; }
+  .mobile-tree .mobile-detail-body small { font-size: 12px; line-height: 1.6; }
+  .mobile-tree .mobile-detail-body .tree-intro { margin-top: 14px; }
+
+  .mobile-combat-dialog { max-height: calc(100dvh - max(16px, env(safe-area-inset-top)) - max(16px, env(safe-area-inset-bottom))); padding: 16px; overflow: hidden; display: flex; flex-direction: column; }
+  .mobile-combat-dialog > .eyebrow { font-size: 11px; }
+  .mobile-combat-dialog h2 { font-size: 22px; margin: 5px 0 10px; }
+  .mobile-combat-dialog > .button, .mobile-combat-dialog > .text-button { flex-shrink: 0; min-height: 44px; }
+  .mobile-combat-dialog > p { font-size: 13px; line-height: 1.5; margin-bottom: 12px; }
+  .mobile-pause > .mobile-combat-toolbar { margin: 4px 0; }
+  .mobile-pause > .mobile-combat-toolbar > .button { flex: 1; width: auto; }
+  .mobile-pause > .text-button { margin-top: 4px; }
+  .mobile-pause > [data-action="resume"]:disabled { display: none; }
+  .mobile-tutorial .tutorial-steps { margin: 18px 0; min-height: 165px; display: block; }
+  .mobile-tutorial .tutorial-steps li { font-size: 15px; line-height: 1.7; gap: 10px; }
+  .mobile-tutorial .tutorial-steps strong { font-size: 18px; margin-bottom: 8px; }
+  .mobile-tutorial > .text-button { margin-top: 0; }
+  .mobile-upgrade .dialog-header h2 { font-size: 20px; }
+  .mobile-upgrade .pause-tag { font-size: 10px; }
+  .mobile-upgrade .upgrade-summary { margin-bottom: 6px; flex-shrink: 0; }
+  .mobile-upgrade .upgrade-summary .text-button { font-size: 12px; }
+  .mobile-upgrade .tree-offer-note { margin: 0 0 6px; font-size: 12px; }
+  .mobile-upgrade .focus-controls, .mobile-upgrade .evolution-controls { margin: 4px 0; }
+  .mobile-upgrade .focus-controls select, .mobile-upgrade .evolution-controls select { font-size: 16px; }
+  .mobile-upgrade .upgrade-cards { margin-top: 7px; min-height: 0; }
+  .mobile-upgrade .upgrade-card { min-height: 145px; padding: 10px; gap: 8px; }
+  .mobile-upgrade .upgrade-card.selected { padding: 9px; }
+  .mobile-upgrade .upgrade-copy > strong { font-size: 17px; margin: 4px 0; }
+  .mobile-upgrade .card-meta { font-size: 11px; }
+  .mobile-upgrade .upgrade-effect { font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+  .mobile-upgrade .upgrade-before, .mobile-upgrade .upgrade-counter, .mobile-upgrade .upgrade-tradeoff { display: none; }
+  .mobile-upgrade .upgrade-footer { position: static; padding: 10px 0 4px; flex-shrink: 0; }
+  .mobile-upgrade .upgrade-footer .button { min-height: 44px; }
+  .mobile-upgrade > .quiet-note { font-size: 11px; margin: 3px 0 0; }
+  .mobile-upgrade-details section + section { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 10px; }
+  .mobile-upgrade-details h3 { font-size: 18px; }
+  .mobile-upgrade-details p { font-size: 14px; line-height: 1.65; margin: 8px 0; }
+}
+
+@media (max-width: 800px) and (max-height: 600px) {
+  .battle-hud { gap: 4px; }
+  .battle-hud .hp-track { margin-top: 5px; }
+  .weapon-strip > button { min-height: 44px; }
+  .weapon-strip > button > span { width: 24px; height: 24px; }
+  .weapon-strip small, .weapon-strip .element-badge { display: none; }
+  .tactical-control .tactical-button, .auto-tactical-button { min-height: 48px; }
+  .mobile-tree .tree-scroll { gap: 5px; padding-top: 6px; padding-bottom: 6px; }
+  .mobile-tree .tree-header { min-height: 46px; padding-top: max(3px, env(safe-area-inset-top)); padding-bottom: 3px; }
+  .mobile-node-page > .deep-node, .mobile-node-page > .skill-node { max-height: 115px; gap: 3px; }
+  .mobile-node-page .node-symbol { display: none; }
+  .mobile-tree .node-preview { padding-top: 5px; }
+  .mobile-combat-dialog { padding: 12px; }
+  .mobile-combat-dialog h2 { font-size: 20px; margin-bottom: 6px; }
+  .mobile-combat-dialog > p { margin-bottom: 6px; }
+  .mobile-tutorial .tutorial-steps { min-height: 130px; margin: 12px 0; }
+  .mobile-upgrade .dialog-header .eyebrow { display: none; }
+  .mobile-upgrade .upgrade-card { min-height: 115px; }
+  .mobile-upgrade .upgrade-art { width: 36px; height: 44px; }
+}

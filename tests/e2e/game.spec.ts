@@ -43,10 +43,13 @@ test('AC01/02: fresh local game, all six characters, legal squad and three respo
   await expect(page.locator('.add-character[data-id="C03"]')).toBeDisabled();
   while (await page.locator('.filled-slot').count()) await page.locator('.filled-slot').first().click();
   await expect(page.locator('[data-action="start"]')).toBeDisabled();
+  await page.getByRole('combobox', { name: '選擇隊員', exact: true }).selectOption({ index: 2 });
   await page.locator('.add-character[data-id="C03"]').click();
   await expect(page.locator('[data-action="start"]')).toBeEnabled();
   await expect(page.locator('.captain-button[data-id="C03"]')).toHaveClass(/selected/);
+  await page.getByRole('button', { name: '編隊說明與推薦', exact: true }).click();
   await page.locator('[data-action="build"][data-id="T01"]').click();
+  await page.getByRole('button', { name: '關閉詳細資訊', exact: true }).click();
   for (const [width, height] of [[360, 640], [390, 844], [430, 932]]) {
     await page.setViewportSize({ width, height });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
@@ -80,6 +83,7 @@ test('AC05/06/09: real draft, reroll, reload preservation, explicit card confirm
   expect(after.enemies).toEqual(before.enemies); expect(after.weapons).toEqual(before.weapons);
   expect(after.tacticalReadyAt).toBe(before.tacticalReadyAt);
   await expect(page.locator('[data-action="confirm-card"]')).toBeDisabled();
+  await page.getByRole('combobox',{name:'升級候選',exact:true}).selectOption({index:1});
   await page.locator('.upgrade-card[data-action="select-card"]').first().click();
   expect(await page.evaluate(() => window.__game.state()!.choicesSpent)).toBe(before.choicesSpent);
   await page.screenshot({ path: `${output}/screenshots/${info.project.name}-upgrade.png`, fullPage: true });
@@ -213,7 +217,10 @@ test('SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore t
   const stillDraft = await page.evaluate(() => structuredClone(window.__game.state()!));
   expect(stillDraft.tick).toBe(draft.tick); expect(stillDraft.draft).toEqual(draft.draft);
   await page.locator('[data-action="deep-owner"][data-id="common"]').click();
-  for(const id of ['TEAM/0','TEAM/1']){await page.locator(`[data-action="deep-node"][data-id="${id}"]`).click();await page.locator('[data-action="buy-node"]').click();}
+  for(const [layer,id] of ['TEAM/0','TEAM/1'].entries()){
+    await page.getByRole('combobox',{name:'技能階段',exact:true}).selectOption(String(layer));
+    await page.locator(`[data-action="deep-node"][data-id="${id}"]`).click();await page.locator('[data-action="buy-node"]').click();
+  }
   await expect(speed).toHaveText('3×');
   await page.setViewportSize({ width: 320, height: 640 });
   await page.waitForTimeout(100);

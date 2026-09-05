@@ -19,6 +19,10 @@ import { stageUnlocked, MAIN_IDS } from '../data/campaign';
 import { FORM_MAP, formPortrait, equippedForm, originalForm, usesCollection } from '../data/forms';
 import { ownedForm, isPlayable, validateRoster, type CollectionAction } from '../storage/collection';
 import type { FormId } from '../sim/types';
+import { MobileControls } from './mobile-controls';
+import { enhanceMobile, mobileQuery } from './mobile';
+import { enhanceMobileCombat } from './mobile-combat';
+import { enhanceMobileNotice } from './mobile-notice';
 
 export class GameApp {
   private root: HTMLElement;
@@ -36,13 +40,16 @@ export class GameApp {
   private overlayKey = '';
   private selectedRange: CharacterId | null = null;
   private collecting = false;
+  private mobile = new MobileControls();
+  private clickedControl: HTMLElement | null = null;
   constructor(root: HTMLElement) {
     this.root = root;
-    this.root.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLElement>('[data-action]'); if (button && !(button as HTMLButtonElement).disabled) { void this.audio.unlock(); void this.action(button.dataset.action!, button.dataset.id); } });
+    this.root.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLElement>('[data-action]'); if (button && !(button as HTMLButtonElement).disabled) { this.clickedControl = button; void this.audio.unlock(); void this.action(button.dataset.action!, button.dataset.id); } });
     this.root.addEventListener('change', event => { const input = event.target as HTMLInputElement | HTMLSelectElement; if (input.dataset.change) this.change(input); });
     document.addEventListener('keydown', event => this.key(event));
     document.addEventListener('visibilitychange', () => this.visibility());
     window.addEventListener('resize', () => this.orientation());
+    matchMedia(mobileQuery).addEventListener('change', () => { if (this.ready) this.render(); });
     window.addEventListener('pagehide', () => { if (this.ready) { this.pauseFor('hidden'); void this.persist(); } });
     requestAnimationFrame(time => this.frame(time));
   }
@@ -63,25 +70,40 @@ export class GameApp {
     this.root.innerHTML = `<main class="loading-screen"><span class="brand-star">!</span><h1>本機紀錄暫時無法讀取</h1><p>${esc(this.vm.message)}</p><div class="result-actions"><button class="button primary" data-action="reload">重新讀取</button>${this.preservedSave ? '<button class="button secondary" data-action="discard-old-run">保留進度，放棄舊版本戰局</button>' : ''}<button class="button secondary" data-action="temporary-play">暫時試玩（不儲存）</button><button class="button secondary" data-action="reset-confirm">重置本機紀錄</button></div><p>重置會清除進度；原有資料不會被默默覆寫。</p></main><div id="global-overlay"></div>`;
   }
   private render() {
+    const focused = document.activeElement as HTMLElement | null;
+    const samePage = this.root.dataset.page === this.vm.page;
     this.canvas?.destroy(true); this.canvas = null; this.renderedOverlay = ''; this.overlayKey = '';
     const page = this.vm.page; const run = this.save.activeRun ?? this.lastRun;
+    this.mobile.begin(page);
     if (page === 'battle' && run) {
       this.root.innerHTML = `${this.notice()}${battleShell(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical)}`;
+      enhanceMobile(this.root, page, this.mobile);
+      enhanceMobileNotice(this.root, this.mobile);
       this.sceneReady = false;
       document.getElementById('battle-canvas')!.insertAdjacentHTML('beforeend', '<div id="battle-loading" class="battle-loading" role="status">正在載入戰場 · 0%</div>');
       this.canvas = createBattleCanvas(document.getElementById('battle-canvas')!, () => run, this.audio, () => this.save.preferences.reducedEffects, {
         ready: () => { this.sceneReady = true; this.assetFailure = false; this.lastFrame = performance.now(); this.accumulator = 0; document.getElementById('battle-loading')?.remove(); if (run.pauseReasons.includes('error')) void this.persist().then(() => { if (this.vm.saveStatus === '已儲存在本機') { command(run, { type: 'pause', reason: 'user' }); command(run, { type: 'resume', reason: 'error' }); this.overlay(); } }); },
         progress: ratio => { const el = document.getElementById('battle-loading'); if (el) el.textContent = `正在載入戰場 · ${Math.round(ratio * 100)}%`; },
-        failed: paths => { this.assetFailure = true; this.vm.message = `有 ${paths.length} 個戰場素材未能載入。行動已暫停，請重新載入後繼續。`; command(run, { type: 'pause', reason: 'error' }); document.getElementById('battle-loading')?.remove(); this.root.insertAdjacentHTML('afterbegin', this.notice()); this.overlay(); void this.persist(); },
+        failed: paths => { this.assetFailure = true; this.vm.message = `有 ${paths.length} 個戰場素材未能載入。行動已暫停，請重新載入後繼續。`; command(run, { type: 'pause', reason: 'error' }); document.getElementById('battle-loading')?.remove(); this.root.insertAdjacentHTML('afterbegin', this.notice()); enhanceMobileNotice(this.root, this.mobile); this.overlay(); void this.persist(); },
       }, () => this.save.preferences.battleSpeed, () => this.selectedRange);
       updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
       const screens = { recruitment:()=>recruitment(this.save,this.collecting),home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.save, this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.rewards) : home(this.save, this.vm), battle: () => '' };
       this.root.innerHTML = `${header(page, this.vm.saveStatus)}${this.notice()}${screens[page]()}<footer class="site-footer"><span>星骸防線 / 黎明反攻</span><span>免登入 · 免費招募 · ${this.temporary ? '暫時試玩，不儲存進度' : '進度保存在目前瀏覽器'}</span></footer><div id="global-overlay"></div>`;
+      enhanceMobile(this.root, page, this.mobile);
+      enhanceMobileNotice(this.root, this.mobile);
       this.audio.setMode('lobby'); this.overlay();
     }
     this.root.classList.toggle('reduced-effects', this.save.preferences.reducedEffects);
     this.prepareImages(this.root);
+    this.mobile.finish(this.root);
+    if (samePage && focused && !this.root.querySelector('dialog.mobile-detail[open]') && page !== 'battle') {
+      const replacement = [...this.root.querySelectorAll<HTMLElement>('[data-action], [data-change]')].find(element =>
+        element.getClientRects().length > 0 && !element.matches(':disabled') &&
+        (focused.dataset.action ? element.dataset.action === focused.dataset.action && element.dataset.id === focused.dataset.id :
+          focused.dataset.change && element.dataset.change === focused.dataset.change && element.id === focused.id));
+      replacement?.focus({ preventScroll: true });
+    }
   }
   private notice() { return this.vm.message ? `<div class="system-notice" role="alert"><span>${esc(this.vm.message)}</span>${this.temporary ? '' : this.assetFailure ? '<button data-action="reload">重新載入素材</button>' : '<button data-action="save-retry">重試儲存</button><button data-action="reload">讀取最新紀錄</button>'}<button data-action="dismiss-message" aria-label="關閉提示">×</button></div>` : ''; }
   private overlay() {
@@ -102,9 +124,13 @@ export class GameApp {
       else if (run.draft) html = upgradeDialog(run, this.vm);
     }
     if (html === this.renderedOverlay) return;
-    const focus = document.activeElement as HTMLElement | null; const focusId = focus?.id; const focusAction = focus?.dataset.action; const focusItem = focus?.dataset.id;
+    const focus = this.clickedControl?.isConnected ? this.clickedControl : document.activeElement as HTMLElement | null;
+    this.clickedControl = null;
+    const focusId = focus?.id; const focusAction = focus?.dataset.action; const focusItem = focus?.dataset.id;
     const scroll=holder.querySelector('.tree-scroll')?.scrollTop??0;const disclosures=[...holder.querySelectorAll('details')].map(d=>d.open);
     const wasOpen = !!this.renderedOverlay; this.renderedOverlay = html; holder.innerHTML = html;
+    if (matchMedia(mobileQuery).matches) enhanceMobileCombat(holder, this.mobile);
+    this.mobile.finish(this.root);
     const nextScroll=holder.querySelector('.tree-scroll');if(nextScroll)nextScroll.scrollTop=scroll;holder.querySelectorAll('details').forEach((d,i)=>{if(disclosures[i]!==undefined)d.open=disclosures[i];});
     const modal = holder.querySelector<HTMLElement>('[role="dialog"], [role="alertdialog"]');
     this.prepareImages(holder);
@@ -153,7 +179,7 @@ export class GameApp {
     const rawElapsed = time - this.lastFrame; const elapsed = Math.max(0, rawElapsed); this.lastFrame = time;
     const run = this.save.activeRun;
     if (!this.ready || this.vm.page !== 'battle' || !run || !this.sceneReady) return;
-    if ((run.phase === 'running' || run.bossIntro && run.pauseReasons.length === 1) && rawElapsed > 500 && !document.hidden) { command(run, { type: 'pause', reason: 'user' }); this.accumulator = 0; this.vm.message = '畫面曾短暫停頓，確認後繼續行動。'; const old = this.root.querySelector('.system-notice'); if (old) old.outerHTML = this.notice(); else this.root.insertAdjacentHTML('afterbegin', this.notice()); void this.persist(); }
+    if ((run.phase === 'running' || run.bossIntro && run.pauseReasons.length === 1) && rawElapsed > 500 && !document.hidden) { command(run, { type: 'pause', reason: 'user' }); this.accumulator = 0; this.vm.message = '畫面曾短暫停頓，確認後繼續行動。'; const old = this.root.querySelector('.system-notice'); if (old) old.outerHTML = this.notice(); else this.root.insertAdjacentHTML('afterbegin', this.notice()); enhanceMobileNotice(this.root, this.mobile); void this.persist(); }
     const entering = !!run.bossIntro;
     if (entering && advanceBossIntro(run, elapsed)) { this.lastFrame = time; void this.persist(); }
     if (!entering && run.phase === 'running') {
@@ -197,6 +223,7 @@ export class GameApp {
         if (this.save.activeRun?.phase !== 'ended') { if (this.save.activeRun) command(this.save.activeRun, { type: 'pause', reason: 'error' }); }
         this.updateSaveStatus(); this.overlay();
         const old = this.root.querySelector('.system-notice'); if (old) old.outerHTML = this.notice(); else this.root.insertAdjacentHTML('afterbegin', this.notice());
+        enhanceMobileNotice(this.root, this.mobile);
       }
     }); return this.saveQueue;
   }
@@ -316,7 +343,8 @@ export class GameApp {
     this.audio.volumes(this.save.preferences.musicVolume, this.save.preferences.sfxVolume); void this.audio.unlock(); void this.persist();
   }
   private key(event: KeyboardEvent) {
-    const dialog = this.root.querySelector<HTMLElement>('[role="dialog"], [role="alertdialog"]');
+    if (this.mobile.handleKey(event)) return;
+    const dialog = [...this.root.querySelectorAll<HTMLElement>('[role="dialog"], [role="alertdialog"]')].find(element => element.getClientRects().length > 0);
     if (event.key === 'Tab' && dialog) {
       const nodes = [...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),input:not(:disabled),select:not(:disabled),[tabindex="0"]')].filter(el => el.offsetParent !== null);
       const first = nodes[0], last = nodes[nodes.length - 1];

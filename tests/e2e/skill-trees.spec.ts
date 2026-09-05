@@ -13,10 +13,20 @@ async function draft(page:Page,synthetic=false) {
   await page.evaluate(synthetic=>{if(synthetic){const s=window.__game.state()!;s.xp=720;s.choicesEarned=18;}window.__game.ticks(synthetic?1:1200);},synthetic);
   await expect(page.locator('.tree-upgrade')).toBeVisible();
 }
+async function selectTreeNode(page:Page,id:string){
+  const node=page.locator(`[data-action="tree-node"][data-id="${id}"]`),pager=page.getByRole('combobox',{name:'技能階段',exact:true});
+  if(await pager.count())await pager.selectOption((await node.getAttribute('data-layer'))!);
+  await node.click();
+}
+async function openTree(page:Page) {
+  const pager=page.getByRole('combobox',{name:'升級候選',exact:true});
+  if(await pager.count())await pager.selectOption('0');
+  await page.locator('[data-action="tree-open"]').click();
+}
 async function candidate(page:Page,id:string) {
   const tree=id.split(':')[0],owner=tree.slice(0,3);
-  await page.locator('[data-action="tree-open"]').click();await page.locator(`[data-action="tree-character"][data-id="${owner}"]`).click();
-  await page.locator(`[data-action="tree-tab"][data-id="${tree}"]`).click();await page.locator(`[data-action="tree-node"][data-id="${id}"]`).click();
+  await openTree(page);await page.locator(`[data-action="tree-character"][data-id="${owner}"]`).click();
+  await page.locator(`[data-action="tree-tab"][data-id="${tree}"]`).click();await selectTreeNode(page,id);
   await page.locator('[data-action="tree-candidate"]').click();
 }
 async function take(page:Page,id:string) {await candidate(page,id);await page.locator('[data-action="confirm-card"]').click();}
@@ -28,10 +38,15 @@ test('TREE: real earned upgrade, locked preview, separate confirmation, cross-tr
   const before=await page.evaluate(()=>structuredClone(window.__game.state()!));
   await page.locator('[data-action="tree-open"]').click();await page.locator('[data-action="tree-character"][data-id="C01"]').click();
   await expect(page.locator('.tree-tabs button')).toHaveCount(3);
-  await page.locator('[data-action="tree-node"][data-id="C01-A:4"]').click();
+  await selectTreeNode(page,'C01-A:4');
   await expect(page.locator('.node-preview')).toContainText('先取得入口');await expect(page.locator('[data-action="tree-candidate"]')).toBeDisabled();
+  await page.getByRole('button',{name:'效果／前置',exact:true}).click();
+  await expect(page.locator('dialog.mobile-detail[open]')).toContainText('先取得入口');
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button',{name:'效果／前置',exact:true})).toBeFocused();
+  expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(before.choicesSpent);
   await page.screenshot({path:`${dir}/screenshots/${info.project.name}-tree-locked.png`});
-  await page.locator('[data-action="tree-node"][data-id="C01-A:0"]').click();await page.locator('[data-action="tree-candidate"]').click();
+  await selectTreeNode(page,'C01-A:0');await page.locator('[data-action="tree-candidate"]').click();
   expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(before.choicesSpent);
   expect(await page.evaluate(()=>window.__game.state()!.rng)).toEqual(before.rng);
   await expect(page.locator('[data-action="confirm-card"]')).toBeEnabled();
@@ -49,7 +64,7 @@ test('TREE: four picks unlock terminal, other terminal locks, remaining ordinary
   for(const id of ['C05-A:0','C05-A:1','C05-A:2','C05-A:4'])await take(page,id);
   await page.locator('[data-action="tree-open"]').click();await page.locator('[data-action="tree-character"][data-id="C05"]').click();
   await page.locator('[data-action="tree-tab"][data-id="C05-A"]').click();await expect(page.locator('[data-id="C05-A:3"][data-action="tree-node"]')).toHaveAttribute('data-state','available');
-  await page.locator('[data-action="tree-tab"][data-id="C05-B"]').click();await page.locator('[data-action="tree-node"][data-id="C05-B:4"]').click();
+  await page.locator('[data-action="tree-tab"][data-id="C05-B"]').click();await selectTreeNode(page,'C05-B:4');
   await expect(page.locator('.node-preview')).toContainText('本角色已選擇其他終極');await expect(page.locator('[data-action="tree-candidate"]')).toBeDisabled();
   await page.screenshot({path:`${dir}/screenshots/${info.project.name}-terminal-lock.png`});
   await page.locator('[data-action="tree-close"]').click();await take(page,'C05-B:0');await take(page,'C05-B:1');
@@ -74,13 +89,17 @@ test('TREE: read-only inspection freezes 3×, restores existing pause, survives 
   expect(await page.evaluate(()=>window.__game.state()!.pauseReasons)).not.toContain('tree');
 });
 
-test('TREE: narrow and wide layouts keep controls inside screen and graph scrollable',async({page},info)=>{
+test('TREE: narrow and wide layouts keep controls inside screen with mobile skill paging',async({page},info)=>{
   await boot(page);await draft(page,true);await page.locator('[data-action="tree-open"]').click();
   for(const [width,height] of [[320,720],[768,1024],[1024,1400],[1440,1600]]) {
-    await page.setViewportSize({width,height});await page.locator('[data-action="tree-character"][data-id="C01"]').click();await page.locator('[data-action="tree-node"][data-id="C01-A:0"]').click();
+    await page.setViewportSize({width,height});await page.locator('[data-action="tree-character"][data-id="C01"]').click();await selectTreeNode(page,'C01-A:0');
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
     const bounds=await page.locator('[data-action="tree-candidate"]').boundingBox();expect(bounds!.y+bounds!.height).toBeLessThanOrEqual(height);
     expect(await page.locator('.tree-scroll').evaluate(e=>e.clientHeight)).toBeGreaterThan(180);
+    if(width<=800) {
+      expect(await page.locator('.tree-scroll').evaluate(e=>e.scrollHeight-e.clientHeight)).toBeLessThanOrEqual(1);
+      await expect(page.locator('.mobile-node-page:not([hidden])')).toHaveCount(1);
+    } else await expect(page.getByRole('combobox',{name:'技能階段',exact:true})).toHaveCount(0);
     await page.screenshot({path:`${dir}/screenshots/${info.project.name}-tree-${width}.png`});
   }
 });

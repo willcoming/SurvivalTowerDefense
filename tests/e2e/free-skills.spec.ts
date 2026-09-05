@@ -17,7 +17,10 @@ async function milestone(page:Page,points?:number){
 }
 async function inspect(page:Page,id:string){
   const n=DEEP_NODE_MAP[id];await page.locator(`[data-action="deep-owner"][data-id="${n.ownerId}"]`).click();
-  await page.locator(`[data-action="deep-tab"][data-id="${n.treeId}"]`).click();await page.locator(`[data-action="deep-node"][data-id="${id}"]`).click();
+  await page.locator(`[data-action="deep-tab"][data-id="${n.treeId}"]`).click();
+  const stage=page.getByRole('combobox',{name:'技能階段',exact:true});
+  if(await stage.count())await stage.selectOption(String(n.layer));
+  await page.locator(`[data-action="deep-node"][data-id="${id}"]`).click();
 }
 async function take(page:Page,id:string){await inspect(page,id);await page.locator('[data-action="buy-node"]').click();}
 
@@ -67,7 +70,12 @@ test('FREE: 320–1440 layouts, asymmetric graphs and all common routes stay acc
   await boot(page);await milestone(page,2);
   for(const [width,height] of [[320,720],[768,1024],[1024,1400],[1440,1600]]){
     await page.setViewportSize({width,height});await inspect(page,'C01-A/0');
-    if(await page.locator('.operation-intel').getAttribute('open')!==null)await page.locator('.operation-intel>summary').click();
+    if(await page.locator('.operation-intel').getAttribute('open')!==null){
+      const context=page.getByRole('button',{name:'敵情／構築',exact:true});
+      if(await context.count())await context.click();
+      await page.locator('.operation-intel>summary').click();
+      if(await context.count())await page.getByRole('button',{name:'關閉詳細資訊',exact:true}).click();
+    }
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
     expect(await page.locator('.deep-node')).toHaveCount(11);expect(await page.locator('.deep-connections path').count()).toBeGreaterThan(10);
     const button=await page.locator('[data-action="buy-node"]').boundingBox();expect(button!.y+button!.height).toBeLessThanOrEqual(height);expect(button!.width).toBeGreaterThanOrEqual(44);expect(button!.height).toBeGreaterThanOrEqual(44);
@@ -104,7 +112,7 @@ test('FREE: three full legal browser playthroughs match simulation and unlock st
 test('FREE: previous 70-node saved campaign retains three-card rules',async({page})=>{
   await boot(page,true);await page.evaluate(()=>window.__game.ticks(1600));await expect(page.locator('.tree-upgrade')).toBeVisible();await expect(page.locator('.upgrade-card')).toHaveCount(3);
   await page.evaluate(()=>window.__game.save());await page.reload();await page.waitForFunction(()=>!!window.__game);await page.locator('[data-action="continue"]').click();await page.locator('[data-action="resume"]').click();
-  await expect(page.locator('.upgrade-card')).toHaveCount(3);await page.locator('[data-action="select-card"]').first().click();await page.locator('[data-action="confirm-card"]').click();
+  await expect(page.locator('.upgrade-card')).toHaveCount(3);await page.getByRole('combobox',{name:'升級候選',exact:true}).selectOption({index:1});await page.locator('[data-action="select-card"]').first().click();await page.locator('[data-action="confirm-card"]').click();
   expect(await page.evaluate(()=>window.__game.state()!.contentVersion)).toBe('0.2.0-dev.1');expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(1);
 });
 

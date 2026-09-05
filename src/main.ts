@@ -1,5 +1,10 @@
 import './ui/styles.css';
 import './ui/collection.css';
+import './ui/mobile.css';
+import './ui/mobile-secondary.css';
+import './ui/mobile-combat.css';
+import './ui/mobile-game.css';
+import './ui/mobile-notice.css';
 import { GameApp } from './ui/app';
 
 const root = document.getElementById('app');

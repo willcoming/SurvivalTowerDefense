@@ -1,0 +1,160 @@
+/* Compact, viewport-sized mobile command screens. Long content lives in dialogs. */
+@media (max-width:800px) {
+  .mobile-app { height:100dvh; min-height:0; display:flex; flex-direction:column; padding-bottom:env(safe-area-inset-bottom); }
+  .mobile-app[data-page=battle] { padding-bottom:0; }
+  .mobile-app [hidden] { display:none!important; }
+  .mobile-app > .masthead { width:100%; flex:none; min-height:54px; padding:max(8px,env(safe-area-inset-top)) 12px 8px; gap:8px; }
+  .mobile-app .wordmark { font-size:20px; gap:6px; }
+  .mobile-app .wordmark small { font-size:6px; }
+  .mobile-app .brand-star { font-size:29px; }
+  .mobile-app .masthead-right { gap:5px; }
+  .mobile-app .masthead .local-status { font-size:10px; max-width:70px; line-height:1.4; }
+  .mobile-app > .main-nav { margin:0 12px; min-height:46px; flex:none; flex-wrap:nowrap; gap:0; }
+  .mobile-app > .main-nav button { min-width:0; flex:1; padding:0 2px; font-size:12px; line-height:1.4; min-height:46px; }
+  .mobile-app > main, .mobile-app > section.content-screen { width:100%; flex:1; min-height:0; margin:0; padding:12px; display:flex; flex-direction:column; gap:10px; }
+  .mobile-app > main.battle-layout { padding:0; gap:0; flex-direction:row; justify-content:center; align-items:stretch; }
+  .mobile-app > .site-footer { display:none; }
+  .mobile-app > #global-overlay { flex:none; }
+  .mobile-app > .system-notice { flex:none; margin:0; font-size:12px; }
+  .mobile-app .page-intro { margin:0; flex:none; }
+  .mobile-app .page-intro > .eyebrow { display:none; }
+  .mobile-app .page-intro h1 { font-size:22px; line-height:1.25; margin:0; letter-spacing:0; }
+  .mobile-app .page-intro > p { font-size:13px; line-height:1.6; }
+  .mobile-app .button { min-height:44px; font-size:14px; padding:10px 12px; }
+  .mobile-app input, .mobile-app select { font-size:16px; }
+  .mobile-app select { appearance:none; height:44px; background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%); background-position:calc(100% - 15px) 19px,calc(100% - 10px) 19px; background-size:5px 5px; background-repeat:no-repeat; padding-right:28px!important; }
+  .mobile-app .action-bar { margin-top:auto; padding:8px 0 0; gap:8px; flex:none; }
+  .mobile-app .sticky-action { position:static; margin: auto 0 0; background:transparent; border-top:1px solid var(--line); }
+  .mobile-pager { display:flex; align-items:center; gap:10px; width:100%; min-width:0; }
+  .mobile-pager > span { font-size:12px; color:var(--muted); white-space:nowrap; }
+  .mobile-pager select { min-width:0; width:100%; min-height:44px; padding:7px 28px 7px 10px; color:var(--ink); background-color:var(--paper); border:1px solid var(--line); border-radius:4px; }
+  .mobile-tabs { display:flex; gap:6px; }
+  .mobile-tabs button { flex:1; min-width:0; min-height:44px; font-size:14px; padding:8px; background:var(--paper); border:1px solid var(--line); border-radius:4px; }
+  .mobile-tabs button[aria-pressed=true] { color:var(--paper); background:var(--ink); border-color:var(--ink); }
+  .mobile-app .mobile-detail-trigger { gap:5px; font-weight:600; }
+  dialog.mobile-detail { position:fixed; inset:0; width:min(100%,680px); height:100dvh; max-width:100%; max-height:100dvh; margin:auto; padding:0; border:0; background:var(--paper); color:var(--ink); }
+  dialog.mobile-detail[open] { display:flex; flex-direction:column; }
+  dialog.mobile-detail::backdrop { background:#071c29b8; }
+  .mobile-detail-header { display:flex; flex:none; align-items:center; justify-content:space-between; gap:12px; padding:max(10px,env(safe-area-inset-top)) 16px 10px; border-bottom:1px solid var(--line); background:var(--paper); }
+  .mobile-detail-header h2 { font-size:20px; line-height:1.4; margin:0; }
+  .mobile-detail-header .icon-button { flex:none; width:44px; height:44px; }
+  .mobile-detail-body { flex:1; min-height:0; overflow:auto; overscroll-behavior:contain; padding:16px 16px max(20px,env(safe-area-inset-bottom)); }
+  .mobile-detail-body > * + * { margin-top:16px; }
+  .mobile-detail-body p { font-size:14px; line-height:1.75; }
+  .mobile-detail-body img { max-width:100%; }
+  .mobile-detail-body .mobile-detail-trigger { width:100%; }
+  .mobile-app .home-screen { gap:8px; align-items:stretch; }
+  .mobile-app .hero { position:relative; min-height:66px; height:66px; flex:none; margin:0; overflow:hidden; }
+  .mobile-app .hero-type { padding:10px 14px; }
+  .mobile-app .hero h1 { font-size:20px; line-height:1.2; margin:0; letter-spacing:0; }
+  .mobile-app .hero h1 br { display:none; }
+  .mobile-app .hero h1 > span { display:inline; }
+  .mobile-app .hero-type > :not(h1), .mobile-app .hero-character-label, .mobile-app .hero-index { display:none; }
+  .mobile-app .hero-character { width:80px; height:120px; right:12px; bottom:-52px; mask-image:none; }
+  .mobile-app .hero-type { z-index:2; }
+  .mobile-app .hero-character { opacity:.55; }
+  .mobile-app .operation-panel { display:flex; flex-direction:column; gap:8px; flex:1; min-height:0; padding:0; }
+  .mobile-app .section-kicker { display:none; }
+  .mobile-app .operation-title { margin:0; gap:8px; }
+  .mobile-app .operation-title h2 { font-size:21px; }
+  .mobile-app .operation-title p { font-size:12px; margin-top:2px; }
+  .mobile-app .duration { font-size:20px; }
+  .mobile-app .duration small { font-size:8px; }
+  .mobile-app .campaign-selector { overflow:visible; max-height:none; margin:0; padding:0; flex:none; }
+  .mobile-app .chapter-group h3 { display:none; }
+  .mobile-app .stage-selector { gap:6px; margin:0; }
+  .mobile-app .chapter-group .stage-selector button { min-height:46px; padding:7px 10px; font-size:14px; grid-template-columns:30px 1fr auto; gap:5px; }
+  .mobile-app .chapter-group .stage-selector small { font-size:10px; line-height:1.4; }
+  .mobile-app .squad-ribbon { margin:0; gap:6px; }
+  .mobile-app .squad-ribbon > div { gap:4px; }
+  .mobile-app .squad-ribbon > div button { width:44px; height:44px; min-width:44px; }
+  .mobile-app .squad-ribbon > span { display:none; }
+  .mobile-app .squad-ribbon > .text-button { margin-left:auto; min-height:44px; }
+  .mobile-app .deploy-button, .mobile-app .resume-banner { margin-top:auto; min-height:48px; flex:none; }
+  .mobile-app .resume-banner { padding:8px; }
+  .mobile-app .mobile-home-notes { text-align:center; }
+  .mobile-app .mobile-home-notes > .button { min-height:44px; width:44px; padding:4px; border:0; background:transparent; font-size:22px; }
+  .mobile-pager-step { width:44px; height:44px; min-width:44px; padding:0; flex:none; color:var(--ink); background:var(--paper); border:1px solid var(--line); font-size:24px; }
+  .mobile-app .roster-screen .page-intro { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .mobile-app .mobile-inline-help > .button { font-size:12px; padding:8px; }
+  .mobile-app .formation-strip { display:block; padding:8px; margin:0; }
+  .mobile-app .formation-slots { gap:6px; }
+  .mobile-app .formation-slots > * { min-width:0; height:58px; }
+  .mobile-app .formation-slots img { height:48px; object-fit:contain; }
+  .mobile-app .filled-slot > span { font-size:11px; padding:3px 0; }
+  .mobile-app .roster-grid { display:block; flex:none; }
+  .mobile-app .character-card { display:grid; grid-template-columns:76px minmax(0,1fr); align-items:start; }
+  .mobile-app .character-art { height:150px; min-height:44px; width:100%; }
+  .mobile-app .character-art img { height:100%; object-fit:cover; object-position:50% 0; }
+  .mobile-app .character-code, .mobile-app .character-role { display:none; }
+  .mobile-app .character-card-body { min-width:0; padding:8px 10px; }
+  .mobile-app .roster-grid .character-title { flex-wrap:nowrap; justify-content:space-between; gap:6px; }
+  .mobile-app .roster-grid .character-title h2 { width:auto; font-size:21px; }
+  .mobile-app .roster-grid .add-character { width:auto; margin:0; padding:5px 9px; min-height:44px; font-size:13px; }
+  .mobile-app .character-card-body > p { font-size:12px; min-height:0; margin:3px 0 5px; line-height:1.4; }
+  .mobile-app .form-controls { padding:6px 0 0; margin:0; gap:4px; grid-template-columns:minmax(0,1fr) 44px; }
+  .mobile-app .form-controls label { font-size:12px; grid-column:1/-1; }
+  .mobile-app .form-controls select { min-height:44px; font-size:16px; padding:6px; grid-column:1; grid-row:2; }
+  .mobile-app .form-controls .element-badge { font-size:11px; margin:0; }
+  .mobile-app .mobile-form-help > .button { min-height:44px; padding:5px 8px; font-size:12px; }
+  .mobile-app .form-controls { position:relative; }
+  .mobile-app .mobile-form-help { margin-top:0; grid-column:2; grid-row:2; }
+  .mobile-app .mobile-form-help > .button { width:44px; padding:4px; }
+  .mobile-app .character-controls { display:flex; flex-wrap:wrap; gap:3px; margin-top:5px; }
+  .mobile-app .character-controls button { flex:1 1 auto; min-height:44px; font-size:12px; padding:5px 6px; }
+  .mobile-app .character-controls button { line-height:1.3; }
+  .mobile-app .roster-screen .sticky-action > span { font-size:12px; }
+  .mobile-app .roster-screen .sticky-action .button { min-height:48px; font-size:14px; }
+  .mobile-app .codex-screen .character-tabs { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:5px; margin:0; }
+  .mobile-app .codex-screen .character-tabs button { min-height:44px; padding:4px; gap:3px; font-size:13px; justify-content:center; }
+  .mobile-app .codex-screen .character-tabs img { width:24px; height:32px; }
+  .mobile-app .dossier { display:grid; grid-template-columns:84px minmax(0,1fr); gap:12px; margin:0; }
+  .mobile-app .dossier-copy { min-width:0; padding:0; }
+  .mobile-app .dossier-copy h2 { font-size:24px; margin:3px 0 6px; }
+  .mobile-app .dossier-copy h2 small { font-size:12px; }
+  .mobile-app .dossier-copy > .eyebrow { font-size:10px; letter-spacing:0; }
+  .mobile-portrait-preview { border:1px solid var(--line); background:#e1e7dc; min-height:44px; height:150px; overflow:hidden; padding:0; }
+  .mobile-portrait-preview img { width:100%; height:100%; object-fit:cover; object-position:50% 0; }
+  .mobile-codex-details { display:grid; gap:6px; margin-top:auto; }
+  .mobile-app .mobile-detail .dossier-art { display:block; height:65dvh; min-height:300px; width:100%; }
+  .mobile-app .mobile-detail .dossier-art img { width:100%; height:100%; object-fit:contain; }
+  .mobile-app .mobile-detail .route-columns { display:block; }
+  .mobile-app .mobile-detail .route-columns article { padding:12px; }
+  .mobile-app .mobile-detail .section-heading { font-size:18px; margin-bottom:12px; }
+  .mobile-app .mobile-detail .codex-node-detail { margin:12px 0; }
+  .mobile-app .mobile-detail .enemy-codex { margin:0; }
+  .mobile-app .mobile-detail .enemy-grid { display:block; margin-top:12px; }
+}
+@media (max-width:800px) and (max-height:540px) {
+  .mobile-app > .roster-screen { gap:5px; }
+  .mobile-app .roster-screen .formation-strip { padding:2px; }
+  .mobile-app .roster-screen .formation-slots > * { height:44px; }
+  .mobile-app .roster-screen .formation-slots img { height:34px; }
+}
+@media (max-width:800px) and (max-height:600px) {
+  .mobile-app > .masthead { min-height:48px; padding-top:max(4px,env(safe-area-inset-top)); padding-bottom:4px; }
+  .mobile-app > .main-nav { min-height:44px; }
+  .mobile-app > .main-nav button { min-height:44px; }
+  .mobile-app .hero { display:none; }
+  .mobile-app .formation-strip { padding:5px; }
+  .mobile-app .formation-slots > * { height:50px; }
+  .mobile-app .formation-slots img { height:40px; }
+  .mobile-app .codex-screen .character-tabs { gap:3px; }
+  .mobile-app .codex-screen .character-tabs img { display:none; }
+  .mobile-app .mobile-codex-details { grid-template-columns:1fr 1fr; }
+  .mobile-app .mobile-codex-details > .button:last-of-type { grid-column:1/-1; }
+}
+@media (max-width:800px) and (max-height:700px) {
+  .mobile-app > main, .mobile-app > section.content-screen { padding:8px 12px; gap:6px; }
+  .mobile-app .hero { height:48px; min-height:48px; }
+  .mobile-app .hero-type { padding:12px; }
+  .mobile-app .operation-title h2 { font-size:19px; }
+  .mobile-app .operation-title p { display:none; }
+  .mobile-app .operation-panel { gap:6px; }
+  .mobile-app .roster-screen .character-art { height:128px; }
+  .mobile-app .character-card-body { padding:6px 8px; }
+  .mobile-app .character-controls { flex-wrap:nowrap; }
+  .mobile-app .character-controls button { font-size:11px; }
+  .mobile-app .form-controls .element-badge { position:absolute; top:3px; right:0; font-size:10px; padding:1px 4px; }
+  .mobile-app .character-card-body > p { display:none; }
+}

@@ -1,0 +1,198 @@
+/* The mobile command deck shares the battle's visual world and stays viewport sized. */
+@media (max-width: 800px) {
+  .mobile-app {
+    --ink: #ecf5ef;
+    --muted: #a5bbc0;
+    --paper: #112731;
+    --line: #31535a;
+    --teal: #9ae9d6;
+    --coral: #e36850;
+    --gold: #efd197;
+    color-scheme: dark;
+    color: var(--ink);
+    background: #091b25;
+    isolation: isolate;
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  .mobile-game-scene { position: fixed; inset: 0; z-index: -1; pointer-events: none; background-position: center; background-size: cover; }
+  .mobile-game-scene::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #091b25b0, #091b254f 32%, #091b25e8 72%, #091b25); }
+  .mobile-app > .masthead { min-height: 50px; padding: max(3px, env(safe-area-inset-top)) 12px 3px; background: #091b25e6; border-bottom: 1px solid #5c867966; box-shadow: 0 1px 0 #050e16; }
+  .mobile-app .wordmark { gap: 7px; font-size: 17px; letter-spacing: .08em; color: #eef9f3; }
+  .mobile-app .wordmark small { display: none; }
+  .mobile-app .brand-star { font-size: 25px; color: var(--gold); }
+  .mobile-app .masthead .local-status { max-width: none; font-size: 10px; color: #b4c7c5; letter-spacing: .02em; }
+  .mobile-app .local-status i { background: var(--teal); box-shadow: 0 0 6px #9ae9d67a; }
+  .mobile-app .masthead .icon-button { width: 44px; min-width: 44px; height: 44px; color: var(--teal); border-radius: 2px; font-size: 22px; }
+  .mobile-app > main:not(.battle-layout), .mobile-app > section.content-screen { position: relative; background: transparent; }
+  .mobile-app > .main-nav { width: 100%; margin: 0; min-height: 62px; padding: 0 6px; gap: 4px; border-top: 1px solid #728b79; border-bottom: 0; background: #071821f5; box-shadow: 0 -6px 22px #020c1490; }
+  .mobile-app > .main-nav button { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 62px; padding: 5px 1px; color: #a5bec1; border: 0; font-size: 12px; font-weight: 600; background: transparent; }
+  .mobile-app > .main-nav button::after { display: none; }
+  .mobile-app > .main-nav button.active { color: var(--gold); background: #d5b46b12; box-shadow: inset 0 3px var(--gold); }
+  .mobile-app .main-nav .game-nav-icon { font-size: 22px; line-height: 24px; color: inherit; }
+  .mobile-app .page-intro h1 { font-size: 20px; font-weight: 800; letter-spacing: .035em; text-shadow: 0 2px 4px #001017; }
+  .mobile-app .page-intro h1::before { content: '//'; color: var(--gold); font: 500 15px ui-monospace, monospace; margin-right: 8px; }
+  .mobile-app .eyebrow { color: var(--teal); }
+  .mobile-app button, .mobile-app select { border-radius: 2px; }
+  .mobile-app button:disabled { opacity: .48; }
+  .mobile-app .button, .mobile-app .captain-button, .mobile-app .add-character { border: 1px solid #628277; box-shadow: inset 0 1px #d7f5d20c, 0 2px 0 #020e16; letter-spacing: .025em; }
+  .mobile-app .button.secondary, .mobile-app .text-button, .mobile-app .captain-button, .mobile-app .add-character { color: #d9ece6; background: #112b36ed; border-color: #3c6568; }
+  .mobile-app .button.primary { color: #fffaf0; background: linear-gradient(180deg, #e57256, #bb4638); border-color: #f19468; box-shadow: inset 0 1px #ffd0a252, 0 3px 0 #522629, 0 0 20px #e36a5017; font-weight: 900; }
+  .mobile-app .button.danger { color: #fff0e9; background: #893b3b; border-color: #d27971; }
+  .mobile-app .text-button { border: 1px solid #34565d; }
+  .mobile-app .icon-button { color: var(--teal); background: #122c37; border-color: #3b6069; border-radius: 2px; }
+  .mobile-app input[type=range], .mobile-app input[type=checkbox] { accent-color: #a7dfbf; }
+  .mobile-app select { color: #eff8f0; border-color: #506f72; background-color: #102632; box-shadow: inset 0 0 0 1px #071821; }
+  .mobile-app .mobile-pager { gap: 5px; position: relative; }
+  .mobile-app .mobile-pager > span { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; clip-path: inset(50%); white-space: nowrap; }
+  .mobile-app .mobile-pager select { flex: 1; min-width: 0; font-weight: 700; text-align: center; text-align-last: center; border-color: #a8aa79; color: var(--gold); }
+  .mobile-app .mobile-pager > button { flex: 0 0 44px; width: 44px; height: 44px; min-height: 44px; padding: 0; display: grid; place-items: center; border: 1px solid #698776; color: var(--gold); background: #102632; font-size: 24px; box-shadow: inset 0 1px #d7eabc18; }
+  .mobile-app .mobile-tabs button { color: #b9ccd0; background: #102531; border-color: #406369; border-radius: 0; }
+  .mobile-app .mobile-tabs button[aria-pressed=true] { color: var(--gold); background: #293b37; border-color: #b9ae77; box-shadow: inset 0 -2px var(--gold); }
+  .mobile-app .element-badge { background: #061821; border: 1px solid #38525c; }
+  .mobile-app img { mix-blend-mode: normal; }
+
+  .mobile-app .hero { display: block; height: 100px; min-height: 100px; border: 1px solid #769381; border-left: 3px solid var(--gold); background: #0d222c; box-shadow: 0 7px 20px #020c163f; }
+  .mobile-app .hero-scenery { opacity: .62; }
+  .mobile-app .hero::before { background: linear-gradient(90deg, #061924ec, #081b2460 70%); }
+  .mobile-app .hero::after { content: ''; position: absolute; inset: 0; background: none; pointer-events: none; }
+  .mobile-app .hero-type { padding: 16px 12px; }
+  .mobile-app .hero h1 { position: relative; z-index: 2; width: 126px; max-width: 50%; font-size: 22px; line-height: 1.4; letter-spacing: .05em; color: #f2f6e9; }
+  .mobile-app .hero h1 > span { color: var(--gold); }
+  .mobile-app .hero-character { z-index: 1; opacity: 1; width: 150px; height: 240px; right: -4px; bottom: -118px; mask-image: none; object-fit: contain; }
+  .mobile-app .operation-panel { background: transparent; }
+  .mobile-app .operation-title { padding-left: 9px; border-left: 2px solid var(--gold); }
+  .mobile-app .operation-title h2 { color: #f5f3db; letter-spacing: .04em; font-size: 21px; }
+  .mobile-app .duration { color: #e0d3ac; }
+  .mobile-app .duration small { color: var(--muted); }
+  .mobile-app .chapter-group .stage-selector button { color: #d3e4df; background: #102833e8; border: 1px solid #385560; border-radius: 0; padding: 6px 10px; }
+  .mobile-app .chapter-group .stage-selector button > span { font-weight: 600; color: #9db8b8; }
+  .mobile-app .chapter-group .stage-selector button.selected { color: #fff6d8; background: #364439e8; border-color: #c3b478 !important; box-shadow: inset 3px 0 var(--gold); }
+  .mobile-app .chapter-group .stage-selector button.selected > span { color: var(--gold); }
+  .mobile-app .chapter-group .stage-selector small { color: #b8cac5; }
+  .mobile-app .squad-ribbon { padding-top: 3px; border-top: 1px solid #8bad8547; }
+  .mobile-app .squad-ribbon > div button { border: 1px solid #849a7b; background: #153342; }
+  .mobile-app .squad-ribbon > div button b { background: #d1b877; color: #0b1c25; }
+  .mobile-app .deploy-button { letter-spacing: .06em; }
+  .mobile-app .resume-banner { background: #0f302f; border: 1px solid #78a789; }
+  .mobile-app .mobile-home-notes > .button { color: #b7cbcc; background: #0d232ac2; border: 1px solid #334f57; }
+
+  .mobile-app .formation-strip { background: #0b222ed9; border-color: #668574; box-shadow: inset 0 1px #9bba8b14; }
+  .mobile-app .filled-slot { background: #24444d; border: 1px solid #527979; }
+  .mobile-app .filled-slot > span { background: #071722eb; color: #f5e5b9; }
+  .mobile-app .empty-slot { background: #071a24b8; color: #8dabad; border-color: #567171; }
+  .mobile-app .character-card { grid-template-columns: 36% minmax(0, 1fr); background: #0e252fed; border-color: #6c8874; }
+  .mobile-app .character-card.chosen { border-color: #c3b780; box-shadow: inset 0 2px #d1c086; }
+  .mobile-app .character-art { background: linear-gradient(170deg, #55797770, #102934 80%); height: 100%; min-height: 150px; }
+  .mobile-app .character-art img { height: 100%; object-fit: cover; object-position: center top; }
+  .mobile-app .character-title h2 { color: #fff2cf; }
+  .mobile-app .add-character.selected { color: #eaffde; background: #294e43; border-color: #a6b986 !important; }
+  .mobile-app .captain-button.selected { color: var(--gold); background: #443d2a; border-color: #c9b67b !important; }
+  .mobile-app .character-card-body { background: #0b2330b5; }
+  .mobile-app .sticky-action { background: #081b23db; backdrop-filter: none; border-color: #879d7870; }
+  .mobile-app .sticky-action > span b { color: var(--gold); }
+  .mobile-app .form-controls { border-color: #406267; }
+  .mobile-app .form-controls label { color: #b6cbc8; }
+  .mobile-app .character-tabs button { background: #102934db; border-color: #406571; }
+  .mobile-app .character-tabs button.selected { background: #33433c; color: var(--gold); border-color: #baae78 !important; }
+  .mobile-app .dossier { border-bottom: 1px solid #617e7166; }
+  .mobile-app .dossier-copy h2 { color: #fff1d0; }
+  .mobile-app .mobile-portrait-preview { background: linear-gradient(160deg, #45757770, #0b2130b8); border-color: #78927c; }
+  .mobile-app .mobile-portrait-preview img { object-fit: contain; }
+
+  .mobile-app .intel-banner { border: 1px solid #799084; border-left: 3px solid var(--gold); background-position: center; }
+  .mobile-app .intel-banner::before { background: #061923ab; }
+  .mobile-app .intel-banner h2 { color: #f6efcc; }
+  .mobile-app .segmented button { background: #102b36; border-color: #48676c; color: #c3d5d1; }
+  .mobile-app .segmented button.selected { background: #354738; border-color: #b6ac79 !important; color: var(--gold); }
+  .mobile-app .mobile-recruit-overview { background: #0d2b35d9; border-left: 2px solid #7f9d81; }
+  .mobile-app .recruitment-console { background: #0d2430e8; border-color: #7e987c; }
+  .mobile-app .currency-row b { color: var(--gold); font-family: ui-monospace, monospace; }
+  .mobile-app .recruitment-receipt { background: #263d34; border-color: var(--gold); }
+  .mobile-app .recruitment-receipt h2 { color: #f6e8bc; }
+  .mobile-app .collection-card { background: #102831e8; border-color: #779075; }
+  .mobile-app .collection-card.owned { border-color: var(--gold); }
+  .mobile-app .collection-card h2 { color: #f9e6b2; }
+  .mobile-app .mobile-collection-card-heading { background: #2c4333a6; }
+  .mobile-app .journal-entry { border-color: #688073; background: #0b222cde; }
+  .mobile-app .journal-entry > img { border: 1px solid #637d70; }
+  .mobile-app .journal-entry h2 { color: #f6e8c2; }
+  .mobile-app .journal-entry > div { padding-inline: 8px; }
+  .mobile-app .lock-label { color: #b7beb1; }
+  .mobile-app .setting-row { border-color: #486268; }
+  .mobile-app .result-hero { background: #133c36dc; border: 1px solid #9aab7f; }
+  .mobile-app .result-hero.defeat { background: #3c3430eb; border-color: #a88d6d; }
+  .mobile-app .result-hero h1, .mobile-app .result-numbers strong { color: #ffebba; }
+  .mobile-app .result-rewards h2 { color: #efd599; }
+
+  .mobile-app .modal-backdrop { background: #020b13dc; }
+  .mobile-app .dialog, .mobile-app .mobile-detail, .mobile-app .tree-panel { color: var(--ink); background: #0c222d; border-color: #7e927b; }
+  .mobile-app .mobile-detail-header, .mobile-app .tree-header { background: #102c36; border-color: #617c70; }
+  .mobile-app .mobile-detail-header h2, .mobile-app .dialog h2 { color: #f2dfb1; }
+  .mobile-app .mobile-detail-body { background: linear-gradient(#0e2832, #091c27); }
+  .mobile-app .mobile-detail-body .dossier-art { background: #17333d; }
+  .mobile-app .mobile-detail-body .boss-info, .mobile-app .mobile-detail-body .recruitment-banner { background: #17323b; }
+  .mobile-app .mobile-detail-body .formation-capabilities .present { background: #244f43; color: #c9f1d5; }
+  .mobile-app .mobile-detail-body .formation-capabilities .absent { color: #a2b8b9; border-color: #3e626b; }
+  .mobile-app .result-story, .mobile-app .result-rewards, .mobile-app .common-codex, .mobile-app .codex-node-detail, .mobile-app .route-columns article { border-color: #526f6b; background: #13303a; }
+  .mobile-app .mobile-result > .result-rewards { background: transparent; }
+  .mobile-app .codex-node-detail { border-left-color: var(--gold); }
+  .mobile-app .tree-tabs { background: transparent; }
+  .mobile-app .tree-tabs button, .mobile-app .tree-characters button, .mobile-app .tree-common button { background: #142d38; border-color: #446269; color: #cfdfd9; }
+  .mobile-app .tree-tabs button.active, .mobile-app .tree-characters button.active { background: #314538; color: var(--gold); border-color: #b9ac73; }
+  .mobile-app .deep-node, .mobile-app .skill-node { color: #e4f4e8; background: #1a3e46; border-color: #709b90; box-shadow: inset 0 1px #b1ead127; }
+  .mobile-app .deep-node.locked, .mobile-app .skill-node.locked { color: #b5c4c2; background: #182c36; border-color: #465f66; }
+  .mobile-app .deep-node.owned, .mobile-app .skill-node.owned { color: #d8f4d2; background: #2a4b39; border-color: #9aaf7f; }
+  .mobile-app .deep-node.ultimate, .mobile-app .skill-node.node-ultimate { color: #f1deb0; background: #443c2c; border-color: #c5a469; }
+  .mobile-app .deep-node.ultimate.locked { color: #c1b594; background: #332f26; border-color: #827552; }
+  .mobile-app .deep-node.inspecting, .mobile-app .skill-node.inspecting { outline-color: #f0cf89; }
+  .mobile-app .node-preview { color: #eaf5e9; background: #102c35; border-color: #718477; box-shadow: 0 -5px 25px #010e1680; }
+  .mobile-app .node-preview small, .mobile-app .tree-characters small, .mobile-app .tree-header h2 small, .mobile-app .tree-intro p, .mobile-app .tree-intro > span, .mobile-app .tree-path-note, .mobile-app .tree-owned p, .mobile-app .tree-owned small, .mobile-app .tree-common button span, .mobile-app .common-route-labels, .mobile-app .deep-codex-tree h3 small { color: #abc3c3; }
+  .mobile-app .points-left, .mobile-app .common-emblem { color: #b7d9c5; }
+  .mobile-app .points-left b { color: var(--gold); }
+  .mobile-app .mobile-node-copy .mobile-node-lock { color: #e7c494; }
+  .mobile-app .operation-intel { background: #0d2c35; border-color: #53766f; color: #d5e6dd; }
+  .mobile-app .boss-intel, .mobile-app .operation-intel .event-rule { color: #ead39c; border-color: #aa925e; }
+  .mobile-app .upgrade-card { background: #15313b; border-color: #46686b; }
+  .mobile-app .upgrade-card.selected { background: #314538; border-color: #cfba82; }
+  .mobile-app .upgrade-footer { background: #0c222d; }
+  .mobile-app .upgrade-effect, .mobile-app .upgrade-copy > strong { color: #e8f2de; }
+  .mobile-app .tutorial-steps li > b { color: var(--gold); background: #253d3b; border-color: #788774; }
+  .mobile-app .damage-row > img, .mobile-app .damage-track { background: #25464d; }
+  .mobile-app button:focus-visible, .mobile-app select:focus-visible, .mobile-app input:focus-visible, .mobile-app summary:focus-visible { outline-color: #ffe0a0; }
+}
+
+@media (max-width: 800px) and (min-height: 701px) {
+  .mobile-app .hero { height: 180px; min-height: 180px; }
+  .mobile-app .hero-type { padding: 32px 18px; }
+  .mobile-app .hero h1 { width: 150px; font-size: 26px; line-height: 1.55; }
+  .mobile-app .hero-character { width: 210px; height: 320px; right: -8px; bottom: -130px; }
+  .mobile-app .roster-grid { display: flex; flex: 1; min-height: 250px; }
+  .mobile-app .roster-grid > .character-card { width: 100%; grid-template-columns: 43% minmax(0, 1fr); align-items: stretch; }
+  .mobile-app .character-art { min-height: 250px; }
+  .mobile-app .character-art img { object-fit: cover; }
+  .mobile-app .character-card-body { display: flex; flex-direction: column; justify-content: center; }
+  .mobile-app .codex-screen > .dossier { flex: 1; grid-template-columns: 42% minmax(0, 1fr); align-items: end; min-height: 210px; }
+  .mobile-app .codex-screen > .dossier .mobile-portrait-preview { height: 100%; min-height: 210px; }
+  .mobile-app .codex-screen > .dossier .mobile-portrait-preview img { object-fit: cover; }
+  .mobile-app .mobile-recruitment .mobile-recruit-overview { min-height: 150px; }
+  .mobile-app .mobile-recruitment .mobile-recruit-overview img { height: 138px; width: 94px; }
+  .mobile-app .mobile-stories .journal-entry > img { height: 200px; }
+}
+
+@media (max-width: 800px) and (max-height: 600px) {
+  .mobile-app > .masthead { min-height: 44px; padding: env(safe-area-inset-top) 10px 0; }
+  .mobile-app .wordmark { font-size: 16px; }
+  .mobile-app .brand-star { font-size: 23px; }
+  .mobile-app > .main-nav, .mobile-app > .main-nav button { min-height: 44px; height: 44px; }
+  .mobile-app > .main-nav button { padding: 0 1px; }
+  .mobile-app .main-nav .game-nav-icon { display: none; }
+  .mobile-app .hero { display: none; }
+  .mobile-app .page-intro h1 { font-size: 18px; }
+  .mobile-app .character-card { grid-template-columns: 30% minmax(0, 1fr); }
+  .mobile-app .character-art { min-height: 128px; }
+  .mobile-app .character-art img { object-fit: cover; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-app *, .mobile-app *::before, .mobile-app *::after { animation: none !important; transition: none !important; }
+}
