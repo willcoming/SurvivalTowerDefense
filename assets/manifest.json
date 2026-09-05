@@ -1,0 +1,4257 @@
+[
+  {
+    "assetId": "C01-portrait",
+    "path": "/assets/characters/C01-portrait.webp",
+    "width": 768,
+    "height": 1152,
+    "source": "artifacts/art-sources/C01-portrait.png",
+    "prompt": "Edit target: original Rion sheet. Keep ONLY the full-sized left character, remove the chibi. Produce a refined vertical 2:3 full-body character portrait illustration of Rion, adult woman 22, exactly the same short coral-red hair, optimistic face, coral jacket over white navy sci-fi armor and cyan crystalline pulse carbine. Her entire boots and head fit with room to breathe. Set her before an atmospheric deep-navy sci-fi city with restrained teal holographic light, warm coral dawn rim lighting, broad simple background shapes. No checkerboard, no chibi, no text, no UI, no watermark. Crisp Japanese anime cel shading and clear silhouette, elegant high quality original game character key art.",
+    "backgroundMode": "painted",
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 125830,
+    "sha256": "5d4f10874d89a5f94699b0d31d23ffad977529693184fc56ccba2ab6769b2655",
+    "loadGroup": "character-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C01-chibi",
+    "path": "/assets/characters/C01-chibi.webp",
+    "width": 384,
+    "height": 384,
+    "source": "artifacts/art-sources/C01-chibi.png",
+    "prompt": "Edit target: original Rion sheet. Keep ONLY the right-hand chibi, remove the full-sized character. Preserve her exact identity, clothes, short coral-red hair, white navy armor, coral jacket and cyan crystalline carbine raised diagonally upward. Center a complete 3-head-tall full-body chibi on a perfectly flat solid pure magenta RGB(255,0,255) background. No shadows, no floor, no backdrop texture, no checkerboard, no gradients on background. Do not use magenta anywhere on the subject. 15% empty margin. Crisp high-quality anime game combat sprite, no text, no watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 125836,
+    "sha256": "0e6e0e5f76a0c95c9f4f3dbc134117c4b97343d61f406c9505f87e6bf179b49f",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "S01",
+    "path": "/assets/stages/S01.webp",
+    "width": 780,
+    "height": 1040,
+    "source": "artifacts/art-sources/S01.png",
+    "prompt": "Use case: stylized-concept. Asset type: mobile vertical game battlefield background S01. Original anime science-fiction environment, city train station evacuation plaza at dawn after an alien incursion. Camera almost straight top-down with gentle 3/4 depth, portrait 3:4 composition. Empty broad dark blue-gray paved central lane takes 75% width from top to bottom; keep the central arena flat, dark, low contrast and uncluttered to make small bright combat sprites readable. Detailed broken rail platforms, futuristic white architecture, solar panels and coral-orange warning lights concentrated along extreme left and right edges. Distant sunrise at very top, cyan evacuation energy gate and five small white deployment pad markings aligned near bottom at 85% height. Deep ink navy surfaces with teal technology accents and a restrained warm coral sunrise. Hand-painted anime game background with clean architectural detail. NO people, NO creatures, NO weapons, NO UI, NO writing, NO letters, NO watermark. One contiguous scene, no panels, no border.",
+    "backgroundMode": "painted",
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 139906,
+    "sha256": "9ed1d5f7fb4a2efcc732326490c4a379078e2fb4e190bc05ec7ec74fcc5c2a78",
+    "loadGroup": "stage-S01",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C02-portrait",
+    "path": "/assets/characters/C02-portrait.webp",
+    "width": 768,
+    "height": 1152,
+    "source": "artifacts/art-sources/C02-portrait.png",
+    "prompt": "Use case: stylized-concept. Asset type: original game character full-body key art. Reference image is STYLE ONLY, create a different original adult heroine as specified. Vertical 2:3 composition, entire figure head to boots with margin, cinematic but legible. Refined Japanese anime, clean linework and careful cel shading, attractive expressive face, white and deep navy practical fully clothed tactical armor with alien translucent technology elements, no sexual posing. Original hopeful near-future Earth defense sci-fi. Atmospheric dark-navy sci-fi city/lab backdrop, teal light and restrained warm coral rim light. No chibi, no text, no UI, no watermark. Subject: Rena, adult woman age 24, electromagnetic researcher, confident slightly teasing expression; long blue-violet hair, sleek white and navy practical armored research uniform, prominent circular conductive frame behind shoulders, holding a human-grip arc-chain launcher incorporating a violet-blue alien crystal and conductive fork",
+    "backgroundMode": "painted",
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 145328,
+    "sha256": "f979ac9f1f0f0b0c347ce2c0fc83c48f8c749fa261672677b6700b39f647904c",
+    "loadGroup": "character-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C03-portrait",
+    "path": "/assets/characters/C03-portrait.webp",
+    "width": 768,
+    "height": 1152,
+    "source": "artifacts/art-sources/C03-portrait.png",
+    "prompt": "Use case: stylized-concept. Asset type: original game character full-body key art. Reference image is STYLE ONLY, create a different original adult heroine as specified. Vertical 2:3 composition, entire figure head to boots with margin, cinematic but legible. Refined Japanese anime, clean linework and careful cel shading, attractive expressive face, white and deep navy practical fully clothed tactical armor with alien translucent technology elements, no sexual posing. Original hopeful near-future Earth defense sci-fi. Atmospheric dark-navy sci-fi city/lab backdrop, teal light and restrained warm coral rim light. No chibi, no text, no UI, no watermark. Subject: Ritsuki, adult woman age 23, calm elite precision marksman; long silver-white hair, deep navy long shoulder cloak, white and navy practical armored battle uniform, holding a very long kinetic rail sniper rifle with a thin cyan alien crystal accelerator rail and clean human weapon grip",
+    "backgroundMode": "painted",
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 146894,
+    "sha256": "9fddfb68d29012ec6b0d5e0c23227f0644e64f2f29d410732201131f333fdf7a",
+    "loadGroup": "character-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C04-portrait",
+    "path": "/assets/characters/C04-portrait.webp",
+    "width": 768,
+    "height": 1152,
+    "source": "artifacts/art-sources/C04-portrait.png",
+    "prompt": "Use case: stylized-concept. Asset type: original game character full-body key art. Reference image is STYLE ONLY, create a different original adult heroine as specified. Vertical 2:3 composition, entire figure head to boots with margin, cinematic but legible. Refined Japanese anime, clean linework and careful cel shading, attractive expressive face, white and deep navy practical fully clothed tactical armor with alien translucent technology elements, no sexual posing. Original hopeful near-future Earth defense sci-fi. Atmospheric dark-navy sci-fi city/lab backdrop, teal light and restrained warm coral rim light. No chibi, no text, no UI, no watermark. Subject: Mira, adult woman age 21, curious inventive gravity engineer; mint-green twin ponytails, white and navy practical armored technical uniform, teal short jacket, waist tool pouches, small floating gravity rings, holding a compact gravity projector with cyan alien crystal and levitating rings",
+    "backgroundMode": "painted",
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 152878,
+    "sha256": "67d22c9d04bb6011251731d5acc34948ace05fa0dc1e9b40e236d95ea7fd4bd5",
+    "loadGroup": "character-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C05-portrait",
+    "path": "/assets/characters/C05-portrait.webp",
+    "width": 768,
+    "height": 1152,
+    "source": "artifacts/art-sources/C05-portrait.png",
+    "prompt": "Use case: stylized-concept. Asset type: full-body vertical 2:3 original game heroine key art. Reference is style only. Create Flare, adult woman age 25, warm confident reliable demolition expert, orange-gold hair in a practical high ponytail, black and burnt-orange heavy sci-fi armor with white pieces, large shoulder-mounted mortar tube incorporating an orange glowing alien crystal reactor, sturdy fully clothed battle outfit and boots. Refined Japanese anime linework and cel shading matching reference, entire head to boots within frame. Hopeful near-future Earth defense. Atmospheric deep-navy futuristic hangar background with warm orange and cyan lighting. No text, no UI, no watermark, no chibi.",
+    "backgroundMode": "painted",
+    "chromaKey": null,
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 160446,
+    "sha256": "91d8785c90a4acc3276afc9e6eb64903b5d9db059087484894946cf1699c1ee1",
+    "loadGroup": "character-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C06-portrait",
+    "path": "/assets/characters/C06-portrait.webp",
+    "width": 768,
+    "height": 1152,
+    "source": "artifacts/art-sources/C06-portrait.png",
+    "prompt": "Use case: stylized-concept. Asset type: full-body vertical 2:3 original game heroine key art. Reference is style only. Create Sia, adult woman age 24, gentle but decisive drone and protection specialist, pale golden shoulder-length hair, white and teal cape-coat over practical white and navy tactical armor, holding a compact control device, exactly two small floating prism drones each with cyan crystalline cores flanking her shoulders, hexagonal shield technology motif. Refined Japanese anime linework and cel shading matching reference, entire head to boots within frame. Hopeful near-future Earth defense. Atmospheric deep-navy futuristic hangar background with cyan lighting and restrained warm coral rimlight. No text, no UI, no watermark, no chibi.",
+    "backgroundMode": "painted",
+    "chromaKey": null,
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 143210,
+    "sha256": "b95bb62b317d52d46d671777c4912c8ce95be7d1575deca052888dfa202ca206",
+    "loadGroup": "character-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C02-chibi",
+    "path": "/assets/characters/C02-chibi.webp",
+    "width": 384,
+    "height": 384,
+    "source": "artifacts/art-sources/C02-chibi.png",
+    "prompt": "Use case: identity-preserve. Convert the adult Rena heroine in the reference to a single 3-head-tall chibi combat sprite. Preserve long blue-violet hair, confident face, white navy armored research coat, circular conducting shoulder frame and electrical fork arc launcher. Entire body, frame, boots and gun must fit in square canvas with 15% empty margins; point gun diagonally upwards to viewer's right in an energetic ready stance. Refined anime cel shading, strong linework for tiny game rendering. Background must be perfectly flat pure magenta RGB(255,0,255), no shadows, no scenery, no gradient, no checkerboard, no text. No magenta anywhere on subject.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 165108,
+    "sha256": "c12471d15bac0f831e026f0975714e792cd4e92678447ee0884af2a62b88a3cf",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C03-chibi",
+    "path": "/assets/characters/C03-chibi.webp",
+    "width": 384,
+    "height": 384,
+    "source": "artifacts/art-sources/C03-chibi.png",
+    "prompt": "Use case: identity-preserve. Asset type: original anime chibi game combat sprite. Convert the adult heroine in the reference into a single 3-head-tall chibi, keep her EXACT identity, hair color and style, outfit, major weapon and distinctive silhouette. C03 is silver-haired navy-cloaked rail sniper; C04 is mint twin-ponytail gravity engineer with floating rings; C05 is orange-haired heavy armor mortar expert; depict ONLY the supplied reference character. Whole body and weapon, complete boots and hair, center in square canvas with 12% empty margins. Weapon held diagonally upwards toward viewer's right, energetic combat ready stance. Strong crisp linework, clean anime cel shading, attractive expressive face, readable at 64px. BACKGROUND perfectly flat pure magenta RGB(255,0,255); no shadows, no floor, no texture, no gradient, no checkerboard. Do not use magenta on subject. No text, no watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 151422,
+    "sha256": "9062d8e52a3742842d5c0dcdbdee19c3a9255f006de139f915f3ce6fdb14df6b",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C04-chibi",
+    "path": "/assets/characters/C04-chibi.webp",
+    "width": 384,
+    "height": 384,
+    "source": "artifacts/art-sources/C04-chibi.png",
+    "prompt": "Use case: identity-preserve. Asset type: original anime chibi game combat sprite. Convert the adult heroine in the reference into a single 3-head-tall chibi, keep her EXACT identity, hair color and style, outfit, major weapon and distinctive silhouette. C03 is silver-haired navy-cloaked rail sniper; C04 is mint twin-ponytail gravity engineer with floating rings; C05 is orange-haired heavy armor mortar expert; depict ONLY the supplied reference character. Whole body and weapon, complete boots and hair, center in square canvas with 12% empty margins. Weapon held diagonally upwards toward viewer's right, energetic combat ready stance. Strong crisp linework, clean anime cel shading, attractive expressive face, readable at 64px. BACKGROUND perfectly flat pure magenta RGB(255,0,255); no shadows, no floor, no texture, no gradient, no checkerboard. Do not use magenta on subject. No text, no watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 167284,
+    "sha256": "03cbfa409b60fe8323c5f2c17d4a00776eb5499283a54409cd4f8ebcc30c779b",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C05-chibi",
+    "path": "/assets/characters/C05-chibi.webp",
+    "width": 384,
+    "height": 384,
+    "source": "artifacts/art-sources/C05-chibi.png",
+    "prompt": "Use case: identity-preserve. Asset type: original anime chibi game combat sprite. Convert the adult heroine in the reference into a single 3-head-tall chibi, keep her EXACT identity, hair color and style, outfit, major weapon and distinctive silhouette. C03 is silver-haired navy-cloaked rail sniper; C04 is mint twin-ponytail gravity engineer with floating rings; C05 is orange-haired heavy armor mortar expert; depict ONLY the supplied reference character. Whole body and weapon, complete boots and hair, center in square canvas with 12% empty margins. Weapon held diagonally upwards toward viewer's right, energetic combat ready stance. Strong crisp linework, clean anime cel shading, attractive expressive face, readable at 64px. BACKGROUND perfectly flat pure magenta RGB(255,0,255); no shadows, no floor, no texture, no gradient, no checkerboard. Do not use magenta on subject. No text, no watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 151298,
+    "sha256": "83b6c982095e29d9e5dba0118e4542c284302718de838f56460b5217468a14d2",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C06-chibi",
+    "path": "/assets/characters/C06-chibi.webp",
+    "width": 384,
+    "height": 384,
+    "source": "artifacts/art-sources/C06-chibi.png",
+    "prompt": "Use case: identity-preserve. Convert reference adult Sia to one 3-head-tall chibi anime combat sprite. Preserve pale blonde shoulder-length hair, gentle determined face, white teal cape-coat over navy-white armor, control tablet and exactly TWO floating cyan prism drones. Entire character boots, cape, head and drones fit square canvas with 12% empty margin. Clean strong anime linework and detailed cel shading. Ready stance three-quarter facing viewer. Perfectly flat solid magenta RGB(255,0,255) background, no shadows, no texture, no checkerboard, no text, no floor. Do not use magenta on subject.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 162726,
+    "sha256": "ce4d9186300722a0dbcda34d1fd153a00a031236ef239726a94c9731ca925aa6",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "E01",
+    "path": "/assets/enemies/E01.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/E01.png",
+    "prompt": "Use case: stylized-concept. Asset type: isolated enemy sprite for a sci-fi anime mobile defense game, creature E01 cracked-shell crawler. Original compact six-legged alien mechanical beetle with layered dark petrol-blue chitin plates, split cream outer carapace, orange glowing crystal belly and eyes, threatening clawed front legs. Readable round low silhouette. Three-quarter view slightly from above, facing down toward viewer, entire creature centered with 15% empty margins, square canvas. Refined stylized Japanese game cel shading, crisp dark outlines, mechanical plus biological shell design, moderate detail readable at 40px. Background perfectly flat pure magenta RGB(255,0,255), no shadows, no gradient, no floor, no texture, no checkerboard; avoid any magenta on creature. No humans, no text, no watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 76116,
+    "sha256": "1b1f566a5777771c154af762188cda4bb9e109674de6265fd2e4c1cd78277c6c",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "E02",
+    "path": "/assets/enemies/E02.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/E02.png",
+    "prompt": "Use case: stylized-concept. Asset type: isolated enemy sprite for a sci-fi anime mobile defense game, creature E02 razor hound. Original sleek fast quadruped alien mech-hound with deep blue-black bioarmor, swept blade fins on its shoulders and back, thin ivory saber claws, bright orange-red reactor eye and orange glowing seams. Agile long diamond silhouette, lunging toward lower right/front. Three-quarter view slightly from above, whole creature including tail in square canvas with 15% empty margins. Refined stylized Japanese game cel shading, crisp dark outlines, mechanical plus biological shell design, moderate detail readable at 40px. Background perfectly flat pure magenta RGB(255,0,255), no shadows, no gradient, no floor, no texture, no checkerboard; avoid any magenta on creature. No humans, no text, no watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 69304,
+    "sha256": "128f0aadd197c3ef9fad755bbfa7925abf097840a78b9747207b2233542afb48",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "E03",
+    "path": "/assets/enemies/E03.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/E03.png",
+    "prompt": "Use case: stylized-concept. Asset type: original isolated alien enemy combat sprite for an anime science-fiction defense game. Reference image is visual style and species vocabulary only; make the DIFFERENT creature described next. Three-quarter view slightly from above, facing toward lower front, centered complete body with 12% empty margin on square canvas. Mechanical parts interwoven with biological chitin, refined anime game cel shading, strong crisp outline, readable small-scale silhouette. Do not put magenta on creature. BACKGROUND perfectly flat pure magenta RGB(255,0,255), no shadows, no gradients, no texture, no floor, no checkerboard. No text, no humans, no watermark. Creature: Ironspine armored brute: heavy broad six-legged alien tortoise-beetle with towering angular slate-blue metal plates, thick ivory layered armor on shoulders and forearms, dark organic joints, orange glowing deep-set core and small orange eyes. Massive low trapezoidal silhouette; armor looks much heavier than the reference crawler, intimidating slow tank.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 85744,
+    "sha256": "14fa2fb04bea4cdcfd671a1574a6e8776651f40d13d5399b4a350bba16b6eb2d",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "E04",
+    "path": "/assets/enemies/E04.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/E04.png",
+    "prompt": "Use case: stylized-concept. Asset type: original isolated alien enemy combat sprite for an anime science-fiction defense game. Reference image is visual style and species vocabulary only; make the DIFFERENT creature described next. Three-quarter view slightly from above, facing toward lower front, centered complete body with 12% empty margin on square canvas. Mechanical parts interwoven with biological chitin, refined anime game cel shading, strong crisp outline, readable small-scale silhouette. Do not put magenta on creature. BACKGROUND perfectly flat pure magenta RGB(255,0,255), no shadows, no gradients, no texture, no floor, no checkerboard. No text, no humans, no watermark. Creature: Prism shield sentinel: upright hovering alien geometric golem, narrow dark-navy chitin-machine body, four outward ivory crystalline shield fins forming a tall diamond silhouette, a large luminous AQUA cyan faceted shield disk held in front, visible warm orange core behind shield; clear shield specialist, whole body including fins.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 65282,
+    "sha256": "cf1bb50976a5dc570e7b24acfb941de6d52837eb966181d261f67cd4bf6f9ef2",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "E05",
+    "path": "/assets/enemies/E05.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/E05.png",
+    "prompt": "Use case: stylized-concept. Asset type: original isolated alien enemy combat sprite for an anime science-fiction defense game. Reference image is visual style and species vocabulary only; make the DIFFERENT creature described next. Three-quarter view slightly from above, facing toward lower front, centered complete body with 12% empty margin on square canvas. Mechanical parts interwoven with biological chitin, refined anime game cel shading, strong crisp outline, readable small-scale silhouette. Do not put magenta on creature. BACKGROUND perfectly flat pure magenta RGB(255,0,255), no shadows, no gradients, no texture, no floor, no checkerboard. No text, no humans, no watermark. Creature: Spore artillery gunner: alien biological-mechanical artillery crab with six thin dark-blue legs, ivory shoulder plates, one huge upward arching bulbous cannon sac mounted on its back, orange glowing spore fluid chamber and circular muzzle aimed toward lower front. Cannon body dominates tall rear silhouette, small orange eyes beneath.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 68360,
+    "sha256": "8cd484374bdbdfdb1faabb9679fb96cb827eccb19e678e6274080d74bbcb8796",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "E06",
+    "path": "/assets/enemies/E06.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/E06.png",
+    "prompt": "Use case: stylized-concept. Asset type: original isolated alien enemy game sprite. Create a DIFFERENT original alien support creature: stitcher worker drone, a small floating mechanical-biological jellyfish with oval ivory and dark-navy shell, TWO lime-green translucent medicine chambers on its back, six slender segmented tendrils ending in repair pincers, glowing green core, rounded nurse-worker silhouette clearly distinct from a beetle. Reference is style vocabulary only. Single complete creature centered in square with 12% empty margins, view slightly from above facing down toward viewer, refined anime game cel shading, crisp thick outline, chitin and mechanical plates, readable at 40px. Background perfectly flat pure magenta RGB(255,0,255); no shadows, no floor, no texture, no gradients, no checkerboard. Never put magenta on subject. No text, humans or watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 68554,
+    "sha256": "c2c33d55a380f8d972933fe66cf05c588a24cadb0182eeeaee18be1d8d9e5366",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "E07",
+    "path": "/assets/enemies/E07.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/E07.png",
+    "prompt": "Use case: stylized-concept. Asset type: original isolated alien enemy game sprite. Create elite ironspine derived from the reference armored brute, visibly upgraded silhouette rather than recolor. Keep broad tank body but add enormous outward ivory shoulder shield plates, tall crown of three steel horns, thick double forearm armor, a brilliant cyan shield-reactor contained at center of upper back while orange eyes and orange seam accents remain. Total bulk and unique spikes distinguish elite instantly. Single complete creature centered in square with 12% empty margins, view slightly from above facing down toward viewer, refined anime game cel shading, crisp thick outline, chitin and mechanical plates, readable at 40px. Background perfectly flat pure magenta RGB(255,0,255); no shadows, no floor, no texture, no gradients, no checkerboard. Never put magenta on subject. No text, humans or watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 100270,
+    "sha256": "6b0b4e65eeecc2fe1542e4d0441cdd6837599782cff5e14b2c620727eeaaafd2",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "E08",
+    "path": "/assets/enemies/E08.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/E08.png",
+    "prompt": "Use case: stylized-concept. Asset type: original isolated alien enemy game sprite. Create elite razor hound derived from the reference fast mech hound, visibly upgraded silhouette rather than recolor. Keep long agile dark-navy quadrupedal blade-beast, add paired long ivory forward saber tusks, swept backward double winglike blade fins, larger cyan turbo-reactor on shoulders and orange-red eyes. Tail is reinforced with two blade segments. Charging low stance, a distinctive pointed fast silhouette. Single complete creature centered in square with 12% empty margins, view slightly from above facing down toward viewer, refined anime game cel shading, crisp thick outline, chitin and mechanical plates, readable at 40px. Background perfectly flat pure magenta RGB(255,0,255); no shadows, no floor, no texture, no gradients, no checkerboard. Never put magenta on subject. No text, humans or watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 79708,
+    "sha256": "74cf31e6fabd0b5e558d460398ded552368e6347f763258226cc759c26e9b4b5",
+    "loadGroup": "battle-common",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "B01",
+    "path": "/assets/enemies/B01.webp",
+    "width": 512,
+    "height": 512,
+    "source": "artifacts/art-sources/B01.png",
+    "prompt": "Use case: stylized-concept. Asset type: one isolated original alien BOSS combat sprite for anime sci-fi defense game. Reference is art style/species materials only. Hive Seeder, enormous boss alien living siege engine. Six thick dark-navy biomechanical crab legs carry a hulking ivory armored cocoon with THREE huge glowing amber egg chambers visible under split plates, several smaller egg pods, and a low triangular orange-eyed armored head; broad wide looming silhouette. Giant front pincers and layered carapace, visually a mother nest, not a regular beetle. Entire creature centered and visible. Perspective three-quarter slightly from above facing toward bottom viewer, high quality crisp anime game cel shading, strong outline, mechanical plates mixed with chitin, 12% empty margins square canvas, moderate detail readable at 120px. Background perfectly flat pure magenta RGB(255,0,255), no shadows, no floor, no gradients, no checkerboard, no texture. Avoid magenta on boss itself. No text, humans, logos or watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 337602,
+    "sha256": "4cd2408c82b78d12695d06848d84386774fda0496fb3cf1591753a90ee1dc6cf",
+    "loadGroup": "boss-B01",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "B02",
+    "path": "/assets/enemies/B02.webp",
+    "width": 512,
+    "height": 512,
+    "source": "artifacts/art-sources/B02.png",
+    "prompt": "Use case: stylized-concept. Asset type: one isolated original alien BOSS combat sprite for anime sci-fi defense game. Reference is art style/species materials only. Prism Overseer, enormous boss shield commander. Tall imposing levitating mechanical-biological guardian with ivory faceted segmented plates, dark-navy joints, a brilliant cyan circular shield engine at center chest, four long floating ivory obelisk fins forming a royal crown halo, three integrated orange barrel ports under the core, wide architectural silhouette. Distinct massive shield sovereign, not a humanoid person. Entire entity centered and visible. Perspective three-quarter slightly from above facing toward bottom viewer, high quality crisp anime game cel shading, strong outline, mechanical plates mixed with chitin, 12% empty margins square canvas, moderate detail readable at 120px. Background perfectly flat pure magenta RGB(255,0,255), no shadows, no floor, no gradients, no checkerboard, no texture. Avoid magenta on boss itself. No text, humans, logos or watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 304174,
+    "sha256": "fa781e7b02ea5da47e842868a89cc59b62934437948ec72db5d216666c1bc381",
+    "loadGroup": "boss-B02",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "B03",
+    "path": "/assets/enemies/B03.webp",
+    "width": 512,
+    "height": 512,
+    "source": "artifacts/art-sources/B03.png",
+    "prompt": "Use case: stylized-concept. Asset type: one isolated original alien BOSS combat sprite for anime sci-fi defense game. Reference is art style/species materials only. Descent Core, final boss alien starship heart. Massive floating spherical orange-red crystal reactor enclosed within cracked dark-navy and ivory mechanical organic shell segments, THREE broad articulated crab-like stabilizer claws pointing down and out, huge angular orbital halo above reactor like shattered ship ribs, bright cyan secondary shield nodes, symmetric ominous spiky circular silhouette. Clearly a sentient alien ship core, no face or humanoid body. Entire entity centered and visible. Perspective three-quarter slightly from above facing toward bottom viewer, high quality crisp anime game cel shading, strong outline, mechanical plates mixed with chitin, 12% empty margins square canvas, moderate detail readable at 120px. Background perfectly flat pure magenta RGB(255,0,255), no shadows, no floor, no gradients, no checkerboard, no texture. Avoid magenta on boss itself. No text, humans, logos or watermark.",
+    "backgroundMode": "chroma-key-magenta",
+    "chromaKey": [
+      255,
+      0,
+      255
+    ],
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 358470,
+    "sha256": "2d672716ebe28d9cf5af238fc24c2ecdadc312472366d223cbb8e1ab38201204",
+    "loadGroup": "boss-B03",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "S02",
+    "path": "/assets/stages/S02.webp",
+    "width": 780,
+    "height": 1040,
+    "source": "artifacts/art-sources/S02.png",
+    "prompt": "Use case: stylized-concept. Asset type: vertical 3:4 background for mobile anime sci-fi defense game. Use reference ONLY for art quality, empty-playable-lane layout, palette and almost top-down camera with gentle three-quarter depth. Create a DISTINCT setting: Zero Point Laboratory: cavernous futuristic human research institute interior, white and dark-navy hard-surface walls, tall cyan shield pylons and alien crystal containment tanks at the extreme sides, geometric lab architecture and distant secured door at top, cold teal overhead lighting. Broad empty unobstructed dark blue-gray matte metallic central corridor floor for combat, subtle panel seams only, low contrast. At near bottom 85% height five small white deployment pad markings, cyan energy containment gate at very bottom. Central 75% width must be uncluttered, flat and visually quiet for bright small sprites; detail concentrated along outer edges. Refined hand-painted Japanese anime game background, intricate architectural edges, hopeful sci-fi atmosphere. No people, no creatures, no vehicles blocking center, no UI, no text, no letters, no numbers, no watermark, no panels.",
+    "backgroundMode": "painted",
+    "chromaKey": null,
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 89064,
+    "sha256": "58008397785aa9259d0651ddaff14d75a0f5794ecbce6647708359ef57ce0964",
+    "loadGroup": "stage-S02",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "S03",
+    "path": "/assets/stages/S03.webp",
+    "width": 780,
+    "height": 1040,
+    "source": "artifacts/art-sources/S03.png",
+    "prompt": "Use case: stylized-concept. Asset type: vertical 3:4 background for mobile anime sci-fi defense game. Use reference ONLY for art quality, empty-playable-lane layout, palette and almost top-down camera with gentle three-quarter depth. Create a DISTINCT setting: Fallen Star Counteroffensive: the interior-exterior threshold of a huge crashed alien landing ship at sunset on Earth, enormous fractured dark organic-metal hull ribs and ivory jagged armor plates framing extreme sides, restrained red-orange embers and glowing cyan alien conduits, distant warm coral sunset through a hull break at top. Broad empty unobstructed dark navy matte ship deck as central combat arena, low contrast subtle circuit seams only. Near bottom 85% height five small white human deployment pad markings, a cyan portable core lockdown barrier at very bottom. Central 75% width must be uncluttered, flat and visually quiet for bright small sprites; detail concentrated along outer edges. Refined hand-painted Japanese anime game background, intricate architectural edges, hopeful sci-fi atmosphere. No people, no creatures, no vehicles blocking center, no UI, no text, no letters, no numbers, no watermark, no panels.",
+    "backgroundMode": "painted",
+    "chromaKey": null,
+    "tool": "imagegen built-in",
+    "status": "visually inspected source and final artifact",
+    "bytes": 125440,
+    "sha256": "8b5b28f8209d46dd39607717120fa34420cfa2660c306cc8136335ca8168b5c0",
+    "loadGroup": "stage-S03",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C01-A",
+    "path": "/assets/evolutions/C01-A.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C01-A.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 20598,
+    "sha256": "ae6517b7456770f9e34b3e9c53c07504250c2c26c195b3c85c99532bbe0b5a5e",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C01-B",
+    "path": "/assets/evolutions/C01-B.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C01-B.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 20292,
+    "sha256": "a06e7d764c5b08690b37449f2514067db4112b13b4f3b339e839f8f001989fc4",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C02-A",
+    "path": "/assets/evolutions/C02-A.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C02-A.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 21610,
+    "sha256": "17b2dbafa35c698a63f4e2601066af5c6ca2971a2f0afba260d2773ccb04e37e",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C02-B",
+    "path": "/assets/evolutions/C02-B.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C02-B.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 21570,
+    "sha256": "81e83554a44f6d980d15f950051054703248ab201a05f47b927b5313372c24f5",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C03-A",
+    "path": "/assets/evolutions/C03-A.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C03-A.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 19614,
+    "sha256": "0561d2f718ae3a2f35f030fcf21544ac1a4b2d8e3bdd867b25819f20b0197e3c",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C03-B",
+    "path": "/assets/evolutions/C03-B.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C03-B.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 21444,
+    "sha256": "9568d693dc24040beb84cb7ed04127db90fe1180a8f51e1b3c478a023f499614",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C04-A",
+    "path": "/assets/evolutions/C04-A.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C04-A.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 21978,
+    "sha256": "542291103789858f9462289730e8b763f1f74db1dc4647bb365f0358018a8cd0",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C04-B",
+    "path": "/assets/evolutions/C04-B.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C04-B.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 19558,
+    "sha256": "6c0659965205386090647295935bb8d2462edfdedc71a3ad8ab04e9f6302e0e8",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C05-A",
+    "path": "/assets/evolutions/C05-A.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C05-A.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 20356,
+    "sha256": "5e0996bba97bebfc94b483300653797e347bd388c95d8103387a299690d7f7cc",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C05-B",
+    "path": "/assets/evolutions/C05-B.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C05-B.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 23086,
+    "sha256": "3bb75e79049463354a54ad5757d7d4004a289f3c83a536e46c4d667922110c36",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C06-A",
+    "path": "/assets/evolutions/C06-A.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C06-A.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 23126,
+    "sha256": "4d640f4ccd3bd865efbf486006fdbcda66804ce6afbdd8cab349a152f2a7cea4",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "evolution-C06-B",
+    "path": "/assets/evolutions/C06-B.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/icons/C06-B.svg",
+    "backgroundMode": "painted",
+    "tool": "original SVG mechanism icon",
+    "status": "visually inspected source and final artifact",
+    "bytes": 21990,
+    "sha256": "8ec8f2fec9a41181092d689dc2d90df93c690204bad78f04a0886c083895add2",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "weapon-C01",
+    "path": "/assets/weapons/C01.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/C01-portrait.png",
+    "crop": {
+      "left": 230,
+      "top": 350,
+      "width": 565,
+      "height": 340
+    },
+    "backgroundMode": "painted",
+    "tool": "crop from imagegen weapon design",
+    "status": "visually inspected source and final artifact",
+    "bytes": 16046,
+    "sha256": "fb851b138699541ce8907613a3161f9f5e11af3f0aa9ac84c4969e24cfea1bd8",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "weapon-C02",
+    "path": "/assets/weapons/C02.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/C02-portrait.png",
+    "crop": {
+      "left": 350,
+      "top": 450,
+      "width": 660,
+      "height": 445
+    },
+    "backgroundMode": "painted",
+    "tool": "crop from imagegen weapon design",
+    "status": "visually inspected source and final artifact",
+    "bytes": 17908,
+    "sha256": "669deac968cea9018ceded8da78f96f6525d4add08908927161ab9258759169e",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "weapon-C03",
+    "path": "/assets/weapons/C03.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/C03-portrait.png",
+    "crop": {
+      "left": 260,
+      "top": 385,
+      "width": 735,
+      "height": 810
+    },
+    "backgroundMode": "painted",
+    "tool": "crop from imagegen weapon design",
+    "status": "visually inspected source and final artifact",
+    "bytes": 23428,
+    "sha256": "446c2c1ef04964f995f2ce7d72676c64ec12f92f7f1197c9561d851d8c7f8908",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "weapon-C04",
+    "path": "/assets/weapons/C04.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/C04-portrait.png",
+    "crop": {
+      "left": 70,
+      "top": 270,
+      "width": 330,
+      "height": 255
+    },
+    "backgroundMode": "painted",
+    "tool": "crop from imagegen weapon design",
+    "status": "visually inspected source and final artifact",
+    "bytes": 19126,
+    "sha256": "60a93691bbd04391ecb297095233e03040a5a9d9448067ae89854eb6735a79d2",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "weapon-C05",
+    "path": "/assets/weapons/C05.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/C05-portrait.png",
+    "crop": {
+      "left": 635,
+      "top": 45,
+      "width": 260,
+      "height": 435
+    },
+    "backgroundMode": "painted",
+    "tool": "crop from imagegen weapon design",
+    "status": "visually inspected source and final artifact",
+    "bytes": 12018,
+    "sha256": "a64b11876c161f69f80c71a01f5fb83d505e5a3ada3b52c358326e4ee2b50e33",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "weapon-C06",
+    "path": "/assets/weapons/C06.webp",
+    "width": 256,
+    "height": 256,
+    "source": "artifacts/art-sources/C06-portrait.png",
+    "crop": {
+      "left": 700,
+      "top": 200,
+      "width": 190,
+      "height": 200
+    },
+    "backgroundMode": "painted",
+    "tool": "crop from imagegen weapon design",
+    "status": "visually inspected source and final artifact",
+    "bytes": 10654,
+    "sha256": "e593b9e9033b2f9ef88599d4e5dca40b7301be7f2f9dae77437c9e8a65f654ff",
+    "loadGroup": "codex-ui",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "common-effects",
+    "path": "/assets/effects/common.webp",
+    "width": 512,
+    "height": 384,
+    "frames": [
+      {
+        "id": "glow-point",
+        "x": 0,
+        "y": 0,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "id": "electric-arc",
+        "x": 128,
+        "y": 0,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "id": "impact-ring",
+        "x": 256,
+        "y": 0,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "id": "fire-zone",
+        "x": 384,
+        "y": 0,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "id": "gravity-field",
+        "x": 0,
+        "y": 128,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "id": "shield",
+        "x": 128,
+        "y": 128,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "id": "hit-spark",
+        "x": 256,
+        "y": 128,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "id": "death-shards",
+        "x": 384,
+        "y": 128,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "id": "pulse-bolt",
+        "x": 0,
+        "y": 256,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "id": "rail-beam",
+        "x": 128,
+        "y": 256,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "id": "exposed",
+        "x": 256,
+        "y": 256,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "id": "warning",
+        "x": 384,
+        "y": 256,
+        "width": 128,
+        "height": 128
+      }
+    ],
+    "source": "artifacts/art-sources/icons/common-effects.svg",
+    "backgroundMode": "transparent",
+    "tool": "original SVG geometric VFX atlas",
+    "status": "visually inspected source and final artifact",
+    "bytes": 57112,
+    "sha256": "61ab582da88d144e9d6cad2156c5427b26547fb91ccfd7021e567d68ffa1acb1",
+    "loadGroup": "battle-fx",
+    "inspectedAt": "2026-09-04"
+  },
+  {
+    "assetId": "C01-motion",
+    "path": "/assets/animations/C01-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 235438,
+    "sha256": "6d9f4304a18f7d9a17cfd1ed9127276e34554d5e51bfb0c95e8689654d5eaff5",
+    "source": "artifacts/animation-sources/C01-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: RION, 22: coral-red short hair, expressive amber eyes, cropped red/white/navy armored jacket, dark bodysuit. Compact cyan crystal plasma carbine held with both hands. Fire/recoil with raised elbows and shoulders rocking back; recover arms lower.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        512,
+        1024,
+        1536
+      ],
+      "ys": [
+        0,
+        512,
+        1024
+      ]
+    },
+    "scale": 0.47,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "ab0e2db1c18b1235efc1e0855261bc78114d3c4389890ec933d80b068b32a856",
+        "sourceBounds": {
+          "left": 143,
+          "top": 58,
+          "right": 425,
+          "bottom": 492,
+          "center": 259.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "354b99b96c2cc6b61da71924ab014dd87094096cb2deb997bb7e32591b5a975f",
+        "sourceBounds": {
+          "left": 614,
+          "top": 68,
+          "right": 900,
+          "bottom": 491,
+          "center": 738
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "af13b986c10110062d77f711ac9427cfb331c6f8ec2b003d161a4880f730d33f",
+        "sourceBounds": {
+          "left": 1089,
+          "top": 66,
+          "right": 1404,
+          "bottom": 491,
+          "center": 1222.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "f03232800d0566bbd5d2ee69dda0139dcdbdfc122d435cadd602bdbfbb2309ee",
+        "sourceBounds": {
+          "left": 114,
+          "top": 550,
+          "right": 492,
+          "bottom": 962,
+          "center": 250
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "0a70432a93171d6471dd748ddfab3c84c4264c93b11efdaab1c762ca1c8034d7",
+        "sourceBounds": {
+          "left": 567,
+          "top": 557,
+          "right": 905,
+          "bottom": 962,
+          "center": 763
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "e83bda61aeb8633153408bebd563e9b6bb8206ddc6567ccb0a0947f0d156eeee",
+        "sourceBounds": {
+          "left": 1090,
+          "top": 547,
+          "right": 1373,
+          "bottom": 971,
+          "center": 1207
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C02-motion",
+    "path": "/assets/animations/C02-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 291084,
+    "sha256": "c742e7cb46caf9f5de962f6128228c61e0d371993384d11c70840c4a2372c3ff",
+    "source": "artifacts/animation-sources/C02-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: RENA, 24: long dark indigo-purple hair, white/navy research coat armor, circular segmented conductive back-ring. Large two-pronged electric arc rifle with chains, violet-blue core. Ready aims fork rifle, firing extends both hands, recoil opens the back-ring and lifts coat tips; recovery closes it.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        512,
+        1024,
+        1536
+      ],
+      "ys": [
+        0,
+        512,
+        1024
+      ]
+    },
+    "scale": 0.43856332703213613,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "478890406f8599a9543eae4f9c0214fa44d1db4a2ef53cbac72f7f238d1eb614",
+        "sourceBounds": {
+          "left": 56,
+          "top": 67,
+          "right": 473,
+          "bottom": 465,
+          "center": 250.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "a759ae7452f431500f2d7decf91af6e63a9829a0d2a413cbe6ccf15201821825",
+        "sourceBounds": {
+          "left": 568,
+          "top": 71,
+          "right": 976,
+          "bottom": 465,
+          "center": 760.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "c9b75c93f11d7c31cfc3570c0cb7e7b0565efb1b7ced8c285ea60807120a84b4",
+        "sourceBounds": {
+          "left": 1039,
+          "top": 69,
+          "right": 1462,
+          "bottom": 465,
+          "center": 1251.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "2dc7504eb6d6ce214ad2b254fb97529fba4409f89f77d7cbfd4d48af2178cf30",
+        "sourceBounds": {
+          "left": 56,
+          "top": 561,
+          "right": 510,
+          "bottom": 948,
+          "center": 246.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "aef63e726cae13430d83356dfb0cb62b8e4982faeaef8b87c9072fc29d0f2e38",
+        "sourceBounds": {
+          "left": 531,
+          "top": 558,
+          "right": 1010,
+          "bottom": 949,
+          "center": 763
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "c623d09d3f3c1e752de070d3fa06bb01389b46f48a458b47af6a980732ab826c",
+        "sourceBounds": {
+          "left": 1048,
+          "top": 561,
+          "right": 1449,
+          "bottom": 948,
+          "center": 1238.5
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C03-motion",
+    "path": "/assets/animations/C03-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 213130,
+    "sha256": "5df460c865e3d4e79eb428406955592c4ec6e4f0a738fb00b6481718f205fd2d",
+    "source": "artifacts/animation-sources/C03-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: RITSUKI, 23: long silver-white hair, ice-blue eyes, dark navy flowing cloak over white/navy armored suit. Long slim cyan rail sniper rifle. Ready braces stock against shoulder, aim head lowers to sight, firing tiny cyan flash, recoil shoulder moves back and front knee bends, recovery lifts head. SAME long rifle geometry every frame.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        505,
+        1018,
+        1536
+      ],
+      "ys": [
+        0,
+        512,
+        1024
+      ]
+    },
+    "scale": 0.3938879456706282,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "5f6b4ffa3a3620549358a79f1b90378f5cf503f1217be749f57e199d4776c6b9",
+        "sourceBounds": {
+          "left": 67,
+          "top": 81,
+          "right": 450,
+          "bottom": 496,
+          "center": 248.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "177141f324742bcaa63621240aabbed8365af9301755d4bc518d00afad8a3f83",
+        "sourceBounds": {
+          "left": 555,
+          "top": 83,
+          "right": 972,
+          "bottom": 493,
+          "center": 741.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "3b3a2ede947feed983507ffcc4cd24bbb92456cfe367d63ed910af08befd1eb5",
+        "sourceBounds": {
+          "left": 1025,
+          "top": 98,
+          "right": 1499,
+          "bottom": 493,
+          "center": 1208
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "3440aae38a778d04a1a0ea12e4d3b072e68b9d0ed869f3afc4a1d683b67531ce",
+        "sourceBounds": {
+          "left": 52,
+          "top": 562,
+          "right": 504,
+          "bottom": 955,
+          "center": 211.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "faff9d94ab0ea0573513de528f28e9f06dd5a8e38e40acdfdd57db6e9dc35f03",
+        "sourceBounds": {
+          "left": 505,
+          "top": 579,
+          "right": 991,
+          "bottom": 955,
+          "center": 697.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "86504ec04c1f97561c1f9f7e54bf7ec4dbcc4f87b59dc366cfaf8237fa50bb71",
+        "sourceBounds": {
+          "left": 1019,
+          "top": 568,
+          "right": 1433,
+          "bottom": 960,
+          "center": 1184
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C04-motion",
+    "path": "/assets/animations/C04-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 297656,
+    "sha256": "5c99712378bea2ea80ddb6c14915c0153718bc275c6290e03b7f59a754a89007",
+    "source": "artifacts/animation-sources/C04-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: MIRA, 21: mint-green twin-tails, teal short jacket, tool belt, dark/white armored suit. Compact cyan-crystal gravity projector surrounded by thin floating teal rings. Idle holds lowered projector; aim raises with both hands; casting rotates rings and extends arms; recoil leans against gravitational force with twin-tails flowing; recovery lowers hands.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        500,
+        1024,
+        1536
+      ],
+      "ys": [
+        0,
+        512,
+        1024
+      ]
+    },
+    "scale": 0.4352720450281426,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "d612db3a8ce1de5cf76b611f1227e36fad7814727dc4db7d6b09d66730f6ad2c",
+        "sourceBounds": {
+          "left": 28,
+          "top": 44,
+          "right": 399,
+          "bottom": 484,
+          "center": 210
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "93c611fc05b7bf8a929d634359a04b82984f89af602ee4cc6405145a8bb836cb",
+        "sourceBounds": {
+          "left": 541,
+          "top": 45,
+          "right": 956,
+          "bottom": 485,
+          "center": 732
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "a4ec29506839f0c1b5627512450116d8be4665ddc93ca87987d829f2f83d8cb0",
+        "sourceBounds": {
+          "left": 1040,
+          "top": 45,
+          "right": 1485,
+          "bottom": 485,
+          "center": 1235.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "16a722f8400a3fed4b5438e2345f2b4f42dff9d415991339e3f73052fab083a9",
+        "sourceBounds": {
+          "left": 36,
+          "top": 533,
+          "right": 482,
+          "bottom": 961,
+          "center": 226
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "5962750f34156a6346759e87f1e5e674c2755d8c7a2c8840c691322aeeb12acd",
+        "sourceBounds": {
+          "left": 501,
+          "top": 543,
+          "right": 982,
+          "bottom": 959,
+          "center": 766.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "400975bc616d435b089b12ff9bc9b940a8e41c8a9f5bd957ffa24d2b9168db09",
+        "sourceBounds": {
+          "left": 1051,
+          "top": 536,
+          "right": 1413,
+          "bottom": 961,
+          "center": 1229.5
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C05-motion",
+    "path": "/assets/animations/C05-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 270618,
+    "sha256": "bbb87c3c5d5ae82ec303709cc9e2a59a6dc7434c7023c3ebd771af15d93cb8c1",
+    "source": "artifacts/animation-sources/C05-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: FLARE, 25: orange-gold high ponytail, black/orange heavy armor. Huge orange molten-core mortar cannon resting over right shoulder. Idle heavy cannon supported; aim bends front knee and angles barrel up; firing small orange flash; recoil deep knee compression, body/pony-tail rock backward while cannon remains shouldered; recover stands tall. Keep barrel full length and visible.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        512,
+        1024,
+        1536
+      ],
+      "ys": [
+        0,
+        512,
+        1024
+      ]
+    },
+    "scale": 0.4393939393939394,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "aa983fa97462ea4107d2df230fc8db66c093535ce0a6c9fbfbf577dc605d0d75",
+        "sourceBounds": {
+          "left": 77,
+          "top": 50,
+          "right": 469,
+          "bottom": 489,
+          "center": 251.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "539bc262de934e1c4d21c2d628f499f2871b8c5acf2afbdebe68e5e0e56c211a",
+        "sourceBounds": {
+          "left": 577,
+          "top": 48,
+          "right": 966,
+          "bottom": 491,
+          "center": 744.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "d529d2773f14ce2bcfba1ceeb70884bed4ea157b766ad9e95490bcd223ae4eff",
+        "sourceBounds": {
+          "left": 1059,
+          "top": 46,
+          "right": 1459,
+          "bottom": 490,
+          "center": 1246.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "8e282fdf1ce716cfb8191ce5dc7b51a60d968b2ab28518680825fe54b9774659",
+        "sourceBounds": {
+          "left": 58,
+          "top": 517,
+          "right": 485,
+          "bottom": 968,
+          "center": 252.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "46a6008be6eb529b2b7f1fef234d9ba17a463d69785fed64ab57c3663562a80e",
+        "sourceBounds": {
+          "left": 513,
+          "top": 533,
+          "right": 951,
+          "bottom": 969,
+          "center": 776
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "0bc5d5cd3fa324746905b3537fddaf72600266fef9d52e0852a8dbdaaa7010db",
+        "sourceBounds": {
+          "left": 1051,
+          "top": 536,
+          "right": 1423,
+          "bottom": 972,
+          "center": 1216
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C06-motion",
+    "path": "/assets/animations/C06-motion.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 257116,
+    "sha256": "2779c53d5e502589d7aa83a9eb3c00b02d7f6f9c306b9387e09edd5185fafea9",
+    "source": "artifacts/animation-sources/C06-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D game animation sprite sheet. Create a NEW coherent hand-drawn anime chibi animation sheet using the attached character solely as identity/style reference. Exactly SIX full-body drawings arranged in a perfectly regular 3-column by 2-row grid, 1536x1024 landscape canvas; each 512x512 cell contains one pose. Transparent background with genuine alpha if supported; otherwise a perfectly FLAT PURE MAGENTA #ff00ff background, no checkerboard, no gradients, no shadow underneath feet. NO text, NO labels, NO panel borders. Adult woman chibi proportions, same face, hairstyle, costume, and SAME alien-tech weapon in all frames. Three-quarter view, aiming diagonally toward upper-right, face visible. Camera, scale, leg length, and equipment identity must remain fixed. Each sprite fits inside its cell, feet on the SAME baseline at 450px within each cell, body centered at x=240 within each cell, spare space above/right for weapon. No cropped limbs or weapons. Six genuinely different successive poses, not translated duplicates: top-left relaxed combat idle weapon low; top-middle breathing ready idle; top-right deliberate aimed weapon-raised pose; bottom-left FIRING pose with tiny muzzle flash; bottom-middle clearly visible recoil/bracing pose with hair/coat follow-through; bottom-right lowering/recovery transitioning toward idle. Arms, upper torso and weapon must articulate between poses. Keep modest fully covered sci-fi battle armor. Strong clean outlines, detailed yet readable at 80px high. Effects remain small so anatomy and weapon silhouette are clear.\nCharacter and movement specifics: SIA, 24: short pale blonde bob, teal eyes, white/teal long split coat and dark bodysuit. Handheld drone command tablet and TWO tiny triangular cyan prism drones. Replace rifle poses with distinct command gestures: idle looks at low tablet; ready raises tablet; aim right hand points upward with eyes focused; fire swipes hand outward and two drones tilt forward; followthrough hand extends fully; recover hand returns to tablet. Keep drone identities, coat, and tablet fixed.",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        512,
+        1024,
+        1536
+      ],
+      "ys": [
+        0,
+        527,
+        1024
+      ]
+    },
+    "scale": 0.40347826086956523,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "8109bcd28b873ff847bfa92b2b3d44b5bb96e4d83121a6a0e6ebe238ffb0b52a",
+        "sourceBounds": {
+          "left": 75,
+          "top": 37,
+          "right": 461,
+          "bottom": 526,
+          "center": 249.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "4dc601c03c0b11454264a032a2cba7f1b142ae78dccd74d89f9e2d96ba020822",
+        "sourceBounds": {
+          "left": 563,
+          "top": 39,
+          "right": 950,
+          "bottom": 525,
+          "center": 735.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "c84f4b1e5cf0e2cfd62e0a4e8df114e9fee6b37f7f6ed508b5337e54a3ae35ef",
+        "sourceBounds": {
+          "left": 1045,
+          "top": 38,
+          "right": 1429,
+          "bottom": 526,
+          "center": 1214
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "99b718576e389579702edb77cfb5c868f85524d3b3a12d5e1f14af5dd1933a2c",
+        "sourceBounds": {
+          "left": 52,
+          "top": 541,
+          "right": 500,
+          "bottom": 992,
+          "center": 238
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "69bb6dd06032527ff917972f6358de7e02f69ac30f7dd408b607126f1232fb85",
+        "sourceBounds": {
+          "left": 524,
+          "top": 551,
+          "right": 967,
+          "bottom": 988,
+          "center": 680.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "358ecc6ffe355bac2f1ac3119426d39b7a314001bced02313b72801fed7029be",
+        "sourceBounds": {
+          "left": 1051,
+          "top": 540,
+          "right": 1412,
+          "bottom": 1007,
+          "center": 1208
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E01-motion",
+    "enemyId": "E01",
+    "path": "/assets/enemy-animations/E01-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 110402,
+    "sha256": "b59bdc55abb2107bb8b5c98e266609ed85deee68a437dd784f80f71c97d9ee07",
+    "source": "artifacts/enemy-motion-sources/E01-generated.png",
+    "sourceSha256": "4b7d893303c8e87b0fb89d72811790b94d733c63eb193e87cec55e1ad531e3c1",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: small six-legged crawler beetle. Preserve: rounded split ivory shell, dark navy hexagonal armor, orange dorsal crystal, two ivory curved front pincers. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, raise pincers] [9 attack release, snap them forward] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: alternate the left and right tripod leg groups, visibly bend and lift individual knees, opening and closing front pincers. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          400,
+          770,
+          1141,
+          1536
+        ],
+        [
+          0,
+          398,
+          761,
+          1133,
+          1536
+        ],
+        [
+          0,
+          389,
+          772,
+          1116,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        374,
+        679,
+        1024
+      ]
+    },
+    "scale": 0.45141065830721006,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "7bfeb1b60fcce80c2f288ac6852988c24268f539c76c1de328a180d6f531f644",
+        "sourceBounds": {
+          "left": 56,
+          "right": 361,
+          "top": 76,
+          "bottom": 344,
+          "pixels": 42973
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 121
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "608837d5df0d23f49898bb61623d09103f08932a15e538bb98a99af78beb8b8b",
+        "sourceBounds": {
+          "left": 438,
+          "right": 743,
+          "top": 80,
+          "bottom": 344,
+          "pixels": 42120
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 120
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "e22aac8f00a41530e4d540f1e4b5b66280a8ab064c8a81a775e7b9cf9c25146e",
+        "sourceBounds": {
+          "left": 796,
+          "right": 1111,
+          "top": 84,
+          "bottom": 341,
+          "pixels": 41868
+        },
+        "outputSize": {
+          "width": 143,
+          "height": 116
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "ff9cfb5cb2ff0543939428c6bd5e925202cbb569bc9418d5f2bdf5dd2891cbd2",
+        "sourceBounds": {
+          "left": 1170,
+          "right": 1466,
+          "top": 89,
+          "bottom": 340,
+          "pixels": 42191
+        },
+        "outputSize": {
+          "width": 134,
+          "height": 114
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "dfc07c26fe8a53ad0c99c2c7ca9c4a6ed5ad7ef3ed1fcd106dc3ddd80575e3da",
+        "sourceBounds": {
+          "left": 54,
+          "right": 372,
+          "top": 403,
+          "bottom": 648,
+          "pixels": 38775
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 111
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "1cabe2df878d3821561f50f107c0b872a496035e87ea2a166ae152a8cfdde65c",
+        "sourceBounds": {
+          "left": 424,
+          "right": 725,
+          "top": 404,
+          "bottom": 648,
+          "pixels": 36766
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 111
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "d0fbb964ac4bf782c047e70a34ff2ed1ae3f0dd091c696ca50e236b11b8b4f71",
+        "sourceBounds": {
+          "left": 797,
+          "right": 1102,
+          "top": 410,
+          "bottom": 637,
+          "pixels": 34809
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 103
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "f7c2a8b53dbe97486bbbe48938dd6971dcbce15929a50183eb10fc8e3c7c2d80",
+        "sourceBounds": {
+          "left": 1163,
+          "right": 1468,
+          "top": 410,
+          "bottom": 639,
+          "pixels": 33562
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 104
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "ec3b7c33ff20a0ea23f5ec649a090de5a8584252960657f86ad3daee4a7f348f",
+        "sourceBounds": {
+          "left": 48,
+          "right": 349,
+          "top": 710,
+          "bottom": 924,
+          "pixels": 35918
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 97
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "26e56358f7b71d1227b7134942b9fa683ab427bcbba3b3f1ea89cdca01c85f80",
+        "sourceBounds": {
+          "left": 429,
+          "right": 722,
+          "top": 718,
+          "bottom": 935,
+          "pixels": 33526
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 98
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "fd95449454c66b04bbca0390fdb704ebe92a82a30b5a0eaba08b1f173e2c172b",
+        "sourceBounds": {
+          "left": 822,
+          "right": 1071,
+          "top": 718,
+          "bottom": 932,
+          "pixels": 37112
+        },
+        "outputSize": {
+          "width": 113,
+          "height": 97
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "5f3353d5a8ce0c15596f99ba4e40ad5374524696b18651ba2287683cb8ce843e",
+        "sourceBounds": {
+          "left": 1160,
+          "right": 1459,
+          "top": 711,
+          "bottom": 949,
+          "pixels": 47496
+        },
+        "outputSize": {
+          "width": 135,
+          "height": 108
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E02-motion",
+    "enemyId": "E02",
+    "path": "/assets/enemy-animations/E02-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 96102,
+    "sha256": "d10b4178f7d5452cfd2ef4e18a456f86ba49a0a43a4432d31624619c1d6dc324",
+    "source": "artifacts/enemy-motion-sources/E02-generated.png",
+    "sourceSha256": "bca013cea8d8f8658502ba080c727e5329766e96cdd44132a27fc842456085ec",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: fast four-legged bladed alien hound. Preserve: sleek dark navy armor, orange seams and eyes, long curved tail and swept-back blade fins. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, crouch back] [9 attack release, lunge with front claws extended] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: galloping cycle: front legs reach, contact, tuck, rear legs push, front legs extend, body settles; tail bends with the stride. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          415,
+          771,
+          1146,
+          1536
+        ],
+        [
+          0,
+          366,
+          724,
+          1137,
+          1536
+        ],
+        [
+          0,
+          347,
+          757,
+          1117,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        402,
+        690,
+        1024
+      ]
+    },
+    "scale": 0.38095238095238093,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "d4ba6ab0908334d1c4cb0c111fcfad5933b0d9d34c5ece1582c5bc260c538e49",
+        "sourceBounds": {
+          "left": 44,
+          "right": 408,
+          "top": 58,
+          "bottom": 390,
+          "pixels": 42257
+        },
+        "outputSize": {
+          "width": 139,
+          "height": 127
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "c8ba116ceb8a84a547e77b2bd61a27ccd31f09ea1d72ba4da1e07938b31071ec",
+        "sourceBounds": {
+          "left": 422,
+          "right": 761,
+          "top": 57,
+          "bottom": 377,
+          "pixels": 41270
+        },
+        "outputSize": {
+          "width": 130,
+          "height": 122
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "a02b45ce2f62f4ae50a66c16fd48abfe505e0ede5df58f36325a3794350c8358",
+        "sourceBounds": {
+          "left": 781,
+          "right": 1137,
+          "top": 58,
+          "bottom": 369,
+          "pixels": 36928
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 119
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "2ff965772f5f47b756863cc3f31d44590bb783184402598c9d9268163e28db4d",
+        "sourceBounds": {
+          "left": 1154,
+          "right": 1504,
+          "top": 84,
+          "bottom": 346,
+          "pixels": 32750
+        },
+        "outputSize": {
+          "width": 134,
+          "height": 100
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "862fd68e5ea30b96020918126bc847631439a8189381b9d10c9ec3112b2aad78",
+        "sourceBounds": {
+          "left": 27,
+          "right": 330,
+          "top": 419,
+          "bottom": 652,
+          "pixels": 30681
+        },
+        "outputSize": {
+          "width": 116,
+          "height": 89
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "a9f2d9bda00fe2aafb2e4208e3b489f1869e69f2ed8134bbb3d93ebf34f778cb",
+        "sourceBounds": {
+          "left": 402,
+          "right": 679,
+          "top": 422,
+          "bottom": 647,
+          "pixels": 28352
+        },
+        "outputSize": {
+          "width": 106,
+          "height": 86
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "9ab8dc85012eeaf7c8a7cdea933ed8445d1737e04b0376fb6b26300b4b7d45e3",
+        "sourceBounds": {
+          "left": 768,
+          "right": 1125,
+          "top": 437,
+          "bottom": 648,
+          "pixels": 30066
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 81
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "4abaefaf71487b366240bd8788b8415e1caa6f7869c9d6c51b31f9e634669d92",
+        "sourceBounds": {
+          "left": 1148,
+          "right": 1507,
+          "top": 413,
+          "bottom": 669,
+          "pixels": 33693
+        },
+        "outputSize": {
+          "width": 137,
+          "height": 98
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "f03db41a6a414979a8a6c3b165c784f56c4e144b05bd9ec63036a791677033fa",
+        "sourceBounds": {
+          "left": 41,
+          "right": 321,
+          "top": 711,
+          "bottom": 972,
+          "pixels": 30610
+        },
+        "outputSize": {
+          "width": 107,
+          "height": 100
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "544e99537d9b3d3d760e8ba009ca62836a12c9b217412f4ff56ffa4232ed045a",
+        "sourceBounds": {
+          "left": 373,
+          "right": 750,
+          "top": 729,
+          "bottom": 960,
+          "pixels": 30618
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 88
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "fc222689fadb62f0b3f6a768dcf7d52466d92cd51ba6b3e5abb179514a8d6d47",
+        "sourceBounds": {
+          "left": 763,
+          "right": 1110,
+          "top": 714,
+          "bottom": 984,
+          "pixels": 37006
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 103
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "93a7502ecfeb28efce156964b4b7ab4520524dcf59c8eefd625fa143107eda03",
+        "sourceBounds": {
+          "left": 1124,
+          "right": 1499,
+          "top": 719,
+          "bottom": 983,
+          "pixels": 38487
+        },
+        "outputSize": {
+          "width": 143,
+          "height": 101
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E03-motion",
+    "enemyId": "E03",
+    "path": "/assets/enemy-animations/E03-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 112530,
+    "sha256": "2a058d0183c37c643cd8d96ab3341de31e3c82e63f3e85a221c3659b535cd3b3",
+    "source": "artifacts/enemy-motion-sources/E03-generated.png",
+    "sourceSha256": "356e990eac5d25de4c47627c27b301ea0416090ce92248ba63f11acb3a0cec22",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: heavy four-legged armored alien beast. Preserve: broad cracked ivory shoulder plates, navy shell, orange diamond reactor in the upper back, thick forearms. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, brace shoulders and lift one forearm] [9 attack release, slam both claws down] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: heavy alternating left/right steps with obvious lifted armored feet, bent knees, and shoulder compression. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          386,
+          766,
+          1143,
+          1536
+        ],
+        [
+          0,
+          383,
+          750,
+          1116,
+          1536
+        ],
+        [
+          0,
+          383,
+          756,
+          1121,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        356,
+        645,
+        1024
+      ]
+    },
+    "scale": 0.4472049689440994,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "5f821e322747460d9b477660e4a4acb1cfacbce79d17723cc735cc0ee4fa4529",
+        "sourceBounds": {
+          "left": 58,
+          "right": 352,
+          "top": 72,
+          "bottom": 328,
+          "pixels": 48953
+        },
+        "outputSize": {
+          "width": 132,
+          "height": 115
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "a7bf3e07fbe98daa86663ff451cce22364eef0356d2dd24717f46488d62a322e",
+        "sourceBounds": {
+          "left": 419,
+          "right": 732,
+          "top": 72,
+          "bottom": 331,
+          "pixels": 48899
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 116
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "478e6e11ccc1d4ba12cf32cce644479d837845ed1a8ba344c0d5eca998ec09e6",
+        "sourceBounds": {
+          "left": 799,
+          "right": 1112,
+          "top": 90,
+          "bottom": 324,
+          "pixels": 46465
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 105
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "42a021d83020038fd8a485f8f7862e0a7a54b5542241d762ff70bac96ba7f21a",
+        "sourceBounds": {
+          "left": 1173,
+          "right": 1493,
+          "top": 88,
+          "bottom": 331,
+          "pixels": 45750
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 109
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "569377271ddbb0693b481a919eb4c7017f760f15d2ab7d35133e8d21b8435164",
+        "sourceBounds": {
+          "left": 42,
+          "right": 355,
+          "top": 394,
+          "bottom": 620,
+          "pixels": 44168
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 102
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "fb432c1840b49ea20c2b6711652866c9865e8cbef3baabf7fc98dc056a6438d5",
+        "sourceBounds": {
+          "left": 410,
+          "right": 726,
+          "top": 395,
+          "bottom": 614,
+          "pixels": 44500
+        },
+        "outputSize": {
+          "width": 142,
+          "height": 98
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "e31c60af3201f8654cc30dfae8dff4af441eacd275cfa1907a1418484ab38045",
+        "sourceBounds": {
+          "left": 773,
+          "right": 1086,
+          "top": 382,
+          "bottom": 613,
+          "pixels": 43358
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 104
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "91b14e3677ea36121b3eba9ff1cf6e5e922ee4021c0a5312984880678fdb2736",
+        "sourceBounds": {
+          "left": 1145,
+          "right": 1458,
+          "top": 381,
+          "bottom": 616,
+          "pixels": 44319
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 106
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "ce9f16f92e0000106619575da6df5e1086c5a49d827f2f57a7303486bdc33486",
+        "sourceBounds": {
+          "left": 54,
+          "right": 361,
+          "top": 685,
+          "bottom": 916,
+          "pixels": 48455
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 104
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "052b7a7b6cf967866921984f1cb558ea1b7f96263126d96d43f16ad0dad5a2b6",
+        "sourceBounds": {
+          "left": 404,
+          "right": 725,
+          "top": 694,
+          "bottom": 931,
+          "pixels": 46635
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 106
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "6a7e4c47bb70af49387ce2d52491136d8dee942851d1a7f954043c8b7f1d84f5",
+        "sourceBounds": {
+          "left": 786,
+          "right": 1083,
+          "top": 682,
+          "bottom": 929,
+          "pixels": 49741
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 111
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "a27f5369854de973aa15a8152fec2c9cbc9c34264bef428332db1eefd31993f9",
+        "sourceBounds": {
+          "left": 1158,
+          "right": 1468,
+          "top": 669,
+          "bottom": 935,
+          "pixels": 56703
+        },
+        "outputSize": {
+          "width": 139,
+          "height": 119
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E04-motion",
+    "enemyId": "E04",
+    "path": "/assets/enemy-animations/E04-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 105936,
+    "sha256": "0d1600ead02a229fc765ab269599eb2c8852e1674b14b769d4559a73bafce503",
+    "source": "artifacts/enemy-motion-sources/E04-generated.png",
+    "sourceSha256": "2b89566f7873825920d8f2f7c2be9a348175bd1c784672deedc76d9b67655432",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: floating diamond shield sentinel. Preserve: vertical ivory diamond armor fins, dark navy center, large luminous cyan faceted shield sphere. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, fold shield fins inward] [9 attack release, thrust both fins outward] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: six hovering propulsion phases: side armor vanes open and angle in alternating directions, lower stabilizers articulate, cyan core membrane expands/contracts; never add legs. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          401,
+          755,
+          1138,
+          1536
+        ],
+        [
+          0,
+          396,
+          760,
+          1119,
+          1536
+        ],
+        [
+          0,
+          340,
+          758,
+          1132,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        355,
+        665,
+        1024
+      ]
+    },
+    "scale": 0.4485981308411215,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "8a4e4c829c2f8c3d5cf850638cf14ffb48b2e22a19a6c53e5ff2563ab3a9e802",
+        "sourceBounds": {
+          "left": 107,
+          "right": 337,
+          "top": 32,
+          "bottom": 348,
+          "pixels": 35420
+        },
+        "outputSize": {
+          "width": 104,
+          "height": 142
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "af64384f63dde80f6441ec23aeaf0b0297ed819cd564f68c849d8fb32938f182",
+        "sourceBounds": {
+          "left": 464,
+          "right": 694,
+          "top": 32,
+          "bottom": 348,
+          "pixels": 34371
+        },
+        "outputSize": {
+          "width": 104,
+          "height": 142
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "efe5bb2105ef2f8b68b9fb0725e1da7aedf8fd1b8f10e136c86a775884a1699d",
+        "sourceBounds": {
+          "left": 815,
+          "right": 1081,
+          "top": 33,
+          "bottom": 340,
+          "pixels": 35292
+        },
+        "outputSize": {
+          "width": 120,
+          "height": 138
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "feee8ab4d360675d75b3e95d1c9b6d4b8696f2af1c6cbe3b30a400b358405d30",
+        "sourceBounds": {
+          "left": 1195,
+          "right": 1448,
+          "top": 32,
+          "bottom": 342,
+          "pixels": 35008
+        },
+        "outputSize": {
+          "width": 114,
+          "height": 140
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "e7b20a0747f030a68a23c486a0e9341b2f40e4007d62e037950f454702f00fa4",
+        "sourceBounds": {
+          "left": 89,
+          "right": 337,
+          "top": 362,
+          "bottom": 657,
+          "pixels": 30694
+        },
+        "outputSize": {
+          "width": 112,
+          "height": 133
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "aee4db4d9bfe2a3e83245da233a5486405206bb073294ef31ceb87ba17680958",
+        "sourceBounds": {
+          "left": 454,
+          "right": 691,
+          "top": 362,
+          "bottom": 659,
+          "pixels": 31276
+        },
+        "outputSize": {
+          "width": 107,
+          "height": 134
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "0c7dad3c6f83234d959ccf3feef29f5d315059711d03e28e93ddb243374a80e3",
+        "sourceBounds": {
+          "left": 829,
+          "right": 1050,
+          "top": 362,
+          "bottom": 656,
+          "pixels": 30033
+        },
+        "outputSize": {
+          "width": 100,
+          "height": 132
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "a9226828dff47da9471cf7079f91ba6d21fd7e571ac72c2e9381b8cedf73bcec",
+        "sourceBounds": {
+          "left": 1188,
+          "right": 1417,
+          "top": 362,
+          "bottom": 651,
+          "pixels": 30274
+        },
+        "outputSize": {
+          "width": 103,
+          "height": 130
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "c6ae395923954e7f7a6fab3c08f7b9b895505850482b8c110ad9ecf6757a7a11",
+        "sourceBounds": {
+          "left": 123,
+          "right": 283,
+          "top": 689,
+          "bottom": 981,
+          "pixels": 27336
+        },
+        "outputSize": {
+          "width": 72,
+          "height": 131
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "dd222c36737ca1cd9e50361d70249027a4a1b2f38a62911e3180e5cb43fac242",
+        "sourceBounds": {
+          "left": 396,
+          "right": 716,
+          "top": 690,
+          "bottom": 981,
+          "pixels": 34034
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 131
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "3a8926ca7a0435bad937716982d39d0739f493546cdc0955322252abcc0bf1f8",
+        "sourceBounds": {
+          "left": 799,
+          "right": 1088,
+          "top": 672,
+          "bottom": 966,
+          "pixels": 39929
+        },
+        "outputSize": {
+          "width": 130,
+          "height": 132
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "8fc526f0394950a29496856d568eeedc36061e6b12752acd3e50c78d65cb822e",
+        "sourceBounds": {
+          "left": 1176,
+          "right": 1441,
+          "top": 671,
+          "bottom": 973,
+          "pixels": 38811
+        },
+        "outputSize": {
+          "width": 119,
+          "height": 136
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E05-motion",
+    "enemyId": "E05",
+    "path": "/assets/enemy-animations/E05-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 113410,
+    "sha256": "238b941c1ccb09c4be76c7e8c0a651dde8258e2a0ca37c4b0e558d63343befbf",
+    "source": "artifacts/enemy-motion-sources/E05-generated.png",
+    "sourceSha256": "07d4824602eae8bdc3974a4e1cc25e6613de0b6199b060ebe3062bd4a1508a2c",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: six-legged organic artillery crawler. Preserve: tall orange translucent dorsal cannon sac, forward circular cannon barrel, ivory ring armor, dark blue legs. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, cannon tilts and sac compresses] [9 attack release, barrel recoils backward as sac expands] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: alternating crawling footfalls under the stable cannon; left and right legs visibly lift, plant and push in successive frames. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          396,
+          753,
+          1111,
+          1536
+        ],
+        [
+          0,
+          378,
+          755,
+          1117,
+          1536
+        ],
+        [
+          0,
+          377,
+          730,
+          1099,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        371,
+        686,
+        1024
+      ]
+    },
+    "scale": 0.44036697247706424,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "d51303d538ddd94f7d7af523d971d55450d7eff3d52addfb48fecfb053a73354",
+        "sourceBounds": {
+          "left": 59,
+          "right": 364,
+          "top": 36,
+          "bottom": 361,
+          "pixels": 41813
+        },
+        "outputSize": {
+          "width": 135,
+          "height": 144
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "c700f99ae05a1b8cd25b0c076614955eb04573aaca44bfbea8261fbc8c4a6838",
+        "sourceBounds": {
+          "left": 428,
+          "right": 728,
+          "top": 35,
+          "bottom": 361,
+          "pixels": 42228
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 144
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "7ef0743adaaec83fe9f7ba29c05eaa0eaf6e411c590d6e5e4d27f245c600d8a9",
+        "sourceBounds": {
+          "left": 778,
+          "right": 1086,
+          "top": 41,
+          "bottom": 357,
+          "pixels": 40831
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 140
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "b9fbfffa2db52663f9a8802f8b6f69baafd722870dd2a5d7225d7ca299098eff",
+        "sourceBounds": {
+          "left": 1136,
+          "right": 1457,
+          "top": 40,
+          "bottom": 349,
+          "pixels": 40135
+        },
+        "outputSize": {
+          "width": 142,
+          "height": 137
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "0273596dd4182160d63980de9a84f475308c0ac8562fdca37e13ed88ce825c41",
+        "sourceBounds": {
+          "left": 60,
+          "right": 342,
+          "top": 389,
+          "bottom": 677,
+          "pixels": 32937
+        },
+        "outputSize": {
+          "width": 125,
+          "height": 127
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "d9b7c81bd0cb1537a38fdf4fc476e59f8d27234171b2146005f8d24379f2290a",
+        "sourceBounds": {
+          "left": 414,
+          "right": 714,
+          "top": 387,
+          "bottom": 673,
+          "pixels": 33335
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 126
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "f9fe88628132bb8c4fad20bb3b41eab5ae16047ea4b54c961fb1858774b83f6c",
+        "sourceBounds": {
+          "left": 795,
+          "right": 1070,
+          "top": 380,
+          "bottom": 677,
+          "pixels": 35908
+        },
+        "outputSize": {
+          "width": 122,
+          "height": 131
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "81b52288e240be38edd3e7979d56dd2b98a6bf7d4533f0102a364642cf57e6b1",
+        "sourceBounds": {
+          "left": 1163,
+          "right": 1440,
+          "top": 386,
+          "bottom": 673,
+          "pixels": 35824
+        },
+        "outputSize": {
+          "width": 122,
+          "height": 127
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "4800389038dce8604ce8e47064be173257dd20d1c38d10d008e07b6969eeae46",
+        "sourceBounds": {
+          "left": 54,
+          "right": 342,
+          "top": 716,
+          "bottom": 987,
+          "pixels": 36268
+        },
+        "outputSize": {
+          "width": 127,
+          "height": 120
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "e818f5ebb5b0b2c8443a85cc6bd5e445b2567d3bd9d13fb73cc7b106655c4caf",
+        "sourceBounds": {
+          "left": 412,
+          "right": 684,
+          "top": 696,
+          "bottom": 990,
+          "pixels": 36690
+        },
+        "outputSize": {
+          "width": 120,
+          "height": 130
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "ab89afeb32bf4180a8b48cbbc92ab952a0c1d97346a4814d30ec8922d1820d7d",
+        "sourceBounds": {
+          "left": 776,
+          "right": 1058,
+          "top": 702,
+          "bottom": 995,
+          "pixels": 41278
+        },
+        "outputSize": {
+          "width": 125,
+          "height": 129
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "2617d400707ac2a7261d9d77adfe4e64900e10774d6a39463d1920ff54a5bd1c",
+        "sourceBounds": {
+          "left": 1140,
+          "right": 1411,
+          "top": 694,
+          "bottom": 995,
+          "pixels": 44341
+        },
+        "outputSize": {
+          "width": 120,
+          "height": 133
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E06-motion",
+    "enemyId": "E06",
+    "path": "/assets/enemy-animations/E06-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 108322,
+    "sha256": "496ea191fcc22034cc36bddbcc1cf575484895f00a74795662432a13238d0b34",
+    "source": "artifacts/enemy-motion-sources/E06-generated.png",
+    "sourceSha256": "837bcb6114e6f0bec88dcf5f58d27ad653fd479b9eea322ff21357d858d0c00a",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: floating repair drone with articulated tendrils. Preserve: round navy and ivory shell, twin curved green tanks, bright green eye, six dangling jointed ivory/navy tendrils. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, tendrils coil inward] [9 attack release, reach forward with spread repair claws] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: hover cycle with articulated tendrils curling and extending in alternating pairs, green propulsion vents opening and closing. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          386,
+          771,
+          1143,
+          1536
+        ],
+        [
+          0,
+          405,
+          765,
+          1114,
+          1536
+        ],
+        [
+          0,
+          358,
+          791,
+          1135,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        372,
+        692,
+        1024
+      ]
+    },
+    "scale": 0.4022346368715084,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "dd707d1bf790ef7d271dc98278f80c0f295ad04c5650e4d48f1b0a748cb5d532",
+        "sourceBounds": {
+          "left": 49,
+          "right": 364,
+          "top": 51,
+          "bottom": 343,
+          "pixels": 36301
+        },
+        "outputSize": {
+          "width": 127,
+          "height": 118
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "d9e02d3de3309052252762263ff0f575177c20638c98cf42fca1916ddb116f29",
+        "sourceBounds": {
+          "left": 407,
+          "right": 753,
+          "top": 52,
+          "bottom": 344,
+          "pixels": 38529
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 118
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "25a1c9aeca939d1ae4a94915d2e6dd521d9f01d24ae73d95d5b35689a765d210",
+        "sourceBounds": {
+          "left": 788,
+          "right": 1131,
+          "top": 52,
+          "bottom": 343,
+          "pixels": 38864
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 117
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "57f4a52d11ea8018ac8bd3bd7e704149375955a8fc438237e6e97de5cf9a5baf",
+        "sourceBounds": {
+          "left": 1154,
+          "right": 1497,
+          "top": 53,
+          "bottom": 339,
+          "pixels": 36205
+        },
+        "outputSize": {
+          "width": 138,
+          "height": 115
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "d63377fc660336fca24cf36f2879e63dc9c0e4a88085fdb66549a3247fb5ab71",
+        "sourceBounds": {
+          "left": 27,
+          "right": 384,
+          "top": 400,
+          "bottom": 660,
+          "pixels": 35811
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 105
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "afd0f2b05871fd4a3e85fb41fe357babc9d6acc302b794c23573e9acb13afc6a",
+        "sourceBounds": {
+          "left": 426,
+          "right": 731,
+          "top": 404,
+          "bottom": 663,
+          "pixels": 34508
+        },
+        "outputSize": {
+          "width": 123,
+          "height": 105
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "7022436311fe5ce2c1a6c8dd487d5ff671dabe1dd3248a820df9200d683a630a",
+        "sourceBounds": {
+          "left": 798,
+          "right": 1077,
+          "top": 405,
+          "bottom": 661,
+          "pixels": 34135
+        },
+        "outputSize": {
+          "width": 113,
+          "height": 103
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "3e78864f8958f83c91a9c927943419c4dd21a045219033a111fd574356a9fc2c",
+        "sourceBounds": {
+          "left": 1150,
+          "right": 1483,
+          "top": 405,
+          "bottom": 655,
+          "pixels": 34121
+        },
+        "outputSize": {
+          "width": 134,
+          "height": 101
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "1ab1262f6c216f07e8a47dbea78845408f85f68f3003f40ae41a88ce2b9ff5d2",
+        "sourceBounds": {
+          "left": 105,
+          "right": 309,
+          "top": 721,
+          "bottom": 947,
+          "pixels": 30782
+        },
+        "outputSize": {
+          "width": 82,
+          "height": 91
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "2c26500f97a2e13bfbd73e0e0f9386a472061b025120e1828fc58d2581608f15",
+        "sourceBounds": {
+          "left": 406,
+          "right": 742,
+          "top": 721,
+          "bottom": 970,
+          "pixels": 36509
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 101
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "724377b86dd1057e88243db6fe8602848d2a52c0caac21b6890372a1bdefdfee",
+        "sourceBounds": {
+          "left": 840,
+          "right": 1065,
+          "top": 721,
+          "bottom": 946,
+          "pixels": 36947
+        },
+        "outputSize": {
+          "width": 91,
+          "height": 91
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "132bc3fce3e4bf76873a827d3246ce62e654942585ce91569e0596b500ceb72e",
+        "sourceBounds": {
+          "left": 1204,
+          "right": 1428,
+          "top": 724,
+          "bottom": 951,
+          "pixels": 37604
+        },
+        "outputSize": {
+          "width": 91,
+          "height": 92
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E07-motion",
+    "enemyId": "E07",
+    "path": "/assets/enemy-animations/E07-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 131248,
+    "sha256": "d453c1555bb94600bcf06f701cb3498449e325a78fbfaa3a51b8667f9189f2f2",
+    "source": "artifacts/enemy-motion-sources/E07-generated.png",
+    "sourceSha256": "39b1d5ce65e0f7c896d78ec938cfce4a3fb5e17c78d1264029a4340995dcffe5",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: elite heavy four-legged armored beast. Preserve: tall three-point ivory crown and massive ivory shoulder armor, navy body, bright cyan reactor and accents, distinct from orange E03. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, raise thick forearms and brace crown] [9 attack release, slam forward] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: weighty alternating front claw steps and rear-leg pushes, segmented shoulders tilt and cyan reactor stays centered. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          405,
+          791,
+          1164,
+          1536
+        ],
+        [
+          0,
+          405,
+          744,
+          1128,
+          1536
+        ],
+        [
+          0,
+          389,
+          736,
+          1126,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        363,
+        675,
+        1024
+      ]
+    },
+    "scale": 0.4222873900293255,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "90bbea71aeb89406e7a914e6fe9f693062ce9390c88e0f87168c232a4f7423a5",
+        "sourceBounds": {
+          "left": 42,
+          "right": 382,
+          "top": 39,
+          "bottom": 336,
+          "pixels": 65075
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 126
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "3b65e0d075b47444db1388c2b7845cd083036671456f5b28f8ff561009fd3823",
+        "sourceBounds": {
+          "left": 427,
+          "right": 761,
+          "top": 39,
+          "bottom": 342,
+          "pixels": 63769
+        },
+        "outputSize": {
+          "width": 141,
+          "height": 128
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "370763739bbf50d994d90361a576659edabbfa0d27618e0dbb55cc6ab3bf8ce6",
+        "sourceBounds": {
+          "left": 821,
+          "right": 1139,
+          "top": 48,
+          "bottom": 351,
+          "pixels": 55478
+        },
+        "outputSize": {
+          "width": 135,
+          "height": 128
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "15a93c75454c9c47604c6ab89c901c84a84d8a197dffdb1686e920460c66b0c9",
+        "sourceBounds": {
+          "left": 1188,
+          "right": 1491,
+          "top": 48,
+          "bottom": 351,
+          "pixels": 56582
+        },
+        "outputSize": {
+          "width": 128,
+          "height": 128
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "bd2f38462cc1c91f56fe7e15c947c07ad24f8999de4dbb305ef603606a082cdf",
+        "sourceBounds": {
+          "left": 51,
+          "right": 373,
+          "top": 374,
+          "bottom": 649,
+          "pixels": 51361
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 117
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "f79c0efa49aed877e935a2ba801b4576846767a642b254f29d1b7d5efd0cf25c",
+        "sourceBounds": {
+          "left": 437,
+          "right": 704,
+          "top": 374,
+          "bottom": 664,
+          "pixels": 48593
+        },
+        "outputSize": {
+          "width": 113,
+          "height": 123
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "bb5ec7154ff32b65833dd3c32d5a9186603bd60d1a561a3cb6c6c5d9f7fbdfbf",
+        "sourceBounds": {
+          "left": 783,
+          "right": 1074,
+          "top": 374,
+          "bottom": 650,
+          "pixels": 47512
+        },
+        "outputSize": {
+          "width": 123,
+          "height": 117
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "e0ab46b18900f58397ab82094dd5aa1b831740dc27d717808289c2ecd6cfab10",
+        "sourceBounds": {
+          "left": 1181,
+          "right": 1474,
+          "top": 374,
+          "bottom": 651,
+          "pixels": 47453
+        },
+        "outputSize": {
+          "width": 124,
+          "height": 117
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "e97ff3b7890b9f68fa3e4516cce92c1074c53591291b05145e3508cf6e19eb92",
+        "sourceBounds": {
+          "left": 51,
+          "right": 352,
+          "top": 687,
+          "bottom": 976,
+          "pixels": 51545
+        },
+        "outputSize": {
+          "width": 128,
+          "height": 122
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "4d36307290efee695fa4a4da093e6557123156185a3e91108c72241f437e55ed",
+        "sourceBounds": {
+          "left": 426,
+          "right": 700,
+          "top": 713,
+          "bottom": 988,
+          "pixels": 49001
+        },
+        "outputSize": {
+          "width": 116,
+          "height": 117
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "e85cd5a85eb557a2bb4de188287a785bd07d195563905bd211409b0029889f06",
+        "sourceBounds": {
+          "left": 772,
+          "right": 1093,
+          "top": 686,
+          "bottom": 974,
+          "pixels": 60655
+        },
+        "outputSize": {
+          "width": 136,
+          "height": 122
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "f73b7cd3a19a1d536efd0addf5a28a28f14639abf9372bb840dba00d871eb4df",
+        "sourceBounds": {
+          "left": 1159,
+          "right": 1482,
+          "top": 686,
+          "bottom": 974,
+          "pixels": 61230
+        },
+        "outputSize": {
+          "width": 137,
+          "height": 122
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-E08-motion",
+    "enemyId": "E08",
+    "path": "/assets/enemy-animations/E08-motion.webp",
+    "width": 640,
+    "height": 480,
+    "frameWidth": 160,
+    "frameHeight": 160,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 126688,
+    "sha256": "3e34a23b9ecacb82b23142bab5a057d5b2593924e301b4aa1df56385971efc11",
+    "source": "artifacts/enemy-motion-sources/E08-generated.png",
+    "sourceSha256": "54efeed2e60fc9c69e055121660dd7d351d12ddc63615304ffa83a440d243cf4",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: elite four-legged bladed alien hound. Preserve: navy armor, large blade wings, ivory claws, cyan glowing thruster joints and eyes, long segmented tail. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, deep crouch with blades folded] [9 attack release, pounce with claws extended and blade wings flared] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: full gallop with distinct extended and tucked leg poses, blade wings changing angle, cyan thruster vents opening during push. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          405,
+          772,
+          1135,
+          1536
+        ],
+        [
+          0,
+          395,
+          743,
+          1102,
+          1536
+        ],
+        [
+          0,
+          407,
+          793,
+          1130,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        362,
+        653,
+        1024
+      ]
+    },
+    "scale": 0.4350453172205438,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "de513edf0cf5b07ea65c7fff0b37c9b1c38a59b9dd786c2f63259169c56d984e",
+        "sourceBounds": {
+          "left": 52,
+          "right": 376,
+          "top": 50,
+          "bottom": 349,
+          "pixels": 40021
+        },
+        "outputSize": {
+          "width": 141,
+          "height": 131
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "90c72b8d6000a0fc82e0f21c3914e8d2c8ab7f2a55a99b8e9d480bb20838d49a",
+        "sourceBounds": {
+          "left": 433,
+          "right": 729,
+          "top": 50,
+          "bottom": 346,
+          "pixels": 36138
+        },
+        "outputSize": {
+          "width": 129,
+          "height": 129
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "83586202c69d69b5ef0ac42ee1e1202bbc4b8b0205aa4c2c2d2b778db7cb9228",
+        "sourceBounds": {
+          "left": 814,
+          "right": 1095,
+          "top": 80,
+          "bottom": 331,
+          "pixels": 34781
+        },
+        "outputSize": {
+          "width": 123,
+          "height": 110
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "c56ab272e575da4ab14ce88377217a10924b6c491f7610c5ba7efd6fd4ab24ec",
+        "sourceBounds": {
+          "left": 1174,
+          "right": 1469,
+          "top": 63,
+          "bottom": 329,
+          "pixels": 34033
+        },
+        "outputSize": {
+          "width": 129,
+          "height": 116
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "f32fa6b9c58640dbb877a137a47f5f5a1c8a5c36100007605b3f27d5f41ac7cc",
+        "sourceBounds": {
+          "left": 48,
+          "right": 352,
+          "top": 384,
+          "bottom": 628,
+          "pixels": 33149
+        },
+        "outputSize": {
+          "width": 133,
+          "height": 107
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "3dad4c8bb33db255757b35e6745f8abe1b17284ffe7530eab46e8744cc5eb7f7",
+        "sourceBounds": {
+          "left": 438,
+          "right": 694,
+          "top": 383,
+          "bottom": 621,
+          "pixels": 27424
+        },
+        "outputSize": {
+          "width": 112,
+          "height": 104
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "f3a7173dde15e645f6dcf424465c7ac65ae74439c138ab3f451f44dde59796ca",
+        "sourceBounds": {
+          "left": 792,
+          "right": 1074,
+          "top": 374,
+          "bottom": 625,
+          "pixels": 31206
+        },
+        "outputSize": {
+          "width": 123,
+          "height": 110
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "645b4f040454bff08ec09bd6948789341f07c9a52cfb83c57f61ff812951985f",
+        "sourceBounds": {
+          "left": 1129,
+          "right": 1407,
+          "top": 382,
+          "bottom": 642,
+          "pixels": 32084
+        },
+        "outputSize": {
+          "width": 121,
+          "height": 114
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "b1cd72b79c0d991397a169b262e11e192b548cdd70d6bece1ee29dc16ed00a38",
+        "sourceBounds": {
+          "left": 71,
+          "right": 377,
+          "top": 721,
+          "bottom": 948,
+          "pixels": 33476
+        },
+        "outputSize": {
+          "width": 134,
+          "height": 99
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "696c1bdf980b0710eded58ffcea5272ab5616af1e665511cd1d59ab8be80c7db",
+        "sourceBounds": {
+          "left": 437,
+          "right": 767,
+          "top": 686,
+          "bottom": 916,
+          "pixels": 35343
+        },
+        "outputSize": {
+          "width": 144,
+          "height": 100
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "742cbac0518d42ec83a4eda8d8fd857f4cabe3e857bf3ca2ada201a66578a518",
+        "sourceBounds": {
+          "left": 819,
+          "right": 1113,
+          "top": 664,
+          "bottom": 952,
+          "pixels": 43845
+        },
+        "outputSize": {
+          "width": 128,
+          "height": 126
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "ff1dd61c65469e32b0980cc9621523a68fb51bbe1c7943cfafbdef537d149d8e",
+        "sourceBounds": {
+          "left": 1146,
+          "right": 1466,
+          "top": 668,
+          "bottom": 952,
+          "pixels": 45109
+        },
+        "outputSize": {
+          "width": 140,
+          "height": 124
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-B01-motion",
+    "enemyId": "B01",
+    "path": "/assets/enemy-animations/B01-motion.webp",
+    "width": 896,
+    "height": 672,
+    "frameWidth": 224,
+    "frameHeight": 224,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 202302,
+    "sha256": "f41217ff470609fbd3a661d5eb88fd2ad83b1a347a76a0b2cad2d7a451206340",
+    "source": "artifacts/enemy-motion-sources/B01-generated.png",
+    "sourceSha256": "1054b548223031db71e0d7219c8c427b37eb1c623f1627218967db076b566573",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: massive six-legged hive crab boss. Preserve: three giant orange dorsal brood sacs, cracked ivory carapace, dark navy plated face, two enormous ivory pincers. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, huge pincers lift apart] [9 attack release, slam together toward the viewer] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: slow asymmetric tripod steps, knee joints visibly lift and plant, enormous pincers swing in counterphase with legs, brood sacs breathe subtly. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          396,
+          744,
+          1124,
+          1536
+        ],
+        [
+          0,
+          397,
+          739,
+          1110,
+          1536
+        ],
+        [
+          0,
+          402,
+          740,
+          1108,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        369,
+        652,
+        1024
+      ]
+    },
+    "scale": 0.5683060109289617,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "60564f8b8ef42a3400d5d71a306d71cb9bed699eb1c06c6416f6f0a1ca47b991",
+        "sourceBounds": {
+          "left": 59,
+          "right": 371,
+          "top": 58,
+          "bottom": 335,
+          "pixels": 52003
+        },
+        "outputSize": {
+          "width": 178,
+          "height": 158
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "d28922fde51f055747488def15772f6d64f1434441d29c89cdda4ae8d091b4a4",
+        "sourceBounds": {
+          "left": 420,
+          "right": 737,
+          "top": 61,
+          "bottom": 337,
+          "pixels": 49946
+        },
+        "outputSize": {
+          "width": 181,
+          "height": 157
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "cef1803a2e4ca76653db0c728da6ad74511194ac7a903560fae9fb4b668b2af9",
+        "sourceBounds": {
+          "left": 751,
+          "right": 1101,
+          "top": 68,
+          "bottom": 354,
+          "pixels": 52899
+        },
+        "outputSize": {
+          "width": 199,
+          "height": 163
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "5d92b443912392e219e5c04b6872479a74653939513c4b6062dccc36c0056c8d",
+        "sourceBounds": {
+          "left": 1146,
+          "right": 1485,
+          "top": 62,
+          "bottom": 352,
+          "pixels": 54002
+        },
+        "outputSize": {
+          "width": 193,
+          "height": 165
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "ad4843679f625d8e8c535d960e74d218367789af7fafe93910c3658ea54e18b4",
+        "sourceBounds": {
+          "left": 30,
+          "right": 373,
+          "top": 384,
+          "bottom": 638,
+          "pixels": 47092
+        },
+        "outputSize": {
+          "width": 195,
+          "height": 145
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "4366c896c2039de44c9bb6fb09df9430ddc528c36bc7399bf49ec02bccaceb16",
+        "sourceBounds": {
+          "left": 420,
+          "right": 723,
+          "top": 388,
+          "bottom": 642,
+          "pixels": 45355
+        },
+        "outputSize": {
+          "width": 173,
+          "height": 145
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "bdb90309d1fb117b6ed5436d6b5b2712c59047e66b8e2852774624d8fb0fc296",
+        "sourceBounds": {
+          "left": 755,
+          "right": 1089,
+          "top": 387,
+          "bottom": 643,
+          "pixels": 44240
+        },
+        "outputSize": {
+          "width": 190,
+          "height": 146
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "2caec62c41fe5e01ab87c779a618dc29ae1752ce32625041393c36c850c50c87",
+        "sourceBounds": {
+          "left": 1131,
+          "right": 1465,
+          "top": 387,
+          "bottom": 639,
+          "pixels": 44317
+        },
+        "outputSize": {
+          "width": 190,
+          "height": 144
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "3a03af31543e5bcb514c839f5271500228ebad0f66bc5116ded7c57245ce490f",
+        "sourceBounds": {
+          "left": 27,
+          "right": 392,
+          "top": 661,
+          "bottom": 944,
+          "pixels": 56117
+        },
+        "outputSize": {
+          "width": 208,
+          "height": 161
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "c426a45c8b118ce3a3dc978b82665c6f570950d3f8243c5eb72080c9ab077e25",
+        "sourceBounds": {
+          "left": 412,
+          "right": 718,
+          "top": 697,
+          "bottom": 931,
+          "pixels": 48112
+        },
+        "outputSize": {
+          "width": 174,
+          "height": 134
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "2ebf08149c31913edb54591d23902a20f9368f839f203468b6eef5bf843472ff",
+        "sourceBounds": {
+          "left": 761,
+          "right": 1087,
+          "top": 686,
+          "bottom": 944,
+          "pixels": 49821
+        },
+        "outputSize": {
+          "width": 186,
+          "height": 147
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "d836fdd3803e6a4d9c766d9321965e80af361df49b92c1b80ca8554823efe663",
+        "sourceBounds": {
+          "left": 1129,
+          "right": 1484,
+          "top": 678,
+          "bottom": 945,
+          "pixels": 58339
+        },
+        "outputSize": {
+          "width": 202,
+          "height": 152
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-B02-motion",
+    "enemyId": "B02",
+    "path": "/assets/enemy-animations/B02-motion.webp",
+    "width": 896,
+    "height": 672,
+    "frameWidth": 224,
+    "frameHeight": 224,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 215276,
+    "sha256": "f92c7b50903d8e4e55432e0f5a26d773373feef06f29640985991f2396941222",
+    "source": "artifacts/enemy-motion-sources/B02-generated.png",
+    "sourceSha256": "f2bfb16e1d60856ed2ca3fbc32baedc6945c7337a29fd4f5b5cad62d947be2d4",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: large floating prismatic shield overseer boss. Preserve: towering ivory crown fins, navy armored housing, huge cyan faceted shield sphere, four amber emitter ports underneath. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, four amber emitters gather inward] [9 attack release, open and point downward to fire] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: floating cycle with articulated side shield slabs tilting inward/outward, lower amber emitters swiveling, crown tips shifting; retain symmetric overall silhouette. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          387,
+          755,
+          1124,
+          1536
+        ],
+        [
+          0,
+          388,
+          754,
+          1126,
+          1536
+        ],
+        [
+          0,
+          378,
+          725,
+          1110,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        389,
+        696,
+        1024
+      ]
+    },
+    "scale": 0.5667574931880109,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "af40014cfa1eeb59f45934371104096c78b0014651e84fd6332fa0500a4b5eb7",
+        "sourceBounds": {
+          "left": 50,
+          "right": 350,
+          "top": 19,
+          "bottom": 385,
+          "pixels": 58306
+        },
+        "outputSize": {
+          "width": 171,
+          "height": 208
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "6654bbc8964f42db27b5bf955ce580e824c888e67f1451334a701f5ce5f0448f",
+        "sourceBounds": {
+          "left": 424,
+          "right": 721,
+          "top": 24,
+          "bottom": 386,
+          "pixels": 57858
+        },
+        "outputSize": {
+          "width": 169,
+          "height": 206
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "989d55d30ef426fd834e9599a77c4470f69e092e04c8e5cc421e68fcf17dd74c",
+        "sourceBounds": {
+          "left": 789,
+          "right": 1100,
+          "top": 31,
+          "bottom": 386,
+          "pixels": 58258
+        },
+        "outputSize": {
+          "width": 177,
+          "height": 202
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "f0a3990160ff9df564645b859bf155d1179ce39aa843c06ef3d9f0ae5f08bebc",
+        "sourceBounds": {
+          "left": 1148,
+          "right": 1489,
+          "top": 31,
+          "bottom": 386,
+          "pixels": 59326
+        },
+        "outputSize": {
+          "width": 194,
+          "height": 202
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "6958d3531130c64196e96b73e9e42aeb8acf052e0a22726c13ae700804906d4d",
+        "sourceBounds": {
+          "left": 20,
+          "right": 372,
+          "top": 391,
+          "bottom": 688,
+          "pixels": 54347
+        },
+        "outputSize": {
+          "width": 200,
+          "height": 169
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "6edb758c3e97995a0a4d51d918aab8b27499cbeb45575159c83581a2956a9b7e",
+        "sourceBounds": {
+          "left": 403,
+          "right": 739,
+          "top": 394,
+          "bottom": 686,
+          "pixels": 52352
+        },
+        "outputSize": {
+          "width": 191,
+          "height": 166
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "3f54be80ec37f5e7f46a4724206e460c02e67c39662e2c5e703826d48897eb37",
+        "sourceBounds": {
+          "left": 769,
+          "right": 1114,
+          "top": 396,
+          "bottom": 688,
+          "pixels": 51707
+        },
+        "outputSize": {
+          "width": 196,
+          "height": 166
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "0331e31673633aec1f25ed265d25ac25f705075253be48731f68db67dfbe6192",
+        "sourceBounds": {
+          "left": 1138,
+          "right": 1491,
+          "top": 397,
+          "bottom": 689,
+          "pixels": 53190
+        },
+        "outputSize": {
+          "width": 201,
+          "height": 166
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "0919cec5620e5beb89b938a26ea10eaf86b2f78f4f454150edbd707187a55d10",
+        "sourceBounds": {
+          "left": 85,
+          "right": 300,
+          "top": 716,
+          "bottom": 993,
+          "pixels": 40208
+        },
+        "outputSize": {
+          "width": 122,
+          "height": 158
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "90944cc21677804e4f8d2dec99d3a87602d8e01649f2bae10af3b3a592a0d0b1",
+        "sourceBounds": {
+          "left": 456,
+          "right": 674,
+          "top": 709,
+          "bottom": 1003,
+          "pixels": 42724
+        },
+        "outputSize": {
+          "width": 124,
+          "height": 167
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "901c5a36512cb1fba0518035184f6af57161985f783334beced6d828b78e41cb",
+        "sourceBounds": {
+          "left": 776,
+          "right": 1082,
+          "top": 704,
+          "bottom": 986,
+          "pixels": 50812
+        },
+        "outputSize": {
+          "width": 174,
+          "height": 160
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "12bfc2c620ae848f660bb591ce50829eb6950875bf34f124f7b6a8513d303bbb",
+        "sourceBounds": {
+          "left": 1137,
+          "right": 1473,
+          "top": 702,
+          "bottom": 993,
+          "pixels": 57316
+        },
+        "outputSize": {
+          "width": 191,
+          "height": 165
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "enemy-B03-motion",
+    "enemyId": "B03",
+    "path": "/assets/enemy-animations/B03-motion.webp",
+    "width": 896,
+    "height": 672,
+    "frameWidth": 224,
+    "frameHeight": 224,
+    "frameCount": 12,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 245648,
+    "sha256": "e4fc773de7332d7600d8ae2133e7f7a240dc5a24667432b29b40ea3d4182f6fd",
+    "source": "artifacts/enemy-motion-sources/B03-generated.png",
+    "sourceSha256": "c8c7a2ecbbfdb2724ff1103c2fb85f4c0a91f1ec41e82a2f4f545f1de9b77366",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Asset type: production 2D frame-by-frame enemy animation sprite sheet for a portrait sci-fi tower defense game.\nInput image: identity and rendering-style reference ONLY. Repaint the same creature in twelve distinct animation poses.\nSubject: large invasion reactor boss. Preserve: huge orange spherical faceted reactor, orbiting broken ivory armor arcs with cyan hubs, navy body, four stabilizer claws. Keep the exact navy / ivory / orange / cyan or green palette of the reference, same limb count, same identity, crisp Japanese sci-fi game illustration with bold readable silhouette, facing the same down-screen frontal or slight three-quarter direction in ALL frames.\nOutput ONE landscape sprite sheet with EXACTLY 12 separately drawn complete creatures, arranged in a precise 4-COLUMN by 3-ROW regular grid. Suggested canvas 1536 x 1024. No text, labels, borders or drawn grid. Each cell contains ONE whole creature at identical scale and camera, centered at the same local anchor, generous blank gaps and 15% padding, no limb or tail crosses a cell boundary. No duplicates pasted unchanged. Every moving pose must change actual limb joint positions, not merely translate, rotate, tint or resize the whole creature.\nFrame sequence, row-major:\nROW 1: [0 idle relaxed] [1 idle breathing with visibly adjusted pincers/tendrils/armor] [2 locomotion phase 1] [3 locomotion phase 2].\nROW 2: [4 locomotion phase 3] [5 locomotion phase 4] [6 locomotion phase 5] [7 locomotion phase 6, leading naturally back to phase 1].\nROW 3: [8 attack anticipation, stabilizer claws brace wide as orbit arcs open,] [9 attack release, reactor armor snaps inward and claws thrust forward] [10 charging posture, appendages gathered and armor partially opened, core slightly brighter] [11 charging posture advanced, armor further opened and core brighter].\nLocomotion requirements: heavy stabilizer claw steps with obvious raised and planted feet, segmented orbit arcs progressively rotate around the stable orange core. Make the six locomotion silhouettes clearly distinguishable even at a small gameplay size. Idle, movement, attacking and charging are all actual painted poses. Base body stays anchored; articulate appendages and small weight shifts. No ground, no shadows outside the creature, no external projectiles, no large bloom.\nBackground: genuinely transparent alpha if available. If alpha cannot be returned, use perfectly uniform pure magenta #FF00FF as a chroma-key backing; never draw checkerboards, gradients or scenery. The creature itself must contain no magenta pixels.",
+    "loadGroup": "enemy-motion",
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          396,
+          770,
+          1145,
+          1536
+        ],
+        [
+          0,
+          388,
+          763,
+          1156,
+          1536
+        ],
+        [
+          0,
+          418,
+          766,
+          1143,
+          1536
+        ]
+      ],
+      "ys": [
+        0,
+        350,
+        675,
+        1024
+      ]
+    },
+    "scale": 0.5621621621621622,
+    "frames": [
+      {
+        "index": 0,
+        "pose": "idle-a",
+        "sha256": "c34ada045b37976fdc4cf513bd706ebb4d5f24538611e3f96e465c08bb9c5d6f",
+        "sourceBounds": {
+          "left": 45,
+          "right": 375,
+          "top": 20,
+          "bottom": 346,
+          "pixels": 60967
+        },
+        "outputSize": {
+          "width": 186,
+          "height": 184
+        }
+      },
+      {
+        "index": 1,
+        "pose": "idle-b",
+        "sha256": "6b7541641dced4c8ecbca2b3290d8f2212a2d616653ed469c8f68780da4281c8",
+        "sourceBounds": {
+          "left": 417,
+          "right": 747,
+          "top": 20,
+          "bottom": 346,
+          "pixels": 59665
+        },
+        "outputSize": {
+          "width": 186,
+          "height": 184
+        }
+      },
+      {
+        "index": 2,
+        "pose": "move-1",
+        "sha256": "3e635f2a83f8e6f099fdeb652636f1102e7ab9a386ff0386cc001576beb3b88f",
+        "sourceBounds": {
+          "left": 792,
+          "right": 1121,
+          "top": 20,
+          "bottom": 346,
+          "pixels": 53464
+        },
+        "outputSize": {
+          "width": 186,
+          "height": 184
+        }
+      },
+      {
+        "index": 3,
+        "pose": "move-2",
+        "sha256": "ea81a5e73206a44a828843fa5bc3b4b59f17261f1ee0cd30a83b6db2f0e72a28",
+        "sourceBounds": {
+          "left": 1169,
+          "right": 1491,
+          "top": 36,
+          "bottom": 347,
+          "pixels": 55664
+        },
+        "outputSize": {
+          "width": 182,
+          "height": 175
+        }
+      },
+      {
+        "index": 4,
+        "pose": "move-3",
+        "sha256": "0a55d160680a34d93ca95f850b9e6b14e6ec07fa8fa7921a11b8178b495ce5c8",
+        "sourceBounds": {
+          "left": 29,
+          "right": 370,
+          "top": 355,
+          "bottom": 654,
+          "pixels": 54267
+        },
+        "outputSize": {
+          "width": 192,
+          "height": 169
+        }
+      },
+      {
+        "index": 5,
+        "pose": "move-4",
+        "sha256": "2fba8e979973d947d58825b62ab9924fc5722214f7b80865aea647723f6e6832",
+        "sourceBounds": {
+          "left": 406,
+          "right": 747,
+          "top": 353,
+          "bottom": 665,
+          "pixels": 56389
+        },
+        "outputSize": {
+          "width": 192,
+          "height": 176
+        }
+      },
+      {
+        "index": 6,
+        "pose": "move-5",
+        "sha256": "b02a57c5f9d2210c2229749155357db7f6343069f750bad0b5e00463dd9f71a6",
+        "sourceBounds": {
+          "left": 779,
+          "right": 1127,
+          "top": 360,
+          "bottom": 670,
+          "pixels": 55366
+        },
+        "outputSize": {
+          "width": 196,
+          "height": 175
+        }
+      },
+      {
+        "index": 7,
+        "pose": "move-6",
+        "sha256": "12871803b971d4d9bc409bb09cf717e6595780a86bb3c6ec435e31bd456d199b",
+        "sourceBounds": {
+          "left": 1184,
+          "right": 1491,
+          "top": 364,
+          "bottom": 668,
+          "pixels": 53887
+        },
+        "outputSize": {
+          "width": 173,
+          "height": 171
+        }
+      },
+      {
+        "index": 8,
+        "pose": "anticipate",
+        "sha256": "e892d228866daff727e0215c2f23ae6c33e0a8e186de0b7f74ad29cd2e42b316",
+        "sourceBounds": {
+          "left": 25,
+          "right": 394,
+          "top": 680,
+          "bottom": 998,
+          "pixels": 56953
+        },
+        "outputSize": {
+          "width": 208,
+          "height": 179
+        }
+      },
+      {
+        "index": 9,
+        "pose": "strike",
+        "sha256": "7b1d2256798996092a0546099174d936ac91c53aefbe11107e6ac2fe14084625",
+        "sourceBounds": {
+          "left": 441,
+          "right": 738,
+          "top": 697,
+          "bottom": 977,
+          "pixels": 49839
+        },
+        "outputSize": {
+          "width": 168,
+          "height": 158
+        }
+      },
+      {
+        "index": 10,
+        "pose": "charge-a",
+        "sha256": "dee6e4e4b2a1315d84086f901ad0025c3994ed5effda37fa6522dd86b4c51697",
+        "sourceBounds": {
+          "left": 793,
+          "right": 1124,
+          "top": 696,
+          "bottom": 994,
+          "pixels": 56383
+        },
+        "outputSize": {
+          "width": 187,
+          "height": 168
+        }
+      },
+      {
+        "index": 11,
+        "pose": "charge-b",
+        "sha256": "c65e450b6db3ff14db579a9aaa6564a689868a7bbe643b8358e02bc1f5f3e698",
+        "sourceBounds": {
+          "left": 1162,
+          "right": 1503,
+          "top": 690,
+          "bottom": 998,
+          "pixels": 57847
+        },
+        "outputSize": {
+          "width": 192,
+          "height": 174
+        }
+      }
+    ]
+  }
+]
