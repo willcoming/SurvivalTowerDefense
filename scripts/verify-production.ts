@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { CONTENT_VERSION } from '../src/data/content';
 import type { GameSave } from '../src/storage/repository';
 
+const productionUrl = new URL(process.env.PRODUCTION_URL ?? 'http://127.0.0.1:5173/');
 const browser = await chromium.launch();
 const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
 const page = await context.newPage();
@@ -12,8 +13,13 @@ await session.send('Network.enable');
 await session.send('Network.setCacheDisabled', { cacheDisabled: true });
 await session.send('Network.emulateNetworkConditions', { offline: false, latency: 100, downloadThroughput: 1_250_000, uploadThroughput: 1_250_000, connectionType: 'cellular4g' });
 const errors: string[] = [], failed: string[] = [];
+const assetRequests = new Set<string>();
 page.on('pageerror', e => errors.push(e.message));
 page.on('response', response => { if (response.status() >= 400) failed.push(`${response.status()} ${response.url()}`); });
+page.on('request', request => {
+  const url = new URL(request.url());
+  if (url.protocol.startsWith('http') && url.pathname.includes('/assets/')) assetRequests.add(url.href);
+});
 const dir = process.env.VALIDATION_OUTPUT_DIR ?? `artifacts/validation/${CONTENT_VERSION}/production`;
 mkdirSync(dir, { recursive: true });
 async function readSave(): Promise<GameSave> {
@@ -29,9 +35,18 @@ async function readSave(): Promise<GameSave> {
 }
 try {
   const start = performance.now();
-  await page.goto('http://127.0.0.1:5173/');
+  await page.goto(productionUrl.href);
   await page.locator('[data-action="intel"]').waitFor();
   const homeInteractiveMs = performance.now() - start;
+  const buildCommit = await page.locator('meta[name="build-revision"]').getAttribute('content');
+  if (process.env.EXPECTED_COMMIT) assert.equal(buildCommit, process.env.EXPECTED_COMMIT, 'Live page must match the pushed commit');
+  const versionUrl = new URL('version.json', productionUrl);
+  versionUrl.searchParams.set('v', process.env.EXPECTED_COMMIT ?? String(Date.now()));
+  const versionResponse = await context.request.get(versionUrl.href);
+  assert.equal(versionResponse.status(), 200);
+  const version = await versionResponse.json();
+  assert.equal(version.commit, buildCommit, 'HTML and version.json must identify the same build');
+  assert.equal(version.contentVersion, CONTENT_VERSION);
   assert.equal(await page.evaluate(() => typeof (window as unknown as Record<string,unknown>).__game), 'undefined', 'Production must not expose development commands');
   await page.screenshot({ path: `${dir}/home.png`, fullPage: true });
   await page.locator('[data-action="intel"]').click();
@@ -109,9 +124,12 @@ try {
   assert.ok(chosen.activeRun?.pauseReasons.includes('user'));
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   assert.deepEqual(errors, []); assert.deepEqual(failed, []);
+  const assetBaseUrl = new URL('assets/', productionUrl).href;
+  assert.ok(assetRequests.size > 0, 'Production must load artwork and bundles');
+  assert.ok([...assetRequests].every(url => url.startsWith(assetBaseUrl)), 'All assets must use the deployment base path');
   assert.ok(homeInteractiveMs <= 5000, `Home load ${homeInteractiveMs}ms exceeds 5000ms`);
   assert.ok(battleReadyMs <= 10000, `Battle load ${battleReadyMs}ms exceeds 10000ms`);
-  const result = { contentVersion: CONTENT_VERSION, measuredAt: new Date().toISOString(), browser: browser.version(), userAgent: await page.evaluate(() => navigator.userAgent), origin: 'http://127.0.0.1:5173', server: 'vite preview of production dist', viewport: page.viewportSize(), network: '10 Mbps / 100 ms RTT, empty browser context, HTTP cache disabled', homeInteractiveMs, battleReadyMs, snapshotTick: before.activeRun?.tick, phaseAfterRecovery: chosen.activeRun?.phase, savedChoices: chosen.activeRun?.choicesSpent, battleSpeed: chosen.preferences.battleSpeed, autoTactical: chosen.preferences.autoTactical, actualAutoCasts: chosen.activeRun!.stats.casts.length, initialCooldownTicks: before.activeRun.tacticalReadyAt, firstCastTick: chosen.activeRun!.stats.casts[0], partialPointRecovery: true, productionDebugApiAbsent: true, consoleErrors: errors, failedRequests: failed, passed: true, limitation: 'Desktop Chromium emulating mobile viewport/network; not actual phone hardware. Real-time gameplay earned the first upgrade without simulation hooks.' };
+  const result = { contentVersion: CONTENT_VERSION, buildCommit, version, measuredAt: new Date().toISOString(), browser: browser.version(), userAgent: await page.evaluate(() => navigator.userAgent), origin: productionUrl.origin, url: productionUrl.href, server: process.env.PRODUCTION_SERVER ?? 'vite preview of production dist', viewport: page.viewportSize(), network: '10 Mbps / 100 ms RTT, empty browser context, HTTP cache disabled', homeInteractiveMs, battleReadyMs, snapshotTick: before.activeRun?.tick, phaseAfterRecovery: chosen.activeRun?.phase, savedChoices: chosen.activeRun?.choicesSpent, battleSpeed: chosen.preferences.battleSpeed, autoTactical: chosen.preferences.autoTactical, actualAutoCasts: chosen.activeRun!.stats.casts.length, initialCooldownTicks: before.activeRun.tacticalReadyAt, firstCastTick: chosen.activeRun!.stats.casts[0], partialPointRecovery: true, productionDebugApiAbsent: true, consoleErrors: errors, failedRequests: failed, assetBaseUrl, assetRequests: [...assetRequests].sort(), passed: true, limitation: 'Desktop Chromium emulating mobile viewport/network; not actual phone hardware. Real-time gameplay earned the first upgrade without simulation hooks.' };
   writeFileSync(`${dir}/smoke.json`, JSON.stringify(result, null, 2));
   console.log(JSON.stringify(result, null, 2));
 } catch (error) {

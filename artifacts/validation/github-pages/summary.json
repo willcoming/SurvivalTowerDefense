@@ -1,0 +1,56 @@
+{
+  "contentVersion": "0.3.0-dev.1",
+  "basedOnCommit": "6b1ce14ff233a899b09a26f70d951a966883ebd6",
+  "branch": "codex/pages-publish",
+  "recordedAt": "2026-09-05T06:02:59.633761+00:00",
+  "sourceDigest": "cbfafad0a386efe8dab6f54cbc149787e3bbbbdfc0b88a7aac6bf2d5d973ec4b",
+  "rules": {
+    "passed": 254,
+    "failed": 0,
+    "evidence": "rules.json"
+  },
+  "builds": {
+    "root": true,
+    "projectSubpath": true
+  },
+  "assets": {
+    "passed": true,
+    "required": 61,
+    "manifest": 62,
+    "evidence": "asset-budget.json"
+  },
+  "production": [
+    {
+      "base": "/",
+      "passed": true,
+      "homeInteractiveMs": 679.901209,
+      "battleReadyMs": 3351.9762089999995,
+      "assetRequests": 24,
+      "partialPointRecovery": true,
+      "firstCastTick": 1500,
+      "evidence": "local-root/smoke.json"
+    },
+    {
+      "base": "/SurvivalTowerDefense/",
+      "passed": true,
+      "homeInteractiveMs": 710.6397499999999,
+      "battleReadyMs": 3386.6782090000006,
+      "assetRequests": 24,
+      "partialPointRecovery": true,
+      "firstCastTick": 1500,
+      "evidence": "local-subpath/smoke.json"
+    }
+  ],
+  "remote": {
+    "created": true,
+    "repository": "https://github.com/willcoming/SurvivalTowerDefense",
+    "visibility": "public",
+    "pagesDeployed": false,
+    "reason": "Repository created using existing Git credentials; branch publication pending."
+  },
+  "limitations": [
+    "Local production builds verified in desktop Chromium with mobile viewport and simulated network.",
+    "No GitHub Actions run or public Pages URL has been verified yet.",
+    "Concurrent new-character and new-stage work in the original checkout is not part of this deployment baseline."
+  ]
+}

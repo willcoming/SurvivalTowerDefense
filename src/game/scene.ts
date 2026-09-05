@@ -1,3 +1,4 @@
+import { assetUrl } from '../assets';
 import { usesFreeSkills } from '../data/deep-trees';
 import { usesSkillTrees } from '../data/skill-trees';
 import { treeMods, ultimateFor } from '../sim/skill-tree';
@@ -50,10 +51,10 @@ export class BattleScene extends Phaser.Scene {
     this.load.on('progress', (progress: number) => this.loading.progress(progress));
     this.load.on('loaderror', (file: Phaser.Loader.File) => { this.missing.push(String(file.src)); });
     const run = this.read();
-    this.load.image('stage', `/assets/stages/${run.config.stageId}.webp`);
-    run.config.squadIds.forEach(id => this.load.spritesheet(`motion-${id}`, `/assets/animations/${id}-motion.webp`, { frameWidth: 256, frameHeight: 256 }));
-    this.load.image('captain-portrait', `/assets/characters/${run.config.captainId}-portrait.webp`);
-    [...new Set([...STAGE_MAP[run.config.stageId].enemyIds, STAGE_MAP[run.config.stageId].bossId])].forEach(id => this.load.spritesheet(enemyTexture(id), `/assets/enemy-animations/${id}-motion.webp`, { frameWidth: enemyFrameSize(id), frameHeight: enemyFrameSize(id) }));
+    this.load.image('stage', assetUrl(`stages/${run.config.stageId}.webp`));
+    run.config.squadIds.forEach(id => this.load.spritesheet(`motion-${id}`, assetUrl(`animations/${id}-motion.webp`), { frameWidth: 256, frameHeight: 256 }));
+    this.load.image('captain-portrait', assetUrl(`characters/${run.config.captainId}-portrait.webp`));
+    [...new Set([...STAGE_MAP[run.config.stageId].enemyIds, STAGE_MAP[run.config.stageId].bossId])].forEach(id => this.load.spritesheet(enemyTexture(id), assetUrl(`enemy-animations/${id}-motion.webp`), { frameWidth: enemyFrameSize(id), frameHeight: enemyFrameSize(id) }));
   }
   create() {
     Object.keys(ENEMY_MAP).forEach(id => {

@@ -10,6 +10,7 @@
 | 產品範圍、六人定位、戰鬥與勝負 | [MVP 規格](MVP_SPEC.md) |
 | 自由配點、共用技能、初始冷卻與敵情 | [自由技能樹規格](FREE_SKILLS.md) |
 | 每個節點的數值、前置及終極 | [150 節點完整清單](FREE_SKILL_NODES.md) |
+| GitHub 遠端與 Pages 發布 | [部署設定與狀態](GITHUB_PAGES.md) |
 | 已完成的工作與後續順序 | [執行計劃](EXECUTION_PLAN.md)、[實作狀態](IMPLEMENTATION_STATUS.md) |
 | 本次工程交付與實測數據 | [交付報告](DELIVERY.md) |
 | 測試覆蓋、重現方式與平衡研究 | [驗收矩陣](VALIDATION_MATRIX.md)、[測試策略](TEST_POLICIES.md)、[研究結果](FREE_SKILL_VALIDATION.md) |
