@@ -1,8 +1,16 @@
+import { DEEP_NODE_MAP, usesFreeSkills } from '../data/deep-trees';
+import { deepMods, syncDeepWeapon } from './deep-tree';
+import { deepWeaponStats, stepDeepWeapons } from './deep-weapons';
+import { NODE_MAP, usesSkillTrees } from '../data/skill-trees';
+import { syncTreeWeapon, treeMods } from './skill-tree';
+import { stepTreeWeapons, treeWeaponStats } from './tree-weapons';
 import { CHARACTER_MAP, ticks, WORLD } from '../data/content';
 import { inWeaponRange, weaponRange, usesRangeRules } from './range';
 import { addShield, alive, applyEffect, area, distance, emit, hitEnemy, threat } from './combat';
 import type { CharacterId, DamagePacket, Enemy, RunState, WeaponState } from './types';
 export function weaponStats(s:RunState,w:WeaponState){
+  if(usesFreeSkills(s))return deepWeaponStats(s,w);
+  if(usesSkillTrees(s))return treeWeaponStats(s,w);
   const d=CHARACTER_MAP[w.id],a=w.branch==='A',b=w.branch==='B',r=w.rank,e=r===3;
   let bonus=(s.commonRanks.G01??0)*.08,as=(s.commonRanks.G02??0)*.06;
   let base=d.damage,interval=d.interval,radius=w.id==='C04'?45:w.id==='C05'?48:0;
@@ -63,28 +71,49 @@ function attack(s:RunState,w:WeaponState){
   return true;
 }
 export function stepWeapons(s:RunState){
+  if(usesFreeSkills(s)){stepDeepWeapons(s);return;}
+  if(usesSkillTrees(s)){stepTreeWeapons(s);return;}
   for(const w of s.weapons){
     if(w.id==='C06'&&w.branch==='B'&&w.rank===3&&s.tick>=w.shieldAt){addShield(s,'C06-B',100,ticks(6));w.shieldAt=s.tick+ticks(15);}
     if(s.tick>=w.nextAttack&&attack(s,w))w.nextAttack=s.tick+weaponStats(s,w).interval;
   }
 }
-export function tacticalCooldown(s:RunState){return ticks(CHARACTER_MAP[s.config.captainId].cooldown*(1-(s.commonRanks.G04??0)*.06));}
+export function tacticalCooldown(s:RunState){return ticks(CHARACTER_MAP[s.config.captainId].cooldown*Math.max(.5,1-(s.commonRanks.G04??0)*.06-(treeMods(s,s.config.captainId).skillCooldown??0)));}
 export function castTactical(s:RunState):boolean{
   const id=s.config.captainId;if(s.tick<s.tacticalReadyAt||s.config.challengeId==='no-skill')return false;
   const target=threat(s)[0];if(!target&&id!=='C06')return false;let visualTarget=target;
-  const bonus=1+(s.commonRanks.G01??0)*.08,duration=1+(s.commonRanks.G06??0)*.1,radius=1+(s.commonRanks.G03??0)*.1;
+  const m=treeMods(s,id);
+  const bonus=1+(s.commonRanks.G01??0)*.08+(m.skillDamage??0),duration=1+(s.commonRanks.G06??0)*.1+(m.skillDuration??0),radius=1+(s.commonRanks.G03??0)*.1+(m.skillRadius??0);
   const p:DamagePacket={source:id,skill:'tactical',raw:0,damageType:CHARACTER_MAP[id].damageType,armorIgnore:0,shieldMultiplier:id==='C02'?1.25:1};
   if(id==='C01'){for(const t of area(s,target.x,target.y,90*radius))hitEnemy(s,t,{...p,raw:35*bonus});for(let i=1;i<4;i++)s.scheduled.push({at:s.tick+i*ticks(.2),packet:{...p,raw:35*bonus},x:target.x,y:target.y,radius:90*radius,enemyDamage:0,enemySource:null});}
   if(id==='C02')for(const t of alive(s))hitEnemy(s,t,{...p,raw:60*bonus,stun:ticks(1.5*duration)});
   if(id==='C03'){const t=alive(s).sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];visualTarget=t;hitEnemy(s,t,{...p,raw:420*bonus,armorIgnore:1});emit(s,{kind:'beam',x:195,y:490,x2:t.x,y2:t.y,source:id,skill:'tactical'});}
   if(id==='C04')for(const t of alive(s))hitEnemy(s,t,{...p,raw:0,slow:{value:.5,duration:ticks(5*duration)},knockback:60});
   if(id==='C05')for(const t of area(s,target.x,target.y,100*radius))hitEnemy(s,t,{...p,raw:160*bonus,burn:{dps:12*bonus,duration:ticks(5*duration),armorIgnore:.5,key:'tactical'}});
-  if(id==='C06')addShield(s,'tactical:C06',220,ticks(8));
+  if(id==='C06')addShield(s,'tactical:C06',220+(m.skillShield??0),ticks(8*duration));
   s.tacticalReadyAt=s.tick+tacticalCooldown(s);s.stats.casts.push(s.tick);emit(s,{kind:'tactical',x:visualTarget?.x??195,y:visualTarget?.y??450,source:id,radius:(id==='C01'?90:100)*radius});return true;
 }
 export function applyUpgrade(s:RunState,nodeId:string){
   const before=new Map(s.weapons.map(w=>[w.id,weaponStats(s,w).interval]));const oldCooldown=tacticalCooldown(s);
-  if(nodeId.startsWith('C')){const [id,branch,rank]=nodeId.split('-');const w=s.weapons.find(w=>w.id===id)!;w.branch=branch as 'A'|'B';w.rank=Number(rank);if(w.rank===2)w.readyAt=s.tick;if(w.rank===3){s.evolvedCount++;w.shieldAt=s.tick+ticks(15);emit(s,{kind:'evolution',x:195,y:490,source:w.id});}}
+  if(usesFreeSkills(s)&&DEEP_NODE_MAP[nodeId]){
+    const node=DEEP_NODE_MAP[nodeId],beforeShield=node.ownerId==='common'?0:deepMods(s,node.ownerId).autoShield;
+    s.treeNodes=[...(s.treeNodes??[]),nodeId];
+    if(node.ownerId!=='common'){
+      syncDeepWeapon(s,node.ownerId);const w=s.weapons.find(w=>w.id===node.ownerId)!;
+      if(!beforeShield&&deepMods(s,node.ownerId).autoShield)w.shieldAt=s.tick+ticks(deepMods(s,node.ownerId).shieldInterval??15);
+      if(node.kind==='ultimate'){s.evolvedCount++;emit(s,{kind:'evolution',x:195,y:490,source:w.id});}
+    }
+    if(node.mods.wallHealth){s.wallMaxHp+=node.mods.wallHealth;s.wallHp+=node.mods.wallHealth;}
+    if(s.support){if(node.mods.periodicRepair)s.support.repairAt=s.tick+ticks(20);if(node.mods.pulseShield)s.support.pulseAt=s.tick+ticks(18);}
+  }
+  else if(usesSkillTrees(s)&&NODE_MAP[nodeId]){
+    const node=NODE_MAP[nodeId], hadShield=treeMods(s,node.ownerId).autoShield;
+    s.treeNodes=[...(s.treeNodes??[]),nodeId];syncTreeWeapon(s,node.ownerId);
+    const w=s.weapons.find(w=>w.id===node.ownerId)!;
+    if(!hadShield&&treeMods(s,node.ownerId).autoShield)w.shieldAt=s.tick+ticks(15);
+    if(node.kind==='ultimate'){s.evolvedCount++;emit(s,{kind:'evolution',x:195,y:490,source:w.id});}
+  }
+  else if(!usesSkillTrees(s)&&nodeId.startsWith('C')){const [id,branch,rank]=nodeId.split('-');const w=s.weapons.find(w=>w.id===id)!;w.branch=branch as 'A'|'B';w.rank=Number(rank);if(w.rank===2)w.readyAt=s.tick;if(w.rank===3){s.evolvedCount++;w.shieldAt=s.tick+ticks(15);emit(s,{kind:'evolution',x:195,y:490,source:w.id});}}
   if(nodeId.startsWith('G')){const [id,rank]=nodeId.split('-');s.commonRanks[id]=Number(rank);if(id==='G05'){s.wallMaxHp+=100;s.wallHp+=100;}}
   for(const w of s.weapons)w.nextAttack=s.tick+Math.ceil(Math.max(0,w.nextAttack-s.tick)*weaponStats(s,w).interval/before.get(w.id)!);
   s.tacticalReadyAt=s.tick+Math.ceil(Math.max(0,s.tacticalReadyAt-s.tick)*tacticalCooldown(s)/oldCooldown);

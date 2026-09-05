@@ -7,10 +7,12 @@ const dir = process.env.VALIDATION_OUTPUT_DIR ?? 'artifacts/validation/animation
 mkdirSync(`${dir}/screenshots`, { recursive: true });
 test.beforeEach(async ({ page }) => { await page.routeWebSocket('**/*', socket => socket.close()); });
 async function boot(page: Page) { await page.goto('/'); await page.waitForFunction(() => !!window.__game); }
+// These historical form and immediate-captain fixtures use the retained 0.2 rules.
+// Current cold-start captains and new builds are covered in free-skills.spec.ts.
 async function start(page: Page, id: CharacterId, stageId: StageId = 'S01', solo = false) {
   await page.evaluate(async ({ id, stageId, solo }) => {
     const all: CharacterId[] = ['C01','C02','C03','C04','C05','C06'];
-    await window.__game.start({ stageId, squadIds: solo ? [id] : [id, ...all.filter(c => c !== id)].slice(0,5), captainId: id, seed: 101 });
+    await window.__game.start({ stageId, squadIds: solo ? [id] : [id, ...all.filter(c => c !== id)].slice(0,5), captainId: id, seed: 101 },'0.2.0-dev.1');
   }, { id, stageId, solo });
   await page.locator('#battle-loading').waitFor({ state: 'detached' });
   if (await page.locator('[data-action="tutorial-done"]').count()) await page.locator('[data-action="tutorial-done"]').first().click();
@@ -74,13 +76,15 @@ for (const id of CHARACTER_IDS) for (const branch of ['A','B'] as const) test(`A
   // Presentation fixture isolates each form. It is not evidence of earning the evolution or balance.
   await boot(page); await start(page, id, 'S03');
   await page.evaluate(async ({ id, branch }) => {
-    const path = '/src/sim/weapons.ts', combatPath = '/src/sim/combat.ts';
-    const { applyUpgrade } = await import(path), { createEnemy } = await import(combatPath);
+    const path = '/src/sim/engine.ts', combatPath = '/src/sim/combat.ts', draftPath='/src/sim/draft.ts';
+    const { command } = await import(path), { createEnemy } = await import(combatPath),{openDraft}=await import(draftPath);
     const state = window.__game.state()!;
     state.enemies = []; state.projectiles = []; state.fields = [];
     for (let i=0;i<8;i++) { const e = createEnemy(state, 'E03', 75+i%4*65, 165+Math.floor(i/4)*55); e.hp = e.maxHp = 100000; e.speed = 0; }
     for (const w of state.weapons) w.nextAttack = state.tick + 9000;
-    for (let rank=1;rank<=3;rank++) applyUpgrade(state, `${id}-${branch}-${rank}`);
+    state.xp=160;state.choicesEarned=4;openDraft(state);
+    const tree=id==='C06'&&branch==='B'?'C06-C':`${id}-${branch}`;
+    for(const part of [0,1,2,4]){const nodeId=`${tree}:${part}`;if(!command(state,{type:'custom-node',nodeId})||!command(state,{type:'choose',offerId:state.draft!.id,nodeId}))throw new Error('Invalid animation build');}
     state.weapons.find(w=>w.id===id)!.nextAttack = state.tick;
   }, { id, branch });
   await page.waitForFunction(form => window.__game.presentation().forms.includes(form), `${id}-${branch}`);

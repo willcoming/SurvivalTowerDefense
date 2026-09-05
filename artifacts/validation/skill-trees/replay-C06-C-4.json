@@ -1,0 +1,442 @@
+{
+  "config": {
+    "stageId": "S03",
+    "squadIds": [
+      "C06",
+      "C02",
+      "C03",
+      "C04",
+      "C05"
+    ],
+    "captainId": "C06",
+    "seed": 101
+  },
+  "actions": [
+    {
+      "tick": 0,
+      "seq": 1,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 600,
+      "seq": 2,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C06-C:0"
+      }
+    },
+    {
+      "tick": 600,
+      "seq": 3,
+      "command": {
+        "type": "choose",
+        "offerId": 1,
+        "nodeId": "C06-C:0"
+      }
+    },
+    {
+      "tick": 1387,
+      "seq": 4,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C03-B:0"
+      }
+    },
+    {
+      "tick": 1387,
+      "seq": 5,
+      "command": {
+        "type": "choose",
+        "offerId": 2,
+        "nodeId": "C03-B:0"
+      }
+    },
+    {
+      "tick": 1500,
+      "seq": 6,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 2055,
+      "seq": 7,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C05-B:0"
+      }
+    },
+    {
+      "tick": 2055,
+      "seq": 8,
+      "command": {
+        "type": "choose",
+        "offerId": 3,
+        "nodeId": "C05-B:0"
+      }
+    },
+    {
+      "tick": 2520,
+      "seq": 9,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C06-C:1"
+      }
+    },
+    {
+      "tick": 2520,
+      "seq": 10,
+      "command": {
+        "type": "choose",
+        "offerId": 4,
+        "nodeId": "C06-C:1"
+      }
+    },
+    {
+      "tick": 3000,
+      "seq": 11,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 3242,
+      "seq": 12,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C03-B:1"
+      }
+    },
+    {
+      "tick": 3242,
+      "seq": 13,
+      "command": {
+        "type": "choose",
+        "offerId": 5,
+        "nodeId": "C03-B:1"
+      }
+    },
+    {
+      "tick": 3930,
+      "seq": 14,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C05-B:1"
+      }
+    },
+    {
+      "tick": 3930,
+      "seq": 15,
+      "command": {
+        "type": "choose",
+        "offerId": 6,
+        "nodeId": "C05-B:1"
+      }
+    },
+    {
+      "tick": 4500,
+      "seq": 16,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 4537,
+      "seq": 17,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C06-C:2"
+      }
+    },
+    {
+      "tick": 4537,
+      "seq": 18,
+      "command": {
+        "type": "choose",
+        "offerId": 7,
+        "nodeId": "C06-C:2"
+      }
+    },
+    {
+      "tick": 4916,
+      "seq": 19,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C03-B:2"
+      }
+    },
+    {
+      "tick": 4916,
+      "seq": 20,
+      "command": {
+        "type": "choose",
+        "offerId": 8,
+        "nodeId": "C03-B:2"
+      }
+    },
+    {
+      "tick": 5370,
+      "seq": 21,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C05-B:2"
+      }
+    },
+    {
+      "tick": 5370,
+      "seq": 22,
+      "command": {
+        "type": "choose",
+        "offerId": 9,
+        "nodeId": "C05-B:2"
+      }
+    },
+    {
+      "tick": 5883,
+      "seq": 23,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 6214,
+      "seq": 24,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C06-C:4"
+      }
+    },
+    {
+      "tick": 6214,
+      "seq": 25,
+      "command": {
+        "type": "choose",
+        "offerId": 10,
+        "nodeId": "C06-C:4"
+      }
+    },
+    {
+      "tick": 6877,
+      "seq": 26,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C03-B:4"
+      }
+    },
+    {
+      "tick": 6877,
+      "seq": 27,
+      "command": {
+        "type": "choose",
+        "offerId": 11,
+        "nodeId": "C03-B:4"
+      }
+    },
+    {
+      "tick": 7263,
+      "seq": 28,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 7303,
+      "seq": 29,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C05-B:4"
+      }
+    },
+    {
+      "tick": 7303,
+      "seq": 30,
+      "command": {
+        "type": "choose",
+        "offerId": 12,
+        "nodeId": "C05-B:4"
+      }
+    },
+    {
+      "tick": 7734,
+      "seq": 31,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C02-A:0"
+      }
+    },
+    {
+      "tick": 7734,
+      "seq": 32,
+      "command": {
+        "type": "choose",
+        "offerId": 13,
+        "nodeId": "C02-A:0"
+      }
+    },
+    {
+      "tick": 8304,
+      "seq": 33,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C02-A:1"
+      }
+    },
+    {
+      "tick": 8304,
+      "seq": 34,
+      "command": {
+        "type": "choose",
+        "offerId": 14,
+        "nodeId": "C02-A:1"
+      }
+    },
+    {
+      "tick": 8643,
+      "seq": 35,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 9108,
+      "seq": 36,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C04-A:0"
+      }
+    },
+    {
+      "tick": 9108,
+      "seq": 37,
+      "command": {
+        "type": "choose",
+        "offerId": 15,
+        "nodeId": "C04-A:0"
+      }
+    },
+    {
+      "tick": 9673,
+      "seq": 38,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "C04-A:1"
+      }
+    },
+    {
+      "tick": 9673,
+      "seq": 39,
+      "command": {
+        "type": "choose",
+        "offerId": 16,
+        "nodeId": "C04-A:1"
+      }
+    },
+    {
+      "tick": 10023,
+      "seq": 40,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 10184,
+      "seq": 41,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "G01-1"
+      }
+    },
+    {
+      "tick": 10184,
+      "seq": 42,
+      "command": {
+        "type": "choose",
+        "offerId": 17,
+        "nodeId": "G01-1"
+      }
+    },
+    {
+      "tick": 10800,
+      "seq": 43,
+      "command": {
+        "type": "finish-boss-intro"
+      }
+    },
+    {
+      "tick": 11140,
+      "seq": 44,
+      "command": {
+        "type": "custom-node",
+        "nodeId": "G01-2"
+      }
+    },
+    {
+      "tick": 11140,
+      "seq": 45,
+      "command": {
+        "type": "choose",
+        "offerId": 18,
+        "nodeId": "G01-2"
+      }
+    },
+    {
+      "tick": 11403,
+      "seq": 46,
+      "command": {
+        "type": "cast"
+      }
+    }
+  ],
+  "digest": "5b8b72b663f0683918330e90413741bb3d1dcc382e30168858d888ba3a6ee8d7",
+  "report": {
+    "subject": "C06-C",
+    "budget": 4,
+    "stageId": "S03",
+    "seed": 101,
+    "squad": [
+      "C06",
+      "C02",
+      "C03",
+      "C04",
+      "C05"
+    ],
+    "treeCount": 3,
+    "outcome": "victory",
+    "seconds": 412.8,
+    "bossSeconds": 48.03333333333333,
+    "wallLoss": 120,
+    "wallHp": 880,
+    "shieldAbsorbed": 240,
+    "subjectDamage": 12200.855054999985,
+    "subjectShieldDamage": 1001.3699999999998,
+    "subjectControlSeconds": 0,
+    "teamDamage": 81630.40000000002,
+    "peakEnemies": 17,
+    "choices": 18,
+    "evolutions": 3,
+    "subjectNodes": 4,
+    "plan": [
+      "C06-C:0",
+      "C03-B:0",
+      "C05-B:0",
+      "C06-C:1",
+      "C03-B:1",
+      "C05-B:1",
+      "C06-C:2",
+      "C03-B:2",
+      "C05-B:2",
+      "C06-C:4",
+      "C03-B:4",
+      "C05-B:4",
+      "C02-A:0",
+      "C02-A:1",
+      "C04-A:0",
+      "C04-A:1",
+      "G01-1",
+      "G01-2"
+    ],
+    "recovered": true
+  }
+}

@@ -89,7 +89,10 @@ export function drawProjectile(g: Graphics, p: Projectile, run: RunState, origin
     trailX = x - p.vx * .048; trailY = y - p.vy * .048;
   }
   const color = p.enemyDamage ? 0xff654e : id === 'C01' ? 0x76f6ff : colorOf(id);
-  if (id === 'C05') {
+  if(p.packet?.skill==='micro-missile'){
+    line(g,[{x:trailX,y:trailY},{x,y}],0xffcf76,3,.9);polygon(g,x,y,6,3,0xfff3c8,1,Math.atan2(p.ty-from.y,p.tx-from.x));
+    glow(g,x,y,8,0xffb65c,.4);
+  } else if (id === 'C05') {
     const r = evolved && w?.branch === 'B' ? 11 : 7;
     glow(g, x, y, r * 1.5, 0xff9b36, .9);
     line(g, [{ x: trailX, y: trailY }, { x, y }], 0xff8246, r * 1.9, .85);
@@ -115,11 +118,13 @@ export function drawEffect(g: Graphics, fx: ActiveEffect, now: number, detail: D
   // Hold the readable silhouette, then dissipate; no simulation or cooldown delay.
   const a = t < .28 ? 1 : Math.pow((1 - t) / .72, 1.25);
   const c = colorOf(e.source), compact = detail === 'compact', evolved = e.weaponRank === 3, branch = e.weaponBranch;
-  const from = e.y === 490 ? origin(e.source, e.x2) : { x: e.x, y: e.y }, to = { x: e.x2 ?? e.x, y: e.y2 ?? e.y };
+  const baseOrigin = origin(e.source,e.x2);
+  const from = e.y === 490 ? {...baseOrigin,x:baseOrigin.x+(e.source==='C06'?e.x-195:0)} : { x: e.x, y: e.y }, to = { x: e.x2 ?? e.x, y: e.y2 ?? e.y };
   if (e.kind === 'shot') {
     const p = origin(e.source, e.x2);
     muzzle(g, p, to, e.source === 'C05' ? 0xffaa4a : 0x70f6ff, a, e.source === 'C05'); burst(g, p.x, p.y, (e.source === 'C05' ? 20 : 13) * (1 + t * .3), e.source === 'C01' ? 0x9bffff : c, a, compact ? 4 : 7);
-    if (evolved && e.source === 'C01' && branch === 'A') for (let i = -1; i <= 1; i++) line(g, [p, { x: p.x + i * 12, y: p.y - 20 }], 0xb0ffff, 1.5, a);
+    if(e.weaponTree==='C01-C')reticle(g,to.x,to.y,14+t*7,c,a);
+    if (evolved && e.source === 'C01' && branch === 'A' && e.weaponTree!=='C01-C') for (let i = -1; i <= 1; i++) line(g, [p, { x: p.x + i * 12, y: p.y - 20 }], 0xb0ffff, 1.5, a);
   } else if (e.kind === 'beam' || e.kind === 'arc') {
     if (e.y === 490) muzzle(g, from, to, c, a, e.source === 'C03');
     glow(g, to.x, to.y, e.source === 'C03' ? 16 : 11, c, a);

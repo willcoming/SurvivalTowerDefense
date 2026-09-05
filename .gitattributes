@@ -1,0 +1,2 @@
+# Keep the original test runner output, including its trailing blank line.
+artifacts/validation/free-skills/rules-final.log whitespace=-blank-at-eof

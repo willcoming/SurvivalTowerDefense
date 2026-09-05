@@ -1,0 +1,197 @@
+{
+  "evidence": "Isolated high-HP target fixture; real automatic weapon, simulation damage and real-time render loop trigger the hit. Frozen canvas captured at least 150 ms after the impact.",
+  "initial": {
+    "seq": 7,
+    "hp": 300000
+  },
+  "hit": {
+    "kind": "hit",
+    "x": 195,
+    "y": 280,
+    "value": 13.95,
+    "source": "C04",
+    "color": "#60d5b9",
+    "targetId": 6,
+    "enemyDefId": "E03",
+    "skill": "weapon",
+    "weaponRank": 0,
+    "weaponBranch": null,
+    "seq": 8,
+    "tick": 23
+  },
+  "paused": {
+    "tick": 27,
+    "view": {
+      "clock": 931,
+      "poses": {
+        "C04": {
+          "frame": 1,
+          "seen": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C04"
+        }
+      },
+      "forms": [
+        "C04-base"
+      ],
+      "skills": [],
+      "hitTypes": [
+        "E03"
+      ],
+      "deathTypes": [
+        "E02",
+        "E01"
+      ],
+      "activeCorpses": 0,
+      "corpseIds": [],
+      "hurtIds": [
+        6
+      ],
+      "maxCorpses": 4,
+      "aliveImages": 3,
+      "enemyMotions": [
+        {
+          "id": 5,
+          "type": "E03",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 2.2,
+          "clock": 1070,
+          "releases": 0,
+          "texture": "enemy-motion-E03"
+        },
+        {
+          "id": 6,
+          "type": "E03",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 2.2,
+          "clock": 1107,
+          "releases": 0,
+          "texture": "enemy-motion-E03"
+        },
+        {
+          "id": 7,
+          "type": "E03",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 2.2,
+          "clock": 1144,
+          "releases": 0,
+          "texture": "enemy-motion-E03"
+        }
+      ],
+      "enemyHistory": {
+        "E02": {
+          "modes": [
+            "idle",
+            "move"
+          ],
+          "frames": [
+            0,
+            3,
+            4
+          ],
+          "releases": 0
+        },
+        "E01": {
+          "modes": [
+            "idle",
+            "move"
+          ],
+          "frames": [
+            0,
+            5,
+            6
+          ],
+          "releases": 0
+        },
+        "E03": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0,
+            1
+          ],
+          "releases": 0
+        }
+      },
+      "cutin": {
+        "visible": false,
+        "id": null,
+        "age": null,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      },
+      "statuses": [
+        {
+          "id": 6,
+          "states": [
+            "slow"
+          ]
+        }
+      ],
+      "burnNumbers": [],
+      "bossIntro": null,
+      "range": null,
+      "detail": "full",
+      "activeEffects": 2,
+      "peakEffects": 2,
+      "warnings": {
+        "visible": false,
+        "text": "",
+        "top": 21.1640625,
+        "bottom": 48.8359375,
+        "depth": 100,
+        "geometryDepth": 90
+      },
+      "textureFrames": {
+        "C04": 6
+      },
+      "effectsDepth": 9,
+      "alliesDepth": 7,
+      "visibleEffects": [
+        {
+          "seq": 8,
+          "kind": "hit",
+          "source": "C04",
+          "age": 151,
+          "duration": 260
+        },
+        {
+          "seq": 9,
+          "kind": "explosion",
+          "source": "C04",
+          "age": 151,
+          "duration": 380
+        }
+      ],
+      "hostileProjectileImages": 0,
+      "enemyTextureFrames": {
+        "E01": 12,
+        "E02": 12,
+        "E03": 12,
+        "E04": 12,
+        "E05": 12,
+        "E06": 12,
+        "E07": 12,
+        "E08": 12,
+        "B03": 12
+      }
+    },
+    "hp": 299986.05
+  },
+  "errors": []
+}

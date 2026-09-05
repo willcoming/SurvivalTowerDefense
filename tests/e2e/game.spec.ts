@@ -9,7 +9,7 @@ import type { BattleScene } from '../../src/game/scene';
 
 interface BrowserApi {
   state(): RunState | null; getSave(): GameSave; command(command: Command): boolean;
-  ticks(count: number): void; start(config: RunConfig): Promise<void>; save(): Promise<void>; route(page: string): void;
+  ticks(count: number): void; start(config: RunConfig, contentVersion?: string): Promise<void>; save(): Promise<void>; route(page: string): void;
   presentation(): ReturnType<BattleScene['diagnostics']>;
 }
 declare global { interface Window { __game: BrowserApi; __rafPending: number } }
@@ -23,10 +23,11 @@ async function ready(page: Page) {
   await page.goto('/');
   await page.waitForFunction(() => !!window.__game);
 }
-async function startUi(page: Page) {
+async function startUi(page: Page, previous=false) {
   await page.locator('[data-action="intel"]').click();
   await page.locator('.action-bar [data-action="roster"]').click();
   await page.locator('[data-action="start"]').click();
+  if(previous)await page.evaluate(()=>window.__game.start(window.__game.state()!.config,'0.2.0-dev.1'));
   await page.locator('#battle-loading').waitFor({ state: 'detached', timeout: 30000 });
   await page.locator('[data-action="tutorial-done"]').first().click();
   await expect(page.locator('#battle-canvas canvas')).toBeVisible();
@@ -53,17 +54,20 @@ test('AC01/02: fresh local game, all six characters, legal squad and three respo
   }
   await page.locator('.main-nav [data-action="codex"]').click();
   await expect(page.locator('.character-tabs button')).toHaveCount(6);
-  await expect(page.locator('.route-columns article')).toHaveCount(2);
+  await expect(page.locator('.route-columns article')).toHaveCount(3);
   expect(errors).toEqual([]);
 });
 
 test('AC05/06/09: real draft, reroll, reload preservation, explicit card confirmation and pause', async ({ page }, info) => {
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
-  await ready(page); await startUi(page);
+  await ready(page); await startUi(page,true);
   await page.evaluate(() => window.__game.ticks(1200));
   await expect(page.locator('.upgrade-dialog')).toBeVisible();
-  await page.locator('#focus-character').selectOption('C05');
-  await page.locator('#focus-branch').selectOption('B');
+  await page.locator('[data-action="tree-open"]').click();
+  await page.locator('[data-action="tree-character"][data-id="C05"]').click();
+  await page.locator('[data-action="tree-tab"][data-id="C05-B"]').click();
+  await page.locator('[data-action="tree-node"][data-id="C05-B:0"]').click();
+  await page.locator('[data-action="tree-candidate"]').click();
   await page.locator('[data-action="reroll"]').click();
   const before = await page.evaluate(async () => { await window.__game.save(); return structuredClone(window.__game.state()!); });
   await page.reload(); await page.waitForFunction(() => !!window.__game);
@@ -76,7 +80,7 @@ test('AC05/06/09: real draft, reroll, reload preservation, explicit card confirm
   expect(after.enemies).toEqual(before.enemies); expect(after.weapons).toEqual(before.weapons);
   expect(after.tacticalReadyAt).toBe(before.tacticalReadyAt);
   await expect(page.locator('[data-action="confirm-card"]')).toBeDisabled();
-  await page.locator('.upgrade-card').first().click();
+  await page.locator('.upgrade-card[data-action="select-card"]').first().click();
   expect(await page.evaluate(() => window.__game.state()!.choicesSpent)).toBe(before.choicesSpent);
   await page.screenshot({ path: `${output}/screenshots/${info.project.name}-upgrade.png`, fullPage: true });
   await page.locator('[data-action="confirm-card"]').click();
@@ -113,7 +117,7 @@ test('AC06/UI05: mobile landscape suspends combat and returning portrait keeps e
   await expect(page.locator('.pause-dialog')).toHaveCount(0);
 });
 
-test('BAL05/AC07/12: browser replays a legitimate complete win and survives five consecutive menu returns', async ({ page }, info) => {
+test('BAL05/AC07/12: browser replays a legitimate legacy complete win and survives five consecutive menu returns', async ({ page }, info) => {
   test.setTimeout(90000);
   await page.addInitScript(() => {
     window.__rafPending = 0;
@@ -138,7 +142,7 @@ test('BAL05/AC07/12: browser replays a legitimate complete win and survives five
     expect(expected.outcome).toBe('victory');
     const actual = await page.evaluate(async ({ config, actions }) => {
       const api = window.__game;
-      const start = api.start(config);
+      const start = api.start(config,'0.1.0-dev.3');
       const state = api.state()!;
       api.command({ type: 'pause', reason: 'user' });
       await start;
@@ -203,13 +207,13 @@ test('SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore t
   await expect(speed).toHaveText('3×');
   expect(await page.evaluate(() => window.__game.state()!.tick)).toBe(paused.tick);
   await page.locator('[data-action="resume"]').click();
-  await expect(page.locator('.upgrade-dialog')).toBeVisible({ timeout: 12000 });
+  await expect(page.locator('.deep-panel')).toBeVisible({ timeout: 12000 });
   const draft = await page.evaluate(() => structuredClone(window.__game.state()!));
   await page.waitForTimeout(400);
   const stillDraft = await page.evaluate(() => structuredClone(window.__game.state()!));
   expect(stillDraft.tick).toBe(draft.tick); expect(stillDraft.draft).toEqual(draft.draft);
-  await page.locator('.upgrade-card').first().click();
-  await page.locator('[data-action="confirm-card"]').click();
+  await page.locator('[data-action="deep-owner"][data-id="common"]').click();
+  for(const id of ['TEAM/0','TEAM/1']){await page.locator(`[data-action="deep-node"][data-id="${id}"]`).click();await page.locator('[data-action="buy-node"]').click();}
   await expect(speed).toHaveText('3×');
   await page.setViewportSize({ width: 320, height: 640 });
   await page.waitForTimeout(100);

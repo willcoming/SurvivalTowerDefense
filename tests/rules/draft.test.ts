@@ -1,5 +1,6 @@
+import { createRun } from '../helpers/legacy-run';
 import { describe, expect, it } from 'vitest';
-import { command, createRun, stepRun } from '../../src/sim/engine';
+import { command, stepRun } from '../../src/sim/engine';
 import { ROUTES } from '../../src/data/content';
 import type { CharacterId, RunState } from '../../src/sim/types';
 

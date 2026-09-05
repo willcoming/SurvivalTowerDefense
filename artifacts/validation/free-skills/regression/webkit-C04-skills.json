@@ -1,0 +1,829 @@
+{
+  "evidence": "Real-time legal initial battles and DOM skill casts; no combat fixture edits.",
+  "samples": [
+    {
+      "speed": 1,
+      "before": {
+        "tick": 269,
+        "clock": 8999,
+        "poses": {
+          "C04": {
+            "frame": 0,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C04"
+          }
+        },
+        "forms": [
+          "C04-base"
+        ],
+        "skills": [
+          "C04"
+        ],
+        "hitTypes": [
+          "E01"
+        ],
+        "deathTypes": [],
+        "activeCorpses": 0,
+        "corpseIds": [],
+        "hurtIds": [],
+        "maxCorpses": 0,
+        "aliveImages": 6,
+        "enemyMotions": [
+          {
+            "id": 1,
+            "type": "E01",
+            "mode": "move",
+            "frame": 6,
+            "pose": "move-5",
+            "fps": 4,
+            "clock": 9036,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 2,
+            "type": "E01",
+            "mode": "move",
+            "frame": 7,
+            "pose": "move-6",
+            "fps": 4,
+            "clock": 9073,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 3,
+            "type": "E01",
+            "mode": "move",
+            "frame": 2,
+            "pose": "move-1",
+            "fps": 4,
+            "clock": 9110,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 4,
+            "type": "E01",
+            "mode": "move",
+            "frame": 5,
+            "pose": "move-4",
+            "fps": 4,
+            "clock": 4152,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 5,
+            "type": "E01",
+            "mode": "move",
+            "frame": 6,
+            "pose": "move-5",
+            "fps": 4,
+            "clock": 4189,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 6,
+            "type": "E01",
+            "mode": "move",
+            "frame": 7,
+            "pose": "move-6",
+            "fps": 4,
+            "clock": 4226,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          }
+        ],
+        "enemyHistory": {
+          "E01": {
+            "modes": [
+              "idle",
+              "move"
+            ],
+            "frames": [
+              0,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "releases": 0
+          }
+        },
+        "cutin": {
+          "visible": true,
+          "id": "C04",
+          "age": 664,
+          "duration": 1200,
+          "top": 323,
+          "bottom": 435,
+          "depth": 20
+        },
+        "statuses": [
+          {
+            "id": 1,
+            "states": [
+              "slow"
+            ]
+          },
+          {
+            "id": 2,
+            "states": [
+              "slow"
+            ]
+          },
+          {
+            "id": 3,
+            "states": [
+              "slow"
+            ]
+          },
+          {
+            "id": 4,
+            "states": [
+              "slow"
+            ]
+          },
+          {
+            "id": 5,
+            "states": [
+              "slow"
+            ]
+          },
+          {
+            "id": 6,
+            "states": [
+              "slow"
+            ]
+          }
+        ],
+        "burnNumbers": [],
+        "bossIntro": null,
+        "range": null,
+        "detail": "full",
+        "activeEffects": 1,
+        "peakEffects": 9,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1640625,
+          "bottom": 48.8359375,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C04": 6
+        },
+        "effectsDepth": 9,
+        "alliesDepth": 7,
+        "visibleEffects": [
+          {
+            "seq": 15,
+            "kind": "tactical",
+            "source": "C04",
+            "age": 664,
+            "duration": 1500
+          }
+        ],
+        "hostileProjectileImages": 0,
+        "enemyTextureFrames": {
+          "E01": 12,
+          "E02": 12,
+          "E03": 12,
+          "E05": 12,
+          "B01": 12
+        }
+      },
+      "after": {
+        "tick": 295,
+        "clock": 9848,
+        "poses": {
+          "C04": {
+            "frame": 0,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C04"
+          }
+        },
+        "forms": [
+          "C04-base"
+        ],
+        "skills": [
+          "C04"
+        ],
+        "hitTypes": [
+          "E01"
+        ],
+        "deathTypes": [],
+        "activeCorpses": 0,
+        "corpseIds": [],
+        "hurtIds": [],
+        "maxCorpses": 0,
+        "aliveImages": 6,
+        "enemyMotions": [
+          {
+            "id": 1,
+            "type": "E01",
+            "mode": "move",
+            "frame": 3,
+            "pose": "move-2",
+            "fps": 4,
+            "clock": 9885,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 2,
+            "type": "E01",
+            "mode": "move",
+            "frame": 4,
+            "pose": "move-3",
+            "fps": 4,
+            "clock": 9922,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 3,
+            "type": "E01",
+            "mode": "move",
+            "frame": 5,
+            "pose": "move-4",
+            "fps": 4,
+            "clock": 9959,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 4,
+            "type": "E01",
+            "mode": "move",
+            "frame": 2,
+            "pose": "move-1",
+            "fps": 4,
+            "clock": 5001,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 5,
+            "type": "E01",
+            "mode": "move",
+            "frame": 3,
+            "pose": "move-2",
+            "fps": 4,
+            "clock": 5038,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 6,
+            "type": "E01",
+            "mode": "move",
+            "frame": 4,
+            "pose": "move-3",
+            "fps": 4,
+            "clock": 5075,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          }
+        ],
+        "enemyHistory": {
+          "E01": {
+            "modes": [
+              "idle",
+              "move"
+            ],
+            "frames": [
+              0,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "releases": 0
+          }
+        },
+        "cutin": {
+          "visible": false,
+          "id": "C04",
+          "age": 1513,
+          "duration": 1200,
+          "top": 323,
+          "bottom": 435,
+          "depth": 20
+        },
+        "statuses": [
+          {
+            "id": 1,
+            "states": [
+              "slow"
+            ]
+          },
+          {
+            "id": 2,
+            "states": [
+              "slow"
+            ]
+          },
+          {
+            "id": 3,
+            "states": [
+              "slow"
+            ]
+          },
+          {
+            "id": 4,
+            "states": [
+              "slow"
+            ]
+          },
+          {
+            "id": 5,
+            "states": [
+              "slow"
+            ]
+          },
+          {
+            "id": 6,
+            "states": [
+              "slow"
+            ]
+          }
+        ],
+        "burnNumbers": [],
+        "bossIntro": null,
+        "range": null,
+        "detail": "full",
+        "activeEffects": 0,
+        "peakEffects": 9,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1640625,
+          "bottom": 48.8359375,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C04": 6
+        },
+        "effectsDepth": 9,
+        "alliesDepth": 7,
+        "visibleEffects": [],
+        "hostileProjectileImages": 0,
+        "enemyTextureFrames": {
+          "E01": 12,
+          "E02": 12,
+          "E03": 12,
+          "E05": 12,
+          "B01": 12
+        }
+      }
+    },
+    {
+      "speed": 3,
+      "before": {
+        "tick": 65,
+        "clock": 824,
+        "poses": {
+          "C04": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C04"
+          },
+          "C01": {
+            "frame": 1,
+            "seen": [
+              0,
+              1
+            ],
+            "texture": "motion-C01"
+          },
+          "C02": {
+            "frame": 0,
+            "seen": [
+              0,
+              1
+            ],
+            "texture": "motion-C02"
+          },
+          "C03": {
+            "frame": 5,
+            "seen": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C03"
+          },
+          "C05": {
+            "frame": 0,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C05"
+          }
+        },
+        "forms": [
+          "C03-base",
+          "C05-base"
+        ],
+        "skills": [
+          "C04"
+        ],
+        "hitTypes": [
+          "E01"
+        ],
+        "deathTypes": [
+          "E01"
+        ],
+        "activeCorpses": 1,
+        "corpseIds": [
+          1
+        ],
+        "hurtIds": [],
+        "maxCorpses": 1,
+        "aliveImages": 2,
+        "enemyMotions": [
+          {
+            "id": 2,
+            "type": "E01",
+            "mode": "move",
+            "frame": 4,
+            "pose": "move-3",
+            "fps": 7,
+            "clock": 898,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 3,
+            "type": "E01",
+            "mode": "move",
+            "frame": 5,
+            "pose": "move-4",
+            "fps": 7,
+            "clock": 935,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          }
+        ],
+        "enemyHistory": {
+          "E01": {
+            "modes": [
+              "move"
+            ],
+            "frames": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "releases": 0
+          }
+        },
+        "cutin": {
+          "visible": true,
+          "id": "C04",
+          "age": 651,
+          "duration": 1200,
+          "top": 323,
+          "bottom": 435,
+          "depth": 20
+        },
+        "statuses": [
+          {
+            "id": 2,
+            "states": [
+              "slow"
+            ]
+          },
+          {
+            "id": 3,
+            "states": [
+              "slow"
+            ]
+          }
+        ],
+        "burnNumbers": [
+          {
+            "value": 4,
+            "text": "燃 4",
+            "born": 447
+          }
+        ],
+        "bossIntro": null,
+        "range": null,
+        "detail": "full",
+        "activeEffects": 6,
+        "peakEffects": 9,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1640625,
+          "bottom": 48.8359375,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C04": 6,
+          "C01": 6,
+          "C02": 6,
+          "C03": 6,
+          "C05": 6
+        },
+        "effectsDepth": 9,
+        "alliesDepth": 7,
+        "visibleEffects": [
+          {
+            "seq": 17,
+            "kind": "hit",
+            "source": "C03",
+            "age": 115,
+            "duration": 260
+          },
+          {
+            "seq": 18,
+            "kind": "death",
+            "source": "C03",
+            "age": 115,
+            "duration": 360
+          },
+          {
+            "seq": 15,
+            "kind": "shot",
+            "source": "C05",
+            "age": 200,
+            "duration": 220
+          },
+          {
+            "seq": 16,
+            "kind": "beam",
+            "source": "C03",
+            "age": 115,
+            "duration": 300
+          },
+          {
+            "seq": 19,
+            "kind": "explosion",
+            "source": "C05",
+            "age": 51,
+            "duration": 460
+          },
+          {
+            "seq": 10,
+            "kind": "tactical",
+            "source": "C04",
+            "age": 651,
+            "duration": 1500
+          }
+        ],
+        "hostileProjectileImages": 0,
+        "enemyTextureFrames": {
+          "E01": 12,
+          "E02": 12,
+          "E03": 12,
+          "E05": 12,
+          "B01": 12
+        }
+      },
+      "after": {
+        "tick": 142,
+        "clock": 1675,
+        "poses": {
+          "C04": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C04"
+          },
+          "C01": {
+            "frame": 1,
+            "seen": [
+              0,
+              1
+            ],
+            "texture": "motion-C01"
+          },
+          "C02": {
+            "frame": 1,
+            "seen": [
+              0,
+              1
+            ],
+            "texture": "motion-C02"
+          },
+          "C03": {
+            "frame": 0,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C03"
+          },
+          "C05": {
+            "frame": 4,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C05"
+          }
+        },
+        "forms": [
+          "C03-base",
+          "C05-base"
+        ],
+        "skills": [
+          "C04"
+        ],
+        "hitTypes": [
+          "E01"
+        ],
+        "deathTypes": [
+          "E01"
+        ],
+        "activeCorpses": 0,
+        "corpseIds": [],
+        "hurtIds": [
+          2,
+          3
+        ],
+        "maxCorpses": 1,
+        "aliveImages": 2,
+        "enemyMotions": [
+          {
+            "id": 2,
+            "type": "E01",
+            "mode": "move",
+            "frame": 4,
+            "pose": "move-3",
+            "fps": 7,
+            "clock": 1749,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          },
+          {
+            "id": 3,
+            "type": "E01",
+            "mode": "move",
+            "frame": 5,
+            "pose": "move-4",
+            "fps": 7,
+            "clock": 1786,
+            "releases": 0,
+            "texture": "enemy-motion-E01"
+          }
+        ],
+        "enemyHistory": {
+          "E01": {
+            "modes": [
+              "move"
+            ],
+            "frames": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "releases": 0
+          }
+        },
+        "cutin": {
+          "visible": false,
+          "id": "C04",
+          "age": 1502,
+          "duration": 1200,
+          "top": 323,
+          "bottom": 435,
+          "depth": 20
+        },
+        "statuses": [
+          {
+            "id": 2,
+            "states": [
+              "slow",
+              "burn"
+            ]
+          },
+          {
+            "id": 3,
+            "states": [
+              "slow",
+              "burn"
+            ]
+          }
+        ],
+        "burnNumbers": [
+          {
+            "value": 4,
+            "text": "燃 4",
+            "born": 1441
+          },
+          {
+            "value": 4,
+            "text": "燃 4",
+            "born": 1441
+          }
+        ],
+        "bossIntro": null,
+        "range": null,
+        "detail": "full",
+        "activeEffects": 2,
+        "peakEffects": 9,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1640625,
+          "bottom": 48.8359375,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C04": 6,
+          "C01": 6,
+          "C02": 6,
+          "C03": 6,
+          "C05": 6
+        },
+        "effectsDepth": 9,
+        "alliesDepth": 7,
+        "visibleEffects": [
+          {
+            "seq": 23,
+            "kind": "explosion",
+            "source": "C05",
+            "age": 403,
+            "duration": 460
+          },
+          {
+            "seq": 31,
+            "kind": "shot",
+            "source": "C05",
+            "age": 53,
+            "duration": 220
+          }
+        ],
+        "hostileProjectileImages": 0,
+        "enemyTextureFrames": {
+          "E01": 12,
+          "E02": 12,
+          "E03": 12,
+          "E05": 12,
+          "B01": 12
+        }
+      }
+    }
+  ],
+  "errors": []
+}

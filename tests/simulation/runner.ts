@@ -1,5 +1,6 @@
+import { createRun } from '../helpers/legacy-run';
 import { createHash } from 'node:crypto';
-import { command, createRun, stepRun } from '../../src/sim/engine';
+import { command, stepRun } from '../../src/sim/engine';
 import type { Command, RunConfig, RunState } from '../../src/sim/types';
 import { cardPriority, castDecision, configFor, POLICY_VERSION, rankOf, type BuildPolicy } from './policies';
 

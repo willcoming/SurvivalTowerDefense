@@ -1,0 +1,245 @@
+{
+  "method": "Normal initial cooldown, real XP and legal purchases via simulation ticks; subsequent UI manual/auto cast and real-time rendering. No HP, enemy, cooldown or XP mutations.",
+  "rows": [
+    {
+      "captainId": "C01",
+      "speed": 1,
+      "initial": {
+        "rejected": false,
+        "deadline": 1350,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1351,
+      "cutin": {
+        "visible": true,
+        "id": "C01",
+        "age": 699,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captainId": "C01",
+      "speed": 3,
+      "initial": {
+        "rejected": false,
+        "deadline": 1350,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1356,
+      "cutin": {
+        "visible": true,
+        "id": "C01",
+        "age": 668,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captainId": "C02",
+      "speed": 1,
+      "initial": {
+        "rejected": false,
+        "deadline": 1500,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1505,
+      "cutin": {
+        "visible": true,
+        "id": "C02",
+        "age": 652,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captainId": "C02",
+      "speed": 3,
+      "initial": {
+        "rejected": false,
+        "deadline": 1500,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1506,
+      "cutin": {
+        "visible": true,
+        "id": "C02",
+        "age": 685,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captainId": "C03",
+      "speed": 1,
+      "initial": {
+        "rejected": false,
+        "deadline": 1350,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1355,
+      "cutin": {
+        "visible": true,
+        "id": "C03",
+        "age": 658,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captainId": "C03",
+      "speed": 3,
+      "initial": {
+        "rejected": false,
+        "deadline": 1350,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1358,
+      "cutin": {
+        "visible": true,
+        "id": "C03",
+        "age": 658,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captainId": "C04",
+      "speed": 1,
+      "initial": {
+        "rejected": false,
+        "deadline": 1500,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1503,
+      "cutin": {
+        "visible": true,
+        "id": "C04",
+        "age": 668,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captainId": "C04",
+      "speed": 3,
+      "initial": {
+        "rejected": false,
+        "deadline": 1500,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1507,
+      "cutin": {
+        "visible": true,
+        "id": "C04",
+        "age": 652,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captainId": "C05",
+      "speed": 1,
+      "initial": {
+        "rejected": false,
+        "deadline": 1500,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1504,
+      "cutin": {
+        "visible": true,
+        "id": "C05",
+        "age": 675,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captainId": "C05",
+      "speed": 3,
+      "initial": {
+        "rejected": false,
+        "deadline": 1500,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1504,
+      "cutin": {
+        "visible": true,
+        "id": "C05",
+        "age": 670,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captainId": "C06",
+      "speed": 1,
+      "initial": {
+        "rejected": false,
+        "deadline": 1500,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1505,
+      "cutin": {
+        "visible": true,
+        "id": "C06",
+        "age": 696,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captainId": "C06",
+      "speed": 3,
+      "initial": {
+        "rejected": false,
+        "deadline": 1500,
+        "casts": [],
+        "earned": 0
+      },
+      "first": 1505,
+      "cutin": {
+        "visible": true,
+        "id": "C06",
+        "age": 700,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    }
+  ]
+}

@@ -49,10 +49,9 @@ describe('AC09/SAVE01–06 · complete reproducible local snapshots', () => {
     expect(save).toEqual(createDefaultSave());
     save.preferences.battleSpeed = 3; save.preferences.autoTactical = true;
     save.activeRun = run();
-    save.activeRun.choicesEarned = 1;
+    save.activeRun.xp = 60;save.activeRun.choicesEarned = 2;
     stepRun(save.activeRun);
-    command(save.activeRun, { type: 'focus', characterId: 'C05', branch: 'B' });
-    command(save.activeRun, { type: 'reroll', offerId: save.activeRun.draft!.id });
+    command(save.activeRun, { type: 'buy-node', offerId: save.activeRun.draft!.id, nodeId: 'C05-B/0' });
     await repository.save(save);
     const recovered = await repository.load();
     expect(recovered.activeRun).toEqual(save.activeRun);

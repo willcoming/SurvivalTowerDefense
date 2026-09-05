@@ -15,15 +15,15 @@ describe('AC02/AC11 · valid squads and one legal tactical', () => {
   });
   it('only C06 may cast without a target and no failed cast consumes cooldown', () => {
     for (const captain of CHARACTER_IDS) {
-      const state = base(captain); state.enemies = [];
+      const state = base(captain); state.enemies = []; state.tick=state.tacticalReadyAt;
       expect(command(state, { type: 'cast' })).toBe(captain === 'C06');
-      expect(state.tacticalReadyAt > 0).toBe(captain === 'C06');
+      expect(state.tacticalReadyAt > state.tick).toBe(captain === 'C06');
       expect(state.stats.casts.length).toBe(captain === 'C06' ? 1 : 0);
       expect(state.wallHp).toBe(1000);
     }
   });
   it('cannot cast twice in one tick or while paused, and no-skill challenge rejects at core API', () => {
-    const state = base('C06');
+    const state = base('C06');state.tick=state.tacticalReadyAt;
     expect(command(state, { type: 'cast' })).toBe(true);
     expect(command(state, { type: 'cast' })).toBe(false);
     const paused = base('C06'); command(paused, { type: 'pause', reason: 'user' });
@@ -32,7 +32,7 @@ describe('AC02/AC11 · valid squads and one legal tactical', () => {
     expect(command(challenge, { type: 'cast' })).toBe(false);
   });
   it('C01 tactical deals its four bursts exactly at cast tick, +6, +12 and +18', () => {
-    const state = base('C01'); state.enemies = []; state.weapons = []; state.spawnPlan = []; state.spawnCursor = 0;
+    const state = base('C01'); state.enemies = []; state.weapons = []; state.spawnPlan = []; state.spawnCursor = 0;state.tacticalReadyAt=0;
     const target = createEnemy(state, 'E01', 195, 150); target.speed = 0;
     expect(command(state, { type: 'cast' })).toBe(true);
     expect(target.hp).toBe(105);
@@ -43,11 +43,8 @@ describe('AC02/AC11 · valid squads and one legal tactical', () => {
     }
     expect(state.stats.damageByCharacter.C01).toBe(140);
   });
-  it('only offers status extension when a currently owned weapon or tactical can apply status', () => {
-    expect(getLegalNodeIds(base('C01'))).not.toContain('G06-1');
-    expect(getLegalNodeIds(base('C03'))).not.toContain('G06-1');
-    expect(getLegalNodeIds(base('C02'))).toContain('G06-1');
-    expect(getLegalNodeIds(base('C06'))).toContain('G06-1');
+  it('offers all three shared entries for every solo character without legacy common cards', () => {
+    for(const id of CHARACTER_IDS){const legal=getLegalNodeIds(base(id));expect(legal).toEqual(expect.arrayContaining(['TEAM/0','TEAM/4','TEAM/8']));expect(legal.some(id=>id.startsWith('G'))).toBe(false);}
   });
 });
 

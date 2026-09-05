@@ -1,138 +1,76 @@
-# 正式構築測試策略
+# 構築研究與測試策略
 
-政策版本：`policy-v3`（原`policy-v1`及`comparison-v2`結果保留）。資料來源：MVP_SPEC §7、§9.3、§16.2，EXECUTION_PLAN P26–P28。政策修訂在重新正式執行前固定；通關證據另存版本化JSON。本政策僅透過正式玩家命令選牌、聚焦、E切換、重抽及施放技能，不能更改XP、血量、冷卻、敵人或時間。
+**現行政策：free-skills-v1 · 內容版本 0.3.0-dev.1 · 2026-09-05**
 
-## 1. 共同條件
+本頁說明已執行的自由技能樹研究與重現方式。0.2 的 840 場政策見 [歷史技能樹研究](SKILL_TREE_BALANCE.md)，原 A/B 的 T01–T03、18 次選卡與錯配對照見 [歷史測試政策](history/TEST_POLICIES_AB.md)。
 
-- 正式stage為S03，seed固定 `101,211,307,401,503,601,709,809,907,1009`；各流派全跑10局，失敗也保留。
-- 五人初始HP1000、shield0、無永久面板；18個選擇上限、3次免費重抽、最多3把E、無挑戰。
-- 30Hz固定步進；只能在遊戲允許的時點發正式命令。模擬沒有顯示等待，可立即選牌，但選牌期間不推進有效時計。
-- 先記錄contentVersion、policyVersion、版本雜湊與完整政策設定。數值或政策變更後重新完整跑30局，不能拼接不同版結果。
-- 政策只讀玩家可見的目前狀態（敵人血盾、位置/蓄力、技能冷卻、卡牌/名額/焦點），不讀未來波次排程或未消耗RNG，以免形成隱藏資訊優勢。
+## 1. 正式關卡矩陣
 
-## 2. 三套隊伍、路線與18次預算
+25 個角色終極 × 受測角色投入 **5／7 點** × S01／S02／S03 × 十個固定種子，共 **1,500 場**。種子固定為 `101, 211, 307, 401, 503, 601, 709, 809, 907, 1009`；失敗也納入輸出。
 
-| buildId | squadIds（亦為顯示順序） | captainId | 三核心E優先順序 | 支援到II優先順序 | 最後通用偏好 |
-| --- | --- | --- | --- | --- | --- |
-| T01 | C01,C02,C04,C05,C06 | C02 | C02-A → C01-A → C05-A | C04-B → C06-A | G06 |
-| T02 | C01,C02,C03,C04,C06 | C03 | C03-B → C01-B → C06-A | C02-A → C04-B | G04 |
-| T03 | C02,C03,C04,C05,C06 | C04 | C04-A → C05-A → C06-B | C02-A → C03-B | G06 |
+每場五人、相同基礎戰力、全隊 24 點。受測角色擔任隊長，隊友由固定優先序 C03、C05、C02、C06、C04、C01 排除本人後補滿。同角色不同終極與兩種預算使用相同隊伍；跨角色比較會改變隊伍，不能視為只改一個技能的嚴格對照。
 
-預算：核心三路I/II/E共9次；兩支援I/II共4次；G01×2與G02×2共4次；上表通用偏好1次，共18次。此為**選卡優先目標**，並不聲稱隨機非保底必能取得所有9個非核心選擇。只要候選不符就依固定備選規則選合法卡，真實報告保存實際構築。支援角色不得取得E占核心名額；任何核心角色不得換成另一分支。
+政策來源：[deep-build.ts](../tests/helpers/deep-build.ts)。取得順序如下：
 
-## 3. 保證構築的選擇政策
+1. 依前置建立受測終極的五點路徑；遇「任一前置」時固定取第一條合法路徑。
+2. 另由 `C03-B/8`、`C05-B/7`、`C02-A/9` 固定順序挑選兩個在隊伍內且不屬受測角色的終極。
+3. 三位核心交錯配點，各花五點取得終極，共十五點。
+4. 7 點組再投資受測角色另一條樹的前兩個普通節點；5 點組不額外投資受測角色。追加點數從同一全隊預算扣除。
+5. 依序配置防線工程 `TEAM/0–3`、戰術協同 `TEAM/8–11`，不足 24 點再投資非核心支援的普通節點，總計恰好 24 點。
 
-三把E都從合法I/II取得。重點是聚焦回合先取得仍缺的核心前置，避免把稀有聚焦機會用在隨後每輪都會保底的E。
+這是固定代表性構築，並非窮舉全部自由選點。政策不依戰果臨時更換目標，也不以未消耗 RNG 預知結果；雖然玩家可看未來部署情報，本政策的配點仍為事先固定。
 
-**候選格一致性釐清（2026-09-04）：**原規格的「保底與聚焦去重後補滿三格」和「切换聚焦／E時一般格完全不變」在重合後再分開時無法同時成立：兩張一般卡加上兩個不同保底會變成四張。因此實作選擇保留最多三張、唯一ID與一般格穩定：同一輪同時具備聚焦及E保底時，固定一個一般格；保底與聚焦重合時顯示兩張，分開時顯示三張。聚焦回合的一般池亦排除所有可切換的聚焦節點，避免切換後撞牌。此為明确的規格釐清，不能把它描述成原文「必補滿三格」完全不變。仍須完成一次選擇，無額外免費升級。
+## 2. 執行、恢復與判準
 
-```text
-onDraft(state, offer):
-  assert state.spentChoices < 18
-  corePrep = 第一個依核心優先序 rank < II 的角色
-  readyCore = 依核心優先序的全部合法ready E
+正式研究使用 [validate-free-skills.ts](../scripts/validate-free-skills.ts)：正常建立戰局，以正式 `buy-node`／`cast` 命令與逐 tick 規則運算，依真實擊殺取得 XP。不修改防線 HP、經驗、敵人、出場時間或傷害。
 
-  if offer是聚焦回合 and corePrep存在:
-    SetFocus(corePrep角色, 固定核心分支)
-    若現有E格存在，SelectReadyEvolution(readyCore中優先者) # 不選也不花
-    ChooseUpgrade(焦點提供的核心I/II)
-    return
+隊長採遊戲自動施放策略，等待初始冷卻完成且場上有敵人才施放。配點時暫停；純模擬以正式命令完成 Boss 登場，不等待 1.5 秒現實演出，因此模擬報告時間只代表有效戰鬥時間，演出時長另由瀏覽器驗證。
 
-  if readyCore存在:
-    SelectReadyEvolution(優先者)
-    ChooseUpgrade(該E)
-    return
+每場在第 7 點執行完整保存／恢復並比較序列化狀態。各終極 × 兩預算的 S03／seed 101 另做全命令重播，共 50 份，比較排除 runId 後的完整狀態雜湊。
 
-  if offer是聚焦回合:
-    焦點選第一位尚未到II的既定支援角色
-    （沒有支援前置可取時，選仍有合法節點的核心；不得選非核心E）
+腳本的可玩性門檻為：每個終極至少有一個「預算 × 關卡」組達到 80% 通關；恢復皆一致，所有勝利樣本全隊用完 24 點且受測角色符合 5／7 點。**本輪實際結果較門檻更高：1,500／1,500 全勝**。腳本不是要求每個組合必須 100% 通關，不能將實際觀察改寫為永久驗收門檻。
 
-  rank offered cards:
-    1. 固定核心路線下一個I/II，按核心優先序
-    2. G01，直到rank2
-    3. G02，直到rank2
-    4. 固定支援下一個I/II，按支援優先序
-    5. build最後通用偏好，直到rank1
-    6. 合法備選通用依 G04 → G06 → G03 → G05，最多2級
+輸出保留每場終極、樹、預算、關卡、種子、勝負、花點、時間、防線損傷、Boss 擊殺時間、角色傷害、控制、護盾吸收、修復與恢復結果；重播保留配置、完整命令及摘要。原始結果為 [balance.json](../artifacts/validation/free-skills/balance.json)。
 
-  if 有順位1..5的牌: ChooseUpgrade(最優先者)
-  else if 有有效可變random slot且rerolls>0:
-    Reroll(offerId)；重新rank，但不改build、路線、核心E目標
-  else if 有順位6的牌: ChooseUpgrade(最優先者)
-  else if pool為空: ChooseUpgrade(完成校準)
-  else:
-    選最低ID的合法非E且不違反固定分支的牌
-    如果仍不存在，記錄 policy-no-legal-card 為真實驗收失敗，不改規則逃過
+## 3. 200 個診斷探針
+
+[probe-free-skills.ts](../scripts/probe-free-skills.ts) 使用每個終極五點前置路徑，測試八種各 40 秒的合成情境：散開連鎖、重甲、直線、Boss、護盾、重甲 Boss、20% 生命目標、加兩位未升級輸出隊友。
+
+探針會人工設置 XP、停止正常出場、建立高生命且基礎速度為零的敵人，不施放隊長技能；控制仍可能移動目標。它可用來觀察連鎖、穿透、處決、護盾及支援的機制價值，**不屬合法完整關卡通關**。結果分開存於 [matchups.json](../artifacts/validation/free-skills/matchups.json)，不得加進 1,500 場勝率。
+
+## 4. 如何解讀與繼續研究
+
+全勝代表這些固定構築具可玩性，無法單靠勝率判斷每條樹的價值。強力隊友可能掩蓋受測技能差異；跨角色隊伍不同，控制也可能以降低傷害換取防線安全。因此同時比較傷害、控制、防線損失、Boss 時間、護盾與修復，不將單一 DPS 當作通用總分。
+
+本輪保留 14 條樹各 8–12 節點的不對稱設計。是否調整總數，後續先提出可驗證假說：在同角色、同隊友、同種子及相同點數下，哪些節點提供不同但有用的決策？若需要降低隊友遮蔽，先登錄另一組固定隊友與判準，再執行，不事後挑有利樣本。
+
+真人部分觀察是否看懂前置、能否從敵情選反制、選擇所需時間、是否反覆找不到想要的機制。搭配理由與操作負擔需實際玩家資料，使用 [外部測試表](EXTERNAL_PLAYTEST.md)，目前尚未完成。
+
+## 5. 重現命令
+
+以下命令已存在於 package scripts。需要保留本次資料時，先給新輸出目錄；不要覆寫既有交付結果。
+
+```sh
+npm run typecheck
+npm run test:rules
+VALIDATION_OUTPUT_DIR=artifacts/validation/free-skills-rerun npm run test:simulation
+VALIDATION_OUTPUT_DIR=artifacts/validation/free-skills-rerun npm run test:tree-matchups
+VALIDATION_OUTPUT_DIR=artifacts/validation/free-skills-rerun/browser E2E_PORT=5174 npm run test:e2e
+npm run build
+VALIDATION_OUTPUT_DIR=artifacts/validation/free-skills-rerun/assets npm run test:assets
 ```
 
-穩定tie-break一律使用固定角色/通用優先序，最後按nodeId字典序。既定分支可在局前寫入preferredBranches，不增加面板。
+另開 `npm run preview` 後，從另一終端執行 `VALIDATION_OUTPUT_DIR=artifacts/validation/free-skills-rerun/production npm run test:production`。E2E 使用獨立測試瀏覽器，預設 dev 埠 5173，與已開 preview 並行時改用 5174。首次可用 `npx playwright install chromium webkit` 安裝測試瀏覽器。
 
-最低保底可行例（假設一般格從未補到核心）：1主力1-I、4主力1-II、5主力1-E；7主力2-I、10主力2-II、11主力2-E；13主力3-I、16主力3-II、17主力3-E。其餘2/3/6/8/9/12/14/15/18用於非核心合法選擇。若一般格先給核心前置，後續焦點改選下一位尚缺前置的核心；因此不依賴幸運抽中才有三E。每次都以實際offer的合法性為準。
+| 命令 | 用途與限制 |
+| --- | --- |
+| `npm run test:simulation -- --quick` | 單種子的 150 場探索，輸出 exploratory，不代替十種子的正式結果 |
+| `npm run test:free:e2e` | 自由技能樹專項瀏覽器案例；完整回歸用 test:e2e |
+| `npm run test:performance` | 舊純模擬壓力工具，不取代目前 3× 活動戰鬥瀏覽器壓測 |
+| `npm run test:simulation:v2`／`test:tree-matchups:v2` | 保留 0.2 技能樹研究；使用獨立輸出目錄 |
+| `npm run test:simulation:legacy` | 保留原 A/B 政策，不代表新版平衡 |
+| `npx tsx scripts/export-free-skill-spec.ts` | 從現行節點資料生成 FREE_SKILL_NODES.md |
+| `npx tsx scripts/verify-free-release.ts` | 核對本輪指定報告、案例合併與來源雜湊，重寫 release-summary；不執行測試，亦非任意輸出目錄的通用驗證器 |
+| `npx tsx scripts/report-free-skill-validation.ts` | 讀取已收集資料產生研究 Markdown；不產生新測量 |
 
-## 4. 隊長技能固定政策
-
-所有條件在每個tick處理命令前檢查。沒有合法目標、暫停、未就緒或已終局時不送cast。單tick最多一次；施放成功才記錄tick。條件由上往下，第一個符合即施放。距離防線使用可見y值，Boss可見蓄力讀剩餘時間；不預知傷害結果。
-
-### T01／C02 電磁靜默
-
-1. 可被暈眩的Boss正在蓄力且剩餘≤15ticks，施放打斷。
-2. 任何孢子砲手蓄力剩餘≤15ticks，或有至少3名敵人進入y≥410，施放。
-3. Boss尚未出現且場上至少8名敵人，施放清群。
-4. Boss已出現，且當前沒有Boss蓄力，場上至少8名敵人且距上次cast≥完整冷卻＋10s，施放（避免無限留技）。
-
-### T02／C03 核心貫擊
-
-**policy-v3正式政策：**技能就緒且存在合法目標即施放。此項根據policy-v1同seed實驗修正，避免等待曝露反而延後擊破Boss。以下保留原`timed`政策作CMP02/CMP04/CMP05基線，不刪除歷史條件：
-
-1. Boss存活且有曝露，施放。目標仍依正式技能規則選最大HP，不能直接指定低血怪。
-2. Boss存活、盾=0，距上次cast≥完整冷卻＋6s，施放，避免等待不存在的窗口。
-3. Boss尚未出現且場上有精英或鐵脊重裝體HP≥120，並且該敵y≥250或正在衝刺蓄力，施放。
-4. Boss尚未出現且有任一敵人y≥410，施放。
-
-### T03／C04 時差力場
-
-1. 可受位移的Boss正在蓄力且剩餘≤15ticks，施放打斷，保留原定曝露窗口。
-2. 任何砲手蓄力剩餘≤15ticks，或至少3名敵人y≥370，施放。
-3. Boss尚未出現，至少8名敵人且至少一名在y≥300，施放。
-
-控制免疫狀態屬圖鑑及狀態可讀資訊。如果UI不展示Boss控制恢復狀態，正式政策只能改為看蓄力直接嘗試，並以此重跑整個政策版本，不讓agent使用UI不可得的隱藏資訊。
-
-## 5. 事前標記的錯配基線
-
-若正式結果有真實失敗，优先以最小seed失敗局與合法單項調整重跑，調整另有policyVersion並報告。若各seed全勝，可用以下事先固定的錯配基線，不捏造原本不存在的失敗：
-
-| comparisonId | 固定seed | 基線 | 調整 |
-| --- | --- | --- | --- |
-| CMP01 | 101 | T01同隊、同路線、三E預算，技能ready且有敵人就施放 | 正式T01的蓄力打斷／防線壓力施放政策 |
-| CMP02 | 211 | T02同隊、同路線，技能ready且有敵人就施放 | 正式T02曝露窗口／破甲對象時機政策 |
-| CMP03 | 307 | T03同隊、同路線，技能ready且有敵人就施放 | 正式T03控制與蓄力時機政策 |
-
-以上只是可驗證的假說。若改善不足20%且不是敗轉勝，報告該對照失敗，不能換分母或刪除結果。可以根據失敗來源另提出事前固定的合法錯配（改角色/路線/技能時機），在執行新的一對測試前更新政策和版本；兩邊均保留。同seed、同初始面板、相同波表是必要条件，兩邊選卡差異必須来自記錄中的合法選擇，不能補發卡。
-
-防線傷害定義為DamageApplied事件實際HP損失總和，不包含護盾吸收；補強卡增加HP不能抹去已承受傷害。公式 `improvement = (baselineHpDamage - adjustedHpDamage) / baselineHpDamage`，baseline為0時比例不適用，不能宣稱100%改善。失敗→成功独立成立。
-
-### 5.1 已觀察結果後事前新增的路線對照
-
-`comparison-v2`，宣告於執行 CMP04 前。內容 `0.1.0-dev.2` 的原三項真實結果為：CMP01達25%改善、CMP03達30%改善；CMP02未成立（立即施放240點防線傷害、原定時機政策360點，改善率-50%）。保留CMP02失敗，不以刪除它的方式滿足驗收。
-
-新增 **CMP04**：固定seed211、T02五人與C03隊長相同，兩邊都使用T02定時技能政策、原18次選擇與3E預算。基線只將核心 `C03-B` 改為 `C03-A`（仍按原核心優先序），調整版維持原T02。事前假說：以單體B路替換穿透A路，可縮短Boss戰並減少防線承受的Boss攻擊。是否成立由實際結果決定；若未達20%或敗轉勝，仍標為失敗。
-
-新的對照報告保留四組全部結果，且計算通過組数；三組通過才滿足原規格，不要求這個新增假說必通過。兩邊同初始面板、同波表的雜湊需一致。新增對照政策版本不修改正式三流派的`policy-v1`。
-
-### 5.2 根據實驗修正T02時機
-
-宣告於CMP05與policy-v3正式重跑前。CMP04已實測：穿透A413.47秒/360傷害，單體B404.13秒/360傷害，0%防線改善，保留失敗。CMP02已顯示過度保留技能的反向結果，因此新增 **CMP05**，固定seed211、相同T02隊伍／路線／面板，基線使用原timed政策，調整版使用ready即施放；事前假說為縮短等待與Boss攻擊時間，可降低至少20%防線傷害。重新執行兩邊驗證，不直接將舊結果反算當作新實驗。
-
-正式T02改採即時施放後，全部三流派30局使用`policy-v3`重跑。五組對照全保留，CMP02/CMP04維持原條件；驗收需要至少三組不同流派的合法調整通過。歷史失敗不因新政策而改名為成功。
-
-## 6. 正式輸出契約
-
-### dev.3 射程更新對照（comparison-v4，執行 CMP06 前宣告）
-
-首次 dev.3 正式執行中三流派皆 10/10 通關，但 CMP02、CMP04、CMP05 的兩邊均承受 360 防線傷害，未達改善門檻；原結果保留於 `artifacts/validation/combat-readability/formal/`，不修改敵人、波次或門檻來取得通過。
-
-新增 **CMP06**：固定 S03 / seed 211、同 T02 隊伍與 C03 隊長，兩邊都採技能即時施放、18 選及 3E。基線將第三把單體主力的進化預算改給控場：核心順序為 `C04-A, C01-B, C06-A`，支援為 `C02-A, C03-B`；調整版維持 T02 `C03-B, C01-B, C06-A`、支援 `C02-A, C04-B`。假說：面對 Boss，控場偏重且 C03 停在 II 的搭配，應比保留 C03-B-E 單體火力更慢，承受更多防線傷害。只比較合法選牌所得的結果；仍以同初始面板／波表、至少 20% 防線傷害改善或敗轉勝判定。未成立也保留，不改用擊殺時間作通過標準。
-
-每局輸出：`contentVersion, policyVersion, buildId, seed, initialSnapshotDigest, stageId, squadIds, captainId, preferredBranches, challengeId, choices[{tick,index,offerId,nodeId}], casts[{tick,reason}], rerolls, focusChanges, readyEvolutionChanges, commandLog, outcome, endTick, wallHp, wallMaxHp, wallHpDamage, wallShieldAbsorbed, evolvedRoutes, characterDamage, wallDamageByEnemy, controls, failureReason`。
-
-每套彙總成功數／10及核心E實際完成比例，附全部失敗的原因。正式30局報告需要對照目前source/data版本，不能在調參後保留舊passed標记。瀏覽器代表性重播使用同commandLog，不能把console直接寫入勝利狀態當完成流程。
+瀏覽器案例合併、性能負載與正式版 smoke 的適用界線見 [驗收矩陣](VALIDATION_MATRIX.md)及[交付報告](DELIVERY.md)。

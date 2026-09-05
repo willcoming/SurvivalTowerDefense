@@ -1,0 +1,13 @@
+
+> starfall-defense@0.1.0 test:rules
+> vitest run tests/rules tests/storage
+
+
+ RUN  v5.0.0 /Users/willcoming/code/SurvivalTowerDefense
+
+
+ Test Files  13 passed (13)
+      Tests  254 passed (254)
+   Start at  11:46:49
+   Duration  1.15s (tests 59%, transform 31%, import 9%, worker 1%)
+

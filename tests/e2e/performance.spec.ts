@@ -3,6 +3,7 @@ import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { arch, cpus, platform, release } from 'node:os';
+import { buildPlan } from '../helpers/deep-build';
 import { CONTENT_VERSION } from '../../src/data/content';
 const output = process.env.VALIDATION_OUTPUT_DIR ?? `artifacts/validation/${CONTENT_VERSION}`;
 function sourceFiles(dir: string): string[] { return readdirSync(dir, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? sourceFiles(resolve(dir, entry.name)) : [resolve(dir, entry.name)]).sort(); }
@@ -15,13 +16,11 @@ for (const dynamic of [false, true]) test(`PERF01: desktop Chromium 60s ${dynami
   const sourceDigest = createHash('sha256').update(JSON.stringify(sourceFiles(resolve('src')).map(path => [path.replace(`${process.cwd()}/`, ''), readFileSync(path, 'utf8')]))).digest('hex');
   await page.goto('/');
   await page.waitForFunction(() => !!window.__game);
-  await page.locator('[data-action="intel"]').click();
-  await page.locator('.action-bar [data-action="roster"]').click();
-  await page.locator('[data-action="start"]').click();
+  await page.evaluate(squadIds=>window.__game.start({stageId:'S01',squadIds,captainId:'C01',seed:101}),buildPlan('C01-A/9',5).squad);
   await page.locator('#battle-loading').waitFor({ state: 'detached', timeout: 30000 });
   await expect(page.locator('#battle-canvas canvas')).toBeVisible();
   await page.addStyleTag({ content: '.modal-backdrop{display:none!important}' });
-  const fixture = await page.evaluate(async () => {
+  const fixture = await page.evaluate(async plan => {
     const modulePath = '/src/sim/combat.ts';
     const { createEnemy } = await import(modulePath);
     const state = window.__game.state()!;
@@ -30,11 +29,13 @@ for (const dynamic of [false, true]) test(`PERF01: desktop Chromium 60s ${dynami
     for (let i = 0; i < 120; i++) createEnemy(state, i === 119 ? 'B01' : i % 2 ? 'E02' : 'E01', 37 + i % 10 * 34, 38 + Math.floor(i / 10) * 32, 0, 9);
     for (let i = 0; i < 400; i++) state.projectiles.push({ id: state.nextEntityId++, x: 20 + i % 20 * 18, y: 30 + Math.floor(i / 20) * 21, tx: 195, ty: 200, vx: 0, vy: 0, expires: 999999, hitIds: [], remaining: 1, falloff: [1], radius: 4, blastRadius: 0, packet: { source: 'C01', skill: 'stress', raw: 1, damageType: 'plasma', armorIgnore: 0, shieldMultiplier: 1 }, enemyDamage: 0, enemySource: null, impactAt: 0 });
     for (let i = 0; i < 12; i++) state.fields.push({ id: state.nextEntityId++, source: i % 2 ? 'C04' : 'C05', kind: i % 2 ? 'gravity' : 'fire', x: 65 + i % 3 * 120, y: 80 + Math.floor(i / 3) * 95, radius: 45, expires: 999999, nextTick: 999999, dps: 1, damageType: 'thermal', slow: 0, slowDuration: 0, pull: 0, burnDuration: 0, armorIgnore: 0 });
-    for (const w of state.weapons.slice(0, 3)) { w.branch = 'A'; w.rank = 3; }
-    state.evolvedCount = 3;
+    const enginePath='/src/sim/engine.ts',draftPath='/src/sim/draft.ts';const {command}=await import(enginePath),{openDraft}=await import(draftPath);
+    command(state,{type:'pause',reason:'user'});command(state,{type:'resume',reason:'tutorial'});
+    state.xp=720;state.choicesEarned=24;openDraft(state);
+    for(const nodeId of plan)if(!command(state,{type:'buy-node',offerId:state.draft!.id,nodeId}))throw new Error('Invalid render fixture');
     state.enemies.at(-1)!.chargeKind = 'boss'; state.enemies.at(-1)!.chargeUntil = 999999;
     return { enemies: state.enemies.length, visibleProjectiles: state.projectiles.length, fields: state.fields.length, bossId: 'B01', stageId: state.config.stageId, pausedSimulation: true };
-  });
+  },buildPlan('C01-A/9',5).plan);
   await page.waitForTimeout(500);
   const renderer = await page.evaluate(() => {
     const canvas = document.querySelector<HTMLCanvasElement>('#battle-canvas canvas');

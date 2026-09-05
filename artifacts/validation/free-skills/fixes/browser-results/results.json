@@ -1,0 +1,402 @@
+{
+  "config": {
+    "argv": [
+      "/Users/willcoming/.hermes/node/bin/node",
+      "/Users/willcoming/code/SurvivalTowerDefense/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/free-skills.spec.ts",
+      "tests/e2e/enemy-motion.spec.ts",
+      "--grep",
+      "all six captain|320–1440|stun freezes"
+    ],
+    "configFile": "/Users/willcoming/code/SurvivalTowerDefense/playwright.config.ts",
+    "rootDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/free-skills/fixes/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/free-skills/fixes/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "artifacts/validation/free-skills/fixes/browser-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev -- --host 0.0.0.0 --port 5175 --strictPort",
+      "url": "http://127.0.0.1:5175",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "enemy-motion.spec.ts",
+      "file": "enemy-motion.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ENEMY: stun freezes every pose, compact effects retain gait, pause and saved charge restore correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5455,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T03:52:11.017Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c5133239e06d3c91b9e-026f67ff80c9525e53da",
+          "file": "enemy-motion.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "ENEMY: stun freezes every pose, compact effects retain gait, pause and saved charge restore correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4150,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T03:52:30.158Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c5133239e06d3c91b9e-64c90c6aacfb7a596cd0",
+          "file": "enemy-motion.spec.ts",
+          "line": 45,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "free-skills.spec.ts",
+      "file": "free-skills.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "FREE: 320–1440 layouts, asymmetric graphs and all common routes stay accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3226,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T03:52:16.716Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f6d1a29231a206e6178a-97fc77ba054e35a11ddd",
+          "file": "free-skills.spec.ts",
+          "line": 66,
+          "column": 1
+        },
+        {
+          "title": "FREE: all six captain animations cast after real initial cooldown at 1× and 3×",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 9451,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[1mMatcher error\u001b[22m: \u001b[31mreceived\u001b[39m value must be a number or bigint\n\nReceived has value: \u001b[31mundefined\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[1mMatcher error\u001b[22m: \u001b[31mreceived\u001b[39m value must be a number or bigint\n\nReceived has value: \u001b[31mundefined\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/free-skills.spec.ts:132:142",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/free-skills.spec.ts",
+                      "column": 142,
+                      "line": 132
+                    },
+                    "snippet": "  130 |       const view=api.presentation();return view.cutin.visible&&view.cutin.age>=650&&view.skills.includes(id);\n  131 |     },captainId,{timeout:7000});\n> 132 |     const view=await page.evaluate(()=>({first:window.__game.state()!.stats.casts[0],view:window.__game.presentation()}));expect(view.first).toBeGreaterThanOrEqual(initial.deadline);expect(view.view.cutin.duration).toBe(1200);expect(view.view.warnings.depth).toBeGreaterThan(view.view.cutin.depth);\n      |                                                                                                                                              ^\n  133 |     await page.screenshot({path:`${dir}/screenshots/${info.project.name}-${captainId}-cold-skill-${speed}x.png`});rows.push({captainId,speed,initial,first:view.first,cutin:view.view.cutin});\n  134 |     if(speed===3)await auto.click();\n  135 |   }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/free-skills.spec.ts",
+                        "column": 142,
+                        "line": 132
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[1mMatcher error\u001b[22m: \u001b[31mreceived\u001b[39m value must be a number or bigint\n\nReceived has value: \u001b[31mundefined\u001b[39m\n\n  130 |       const view=api.presentation();return view.cutin.visible&&view.cutin.age>=650&&view.skills.includes(id);\n  131 |     },captainId,{timeout:7000});\n> 132 |     const view=await page.evaluate(()=>({first:window.__game.state()!.stats.casts[0],view:window.__game.presentation()}));expect(view.first).toBeGreaterThanOrEqual(initial.deadline);expect(view.view.cutin.duration).toBe(1200);expect(view.view.warnings.depth).toBeGreaterThan(view.view.cutin.depth);\n      |                                                                                                                                              ^\n  133 |     await page.screenshot({path:`${dir}/screenshots/${info.project.name}-${captainId}-cold-skill-${speed}x.png`});rows.push({captainId,speed,initial,first:view.first,cutin:view.view.cutin});\n  134 |     if(speed===3)await auto.click();\n  135 |   }\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/free-skills.spec.ts:132:142"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T03:52:19.949Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/free-skills/fixes/browser-results/test-output/free-skills-FREE-all-six-c-d7ab5-itial-cooldown-at-1×-and-3×-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/free-skills/fixes/browser-results/test-output/free-skills-FREE-all-six-c-d7ab5-itial-cooldown-at-1×-and-3×-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/free-skills/fixes/browser-results/test-output/free-skills-FREE-all-six-c-d7ab5-itial-cooldown-at-1×-and-3×-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/free-skills.spec.ts",
+                    "column": 142,
+                    "line": 132
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "f6d1a29231a206e6178a-d57edf55e44da7afffd4",
+          "file": "free-skills.spec.ts",
+          "line": 111,
+          "column": 1
+        },
+        {
+          "title": "FREE: 320–1440 layouts, asymmetric graphs and all common routes stay accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2188,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T03:52:34.479Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f6d1a29231a206e6178a-98d88f0f3fd282ce4f8b",
+          "file": "free-skills.spec.ts",
+          "line": 66,
+          "column": 1
+        },
+        {
+          "title": "FREE: all six captain animations cast after real initial cooldown at 1× and 3×",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2749,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[1mMatcher error\u001b[22m: \u001b[31mreceived\u001b[39m value must be a number or bigint\n\nReceived has value: \u001b[31mundefined\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[1mMatcher error\u001b[22m: \u001b[31mreceived\u001b[39m value must be a number or bigint\n\nReceived has value: \u001b[31mundefined\u001b[39m\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/free-skills.spec.ts:132:142",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/free-skills.spec.ts",
+                      "column": 142,
+                      "line": 132
+                    },
+                    "snippet": "  130 |       const view=api.presentation();return view.cutin.visible&&view.cutin.age>=650&&view.skills.includes(id);\n  131 |     },captainId,{timeout:7000});\n> 132 |     const view=await page.evaluate(()=>({first:window.__game.state()!.stats.casts[0],view:window.__game.presentation()}));expect(view.first).toBeGreaterThanOrEqual(initial.deadline);expect(view.view.cutin.duration).toBe(1200);expect(view.view.warnings.depth).toBeGreaterThan(view.view.cutin.depth);\n      |                                                                                                                                              ^\n  133 |     await page.screenshot({path:`${dir}/screenshots/${info.project.name}-${captainId}-cold-skill-${speed}x.png`});rows.push({captainId,speed,initial,first:view.first,cutin:view.view.cutin});\n  134 |     if(speed===3)await auto.click();\n  135 |   }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/free-skills.spec.ts",
+                        "column": 142,
+                        "line": 132
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[1mMatcher error\u001b[22m: \u001b[31mreceived\u001b[39m value must be a number or bigint\n\nReceived has value: \u001b[31mundefined\u001b[39m\n\n  130 |       const view=api.presentation();return view.cutin.visible&&view.cutin.age>=650&&view.skills.includes(id);\n  131 |     },captainId,{timeout:7000});\n> 132 |     const view=await page.evaluate(()=>({first:window.__game.state()!.stats.casts[0],view:window.__game.presentation()}));expect(view.first).toBeGreaterThanOrEqual(initial.deadline);expect(view.view.cutin.duration).toBe(1200);expect(view.view.warnings.depth).toBeGreaterThan(view.view.cutin.depth);\n      |                                                                                                                                              ^\n  133 |     await page.screenshot({path:`${dir}/screenshots/${info.project.name}-${captainId}-cold-skill-${speed}x.png`});rows.push({captainId,speed,initial,first:view.first,cutin:view.view.cutin});\n  134 |     if(speed===3)await auto.click();\n  135 |   }\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/free-skills.spec.ts:132:142"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T03:52:36.671Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/free-skills/fixes/browser-results/test-output/free-skills-FREE-all-six-c-d7ab5-itial-cooldown-at-1×-and-3×-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/free-skills/fixes/browser-results/test-output/free-skills-FREE-all-six-c-d7ab5-itial-cooldown-at-1×-and-3×-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/free-skills/fixes/browser-results/test-output/free-skills-FREE-all-six-c-d7ab5-itial-cooldown-at-1×-and-3×-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/free-skills.spec.ts",
+                    "column": 142,
+                    "line": 132
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "f6d1a29231a206e6178a-6c53be64b54f6d2d6e51",
+          "file": "free-skills.spec.ts",
+          "line": 111,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-05T03:52:10.350Z",
+    "duration": 29225.955,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

@@ -57,8 +57,8 @@ test('READABILITY: portrait range selection, waiting, build access and responsiv
   await page.locator('#range-C03').click(); await expect(page.locator('#range-info')).toContainText('射程內有目標');
   await expect(page.locator('#range-C02')).toHaveAttribute('aria-pressed', 'false');
   await page.locator('#range-C03').click(); await expect(page.locator('#range-info')).toHaveText('點選角色查看射程');
-  await page.locator('.range-toolbar [data-action="view-build"]').click(); await expect(page.locator('.inline-build')).toBeVisible();
-  await page.locator('[data-action="resume"]').click(); await page.locator('#range-C02').click();
+  await page.locator('.range-toolbar [data-action="view-build"]').click(); await expect(page.locator('.tree-panel')).toBeVisible();
+  await page.locator('[data-action="tree-close"]').click(); await page.locator('#range-C02').click();
   const layouts = [];
   for (const width of [320, 768, 1024, 1440]) {
     // A portrait touch screen at small widths, desktop viewport at large widths.

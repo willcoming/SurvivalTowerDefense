@@ -1,0 +1,1379 @@
+{
+  "contentVersion": "0.2.0-dev.1",
+  "createdAt": "2026-09-04T17:39:57.093431+00:00",
+  "rules": {
+    "passed": 204,
+    "failed": 0,
+    "artifact": "artifacts/validation/skill-trees/rules-release.log"
+  },
+  "balance": {
+    "formalRuns": 840,
+    "wins": 840,
+    "saveRoundtrips": 840,
+    "exactCommandReplays": 28,
+    "matchupProbes": 70,
+    "policy": "skill-trees-v2",
+    "sourceDigest": "579595e2ecf2594f820d6db2d000c0bbcb4769193453e0a5236ef23de8d89805",
+    "artifact": "artifacts/validation/skill-trees/balance.json"
+  },
+  "browser": {
+    "latestUniqueResults": {
+      "passed": 133,
+      "skipped": 3
+    },
+    "initialFullRun": {
+      "passed": 130,
+      "failed": 1,
+      "skipped": 3
+    },
+    "followup": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 1
+    },
+    "note": "Initial synthetic field count failure fixed by independent field sources; rerun passed. Followup also adds Chromium and WebKit three-stage new-tree replays. Three unique skipped tests are Chromium-only performance cases on WebKit. Results are merged by test/browser, not a claim of one clean full invocation.",
+    "tests": [
+      {
+        "file": "animation-performance.spec.ts",
+        "title": "ANIM PERF: 60 seconds of live 3× simulation and animation under synthetic peak density",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/release-check/browser-results/results.json"
+      },
+      {
+        "file": "animation-performance.spec.ts",
+        "title": "ANIM PERF: 60 seconds of live 3× simulation and animation under synthetic peak density",
+        "browser": "webkit",
+        "status": "skipped",
+        "artifact": "artifacts/validation/skill-trees/release-check/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C01: six real sprite poses, skill at 1× and 3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C02: six real sprite poses, skill at 1× and 3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C03: six real sprite poses, skill at 1× and 3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C04: six real sprite poses, skill at 1× and 3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C05: six real sprite poses, skill at 1× and 3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C06: six real sprite poses, skill at 1× and 3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM: pause freezes animation and refresh does not replay an old skill",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C01-A: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C01-B: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C02-A: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C02-B: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C03-A: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C03-B: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C04-A: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C04-B: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C05-A: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C05-B: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C06-A: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C06-B: evolution form rendered at 1×/3×",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM: all eight enemy types and three bosses react and collapse",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM: 3× pressure and reduced effects preserve charging warnings above skills",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM: final boss collapse plays before the victory result",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM: final boss collapse can be interrupted by reload without losing the win",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C01: six real sprite poses, skill at 1× and 3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C02: six real sprite poses, skill at 1× and 3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C03: six real sprite poses, skill at 1× and 3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C04: six real sprite poses, skill at 1× and 3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C05: six real sprite poses, skill at 1× and 3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C06: six real sprite poses, skill at 1× and 3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM: pause freezes animation and refresh does not replay an old skill",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C01-A: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C01-B: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C02-A: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C02-B: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C03-A: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C03-B: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C04-A: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C04-B: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C05-A: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C05-B: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C06-A: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM C06-B: evolution form rendered at 1×/3×",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM: all eight enemy types and three bosses react and collapse",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM: 3× pressure and reduced effects preserve charging warnings above skills",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM: final boss collapse plays before the victory result",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "animation.spec.ts",
+        "title": "ANIM: final boss collapse can be interrupted by reload without losing the win",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C01 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C01 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C02 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C02 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C03 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C03 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C04 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C04 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C05 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C05 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C06 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C06 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C01 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C01 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C02 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C02 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C03 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C03 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C04 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C04 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C05 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C05 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C06 1×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "attack-impact.spec.ts",
+        "title": "IMPACT C06 3×: actual hits remain readable above characters and freeze on pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "auto-tactical.spec.ts",
+        "title": "AUTO: toggle casts on cooldown, waits for targets, pauses, saves and keeps manual control",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "auto-tactical.spec.ts",
+        "title": "AUTO: all six captains cast through normal gameplay; preference carries into a skill-disabled challenge",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "auto-tactical.spec.ts",
+        "title": "AUTO: toggle casts on cooldown, waits for targets, pauses, saves and keeps manual control",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "auto-tactical.spec.ts",
+        "title": "AUTO: all six captains cast through normal gameplay; preference carries into a skill-disabled challenge",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S01 1×: entrance holds simulation for 1.5 real seconds",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S01 3×: entrance holds simulation for 1.5 real seconds",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S02 1×: entrance holds simulation for 1.5 real seconds",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S02 3×: entrance holds simulation for 1.5 real seconds",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S03 1×: entrance holds simulation for 1.5 real seconds",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S03 3×: entrance holds simulation for 1.5 real seconds",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY: portrait range selection, waiting, build access and responsive controls",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY: real AoE victims, attached status cues, actual burn numbers and field expiry",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY: interrupted entrance saves remaining time, resumes once and keeps auto skill deferred",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S01 1×: entrance holds simulation for 1.5 real seconds",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S01 3×: entrance holds simulation for 1.5 real seconds",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S02 1×: entrance holds simulation for 1.5 real seconds",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S02 3×: entrance holds simulation for 1.5 real seconds",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S03 1×: entrance holds simulation for 1.5 real seconds",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY S03 3×: entrance holds simulation for 1.5 real seconds",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY: portrait range selection, waiting, build access and responsive controls",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY: real AoE victims, attached status cues, actual burn numbers and field expiry",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "combat-readability.spec.ts",
+        "title": "READABILITY: interrupted entrance saves remaining time, resumes once and keeps auto skill deferred",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S03 1×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S03 3×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S01 1×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S01 3×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S02 1×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S02 3×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY: stun freezes every pose, compact effects retain gait, pause and saved charge restore correctly",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S03 1×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S03 3×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S01 1×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S01 3×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S02 1×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY S02 3×: real frames follow movement, idle, anticipation and actual attacks",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "enemy-motion.spec.ts",
+        "title": "ENEMY: stun freezes every pose, compact effects retain gait, pause and saved charge restore correctly",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "AC01/02: fresh local game, all six characters, legal squad and three responsive widths",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "AC05/06/09: real draft, reroll, reload preservation, explicit card confirmation and pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "AC09: denied storage is explicit and allows temporary play without fake saved status",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "AC06/UI05: mobile landscape suspends combat and returning portrait keeps explicit user pause",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "BAL05/AC07/12: browser replays a legitimate legacy complete win and survives five consecutive menu returns",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore the local preference",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "AC01/02: fresh local game, all six characters, legal squad and three responsive widths",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "AC05/06/09: real draft, reroll, reload preservation, explicit card confirmation and pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "AC09: denied storage is explicit and allows temporary play without fake saved status",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "AC06/UI05: mobile landscape suspends combat and returning portrait keeps explicit user pause",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "BAL05/AC07/12: browser replays a legitimate legacy complete win and survives five consecutive menu returns",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "game.spec.ts",
+        "title": "SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore the local preference",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "performance.spec.ts",
+        "title": "PERF01: desktop Chromium 60s paused synthetic render pressure, separately labeled from real-phone verification",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "performance.spec.ts",
+        "title": "PERF01: desktop Chromium 60s dynamic synthetic render pressure, separately labeled from real-phone verification",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "performance.spec.ts",
+        "title": "PERF01: desktop Chromium 60s paused synthetic render pressure, separately labeled from real-phone verification",
+        "browser": "webkit",
+        "status": "skipped",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "performance.spec.ts",
+        "title": "PERF01: desktop Chromium 60s dynamic synthetic render pressure, separately labeled from real-phone verification",
+        "browser": "webkit",
+        "status": "skipped",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "skill-trees.spec.ts",
+        "title": "TREE: real earned upgrade, locked preview, separate confirmation, cross-tree candidate and restored random slots",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "skill-trees.spec.ts",
+        "title": "TREE: four picks unlock terminal, other terminal locks, remaining ordinary nodes stay available; 18-pick fixture",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "skill-trees.spec.ts",
+        "title": "TREE: read-only inspection freezes 3×, restores existing pause, survives reload and is keyboard-contained",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "skill-trees.spec.ts",
+        "title": "TREE: narrow and wide layouts keep controls inside screen and graph scrollable",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "skill-trees.spec.ts",
+        "title": "TREE: resumed dev.3 save still renders and accepts A/B upgrades",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "skill-trees.spec.ts",
+        "title": "TREE: real earned upgrade, locked preview, separate confirmation, cross-tree candidate and restored random slots",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "skill-trees.spec.ts",
+        "title": "TREE: four picks unlock terminal, other terminal locks, remaining ordinary nodes stay available; 18-pick fixture",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "skill-trees.spec.ts",
+        "title": "TREE: read-only inspection freezes 3×, restores existing pause, survives reload and is keyboard-contained",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "skill-trees.spec.ts",
+        "title": "TREE: narrow and wide layouts keep controls inside screen and graph scrollable",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "skill-trees.spec.ts",
+        "title": "TREE: resumed dev.3 save still renders and accepts A/B upgrades",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/regression/browser-results/results.json"
+      },
+      {
+        "file": "tree-replay.spec.ts",
+        "title": "TREE: all three complete legal playthroughs replay in browser, unlock progression and render node history",
+        "browser": "chromium",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/release-check/browser-results/results.json"
+      },
+      {
+        "file": "tree-replay.spec.ts",
+        "title": "TREE: all three complete legal playthroughs replay in browser, unlock progression and render node history",
+        "browser": "webkit",
+        "status": "passed",
+        "artifact": "artifacts/validation/skill-trees/release-check/browser-results/results.json"
+      }
+    ]
+  },
+  "live3xPerformance": {
+    "measuredAt": "2026-09-04T17:36:11.190Z",
+    "sourceDigest": "cba82ba61396e8de4951366c38c66219dd95cf2c5df0198f6fbf13eeb4b03a47",
+    "durationMs": 60015.9,
+    "p95FrameTimeMs": 26.700000000000728,
+    "maxFrameTimeMs": 43.900000000001455,
+    "ticksPerSecond": 89.99281856974568,
+    "gateMs": 33.3,
+    "passed": true,
+    "minEnemies": 120,
+    "minProjectiles": 400,
+    "minFields": 13,
+    "warningMissingFrames": 0,
+    "errors": [],
+    "limitation": "Synthetic peak-density fixture, not a legally earned build or balance test. Immortal targets of all eight normal enemy types keep their actual movement speeds; positions recycle at the edge of the travel lane, while inert hostile projectiles sustain density; the real 3× simulation, automatic attacks, timed captain skills, animation, rendering and autosave run throughout. Desktop Chromium/SwiftShader only, not phone hardware. Tracing disabled and screenshot taken after measurement."
+  },
+  "production": {
+    "contentVersion": "0.2.0-dev.1",
+    "measuredAt": "2026-09-04T17:38:27.172Z",
+    "browser": "151.0.7922.34",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "origin": "http://127.0.0.1:5173",
+    "server": "vite preview of production dist",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "network": "10 Mbps / 100 ms RTT, empty browser context, HTTP cache disabled",
+    "homeInteractiveMs": 653.044125,
+    "battleReadyMs": 3405.485917,
+    "snapshotTick": 569,
+    "phaseAfterRecovery": "paused",
+    "savedChoices": 1,
+    "battleSpeed": 3,
+    "autoTactical": true,
+    "actualAutoCasts": 1,
+    "productionDebugApiAbsent": true,
+    "consoleErrors": [],
+    "failedRequests": [],
+    "passed": true,
+    "limitation": "Desktop Chromium emulating mobile viewport/network; not actual phone hardware. Real-time gameplay earned the first upgrade without simulation hooks."
+  },
+  "assets": {
+    "passed": true,
+    "runtimeBytes": 7480352,
+    "bundles": [
+      {
+        "path": "dist/assets/index-BvcWeZ9z.js",
+        "rawBytes": 1367127,
+        "gzipBytes": 376046
+      },
+      {
+        "path": "dist/assets/index-DQYpkYfz.css",
+        "rawBytes": 53941,
+        "gzipBytes": 11439
+      },
+      {
+        "path": "dist/index.html",
+        "rawBytes": 626,
+        "gzipBytes": 464
+      }
+    ],
+    "artifact": "artifacts/validation/0.2.0-dev.1/asset-budget.json"
+  },
+  "build": {
+    "passed": true,
+    "artifact": "artifacts/validation/skill-trees/build-release.log"
+  },
+  "validationOrderNote": "Live Chromium pressure and browser replays completed before the final C04 field cadence fix. The pressure fixture and replay squad exclude C04. Final cadence fix is covered by the new monotonic field-DPS regression, all 204 rules, 840 legal runs, 70 probes, build and production smoke rerun. No claim that every earlier browser test was rerun after that local fix.",
+  "sourceFilesAtDelivery": [
+    {
+      "path": "package-lock.json",
+      "sha256": "5c87ddb4050eb978b755ea148a3d08f9d2b126d54b12835d8e8894ef7e407666"
+    },
+    {
+      "path": "package.json",
+      "sha256": "71093803c45ec386e7544caf8267e6e2da760b1daab1a1da8b0b5ba38a082f37"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "68d939ecd3e5d686f23f57112f254639b07df2107c5b77855026b91364302d65"
+    },
+    {
+      "path": "scripts/benchmark-simulation.ts",
+      "sha256": "5628cc704ea0d81820052aec01055f7083594db1b2b919045855c6184481ed44"
+    },
+    {
+      "path": "scripts/pack-animation-assets.cjs",
+      "sha256": "facc8b00c7c77d99abf4206dad31f097d001d07a48021f0a4203f893c243a0f3"
+    },
+    {
+      "path": "scripts/pack-enemy-motion.cjs",
+      "sha256": "2720b523203516bf940affcd7c7ff90229b72872dbf7b9f2194c0f716bca0686"
+    },
+    {
+      "path": "scripts/probe-skill-trees.ts",
+      "sha256": "4c82dea74aa6519d790ce4c75edd701a5e6a25cc4ec88601ead2f1e3f644cc3d"
+    },
+    {
+      "path": "scripts/record-attack-impact.ts",
+      "sha256": "8451d61ad34bbedd54de103b50d54d8b46a6aeddb72c4e15d46c1525f5ee37b6"
+    },
+    {
+      "path": "scripts/record-captain-skills.ts",
+      "sha256": "07e8d516c01e4f9b158285d805d05a46f95b64058715738213701cce6d25b3c3"
+    },
+    {
+      "path": "scripts/record-enemy-motion.ts",
+      "sha256": "1d5c1c24b082604a841dfef30bd460845325ce7cdce366c54ef9411b54ec9999"
+    },
+    {
+      "path": "scripts/validate-balance.ts",
+      "sha256": "601f98b85b94f8bf20462e3e42f73af804ca1bc26889ba87802294b9b54a17ca"
+    },
+    {
+      "path": "scripts/validate-skill-trees.ts",
+      "sha256": "1f3c78cf363224422a14c9b5d3d6ceef1e4bdead013140cba1f61f143a0d83c1"
+    },
+    {
+      "path": "scripts/verify-assets.ts",
+      "sha256": "89fdcbe5cdff4f45d76c1991239da5c07fdfb2e2e9a82a246169af6092edb07d"
+    },
+    {
+      "path": "scripts/verify-production.ts",
+      "sha256": "35a37d24a662cb8c639c1ae67043ab1c4fee813f00a1d63b859fa481b0816d34"
+    },
+    {
+      "path": "src/data/content.ts",
+      "sha256": "ba8c601c1fff5369ef738aea0d16a249df333c38ce00dcf345dc03093b50c0ae"
+    },
+    {
+      "path": "src/data/skill-trees.ts",
+      "sha256": "dafd4f94d766f2d54ddff88bca5180eed25addd9e66f291a9dafd5f1c226a6a6"
+    },
+    {
+      "path": "src/game/actors.ts",
+      "sha256": "293aeeb36a82aca146c81c1f5baec03f149e2952f9b71fb21ba0c894634f18db"
+    },
+    {
+      "path": "src/game/audio.ts",
+      "sha256": "80b7a717dd65e9bbce6c1ccb9775de0c8a6f4f5350ff7e2ed6456c3863052cf6"
+    },
+    {
+      "path": "src/game/boss-entrance.ts",
+      "sha256": "bdc9fa41766a17222c8c51ae1ecd32f4e466c55f3129bb05857745685bd65e7a"
+    },
+    {
+      "path": "src/game/captain-cutin.ts",
+      "sha256": "a3ad94683ff5a916aa7cf2f2e3b2015194e9f77c5782f829581f779f64a3b2a1"
+    },
+    {
+      "path": "src/game/chroma.ts",
+      "sha256": "fe9d120a02efbc61b8d97cd89be10ca40d6e0cb10b500fc8cb5a9d370ac09215"
+    },
+    {
+      "path": "src/game/effects.ts",
+      "sha256": "62e4980c505313562b059d0596cb61d6a70e3ade45a583b2b92646bef4007137"
+    },
+    {
+      "path": "src/game/enemy-motion.ts",
+      "sha256": "f3b00f92defeb64e603f98897b864b35fb3f0ff6ae8f3cceb6c1884e2a3fb599"
+    },
+    {
+      "path": "src/game/presentation.ts",
+      "sha256": "b9ccd806f5cbd860c64491260cc47d27a50c587085d3f48f1528bbda058ab82e"
+    },
+    {
+      "path": "src/game/range-overlay.ts",
+      "sha256": "6e3fe17267faaf4fc95ce0fc40691777d1f76f9b318798dcfe741803e79c21cd"
+    },
+    {
+      "path": "src/game/scene.ts",
+      "sha256": "3c45dc412e49a89cecd6a4b69c09c5244068faed31bdbc72b2b4f947472663d4"
+    },
+    {
+      "path": "src/game/skill-effects.ts",
+      "sha256": "21f408f9fe81bf14958154f13512031cb3e671c8b33b3e5ec9cba20c10c1fda2"
+    },
+    {
+      "path": "src/game/status-effects.ts",
+      "sha256": "e228caec0b5d335c35ef2105d6e00a4b9dbfeca2c965b8a6dbdd3e894723f96b"
+    },
+    {
+      "path": "src/main.ts",
+      "sha256": "3b6da529fd4f9f1fccc77a476e15e008f59172e848ca7b587ced4ad716f4aa98"
+    },
+    {
+      "path": "src/sim/combat.ts",
+      "sha256": "e19018f977dc24cb090a0714ccf8ad7551094035439edb691661fa4c2428b727"
+    },
+    {
+      "path": "src/sim/draft.ts",
+      "sha256": "a2782151d290e441bd675e33cbdd9e45abfe8358a2b8edd5a36e52b83add300a"
+    },
+    {
+      "path": "src/sim/enemies.ts",
+      "sha256": "cc3106d7fa27a96507736278fa36dab053f6fb266a16fba4490f5b6974877280"
+    },
+    {
+      "path": "src/sim/engine.ts",
+      "sha256": "b2886aaa7c3f38d0b2b0014119bda8e1ff0c0196d8c09e78718b57b5648fdee7"
+    },
+    {
+      "path": "src/sim/range.ts",
+      "sha256": "044805fbaa39262e23c68911c66769ed12b5deb49fa9d929dcead86d925a2806"
+    },
+    {
+      "path": "src/sim/rng.ts",
+      "sha256": "3d5b09cf4f385474623bbf14082dd6c1b3bc8b59a3d496f0a9e336a3319aa7a1"
+    },
+    {
+      "path": "src/sim/skill-tree.ts",
+      "sha256": "e3fe436fb779c74beb36be7514479875cb4c877a6ecf2de46d9b7374003892cb"
+    },
+    {
+      "path": "src/sim/spawn.ts",
+      "sha256": "87f96338578334c647990611751430d6f1bc7abf0b6e95795a62be10996057db"
+    },
+    {
+      "path": "src/sim/tree-draft.ts",
+      "sha256": "0a1c2efb4832e61d13ef43ab68e3019adce128396cb7053d0130069c30536582"
+    },
+    {
+      "path": "src/sim/tree-weapons.ts",
+      "sha256": "5e88b49360f1b04d6fce3aa137951461f25fd8f5202c3f63c0546661d53bda2f"
+    },
+    {
+      "path": "src/sim/types.ts",
+      "sha256": "e5f1f781b34b148bac2817e485130c55b79fdce6dd551b18304bf6bac7c87dc4"
+    },
+    {
+      "path": "src/sim/visual.ts",
+      "sha256": "4df0fd73e313c1560aa1f0b341eeaf5b824318093b5b2704b65cd2c548703fe4"
+    },
+    {
+      "path": "src/sim/weapons.ts",
+      "sha256": "4fd709bb657a83052bb3160dbab92053a9bab718de61be3867058517e3119050"
+    },
+    {
+      "path": "src/storage/repository.ts",
+      "sha256": "328dd28d240ca622e93536879c95fd3fb3ff9cfe4564a9a3bf3a7aded2fae3b6"
+    },
+    {
+      "path": "src/ui/app.ts",
+      "sha256": "1032f6425110f1a8c3e5650a54c1d941ad2852ef54c08793f36f02fdb0834c8d"
+    },
+    {
+      "path": "src/ui/auto-tactical.ts",
+      "sha256": "22d0530020019cc01c0a2029593479a648c2892243b6e6447a02f98366b11e83"
+    },
+    {
+      "path": "src/ui/battle.ts",
+      "sha256": "f19247ba1355812166731bcfcf811aa9ed30f050771b5b6601f18e5bcbb6e48b"
+    },
+    {
+      "path": "src/ui/format.ts",
+      "sha256": "4c1ceec67f76fe6ba76c1235dd9c953c8d06b03b3b515609955e18a41b20cf92"
+    },
+    {
+      "path": "src/ui/lobby.ts",
+      "sha256": "e05b6d9089b4e4d8e6ae670f48dfd006d76978799e1587ada34d0840c3e9412c"
+    },
+    {
+      "path": "src/ui/model.ts",
+      "sha256": "bf38b95b4b89cfbbc61e7aac44e7ea54dfa4ac5e53ec5d92049a807537c8fb46"
+    },
+    {
+      "path": "src/ui/skill-tree.ts",
+      "sha256": "3dd21ab038cead830059977a6ee2732a62f12107c723c01f1b1f890cdfe02456"
+    },
+    {
+      "path": "src/ui/styles.css",
+      "sha256": "67a92a7b0494705b9cad1194a7318fd54a4506c2fdc87f8bf32a41781f0a0352"
+    },
+    {
+      "path": "tests/e2e/animation-performance.spec.ts",
+      "sha256": "77bd98151d5946b8d49d5e0585d0c29be4b3a3106a55f98e846464349f007308"
+    },
+    {
+      "path": "tests/e2e/animation.spec.ts",
+      "sha256": "27c80cecab544ae3f915382b81b1deba87f7ebeb567cda6958c8e37eeeb90a74"
+    },
+    {
+      "path": "tests/e2e/attack-impact.spec.ts",
+      "sha256": "92cc312bbd02908c6d245e2e0b30ab14b7b36ed4e69fa814ec5154b4201ffad5"
+    },
+    {
+      "path": "tests/e2e/auto-tactical.spec.ts",
+      "sha256": "dae44c419a8389ead0502c780c4dfd0f91560de5e6c4966093a84392d565e0e4"
+    },
+    {
+      "path": "tests/e2e/combat-readability.spec.ts",
+      "sha256": "ef90e46461fa3bc16c9dd5bc7f5d08ee54632110a0acac63a2086f7f877e4716"
+    },
+    {
+      "path": "tests/e2e/enemy-motion.spec.ts",
+      "sha256": "50db9c15ea241ac1f1c2678f97d3df4c81f041e5f836748c59a02a4356b5d2fd"
+    },
+    {
+      "path": "tests/e2e/game.spec.ts",
+      "sha256": "440e19a2eb9552c18e0e764e40e474f739ed8016e3ab15e56906b53f2d15953a"
+    },
+    {
+      "path": "tests/e2e/performance.spec.ts",
+      "sha256": "b48c7d3dbb6a2c4636b2a3827f4f9afecf9227b7eca20cf36927cc716af1385a"
+    },
+    {
+      "path": "tests/e2e/skill-trees.spec.ts",
+      "sha256": "13678451b456e4844ee915cf3edc7e785fd4a4ffba6d3efd70475402b3ca56c8"
+    },
+    {
+      "path": "tests/e2e/tree-replay.spec.ts",
+      "sha256": "52568065a731ec5c4c57f0b9f89d7628b677aef8ef1d0a41cac6971f4a291119"
+    },
+    {
+      "path": "tests/helpers/legacy-run.ts",
+      "sha256": "f1cdfc93dd3feae59173e84a1637f8b9db7ae2b5c30046ca9b8d4a0d3d8cd4f8"
+    },
+    {
+      "path": "tests/rules/auto-tactical.test.ts",
+      "sha256": "75654ccfa8c2036f53a4fd6ec5c3a6fc283aa30f0715db20b95f3c5325b61184"
+    },
+    {
+      "path": "tests/rules/combat.test.ts",
+      "sha256": "562af519a7b0911530beddac218178bd24709d2ac333a7d38c1d8b0a6a568068"
+    },
+    {
+      "path": "tests/rules/content.test.ts",
+      "sha256": "ac305a363eb54de1cc2fa5f9f90e6fc4102abea88e2fb1fa4dc8641554b45568"
+    },
+    {
+      "path": "tests/rules/draft.test.ts",
+      "sha256": "2fe1ac82d784787938e6525302a5bc8464531ab1862eebb5e1f05b62f86e0815"
+    },
+    {
+      "path": "tests/rules/enemies.test.ts",
+      "sha256": "88d0002cf12fcb140f4e13286eef92ff0e437bb59836c421c99766632be04145"
+    },
+    {
+      "path": "tests/rules/enemy-motion.test.ts",
+      "sha256": "7a348815624ac9cb5888a309bbf483c8a402765345ccb08f9682a275587f2683"
+    },
+    {
+      "path": "tests/rules/presentation.test.ts",
+      "sha256": "9147849ef346653b1f71f1c14affaa1a8b24c6aae3a68b49190df2c7241e33af"
+    },
+    {
+      "path": "tests/rules/range-entrance.test.ts",
+      "sha256": "289d2590ed0e0b555664d107de3a287557b034a7f8ea34de765c8fa0d5ee5eae"
+    },
+    {
+      "path": "tests/rules/skill-tree.test.ts",
+      "sha256": "4fb478121b7dfd2f2fd715dc92013ca5e9932185d012728014520f12cc855f0f"
+    },
+    {
+      "path": "tests/rules/timing.test.ts",
+      "sha256": "b50827641d049f0afb2d4b5f1e744f44c25240619916300cf993f464aed833c6"
+    },
+    {
+      "path": "tests/rules/weapons.test.ts",
+      "sha256": "18e81a8b1d23e7c94038430d82f4b3a797451a73ed3d9fea6e34e597ef4265fe"
+    },
+    {
+      "path": "tests/simulation/policies.ts",
+      "sha256": "5fb4c898ca63a8cdc12d2b1c6ead29d07bc2f50549605d5fbaef9ee08100b6ef"
+    },
+    {
+      "path": "tests/simulation/runner.ts",
+      "sha256": "33a06153276efdca75b530fb0d311526f646f079631d309c3e394322958390e3"
+    },
+    {
+      "path": "tests/storage/repository.test.ts",
+      "sha256": "a215be5fdf17f63202ad51c140bac4a761bf4183122f6ee98d0483bf22de77db"
+    }
+  ],
+  "bundleHashes": [
+    {
+      "path": "dist/assets/index-BvcWeZ9z.js",
+      "sha256": "da73db0e5518cf3104a0d09ebb34c1ffeeae92561c43dc77ca8260189b0851c3"
+    },
+    {
+      "path": "dist/assets/index-DQYpkYfz.css",
+      "sha256": "f569920094d7a12121319178563b1c33ba64d47c1675c091755aa09605713a0e"
+    },
+    {
+      "path": "dist/assets/manifest.json",
+      "sha256": "172243f47f2d698fba796a71a1faa912f4cb7fac58e5bbeb02ba48511b82cb2b"
+    }
+  ]
+}

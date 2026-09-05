@@ -1,11 +1,17 @@
+import { DEEP_NODE_MAP, usesFreeSkills } from '../data/deep-trees';
+import { NODE_MAP, usesSkillTrees } from '../data/skill-trees';
+import { treeLegalNodes } from './skill-tree';
+import { rebuildTreeDraft, rerollTreeDraft } from './tree-draft';
 import { COMMON_UPGRADES } from '../data/content';
 import { nextRandom } from './rng';
 import type { CharacterId, RunState, UpgradeCard } from './types';
 
 export function getReadyEvolutions(s: RunState): string[] {
+  if(usesSkillTrees(s)) return treeLegalNodes(s).filter(id=>(usesFreeSkills(s)?DEEP_NODE_MAP[id]:NODE_MAP[id])?.kind==='ultimate');
   return s.evolvedCount >= s.evolutionLimit ? [] : s.weapons.filter(w=>w.rank===2).sort((a,b)=>a.readyAt-b.readyAt||a.id.localeCompare(b.id)).map(w=>`${w.id}-${w.branch}-3`);
 }
 export function getLegalNodeIds(s: RunState): string[] {
+  if(usesSkillTrees(s)) return treeLegalNodes(s);
   const ids:string[]=[];
   for(const w of s.weapons){
     if(!w.branch) ids.push(`${w.id}-A-1`,`${w.id}-B-1`);
@@ -31,6 +37,8 @@ function weighted(s:RunState,ids:string[]):string{
   for(const id of ids){n-=id.startsWith('C')?2:1;if(n<0)return id;}return ids.at(-1)!;
 }
 export function rebuildDraft(s:RunState, randomize=false):void{
+  if(usesFreeSkills(s))return;
+  if(usesSkillTrees(s)){rebuildTreeDraft(s);return;}
   const d=s.draft;if(!d)return;
   const legal=getLegalNodeIds(s);const ready=getReadyEvolutions(s);const cards:UpgradeCard[]=[];
   if(ready.length){if(!ready.includes(d.selectedEvolution??''))d.selectedEvolution=ready[0];cards.push({nodeId:d.selectedEvolution!,kind:'evolution'});}else d.selectedEvolution=null;
@@ -51,13 +59,24 @@ export function rebuildDraft(s:RunState, randomize=false):void{
 }
 export function openDraft(s:RunState):void{
   if(s.draft||s.choicesSpent>=s.choicesEarned||s.outcome)return;
+  if(usesFreeSkills(s)){
+    if(s.bossIntro)return;
+    // Let a visible wind-up finish, with a bounded delay so overlapping attacks cannot starve upgrades.
+    s.upgradePendingAt??=s.tick;
+    if(s.tick-s.upgradePendingAt<60&&s.enemies.some(e=>e.hp>0&&e.chargeKind&&!e.chargeCancelled&&e.chargeUntil>s.tick))return;
+    delete s.upgradePendingAt;
+    s.draft={id:s.nextOfferId++,choice:Math.floor(s.choicesSpent/2)+1,cards:[],focusId:s.config.captainId,selectedEvolution:null,pointTarget:Math.min(s.choicesEarned,(Math.floor(s.choicesSpent/2)+1)*2)};
+    if(!s.pauseReasons.includes('upgrade'))s.pauseReasons.push('upgrade');s.phase='choosing';return;
+  }
   const focusId=[...s.actions].reverse().find(a=>a.command.type==='focus')?.command;
   s.draft={id:s.nextOfferId++,choice:s.choicesSpent+1,cards:[],focusId:focusId?.type==='focus'?focusId.characterId:s.config.captainId,selectedEvolution:null};
-  if(focusRound(s)&&!focusNode(s,s.draft.focusId)){const available=s.config.squadIds.find(id=>focusNode(s,id));if(available)s.draft.focusId=available;}
+  if(!usesSkillTrees(s)&&focusRound(s)&&!focusNode(s,s.draft.focusId)){const available=s.config.squadIds.find(id=>focusNode(s,id));if(available)s.draft.focusId=available;}
   if(!s.pauseReasons.includes('upgrade'))s.pauseReasons.push('upgrade');
   s.phase='choosing';rebuildDraft(s,true);
 }
 export function rerollDraft(s:RunState):boolean{
+  if(usesFreeSkills(s))return false;
+  if(usesSkillTrees(s))return rerollTreeDraft(s);
   if(!s.draft||s.rerollsRemaining<=0)return false;
   const old=s.draft.cards;const cards=old.map(c=>({...c}));const legal=getLegalNodeIds(s).filter(id=>!id.endsWith('-3')&&(!focusRound(s)||!id.startsWith('C')));
   const rngBefore=s.rng.draft;let changed=false;

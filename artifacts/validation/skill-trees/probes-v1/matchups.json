@@ -1,0 +1,565 @@
+{
+  "limitation": "Synthetic 40-second stationary high-HP matchup probes, four legally acquired nodes and captain disabled; not a legal-stage victory test. Targets use actual armor and shield formulas. Distinct layouts isolate weapon specialization.",
+  "rows": [
+    {
+      "tree": "C01-A",
+      "scenario": "relay",
+      "damage": 3779.5200000000036,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80
+    },
+    {
+      "tree": "C01-A",
+      "scenario": "armor-zone",
+      "damage": 1700.7839999999949,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80
+    },
+    {
+      "tree": "C01-A",
+      "scenario": "long-line",
+      "damage": 1700.7839999999949,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80
+    },
+    {
+      "tree": "C01-A",
+      "scenario": "boss",
+      "damage": 1950.720000000001,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80
+    },
+    {
+      "tree": "C01-A",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 3779.5200000000036,
+      "controlSeconds": 0,
+      "attacks": 80
+    },
+    {
+      "tree": "C01-B",
+      "scenario": "relay",
+      "damage": 3118.320000000003,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71
+    },
+    {
+      "tree": "C01-B",
+      "scenario": "armor-zone",
+      "damage": 1403.2439999999983,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71
+    },
+    {
+      "tree": "C01-B",
+      "scenario": "long-line",
+      "damage": 3648.4344000000115,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71
+    },
+    {
+      "tree": "C01-B",
+      "scenario": "boss",
+      "damage": 2459.5199999999986,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71
+    },
+    {
+      "tree": "C01-B",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 4053.8160000000003,
+      "controlSeconds": 0,
+      "attacks": 71
+    },
+    {
+      "tree": "C01-C",
+      "scenario": "relay",
+      "damage": 4409.699999999997,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80
+    },
+    {
+      "tree": "C01-C",
+      "scenario": "armor-zone",
+      "damage": 1984.364999999996,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80
+    },
+    {
+      "tree": "C01-C",
+      "scenario": "long-line",
+      "damage": 1984.364999999996,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80
+    },
+    {
+      "tree": "C01-C",
+      "scenario": "boss",
+      "damage": 3527.760000000006,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80
+    },
+    {
+      "tree": "C01-C",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 4017,
+      "controlSeconds": 0,
+      "attacks": 80
+    },
+    {
+      "tree": "C02-A",
+      "scenario": "relay",
+      "damage": 4283.296874999996,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45
+    },
+    {
+      "tree": "C02-A",
+      "scenario": "armor-zone",
+      "damage": 1927.4835937499986,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45
+    },
+    {
+      "tree": "C02-A",
+      "scenario": "long-line",
+      "damage": 1927.4835937499986,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45
+    },
+    {
+      "tree": "C02-A",
+      "scenario": "boss",
+      "damage": 1123.2000000000007,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45
+    },
+    {
+      "tree": "C02-A",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 4058.4375,
+      "controlSeconds": 0,
+      "attacks": 45
+    },
+    {
+      "tree": "C02-B",
+      "scenario": "relay",
+      "damage": 3070.5000000000023,
+      "shieldDamage": 0,
+      "controlSeconds": 11.9,
+      "attacks": 45
+    },
+    {
+      "tree": "C02-B",
+      "scenario": "armor-zone",
+      "damage": 4850.0099999999975,
+      "shieldDamage": 0,
+      "controlSeconds": 50.7,
+      "attacks": 45
+    },
+    {
+      "tree": "C02-B",
+      "scenario": "long-line",
+      "damage": 3297.509999999997,
+      "shieldDamage": 0,
+      "controlSeconds": 31.3,
+      "attacks": 45
+    },
+    {
+      "tree": "C02-B",
+      "scenario": "boss",
+      "damage": 2456.4000000000015,
+      "shieldDamage": 0,
+      "controlSeconds": 1.4,
+      "attacks": 45
+    },
+    {
+      "tree": "C02-B",
+      "scenario": "shield",
+      "damage": 5.755396159656806e-13,
+      "shieldDamage": 9159.750000000002,
+      "controlSeconds": 31.3,
+      "attacks": 45
+    },
+    {
+      "tree": "C03-A",
+      "scenario": "relay",
+      "damage": 2828.8000000000006,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 26
+    },
+    {
+      "tree": "C03-A",
+      "scenario": "armor-zone",
+      "damage": 3362.3824,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 26
+    },
+    {
+      "tree": "C03-A",
+      "scenario": "long-line",
+      "damage": 7451.76639999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 26
+    },
+    {
+      "tree": "C03-A",
+      "scenario": "boss",
+      "damage": 2461.055999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 26
+    },
+    {
+      "tree": "C03-A",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 2828.8000000000006,
+      "controlSeconds": 0,
+      "attacks": 26
+    },
+    {
+      "tree": "C03-B",
+      "scenario": "relay",
+      "damage": 3414.2119999999995,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 23
+    },
+    {
+      "tree": "C03-B",
+      "scenario": "armor-zone",
+      "damage": 3442.0101449999993,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 23
+    },
+    {
+      "tree": "C03-B",
+      "scenario": "long-line",
+      "damage": 3442.0101449999993,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 23
+    },
+    {
+      "tree": "C03-B",
+      "scenario": "boss",
+      "damage": 4609.186200000003,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 23
+    },
+    {
+      "tree": "C03-B",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 3414.2119999999995,
+      "controlSeconds": 0,
+      "attacks": 23
+    },
+    {
+      "tree": "C04-A",
+      "scenario": "relay",
+      "damage": 4820,
+      "shieldDamage": 0,
+      "controlSeconds": 119.9,
+      "attacks": 34
+    },
+    {
+      "tree": "C04-A",
+      "scenario": "armor-zone",
+      "damage": 3708.0000000000105,
+      "shieldDamage": 0,
+      "controlSeconds": 199.83333333333334,
+      "attacks": 34
+    },
+    {
+      "tree": "C04-A",
+      "scenario": "long-line",
+      "damage": 2924.5500000000043,
+      "shieldDamage": 0,
+      "controlSeconds": 159.86666666666667,
+      "attacks": 34
+    },
+    {
+      "tree": "C04-A",
+      "scenario": "boss",
+      "damage": 1318.4000000000008,
+      "shieldDamage": 0,
+      "controlSeconds": 39.96666666666667,
+      "attacks": 34
+    },
+    {
+      "tree": "C04-A",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 4944,
+      "controlSeconds": 119.9,
+      "attacks": 34
+    },
+    {
+      "tree": "C04-B",
+      "scenario": "relay",
+      "damage": 2607.099999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 63.6,
+      "attacks": 39
+    },
+    {
+      "tree": "C04-B",
+      "scenario": "armor-zone",
+      "damage": 1011.3749999999993,
+      "shieldDamage": 0,
+      "controlSeconds": 53.833333333333336,
+      "attacks": 10
+    },
+    {
+      "tree": "C04-B",
+      "scenario": "long-line",
+      "damage": 1618.1999999999982,
+      "shieldDamage": 0,
+      "controlSeconds": 85.7,
+      "attacks": 20
+    },
+    {
+      "tree": "C04-B",
+      "scenario": "boss",
+      "damage": 1402.4400000000007,
+      "shieldDamage": 0,
+      "controlSeconds": 39.96666666666667,
+      "attacks": 39
+    },
+    {
+      "tree": "C04-B",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 1348.5000000000007,
+      "controlSeconds": 32.3,
+      "attacks": 10
+    },
+    {
+      "tree": "C05-A",
+      "scenario": "relay",
+      "damage": 1946.3999999999974,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27
+    },
+    {
+      "tree": "C05-A",
+      "scenario": "armor-zone",
+      "damage": 5422.200000000027,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27
+    },
+    {
+      "tree": "C05-A",
+      "scenario": "long-line",
+      "damage": 2718.720000000008,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27
+    },
+    {
+      "tree": "C05-A",
+      "scenario": "boss",
+      "damage": 1632.9600000000034,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27
+    },
+    {
+      "tree": "C05-A",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 5839.200000000015,
+      "controlSeconds": 0,
+      "attacks": 27
+    },
+    {
+      "tree": "C05-B",
+      "scenario": "relay",
+      "damage": 2639.599999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 30
+    },
+    {
+      "tree": "C05-B",
+      "scenario": "armor-zone",
+      "damage": 6156.349999999971,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 30
+    },
+    {
+      "tree": "C05-B",
+      "scenario": "long-line",
+      "damage": 3693.809999999989,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 30
+    },
+    {
+      "tree": "C05-B",
+      "scenario": "boss",
+      "damage": 2127.4799999999977,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 30
+    },
+    {
+      "tree": "C05-B",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 7918.800000000007,
+      "controlSeconds": 0,
+      "attacks": 30
+    },
+    {
+      "tree": "C06-A",
+      "scenario": "relay",
+      "damage": 4550.800000000006,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93
+    },
+    {
+      "tree": "C06-A",
+      "scenario": "armor-zone",
+      "damage": 2047.86,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93
+    },
+    {
+      "tree": "C06-A",
+      "scenario": "long-line",
+      "damage": 2047.86,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93
+    },
+    {
+      "tree": "C06-A",
+      "scenario": "boss",
+      "damage": 3640.639999999996,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93
+    },
+    {
+      "tree": "C06-A",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 4151.520000000012,
+      "controlSeconds": 0,
+      "attacks": 93
+    },
+    {
+      "tree": "C06-B",
+      "scenario": "relay",
+      "damage": 2315,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93
+    },
+    {
+      "tree": "C06-B",
+      "scenario": "armor-zone",
+      "damage": 1041.75,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93
+    },
+    {
+      "tree": "C06-B",
+      "scenario": "long-line",
+      "damage": 1041.75,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93
+    },
+    {
+      "tree": "C06-B",
+      "scenario": "boss",
+      "damage": 1852,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93
+    },
+    {
+      "tree": "C06-B",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 1860,
+      "controlSeconds": 0,
+      "attacks": 93
+    },
+    {
+      "tree": "C06-C",
+      "scenario": "relay",
+      "damage": 2064.8640000000028,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 86
+    },
+    {
+      "tree": "C06-C",
+      "scenario": "armor-zone",
+      "damage": 929.188800000001,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 86
+    },
+    {
+      "tree": "C06-C",
+      "scenario": "long-line",
+      "damage": 929.188800000001,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 86
+    },
+    {
+      "tree": "C06-C",
+      "scenario": "boss",
+      "damage": 1651.891200000001,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 86
+    },
+    {
+      "tree": "C06-C",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 1885.1200000000022,
+      "controlSeconds": 0,
+      "attacks": 86
+    }
+  ]
+}

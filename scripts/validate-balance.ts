@@ -1,7 +1,7 @@
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { CONTENT_VERSION } from '../src/data/content';
+import { RANGE_CONTENT_VERSION as CONTENT_VERSION } from '../src/data/content';
 import { BUILD_POLICIES, FORMAL_SEEDS, POLICY_VERSION } from '../tests/simulation/policies';
 import { digest, runPolicy, replayCommands, replayDigest, type RunReport } from '../tests/simulation/runner';
 

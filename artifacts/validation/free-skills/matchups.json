@@ -1,0 +1,2655 @@
+{
+  "limitation": "Synthetic stationary high-HP 40-second targets; five legally purchased ancestor/ultimate nodes, no captain input. Additional diagnostic scenarios: armored Boss, 20%-HP targets and two unupgraded damage allies, to check execution and team-support value. Not legal-stage wins; displacement still moves targets, so control trades damage windows for distance.",
+  "rows": [
+    {
+      "terminal": "C01-A/9",
+      "name": "星雨飽和",
+      "scenario": "relay",
+      "damage": 6796.5,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 6796.5,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/9",
+      "name": "星雨飽和",
+      "scenario": "armor",
+      "damage": 3058.4249999999884,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 3058.4249999999884,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/9",
+      "name": "星雨飽和",
+      "scenario": "line",
+      "damage": 6796.5,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 6796.5,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/9",
+      "name": "星雨飽和",
+      "scenario": "boss",
+      "damage": 3070.5,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 3070.5,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/9",
+      "name": "星雨飽和",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 6796.5,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 0,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/9",
+      "name": "星雨飽和",
+      "scenario": "boss-armor",
+      "damage": 1381.7250000000006,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 1381.7250000000006,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/9",
+      "name": "星雨飽和",
+      "scenario": "wounded",
+      "damage": 6796.5,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 6796.5,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/9",
+      "name": "星雨飽和",
+      "scenario": "team",
+      "damage": 6796.5,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 16419.9,
+      "squad": [
+        "C01",
+        "C03",
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C01-A/10",
+      "name": "零秒換匣",
+      "scenario": "relay",
+      "damage": 7080.000000000012,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 100,
+      "teamDamage": 7080.000000000012,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/10",
+      "name": "零秒換匣",
+      "scenario": "armor",
+      "damage": 3185.999999999995,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 100,
+      "teamDamage": 3185.999999999995,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/10",
+      "name": "零秒換匣",
+      "scenario": "line",
+      "damage": 7080.000000000012,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 100,
+      "teamDamage": 7080.000000000012,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/10",
+      "name": "零秒換匣",
+      "scenario": "boss",
+      "damage": 3434.4000000000055,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 100,
+      "teamDamage": 3434.4000000000055,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/10",
+      "name": "零秒換匣",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 7080.000000000012,
+      "controlSeconds": 0,
+      "attacks": 100,
+      "teamDamage": 0,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/10",
+      "name": "零秒換匣",
+      "scenario": "boss-armor",
+      "damage": 1545.4799999999948,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 100,
+      "teamDamage": 1545.4799999999948,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/10",
+      "name": "零秒換匣",
+      "scenario": "wounded",
+      "damage": 7080.000000000012,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 100,
+      "teamDamage": 7080.000000000012,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-A/10",
+      "name": "零秒換匣",
+      "scenario": "team",
+      "damage": 7080.000000000012,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 100,
+      "teamDamage": 16703.400000000012,
+      "squad": [
+        "C01",
+        "C03",
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C01-B/8",
+      "name": "天穹貫星",
+      "scenario": "relay",
+      "damage": 4724.400000000002,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 4724.400000000002,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-B/8",
+      "name": "天穹貫星",
+      "scenario": "armor",
+      "damage": 3772.5635999999968,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 3772.5635999999968,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-B/8",
+      "name": "天穹貫星",
+      "scenario": "line",
+      "damage": 8980.08000000003,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 8980.08000000003,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-B/8",
+      "name": "天穹貫星",
+      "scenario": "boss",
+      "damage": 2603.999999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 2603.999999999999,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-B/8",
+      "name": "天穹貫星",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 15451.019999999962,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 0,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-B/8",
+      "name": "天穹貫星",
+      "scenario": "boss-armor",
+      "damage": 1430.5260000000014,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 1430.5260000000014,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-B/8",
+      "name": "天穹貫星",
+      "scenario": "wounded",
+      "damage": 6867.1200000000135,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 6867.1200000000135,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-B/8",
+      "name": "天穹貫星",
+      "scenario": "team",
+      "damage": 6867.1200000000135,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 16490.520000000015,
+      "squad": [
+        "C01",
+        "C03",
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C01-C/8",
+      "name": "赤紅天眼",
+      "scenario": "relay",
+      "damage": 3845.256,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 3845.256,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/8",
+      "name": "赤紅天眼",
+      "scenario": "armor",
+      "damage": 1730.3651999999988,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 1730.3651999999988,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/8",
+      "name": "赤紅天眼",
+      "scenario": "line",
+      "damage": 3845.256,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 3845.256,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/8",
+      "name": "赤紅天眼",
+      "scenario": "boss",
+      "damage": 3804.336,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 3804.336,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/8",
+      "name": "赤紅天眼",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 3503.7599999999948,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 0,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/8",
+      "name": "赤紅天眼",
+      "scenario": "boss-armor",
+      "damage": 1711.9511999999988,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 1711.9511999999988,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/8",
+      "name": "赤紅天眼",
+      "scenario": "wounded",
+      "damage": 4473.336000000002,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 4473.336000000002,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/8",
+      "name": "赤紅天眼",
+      "scenario": "team",
+      "damage": 3845.256,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 13598.655999999988,
+      "squad": [
+        "C01",
+        "C03",
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C01-C/9",
+      "name": "終焉追獵",
+      "scenario": "relay",
+      "damage": 2652.599999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 2652.599999999999,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/9",
+      "name": "終焉追獵",
+      "scenario": "armor",
+      "damage": 1193.6700000000005,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 1193.6700000000005,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/9",
+      "name": "終焉追獵",
+      "scenario": "line",
+      "damage": 2652.599999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 2652.599999999999,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/9",
+      "name": "終焉追獵",
+      "scenario": "boss",
+      "damage": 2622.239999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 2622.239999999999,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/9",
+      "name": "終焉追獵",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 2417.9999999999977,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 0,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/9",
+      "name": "終焉追獵",
+      "scenario": "boss-armor",
+      "damage": 1180.0080000000005,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 1180.0080000000005,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/9",
+      "name": "終焉追獵",
+      "scenario": "wounded",
+      "damage": 4505.399999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 4505.399999999999,
+      "squad": [
+        "C01"
+      ]
+    },
+    {
+      "terminal": "C01-C/9",
+      "name": "終焉追獵",
+      "scenario": "team",
+      "damage": 2652.599999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 71,
+      "teamDamage": 12405.999999999989,
+      "squad": [
+        "C01",
+        "C03",
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C02-A/9",
+      "name": "萬雷結界",
+      "scenario": "relay",
+      "damage": 4834.4400000000005,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 4834.4400000000005,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/9",
+      "name": "萬雷結界",
+      "scenario": "armor",
+      "damage": 8098.6230000000005,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 8098.6230000000005,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/9",
+      "name": "萬雷結界",
+      "scenario": "line",
+      "damage": 10684.440000000017,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 10684.440000000017,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/9",
+      "name": "萬雷結界",
+      "scenario": "boss",
+      "damage": 1462.5,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 1462.5,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/9",
+      "name": "萬雷結界",
+      "scenario": "shield",
+      "damage": 3.9968028886505635e-14,
+      "shieldDamage": 22496.174999999996,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 3.9968028886505635e-14,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/9",
+      "name": "萬雷結界",
+      "scenario": "boss-armor",
+      "damage": 658.1249999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 658.1249999999999,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/9",
+      "name": "萬雷結界",
+      "scenario": "wounded",
+      "damage": 17996.940000000024,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 17996.940000000024,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/9",
+      "name": "萬雷結界",
+      "scenario": "team",
+      "damage": 17996.940000000024,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 22594.340000000026,
+      "squad": [
+        "C02",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C02-A/10",
+      "name": "無限迴路",
+      "scenario": "relay",
+      "damage": 5801.598562499995,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 5801.598562499995,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/10",
+      "name": "無限迴路",
+      "scenario": "armor",
+      "damage": 2610.7193531250027,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 2610.7193531250027,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/10",
+      "name": "無限迴路",
+      "scenario": "line",
+      "damage": 5801.598562499995,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 5801.598562499995,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/10",
+      "name": "無限迴路",
+      "scenario": "boss",
+      "damage": 1170,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 1170,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/10",
+      "name": "無限迴路",
+      "scenario": "shield",
+      "damage": 1.5987211554602254e-13,
+      "shieldDamage": 8412.317915624995,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 1.5987211554602254e-13,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/10",
+      "name": "無限迴路",
+      "scenario": "boss-armor",
+      "damage": 526.4999999999998,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 526.4999999999998,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/10",
+      "name": "無限迴路",
+      "scenario": "wounded",
+      "damage": 5801.598562499995,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 5801.598562499995,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-A/10",
+      "name": "無限迴路",
+      "scenario": "team",
+      "damage": 5801.598562499995,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 10398.998562499995,
+      "squad": [
+        "C02",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C02-B/7",
+      "name": "超磁暴縮退",
+      "scenario": "relay",
+      "damage": 16832.000000000007,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 16832.000000000007,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/7",
+      "name": "超磁暴縮退",
+      "scenario": "armor",
+      "damage": 15989.400000000025,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 15989.400000000025,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/7",
+      "name": "超磁暴縮退",
+      "scenario": "line",
+      "damage": 16832.000000000007,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 16832.000000000007,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/7",
+      "name": "超磁暴縮退",
+      "scenario": "boss",
+      "damage": 4910,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 4910,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/7",
+      "name": "超磁暴縮退",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 53298.000000000044,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 0,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/7",
+      "name": "超磁暴縮退",
+      "scenario": "boss-armor",
+      "damage": 2209.5000000000005,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 2209.5000000000005,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/7",
+      "name": "超磁暴縮退",
+      "scenario": "wounded",
+      "damage": 35531.99999999997,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 35531.99999999997,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/7",
+      "name": "超磁暴縮退",
+      "scenario": "team",
+      "damage": 35531.99999999997,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 45,
+      "teamDamage": 40129.39999999997,
+      "squad": [
+        "C02",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C02-B/8",
+      "name": "寂靜脈衝",
+      "scenario": "relay",
+      "damage": 4961.890000000001,
+      "shieldDamage": 0,
+      "controlSeconds": 74.2,
+      "attacks": 53,
+      "teamDamage": 4961.890000000001,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/8",
+      "name": "寂靜脈衝",
+      "scenario": "armor",
+      "damage": 3839.3504999999964,
+      "shieldDamage": 0,
+      "controlSeconds": 183,
+      "attacks": 53,
+      "teamDamage": 3839.3504999999964,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/8",
+      "name": "寂靜脈衝",
+      "scenario": "line",
+      "damage": 5556.890000000005,
+      "shieldDamage": 0,
+      "controlSeconds": 92.33333333333333,
+      "attacks": 53,
+      "teamDamage": 5556.890000000005,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/8",
+      "name": "寂靜脈衝",
+      "scenario": "boss",
+      "damage": 1985.25,
+      "shieldDamage": 0,
+      "controlSeconds": 1.4,
+      "attacks": 53,
+      "teamDamage": 1985.25,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/8",
+      "name": "寂靜脈衝",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 10664.862500000003,
+      "controlSeconds": 183,
+      "attacks": 53,
+      "teamDamage": 0,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/8",
+      "name": "寂靜脈衝",
+      "scenario": "boss-armor",
+      "damage": 893.3625000000009,
+      "shieldDamage": 0,
+      "controlSeconds": 1.4,
+      "attacks": 53,
+      "teamDamage": 893.3625000000009,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/8",
+      "name": "寂靜脈衝",
+      "scenario": "wounded",
+      "damage": 8531.89000000001,
+      "shieldDamage": 0,
+      "controlSeconds": 183,
+      "attacks": 53,
+      "teamDamage": 8531.89000000001,
+      "squad": [
+        "C02"
+      ]
+    },
+    {
+      "terminal": "C02-B/8",
+      "name": "寂靜脈衝",
+      "scenario": "team",
+      "damage": 8531.89000000001,
+      "shieldDamage": 0,
+      "controlSeconds": 183,
+      "attacks": 53,
+      "teamDamage": 13129.290000000012,
+      "squad": [
+        "C02",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-A/7",
+      "name": "天際線斷擊",
+      "scenario": "relay",
+      "damage": 8682.239999999998,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 28,
+      "teamDamage": 8682.239999999998,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-A/7",
+      "name": "天際線斷擊",
+      "scenario": "armor",
+      "damage": 13900.628000000019,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 28,
+      "teamDamage": 13900.628000000019,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-A/7",
+      "name": "天際線斷擊",
+      "scenario": "line",
+      "damage": 17002.72,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 28,
+      "teamDamage": 17002.72,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-A/7",
+      "name": "天際線斷擊",
+      "scenario": "boss",
+      "damage": 5607.28,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 28,
+      "teamDamage": 5607.28,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-A/7",
+      "name": "天際線斷擊",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 19173.28000000001,
+      "controlSeconds": 0,
+      "attacks": 28,
+      "teamDamage": 0,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-A/7",
+      "name": "天際線斷擊",
+      "scenario": "boss-armor",
+      "damage": 4065.2780000000025,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 28,
+      "teamDamage": 4065.2780000000025,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-A/7",
+      "name": "天際線斷擊",
+      "scenario": "wounded",
+      "damage": 19173.28000000001,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 28,
+      "teamDamage": 19173.28000000001,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-A/7",
+      "name": "天際線斷擊",
+      "scenario": "team",
+      "damage": 19173.28000000001,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 28,
+      "teamDamage": 27607.28000000001,
+      "squad": [
+        "C03",
+        "C01",
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C03-B/8",
+      "name": "絕對零距",
+      "scenario": "relay",
+      "damage": 4754.5599999999995,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 23,
+      "teamDamage": 4754.5599999999995,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/8",
+      "name": "絕對零距",
+      "scenario": "armor",
+      "damage": 3839.3071999999984,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 23,
+      "teamDamage": 3839.3071999999984,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/8",
+      "name": "絕對零距",
+      "scenario": "line",
+      "damage": 4754.5599999999995,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 23,
+      "teamDamage": 4754.5599999999995,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/8",
+      "name": "絕對零距",
+      "scenario": "boss",
+      "damage": 5442.72,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 23,
+      "teamDamage": 5442.72,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/8",
+      "name": "絕對零距",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 4754.5599999999995,
+      "controlSeconds": 0,
+      "attacks": 23,
+      "teamDamage": 0,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/8",
+      "name": "絕對零距",
+      "scenario": "boss-armor",
+      "damage": 4394.9964,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 23,
+      "teamDamage": 4394.9964,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/8",
+      "name": "絕對零距",
+      "scenario": "wounded",
+      "damage": 4754.5599999999995,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 23,
+      "teamDamage": 4754.5599999999995,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/8",
+      "name": "絕對零距",
+      "scenario": "team",
+      "damage": 4754.5599999999995,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 23,
+      "teamDamage": 13188.56,
+      "squad": [
+        "C03",
+        "C01",
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C03-B/9",
+      "name": "因果狙擊",
+      "scenario": "relay",
+      "damage": 4214.3,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 4214.3,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/9",
+      "name": "因果狙擊",
+      "scenario": "armor",
+      "damage": 2707.6877500000005,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 2707.6877500000005,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/9",
+      "name": "因果狙擊",
+      "scenario": "line",
+      "damage": 4214.3,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 4214.3,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/9",
+      "name": "因果狙擊",
+      "scenario": "boss",
+      "damage": 2847.5,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 2847.5,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/9",
+      "name": "因果狙擊",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 4214.3,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 0,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/9",
+      "name": "因果狙擊",
+      "scenario": "boss-armor",
+      "damage": 1829.51875,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 1829.51875,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/9",
+      "name": "因果狙擊",
+      "scenario": "wounded",
+      "damage": 9903.605,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 9903.605,
+      "squad": [
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C03-B/9",
+      "name": "因果狙擊",
+      "scenario": "team",
+      "damage": 4214.3,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 12648.3,
+      "squad": [
+        "C03",
+        "C01",
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C04-A/10",
+      "name": "人造黑洞",
+      "scenario": "relay",
+      "damage": 8547,
+      "shieldDamage": 0,
+      "controlSeconds": 159.86666666666667,
+      "attacks": 34,
+      "teamDamage": 8547,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/10",
+      "name": "人造黑洞",
+      "scenario": "armor",
+      "damage": 9650.250000000002,
+      "shieldDamage": 0,
+      "controlSeconds": 399.6666666666667,
+      "attacks": 34,
+      "teamDamage": 9650.250000000002,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/10",
+      "name": "人造黑洞",
+      "scenario": "line",
+      "damage": 10738,
+      "shieldDamage": 0,
+      "controlSeconds": 199.83333333333334,
+      "attacks": 34,
+      "teamDamage": 10738,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/10",
+      "name": "人造黑洞",
+      "scenario": "boss",
+      "damage": 2160,
+      "shieldDamage": 0,
+      "controlSeconds": 39.96666666666667,
+      "attacks": 34,
+      "teamDamage": 2160,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/10",
+      "name": "人造黑洞",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 21445,
+      "controlSeconds": 399.6666666666667,
+      "attacks": 34,
+      "teamDamage": 0,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/10",
+      "name": "人造黑洞",
+      "scenario": "boss-armor",
+      "damage": 971.9999999999992,
+      "shieldDamage": 0,
+      "controlSeconds": 39.96666666666667,
+      "attacks": 34,
+      "teamDamage": 971.9999999999992,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/10",
+      "name": "人造黑洞",
+      "scenario": "wounded",
+      "damage": 21445,
+      "shieldDamage": 0,
+      "controlSeconds": 399.6666666666667,
+      "attacks": 34,
+      "teamDamage": 21445,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/10",
+      "name": "人造黑洞",
+      "scenario": "team",
+      "damage": 21445,
+      "shieldDamage": 0,
+      "controlSeconds": 399.6666666666667,
+      "attacks": 34,
+      "teamDamage": 26042.4,
+      "squad": [
+        "C04",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C04-A/11",
+      "name": "事件視界",
+      "scenario": "relay",
+      "damage": 12098.993600000013,
+      "shieldDamage": 0,
+      "controlSeconds": 199.83333333333334,
+      "attacks": 34,
+      "teamDamage": 12098.993600000013,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/11",
+      "name": "事件視界",
+      "scenario": "armor",
+      "damage": 10978.547219999871,
+      "shieldDamage": 0,
+      "controlSeconds": 399.6666666666667,
+      "attacks": 34,
+      "teamDamage": 10978.547219999871,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/11",
+      "name": "事件視界",
+      "scenario": "line",
+      "damage": 12170.293600000014,
+      "shieldDamage": 0,
+      "controlSeconds": 199.83333333333334,
+      "attacks": 34,
+      "teamDamage": 12170.293600000014,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/11",
+      "name": "事件視界",
+      "scenario": "boss",
+      "damage": 2466.6856000000043,
+      "shieldDamage": 0,
+      "controlSeconds": 39.96666666666667,
+      "attacks": 34,
+      "teamDamage": 2466.6856000000043,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/11",
+      "name": "事件視界",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 21801.929999999924,
+      "controlSeconds": 399.6666666666667,
+      "attacks": 34,
+      "teamDamage": 0,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/11",
+      "name": "事件視界",
+      "scenario": "boss-armor",
+      "damage": 1110.0085200000008,
+      "shieldDamage": 0,
+      "controlSeconds": 39.96666666666667,
+      "attacks": 34,
+      "teamDamage": 1110.0085200000008,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/11",
+      "name": "事件視界",
+      "scenario": "wounded",
+      "damage": 24396.771600000215,
+      "shieldDamage": 0,
+      "controlSeconds": 399.6666666666667,
+      "attacks": 34,
+      "teamDamage": 24396.771600000215,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-A/11",
+      "name": "事件視界",
+      "scenario": "team",
+      "damage": 24396.771600000215,
+      "shieldDamage": 0,
+      "controlSeconds": 399.6666666666667,
+      "attacks": 34,
+      "teamDamage": 29817.035600000214,
+      "squad": [
+        "C04",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C04-B/7",
+      "name": "星環反衝",
+      "scenario": "relay",
+      "damage": 1767,
+      "shieldDamage": 0,
+      "controlSeconds": 47.5,
+      "attacks": 22,
+      "teamDamage": 1767,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-B/7",
+      "name": "星環反衝",
+      "scenario": "armor",
+      "damage": 836.9999999999994,
+      "shieldDamage": 0,
+      "controlSeconds": 50,
+      "attacks": 8,
+      "teamDamage": 836.9999999999994,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-B/7",
+      "name": "星環反衝",
+      "scenario": "line",
+      "damage": 1302,
+      "shieldDamage": 0,
+      "controlSeconds": 32.833333333333336,
+      "attacks": 6,
+      "teamDamage": 1302,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-B/7",
+      "name": "星環反衝",
+      "scenario": "boss",
+      "damage": 1813.5,
+      "shieldDamage": 0,
+      "controlSeconds": 39.96666666666667,
+      "attacks": 39,
+      "teamDamage": 1813.5,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-B/7",
+      "name": "星環反衝",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 1860,
+      "controlSeconds": 50,
+      "attacks": 8,
+      "teamDamage": 0,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-B/7",
+      "name": "星環反衝",
+      "scenario": "boss-armor",
+      "damage": 816.0749999999995,
+      "shieldDamage": 0,
+      "controlSeconds": 39.96666666666667,
+      "attacks": 39,
+      "teamDamage": 816.0749999999995,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-B/7",
+      "name": "星環反衝",
+      "scenario": "wounded",
+      "damage": 1860,
+      "shieldDamage": 0,
+      "controlSeconds": 50,
+      "attacks": 8,
+      "teamDamage": 1860,
+      "squad": [
+        "C04"
+      ]
+    },
+    {
+      "terminal": "C04-B/7",
+      "name": "星環反衝",
+      "scenario": "team",
+      "damage": 1860,
+      "shieldDamage": 0,
+      "controlSeconds": 50,
+      "attacks": 8,
+      "teamDamage": 6433.400000000001,
+      "squad": [
+        "C04",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C05-A/8",
+      "name": "赤潮火海",
+      "scenario": "relay",
+      "damage": 4885.199999999971,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 4885.199999999971,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/8",
+      "name": "赤潮火海",
+      "scenario": "armor",
+      "damage": 9773.257500000043,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 9773.257500000043,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/8",
+      "name": "赤潮火海",
+      "scenario": "line",
+      "damage": 7261.199999999961,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 7261.199999999961,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/8",
+      "name": "赤潮火海",
+      "scenario": "boss",
+      "damage": 2112.3000000000025,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 2112.3000000000025,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/8",
+      "name": "赤潮火海",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 16634.700000000215,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 0,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/8",
+      "name": "赤潮火海",
+      "scenario": "boss-armor",
+      "damage": 1204.7174999999988,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 1204.7174999999988,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/8",
+      "name": "赤潮火海",
+      "scenario": "wounded",
+      "damage": 16634.700000000215,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 16634.700000000215,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/8",
+      "name": "赤潮火海",
+      "scenario": "team",
+      "damage": 16634.700000000215,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 21232.100000000217,
+      "squad": [
+        "C05",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C05-A/9",
+      "name": "永燃核心",
+      "scenario": "relay",
+      "damage": 5928,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 5928,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/9",
+      "name": "永燃核心",
+      "scenario": "armor",
+      "damage": 10055.5500000001,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 10055.5500000001,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/9",
+      "name": "永燃核心",
+      "scenario": "line",
+      "damage": 7119,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 7119,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/9",
+      "name": "永燃核心",
+      "scenario": "boss",
+      "damage": 2373,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 2373,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/9",
+      "name": "永燃核心",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 14235,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 0,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/9",
+      "name": "永燃核心",
+      "scenario": "boss-armor",
+      "damage": 1589.2499999999975,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 1589.2499999999975,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/9",
+      "name": "永燃核心",
+      "scenario": "wounded",
+      "damage": 14235,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 14235,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-A/9",
+      "name": "永燃核心",
+      "scenario": "team",
+      "damage": 14235,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 18832.4,
+      "squad": [
+        "C05",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C05-B/7",
+      "name": "終末煙火",
+      "scenario": "relay",
+      "damage": 10753.75999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 10753.75999999999,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/7",
+      "name": "終末煙火",
+      "scenario": "armor",
+      "damage": 12252.771200000108,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 12252.771200000108,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/7",
+      "name": "終末煙火",
+      "scenario": "line",
+      "damage": 10753.75999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 10753.75999999999,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/7",
+      "name": "終末煙火",
+      "scenario": "boss",
+      "damage": 2688.439999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 2688.439999999999,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/7",
+      "name": "終末煙火",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 21507.52000000001,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 0,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/7",
+      "name": "終末煙火",
+      "scenario": "boss-armor",
+      "damage": 1531.5964000000015,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 1531.5964000000015,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/7",
+      "name": "終末煙火",
+      "scenario": "wounded",
+      "damage": 21507.52000000001,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 21507.52000000001,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/7",
+      "name": "終末煙火",
+      "scenario": "team",
+      "damage": 21507.52000000001,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 27,
+      "teamDamage": 26104.920000000013,
+      "squad": [
+        "C05",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C05-B/8",
+      "name": "連環殉爆",
+      "scenario": "relay",
+      "damage": 5349.999999999996,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 31,
+      "teamDamage": 5349.999999999996,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/8",
+      "name": "連環殉爆",
+      "scenario": "armor",
+      "damage": 9030.517999999955,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 31,
+      "teamDamage": 9030.517999999955,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/8",
+      "name": "連環殉爆",
+      "scenario": "line",
+      "damage": 13635.720000000027,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 31,
+      "teamDamage": 13635.720000000027,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/8",
+      "name": "連環殉爆",
+      "scenario": "boss",
+      "damage": 5349.999999999996,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 31,
+      "teamDamage": 5349.999999999996,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/8",
+      "name": "連環殉爆",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 19585.039999999943,
+      "controlSeconds": 0,
+      "attacks": 31,
+      "teamDamage": 0,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/8",
+      "name": "連環殉爆",
+      "scenario": "boss-armor",
+      "damage": 2450.9499999999994,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 31,
+      "teamDamage": 2450.9499999999994,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/8",
+      "name": "連環殉爆",
+      "scenario": "wounded",
+      "damage": 19585.039999999943,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 31,
+      "teamDamage": 19585.039999999943,
+      "squad": [
+        "C05"
+      ]
+    },
+    {
+      "terminal": "C05-B/8",
+      "name": "連環殉爆",
+      "scenario": "team",
+      "damage": 19585.039999999943,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 31,
+      "teamDamage": 24182.439999999944,
+      "squad": [
+        "C05",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C06-A/10",
+      "name": "女王蜂巢",
+      "scenario": "relay",
+      "damage": 5359.999999999969,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 86,
+      "teamDamage": 5359.999999999969,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/10",
+      "name": "女王蜂巢",
+      "scenario": "armor",
+      "damage": 2411.9999999999936,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 86,
+      "teamDamage": 2411.9999999999936,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/10",
+      "name": "女王蜂巢",
+      "scenario": "line",
+      "damage": 5359.999999999969,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 86,
+      "teamDamage": 5359.999999999969,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/10",
+      "name": "女王蜂巢",
+      "scenario": "boss",
+      "damage": 5731.839999999994,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 86,
+      "teamDamage": 5731.839999999994,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/10",
+      "name": "女王蜂巢",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 5228.7999999999665,
+      "controlSeconds": 0,
+      "attacks": 86,
+      "teamDamage": 0,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/10",
+      "name": "女王蜂巢",
+      "scenario": "boss-armor",
+      "damage": 2579.3280000000054,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 86,
+      "teamDamage": 2579.3280000000054,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/10",
+      "name": "女王蜂巢",
+      "scenario": "wounded",
+      "damage": 5359.999999999969,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 86,
+      "teamDamage": 5359.999999999969,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/10",
+      "name": "女王蜂巢",
+      "scenario": "team",
+      "damage": 5359.999999999969,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 86,
+      "teamDamage": 10389.879999999966,
+      "squad": [
+        "C06",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C06-A/11",
+      "name": "全機突擊",
+      "scenario": "relay",
+      "damage": 4648.760000000005,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 4648.760000000005,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/11",
+      "name": "全機突擊",
+      "scenario": "armor",
+      "damage": 3617.7371999999723,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 3617.7371999999723,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/11",
+      "name": "全機突擊",
+      "scenario": "line",
+      "damage": 5866.936,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 5866.936,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/11",
+      "name": "全機突擊",
+      "scenario": "boss",
+      "damage": 4782.432,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 4782.432,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/11",
+      "name": "全機突擊",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 7340.799999999959,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 0,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/11",
+      "name": "全機突擊",
+      "scenario": "boss-armor",
+      "damage": 2152.094399999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 2152.094399999999,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/11",
+      "name": "全機突擊",
+      "scenario": "wounded",
+      "damage": 8039.416000000021,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 8039.416000000021,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-A/11",
+      "name": "全機突擊",
+      "scenario": "team",
+      "damage": 8039.416000000021,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 13212.09600000002,
+      "squad": [
+        "C06",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C06-B/8",
+      "name": "全域解算",
+      "scenario": "relay",
+      "damage": 2149,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 2149,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/8",
+      "name": "全域解算",
+      "scenario": "armor",
+      "damage": 967.0499999999988,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 967.0499999999988,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/8",
+      "name": "全域解算",
+      "scenario": "line",
+      "damage": 2149,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 2149,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/8",
+      "name": "全域解算",
+      "scenario": "boss",
+      "damage": 2149,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 2149,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/8",
+      "name": "全域解算",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 1722.3999999999978,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 0,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/8",
+      "name": "全域解算",
+      "scenario": "boss-armor",
+      "damage": 967.0499999999988,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 967.0499999999988,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/8",
+      "name": "全域解算",
+      "scenario": "wounded",
+      "damage": 2149,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 2149,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/8",
+      "name": "全域解算",
+      "scenario": "team",
+      "damage": 2149,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 7491.900000000001,
+      "squad": [
+        "C06",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C06-B/9",
+      "name": "獵殺協定",
+      "scenario": "relay",
+      "damage": 2526.783999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 2526.783999999999,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/9",
+      "name": "獵殺協定",
+      "scenario": "armor",
+      "damage": 1137.0527999999988,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 1137.0527999999988,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/9",
+      "name": "獵殺協定",
+      "scenario": "line",
+      "damage": 2526.783999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 2526.783999999999,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/9",
+      "name": "獵殺協定",
+      "scenario": "boss",
+      "damage": 2526.783999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 2526.783999999999,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/9",
+      "name": "獵殺協定",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 2304.640000000002,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 0,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/9",
+      "name": "獵殺協定",
+      "scenario": "boss-armor",
+      "damage": 1137.0527999999988,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 1137.0527999999988,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/9",
+      "name": "獵殺協定",
+      "scenario": "wounded",
+      "damage": 2526.783999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 2526.783999999999,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-B/9",
+      "name": "獵殺協定",
+      "scenario": "team",
+      "damage": 2526.783999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 93,
+      "teamDamage": 8184.064,
+      "squad": [
+        "C06",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C06-C/7",
+      "name": "六角天幕",
+      "scenario": "relay",
+      "damage": 1401.599999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 1401.599999999999,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/7",
+      "name": "六角天幕",
+      "scenario": "armor",
+      "damage": 630.7199999999998,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 630.7199999999998,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/7",
+      "name": "六角天幕",
+      "scenario": "line",
+      "damage": 1401.599999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 1401.599999999999,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/7",
+      "name": "六角天幕",
+      "scenario": "boss",
+      "damage": 1401.599999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 1401.599999999999,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/7",
+      "name": "六角天幕",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 1280,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 0,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/7",
+      "name": "六角天幕",
+      "scenario": "boss-armor",
+      "damage": 630.7199999999998,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 630.7199999999998,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/7",
+      "name": "六角天幕",
+      "scenario": "wounded",
+      "damage": 1401.599999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 1401.599999999999,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/7",
+      "name": "六角天幕",
+      "scenario": "team",
+      "damage": 1401.599999999999,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 80,
+      "teamDamage": 6431.479999999996,
+      "squad": [
+        "C06",
+        "C01",
+        "C03"
+      ]
+    },
+    {
+      "terminal": "C06-C/8",
+      "name": "絕對防衛線",
+      "scenario": "relay",
+      "damage": 1471.9999999999986,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 84,
+      "teamDamage": 1471.9999999999986,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/8",
+      "name": "絕對防衛線",
+      "scenario": "armor",
+      "damage": 662.3999999999996,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 84,
+      "teamDamage": 662.3999999999996,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/8",
+      "name": "絕對防衛線",
+      "scenario": "line",
+      "damage": 1471.9999999999986,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 84,
+      "teamDamage": 1471.9999999999986,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/8",
+      "name": "絕對防衛線",
+      "scenario": "boss",
+      "damage": 1471.9999999999986,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 84,
+      "teamDamage": 1471.9999999999986,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/8",
+      "name": "絕對防衛線",
+      "scenario": "shield",
+      "damage": 0,
+      "shieldDamage": 1344,
+      "controlSeconds": 0,
+      "attacks": 84,
+      "teamDamage": 0,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/8",
+      "name": "絕對防衛線",
+      "scenario": "boss-armor",
+      "damage": 662.3999999999996,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 84,
+      "teamDamage": 662.3999999999996,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/8",
+      "name": "絕對防衛線",
+      "scenario": "wounded",
+      "damage": 1471.9999999999986,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 84,
+      "teamDamage": 1471.9999999999986,
+      "squad": [
+        "C06"
+      ]
+    },
+    {
+      "terminal": "C06-C/8",
+      "name": "絕對防衛線",
+      "scenario": "team",
+      "damage": 1471.9999999999986,
+      "shieldDamage": 0,
+      "controlSeconds": 0,
+      "attacks": 84,
+      "teamDamage": 6501.879999999996,
+      "squad": [
+        "C06",
+        "C01",
+        "C03"
+      ]
+    }
+  ]
+}

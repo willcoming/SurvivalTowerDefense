@@ -61,6 +61,8 @@ test('ENEMY: stun freezes every pose, compact effects retain gait, pause and sav
   expect(restored.state.enemies).toEqual(saved.enemies);expect(restored.state.tick).toBe(saved.tick);expect(restored.state.rng).toEqual(saved.rng);expect(restored.view.enemyMotions.every(m=>m.releases===0)).toBe(true);
   await page.locator('[data-action="resume"]').click();await page.waitForFunction(()=>window.__game.presentation().enemyMotions.find(m=>m.type==='B03')?.mode==='charge');
   const resumed=await page.evaluate(()=>window.__game.presentation());expect(resumed.warnings.visible).toBe(true);expect(resumed.enemyMotions.find(m=>m.type==='B03')!.releases).toBe(0);expect(resumed.enemyMotions.filter(m=>m.type!=='B03').every(m=>m.mode==='move')).toBe(true);
+  // Isolate warning/skill overlap after recovery; initial cold-start timing is tested separately.
+  await page.evaluate(()=>{const s=window.__game.state()!;s.tacticalReadyAt=s.tick;});
   await page.locator('[data-action="cast"]').click();await page.waitForFunction(()=>window.__game.presentation().cutin.visible);
   const warning=await page.evaluate(()=>window.__game.presentation());expect(warning.warnings.depth).toBeGreaterThan(warning.cutin.depth);expect(warning.warnings.bottom).toBeLessThan(warning.cutin.top);
   await page.screenshot({path:`${dir}/screenshots/${info.project.name}-restored-charge-warning.png`});

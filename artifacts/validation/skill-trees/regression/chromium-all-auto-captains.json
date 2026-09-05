@@ -1,0 +1,95 @@
+{
+  "evidence": "Real initial battles, real auto input policy and skills, no combat field edits. Preference persists across starting another battle; fresh no-skill challenge enforces prohibition.",
+  "casts": [
+    {
+      "captain": "C01",
+      "ticks": [
+        1
+      ],
+      "skill": {
+        "visible": true,
+        "id": "C01",
+        "age": 58.09999999999991,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captain": "C02",
+      "ticks": [
+        0
+      ],
+      "skill": {
+        "visible": true,
+        "id": "C02",
+        "age": 91.30000000000018,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captain": "C03",
+      "ticks": [
+        0
+      ],
+      "skill": {
+        "visible": true,
+        "id": "C03",
+        "age": 115.60000000000014,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captain": "C04",
+      "ticks": [
+        0
+      ],
+      "skill": {
+        "visible": true,
+        "id": "C04",
+        "age": 21.200000000000045,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captain": "C05",
+      "ticks": [
+        0
+      ],
+      "skill": {
+        "visible": true,
+        "id": "C05",
+        "age": 92,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    },
+    {
+      "captain": "C06",
+      "ticks": [
+        0
+      ],
+      "skill": {
+        "visible": true,
+        "id": "C06",
+        "age": 134.0999999999999,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      }
+    }
+  ]
+}

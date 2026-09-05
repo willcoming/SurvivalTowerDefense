@@ -1,3 +1,6 @@
+import { usesFreeSkills } from '../data/deep-trees';
+import { usesSkillTrees } from '../data/skill-trees';
+import { treeMods, ultimateFor } from '../sim/skill-tree';
 import Phaser from 'phaser';
 import { CHARACTER_MAP, ENEMY_MAP, STAGE_MAP } from '../data/content';
 import type { CharacterId, RunState } from '../sim/types';
@@ -123,12 +126,13 @@ export class BattleScene extends Phaser.Scene {
     const shield = run.shields.reduce((sum, s) => sum + s.value, 0);
     if (shield > 0) { g.fillStyle(0x69eedc, .10).fillRect(0, 432, 390, 18); g.lineStyle(3, 0x9cffee, .8).beginPath().moveTo(0, 435).lineTo(390, 435).strokePath(); }
     for (const weapon of run.weapons) {
-      if (weapon.rank < 3) continue;
+      const mods=treeMods(run,weapon.id), tree=ultimateFor(run,weapon.id)?.split(/[:/]/)[0];
+      if (weapon.rank < 3 && !(usesSkillTrees(run)&&weapon.id==='C06'&&mods.drones)) continue;
       const x = this.originX(weapon.id); const color = hex(CHARACTER_MAP[weapon.id].color);
       g.lineStyle(1.5, color, .8).strokeEllipse(x, 497, 53, 13);
       if (weapon.id === 'C06') {
-        const count = weapon.branch === 'A' ? 2 : 1;
-        for (let i = 0; i < count; i++) { const dx = x + (i === 0 ? -23 : 23), dy = 460 + (this.low() ? 0 : Math.sin(run.tick / 16 + i) * 3); g.fillStyle(0xf0f5df, 1).fillTriangle(dx - 7, dy, dx + 7, dy, dx, dy - 6); g.fillStyle(color).fillCircle(dx, dy - 3, 2); }
+        const count = usesFreeSkills(run)?Math.min(5,1+(mods.drones??0)):usesSkillTrees(run) ? (mods.drones||tree==='C06-A'?2:1) : weapon.branch === 'A' ? 2 : 1;
+        for (let i = 0; i < count; i++) { const dx = x + (usesFreeSkills(run)?(i-(count-1)/2)*14:(i === 0 ? -23 : 23)), dy = 460 + (this.low() ? 0 : Math.sin(run.tick / 16 + i) * 3); g.fillStyle(0xf0f5df, 1).fillTriangle(dx - 7, dy, dx + 7, dy, dx, dy - 6); g.fillStyle(color).fillCircle(dx, dy - 3, 2); }
       }
     }
     this.drawEvolutionModules(run);
@@ -141,9 +145,10 @@ export class BattleScene extends Phaser.Scene {
     const g = this.worldGraphics;
     for (const w of run.weapons) {
       if (w.rank !== 3) continue;
-      const x = this.originX(w.id), y = 456, c = hex(CHARACTER_MAP[w.id].color), a = w.branch === 'A';
+      const x = this.originX(w.id), y = 456, c = hex(CHARACTER_MAP[w.id].color), a = w.branch === 'A', tree=usesSkillTrees(run)?ultimateFor(run,w.id)?.split(/[:/]/)[0]:undefined;
       if (w.id === 'C01') {
-        if (a) for (const dx of [-14, 0, 14]) polygon(g, x + dx, y, 5, 6, c, .85, Math.PI / 6);
+        if(tree==='C01-C'){g.lineStyle(2,c,.9).strokeCircle(x,y,12);line(g,[{x:x-18,y},{x:x+18,y}],c,1.5,.8);line(g,[{x,y:y-18},{x,y:y+18}],c,1.5,.8);}
+        else if (a) for (const dx of [-14, 0, 14]) polygon(g, x + dx, y, 5, 6, c, .85, Math.PI / 6);
         else { polygon(g, x, y, 13, 4, 0xffd59d, .9); line(g, [{ x: x - 5, y: y + 7 }, { x, y: y - 15 }, { x: x + 5, y: y + 7 }], c, 2, .9); }
       } else if (w.id === 'C02') {
         if (a) for (let i = 0; i < 4; i++) { const angle = i * Math.PI / 2 + run.tick / 24; polygon(g, x + Math.cos(angle) * 22, y + Math.sin(angle) * 7, 3, 4, c, .8); }
@@ -157,9 +162,10 @@ export class BattleScene extends Phaser.Scene {
       } else if (w.id === 'C05') {
         if (a) for (let i = -1; i <= 1; i++) g.fillStyle(0xffa450, .8).fillTriangle(x + i * 12 - 3, y + 4, x + i * 12 + 3, y + 4, x + i * 12, y - 7 - Math.sin(run.tick / 9 + i) * 3);
         else { polygon(g, x, y, 17, 8, 0xffd585, .9, run.tick / 50); g.fillStyle(0xffeec4, .9).fillCircle(x, y, 5); }
-      } else if (!a) polygon(g, x, y, 18, 6, 0xc2fff0, .9, Math.PI / 6);
+      } else if(tree==='C06-B'){polygon(g,x,y,15,4,0xffe6a8,.9);g.lineStyle(2,0xffe6a8,.8).strokeCircle(x,y,7);}
+      else if (!a) polygon(g, x, y, 18, 6, 0xc2fff0, .9, Math.PI / 6);
     }
-    if (run.shields.some(s => s.source === 'C06-B')) for (let i = 0; i < 7; i++) polygon(g, 30 + i * 55, 435, 24, 6, 0xa2fae0, .38, Math.PI / 6);
+    if (run.shields.some(s => s.source === 'C06-B'||s.source==='C06-tree')) for (let i = 0; i < 7; i++) polygon(g, 30 + i * 55, 435, 24, 6, 0xa2fae0, .38, Math.PI / 6);
   }
   private drawWarnings(run: RunState) {
     const g = this.warnings; g.clear();

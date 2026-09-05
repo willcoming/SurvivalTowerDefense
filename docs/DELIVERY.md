@@ -1,17 +1,10 @@
-# 星骸防線：黎明反攻 — 可玩版交付
+# 可玩版交付與驗證
 
-最新已加入 11 種敵人逐格移動與行動動畫，以及可保存的隊長技能自動施放開關，見 [敵人動畫與自動技能更新](ENEMY_ANIMATION_UPDATE.md)。本頁原有測量保留為歷史基準。
+**星骸防線：黎明反攻 · 內容版本 0.3.0-dev.1 · 2026-09-05**
 
-後續已加入最高 3× 加速及六人戰鬥動畫，操作與新增驗證見 [戰鬥加速更新](SPEED_UPDATE.md) 與 [動畫更新](ANIMATION_UPDATE.md)。以下保留首版交付的測量與版本基準。
-
-交付日期：2026-09-04。套件版本 `0.1.0`，遊戲內容 `0.1.0-dev.2`，自動策略 `policy-v3`。遊戲程式基準為 Git `34c6002`；後續交付提交只補測試選擇器、文件與驗證證據。
+自由技能樹工程版已完成，可在本機或同 Wi-Fi 手機遊玩。規則、流程、本地存檔、畫面與自動化驗證均已交付；本頁數據引用既有驗證報告，文件同步沒有產生新的測量。初版 0.1 交付數據另存於 [歷史報告](history/DELIVERY_INITIAL.md)。
 
 ## 開始遊玩
-
-- 電腦：[開啟遊戲](http://localhost:5173/)
-- 手機連接與電腦相同 Wi-Fi：[開啟區網遊戲](http://192.168.68.110:5173/)
-
-本次交付已啟動正式 `dist/` 的預覽服務。主機需保持開機且服務持續執行；區網 IP 可能隨網路改變。日後重新啟動，請在專案資料夾執行：
 
 ```sh
 npm ci --no-audit --no-fund
@@ -19,48 +12,45 @@ npm run build
 npm run preview
 ```
 
-原始碼、鎖定依賴、測試、文件與本機素材皆在專案內；`dist/` 是已產生的靜態網站。尚未公開部署。完整操作與開發命令見 [README](../README.md)。
+電腦開啟 [本機遊戲](http://localhost:5173/)，手機使用 preview 終端輸出的 `Network` 網址，主機需保持開機且預覽服務運行。區網 IP 會隨網路改變，請以當次輸出為準。dev 與 preview 共用固定 5173 埠，不同時啟動；完整啟動及測試命令見 [README](../README.md)。
+
+`dist/` 是已建置的靜態網站，尚未公開部署。載入最新網站後，新開一局才使用 0.3 自由技能樹；目前未完成的舊局繼續原版本規則，不清除關卡進度或偏好。
 
 ## 已交付內容
 
-六位成年美少女、自由選擇 1–5 人與隊長、六把專屬外星科技武器、12 條改造路線、三關與三個 Boss。武器自動攻擊，玩家以選卡、組隊及施放隊長技能決策；成功局的有效戰鬥時間為六至八分鐘，暫停與選卡不計時。
+- 六位角色自由選擇 1–5 人出戰、六把專屬武器、三關與三位 Boss，維持靠搭配取勝的單人六至八分鐘流程。
+- 14 條不對稱角色樹，138 個角色節點＋12 個共用節點；25 終極、每人最多一個、全隊最多三個。
+- 每 60 XP 自動開樹並提供 2 點，全局 24 點；從完整樹預覽並確認取得，本次點數必須花完，可暫存半途配置。
+- 隊長開局先冷卻 45／50 秒，支援手動／自動與 1×–3×；固定敵情、波次變體與事件可供配點判斷。
+- 六人射擊與技能、武器彈道、實際範圍及狀態、敵人移動／受擊／死亡、三個 Boss 出場，3× 維持預警優先。
+- IndexedDB 完整戰局、定期與事件保存、分頁衝突保護及舊版本續玩；沒有登入、永久戰力或刷取資源。
 
-角色與武器路線初始開放，沒有永久戰力等級、抽卡、體力或刷材料。通關解鎖後續關卡、故事與挑戰。主頁、情報、編隊、教學、戰鬥、改造、暫停、結果、圖鑑、設定與恢復流程均已整合。
+25 個終極使用既有武器／角色素材與程序特效表現機制，並非 25 套新插畫動畫。詳細玩法見 [MVP 規格](MVP_SPEC.md)與[自由技能樹規格](FREE_SKILLS.md)。
 
-IndexedDB 保存進度與完整戰局，包括敵人、彈體、狀態效果、冷卻、隨機狀態及原候選牌。每五秒與關鍵操作保存，重新開啟可繼續最近成功保存點。多分頁使用修訂版本阻止舊頁覆寫；損壞或不相容資料會保留並提供恢復選項。不同瀏覽器、localhost 與區網 IP 各有獨立存檔，沒有雲端同步。
+## 驗證結果
 
-## 工程驗收
+彙總時間：2026-09-05 03:57:58 UTC（台北 11:57:58）。[機器可讀交付摘要](../artifacts/validation/free-skills/release-summary.json)記錄內容版本、逐案例來源與 sourceDigest。
 
-| 項目 | 實際結果 | 證據 |
+| 項目 | 本次結果 | 證據 |
 | --- | --- | --- |
-| 規則與存檔 | 86/86 通過，包含確定性、武器／敵人時序、候選牌保存、交易與分頁衝突 | [測試報告](../artifacts/validation/0.1.0-dev.2/rule-results.json) |
-| 瀏覽器流程 | Chromium／WebKit 共 10/10 通過；各五局合法命令重播及主頁循環，結算後戰場 Canvas 與 activeRun 清除 | [流程報告](../artifacts/validation/0.1.0-dev.2/browser-results/results.json)、[Chromium](../artifacts/validation/0.1.0-dev.2/browser-results/chromium-replay-cycles.json)、[WebKit](../artifacts/validation/0.1.0-dev.2/browser-results/webkit-replay-cycles.json) |
-| 最終平衡與重播 | 三套構築各十種固定種子，S03 共 30/30 通關，30/30 完成三個核心 E；命令重播一致 | [30 局報告](../artifacts/validation/0.1.0-dev.2/balance-runs.json)、[重播](../artifacts/validation/0.1.0-dev.2/replay-results.json) |
-| 決策對照 | 三項有效技能時機比較，防線損血改善 25%、30%、33.33%；另外兩項假說失敗並保留 | [完整對照](../artifacts/validation/0.1.0-dev.2/comparisons.json)、[策略與失敗解讀](TEST_POLICIES.md) |
-| 桌面動態繪圖壓力 | 120 敵人、400 彈體、12 區域、三把 E、Boss，持續 60 秒；P95 26.5 ms，門檻 33.3 ms | [動態壓測](../artifacts/validation/0.1.0-dev.2/browser-results/desktop-render-performance-dynamic.json) |
-| 純模擬壓力 | 1,800 次高密度核心更新，P95 2.491 ms | [模擬壓測](../artifacts/validation/0.1.0-dev.2/simulation-pressure.json) |
-| 美術與容量 | 44 項必要圖像完整，另有 1 項備用圖集；沒有缺檔或無效清單 | [素材容量報告](../artifacts/validation/0.1.0-dev.2/asset-budget.json)、[素材說明](ART_ASSETS.md) |
-| 乾淨安裝與建置 | 新暫存目錄 `npm ci` 成功；TypeScript 與正式 build 通過 | [乾淨安裝](../artifacts/build/clean-install.json) |
-| 正式預覽 | 無開發測試入口；主頁可操作 619 ms、首次戰場就緒 2,858 ms；真實時間取得改造後刷新，原候選牌／隨機狀態／tick 還原，選卡及暫停保存成功；無 JavaScript 或 HTTP 錯誤 | [正式驗收](../artifacts/validation/0.1.0-dev.2/production/smoke.json)、[主頁](../artifacts/validation/0.1.0-dev.2/production/home.png)、[實際改造](../artifacts/validation/0.1.0-dev.2/production/earned-upgrade.png) |
+| 規則與存檔 | **254 項通過** | [規則日誌](../artifacts/validation/free-skills/rules-final.log) |
+| 瀏覽器回歸 | **150 個獨立案例：147 通過、3 跳過**；三項為 WebKit 不適用的 Chromium 桌面效能情境 | [逐案例合併摘要](../artifacts/validation/free-skills/release-summary.json) |
+| 正式構築研究 | **1,500／1,500 通關**，有效時間 373.5–415.0 秒；全局 24 點，受測角色投入符合 5／7 點 | [完整分組與逐局資料](../artifacts/validation/free-skills/balance.json) |
+| 保存與命令重播 | 1,500 場皆在第 7 點保存／恢復成功；50 份完整命令重播摘要一致 | [研究結果](FREE_SKILL_VALIDATION.md) |
+| 機制診斷 | **200 個合成探針**，25 終極 × 八種情境；與正式通關分開 | [探針資料](../artifacts/validation/free-skills/matchups.json) |
+| 3× 活動戰鬥壓力 | 60 秒桌面量測，影格 p95 **26.6 ms**、約 **90.0084 tick／秒**，預警遺失 **0**；至少 120 敵人、400 敵彈、13 場域 | [活動壓測](../artifacts/validation/free-skills/pressure-final/live-3x-performance.json) |
+| 正式 preview | 10 Mbps／100 ms RTT：主頁 **698 ms**、首場 **3,401 ms**；真實取得 XP、花 1 點後重載續配成功；首次自動技能第 **50 秒**，無提前施放、頁面錯誤或失敗請求 | [正式版驗證](../artifacts/validation/free-skills/production/smoke.json) |
+| 素材 | 61 項必要素材、62 筆 manifest，無缺失／無效；保守首頁 1,276,272 bytes、首場 7,882,038 bytes、解碼估計 81,340,864 bytes | [素材與容量](../artifacts/validation/free-skills/final-assets/asset-budget.json) |
+| 型別與建置 | typecheck、正式 build、差異格式檢查通過；正式版無開發測試 API | [交付摘要](../artifacts/validation/free-skills/release-summary.json)及[正式版驗證](../artifacts/validation/free-skills/production/smoke.json) |
 
-正式預覽的載入時間來自桌面 Chromium、390×844、10 Mbps／100 ms RTT 模擬網路、空白瀏覽器環境與停用 HTTP 快取的單次測量，門檻分別為 5 秒與 10 秒。測試只讀取 IndexedDB 驗證快照，沒有使用加速入口或改寫戰局。
+瀏覽器總數依同一檔案、案例名稱與瀏覽器去重，採最後一次結果；不是把重跑次數相加。初次回歸的失敗與修正報告仍保留，索引為 `regression`、`fixes`、`captain-final`、`pressure-final`。其中舊測試的立即施放／18 點假設與隊長等待流程已修正；方法見 [驗收矩陣](VALIDATION_MATRIX.md)。
 
-容量採保守上界：主頁傳輸約 1.24 MB、首次戰鬥約 4.59 MB；全部素材及去背副本與戰場快取的解碼估算約 54.85 MB。估算包含所有素材而非僅當局素材，程式使用實測 gzip；不包含瀏覽器與 GPU 配置額外開銷。
+## 結論的適用範圍
 
-## 證據的適用範圍
+正式 1,500 場使用固定代表性隊伍及配對種子，支持這些構築可玩、預算合法且可重播。全勝可能受強力隊友與勝率飽和影響，不能證明任意搭配、任意單人隊伍或每條樹同等強度。技能樹總數目前保留不對稱，研究下一步見 [測試策略](TEST_POLICIES.md)。
 
-上述自動化在 Apple M4、macOS ARM64、Node 22.22.3 上執行。Chromium 壓測使用 ANGLE SwiftShader 軟體繪圖。動態壓測固定高密度、暫停遊戲規則並以 30 Hz 改變位置及事件，驗證畫面更新；純模擬壓測另測核心運算。兩項不能相加推算手機實際 FPS，也不代表已量過連續真實戰鬥的最差手機效能。
+3× 活動壓測使用桌面 M4 的 Chromium／SwiftShader，包含高生命移動敵人與無傷害壓力敵彈，武器、技能、渲染及保存正常運行。它用來驗證負載與時鐘，不是合法關卡通關或手機效能證據。正式載入量測使用 Chromium 151.0.7922.34、390×844 手機模擬視窗與停用快取。
 
-瀏覽器流程以開發版限定命令加速合法戰局，並對照純模擬結果；沒有修改戰鬥數值來通關。正式建置不公開測試入口。平衡結果只涵蓋記錄的隊伍、策略與種子，不表示所有自由搭配均能過關，也不取代真人的理解度與趣味性驗證。
+活動壓測開始後曾調亮 HUD 事件文字顏色，模擬與幾何未變；後續暫停及動態渲染檢查使用最終 CSS。來源雜湊與這項時間差保留在交付摘要的 `performanceSourceNote`，不將所有量測描述成完全同時的來源快照。
 
-先前兩次桌面壓測超標、CMP02／CMP04 對照失敗與初次正式煙霧測試的重複選擇器錯誤，都保留在驗證資料夾。最後修正包含戰場繪圖快取與 HUD 更新快取，並沒有降低壓測數量或放寬門檻。
-
-實際 iPhone Safari、中階 Android Chrome、實際 Safari 應用程式及五位真人測試尚未執行；後續使用 [真機與真人測試表](EXTERNAL_PLAYTEST.md)。目前交付結論為可玩且完成上述工程驗證。
-
-## 文件與素材
-
-- [遊戲規格](MVP_SPEC.md)、[原執行計劃](EXECUTION_PLAN.md)、[完成狀態](IMPLEMENTATION_STATUS.md)
-- [最終實作決策](DECISIONS.md)、[驗收矩陣](VALIDATION_MATRIX.md)、[UI 與音訊](UI_AUDIO.md)
-- [畫面驗證截圖](../artifacts/ui/)、[素材來源與整合方式](ART_ASSETS.md)
-
-原規格中的初始武器數值已依合法構築測試調整；最終數值與例外在實作決策中記錄。Boss 使用完整原創圖像加程序狀態效果，沒有宣稱核心與外殼已拆圖。備用特效圖集尚未接入戰場，實際戰鬥特效由程序繪圖完成。圖像原稿及生成紀錄保存在本機 `artifacts/art-sources/`，不進入網站 `public/` 或 Git；執行遊戲所需素材已全部納入專案。
+真實 iPhone／Android、實際 Safari 應用程式及五位真人測試仍待執行；使用 [外部測試表](EXTERNAL_PLAYTEST.md) 記錄。工程完成狀態與後續工作分別見 [實作狀態](IMPLEMENTATION_STATUS.md)及[執行計劃](EXECUTION_PLAN.md)。

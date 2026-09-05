@@ -60,7 +60,7 @@ describe('animation contracts without changing combat rules', () => {
     createEnemy(state, 'E01', 40, 400);
     const boss = createEnemy(state, 'B01', 270, 150);
     const rng = structuredClone(state.rng), before = boss.hp;
-    expect(castTactical(state)).toBe(true);
+    state.tick=state.tacticalReadyAt;expect(castTactical(state)).toBe(true);
     expect(boss.hp).toBe(before - 420);
     for (let i = 0; i < 300; i++) emit(state, { kind: 'hit', x: i % 390, y: 100 });
     const cue = state.events.find(e => e.kind === 'tactical')!;

@@ -1,4 +1,8 @@
-import { CHARACTERS, CHARACTER_MAP, STAGES, BUILDS } from '../data/content';
+import { DEEP_NODE_MAP, DEEP_TREE_MAP, deepTreesFor, usesFreeSkills, type SkillOwner } from '../data/deep-trees';
+import { deepTreePanel } from './deep-tree';
+import { NODE_MAP, TREE_MAP, treesFor, usesSkillTrees } from '../data/skill-trees';
+import { treePanel } from './skill-tree';
+import { CHARACTERS, CHARACTER_MAP, STAGES, BUILDS, CONTENT_VERSION } from '../data/content';
 import { createRun, stepRun, command, restoreRun, advanceBossIntro } from '../sim/engine';
 import { GameRepository, createDefaultSave, completeRun, IncompatibleRunError, SaveConflictError, type GameSave } from '../storage/repository';
 import type { Branch, CharacterId, ChallengeId, Command, RunConfig, RunState, StageId } from '../sim/types';
@@ -77,7 +81,8 @@ export class GameApp {
   private overlay() {
     const holder = document.getElementById(this.vm.page === 'battle' ? 'battle-overlay' : 'global-overlay'); if (!holder) return;
     const run = this.save.activeRun;
-    const key = `${this.vm.page}:${this.vm.modal}:${this.vm.selectedCard}:${this.vm.showBuild}:${this.vm.saveStatus}:${run?.runId}:${run?.tick}:${run?.actionSeq}:${run?.draft?.id}:${run?.pauseReasons.join(',')}:${this.save.preferences.musicVolume}:${this.save.preferences.sfxVolume}:${this.save.preferences.reducedEffects}:${this.save.preferences.autoTactical}`;
+    if(run&&this.vm.page==='battle'&&usesFreeSkills(run)&&run.draft&&!this.vm.treePanel){const ownerId=run.draft.focusId;this.vm.treePanel={ownerId,treeId:deepTreesFor(ownerId)[0].id,nodeId:null,mode:'choose'};}
+    const key = `${JSON.stringify(this.vm.treePanel)}:${this.vm.page}:${this.vm.modal}:${this.vm.selectedCard}:${this.vm.showBuild}:${this.vm.saveStatus}:${run?.runId}:${run?.tick}:${run?.actionSeq}:${run?.draft?.id}:${run?.pauseReasons.join(',')}:${this.save.preferences.musicVolume}:${this.save.preferences.sfxVolume}:${this.save.preferences.reducedEffects}:${this.save.preferences.autoTactical}`;
     if (key === this.overlayKey) return;
     this.overlayKey = key;
     let html = '';
@@ -85,13 +90,16 @@ export class GameApp {
       const reset = this.vm.modal === 'reset';
       html = `<div class="modal-backdrop"><section class="dialog confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"><span class="eyebrow">${reset ? 'RESET LOCAL DATA' : 'ABANDON OPERATION'}</span><h2 id="confirm-title">${reset ? '重置這個瀏覽器的進度？' : '確定放棄本次行動？'}</h2><p>${reset ? '關卡紀錄、偏好設定與進行中的行動將被刪除。六位角色仍會全部開放。' : '本局改造將結束。妳可以立即重新出擊，不會失去任何戰力資源。'}</p><div class="result-actions"><button class="button secondary" data-action="cancel-confirm">保留紀錄</button><button class="button danger" data-action="${reset ? 'reset' : 'abandon'}">${reset ? '確認重置' : '確認放棄'}</button></div></section></div>`;
     } else if (this.vm.page === 'battle' && run) {
-      if (run.pauseReasons.includes('tutorial')) html = tutorialDialog();
+      if (run.pauseReasons.includes('tutorial')) html = tutorialDialog(run);
+      else if (this.vm.treePanel && !run.pauseReasons.some(r=>['error','orientation','hidden'].includes(r))) html = usesFreeSkills(run)?deepTreePanel(run,this.vm):treePanel(run,this.vm);
       else if (run.pauseReasons.some(r => r !== 'upgrade' && r !== 'boss-intro')) html = pauseDialog(run, this.save, this.vm);
       else if (run.draft) html = upgradeDialog(run, this.vm);
     }
     if (html === this.renderedOverlay) return;
     const focus = document.activeElement as HTMLElement | null; const focusId = focus?.id; const focusAction = focus?.dataset.action; const focusItem = focus?.dataset.id;
+    const scroll=holder.querySelector('.tree-scroll')?.scrollTop??0;const disclosures=[...holder.querySelectorAll('details')].map(d=>d.open);
     const wasOpen = !!this.renderedOverlay; this.renderedOverlay = html; holder.innerHTML = html;
+    const nextScroll=holder.querySelector('.tree-scroll');if(nextScroll)nextScroll.scrollTop=scroll;holder.querySelectorAll('details').forEach((d,i)=>{if(disclosures[i]!==undefined)d.open=disclosures[i];});
     const modal = holder.querySelector<HTMLElement>('[role="dialog"], [role="alertdialog"]');
     this.prepareImages(holder);
     if (modal) {
@@ -101,12 +109,12 @@ export class GameApp {
     } else if (wasOpen && this.lastFocused?.isConnected) this.lastFocused.focus({ preventScroll: true });
   }
   private prepareImages(root: HTMLElement) { root.querySelectorAll<HTMLImageElement>('img').forEach(img => { if (img.complete) keyInterfaceImage(img); else img.addEventListener('load', () => keyInterfaceImage(img), { once: true }); img.addEventListener('error', () => { img.classList.add('asset-error'); img.alt = `${img.alt || '圖片'}：素材載入失敗`; }, { once: true }); }); }
-  private go(page: Page) { this.vm.page = page; this.vm.modal = null; this.vm.showBuild = false; this.render(); window.scrollTo(0, 0); const title = this.root.querySelector('h1'); if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); } }
+  private go(page: Page) { this.vm.page = page; this.vm.modal = null; this.vm.showBuild = false; this.vm.treePanel=undefined; this.render(); window.scrollTo(0, 0); const title = this.root.querySelector('h1'); if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); } }
   private seed() { const data = new Uint32Array(1); crypto.getRandomValues(data); return data[0] || 101; }
-  private async start(config?: RunConfig) {
+  private async start(config?: RunConfig, contentVersion=CONTENT_VERSION) {
     if (this.save.activeRun && this.save.activeRun.phase !== 'ended' && !config) { this.vm.message = '已有進行中的行動，請先繼續或放棄。'; this.go('home'); return; }
     const prefs = this.save.preferences;
-    const run = createRun(config ?? { stageId: this.vm.stageId, squadIds: [...prefs.squadIds], captainId: prefs.captainId, preferredBranches: { ...prefs.branches }, seed: this.vm.retrySeed ?? this.seed(), challengeId: this.vm.challengeId });
+    const run = createRun(config ?? { stageId: this.vm.stageId, squadIds: [...prefs.squadIds], captainId: prefs.captainId, preferredBranches: { ...prefs.branches }, seed: this.vm.retrySeed ?? this.seed(), challengeId: this.vm.challengeId },contentVersion);
     this.save.activeRun = run; this.lastRun = null; this.vm.selectedCard = null; this.vm.retrySeed = null; this.endedId = ''; this.saveBoundary = ''; this.selectedRange = null;
     if (!this.save.preferences.tutorialSeen) command(run, { type: 'pause', reason: 'tutorial' });
     this.audio.feedback('start'); this.go('battle'); this.orientation(); await this.persist();
@@ -114,7 +122,7 @@ export class GameApp {
   private execute(cmd: Command) {
     const run = this.save.activeRun; if (!run) return false;
     const accepted = command(run, cmd);
-    if (accepted) { if (cmd.type === 'choose') { this.vm.selectedCard = null; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); }
+    if (accepted) { if (cmd.type === 'choose' || cmd.type === 'buy-node') { this.vm.selectedCard = null; if(cmd.type==='buy-node'&&!run.draft)this.vm.treePanel=undefined; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); }
     return accepted;
   }
   private pauseFor(reason: 'hidden' | 'orientation') {
@@ -219,7 +227,7 @@ export class GameApp {
       }
       case 'cast': this.execute({ type: 'cast' }); break;
       case 'pause': this.execute({ type: 'pause', reason: 'user' }); break;
-      case 'resume': if (this.save.activeRun && !this.save.activeRun.pauseReasons.includes('error') && !this.save.activeRun.pauseReasons.includes('orientation')) { for (const reason of ['user', 'hidden'] as const) command(this.save.activeRun, { type: 'resume', reason }); if (this.vm.message.startsWith('畫面曾短暫停頓')) { this.vm.message = ''; this.root.querySelector('.system-notice')?.remove(); } this.overlay(); void this.persist(); } break;
+      case 'resume': if (this.save.activeRun && !this.save.activeRun.pauseReasons.includes('error') && !this.save.activeRun.pauseReasons.includes('orientation')) { for (const reason of ['user', 'hidden', 'tree'] as const) command(this.save.activeRun, { type: 'resume', reason }); if (this.vm.message.startsWith('畫面曾短暫停頓')) { this.vm.message = ''; this.root.querySelector('.system-notice')?.remove(); } this.overlay(); void this.persist(); } break;
       case 'select-card': this.vm.selectedCard = id!; this.overlay(); break;
       case 'confirm-card': if (this.save.activeRun?.draft && this.vm.selectedCard) this.execute({ type: 'choose', offerId: this.save.activeRun.draft.id, nodeId: this.vm.selectedCard }); break;
       case 'reroll': if (this.save.activeRun?.draft) { if (this.execute({ type: 'reroll', offerId: this.save.activeRun.draft.id })) this.vm.selectedCard = null; this.overlay(); } break;
@@ -228,7 +236,20 @@ export class GameApp {
         this.selectedRange = this.selectedRange === id ? null : id as CharacterId;
         updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); break;
       }
-      case 'view-build': this.vm.showBuild = !this.vm.showBuild; if (!this.save.activeRun?.draft) this.execute({ type: 'pause', reason: 'user' }); this.overlay(); break;
+      case 'deep-owner': if(this.vm.treePanel&&(id==='common'||this.save.activeRun?.config.squadIds.includes(id as CharacterId))){const ownerId=id as SkillOwner;this.vm.treePanel={...this.vm.treePanel,ownerId,treeId:deepTreesFor(ownerId)[0].id,nodeId:null};this.overlay();}break;
+      case 'deep-tab': if(this.vm.treePanel&&DEEP_TREE_MAP[id!]?.ownerId===this.vm.treePanel.ownerId){this.vm.treePanel.treeId=id!;this.vm.treePanel.nodeId=null;this.overlay();}break;
+      case 'deep-node': if(this.vm.treePanel&&DEEP_NODE_MAP[id!]?.treeId===this.vm.treePanel.treeId){this.vm.treePanel.nodeId=id!;this.overlay();}break;
+      case 'buy-node': if(this.save.activeRun?.draft&&this.vm.treePanel?.nodeId)this.execute({type:'buy-node',offerId:this.save.activeRun.draft.id,nodeId:this.vm.treePanel.nodeId});break;
+      case 'tree-save-home': if(this.save.activeRun){command(this.save.activeRun,{type:'pause',reason:'user'});await this.persist();this.go('home');}break;
+      case 'codex-node': this.vm.codexNode=id;this.render();document.getElementById('codex-node-detail')?.scrollIntoView({block:'nearest'});break;
+      case 'tree-open': this.openTree('choose',id);break;
+      case 'tree-close': this.closeTree();break;
+      case 'tree-character': if(this.vm.treePanel&&this.save.activeRun?.config.squadIds.includes(id as CharacterId)){this.vm.treePanel={...this.vm.treePanel,ownerId:id as CharacterId,treeId:treesFor(id as CharacterId)[0].id,nodeId:null};this.overlay();}break;
+      case 'tree-tab': if(this.vm.treePanel&&TREE_MAP[id!]?.ownerId===this.vm.treePanel.ownerId){this.vm.treePanel.treeId=id!;this.vm.treePanel.nodeId=null;this.overlay();}break;
+      case 'tree-node': if(this.vm.treePanel&&NODE_MAP[id!]?.treeId===this.vm.treePanel.treeId){this.vm.treePanel.nodeId=id!;this.overlay();}break;
+      case 'tree-common': if(this.vm.treePanel?.mode==='choose'&&this.execute({type:'custom-node',nodeId:id!})){this.vm.selectedCard=id!;this.closeTree();}break;
+      case 'tree-candidate': if(this.vm.treePanel?.mode==='choose'&&this.vm.treePanel.nodeId&&this.execute({type:'custom-node',nodeId:this.vm.treePanel.nodeId})){this.vm.selectedCard=this.vm.treePanel.nodeId;this.closeTree();}break;
+      case 'view-build': if(this.save.activeRun&&usesSkillTrees(this.save.activeRun)){this.openTree(this.save.activeRun.draft?'choose':'view');break;} this.vm.showBuild = !this.vm.showBuild; if (!this.save.activeRun?.draft) this.execute({ type: 'pause', reason: 'user' }); this.overlay(); break;
       case 'tutorial-done': this.save.preferences.tutorialSeen = true; this.execute({ type: 'resume', reason: 'tutorial' }); break;
       case 'save-home': await this.persist(); this.go('home'); break;
       case 'abandon-confirm': this.vm.modal = 'abandon'; this.overlay(); break;
@@ -246,6 +267,18 @@ export class GameApp {
       case 'temporary-play': this.temporary = true; this.save = createDefaultSave(); this.ready = true; this.loadFailure = false; this.vm.message = '目前為暫時試玩，關閉或重新整理後進度不會保留。'; this.vm.saveStatus = '暫時試玩 · 未儲存'; this.go('home'); this.exposeTesting(); break;
       case 'discard-old-run': if (this.preservedSave) { this.save = this.preservedSave; this.save.activeRun = null; this.preservedSave = null; this.ready = true; this.loadFailure = false; this.vm.message = ''; await this.persist(); this.go('home'); this.exposeTesting(); } break;
     }
+  }
+  private openTree(mode: 'choose'|'view', nodeId?: string) {
+    const run=this.save.activeRun;if(!run||!usesSkillTrees(run))return;
+    if(usesFreeSkills(run)){const chosen=DEEP_NODE_MAP[nodeId??''],ownerId=chosen?.ownerId??run.config.captainId;this.vm.treePanel={ownerId,treeId:chosen?.treeId??deepTreesFor(ownerId)[0].id,nodeId:chosen?.id??null,mode:run.draft?'choose':'view'};command(run,{type:'pause',reason:'tree'});this.overlay();void this.persist();return;}
+    const chosen=NODE_MAP[nodeId??run.draft?.customNodeId??''];const ownerId=chosen?.ownerId??run.config.captainId;
+    this.vm.treePanel={ownerId,treeId:chosen?.treeId??treesFor(ownerId)[0].id,nodeId:chosen?.id??null,mode:run.draft?mode:'view'};
+    command(run,{type:'pause',reason:'tree'});this.overlay();void this.persist();
+  }
+  private closeTree() {
+    if(this.save.activeRun&&usesFreeSkills(this.save.activeRun)&&this.save.activeRun.draft)return;
+    this.vm.treePanel=undefined;const run=this.save.activeRun;if(run)command(run,{type:'resume',reason:'tree'});
+    this.lastFrame=performance.now();this.accumulator=0;this.overlay();void this.persist();
   }
   private change(input: HTMLInputElement | HTMLSelectElement) {
     const action = input.dataset.change; const run = this.save.activeRun;
@@ -268,6 +301,7 @@ export class GameApp {
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
     }
     if (event.key === 'Escape') {
+      if(this.vm.treePanel){event.preventDefault();this.closeTree();return;}
       if (this.vm.modal === 'reset' || this.vm.modal === 'abandon') { this.vm.modal = null; this.overlay(); return; }
       if (this.vm.page === 'battle' && !this.save.activeRun?.draft && !this.save.activeRun?.pauseReasons.includes('tutorial')) { event.preventDefault(); void this.action(this.save.activeRun?.phase === 'running' || this.save.activeRun?.bossIntro && this.save.activeRun.pauseReasons.length === 1 ? 'pause' : 'resume'); }
     }
@@ -286,7 +320,7 @@ export class GameApp {
       presentation: () => (this.canvas?.scene.getScene('battle') as BattleScene | undefined)?.diagnostics(),
       command: (cmd: Command) => this.execute(cmd),
       ticks: (count: number) => { if (this.save.activeRun) { stepRun(this.save.activeRun, count); this.lastFrame = performance.now(); this.overlay(); updateHud(this.save.activeRun, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); if (this.save.activeRun.phase === 'ended') void this.finish(); } },
-      start: (config: RunConfig) => this.start(config),
+      start: (config: RunConfig, contentVersion?: string) => this.start(config,contentVersion),
       save: () => this.persist(),
       route: (page: Page) => this.go(page),
     } });

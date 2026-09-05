@@ -1,6 +1,7 @@
+import { createRun } from '../helpers/legacy-run';
 import { describe, expect, it } from 'vitest';
 import { CHARACTER_MAP, ticks } from '../../src/data/content';
-import { createRun } from '../../src/sim/engine';
+
 import { createEnemy } from '../../src/sim/combat';
 import { applyUpgrade, stepWeapons, weaponStats } from '../../src/sim/weapons';
 import type { CharacterId, RunState } from '../../src/sim/types';

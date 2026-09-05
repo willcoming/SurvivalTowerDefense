@@ -1,0 +1,818 @@
+{
+  "evidence": "Synthetic presentation fixture with explicit evolution/target setup; normal combat/render loop drives the effects.",
+  "samples": [
+    {
+      "speed": 1,
+      "view": {
+        "clock": 212.0999999999999,
+        "poses": {
+          "C02": {
+            "frame": 3,
+            "seen": [
+              0,
+              3
+            ],
+            "texture": "motion-C02"
+          },
+          "C01": {
+            "frame": 0,
+            "seen": [
+              0
+            ],
+            "texture": "motion-C01"
+          },
+          "C03": {
+            "frame": 0,
+            "seen": [
+              0,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C03"
+          },
+          "C04": {
+            "frame": 1,
+            "seen": [
+              0,
+              1
+            ],
+            "texture": "motion-C04"
+          },
+          "C05": {
+            "frame": 1,
+            "seen": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C05"
+          }
+        },
+        "forms": [
+          "C03-base",
+          "C05-base",
+          "C02-A"
+        ],
+        "skills": [],
+        "hitTypes": [
+          "E01",
+          "E03"
+        ],
+        "deathTypes": [
+          "E02",
+          "E01"
+        ],
+        "activeCorpses": 4,
+        "corpseIds": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "hurtIds": [
+          6,
+          7,
+          10,
+          11,
+          12
+        ],
+        "maxCorpses": 4,
+        "aliveImages": 8,
+        "enemyMotions": [
+          {
+            "id": 6,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 0,
+            "pose": "idle-a",
+            "fps": 2.2,
+            "clock": 300.79999999999995,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 7,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 0,
+            "pose": "idle-a",
+            "fps": 2.2,
+            "clock": 337.79999999999995,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 8,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 0,
+            "pose": "idle-a",
+            "fps": 2.2,
+            "clock": 374.79999999999995,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 9,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 0,
+            "pose": "idle-a",
+            "fps": 2.2,
+            "clock": 411.79999999999995,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 10,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 0,
+            "pose": "idle-a",
+            "fps": 2.2,
+            "clock": 448.79999999999995,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 11,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 1,
+            "pose": "idle-b",
+            "fps": 2.2,
+            "clock": 485.79999999999995,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 12,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 1,
+            "pose": "idle-b",
+            "fps": 2.2,
+            "clock": 522.8,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 13,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 1,
+            "pose": "idle-b",
+            "fps": 2.2,
+            "clock": 559.8,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          }
+        ],
+        "enemyHistory": {
+          "E02": {
+            "modes": [
+              "idle",
+              "move"
+            ],
+            "frames": [
+              0,
+              3,
+              4,
+              5
+            ],
+            "releases": 0
+          },
+          "E01": {
+            "modes": [
+              "idle",
+              "move"
+            ],
+            "frames": [
+              0,
+              5,
+              6,
+              7
+            ],
+            "releases": 0
+          },
+          "E03": {
+            "modes": [
+              "idle"
+            ],
+            "frames": [
+              0,
+              1
+            ],
+            "releases": 0
+          }
+        },
+        "cutin": {
+          "visible": false,
+          "id": null,
+          "age": null,
+          "duration": 1200,
+          "top": 323,
+          "bottom": 435,
+          "depth": 20
+        },
+        "statuses": [],
+        "burnNumbers": [],
+        "bossIntro": null,
+        "range": null,
+        "detail": "full",
+        "activeEffects": 20,
+        "peakEffects": 20,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1591796875,
+          "bottom": 48.8408203125,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C02": 6,
+          "C01": 6,
+          "C03": 6,
+          "C04": 6,
+          "C05": 6
+        },
+        "effectsDepth": 9,
+        "alliesDepth": 7,
+        "visibleEffects": [
+          {
+            "seq": 6,
+            "kind": "hit",
+            "source": "C03",
+            "age": 173.89999999999986,
+            "duration": 260
+          },
+          {
+            "seq": 18,
+            "kind": "hit",
+            "source": "C02",
+            "age": 69.59999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 20,
+            "kind": "hit",
+            "source": "C02",
+            "age": 69.59999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 22,
+            "kind": "hit",
+            "source": "C02",
+            "age": 69.59999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 24,
+            "kind": "hit",
+            "source": "C02",
+            "age": 69.59999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 26,
+            "kind": "hit",
+            "source": "C02",
+            "age": 69.59999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 28,
+            "kind": "hit",
+            "source": "C02",
+            "age": 39.59999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 30,
+            "kind": "hit",
+            "source": "C02",
+            "age": 39.59999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 32,
+            "kind": "hit",
+            "source": "C02",
+            "age": 39.59999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 34,
+            "kind": "hit",
+            "source": "C02",
+            "age": 39.59999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 36,
+            "kind": "hit",
+            "source": "C02",
+            "age": 39.59999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 5,
+            "kind": "beam",
+            "source": "C03",
+            "age": 173.89999999999986,
+            "duration": 300
+          },
+          {
+            "seq": 7,
+            "kind": "shot",
+            "source": "C05",
+            "age": 173.89999999999986,
+            "duration": 220
+          },
+          {
+            "seq": 25,
+            "kind": "arc",
+            "source": "C02",
+            "age": 69.59999999999991,
+            "duration": 300
+          },
+          {
+            "seq": 27,
+            "kind": "beam",
+            "source": "C02",
+            "age": 39.59999999999991,
+            "duration": 300
+          },
+          {
+            "seq": 29,
+            "kind": "arc",
+            "source": "C02",
+            "age": 39.59999999999991,
+            "duration": 300
+          },
+          {
+            "seq": 31,
+            "kind": "arc",
+            "source": "C02",
+            "age": 39.59999999999991,
+            "duration": 300
+          },
+          {
+            "seq": 33,
+            "kind": "arc",
+            "source": "C02",
+            "age": 39.59999999999991,
+            "duration": 300
+          },
+          {
+            "seq": 35,
+            "kind": "arc",
+            "source": "C02",
+            "age": 39.59999999999991,
+            "duration": 300
+          },
+          {
+            "seq": 16,
+            "kind": "evolution",
+            "source": "C02",
+            "age": 69.59999999999991,
+            "duration": 600
+          }
+        ],
+        "hostileProjectileImages": 0,
+        "enemyTextureFrames": {
+          "E01": 12,
+          "E02": 12,
+          "E03": 12,
+          "E04": 12,
+          "E05": 12,
+          "E06": 12,
+          "E07": 12,
+          "E08": 12,
+          "B03": 12
+        }
+      }
+    },
+    {
+      "speed": 3,
+      "view": {
+        "clock": 382.29999999999995,
+        "poses": {
+          "C02": {
+            "frame": 4,
+            "seen": [
+              0,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C02"
+          },
+          "C01": {
+            "frame": 0,
+            "seen": [
+              0
+            ],
+            "texture": "motion-C01"
+          },
+          "C03": {
+            "frame": 1,
+            "seen": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C03"
+          },
+          "C04": {
+            "frame": 1,
+            "seen": [
+              0,
+              1
+            ],
+            "texture": "motion-C04"
+          },
+          "C05": {
+            "frame": 1,
+            "seen": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "texture": "motion-C05"
+          }
+        },
+        "forms": [
+          "C03-base",
+          "C05-base",
+          "C02-A"
+        ],
+        "skills": [],
+        "hitTypes": [
+          "E01",
+          "E03"
+        ],
+        "deathTypes": [
+          "E02",
+          "E01"
+        ],
+        "activeCorpses": 4,
+        "corpseIds": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "hurtIds": [
+          6,
+          7,
+          10,
+          11,
+          12
+        ],
+        "maxCorpses": 4,
+        "aliveImages": 8,
+        "enemyMotions": [
+          {
+            "id": 6,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 1,
+            "pose": "idle-b",
+            "fps": 2.2,
+            "clock": 471,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 7,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 1,
+            "pose": "idle-b",
+            "fps": 2.2,
+            "clock": 508,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 8,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 1,
+            "pose": "idle-b",
+            "fps": 2.2,
+            "clock": 545,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 9,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 1,
+            "pose": "idle-b",
+            "fps": 2.2,
+            "clock": 582,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 10,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 1,
+            "pose": "idle-b",
+            "fps": 2.2,
+            "clock": 619,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 11,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 1,
+            "pose": "idle-b",
+            "fps": 2.2,
+            "clock": 656,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 12,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 1,
+            "pose": "idle-b",
+            "fps": 2.2,
+            "clock": 693,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          },
+          {
+            "id": 13,
+            "type": "E03",
+            "mode": "idle",
+            "frame": 1,
+            "pose": "idle-b",
+            "fps": 2.2,
+            "clock": 730,
+            "releases": 0,
+            "texture": "enemy-motion-E03"
+          }
+        ],
+        "enemyHistory": {
+          "E02": {
+            "modes": [
+              "idle",
+              "move"
+            ],
+            "frames": [
+              0,
+              3,
+              4,
+              5
+            ],
+            "releases": 0
+          },
+          "E01": {
+            "modes": [
+              "idle",
+              "move"
+            ],
+            "frames": [
+              0,
+              5,
+              6,
+              7
+            ],
+            "releases": 0
+          },
+          "E03": {
+            "modes": [
+              "idle"
+            ],
+            "frames": [
+              0,
+              1
+            ],
+            "releases": 0
+          }
+        },
+        "cutin": {
+          "visible": false,
+          "id": null,
+          "age": null,
+          "duration": 1200,
+          "top": 323,
+          "bottom": 435,
+          "depth": 20
+        },
+        "statuses": [],
+        "burnNumbers": [],
+        "bossIntro": null,
+        "range": null,
+        "detail": "full",
+        "activeEffects": 22,
+        "peakEffects": 23,
+        "warnings": {
+          "visible": false,
+          "text": "",
+          "top": 21.1591796875,
+          "bottom": 48.8408203125,
+          "depth": 100,
+          "geometryDepth": 90
+        },
+        "textureFrames": {
+          "C02": 6,
+          "C01": 6,
+          "C03": 6,
+          "C04": 6,
+          "C05": 6
+        },
+        "effectsDepth": 9,
+        "alliesDepth": 7,
+        "visibleEffects": [
+          {
+            "seq": 18,
+            "kind": "hit",
+            "source": "C02",
+            "age": 239.79999999999995,
+            "duration": 260
+          },
+          {
+            "seq": 20,
+            "kind": "hit",
+            "source": "C02",
+            "age": 239.79999999999995,
+            "duration": 260
+          },
+          {
+            "seq": 22,
+            "kind": "hit",
+            "source": "C02",
+            "age": 239.79999999999995,
+            "duration": 260
+          },
+          {
+            "seq": 24,
+            "kind": "hit",
+            "source": "C02",
+            "age": 239.79999999999995,
+            "duration": 260
+          },
+          {
+            "seq": 26,
+            "kind": "hit",
+            "source": "C02",
+            "age": 239.79999999999995,
+            "duration": 260
+          },
+          {
+            "seq": 28,
+            "kind": "hit",
+            "source": "C02",
+            "age": 209.79999999999995,
+            "duration": 260
+          },
+          {
+            "seq": 30,
+            "kind": "hit",
+            "source": "C02",
+            "age": 209.79999999999995,
+            "duration": 260
+          },
+          {
+            "seq": 32,
+            "kind": "hit",
+            "source": "C02",
+            "age": 209.79999999999995,
+            "duration": 260
+          },
+          {
+            "seq": 34,
+            "kind": "hit",
+            "source": "C02",
+            "age": 209.79999999999995,
+            "duration": 260
+          },
+          {
+            "seq": 36,
+            "kind": "hit",
+            "source": "C02",
+            "age": 209.79999999999995,
+            "duration": 260
+          },
+          {
+            "seq": 38,
+            "kind": "hit",
+            "source": "C02",
+            "age": 65.09999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 40,
+            "kind": "hit",
+            "source": "C02",
+            "age": 65.09999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 42,
+            "kind": "hit",
+            "source": "C02",
+            "age": 65.09999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 44,
+            "kind": "hit",
+            "source": "C02",
+            "age": 65.09999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 46,
+            "kind": "hit",
+            "source": "C02",
+            "age": 65.09999999999991,
+            "duration": 260
+          },
+          {
+            "seq": 35,
+            "kind": "arc",
+            "source": "C02",
+            "age": 209.79999999999995,
+            "duration": 300
+          },
+          {
+            "seq": 37,
+            "kind": "beam",
+            "source": "C02",
+            "age": 65.09999999999991,
+            "duration": 300
+          },
+          {
+            "seq": 39,
+            "kind": "arc",
+            "source": "C02",
+            "age": 65.09999999999991,
+            "duration": 300
+          },
+          {
+            "seq": 41,
+            "kind": "arc",
+            "source": "C02",
+            "age": 65.09999999999991,
+            "duration": 300
+          },
+          {
+            "seq": 43,
+            "kind": "arc",
+            "source": "C02",
+            "age": 65.09999999999991,
+            "duration": 300
+          },
+          {
+            "seq": 45,
+            "kind": "arc",
+            "source": "C02",
+            "age": 65.09999999999991,
+            "duration": 300
+          },
+          {
+            "seq": 16,
+            "kind": "evolution",
+            "source": "C02",
+            "age": 239.79999999999995,
+            "duration": 600
+          }
+        ],
+        "hostileProjectileImages": 0,
+        "enemyTextureFrames": {
+          "E01": 12,
+          "E02": 12,
+          "E03": 12,
+          "E04": 12,
+          "E05": 12,
+          "E06": 12,
+          "E07": 12,
+          "E08": 12,
+          "B03": 12
+        }
+      }
+    }
+  ]
+}

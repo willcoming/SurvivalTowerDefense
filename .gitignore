@@ -1,10 +1,18 @@
 node_modules/
 dist/
+coverage/
+*.tsbuildinfo
 .DS_Store
+.env
+.env.*
+!.env.example
+!.env.*.example
 artifacts/art-sources/
 artifacts/animation-sources/*.png
 artifacts/enemy-motion-sources/*.png
 test-results/
 playwright-report/
 *.log
+# Required evidence for the free-skill release verifier and delivery documentation.
+!artifacts/validation/free-skills/rules-final.log
 artifacts/**/browser-results/test-output/

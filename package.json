@@ -8,13 +8,19 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:rules": "vitest run tests/rules tests/storage",
-    "test:simulation": "tsx scripts/validate-balance.ts",
+    "test:simulation": "tsx scripts/validate-free-skills.ts",
     "test:e2e": "playwright test",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test:performance": "tsx scripts/benchmark-simulation.ts",
     "test:assets": "tsx scripts/verify-assets.ts",
-    "test:production": "tsx scripts/verify-production.ts"
+    "test:production": "tsx scripts/verify-production.ts",
+    "test:simulation:legacy": "tsx scripts/validate-balance.ts",
+    "test:tree-matchups": "tsx scripts/probe-free-skills.ts",
+    "test:trees:e2e": "playwright test tests/e2e/skill-trees.spec.ts tests/e2e/combat-readability.spec.ts",
+    "test:simulation:v2": "tsx scripts/validate-skill-trees.ts",
+    "test:tree-matchups:v2": "tsx scripts/probe-skill-trees.ts",
+    "test:free:e2e": "playwright test tests/e2e/free-skills.spec.ts"
   },
   "dependencies": {
     "phaser": "3.90.0"

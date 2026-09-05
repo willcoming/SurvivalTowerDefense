@@ -1,0 +1,1798 @@
+{
+  "evidence": "Synthetic target positions, large HP and isolated deadlines. Normal RAF, real movement speeds, stepEnemies and real damage/projectile creation drive the animation; not a balance run.",
+  "positions": [
+    {
+      "id": 6,
+      "y": 45.53333333333333
+    },
+    {
+      "id": 7,
+      "y": 46.166666666666664
+    },
+    {
+      "id": 8,
+      "y": 45.333333333333336
+    },
+    {
+      "id": 9,
+      "y": 45.4
+    },
+    {
+      "id": 10,
+      "y": 45.333333333333336
+    },
+    {
+      "id": 11,
+      "y": 115.4
+    },
+    {
+      "id": 12,
+      "y": 115.33333333333333
+    },
+    {
+      "id": 13,
+      "y": 115.93333333333334
+    },
+    {
+      "id": 14,
+      "y": 115.26666666666667
+    }
+  ],
+  "moving": {
+    "view": {
+      "clock": 701.2,
+      "poses": {
+        "C01": {
+          "frame": 1,
+          "seen": [
+            0,
+            1
+          ],
+          "texture": "motion-C01"
+        },
+        "C02": {
+          "frame": 1,
+          "seen": [
+            0,
+            1
+          ],
+          "texture": "motion-C02"
+        },
+        "C03": {
+          "frame": 1,
+          "seen": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C03"
+        },
+        "C04": {
+          "frame": 0,
+          "seen": [
+            0,
+            1
+          ],
+          "texture": "motion-C04"
+        },
+        "C05": {
+          "frame": 0,
+          "seen": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C05"
+        }
+      },
+      "forms": [
+        "C03-base",
+        "C05-base"
+      ],
+      "skills": [],
+      "hitTypes": [
+        "E01"
+      ],
+      "deathTypes": [
+        "E02",
+        "E01"
+      ],
+      "activeCorpses": 0,
+      "corpseIds": [],
+      "hurtIds": [],
+      "maxCorpses": 4,
+      "aliveImages": 9,
+      "enemyMotions": [
+        {
+          "id": 6,
+          "type": "E01",
+          "mode": "move",
+          "frame": 3,
+          "pose": "move-2",
+          "fps": 14,
+          "clock": 747.8,
+          "releases": 0,
+          "texture": "enemy-motion-E01"
+        },
+        {
+          "id": 7,
+          "type": "E02",
+          "mode": "move",
+          "frame": 4,
+          "pose": "move-3",
+          "fps": 14,
+          "clock": 784.8,
+          "releases": 0,
+          "texture": "enemy-motion-E02"
+        },
+        {
+          "id": 8,
+          "type": "E03",
+          "mode": "move",
+          "frame": 3,
+          "pose": "move-2",
+          "fps": 10.5,
+          "clock": 821.8,
+          "releases": 0,
+          "texture": "enemy-motion-E03"
+        },
+        {
+          "id": 9,
+          "type": "E04",
+          "mode": "move",
+          "frame": 5,
+          "pose": "move-4",
+          "fps": 12.25,
+          "clock": 858.8,
+          "releases": 0,
+          "texture": "enemy-motion-E04"
+        },
+        {
+          "id": 10,
+          "type": "E05",
+          "mode": "move",
+          "frame": 6,
+          "pose": "move-5",
+          "fps": 12.25,
+          "clock": 895.8,
+          "releases": 0,
+          "texture": "enemy-motion-E05"
+        },
+        {
+          "id": 11,
+          "type": "E06",
+          "mode": "move",
+          "frame": 7,
+          "pose": "move-6",
+          "fps": 12.25,
+          "clock": 932.8,
+          "releases": 0,
+          "texture": "enemy-motion-E06"
+        },
+        {
+          "id": 12,
+          "type": "E07",
+          "mode": "move",
+          "frame": 7,
+          "pose": "move-6",
+          "fps": 9.625,
+          "clock": 969.8,
+          "releases": 0,
+          "texture": "enemy-motion-E07"
+        },
+        {
+          "id": 13,
+          "type": "E08",
+          "mode": "move",
+          "frame": 4,
+          "pose": "move-3",
+          "fps": 14,
+          "clock": 1006.8,
+          "releases": 0,
+          "texture": "enemy-motion-E08"
+        },
+        {
+          "id": 14,
+          "type": "B03",
+          "mode": "move",
+          "frame": 3,
+          "pose": "move-2",
+          "fps": 9.625,
+          "clock": 1043.8,
+          "releases": 0,
+          "texture": "enemy-motion-B03"
+        }
+      ],
+      "enemyHistory": {
+        "E02": {
+          "modes": [
+            "idle",
+            "move"
+          ],
+          "frames": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "releases": 0
+        },
+        "E01": {
+          "modes": [
+            "idle",
+            "move"
+          ],
+          "frames": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "releases": 0
+        },
+        "E03": {
+          "modes": [
+            "move"
+          ],
+          "frames": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "releases": 0
+        },
+        "E04": {
+          "modes": [
+            "move"
+          ],
+          "frames": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "releases": 0
+        },
+        "E05": {
+          "modes": [
+            "move"
+          ],
+          "frames": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "releases": 0
+        },
+        "E06": {
+          "modes": [
+            "move"
+          ],
+          "frames": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "releases": 0
+        },
+        "E07": {
+          "modes": [
+            "move"
+          ],
+          "frames": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "releases": 0
+        },
+        "E08": {
+          "modes": [
+            "move"
+          ],
+          "frames": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "releases": 0
+        },
+        "B03": {
+          "modes": [
+            "move"
+          ],
+          "frames": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "releases": 0
+        }
+      },
+      "cutin": {
+        "visible": false,
+        "id": null,
+        "age": null,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      },
+      "statuses": [],
+      "burnNumbers": [],
+      "bossIntro": null,
+      "range": null,
+      "detail": "full",
+      "activeEffects": 0,
+      "peakEffects": 3,
+      "warnings": {
+        "visible": false,
+        "text": "",
+        "top": 21.1591796875,
+        "bottom": 48.8408203125,
+        "depth": 100,
+        "geometryDepth": 90
+      },
+      "textureFrames": {
+        "C01": 6,
+        "C02": 6,
+        "C03": 6,
+        "C04": 6,
+        "C05": 6
+      },
+      "effectsDepth": 9,
+      "alliesDepth": 7,
+      "visibleEffects": [],
+      "hostileProjectileImages": 0,
+      "enemyTextureFrames": {
+        "E01": 12,
+        "E02": 12,
+        "E03": 12,
+        "E04": 12,
+        "E05": 12,
+        "E06": 12,
+        "E07": 12,
+        "E08": 12,
+        "B03": 12
+      }
+    },
+    "enemies": [
+      {
+        "id": 6,
+        "defId": "E01",
+        "x": 40,
+        "y": 70.59999999999991,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0,
+        "speed": 16,
+        "radius": 12,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 7,
+        "defId": "E02",
+        "x": 116,
+        "y": 101.00000000000011,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0,
+        "speed": 35,
+        "radius": 11,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 8,
+        "defId": "E03",
+        "x": 192,
+        "y": 61.000000000000114,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.55,
+        "speed": 10,
+        "radius": 17,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 9,
+        "defId": "E04",
+        "x": 268,
+        "y": 64.19999999999993,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 360,
+        "armor": 0.1,
+        "speed": 12,
+        "radius": 15,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 10,
+        "defId": "E05",
+        "x": 344,
+        "y": 61.000000000000114,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0,
+        "speed": 10,
+        "radius": 14,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 11,
+        "defId": "E06",
+        "x": 40,
+        "y": 134.20000000000027,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.1,
+        "speed": 12,
+        "radius": 13,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 12,
+        "defId": "E07",
+        "x": 116,
+        "y": 130.9999999999999,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.55,
+        "speed": 10,
+        "radius": 21,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 13,
+        "defId": "E08",
+        "x": 192,
+        "y": 159.80000000000018,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.1,
+        "speed": 28,
+        "radius": 17,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      },
+      {
+        "id": 14,
+        "defId": "B03",
+        "x": 268,
+        "y": 127.79999999999995,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.2,
+        "speed": 0,
+        "radius": 43,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0
+      }
+    ]
+  },
+  "idle": {
+    "clock": 1252.5,
+    "poses": {
+      "C01": {
+        "frame": 0,
+        "seen": [
+          0,
+          1
+        ],
+        "texture": "motion-C01"
+      },
+      "C02": {
+        "frame": 0,
+        "seen": [
+          0,
+          1
+        ],
+        "texture": "motion-C02"
+      },
+      "C03": {
+        "frame": 0,
+        "seen": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "texture": "motion-C03"
+      },
+      "C04": {
+        "frame": 1,
+        "seen": [
+          0,
+          1
+        ],
+        "texture": "motion-C04"
+      },
+      "C05": {
+        "frame": 1,
+        "seen": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "texture": "motion-C05"
+      }
+    },
+    "forms": [
+      "C03-base",
+      "C05-base"
+    ],
+    "skills": [],
+    "hitTypes": [
+      "E01"
+    ],
+    "deathTypes": [
+      "E02",
+      "E01"
+    ],
+    "activeCorpses": 0,
+    "corpseIds": [],
+    "hurtIds": [],
+    "maxCorpses": 4,
+    "aliveImages": 9,
+    "enemyMotions": [
+      {
+        "id": 6,
+        "type": "E01",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 1299.1,
+        "releases": 0,
+        "texture": "enemy-motion-E01"
+      },
+      {
+        "id": 7,
+        "type": "E02",
+        "mode": "idle",
+        "frame": 0,
+        "pose": "idle-a",
+        "fps": 2.2,
+        "clock": 1336.1,
+        "releases": 0,
+        "texture": "enemy-motion-E02"
+      },
+      {
+        "id": 8,
+        "type": "E03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 1373.1,
+        "releases": 0,
+        "texture": "enemy-motion-E03"
+      },
+      {
+        "id": 9,
+        "type": "E04",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 1410.1,
+        "releases": 0,
+        "texture": "enemy-motion-E04"
+      },
+      {
+        "id": 10,
+        "type": "E05",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 1447.1,
+        "releases": 0,
+        "texture": "enemy-motion-E05"
+      },
+      {
+        "id": 11,
+        "type": "E06",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 1484.1,
+        "releases": 0,
+        "texture": "enemy-motion-E06"
+      },
+      {
+        "id": 12,
+        "type": "E07",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 1521.1,
+        "releases": 0,
+        "texture": "enemy-motion-E07"
+      },
+      {
+        "id": 13,
+        "type": "E08",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 1558.1,
+        "releases": 0,
+        "texture": "enemy-motion-E08"
+      },
+      {
+        "id": 14,
+        "type": "B03",
+        "mode": "idle",
+        "frame": 1,
+        "pose": "idle-b",
+        "fps": 2.2,
+        "clock": 1595.1,
+        "releases": 0,
+        "texture": "enemy-motion-B03"
+      }
+    ],
+    "enemyHistory": {
+      "E02": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "releases": 0
+      },
+      "E01": {
+        "modes": [
+          "idle",
+          "move"
+        ],
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "releases": 0
+      },
+      "E03": {
+        "modes": [
+          "move",
+          "idle"
+        ],
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "releases": 0
+      },
+      "E04": {
+        "modes": [
+          "move",
+          "idle"
+        ],
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "releases": 0
+      },
+      "E05": {
+        "modes": [
+          "move",
+          "idle"
+        ],
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "releases": 0
+      },
+      "E06": {
+        "modes": [
+          "move",
+          "idle"
+        ],
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "releases": 0
+      },
+      "E07": {
+        "modes": [
+          "move",
+          "idle"
+        ],
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "releases": 0
+      },
+      "E08": {
+        "modes": [
+          "move",
+          "idle"
+        ],
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "releases": 0
+      },
+      "B03": {
+        "modes": [
+          "move",
+          "idle"
+        ],
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "releases": 0
+      }
+    },
+    "cutin": {
+      "visible": false,
+      "id": null,
+      "age": null,
+      "duration": 1200,
+      "top": 323,
+      "bottom": 435,
+      "depth": 20
+    },
+    "statuses": [],
+    "burnNumbers": [],
+    "bossIntro": null,
+    "range": null,
+    "detail": "full",
+    "activeEffects": 0,
+    "peakEffects": 3,
+    "warnings": {
+      "visible": false,
+      "text": "",
+      "top": 21.1591796875,
+      "bottom": 48.8408203125,
+      "depth": 100,
+      "geometryDepth": 90
+    },
+    "textureFrames": {
+      "C01": 6,
+      "C02": 6,
+      "C03": 6,
+      "C04": 6,
+      "C05": 6
+    },
+    "effectsDepth": 9,
+    "alliesDepth": 7,
+    "visibleEffects": [],
+    "hostileProjectileImages": 0,
+    "enemyTextureFrames": {
+      "E01": 12,
+      "E02": 12,
+      "E03": 12,
+      "E04": 12,
+      "E05": 12,
+      "E06": 12,
+      "E07": 12,
+      "E08": 12,
+      "B03": 12
+    }
+  },
+  "before": {
+    "wall": 1000000,
+    "tick": 101
+  },
+  "attack": {
+    "view": {
+      "clock": 2260.3,
+      "poses": {
+        "C01": {
+          "frame": 0,
+          "seen": [
+            0,
+            1
+          ],
+          "texture": "motion-C01"
+        },
+        "C02": {
+          "frame": 0,
+          "seen": [
+            0,
+            1
+          ],
+          "texture": "motion-C02"
+        },
+        "C03": {
+          "frame": 1,
+          "seen": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C03"
+        },
+        "C04": {
+          "frame": 1,
+          "seen": [
+            0,
+            1
+          ],
+          "texture": "motion-C04"
+        },
+        "C05": {
+          "frame": 1,
+          "seen": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C05"
+        }
+      },
+      "forms": [
+        "C03-base",
+        "C05-base"
+      ],
+      "skills": [],
+      "hitTypes": [
+        "E01"
+      ],
+      "deathTypes": [
+        "E02",
+        "E01"
+      ],
+      "activeCorpses": 0,
+      "corpseIds": [],
+      "hurtIds": [],
+      "maxCorpses": 4,
+      "aliveImages": 9,
+      "enemyMotions": [
+        {
+          "id": 6,
+          "type": "E01",
+          "mode": "charge",
+          "frame": 10,
+          "pose": "charge-a",
+          "fps": 0,
+          "clock": 2306.9,
+          "releases": 3,
+          "texture": "enemy-motion-E01"
+        },
+        {
+          "id": 7,
+          "type": "E02",
+          "mode": "charge",
+          "frame": 10,
+          "pose": "charge-a",
+          "fps": 0,
+          "clock": 2343.9,
+          "releases": 3,
+          "texture": "enemy-motion-E02"
+        },
+        {
+          "id": 8,
+          "type": "E03",
+          "mode": "attack",
+          "frame": 8,
+          "pose": "anticipate",
+          "fps": 0,
+          "clock": 2380.9,
+          "releases": 3,
+          "texture": "enemy-motion-E03"
+        },
+        {
+          "id": 9,
+          "type": "E04",
+          "mode": "attack",
+          "frame": 8,
+          "pose": "anticipate",
+          "fps": 0,
+          "clock": 2417.9,
+          "releases": 3,
+          "texture": "enemy-motion-E04"
+        },
+        {
+          "id": 10,
+          "type": "E05",
+          "mode": "idle",
+          "frame": 1,
+          "pose": "idle-b",
+          "fps": 2.2,
+          "clock": 2454.9,
+          "releases": 1,
+          "texture": "enemy-motion-E05"
+        },
+        {
+          "id": 11,
+          "type": "E06",
+          "mode": "charge",
+          "frame": 10,
+          "pose": "charge-a",
+          "fps": 0,
+          "clock": 2491.9,
+          "releases": 3,
+          "texture": "enemy-motion-E06"
+        },
+        {
+          "id": 12,
+          "type": "E07",
+          "mode": "attack",
+          "frame": 8,
+          "pose": "anticipate",
+          "fps": 0,
+          "clock": 2528.9,
+          "releases": 3,
+          "texture": "enemy-motion-E07"
+        },
+        {
+          "id": 13,
+          "type": "E08",
+          "mode": "charge",
+          "frame": 10,
+          "pose": "charge-a",
+          "fps": 0,
+          "clock": 2565.9,
+          "releases": 3,
+          "texture": "enemy-motion-E08"
+        },
+        {
+          "id": 14,
+          "type": "B03",
+          "mode": "attack",
+          "frame": 9,
+          "pose": "strike",
+          "fps": 0,
+          "clock": 2602.9,
+          "releases": 1,
+          "texture": "enemy-motion-B03"
+        }
+      ],
+      "enemyHistory": {
+        "E02": {
+          "modes": [
+            "idle",
+            "move",
+            "charge",
+            "attack"
+          ],
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "releases": 3
+        },
+        "E01": {
+          "modes": [
+            "idle",
+            "move",
+            "charge",
+            "attack"
+          ],
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "releases": 3
+        },
+        "E03": {
+          "modes": [
+            "move",
+            "idle",
+            "charge",
+            "attack"
+          ],
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "releases": 3
+        },
+        "E04": {
+          "modes": [
+            "move",
+            "idle",
+            "charge",
+            "attack"
+          ],
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "releases": 3
+        },
+        "E05": {
+          "modes": [
+            "move",
+            "idle",
+            "charge",
+            "attack"
+          ],
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "releases": 1
+        },
+        "E06": {
+          "modes": [
+            "move",
+            "idle",
+            "charge",
+            "attack"
+          ],
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "releases": 3
+        },
+        "E07": {
+          "modes": [
+            "move",
+            "idle",
+            "charge",
+            "attack"
+          ],
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "releases": 3
+        },
+        "E08": {
+          "modes": [
+            "move",
+            "idle",
+            "charge",
+            "attack"
+          ],
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "releases": 3
+        },
+        "B03": {
+          "modes": [
+            "move",
+            "idle",
+            "charge",
+            "attack"
+          ],
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "releases": 1
+        }
+      },
+      "cutin": {
+        "visible": false,
+        "id": null,
+        "age": null,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      },
+      "statuses": [
+        {
+          "id": 14,
+          "states": [
+            "exposure"
+          ]
+        }
+      ],
+      "burnNumbers": [],
+      "bossIntro": null,
+      "range": null,
+      "detail": "full",
+      "activeEffects": 5,
+      "peakEffects": 8,
+      "warnings": {
+        "visible": false,
+        "text": "⚠ 降臨核心 蓄力中\n可使用有效暈眩或位移打斷",
+        "top": 13.318359375,
+        "bottom": 56.681640625,
+        "depth": 100,
+        "geometryDepth": 90
+      },
+      "textureFrames": {
+        "C01": 6,
+        "C02": 6,
+        "C03": 6,
+        "C04": 6,
+        "C05": 6
+      },
+      "effectsDepth": 9,
+      "alliesDepth": 7,
+      "visibleEffects": [
+        {
+          "seq": 35,
+          "kind": "wall-hit",
+          "age": 111.20000000000027,
+          "duration": 220
+        },
+        {
+          "seq": 36,
+          "kind": "wall-hit",
+          "age": 111.20000000000027,
+          "duration": 220
+        },
+        {
+          "seq": 37,
+          "kind": "wall-hit",
+          "age": 111.20000000000027,
+          "duration": 220
+        },
+        {
+          "seq": 38,
+          "kind": "wall-hit",
+          "age": 84.30000000000018,
+          "duration": 220
+        },
+        {
+          "seq": 39,
+          "kind": "wall-hit",
+          "age": 0,
+          "duration": 220
+        }
+      ],
+      "hostileProjectileImages": 0,
+      "enemyTextureFrames": {
+        "E01": 12,
+        "E02": 12,
+        "E03": 12,
+        "E04": 12,
+        "E05": 12,
+        "E06": 12,
+        "E07": 12,
+        "E08": 12,
+        "B03": 12
+      }
+    },
+    "enemies": [
+      {
+        "id": 6,
+        "defId": "E01",
+        "x": 40,
+        "y": 450,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0,
+        "speed": 16,
+        "radius": 12,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 200,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0,
+        "lastAction": {
+          "tick": 170,
+          "kind": "melee"
+        }
+      },
+      {
+        "id": 7,
+        "defId": "E02",
+        "x": 116,
+        "y": 450,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0,
+        "speed": 35,
+        "radius": 11,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 200,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0,
+        "lastAction": {
+          "tick": 170,
+          "kind": "melee"
+        }
+      },
+      {
+        "id": 8,
+        "defId": "E03",
+        "x": 192,
+        "y": 450,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.55,
+        "speed": 10,
+        "radius": 17,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 218,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0,
+        "lastAction": {
+          "tick": 182,
+          "kind": "melee"
+        }
+      },
+      {
+        "id": 9,
+        "defId": "E04",
+        "x": 268,
+        "y": 450,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 360,
+        "armor": 0.1,
+        "speed": 12,
+        "radius": 15,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 218,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0,
+        "lastAction": {
+          "tick": 182,
+          "kind": "melee"
+        }
+      },
+      {
+        "id": 10,
+        "defId": "E05",
+        "x": 344,
+        "y": 250,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0,
+        "speed": 10,
+        "radius": 14,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 0,
+        "abilityAt": 342,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0,
+        "lastAction": {
+          "tick": 147,
+          "kind": "shot"
+        }
+      },
+      {
+        "id": 11,
+        "defId": "E06",
+        "x": 40,
+        "y": 450,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.1,
+        "speed": 12,
+        "radius": 13,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 200,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0,
+        "lastAction": {
+          "tick": 170,
+          "kind": "melee"
+        }
+      },
+      {
+        "id": 12,
+        "defId": "E07",
+        "x": 116,
+        "y": 450,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.55,
+        "speed": 10,
+        "radius": 21,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 218,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0,
+        "lastAction": {
+          "tick": 182,
+          "kind": "melee"
+        }
+      },
+      {
+        "id": 13,
+        "defId": "E08",
+        "x": 192,
+        "y": 450,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.1,
+        "speed": 28,
+        "radius": 17,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 200,
+        "abilityAt": 999999,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 0,
+        "summonCount": 0,
+        "arcCharges": 0,
+        "lastAction": {
+          "tick": 170,
+          "kind": "melee"
+        }
+      },
+      {
+        "id": 14,
+        "defId": "B03",
+        "x": 268,
+        "y": 150,
+        "hp": 1000000000,
+        "maxHp": 1000000000,
+        "shield": 0,
+        "armor": 0.2,
+        "speed": 0,
+        "radius": 43,
+        "xp": 0,
+        "wave": 9,
+        "spawnedAt": 4,
+        "effects": [],
+        "attackAt": 90059,
+        "abilityAt": 641,
+        "summonAt": 999999,
+        "chargeUntil": 0,
+        "chargeKind": null,
+        "chargeCancelled": false,
+        "phaseTriggered": false,
+        "rushUntil": 0,
+        "stunImmuneUntil": 0,
+        "moveImmuneUntil": 0,
+        "exposureUntil": 372,
+        "summonCount": 0,
+        "arcCharges": 0,
+        "lastAction": {
+          "tick": 192,
+          "kind": "blast"
+        }
+      }
+    ],
+    "wall": 999446
+  },
+  "errors": []
+}
