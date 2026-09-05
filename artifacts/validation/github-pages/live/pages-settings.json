@@ -1,0 +1,30 @@
+{
+  "repository": {
+    "full_name": "willcoming/SurvivalTowerDefense",
+    "html_url": "https://github.com/willcoming/SurvivalTowerDefense",
+    "private": false,
+    "default_branch": "main",
+    "homepage": "https://willcoming.github.io/SurvivalTowerDefense/"
+  },
+  "pages": {
+    "status": "built",
+    "html_url": "https://willcoming.github.io/SurvivalTowerDefense/",
+    "build_type": "legacy",
+    "source": {
+      "branch": "gh-pages",
+      "path": "/"
+    },
+    "public": true,
+    "https_enforced": true
+  },
+  "build": {
+    "status": "built",
+    "error": {
+      "message": null
+    },
+    "commit": "72687477b520f5b0191a0d331a4c3941cf0c10cc",
+    "duration": 27434,
+    "created_at": "2026-09-05T06:20:57Z",
+    "updated_at": "2026-09-05T06:21:24Z"
+  }
+}

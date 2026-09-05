@@ -1,6 +1,6 @@
 # GitHub 遠端與 Pages 部署
 
-公開倉庫：[willcoming/SurvivalTowerDefense](https://github.com/willcoming/SurvivalTowerDefense)。網站目標：[星骸防線：黎明反攻](https://willcoming.github.io/SurvivalTowerDefense/)。首次發布與線上驗證完成後，結果記錄在本頁。
+公開倉庫：[willcoming/SurvivalTowerDefense](https://github.com/willcoming/SurvivalTowerDefense)。線上遊戲：[星骸防線：黎明反攻](https://willcoming.github.io/SurvivalTowerDefense/)。已完成首次發布與公開站驗證，HTTPS 已啟用。
 
 部署基線為 **v0.3.0-dev.1**（6b1ce14）。使用獨立目錄 `/Users/willcoming/code/SurvivalTowerDefense-pages` 與 `codex/pages-publish` 分支，保留原目錄進行中的新角色／關卡開發。
 
@@ -14,7 +14,7 @@
 npm run deploy:pages
 ```
 
-[部署腳本](../scripts/deploy-pages.mjs) 確认 origin 是本專案且工作目錄乾淨，然後執行規則／存檔測試、型別檢查與 Pages 路徑 build、素材容量檢查。通過後才推送來源與網站，保留兩個分支的歷史，不強制推送。它會比對本機／遠端的原始碼與網站 SHA，產生本機 `dist/deployment-receipt.json`，再等待最多五分鐘核對公開頁面與資產。線上比對結果保存在 `dist/live-verification.json`，也可單獨執行 `npm run verify:pages`。
+[部署腳本](../scripts/deploy-pages.mjs) 確認 origin 是本專案且工作目錄乾淨，然後執行規則／存檔測試、型別檢查與 Pages 路徑 build、素材容量檢查。通過後才推送來源與網站，保留兩個分支的歷史，不強制推送。它會比對本機／遠端的原始碼與網站 SHA，產生本機 `dist/deployment-receipt.json`，再等待最多五分鐘核對公開頁面與資產。線上比對結果保存在 `dist/live-verification.json`，也可單獨執行 `npm run verify:pages`。
 
 `git push origin main` 只更新原始碼。因為此專案使用 Vite，網站需由上述指令先建置，再發布 `gh-pages`。只有建置產物進入網站分支，依賴、原始測試報告與開發檔不納入網站。
 
@@ -59,4 +59,10 @@ PRODUCTION_URL=http://127.0.0.1:5175/SurvivalTowerDefense/ VALIDATION_OUTPUT_DIR
 
 ## 首次發布狀態
 
-公開倉庫已建立。正在推送來源、設定 `gh-pages` 發布與驗證公開網址；完成後補上部署 SHA、Pages 結果及線上檢查證據。
+2026-09-05 首次發布完成。來源 `main` 為 `027f7ec86247366f8f41e4020717e7606106883b`，網站 `gh-pages` 為 `72687477b520f5b0191a0d331a4c3941cf0c10cc`；GitHub Pages 回報 `built`，使用專案網址與 HTTPS。證據：[設定與建置](../artifacts/validation/github-pages/live/pages-settings.json)、[推送收據](../artifacts/validation/github-pages/live/deployment-receipt.json)、[公開檔案比對](../artifacts/validation/github-pages/live/live-verification.json)。
+
+公開站使用隔離 Chromium 151、390×844、10 Mbps／100 ms RTT、停用快取驗證：主頁可操作 **3,541 ms**、首場載入 **3,919 ms**。透過真實遊玩取得 XP，花 1 點後重載續配成功，3×／自動技能偏好保留，首次技能於第 **50 秒** 施放；24 個素材／bundle 請求皆位於專案子路徑，沒有頁面錯誤或失敗 HTTP 回應。這是桌面模擬手機環境，實機驗證仍待執行。[完整線上測試](../artifacts/validation/github-pages/live/smoke.json)。
+
+本節 SHA 與證據記錄首次發布版本。後續僅更新文件時仍執行部署與公開檔案比對；當前來源可由 [version.json](https://willcoming.github.io/SurvivalTowerDefense/version.json) 查詢，最新部署收據與比對結果由腳本保存在本機 `dist/`。
+
+另確認首頁六張角色圖片全數完成載入，保留 [首頁截圖](../artifacts/validation/github-pages/live/home-ready.png) 與 [圖片檢查](../artifacts/validation/github-pages/live/home-images.json)；此補充截圖未限制頻寬，不列入上述載入量測。

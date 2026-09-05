@@ -1,0 +1,38 @@
+{
+  "sourceCommit": "027f7ec86247366f8f41e4020717e7606106883b",
+  "passed": true,
+  "checkedAt": "2026-09-05T06:23:18.121Z",
+  "images": [
+    {
+      "src": "/SurvivalTowerDefense/assets/characters/C02-portrait.webp",
+      "width": 768,
+      "height": 1152
+    },
+    {
+      "src": "/SurvivalTowerDefense/assets/characters/C01-portrait.webp",
+      "width": 768,
+      "height": 1152
+    },
+    {
+      "src": "/SurvivalTowerDefense/assets/characters/C02-portrait.webp",
+      "width": 768,
+      "height": 1152
+    },
+    {
+      "src": "/SurvivalTowerDefense/assets/characters/C04-portrait.webp",
+      "width": 768,
+      "height": 1152
+    },
+    {
+      "src": "/SurvivalTowerDefense/assets/characters/C05-portrait.webp",
+      "width": 768,
+      "height": 1152
+    },
+    {
+      "src": "/SurvivalTowerDefense/assets/characters/C06-portrait.webp",
+      "width": 768,
+      "height": 1152
+    }
+  ],
+  "note": "Additional visual check after all homepage image elements loaded; unthrottled network, separate from measured smoke test."
+}

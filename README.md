@@ -4,7 +4,7 @@
 
 免登入；所有角色與武器路線初始開放。通關只解鎖後續關卡、故事及挑戰，沒有角色永久等級、抽卡、體力或刷資源。
 
-目前新局為 **0.3.0-dev.1 自由技能樹版**。玩法、執行狀態與驗證結果見 [文件總覽](docs/README.md)。
+目前新局為 **0.3.0-dev.1 自由技能樹版**。[線上遊玩](https://willcoming.github.io/SurvivalTowerDefense/) · [公開原始碼](https://github.com/willcoming/SurvivalTowerDefense)。玩法、執行狀態與驗證結果見 [文件總覽](docs/README.md)。
 
 ## 本機啟動
 
@@ -18,7 +18,7 @@ npm run preview
 
 電腦開啟 [本機遊戲](http://localhost:5173/)。手機連上同一個 Wi-Fi，再開啟終端輸出的 `Network` 網址；區網 IP 會隨網路改變，請以當次輸出為準。主機需保持開機且 preview 仍在執行。
 
-開發時使用 `npm run dev`。dev 與 preview 都固定 **5173** 且拒絕自動換埠，只能同時啟動其中一個；先在原終端按 Ctrl+C，再換另一個命令。不要直接雙擊 `index.html`。`dist/` 是可交付靜態網站，尚未公開部署。
+開發時使用 `npm run dev`。dev 與 preview 都固定 **5173** 且拒絕自動換埠，只能同時啟動其中一個；先在原終端按 Ctrl+C，再換另一個命令。不要直接雙擊 `index.html`。`dist/` 是建置後的靜態網站；已發布至 [GitHub Pages](https://willcoming.github.io/SurvivalTowerDefense/)。
 
 ## 操作
 
