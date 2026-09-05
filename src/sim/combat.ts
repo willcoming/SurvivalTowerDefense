@@ -4,13 +4,15 @@ import { waveStats, eventMultiplier } from './operations';
 import { emergencySupport, repairWall, reflectShield } from './deep-support';
 import { usesSkillTrees } from '../data/skill-trees';
 import { ultimateFor } from './skill-tree';
-import { CHARACTER_MAP, ENEMY_MAP, ticks, WORLD } from '../data/content';
+import { CHARACTER_MAP, ENEMY_MAP, STAGE_MAP, ticks, WORLD } from '../data/content';
+import { usesCollection, attackType, equippedForm, isSummer, ELEMENTS, WEAKNESSES } from '../data/forms';
 import type { CharacterId, DamagePacket, Effect, Enemy, EnemyId, RunState, VisualEvent } from './types';
 import { visualPriority } from './visual';
 export const boss=(e:Enemy)=>e.defId.startsWith('B');
 export const alive=(s:RunState)=>s.enemies.filter(e=>e.hp>0);
 export const distance=(a:{x:number,y:number},b:{x:number,y:number})=>Math.hypot(a.x-b.x,a.y-b.y);
 export function emit(s:RunState,e:Omit<VisualEvent,'seq'|'tick'>){
+  if(e.source&&usesCollection(s)){const damageType=attackType(s,e.source);e={...e,damageType,color:ELEMENTS[damageType].color};}
   const weapon=e.source?s.weapons.find(w=>w.id===e.source):undefined;
   s.events.push({...e,...(weapon&&usesSkillTrees(s)?{weaponTree:ultimateFor(s,weapon.id)?.split(/[:/]/)[0]}:{}),...(weapon?{weaponRank:weapon.rank,weaponBranch:weapon.branch}:{}),seq:++s.eventSeq,tick:s.tick});
   // Shed old decoration before primary attacks, and primary attacks before skill cues.
@@ -52,6 +54,7 @@ export function knockback(s:RunState,e:Enemy,amount:number){
   e.y=Math.max(WORLD.spawnY,e.y-amount);e.attackAt=0;interrupt(s,e);
 }
 export function addShield(s:RunState,source:string,value:number,duration:number){
+  if(usesCollection(s)&&source.includes('C06'))value*=equippedForm(s,'C06').shield;
   s.shields=s.shields.filter(x=>x.expires>s.tick&&x.value>0);
   const existing=s.shields.find(x=>x.source===source);const others=s.shields.filter(x=>x!==existing).reduce((n,x)=>n+x.value,0);
   const next=Math.min(300+(usesFreeSkills(s)?teamMod(s,'shieldCapacity'):0)-others,Math.max(existing?.value??0,value));
@@ -70,16 +73,25 @@ export function hitWall(s:RunState,value:number,source:EnemyId){
 }
 export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
   if(e.hp<=0)return;
+  if(usesCollection(s)){
+    const form=equippedForm(s,p.source),dot=p.skill==='burn'||p.skill==='gravity-field';
+    let factor=dot?1:form.direct;
+    if(p.source==='C06'&&(p.skill==='tactical'||p.skill==='shield-reflect'))factor=1;
+    if(p.source==='C03'&&form.theme==='summer')factor*=boss(e)||['E07','E08'].includes(e.defId)?1.2:.85;
+    p={...p,raw:p.raw*factor,damageType:form.damageType};
+    if(p.source==='C01'&&isSummer(s,'C01')&&!dot&&p.skill!=='tactical'&&p.raw>0)p.burn={dps:8,duration:ticks(2),armorIgnore:0,key:'summer'};
+  }
   const exposure=Math.max(e.exposureUntil>s.tick?.25:0,...e.effects.filter(f=>f.kind==='exposure'&&f.expires>s.tick).map(f=>f.value),0);
   const free=usesFreeSkills(s),direct=p.skill!=='burn'&&p.skill!=='gravity-field';
   const controlled=e.effects.some(f=>(f.kind==='slow'||f.kind==='stun')&&f.expires>s.tick);
   const conditional=free&&direct?(exposure>0?teamMod(s,'teamExposeDamage'):0)+(controlled?(p.controlledBonus??0)+teamMod(s,'teamControlDamage'):0)+(e.hp/e.maxHp<=(p.executeThreshold??0)?p.executeDamage??0:0):0;
-  const raw=p.raw*(1+(exposure>0?(p.exposureBonus??0):0)+conditional)*(free?eventMultiplier(s,e.wave,p.damageType):1);
+  const weakness=usesCollection(s)&&WEAKNESSES[e.defId]===p.damageType;
+  const raw=p.raw*(1+(exposure>0?(p.exposureBonus??0):0)+conditional)*(free?eventMultiplier(s,e.wave,p.damageType):1)*(weakness?1.5:1);
   const armorBreak=free&&e.armorBroken&&e.armorBroken.expires>s.tick?e.armorBroken.value:0;
   const result=computeDamage(raw,e.shield,e.armor,p.armorIgnore,exposure,p.shieldMultiplier,armorBreak);
   const previousShield=e.shield;e.shield-=result.shieldDamage;const damage=Math.min(e.hp,result.hpDamage);e.hp-=damage;
   s.stats.damageByCharacter[p.source]+=damage;s.stats.shieldDamageByCharacter[p.source]+=result.shieldDamage;
-  emit(s,{kind:'hit',x:e.x,y:e.y,value:damage+result.shieldDamage,source:p.source,color:CHARACTER_MAP[p.source].color,targetId:e.id,enemyDefId:e.defId,skill:p.skill});
+  emit(s,{kind:'hit',x:e.x,y:e.y,value:damage+result.shieldDamage,source:p.source,color:CHARACTER_MAP[p.source].color,targetId:e.id,enemyDefId:e.defId,skill:p.skill,...(usesCollection(s)?{weakness,damageType:p.damageType}:{})});
   if(previousShield>0&&e.shield<=0&&e.defId==='B02'){interrupt(s,e);e.exposureUntil=s.tick+ticks(6);}
   if(e.hp<=0){
     s.stats.kills++;s.xp+=e.xp;s.choicesEarned=free?Math.min(24,2*Math.floor(s.xp/60)):Math.min(18,Math.floor(s.xp/40));
@@ -95,7 +107,7 @@ export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
   }
   if(free&&p.armorBreak)e.armorBroken={value:Math.max(e.armorBroken&&e.armorBroken.expires>s.tick?e.armorBroken.value:0,p.armorBreak),expires:s.tick+ticks(4)};
   if(p.exposure)applyEffect(s,e,{id:`exposure:${p.source}`,kind:'exposure',source:p.source,value:p.exposure.value,expires:s.tick+p.exposure.duration,armorIgnore:0,nextTick:0});
-  if(p.burn)applyEffect(s,e,{id:`burn:${p.source}:${p.burn.key}`,kind:'burn',source:p.source,value:p.burn.dps,expires:s.tick+p.burn.duration,nextTick:s.tick+15,armorIgnore:p.burn.armorIgnore});
+  if(p.burn)applyEffect(s,e,{id:`burn:${p.source}:${p.burn.key}`,kind:'burn',source:p.source,value:p.burn.dps,expires:s.tick+p.burn.duration,nextTick:s.tick+15,armorIgnore:p.burn.armorIgnore,...(usesCollection(s)?{damageType:p.damageType}:{})});
   if(p.slow)applyEffect(s,e,{id:`slow:${p.source}:${p.skill}`,kind:'slow',source:p.source,value:p.slow.value,expires:s.tick+p.slow.duration,nextTick:0,armorIgnore:0});
   if(p.stun)applyEffect(s,e,{id:`stun:${p.source}:${p.skill}`,kind:'stun',source:p.source,value:1,expires:s.tick+p.stun,nextTick:0,armorIgnore:0});
   if(p.knockback)knockback(s,e,p.knockback);
@@ -110,14 +122,14 @@ export function stepEffects(s:RunState){
     const burns=e.effects.filter(f=>f.kind==='burn'&&f.expires>=s.tick);
     for(const source of new Set(burns.map(f=>f.source))){
       const own=burns.filter(f=>f.source===source);const best=own.sort((a,b)=>b.value-a.value||b.armorIgnore-a.armorIgnore)[0];
-      if(best&&best.nextTick<=s.tick){hitEnemy(s,e,{source:source as CharacterId,skill:'burn',raw:best.value*.5,damageType:'thermal',armorIgnore:best.armorIgnore,shieldMultiplier:1});for(const f of own)f.nextTick=s.tick+15;}
+      if(best&&best.nextTick<=s.tick){hitEnemy(s,e,{source:source as CharacterId,skill:'burn',raw:best.value*.5,damageType:usesCollection(s)?attackType(s,source as CharacterId):'thermal',armorIgnore:best.armorIgnore,shieldMultiplier:1});for(const f of own)f.nextTick=s.tick+15;}
     }
     e.effects=e.effects.filter(f=>f.expires>s.tick);
     for(const source of new Set(e.effects.filter(f=>f.kind==='slow'||f.kind==='stun').map(f=>f.source)))if(source!=='boss')s.stats.controlTicks[source]++;
   }
 }
 export function createEnemy(s:RunState,defId:EnemyId,x:number,y:number,xp=0,wave=0):Enemy{
-  const d=ENEMY_MAP[defId];const isBoss=defId.startsWith('B');const multiplier=isBoss?1:({S01:1,S02:1.1,S03:1.2}[s.config.stageId]);
+  const d=ENEMY_MAP[defId];const isBoss=defId.startsWith('B');const multiplier=isBoss?1:STAGE_MAP[s.config.stageId].hpMultiplier;
   const e:Enemy={id:s.nextEntityId++,defId,x,y,hp:d.hp*multiplier,maxHp:d.hp*multiplier,shield:d.shield*multiplier,armor:d.armor,speed:d.speed,radius:d.radius,xp,wave,spawnedAt:s.tick,effects:[],attackAt:0,abilityAt:s.tick+ticks(defId==='B03'?5:isBoss?d.interval:8),summonAt:s.tick+ticks(defId==='B01'?18:defId==='B02'?20:24),chargeUntil:0,chargeKind:null,chargeCancelled:false,phaseTriggered:false,rushUntil:0,stunImmuneUntil:0,moveImmuneUntil:0,exposureUntil:0,summonCount:0,arcCharges:0};
   if(usesFreeSkills(s)){const values=waveStats(s,defId,wave);e.hp=e.maxHp=values.hp;e.shield=values.shield;e.armor=values.armor;e.speed=values.speed;}
   s.enemies.push(e);if(!s.stats.encountered.includes(defId))s.stats.encountered.push(defId);emit(s,{kind:'spawn',x,y});return e;

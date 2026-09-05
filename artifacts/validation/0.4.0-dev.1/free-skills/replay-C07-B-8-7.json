@@ -1,0 +1,317 @@
+{
+  "config": {
+    "stageId": "S03",
+    "squadIds": [
+      "C07",
+      "C03",
+      "C05",
+      "C02",
+      "C06"
+    ],
+    "captainId": "C07",
+    "seed": 101
+  },
+  "actions": [
+    {
+      "tick": 989,
+      "seq": 1,
+      "command": {
+        "type": "buy-node",
+        "offerId": 1,
+        "nodeId": "C07-B/0"
+      }
+    },
+    {
+      "tick": 989,
+      "seq": 2,
+      "command": {
+        "type": "buy-node",
+        "offerId": 1,
+        "nodeId": "C03-B/0"
+      }
+    },
+    {
+      "tick": 1392,
+      "seq": 3,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 1855,
+      "seq": 4,
+      "command": {
+        "type": "buy-node",
+        "offerId": 2,
+        "nodeId": "C05-B/0"
+      }
+    },
+    {
+      "tick": 1855,
+      "seq": 5,
+      "command": {
+        "type": "buy-node",
+        "offerId": 2,
+        "nodeId": "C07-B/1"
+      }
+    },
+    {
+      "tick": 2742,
+      "seq": 6,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 2744,
+      "seq": 7,
+      "command": {
+        "type": "buy-node",
+        "offerId": 3,
+        "nodeId": "C03-B/1"
+      }
+    },
+    {
+      "tick": 2744,
+      "seq": 8,
+      "command": {
+        "type": "buy-node",
+        "offerId": 3,
+        "nodeId": "C05-B/1"
+      }
+    },
+    {
+      "tick": 3747,
+      "seq": 9,
+      "command": {
+        "type": "buy-node",
+        "offerId": 4,
+        "nodeId": "C07-B/4"
+      }
+    },
+    {
+      "tick": 3747,
+      "seq": 10,
+      "command": {
+        "type": "buy-node",
+        "offerId": 4,
+        "nodeId": "C03-B/4"
+      }
+    },
+    {
+      "tick": 4092,
+      "seq": 11,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 4563,
+      "seq": 12,
+      "command": {
+        "type": "buy-node",
+        "offerId": 5,
+        "nodeId": "C05-B/3"
+      }
+    },
+    {
+      "tick": 4563,
+      "seq": 13,
+      "command": {
+        "type": "buy-node",
+        "offerId": 5,
+        "nodeId": "C07-B/6"
+      }
+    },
+    {
+      "tick": 5244,
+      "seq": 14,
+      "command": {
+        "type": "buy-node",
+        "offerId": 6,
+        "nodeId": "C03-B/6"
+      }
+    },
+    {
+      "tick": 5244,
+      "seq": 15,
+      "command": {
+        "type": "buy-node",
+        "offerId": 6,
+        "nodeId": "C05-B/5"
+      }
+    },
+    {
+      "tick": 5442,
+      "seq": 16,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 6298,
+      "seq": 17,
+      "command": {
+        "type": "buy-node",
+        "offerId": 7,
+        "nodeId": "C07-B/8"
+      }
+    },
+    {
+      "tick": 6298,
+      "seq": 18,
+      "command": {
+        "type": "buy-node",
+        "offerId": 7,
+        "nodeId": "C03-B/8"
+      }
+    },
+    {
+      "tick": 6840,
+      "seq": 19,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 7061,
+      "seq": 20,
+      "command": {
+        "type": "buy-node",
+        "offerId": 8,
+        "nodeId": "C05-B/7"
+      }
+    },
+    {
+      "tick": 7061,
+      "seq": 21,
+      "command": {
+        "type": "buy-node",
+        "offerId": 8,
+        "nodeId": "C07-A/0"
+      }
+    },
+    {
+      "tick": 7941,
+      "seq": 22,
+      "command": {
+        "type": "buy-node",
+        "offerId": 9,
+        "nodeId": "C07-A/1"
+      }
+    },
+    {
+      "tick": 7941,
+      "seq": 23,
+      "command": {
+        "type": "buy-node",
+        "offerId": 9,
+        "nodeId": "TEAM/0"
+      }
+    },
+    {
+      "tick": 8250,
+      "seq": 24,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 8898,
+      "seq": 25,
+      "command": {
+        "type": "buy-node",
+        "offerId": 10,
+        "nodeId": "TEAM/1"
+      }
+    },
+    {
+      "tick": 8898,
+      "seq": 26,
+      "command": {
+        "type": "buy-node",
+        "offerId": 10,
+        "nodeId": "TEAM/2"
+      }
+    },
+    {
+      "tick": 9600,
+      "seq": 27,
+      "command": {
+        "type": "cast"
+      }
+    },
+    {
+      "tick": 9768,
+      "seq": 28,
+      "command": {
+        "type": "buy-node",
+        "offerId": 11,
+        "nodeId": "TEAM/3"
+      }
+    },
+    {
+      "tick": 9768,
+      "seq": 29,
+      "command": {
+        "type": "buy-node",
+        "offerId": 11,
+        "nodeId": "TEAM/8"
+      }
+    },
+    {
+      "tick": 10698,
+      "seq": 30,
+      "command": {
+        "type": "buy-node",
+        "offerId": 12,
+        "nodeId": "TEAM/9"
+      }
+    },
+    {
+      "tick": 10698,
+      "seq": 31,
+      "command": {
+        "type": "buy-node",
+        "offerId": 12,
+        "nodeId": "TEAM/10"
+      }
+    },
+    {
+      "tick": 10800,
+      "seq": 32,
+      "command": {
+        "type": "finish-boss-intro"
+      }
+    },
+    {
+      "tick": 10950,
+      "seq": 33,
+      "command": {
+        "type": "cast"
+      }
+    }
+  ],
+  "digest": "2b7c6bd39e26515ce86f0b19c7ef2906dab892425d3973c08cd5bfd61ccefb2f",
+  "row": {
+    "terminal": "C07-B/8",
+    "name": "零點塌縮",
+    "tree": "C07-B",
+    "budget": 7,
+    "stageId": "S03",
+    "seed": 101,
+    "outcome": "victory",
+    "choices": 24,
+    "subjectNodes": 7,
+    "seconds": 402.5,
+    "bossSeconds": 42.5,
+    "wallLoss": 0,
+    "wallHp": 1100,
+    "damage": 16376.555582583338,
+    "controlSeconds": 17.466666666666665,
+    "shieldAbsorbed": 0,
+    "repaired": 0,
+    "prevented": 0,
+    "restored": true
+  }
+}

@@ -1,0 +1,555 @@
+{
+  "config": {
+    "argv": [
+      "/Users/willcoming/.hermes/node/bin/node",
+      "/Users/willcoming/code/SurvivalTowerDefense/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/collection.spec.ts"
+    ],
+    "configFile": "/Users/willcoming/code/SurvivalTowerDefense/playwright.config.ts",
+    "rootDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.4.0-dev.1/stage-duo/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.4.0-dev.1/stage-duo/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "artifacts/validation/0.4.0-dev.1/stage-duo/browser-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev -- --host 0.0.0.0 --port 5174 --strictPort",
+      "url": "http://127.0.0.1:5174",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "collection.spec.ts",
+      "file": "collection.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "COLLECTION: free pool, disabled draws, full artwork and responsive layouts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3093,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:04:56.113Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-1b57efbb8ce20a441829",
+          "file": "collection.spec.ts",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: a double click draws once, commits first, and survives reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2435,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:04:59.429Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-044f1475c291f5c84d4f",
+          "file": "collection.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: summer-first exchange directly unlocks one character, not original form",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2433,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:05:01.869Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-0fcba8760f76ccd9cfe0",
+          "file": "collection.spec.ts",
+          "line": 34,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: all 51 goals grant full collection once and stop spending",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1958,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:05:04.308Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-5767555b61fbd4dc11fb",
+          "file": "collection.spec.ts",
+          "line": 44,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: codex and keyboard form selection use current artwork without old portraits",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2452,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:05:06.274Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-11c82dd86256513f5b7c",
+          "file": "collection.spec.ts",
+          "line": 49,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: new captain mechanics, elemental portraits, skills and restore",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8506,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:05:08.730Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-e441d8d5ae7bfffeaff2",
+          "file": "collection.spec.ts",
+          "line": 63,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: free pool, disabled draws, full artwork and responsive layouts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3307,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:05:17.473Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-94191556a55b9f7dbcc0",
+          "file": "collection.spec.ts",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: a double click draws once, commits first, and survives reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1587,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:05:20.953Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-0fbc6de011b9ef80a1a6",
+          "file": "collection.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: summer-first exchange directly unlocks one character, not original form",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1950,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:05:22.544Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-53b91d02166d05d8306e",
+          "file": "collection.spec.ts",
+          "line": 34,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: all 51 goals grant full collection once and stop spending",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1270,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:05:24.498Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-4f17c55c3ba3e4e5a6a3",
+          "file": "collection.spec.ts",
+          "line": 44,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: codex and keyboard form selection use current artwork without old portraits",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11521,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#form-C07')\nExpected: \u001b[32m\"C07-\u001b[7msummer\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"C07-\u001b[7moriginal\u001b[27m\"\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#form-C07')\u001b[22m\n\u001b[2m    24 × locator resolved to <select id=\"form-C07\" data-change=\"form\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"C07-original\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#form-C07')\nExpected: \u001b[32m\"C07-\u001b[7msummer\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"C07-\u001b[7moriginal\u001b[27m\"\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#form-C07')\u001b[22m\n\u001b[2m    24 × locator resolved to <select id=\"form-C07\" data-change=\"form\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"C07-original\"\u001b[22m\n\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/collection.spec.ts:55:165",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/collection.spec.ts",
+                      "column": 165,
+                      "line": 55
+                    },
+                    "snippet": "  53 |     const tab=page.locator(`.character-tabs [data-id=\"${id}\"]`);await tab.focus();await page.keyboard.press('Space');\n  54 |     await expect(page.locator('.weapon-info img')).toHaveAttribute('alt',id==='C07'?'預置共振雷':'高熱旋轉砲');\n> 55 |     const control=page.locator(`#form-${id}`);await control.focus();await page.keyboard.press('ArrowDown');await page.keyboard.press('Enter');await expect(control).toHaveValue(`${id}-summer`);\n     |                                                                                                                                                                     ^\n  56 |     await expect(page.locator('.dossier-art img')).toHaveAttribute('alt',id==='C07'?'汐音・潮汐布雷師':'熾夏・海風快槍');await expect(page.locator('.weapon-info img')).toHaveAttribute('src',/^data:image/);\n  57 |     await page.screenshot({path:dir+'/'+info.project.name+'-'+id+'-codex.png'});\n  58 |     await control.focus();await page.keyboard.press('ArrowUp');await page.keyboard.press('Enter');await expect(control).toHaveValue(`${id}-original`);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/collection.spec.ts",
+                        "column": 165,
+                        "line": 55
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#form-C07')\nExpected: \u001b[32m\"C07-\u001b[7msummer\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"C07-\u001b[7moriginal\u001b[27m\"\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#form-C07')\u001b[22m\n\u001b[2m    24 × locator resolved to <select id=\"form-C07\" data-change=\"form\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"C07-original\"\u001b[22m\n\n\n  53 |     const tab=page.locator(`.character-tabs [data-id=\"${id}\"]`);await tab.focus();await page.keyboard.press('Space');\n  54 |     await expect(page.locator('.weapon-info img')).toHaveAttribute('alt',id==='C07'?'預置共振雷':'高熱旋轉砲');\n> 55 |     const control=page.locator(`#form-${id}`);await control.focus();await page.keyboard.press('ArrowDown');await page.keyboard.press('Enter');await expect(control).toHaveValue(`${id}-summer`);\n     |                                                                                                                                                                     ^\n  56 |     await expect(page.locator('.dossier-art img')).toHaveAttribute('alt',id==='C07'?'汐音・潮汐布雷師':'熾夏・海風快槍');await expect(page.locator('.weapon-info img')).toHaveAttribute('src',/^data:image/);\n  57 |     await page.screenshot({path:dir+'/'+info.project.name+'-'+id+'-codex.png'});\n  58 |     await control.focus();await page.keyboard.press('ArrowUp');await page.keyboard.press('Enter');await expect(control).toHaveValue(`${id}-original`);\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/collection.spec.ts:55:165"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:05:25.774Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.4.0-dev.1/stage-duo/browser-results/test-output/collection-COLLECTION-code-fa150-twork-without-old-portraits-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.4.0-dev.1/stage-duo/browser-results/test-output/collection-COLLECTION-code-fa150-twork-without-old-portraits-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/validation/0.4.0-dev.1/stage-duo/browser-results/test-output/collection-COLLECTION-code-fa150-twork-without-old-portraits-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/collection.spec.ts",
+                    "column": 165,
+                    "line": 55
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-af3bc0a7bcb4825bf2a9",
+          "file": "collection.spec.ts",
+          "line": 49,
+          "column": 1
+        },
+        {
+          "title": "COLLECTION: new captain mechanics, elemental portraits, skills and restore",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5773,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-05T07:05:37.841Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a433e3f19c9ef30ef149-88f4f5b6d505432104a9",
+          "file": "collection.spec.ts",
+          "line": 63,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-05T07:04:55.492Z",
+    "duration": 48320.166,
+    "expected": 11,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

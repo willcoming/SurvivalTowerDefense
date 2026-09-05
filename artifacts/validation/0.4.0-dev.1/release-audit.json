@@ -1,0 +1,1209 @@
+{
+  "contentVersion": "0.4.0-dev.1",
+  "measuredAt": "2026-09-05T06:44:59.934Z",
+  "checks": {
+    "rules": true,
+    "campaign": true,
+    "allTerminals": true,
+    "browser": true,
+    "assets": true,
+    "production": true,
+    "livePerformance": true
+  },
+  "passed": true,
+  "sourceSha256": "4a1534c679ed1fbbe562becbb3a9da628e094cf007dd25092653f81712aede88",
+  "totals": {
+    "ruleTests": 282,
+    "starterGoalRuns": 153,
+    "poolFormRuns": 10,
+    "terminalBuildRuns": 1740,
+    "commandReplays": 58,
+    "browserPassed": 165,
+    "browserSkipped": 3
+  },
+  "note": "Latest result per test identity. A concurrent-load live-render performance failure is retained in performance/; its isolated recheck supersedes that case only. No thresholds were relaxed. Physical phones, human playtesting, server-side anti-cheat and public deployment are not validated.",
+  "browserReports": [
+    "regression/browser-results/results.json",
+    "performance/browser-results/results.json",
+    "performance-recheck/browser-results/results.json",
+    "final-collection/browser-results/results.json"
+  ],
+  "browser": [
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C01: six real sprite poses, skill at 1× and 3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C02: six real sprite poses, skill at 1× and 3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C03: six real sprite poses, skill at 1× and 3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C04: six real sprite poses, skill at 1× and 3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C05: six real sprite poses, skill at 1× and 3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C06: six real sprite poses, skill at 1× and 3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM: pause freezes animation and refresh does not replay an old skill",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C01-A: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C01-B: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C02-A: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C02-B: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C03-A: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C03-B: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C04-A: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C04-B: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C05-A: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C05-B: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C06-A: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C06-B: evolution form rendered at 1×/3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM: all eight enemy types and three bosses react and collapse",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM: 3× pressure and reduced effects preserve charging warnings above skills",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM: final boss collapse plays before the victory result",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM: final boss collapse can be interrupted by reload without losing the win",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C01: six real sprite poses, skill at 1× and 3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C02: six real sprite poses, skill at 1× and 3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C03: six real sprite poses, skill at 1× and 3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C04: six real sprite poses, skill at 1× and 3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C05: six real sprite poses, skill at 1× and 3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C06: six real sprite poses, skill at 1× and 3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM: pause freezes animation and refresh does not replay an old skill",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C01-A: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C01-B: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C02-A: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C02-B: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C03-A: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C03-B: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C04-A: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C04-B: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C05-A: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C05-B: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C06-A: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM C06-B: evolution form rendered at 1×/3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM: all eight enemy types and three bosses react and collapse",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM: 3× pressure and reduced effects preserve charging warnings above skills",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM: final boss collapse plays before the victory result",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation.spec.ts",
+      "title": "ANIM: final boss collapse can be interrupted by reload without losing the win",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C01 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C01 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C02 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C02 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C03 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C03 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C04 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C04 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C05 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C05 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C06 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C06 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C07 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C07 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C08 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C08 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C01 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C01 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C02 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C02 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C03 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C03 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C04 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C04 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C05 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C05 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C06 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C06 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C07 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C07 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C08 1×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "attack-impact.spec.ts",
+      "title": "IMPACT C08 3×: actual hits remain readable above characters and freeze on pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "auto-tactical.spec.ts",
+      "title": "AUTO: toggle casts on cooldown, waits for targets, pauses, saves and keeps manual control",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "auto-tactical.spec.ts",
+      "title": "AUTO: all six captains cast through normal gameplay; preference carries into a skill-disabled challenge",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "auto-tactical.spec.ts",
+      "title": "AUTO: toggle casts on cooldown, waits for targets, pauses, saves and keeps manual control",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "auto-tactical.spec.ts",
+      "title": "AUTO: all six captains cast through normal gameplay; preference carries into a skill-disabled challenge",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "collection.spec.ts",
+      "title": "COLLECTION: free pool, disabled draws, full artwork and responsive layouts",
+      "project": "chromium",
+      "status": "passed",
+      "report": "final-collection/browser-results/results.json"
+    },
+    {
+      "file": "collection.spec.ts",
+      "title": "COLLECTION: a double click draws once, commits first, and survives reload",
+      "project": "chromium",
+      "status": "passed",
+      "report": "final-collection/browser-results/results.json"
+    },
+    {
+      "file": "collection.spec.ts",
+      "title": "COLLECTION: summer-first exchange directly unlocks one character, not original form",
+      "project": "chromium",
+      "status": "passed",
+      "report": "final-collection/browser-results/results.json"
+    },
+    {
+      "file": "collection.spec.ts",
+      "title": "COLLECTION: all 51 goals grant full collection once and stop spending",
+      "project": "chromium",
+      "status": "passed",
+      "report": "final-collection/browser-results/results.json"
+    },
+    {
+      "file": "collection.spec.ts",
+      "title": "COLLECTION: new captain mechanics, elemental portraits, skills and restore",
+      "project": "chromium",
+      "status": "passed",
+      "report": "final-collection/browser-results/results.json"
+    },
+    {
+      "file": "collection.spec.ts",
+      "title": "COLLECTION: free pool, disabled draws, full artwork and responsive layouts",
+      "project": "webkit",
+      "status": "passed",
+      "report": "final-collection/browser-results/results.json"
+    },
+    {
+      "file": "collection.spec.ts",
+      "title": "COLLECTION: a double click draws once, commits first, and survives reload",
+      "project": "webkit",
+      "status": "passed",
+      "report": "final-collection/browser-results/results.json"
+    },
+    {
+      "file": "collection.spec.ts",
+      "title": "COLLECTION: summer-first exchange directly unlocks one character, not original form",
+      "project": "webkit",
+      "status": "passed",
+      "report": "final-collection/browser-results/results.json"
+    },
+    {
+      "file": "collection.spec.ts",
+      "title": "COLLECTION: all 51 goals grant full collection once and stop spending",
+      "project": "webkit",
+      "status": "passed",
+      "report": "final-collection/browser-results/results.json"
+    },
+    {
+      "file": "collection.spec.ts",
+      "title": "COLLECTION: new captain mechanics, elemental portraits, skills and restore",
+      "project": "webkit",
+      "status": "passed",
+      "report": "final-collection/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S01 1×: entrance holds simulation for 1.5 real seconds",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S01 3×: entrance holds simulation for 1.5 real seconds",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S02 1×: entrance holds simulation for 1.5 real seconds",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S02 3×: entrance holds simulation for 1.5 real seconds",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S03 1×: entrance holds simulation for 1.5 real seconds",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S03 3×: entrance holds simulation for 1.5 real seconds",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY: portrait range selection, waiting, build access and responsive controls",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY: real AoE victims, attached status cues, actual burn numbers and field expiry",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY: interrupted entrance saves remaining time, resumes once and keeps auto skill deferred",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S01 1×: entrance holds simulation for 1.5 real seconds",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S01 3×: entrance holds simulation for 1.5 real seconds",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S02 1×: entrance holds simulation for 1.5 real seconds",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S02 3×: entrance holds simulation for 1.5 real seconds",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S03 1×: entrance holds simulation for 1.5 real seconds",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY S03 3×: entrance holds simulation for 1.5 real seconds",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY: portrait range selection, waiting, build access and responsive controls",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY: real AoE victims, attached status cues, actual burn numbers and field expiry",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "combat-readability.spec.ts",
+      "title": "READABILITY: interrupted entrance saves remaining time, resumes once and keeps auto skill deferred",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S03 1×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S03 3×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S01 1×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S01 3×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S02 1×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S02 3×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY: stun freezes every pose, compact effects retain gait, pause and saved charge restore correctly",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S03 1×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S03 3×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S01 1×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S01 3×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S02 1×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY S02 3×: real frames follow movement, idle, anticipation and actual attacks",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "enemy-motion.spec.ts",
+      "title": "ENEMY: stun freezes every pose, compact effects retain gait, pause and saved charge restore correctly",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: real XP pauses for two explicit purchases; partial allocation survives leave/reload with identical enemies",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: connected five-point ultimate, character exclusivity and cross-tree ordinary skills",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: read-only tree freezes 3×, preserves pause and contains keyboard focus",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: 320–1440 layouts, asymmetric graphs and all common routes stay accessible",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: three full legal browser playthroughs match simulation and unlock stages",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: previous 70-node saved campaign retains three-card rules",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: all six captain animations cast after real initial cooldown at 1× and 3×",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: real XP pauses for two explicit purchases; partial allocation survives leave/reload with identical enemies",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: connected five-point ultimate, character exclusivity and cross-tree ordinary skills",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: read-only tree freezes 3×, preserves pause and contains keyboard focus",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: 320–1440 layouts, asymmetric graphs and all common routes stay accessible",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: three full legal browser playthroughs match simulation and unlock stages",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: previous 70-node saved campaign retains three-card rules",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "free-skills.spec.ts",
+      "title": "FREE: all six captain animations cast after real initial cooldown at 1× and 3×",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "AC01/02: fresh local game, all six characters, legal squad and three responsive widths",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "AC05/06/09: real draft, reroll, reload preservation, explicit card confirmation and pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "AC09: denied storage is explicit and allows temporary play without fake saved status",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "AC06/UI05: mobile landscape suspends combat and returning portrait keeps explicit user pause",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "BAL05/AC07/12: browser replays a legitimate legacy complete win and survives five consecutive menu returns",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore the local preference",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "AC01/02: fresh local game, all six characters, legal squad and three responsive widths",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "AC05/06/09: real draft, reroll, reload preservation, explicit card confirmation and pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "AC09: denied storage is explicit and allows temporary play without fake saved status",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "AC06/UI05: mobile landscape suspends combat and returning portrait keeps explicit user pause",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "BAL05/AC07/12: browser replays a legitimate legacy complete win and survives five consecutive menu returns",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "game.spec.ts",
+      "title": "SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore the local preference",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "skill-trees.spec.ts",
+      "title": "TREE: real earned upgrade, locked preview, separate confirmation, cross-tree candidate and restored random slots",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "skill-trees.spec.ts",
+      "title": "TREE: four picks unlock terminal, other terminal locks, remaining ordinary nodes stay available; 18-pick fixture",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "skill-trees.spec.ts",
+      "title": "TREE: read-only inspection freezes 3×, restores existing pause, survives reload and is keyboard-contained",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "skill-trees.spec.ts",
+      "title": "TREE: narrow and wide layouts keep controls inside screen and graph scrollable",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "skill-trees.spec.ts",
+      "title": "TREE: resumed dev.3 save still renders and accepts A/B upgrades",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "skill-trees.spec.ts",
+      "title": "TREE: real earned upgrade, locked preview, separate confirmation, cross-tree candidate and restored random slots",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "skill-trees.spec.ts",
+      "title": "TREE: four picks unlock terminal, other terminal locks, remaining ordinary nodes stay available; 18-pick fixture",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "skill-trees.spec.ts",
+      "title": "TREE: read-only inspection freezes 3×, restores existing pause, survives reload and is keyboard-contained",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "skill-trees.spec.ts",
+      "title": "TREE: narrow and wide layouts keep controls inside screen and graph scrollable",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "skill-trees.spec.ts",
+      "title": "TREE: resumed dev.3 save still renders and accepts A/B upgrades",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "tree-replay.spec.ts",
+      "title": "TREE: all three complete legal playthroughs replay in browser, unlock progression and render node history",
+      "project": "chromium",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "tree-replay.spec.ts",
+      "title": "TREE: all three complete legal playthroughs replay in browser, unlock progression and render node history",
+      "project": "webkit",
+      "status": "passed",
+      "report": "regression/browser-results/results.json"
+    },
+    {
+      "file": "animation-performance.spec.ts",
+      "title": "ANIM PERF: 60 seconds of live 3× simulation and animation under synthetic peak density",
+      "project": "chromium",
+      "status": "passed",
+      "report": "performance-recheck/browser-results/results.json"
+    },
+    {
+      "file": "animation-performance.spec.ts",
+      "title": "ANIM PERF: 60 seconds of live 3× simulation and animation under synthetic peak density",
+      "project": "webkit",
+      "status": "skipped",
+      "report": "performance/browser-results/results.json"
+    },
+    {
+      "file": "performance.spec.ts",
+      "title": "PERF01: desktop Chromium 60s paused synthetic render pressure, separately labeled from real-phone verification",
+      "project": "chromium",
+      "status": "passed",
+      "report": "performance/browser-results/results.json"
+    },
+    {
+      "file": "performance.spec.ts",
+      "title": "PERF01: desktop Chromium 60s dynamic synthetic render pressure, separately labeled from real-phone verification",
+      "project": "chromium",
+      "status": "passed",
+      "report": "performance/browser-results/results.json"
+    },
+    {
+      "file": "performance.spec.ts",
+      "title": "PERF01: desktop Chromium 60s paused synthetic render pressure, separately labeled from real-phone verification",
+      "project": "webkit",
+      "status": "skipped",
+      "report": "performance/browser-results/results.json"
+    },
+    {
+      "file": "performance.spec.ts",
+      "title": "PERF01: desktop Chromium 60s dynamic synthetic render pressure, separately labeled from real-phone verification",
+      "project": "webkit",
+      "status": "skipped",
+      "report": "performance/browser-results/results.json"
+    }
+  ]
+}

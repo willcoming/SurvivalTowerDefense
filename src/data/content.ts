@@ -1,19 +1,23 @@
 import { FREE_CONTENT_VERSION } from './deep-trees';
+import { COLLECTION_CONTENT_VERSION } from './forms';
+import { CAMPAIGN_STAGES } from './campaign';
 import type { CharacterDef, CharacterId, CommonDef, EnemyDef, EnemyId, RouteDef, StageDef, StageId } from '../sim/types';
 
-export const CONTENT_VERSION = FREE_CONTENT_VERSION;
+export const CONTENT_VERSION = COLLECTION_CONTENT_VERSION;
 export const PREVIOUS_TREE_VERSION = '0.2.0-dev.1';
 export const RANGE_CONTENT_VERSION = '0.1.0-dev.3';
 export const LEGACY_CONTENT_VERSION = '0.1.0-dev.2';
 export const BOSS_INTRO_MS = 1500;
-export const supportedContent = (version: string) => version === CONTENT_VERSION || version === PREVIOUS_TREE_VERSION || version === RANGE_CONTENT_VERSION || version === LEGACY_CONTENT_VERSION;
+export const supportedContent = (version: string) => version === CONTENT_VERSION || version === FREE_CONTENT_VERSION || version === PREVIOUS_TREE_VERSION || version === RANGE_CONTENT_VERSION || version === LEGACY_CONTENT_VERSION;
 export const SCHEMA_VERSION = 1;
 export const TICKS_PER_SECOND = 30;
 export const ticks = (seconds: number) => Math.ceil(seconds * TICKS_PER_SECOND);
 export const WORLD = { width: 390, height: 520, wallY: 450, spawnY: 20, originX: 195, originY: 490 } as const;
-export const CHARACTER_IDS: CharacterId[] = ['C01', 'C02', 'C03', 'C04', 'C05', 'C06'];
+export const CHARACTER_IDS: CharacterId[] = ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08'];
 
 export const CHARACTERS: CharacterDef[] = [
+  {id:'C07',name:'汐音',english:'SHION',age:26,role:'陷阱工程',color:'#59c9cf',description:'失聯海岸的工兵長。總在敵人到來前，先替隊友準備好退路。',weaponName:'預置共振雷',damage:100,interval:2.4,damageType:'kinetic',passive:'自動部署最多 3 枚地雷；預置強化每秒增傷 15%，最多 +75%。',tacticalName:'連鎖引爆',tacticalDescription:'立即引爆所有已部署地雷，傷害 +40%；空雷場無法施放。',cooldown:45},
+  {id:'C08',name:'熾夏',english:'CHIKA',age:27,role:'過熱砲手',color:'#f49a6f',description:'共鳴測試小隊的火力手。知道何時全力衝刺，也知道何時需要一陣海風。',weaponName:'高熱旋轉砲',damage:15,interval:.22,damageType:'thermal',passive:'每發累積 8 熱量；依熱量最多增傷 100%。滿 100 後停火，以每秒 32 點冷卻至 0。',tacticalName:'強制排熱',tacticalDescription:'熱量歸零並立即恢復射擊；接下來 5 秒攻速 +35%。',cooldown:45},
   { id: 'C01', name: '璃音', english: 'RION', age: 22, role: '脈衝突擊', color: '#fa765e', description: '晨星防衛隊的行動隊長。相信每一次反擊，都能替明天多留下一點希望。', weaponName: '脈衝卡賓槍', damage: 24, interval: .55, damageType: 'plasma', passive: '對曝露目標的武器傷害 +15%。', tacticalName: '天際掃射', tacticalDescription: '威脅最高位置，半徑90連續四次35電漿傷害。', cooldown: 45 },
   { id: 'C02', name: '雷娜', english: 'RENA', age: 24, role: '弧鏈清場', color: '#b08ced', description: '把外星電磁技術改造成自己的玩具。嘴上不饒人，危急時總是第一個出手。', weaponName: '弧鏈發射器', damage: 26, interval: .9, damageType: 'arc', passive: '跳至另一目標造成60%傷害，電弧對護盾倍率1.25。', tacticalName: '電磁靜默', tacticalDescription: '全場60電弧傷害、暈眩1.5秒；Boss受控場抗性限制。', cooldown: 50 },
   { id: 'C03', name: '凜月', english: 'RITSUKI', age: 23, role: '核心狙殺', color: '#93bcdc', description: '沉默的精準射手。她說的每一句話，就像扣下扳機一樣經過計算。', weaponName: '質量加速狙擊槍', damage: 68, interval: 1.8, damageType: 'kinetic', passive: '忽略35%裝甲；直線命中2人，次目標70%傷害。', tacticalName: '核心貫擊', tacticalDescription: '最大生命目標受到420動能傷害，該擊忽略全部裝甲。', cooldown: 45 },
@@ -21,6 +25,7 @@ export const CHARACTERS: CharacterDef[] = [
   { id: 'C05', name: '芙蕾', english: 'FLARE', age: 25, role: '熔核爆破', color: '#ffb758', description: '擅長爆破，也擅長把所有人平安帶回家。笑聲比迫擊砲還要響亮。', weaponName: '熔核迫擊砲', damage: 44, interval: 1.5, damageType: 'thermal', passive: '半徑48爆炸，附加4 DPS燃燒3秒，燃燒忽略50%裝甲。', tacticalName: '熔星空投', tacticalDescription: '半徑100爆炸160傷害，附加12 DPS燃燒5秒。', cooldown: 50 },
   { id: 'C06', name: '希雅', english: 'SIA', age: 24, role: '棱鏡支援', color: '#e9ce91', description: '在最混亂的戰場上，仍能聽見她溫柔而清晰的指令。無人機從不離隊友太遠。', weaponName: '棱鏡無人機', damage: 16, interval: .5, damageType: 'plasma', passive: '每4次主攻擊施加10%曝露4秒，協助全隊集火。', tacticalName: '棱鏡防幕', tacticalDescription: '為防線提供220護盾8秒，不回復生命。', cooldown: 50 },
 ];
+CHARACTERS.sort((a,b)=>a.id.localeCompare(b.id));
 export const CHARACTER_MAP = Object.fromEntries(CHARACTERS.map(c => [c.id, c])) as Record<CharacterId, CharacterDef>;
 
 const route = (id: string, name: string, tags: string[], nodes: [string,string,string], tradeoff: string): RouteDef => ({ id, ownerId: id.slice(0,3) as CharacterId, branch: id.at(-1) as 'A' | 'B', name, tags, nodes, tradeoff });
@@ -67,6 +72,7 @@ export const STAGES: StageDef[] = [
   {id:'S02',name:'零點研究所',subtitle:'LAB · 02',description:'保護轉譯主機。破解棱盾的共振訊號，找出敵艦核心。',hpMultiplier:1.1,bossId:'B02',color:'#80bcca',enemyIds:['E01','E02','E03','E04','E05','E06','E07','E08','B02'],waves:['C20 P4 S2','C18 R8 S4','C18 P6 A2','C20 S6 M2 A2','C20 P6 A4 M2','C20 R10 S4 D1','C20 P8 S4 A4 H1','C22 P6 R8 S4 A4'],intro:['雷娜：它們的護盾不是無敵，只是頻率藏得很好。','芙蕾：妳負責解碼，我們負責讓這裡不要爆炸。','米菈：那我可以拆一小塊嗎？就一小塊！'],outro:['雷娜：找到了，核心就在墜毀的降落艦裡。','希雅：轉譯主機安全，撤離訊號也傳出去了。','璃音：不只防守了。這一次，我們主動出擊。']},
   {id:'S03',name:'墜星反攻',subtitle:'IMPACT · 03',description:'守住核心封鎖裝置，切斷艦群再啟動。地球的第一次反攻。',hpMultiplier:1.2,bossId:'B03',color:'#e7a582',enemyIds:['E01','E02','E03','E04','E05','E06','E07','E08','B03'],waves:['C22 R6 P4','C20 R8 S4 A2','C20 P6 S4 M2','C20 R10 A4 D1','C22 P8 S4 A4','C22 R10 S6 M3','C24 P8 A4 M2 H1','C24 R10 P8 S4 A4 M2 H1 D1'],intro:['凜月：核心正在醒來。每一發，都要打在對的地方。','芙蕾：那就把它的起床氣轟回去！','璃音：晨星全員，開始反攻。讓它們知道，地球還在。'],outro:['米菈：核心停止了。這次真的停止了！','希雅：所有人的訊號都在。我們一起回家。','璃音：這只是第一場勝利。明天，我們還會站在這裡。']},
 ];
+STAGES.push(...CAMPAIGN_STAGES);
 export const STAGE_MAP = Object.fromEntries(STAGES.map(s => [s.id,s])) as Record<StageId, StageDef>;
 export const BUILDS: {id:string;name:string;squadIds:CharacterId[];captainId:CharacterId;routes:string[]}[] = [
   {id:'T01',name:'連鎖清場',squadIds:['C01','C02','C04','C05','C06'],captainId:'C02',routes:['C02-A','C01-A','C05-A']},

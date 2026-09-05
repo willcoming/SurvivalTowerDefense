@@ -1,4 +1,5 @@
 import type Phaser from 'phaser';
+import { ELEMENTS, usesCollection } from '../data/forms';
 import type { Effect, RunState, VisualEvent } from '../sim/types';
 import type { Detail } from './presentation';
 import { enemySize } from './actors';
@@ -7,7 +8,7 @@ type Status = Effect['kind'];
 const statuses: Status[] = ['burn', 'slow', 'stun', 'exposure'];
 export class StatusEffects {
   private sprites = new Map<number, Map<Status, Phaser.GameObjects.Image>>();
-  private labels: { text: Phaser.GameObjects.Text; born: number; value: number; x: number; y: number; key: string }[] = [];
+  private labels: { text: Phaser.GameObjects.Text; born: number; value: number; x: number; y: number; key: string; prefix:string; color:string }[] = [];
   private visible: { id: number; states: Status[] }[] = [];
   constructor(private scene: Phaser.Scene) {
     const g = scene.make.graphics({ x: 0, y: 0 });
@@ -41,7 +42,7 @@ export class StatusEffects {
       scene.textures.remove(key);
     });
     atlas.refresh();
-    for (let i = 0; i < 12; i++) this.labels.push({ text: scene.add.text(0, 0, '', { fontSize: '13px', fontStyle: 'bold', fontFamily: 'sans-serif', color: '#ffcf78', stroke: '#28120b', strokeThickness: 3 }).setOrigin(.5).setDepth(12).setVisible(false), born: -Infinity, value: 0, x: 0, y: 0, key: '' });
+    for (let i = 0; i < 12; i++) this.labels.push({ text: scene.add.text(0, 0, '', { fontSize: '13px', fontStyle: 'bold', fontFamily: 'sans-serif', color: '#ffcf78', stroke: '#28120b', strokeThickness: 3 }).setOrigin(.5).setDepth(12).setVisible(false), born: -Infinity, value: 0, x: 0, y: 0, key: '',prefix:'燃',color:'#ffcf78' });
   }
   update(run: RunState, now: number, fresh: VisualEvent[], detail: Detail) {
     const ids = new Set(run.enemies.map(e => e.id));
@@ -64,6 +65,7 @@ export class StatusEffects {
             sprite = this.scene.add.image(0, 0, 'status-atlas', key).setDepth(8.5).setDisplaySize(size * scale, size * scale); sprites.set(status, sprite);
           }
           if (sprite.frame.name !== key) sprite.setFrame(key);
+          if(status==='burn'){const effect=enemy.effects.find(f=>f.kind==='burn'),element=effect?.damageType;if(usesCollection(run)&&element)sprite.setTint(parseInt(ELEMENTS[element].color.slice(1),16));else sprite.clearTint();}
           sprite.setVisible(true).setPosition(enemy.x, enemy.y + (status === 'stun' ? -size * .7 : status === 'slow' ? size * .42 : status === 'burn' ? size * .12 : 0));
         } else sprite?.setVisible(false);
       }
@@ -71,13 +73,13 @@ export class StatusEffects {
     }
     const limit = detail === 'compact' ? 6 : 12;
     for (const event of fresh) if (event.kind === 'hit' && event.skill === 'burn' && (event.value ?? 0) > 0) {
-      const key = detail === 'compact' ? `${Math.floor(event.x / 65)}:${Math.floor(event.y / 50)}` : String(event.targetId);
+      const key = `${event.damageType??'thermal'}:`+(detail === 'compact' ? `${Math.floor(event.x / 65)}:${Math.floor(event.y / 50)}` : String(event.targetId));
       let label = this.labels.slice(0, limit).find(l => l.key === key && now - l.born < 700);
       if (!label) { label = this.labels.slice(0, limit).find(l => now - l.born >= 700); if (!label) continue; label.key = key; label.value = 0; label.born = now; label.x = event.x; label.y = event.y - 24; }
-      label.value += event.value!;
+      label.value += event.value!;label.prefix=event.damageType?ELEMENTS[event.damageType].dot:'燃';label.color=event.damageType?ELEMENTS[event.damageType].color:'#ffcf78';
     }
     // Upload each merged label at most once per frame, rather than once per damage event.
-    this.labels.forEach((label, i) => { const t = (now - label.born) / 700, visible = i < limit && t >= 0 && t < 1; label.text.setVisible(visible); if (visible) label.text.setText(`燃 ${Number(label.value.toFixed(1))}`).setPosition(label.x, label.y - t * 20).setAlpha(t < .6 ? 1 : (1 - t) / .4); });
+    this.labels.forEach((label, i) => { const t = (now - label.born) / 700, visible = i < limit && t >= 0 && t < 1; label.text.setVisible(visible); if (visible) label.text.setText(`${label.prefix} ${Number(label.value.toFixed(1))}`).setColor(label.color).setPosition(label.x, label.y - t * 20).setAlpha(t < .6 ? 1 : (1 - t) / .4); });
   }
   diagnostics() { return { statuses: this.visible, burnNumbers: this.labels.filter(l => l.text.visible).map(l => ({ value: l.value, text: l.text.text, born: l.born })) }; }
 }

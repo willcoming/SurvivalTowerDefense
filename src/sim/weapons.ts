@@ -1,4 +1,6 @@
 import { DEEP_NODE_MAP, usesFreeSkills } from '../data/deep-trees';
+import { equippedForm, attackType } from '../data/forms';
+import { detonateMines } from './special-weapons';
 import { deepMods, syncDeepWeapon } from './deep-tree';
 import { deepWeaponStats, stepDeepWeapons } from './deep-weapons';
 import { NODE_MAP, usesSkillTrees } from '../data/skill-trees';
@@ -83,14 +85,16 @@ export function castTactical(s:RunState):boolean{
   const id=s.config.captainId;if(s.tick<s.tacticalReadyAt||s.config.challengeId==='no-skill')return false;
   const target=threat(s)[0];if(!target&&id!=='C06')return false;let visualTarget=target;
   const m=treeMods(s,id);
-  const bonus=1+(s.commonRanks.G01??0)*.08+(m.skillDamage??0),duration=1+(s.commonRanks.G06??0)*.1+(m.skillDuration??0),radius=1+(s.commonRanks.G03??0)*.1+(m.skillRadius??0);
-  const p:DamagePacket={source:id,skill:'tactical',raw:0,damageType:CHARACTER_MAP[id].damageType,armorIgnore:0,shieldMultiplier:id==='C02'?1.25:1};
+  const bonus=1+(s.commonRanks.G01??0)*.08+(m.skillDamage??0),duration=1+(s.commonRanks.G06??0)*.1+(m.skillDuration??0),radius=(1+(s.commonRanks.G03??0)*.1+(m.skillRadius??0))*(id==='C05'?equippedForm(s,id).radius:1);
+  const p:DamagePacket={source:id,skill:'tactical',raw:0,damageType:attackType(s,id),armorIgnore:0,shieldMultiplier:id==='C02'?1.25:1};
   if(id==='C01'){for(const t of area(s,target.x,target.y,90*radius))hitEnemy(s,t,{...p,raw:35*bonus});for(let i=1;i<4;i++)s.scheduled.push({at:s.tick+i*ticks(.2),packet:{...p,raw:35*bonus},x:target.x,y:target.y,radius:90*radius,enemyDamage:0,enemySource:null});}
   if(id==='C02')for(const t of alive(s))hitEnemy(s,t,{...p,raw:60*bonus,stun:ticks(1.5*duration)});
   if(id==='C03'){const t=alive(s).sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];visualTarget=t;hitEnemy(s,t,{...p,raw:420*bonus,armorIgnore:1});emit(s,{kind:'beam',x:195,y:490,x2:t.x,y2:t.y,source:id,skill:'tactical'});}
   if(id==='C04')for(const t of alive(s))hitEnemy(s,t,{...p,raw:0,slow:{value:.5,duration:ticks(5*duration)},knockback:60});
   if(id==='C05')for(const t of area(s,target.x,target.y,100*radius))hitEnemy(s,t,{...p,raw:160*bonus,burn:{dps:12*bonus,duration:ticks(5*duration),armorIgnore:.5,key:'tactical'}});
   if(id==='C06')addShield(s,'tactical:C06',220+(m.skillShield??0),ticks(8*duration));
+  if(id==='C07'&&!detonateMines(s,1.4*bonus))return false;
+  if(id==='C08'){const w=s.weapons.find(w=>w.id===id)!;w.heat=0;w.cooling=false;w.nextAttack=s.tick;w.ventUntil=s.tick+ticks((5+(deepMods(s,id).ventDuration??0))*duration);}
   s.tacticalReadyAt=s.tick+tacticalCooldown(s);s.stats.casts.push(s.tick);emit(s,{kind:'tactical',x:visualTarget?.x??195,y:visualTarget?.y??450,source:id,radius:(id==='C01'?90:100)*radius});return true;
 }
 export function applyUpgrade(s:RunState,nodeId:string){

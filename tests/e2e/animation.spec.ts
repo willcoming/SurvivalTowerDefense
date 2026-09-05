@@ -1,6 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { CHARACTER_IDS } from '../../src/data/content';
+import { STARTER_IDS as CHARACTER_IDS } from '../../src/data/forms';
 import type { CharacterId, EnemyId, StageId } from '../../src/sim/types';
 
 const dir = process.env.VALIDATION_OUTPUT_DIR ?? 'artifacts/validation/animation-update';

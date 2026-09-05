@@ -1,20 +1,22 @@
 import { CHARACTER_MAP, ticks, WORLD } from '../data/content';
 import { deepMods, teamMod } from './deep-tree';
+import { equippedForm, isSummer, usesCollection, attackType } from '../data/forms';
+import { coolWeapon, deployMine, heatShot, stepMines } from './special-weapons';
 import { alive, addShield, area, distance, emit, hitEnemy, threat } from './combat';
 import { inWeaponRange, weaponRange } from './range';
 import type { CharacterId, DamagePacket, Enemy, RunState, WeaponState } from './types';
 
 export function deepWeaponStats(s:RunState,w:WeaponState){
   const d=CHARACTER_MAP[w.id],m=deepMods(s,w.id),bonus=m.damage??0;
-  const haste=(m.haste??0)+teamMod(s,'teamHaste')+(s.shields.some(x=>x.expires>s.tick&&x.value>0)?m.shieldHaste??0:0);
-  const radiusMultiplier=1+(m.radius??0);
-  return {damage:d.damage*(1+bonus),bonus,interval:ticks(Math.max(.12,d.interval/(1+haste))),radius:(w.id==='C04'?45:w.id==='C05'?48:0)*radiusMultiplier,duration:1+(m.duration??0),burnDamage:1+(m.burn??0),radiusMultiplier};
+  const haste=(m.haste??0)+teamMod(s,'teamHaste')+(s.shields.some(x=>x.expires>s.tick&&x.value>0)?m.shieldHaste??0:0)+(w.id==='C08'&&(w.ventUntil??0)>s.tick?.35+(m.ventHaste??0):0);
+  const radiusMultiplier=(1+(m.radius??0))*equippedForm(s,w.id).radius;
+  return {damage:d.damage*(1+bonus),bonus,interval:ticks(Math.max(.12,d.interval/(1+haste)*(w.id==='C07'&&isSummer(s,w.id)?1.25:1))),radius:(w.id==='C04'?45:w.id==='C05'?48:w.id==='C07'?58:0)*radiusMultiplier,duration:1+(m.duration??0),burnDamage:1+(m.burn??0),radiusMultiplier};
 }
 function packet(s:RunState,w:WeaponState):DamagePacket{
   const m=deepMods(s,w.id),n=deepWeaponStats(s,w),every=m.exposureEvery??(w.id==='C06'?4:0);
   const own=every&&w.attacks%every===0?{value:Math.min(.25,(w.id==='C06'?.1:0)+(m.exposureValue??0)),duration:ticks(((w.id==='C06'?4:0)+(m.exposureSeconds??0))*n.duration)}:undefined;
   const shared=deepMods(s,'common'),common=shared.teamMarkEvery&&w.attacks%shared.teamMarkEvery===0?{value:shared.teamMarkValue??.08,duration:ticks(3)}:undefined;
-  return {source:w.id,skill:'weapon',raw:n.damage*(m.critEvery&&w.attacks%m.critEvery===0?1+(m.critPower??.5):1),damageType:CHARACTER_MAP[w.id].damageType,armorIgnore:Math.min(1,(w.id==='C03'?.35:0)+(m.armor??0)),shieldMultiplier:(w.id==='C02'?1.25:1)+(m.shield??0),exposureBonus:(w.id==='C01'?.15:0)+(m.exposureDamage??0),exposure:own&&common?{value:Math.max(own.value,common.value),duration:Math.max(own.duration,common.duration)}:own??common,armorBreak:m.armorBreak,executeDamage:m.executeDamage,executeThreshold:m.executeThreshold,controlledBonus:m.controlledDamage};
+  return {source:w.id,skill:'weapon',raw:n.damage*(m.critEvery&&w.attacks%m.critEvery===0?1+(m.critPower??.5):1),damageType:attackType(s,w.id),armorIgnore:Math.min(1,(w.id==='C03'?.35:0)+(m.armor??0)),shieldMultiplier:(w.id==='C02'?1.25:1)+(m.shield??0),exposureBonus:(w.id==='C01'?.15:0)+(m.exposureDamage??0),exposure:own&&common?{value:Math.max(own.value,common.value),duration:Math.max(own.duration,common.duration)}:own??common,armorBreak:m.armorBreak,executeDamage:m.executeDamage,executeThreshold:m.executeThreshold,controlledBonus:m.controlledDamage};
 }
 function bullet(s:RunState,t:Enemy,p:DamagePacket,count:number){
   const dx=t.x-195,dy=t.y-490,len=Math.hypot(dx,dy)||1;
@@ -45,7 +47,7 @@ function attack(s:RunState,w:WeaponState){
     hitEnemy(s,target,{...p,stun:m.stunEvery&&w.attacks%m.stunEvery===0?ticks((m.stunSeconds??.4)*n.duration):undefined});
     if(m.burstDamage&&++target.arcCharges>=(m.burstEvery??3)){target.arcCharges=0;blast(s,point.x,point.y,(m.burstRadius??65)*n.radiusMultiplier,{...p,skill:'magnetic-burst',raw:m.burstDamage*(1+n.bonus),stun:m.burstStun?ticks(m.burstStun*n.duration):undefined});}
     const seen=new Set([target.id]);let factor=1;
-    for(let i=0;i<1+(m.jumps??0);i++){
+    for(let i=0;i<1+(m.jumps??0)+(isSummer(s,w.id)?1:0);i++){
       const next=alive(s).filter(e=>!seen.has(e.id)&&distance(e,target)<=90+(m.jumpRange??0)).sort((a,b)=>distance(a,target)-distance(b,target)||a.id-b.id)[0];if(!next)break;
       factor*=Math.min(.95,.6+(m.jumpPower??0));emit(s,{kind:'arc',x:target.x,y:target.y,x2:next.x,y2:next.y,source:w.id});hitEnemy(s,next,{...p,raw:p.raw*factor});seen.add(next.id);target=next;
     }
@@ -65,7 +67,7 @@ function attack(s:RunState,w:WeaponState){
     }
     emit(s,{kind:'explosion',x:impact.x,y:impact.y,radius:n.radius,affectedIds:targets.map(t=>t.id),source:w.id});
     if(m.fieldDamage){const previous=s.fields.find(f=>f.source===w.id&&f.kind==='gravity'&&f.expires>s.tick),nextTick=previous?.nextTick??s.tick+15;s.fields=s.fields.filter(f=>!(f.source===w.id&&f.kind==='gravity'));
-      s.fields.push({id:s.nextEntityId++,source:w.id,kind:'gravity',...impact,radius:(m.fieldRadius??65)*n.radiusMultiplier,expires:s.tick+ticks(m.fieldDuration??1.5),nextTick,dps:m.fieldDamage*(1+n.bonus),damageType:'gravity',slow:.25+(m.slow??0),slowDuration:ticks(.6*n.duration),pull:m.pull??12,burnDuration:0,armorIgnore:0,exposure:m.fieldExposure});}
+      s.fields.push({id:s.nextEntityId++,source:w.id,kind:'gravity',...impact,radius:(m.fieldRadius??65)*n.radiusMultiplier,expires:s.tick+ticks(m.fieldDuration??1.5),nextTick,dps:m.fieldDamage*(1+n.bonus),damageType:attackType(s,w.id),slow:.25+(m.slow??0),slowDuration:ticks(.6*n.duration),pull:m.pull??12,burnDuration:0,armorIgnore:0,exposure:m.fieldExposure});}
   }
   if(w.id==='C05'){
     const ignore=Math.min(1,.5+(m.burnArmor??0));p.burn={dps:4*n.burnDamage,duration:ticks(3*n.duration),armorIgnore:ignore,key:'weapon'};
@@ -80,11 +82,14 @@ function attack(s:RunState,w:WeaponState){
     }
     if(m.missiles&&w.attacks%(m.missileEvery??4)===0){const t=threat(s).find(e=>inWeaponRange(s,w.id,e));if(t){s.projectiles.push({id:s.nextEntityId++,x:195,y:490,tx:t.x,ty:t.y,vx:0,vy:0,expires:s.tick+ticks(.3),hitIds:[],remaining:1,falloff:[1],radius:4,blastRadius:35,packet:{...p,raw:p.raw*m.missiles,skill:'micro-missile',secondary:true},enemyDamage:0,enemySource:null,impactAt:s.tick+ticks(.3)});emit(s,{kind:'shot',x:195,y:490,x2:t.x,y2:t.y,source:w.id,skill:'micro-missile'});}}
   }
+  if(w.id==='C07'&&!deployMine(s,w,target,p,n.radius)){w.attacks--;return false;}
+  if(w.id==='C08'){heatShot(s,w,p);bullet(s,target,p,1+(m.pierce??0));}
   return true;
 }
 export function stepDeepWeapons(s:RunState){
+  if(usesCollection(s))stepMines(s);
   for(const w of s.weapons){const m=deepMods(s,w.id);
     if(m.autoShield&&s.tick>=w.shieldAt){addShield(s,`${w.id}-tree`,m.autoShield,ticks(m.shieldDuration??6));w.shieldAt=s.tick+ticks(m.shieldInterval??15);}
-    if(s.tick>=w.nextAttack&&attack(s,w))w.nextAttack=s.tick+deepWeaponStats(s,w).interval;
+    if(!coolWeapon(s,w)&&s.tick>=w.nextAttack&&attack(s,w))w.nextAttack=s.tick+deepWeaponStats(s,w).interval;
   }
 }

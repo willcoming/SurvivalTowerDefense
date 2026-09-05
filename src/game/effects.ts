@@ -1,3 +1,4 @@
+import { attackType, ELEMENTS, usesCollection } from '../data/forms';
 import type Phaser from 'phaser';
 import { CHARACTER_MAP } from '../data/content';
 import type { CharacterId, Field, Projectile, RunState, VisualEvent } from '../sim/types';
@@ -55,22 +56,23 @@ export function bolt(g: Graphics, from: Point, to: Point, color: number, alpha: 
   line(g, points, color, 11, alpha * .16); line(g, points, color, 4.5, alpha); line(g, points, 0xf8f0ff, 1.6, alpha);
 }
 
-export function drawField(g: Graphics, field: Field, tick: number, detail: Detail) {
+export function drawField(g: Graphics, field: Field, tick: number, detail: Detail, run?:RunState) {
   const { x, y, radius: r } = field, phase = tick / 22 + field.id;
+  const c=run&&usesCollection(run)?parseInt(ELEMENTS[attackType(run,field.source)].color.slice(1),16):undefined;
   if (field.kind === 'gravity') {
-    g.fillStyle(0x4de0c7, .08).fillCircle(x, y, r);
-    g.lineStyle(3, 0x65f4da, .9).strokeCircle(x, y, r);
+    g.fillStyle(c??0x4de0c7, .08).fillCircle(x, y, r);
+    g.lineStyle(3, c??0x65f4da, .9).strokeCircle(x, y, r);
     g.lineStyle(1, 0xb1ffff, .5).strokeEllipse(x, y, r * 1.4, r * .72);
     polygon(g, x, y, r * .42, 6, 0xb2fff1, .7, phase, 1);
     g.fillStyle(0x092f37, .9).fillCircle(x, y, r * .17);
     if (detail === 'full') for (let i = 0; i < 6; i++) { const a = phase + i * TAU / 6; const rr = r * (.45 + .4 * ((tick / 40 + i / 6) % 1)); g.fillStyle(0xb2fff1, .7).fillCircle(x + Math.cos(a) * rr, y + Math.sin(a) * rr * .5, 2); }
   } else {
-    g.fillStyle(0xff572c, .16).fillCircle(x, y, r);
-    g.lineStyle(3, 0xffb761, .9).strokeCircle(x, y, r);
+    g.fillStyle(c??0xff572c, .16).fillCircle(x, y, r);
+    g.lineStyle(3, c??0xffb761, .9).strokeCircle(x, y, r);
     for (let i = 0; i < (detail === 'full' ? 9 : 4); i++) {
       const a = i * 2.399, rr = r * Math.sqrt((i + 1) / 10), fx = x + Math.cos(a) * rr, fy = y + Math.sin(a) * rr;
       const h = 9 + (Math.sin(phase * 2 + i) + 1) * 6;
-      g.fillStyle(0xff8a3a, .55).fillTriangle(fx - 4, fy, fx + 5, fy, fx + 2, fy - h);
+      g.fillStyle(c??0xff8a3a, .55).fillTriangle(fx - 4, fy, fx + 5, fy, fx + 2, fy - h);
       g.fillStyle(0xffe8a5, .8).fillTriangle(fx - 2, fy, fx + 2, fy, fx, fy - h * .55);
     }
   }
@@ -88,9 +90,9 @@ export function drawProjectile(g: Graphics, p: Projectile, run: RunState, origin
     x += (from.x - 195) * remaining; y += (from.y - 490) * remaining;
     trailX = x - p.vx * .048; trailY = y - p.vy * .048;
   }
-  const color = p.enemyDamage ? 0xff654e : id === 'C01' ? 0x76f6ff : colorOf(id);
+  const color = p.enemyDamage ? 0xff654e : id&&usesCollection(run)?parseInt(ELEMENTS[attackType(run,id)].color.slice(1),16):id === 'C01' ? 0x76f6ff : colorOf(id);
   if(p.packet?.skill==='micro-missile'){
-    line(g,[{x:trailX,y:trailY},{x,y}],0xffcf76,3,.9);polygon(g,x,y,6,3,0xfff3c8,1,Math.atan2(p.ty-from.y,p.tx-from.x));
+    line(g,[{x:trailX,y:trailY},{x,y}],color,3,.9);polygon(g,x,y,6,3,0xfff3c8,1,Math.atan2(p.ty-from.y,p.tx-from.x));
     glow(g,x,y,8,0xffb65c,.4);
   } else if (id === 'C05') {
     const r = evolved && w?.branch === 'B' ? 11 : 7;
@@ -100,7 +102,7 @@ export function drawProjectile(g: Graphics, p: Projectile, run: RunState, origin
     if (evolved && w?.branch === 'B') polygon(g, x, y, r + 4, 6, 0xffdc93, .7, run.tick / 6);
     if (evolved && w?.branch === 'A') line(g, [{ x: trailX - 3, y: trailY + 9 }, { x, y }], 0xff6234, 2, .65);
   } else if (evolved && id === 'C01' && w?.branch === 'B') {
-    laser(g, { x: x - p.vx * .032, y: y - p.vy * .032 }, { x, y }, 0xffbf82, 4.5, 1);
+    laser(g, { x: x - p.vx * .032, y: y - p.vy * .032 }, { x, y }, color, 4.5, 1);
     polygon(g, x, y, 4, 4, 0xffefc6, .9, Math.atan2(p.vy, p.vx));
   } else {
     if (!p.enemyDamage) {
@@ -117,12 +119,12 @@ export function drawEffect(g: Graphics, fx: ActiveEffect, now: number, detail: D
   const e = fx.event, t = Math.max(0, Math.min(1, (now - fx.born) / fx.duration));
   // Hold the readable silhouette, then dissipate; no simulation or cooldown delay.
   const a = t < .28 ? 1 : Math.pow((1 - t) / .72, 1.25);
-  const c = colorOf(e.source), compact = detail === 'compact', evolved = e.weaponRank === 3, branch = e.weaponBranch;
+  const c = e.color?parseInt(e.color.slice(1),16):colorOf(e.source), compact = detail === 'compact', evolved = e.weaponRank === 3, branch = e.weaponBranch;
   const baseOrigin = origin(e.source,e.x2);
   const from = e.y === 490 ? {...baseOrigin,x:baseOrigin.x+(e.source==='C06'?e.x-195:0)} : { x: e.x, y: e.y }, to = { x: e.x2 ?? e.x, y: e.y2 ?? e.y };
   if (e.kind === 'shot') {
     const p = origin(e.source, e.x2);
-    muzzle(g, p, to, e.source === 'C05' ? 0xffaa4a : 0x70f6ff, a, e.source === 'C05'); burst(g, p.x, p.y, (e.source === 'C05' ? 20 : 13) * (1 + t * .3), e.source === 'C01' ? 0x9bffff : c, a, compact ? 4 : 7);
+    muzzle(g, p, to, e.damageType?c:e.source === 'C05' ? 0xffaa4a : 0x70f6ff, a, e.source === 'C05'); burst(g, p.x, p.y, (e.source === 'C05' ? 20 : 13) * (1 + t * .3), e.damageType?c:e.source === 'C01' ? 0x9bffff : c, a, compact ? 4 : 7);
     if(e.weaponTree==='C01-C')reticle(g,to.x,to.y,14+t*7,c,a);
     if (evolved && e.source === 'C01' && branch === 'A' && e.weaponTree!=='C01-C') for (let i = -1; i <= 1; i++) line(g, [p, { x: p.x + i * 12, y: p.y - 20 }], 0xb0ffff, 1.5, a);
   } else if (e.kind === 'beam' || e.kind === 'arc') {
@@ -139,7 +141,7 @@ export function drawEffect(g: Graphics, fx: ActiveEffect, now: number, detail: D
         for (let i = 1; i <= 4; i++) polygon(g, from.x + (to.x - from.x) * i / 5, from.y + (to.y - from.y) * i / 5, 5, 4, 0xc9f7ff, a, Math.PI / 4);
       } else if (evolved && branch === 'B') reticle(g, to.x, to.y, 20 + t * 10, 0xcde9ff, a);
     } else if (e.source === 'C06') {
-      laser(g, from, to, 0xffe3a2, evolved ? 5 : 3.6, a);
+      laser(g, from, to, e.damageType?c:0xffe3a2, evolved ? 5 : 3.6, a);
       const count = evolved && branch === 'A' ? 4 : 2;
       for (let i = 1; i <= count; i++) polygon(g, from.x + (to.x - from.x) * i / (count + 1), from.y + (to.y - from.y) * i / (count + 1), 4, 4, 0xaffff0, a, 0);
       if (evolved && branch === 'B') polygon(g, to.x, to.y, 10 + t * 5, 6, c, a);
@@ -149,12 +151,12 @@ export function drawEffect(g: Graphics, fx: ActiveEffect, now: number, detail: D
     // The stationary outer edge is the actual damage radius; expanding sparks are decorative.
     const boundary = t < .65 ? 1 : (1 - t) / .35;
     g.fillStyle(c, .07 * boundary).fillCircle(e.x, e.y, radius);
-    g.lineStyle(2.5, e.source === 'C05' ? 0xffd088 : c, .95 * boundary).strokeCircle(e.x, e.y, radius);
-    glow(g, e.x, e.y, radius * (1 - t) * .55, e.source === 'C04' ? c : e.source === 'C02' ? c : 0xffa34a, a);
+    g.lineStyle(2.5, e.damageType?c:e.source === 'C05' ? 0xffd088 : c, .95 * boundary).strokeCircle(e.x, e.y, radius);
+    glow(g, e.x, e.y, radius * (1 - t) * .55, e.damageType?c:e.source === 'C04' ? c : e.source === 'C02' ? c : 0xffa34a, a);
     if (e.source === 'C04') {
       const p = origin(e.source, e.x);
       muzzle(g, p, { x: e.x, y: e.y }, c, a * .8, false);
-      g.fillStyle(0x57eec8, a * .12).fillEllipse(e.x, e.y, r * 2, r * 1.1);
+      g.fillStyle(c, a * .12).fillEllipse(e.x, e.y, r * 2, r * 1.1);
       g.lineStyle(4, c, a).strokeEllipse(e.x, e.y, r * 2, r * 1.1);
       polygon(g, e.x, e.y, r * .6, 6, 0xb8ffeb, a, -t * 2);
       if (evolved && branch === 'B') for (let i = -1; i <= 1; i++) line(g, [{ x: e.x + i * 18 - 7, y: e.y + 12 - t * 30 }, { x: e.x + i * 18, y: e.y - t * 30 }, { x: e.x + i * 18 + 7, y: e.y + 12 - t * 30 }], 0xb7ffea, 2, a);
@@ -163,7 +165,7 @@ export function drawEffect(g: Graphics, fx: ActiveEffect, now: number, detail: D
       if (!compact) for (let i = 0; i < 3; i++) bolt(g, { x: e.x - r, y: e.y + (i - 1) * r * .5 }, { x: e.x + r, y: e.y + (i - 1) * r * .5 }, c, a * .7, e.seq + i, true);
     } else {
       const supernova = e.source === 'C05' && evolved && branch === 'B';
-      g.fillStyle(0xff8b31, a * .26).fillCircle(e.x, e.y, r * .8);
+      g.fillStyle(e.damageType?c:0xff8b31, a * .26).fillCircle(e.x, e.y, r * .8);
       g.fillStyle(0xffdc88, a * .8).fillCircle(e.x, e.y, radius * Math.max(0, .40 - t));
       if (e.source === 'C05') for (let i = 0; i < (compact ? 6 : 9); i++) {
         const angle = i * TAU / (compact ? 6 : 9) + e.seq, ux = Math.cos(angle), uy = Math.sin(angle);
@@ -171,7 +173,7 @@ export function drawEffect(g: Graphics, fx: ActiveEffect, now: number, detail: D
         g.fillStyle(i % 2 ? 0xffb642 : 0xffe4a1, a * .9).fillTriangle(e.x + ux * base - uy * width, e.y + uy * base + ux * width, e.x + ux * base + uy * width, e.y + uy * base - ux * width, e.x + ux * reach, e.y + uy * reach);
       }
       g.lineStyle(supernova ? 6 : 4, 0xffe6a0, a).strokeCircle(e.x, e.y, r);
-      burst(g, e.x, e.y, r * 1.1, 0xff9c4a, a, compact ? 6 : supernova ? 16 : 10, e.seq);
+      burst(g, e.x, e.y, r * 1.1, e.damageType?c:0xff9c4a, a, compact ? 6 : supernova ? 16 : 10, e.seq);
       if (supernova) g.lineStyle(1.5, 0xfff4d0, a).strokeEllipse(e.x, e.y, r * 2.4, r * .5);
     }
   } else if (e.kind === 'hit') {

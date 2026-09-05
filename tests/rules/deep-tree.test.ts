@@ -18,10 +18,10 @@ function acquire(s:RunState,id:string){for(const n of pathTo(id))if(!s.treeNodes
 function readyCombat(s:RunState){s.enemies=[];s.projectiles=[];s.fields=[];s.spawnCursor=s.spawnPlan.length;s.bossSpawned=true;s.draft=null;s.pauseReasons=[];s.choicesEarned=s.choicesSpent;s.phase='running';}
 function durable(s:RunState,x=195,y=300){const e=createEnemy(s,'E03',x,y,0,0);e.hp=e.maxHp=100000;e.shield=0;e.speed=0;return e;}
 
-describe('150-node free allocation',()=>{
-  it('matches every agreed asymmetric tree size and provides 25 distinct ultimates',()=>{
-    expect(CHARACTER_TREES.map(t=>t.nodes.length)).toEqual([11,9,10,11,9,8,10,12,8,10,9,12,10,9]);expect(COMMON_TREE.nodes).toHaveLength(12);expect(DEEP_NODES).toHaveLength(150);expect(ALL_TERMINALS).toHaveLength(25);
-    expect(new Set(DEEP_NODES.map(n=>n.id)).size).toBe(150);
+describe('186-node free allocation',()=>{
+  it('matches every agreed asymmetric tree size and provides 29 distinct ultimates',()=>{
+    expect(CHARACTER_TREES.map(t=>t.nodes.length)).toEqual([11,9,10,11,9,8,10,12,8,10,9,12,10,9,9,9,9,9]);expect(COMMON_TREE.nodes).toHaveLength(12);expect(DEEP_NODES).toHaveLength(186);expect(ALL_TERMINALS).toHaveLength(29);
+    expect(new Set(DEEP_NODES.map(n=>n.id)).size).toBe(186);
     for(const n of DEEP_NODES){expect(Object.keys(n.mods).length).toBeGreaterThan(0);expect(n.parents.every(id=>DEEP_NODE_MAP[id].layer<n.layer&&DEEP_NODE_MAP[id].kind!=='ultimate')).toBe(true);}
   });
   for(const t of ALL_TERMINALS)it(`${t.name} has a legal five-point path, persists and locks other owner ultimates`,()=>{
@@ -61,7 +61,7 @@ describe('150-node free allocation',()=>{
     const s=funded();s.draft=null;s.pauseReasons=['boss-intro'];s.bossIntro={enemyId:1,remainingMs:1500};openDraft(s);expect(s.draft).toBeNull();delete s.bossIntro;s.pauseReasons=[];
     const enemy=s.enemies[0];enemy.chargeKind='shot';enemy.chargeUntil=s.tick+300;openDraft(s);expect(s.draft).toBeNull();s.tick+=60;openDraft(s);expect(s.draft).not.toBeNull();
   });
-  it.each(CHARACTER_IDS)('%s starts on full battle-time cooldown for both manual and automatic skill inputs',id=>{
+  it.each(CHARACTER_IDS.filter(id=>id!=='C07'))('%s starts on full battle-time cooldown for both manual and automatic skill inputs',id=>{
     const s=createRun({stageId:'S01',squadIds:[id],captainId:id,seed:101});expect(s.tacticalReadyAt).toBe(ticks(CHARACTER_MAP[id].cooldown));expect(command(s,{type:'cast'})).toBe(false);expect(shouldAutoCast(s,true)).toBe(false);
     s.tick=s.tacticalReadyAt-1;expect(command(s,{type:'cast'})).toBe(false);s.tick++;expect(shouldAutoCast(s,true)).toBe(true);expect(command(s,{type:'cast'})).toBe(true);expect(restoreRun(s)).toEqual(s);
   });

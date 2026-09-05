@@ -25,7 +25,7 @@ test('FREE: real XP pauses for two explicit purchases; partial allocation surviv
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await boot(page);
   await page.locator('#speed-button').click();await page.locator('#speed-button').click();await page.locator('#auto-tactical-button').click();
   expect(await page.evaluate(()=>window.__game.state()!.stats.casts)).toHaveLength(0);await milestone(page);
-  const before=await page.evaluate(()=>structuredClone(window.__game.state()!));expect(before.contentVersion).toBe('0.3.0-dev.1');expect(before.xp).toBeGreaterThanOrEqual(60);expect(before.stats.casts).toHaveLength(0);
+  const before=await page.evaluate(()=>structuredClone(window.__game.state()!));expect(before.contentVersion).toBe('0.4.0-dev.1');expect(before.xp).toBeGreaterThanOrEqual(60);expect(before.stats.casts).toHaveLength(0);
   await expect(page.locator('.upgrade-card')).toHaveCount(0);await expect(page.locator('[data-action="reroll"]')).toHaveCount(0);await expect(page.locator('[data-action="tree-close"]')).toHaveCount(0);
   await expect(page.locator('.operation-intel')).toContainText('護盾');await expect(page.locator('.boss-intel')).toContainText('反制');
   await inspect(page,'C02-A/0');expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(0);

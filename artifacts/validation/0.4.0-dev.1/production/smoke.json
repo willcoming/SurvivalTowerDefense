@@ -1,0 +1,29 @@
+{
+  "contentVersion": "0.4.0-dev.1",
+  "measuredAt": "2026-09-05T06:43:16.888Z",
+  "browser": "151.0.7922.34",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+  "origin": "http://127.0.0.1:5173",
+  "server": "vite preview of production dist",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "network": "10 Mbps / 100 ms RTT, empty browser context, HTTP cache disabled",
+  "homeInteractiveMs": 703.5670840000001,
+  "battleReadyMs": 3379.7335000000003,
+  "snapshotTick": 839,
+  "phaseAfterRecovery": "paused",
+  "savedChoices": 2,
+  "battleSpeed": 3,
+  "autoTactical": true,
+  "actualAutoCasts": 1,
+  "initialCooldownTicks": 1500,
+  "firstCastTick": 1500,
+  "partialPointRecovery": true,
+  "productionDebugApiAbsent": true,
+  "consoleErrors": [],
+  "failedRequests": [],
+  "passed": true,
+  "limitation": "Desktop Chromium emulating mobile viewport/network; not actual phone hardware. Real-time gameplay earned the first upgrade without simulation hooks."
+}

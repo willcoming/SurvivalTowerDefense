@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { CHARACTERS, COMMON_UPGRADES, ENEMIES, ENEMY_CODE, ENEMY_MAP, ROUTES, STAGES, getCardInfo, ticks } from '../../src/data/content';
+import { CHARACTERS as ALL_CHARACTERS, COMMON_UPGRADES, ENEMIES, ENEMY_CODE, ENEMY_MAP, ROUTES, STAGES as ALL_STAGES, getCardInfo, ticks } from '../../src/data/content';
 import { nextRandom, seedValue } from '../../src/sim/rng';
 
+const CHARACTERS=ALL_CHARACTERS.slice(0,6), STAGES=ALL_STAGES.slice(0,3);
 describe('D01–D03 · finite original content and references', () => {
   it('contains six adult characters, one dedicated weapon each, and exactly two three-node routes each', () => {
     expect(CHARACTERS).toHaveLength(6);

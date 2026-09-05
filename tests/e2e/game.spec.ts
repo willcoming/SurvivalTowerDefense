@@ -27,7 +27,7 @@ async function startUi(page: Page, previous=false) {
   await page.locator('[data-action="intel"]').click();
   await page.locator('.action-bar [data-action="roster"]').click();
   await page.locator('[data-action="start"]').click();
-  if(previous)await page.evaluate(()=>window.__game.start(window.__game.state()!.config,'0.2.0-dev.1'));
+  if(previous)await page.evaluate(()=>{const {forms,...config}=window.__game.state()!.config;return window.__game.start(config,'0.2.0-dev.1');});
   await page.locator('#battle-loading').waitFor({ state: 'detached', timeout: 30000 });
   await page.locator('[data-action="tutorial-done"]').first().click();
   await expect(page.locator('#battle-canvas canvas')).toBeVisible();
@@ -39,7 +39,7 @@ test('AC01/02: fresh local game, all six characters, legal squad and three respo
   await expect(page.locator('[data-action="stage"][data-id="S01"]')).toBeEnabled();
   await expect(page.locator('[data-action="stage"][data-id="S02"]')).toBeDisabled();
   await page.locator('.main-nav [data-action="roster"]').click();
-  await expect(page.locator('.character-card')).toHaveCount(6);
+  await expect(page.locator('.character-card')).toHaveCount(8);
   await expect(page.locator('.add-character[data-id="C03"]')).toBeDisabled();
   while (await page.locator('.filled-slot').count()) await page.locator('.filled-slot').first().click();
   await expect(page.locator('[data-action="start"]')).toBeDisabled();
@@ -53,7 +53,7 @@ test('AC01/02: fresh local game, all six characters, legal squad and three respo
     await page.screenshot({ path: `${output}/screenshots/${info.project.name}-roster-${width}.png`, fullPage: true });
   }
   await page.locator('.main-nav [data-action="codex"]').click();
-  await expect(page.locator('.character-tabs button')).toHaveCount(6);
+  await expect(page.locator('.character-tabs button')).toHaveCount(8);
   await expect(page.locator('.route-columns article')).toHaveCount(3);
   expect(errors).toEqual([]);
 });

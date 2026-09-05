@@ -2,6 +2,7 @@ import type Phaser from 'phaser';
 import { CHARACTER_MAP } from '../data/content';
 import type { CharacterId } from '../sim/types';
 import { CUTIN_MS, LAYERS, type Detail } from './presentation';
+import { keyPixels } from './chroma';
 
 /** A readable name hold with a single slide in/out, driven by the battle's pause-aware clock. */
 export class CaptainCutin {
@@ -16,7 +17,10 @@ export class CaptainCutin {
   private color = 0x8bf5dc;
   constructor(scene: Phaser.Scene) {
     this.plate = scene.add.graphics();
-    scene.textures.get('captain-portrait').add('cutin', 0, 148, 25, 472, 368);
+    const texture=scene.textures.get('captain-portrait'),source=texture.getSourceImage() as HTMLImageElement;
+    const canvas=scene.textures.createCanvas('captain-keyed',source.width,source.height)!;canvas.context.drawImage(source,0,0);keyPixels(canvas.context,source.width,source.height);canvas.refresh();
+    scene.textures.remove('captain-portrait');scene.textures.renameTexture('captain-keyed','captain-portrait');
+    scene.textures.get('captain-portrait').add('cutin', 0, Math.round(source.width*.193), Math.round(source.height*.022), Math.round(source.width*.615), Math.round(source.height*.32));
     this.portrait = scene.add.image(0, 0, 'captain-portrait', 'cutin').setOrigin(0).setDisplaySize(144, 112);
     this.caption = scene.add.text(156, 18, '', { fontSize: '11px', fontFamily: 'sans-serif', color: '#b7fff0' });
     this.name = scene.add.text(155, 42, '', { fontSize: '29px', fontFamily: 'sans-serif', fontStyle: 'bold', color: '#fff8e8', stroke: '#09232d', strokeThickness: 3 });

@@ -14,6 +14,11 @@ import { GameAudio } from '../game/audio';
 import { BattleScene, createBattleCanvas } from '../game/scene';
 import { keyInterfaceImage } from '../game/chroma';
 import { shouldAutoCast } from './auto-tactical';
+import { recruitment } from './collection';
+import { stageUnlocked, MAIN_IDS } from '../data/campaign';
+import { FORM_MAP, formPortrait, equippedForm, originalForm, usesCollection } from '../data/forms';
+import { ownedForm, isPlayable, validateRoster, type CollectionAction } from '../storage/collection';
+import type { FormId } from '../sim/types';
 
 export class GameApp {
   private root: HTMLElement;
@@ -30,6 +35,7 @@ export class GameApp {
   private sceneReady = false; private assetFailure = false;
   private overlayKey = '';
   private selectedRange: CharacterId | null = null;
+  private collecting = false;
   constructor(root: HTMLElement) {
     this.root = root;
     this.root.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLElement>('[data-action]'); if (button && !(button as HTMLButtonElement).disabled) { void this.audio.unlock(); void this.action(button.dataset.action!, button.dataset.id); } });
@@ -46,7 +52,7 @@ export class GameApp {
       this.save = await this.repository.load();
       if (this.save.activeRun) this.save.activeRun = restoreRun(this.save.activeRun);
       this.audio.volumes(this.save.preferences.musicVolume, this.save.preferences.sfxVolume);
-      const latest = STAGES.find(s => !this.save.profile.cleared.includes(s.id)); this.vm.stageId = latest?.id ?? 'S03';
+      const latest = STAGES.find(s => !this.save.profile.cleared.includes(s.id)&&stageUnlocked(s.id,this.save.profile.cleared)); this.vm.stageId = latest?.id ?? 'S12';
       this.vm.saveStatus = '已儲存在本機'; this.ready = true;
       if (this.save.activeRun?.phase === 'ended') { this.lastRun = this.save.activeRun; this.endedId = this.lastRun.runId; completeRun(this.save, this.lastRun); this.vm.page = 'result'; await this.persist(); }
       if (this.save.activeRun && this.save.activeRun.phase !== 'ended') command(this.save.activeRun, { type: 'pause', reason: 'user' });
@@ -70,8 +76,8 @@ export class GameApp {
       }, () => this.save.preferences.battleSpeed, () => this.selectedRange);
       updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
-      const screens = { home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.save, this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run) : home(this.save, this.vm), battle: () => '' };
-      this.root.innerHTML = `${header(page, this.vm.saveStatus)}${this.notice()}${screens[page]()}<footer class="site-footer"><span>星骸防線 / 黎明反攻</span><span>免登入 · 全角色開放 · ${this.temporary ? '暫時試玩，不儲存進度' : '進度保存在目前瀏覽器'}</span></footer><div id="global-overlay"></div>`;
+      const screens = { recruitment:()=>recruitment(this.save,this.collecting),home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.save, this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.rewards) : home(this.save, this.vm), battle: () => '' };
+      this.root.innerHTML = `${header(page, this.vm.saveStatus)}${this.notice()}${screens[page]()}<footer class="site-footer"><span>星骸防線 / 黎明反攻</span><span>免登入 · 免費招募 · ${this.temporary ? '暫時試玩，不儲存進度' : '進度保存在目前瀏覽器'}</span></footer><div id="global-overlay"></div>`;
       this.audio.setMode('lobby'); this.overlay();
     }
     this.root.classList.toggle('reduced-effects', this.save.preferences.reducedEffects);
@@ -88,7 +94,7 @@ export class GameApp {
     let html = '';
     if (this.vm.modal === 'reset' || this.vm.modal === 'abandon') {
       const reset = this.vm.modal === 'reset';
-      html = `<div class="modal-backdrop"><section class="dialog confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"><span class="eyebrow">${reset ? 'RESET LOCAL DATA' : 'ABANDON OPERATION'}</span><h2 id="confirm-title">${reset ? '重置這個瀏覽器的進度？' : '確定放棄本次行動？'}</h2><p>${reset ? '關卡紀錄、偏好設定與進行中的行動將被刪除。六位角色仍會全部開放。' : '本局改造將結束。妳可以立即重新出擊，不會失去任何戰力資源。'}</p><div class="result-actions"><button class="button secondary" data-action="cancel-confirm">保留紀錄</button><button class="button danger" data-action="${reset ? 'reset' : 'abandon'}">${reset ? '確認重置' : '確認放棄'}</button></div></section></div>`;
+      html = `<div class="modal-backdrop"><section class="dialog confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"><span class="eyebrow">${reset ? 'RESET LOCAL DATA' : 'ABANDON OPERATION'}</span><h2 id="confirm-title">${reset ? '重置這個瀏覽器的進度？' : '確定放棄本次行動？'}</h2><p>${reset ? '關卡紀錄、招募收藏、券、點數、碎片、偏好設定與進行中的行動將被刪除。初始六位角色原裝仍免費開放。' : '本局改造將結束。妳可以立即重新出擊，不會失去任何戰力資源。'}</p><div class="result-actions"><button class="button secondary" data-action="cancel-confirm">保留紀錄</button><button class="button danger" data-action="${reset ? 'reset' : 'abandon'}">${reset ? '確認重置' : '確認放棄'}</button></div></section></div>`;
     } else if (this.vm.page === 'battle' && run) {
       if (run.pauseReasons.includes('tutorial')) html = tutorialDialog(run);
       else if (this.vm.treePanel && !run.pauseReasons.some(r=>['error','orientation','hidden'].includes(r))) html = usesFreeSkills(run)?deepTreePanel(run,this.vm):treePanel(run,this.vm);
@@ -108,13 +114,15 @@ export class GameApp {
       (replacement ?? modal.querySelector<HTMLElement>('button:not(:disabled),select:not(:disabled),input:not(:disabled)'))?.focus({ preventScroll: true });
     } else if (wasOpen && this.lastFocused?.isConnected) this.lastFocused.focus({ preventScroll: true });
   }
-  private prepareImages(root: HTMLElement) { root.querySelectorAll<HTMLImageElement>('img').forEach(img => { if (img.complete) keyInterfaceImage(img); else img.addEventListener('load', () => keyInterfaceImage(img), { once: true }); img.addEventListener('error', () => { img.classList.add('asset-error'); img.alt = `${img.alt || '圖片'}：素材載入失敗`; }, { once: true }); }); }
+  private prepareImages(root: HTMLElement) { root.querySelectorAll<HTMLImageElement>('img').forEach(img => { const owner=img.dataset.owner as CharacterId|undefined;if(owner){const run=this.vm.page==='battle'||this.vm.page==='result'?this.save.activeRun??this.lastRun:null;const f=run?equippedForm(run,owner).id:ownedForm(this.save.collection,owner)??originalForm(owner);img.src=formPortrait(f);img.alt=`${CHARACTER_MAP[owner].name}・${FORM_MAP[f].name}`;}if (img.complete) keyInterfaceImage(img); else img.addEventListener('load', () => keyInterfaceImage(img), { once: true }); img.addEventListener('error', () => { img.classList.add('asset-error'); img.alt = `${img.alt || '圖片'}：素材載入失敗`; }, { once: true }); }); }
   private go(page: Page) { this.vm.page = page; this.vm.modal = null; this.vm.showBuild = false; this.vm.treePanel=undefined; this.render(); window.scrollTo(0, 0); const title = this.root.querySelector('h1'); if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); } }
   private seed() { const data = new Uint32Array(1); crypto.getRandomValues(data); return data[0] || 101; }
   private async start(config?: RunConfig, contentVersion=CONTENT_VERSION) {
     if (this.save.activeRun && this.save.activeRun.phase !== 'ended' && !config) { this.vm.message = '已有進行中的行動，請先繼續或放棄。'; this.go('home'); return; }
     const prefs = this.save.preferences;
-    const run = createRun(config ?? { stageId: this.vm.stageId, squadIds: [...prefs.squadIds], captainId: prefs.captainId, preferredBranches: { ...prefs.branches }, seed: this.vm.retrySeed ?? this.seed(), challengeId: this.vm.challengeId },contentVersion);
+    const selected=config??{ stageId: this.vm.stageId, squadIds: [...prefs.squadIds], captainId: prefs.captainId, preferredBranches: { ...prefs.branches },forms:Object.fromEntries(prefs.squadIds.map(id=>[id,ownedForm(this.save.collection,id)])), seed: this.vm.retrySeed ?? this.seed(), challengeId: this.vm.challengeId };
+    if(!config){try{if(!stageUnlocked(selected.stageId,this.save.profile.cleared)||selected.challengeId&&(!MAIN_IDS.includes(selected.stageId)||!this.save.profile.cleared.includes(selected.stageId)))throw new Error('請先完成前置關卡');validateRoster(this.save.collection,selected);}catch(error){this.vm.message=String(error);this.render();return;}}
+    const run = createRun(selected,contentVersion);
     this.save.activeRun = run; this.lastRun = null; this.vm.selectedCard = null; this.vm.retrySeed = null; this.endedId = ''; this.saveBoundary = ''; this.selectedRange = null;
     if (!this.save.preferences.tutorialSeen) command(run, { type: 'pause', reason: 'tutorial' });
     this.audio.feedback('start'); this.go('battle'); this.orientation(); await this.persist();
@@ -175,7 +183,8 @@ export class GameApp {
     if (this.lastRun === run) this.go('result');
     await saved;
   }
-  private persist() {
+  private persist(collectionFlush=false) {
+    if(this.collecting&&!collectionFlush)return this.saveQueue;
     if (!this.ready || this.temporary) return Promise.resolve();
     for (const id of this.save.activeRun?.stats.encountered ?? []) if (!this.save.profile.seenEnemies.includes(id)) this.save.profile.seenEnemies.push(id);
     const copy = structuredClone(this.save);
@@ -193,16 +202,20 @@ export class GameApp {
   }
   private updateSaveStatus() { this.root.querySelectorAll('.local-status').forEach(el => { el.innerHTML = `<i></i>${esc(this.vm.saveStatus)}`; }); const status = this.root.querySelector('.save-information h2'); if (status) status.textContent = this.vm.saveStatus; }
   private async action(action: string, id?: string) {
-    if (['home', 'intel', 'roster', 'codex', 'stories', 'settings'].includes(action)) {
+    if(this.collecting)return;
+    if (['home', 'intel', 'roster', 'codex', 'stories', 'settings','recruitment'].includes(action)) {
       if (this.vm.page === 'battle') { this.execute({ type: 'pause', reason: 'user' }); return; }
       this.go(action as Page); return;
     }
     switch (action) {
+      case 'draw': await this.collect({type:'draw'});break;
+      case 'exchange': await this.collect({type:'exchange',formId:id as FormId});break;
       case 'stage': this.vm.stageId = id as StageId; this.vm.challengeId = null; this.vm.retrySeed = null; this.render(); break;
       case 'challenge': this.vm.challengeId = (id || null) as ChallengeId; this.render(); break;
       case 'character': this.vm.characterId = id as CharacterId; this.go('codex'); break;
       case 'toggle-character': {
         const cid = id as CharacterId; const prefs = this.save.preferences;
+        if(!isPlayable(this.save.collection,cid))break;
         if (prefs.squadIds.includes(cid)) prefs.squadIds = prefs.squadIds.filter(c => c !== cid);
         else if (prefs.squadIds.length < (this.vm.challengeId === 'four' ? 4 : 5)) prefs.squadIds.push(cid);
         if (!prefs.squadIds.includes(prefs.captainId) && prefs.squadIds[0]) prefs.captainId = prefs.squadIds[0];
@@ -280,8 +293,18 @@ export class GameApp {
     this.vm.treePanel=undefined;const run=this.save.activeRun;if(run)command(run,{type:'resume',reason:'tree'});
     this.lastFrame=performance.now();this.accumulator=0;this.overlay();void this.persist();
   }
+  private async collect(action:CollectionAction){
+    if(this.collecting)return;
+    if(this.temporary){this.vm.message='暫時試玩不提供招募；請先恢復可儲存的本地紀錄。';this.render();return;}
+    const previousSequence=this.save.collection.sequence;this.collecting=true;this.render();
+    try{await this.persist(true);if(this.vm.saveStatus!=='已儲存在本機')throw new Error('請先解決存檔問題，再進行招募');this.save=await this.repository.collect(this.save.revision,action);this.vm.message='';this.audio.feedback('choose');}
+    catch(error){this.vm.message=error instanceof Error?error.message:String(error);}
+    finally{this.collecting=false;this.render();const focus=action.type!=='equip'&&this.save.collection.sequence>previousSequence?'.recruitment-receipt':action.type==='equip'?`#form-${FORM_MAP[action.formId].ownerId}`:action.type==='draw'?'[data-action="draw"]':`[data-action="exchange"][data-id="${action.formId}"]`;this.root.querySelector<HTMLElement>(focus)?.focus({preventScroll:true});}
+  }
   private change(input: HTMLInputElement | HTMLSelectElement) {
+    if(this.collecting)return;
     const action = input.dataset.change; const run = this.save.activeRun;
+    if(action==='form'){void this.collect({type:'equip',formId:input.value as FormId});return;}
     if (action === 'branch') this.save.preferences.branches[input.dataset.id as CharacterId] = input.value as Branch;
     if (action === 'auto-tactical') this.save.preferences.autoTactical = (input as HTMLInputElement).checked;
     if (action === 'music') this.save.preferences.musicVolume = Number(input.value);

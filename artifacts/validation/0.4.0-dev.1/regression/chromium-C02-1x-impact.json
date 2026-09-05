@@ -1,0 +1,206 @@
+{
+  "evidence": "Isolated high-HP target fixture; real automatic weapon, simulation damage and real-time render loop trigger the hit. Frozen canvas captured at least 150 ms after the impact.",
+  "initial": {
+    "seq": 7,
+    "hp": 300000
+  },
+  "hit": {
+    "kind": "hit",
+    "x": 195,
+    "y": 280,
+    "value": 11.7,
+    "source": "C02",
+    "color": "#c7a8ff",
+    "targetId": 6,
+    "enemyDefId": "E03",
+    "skill": "weapon",
+    "weakness": false,
+    "damageType": "arc",
+    "weaponRank": 0,
+    "weaponBranch": null,
+    "seq": 9,
+    "tick": 23
+  },
+  "paused": {
+    "tick": 27,
+    "view": {
+      "clock": 925.4000000000001,
+      "poses": {
+        "C02": {
+          "frame": 1,
+          "seen": [
+            0,
+            1,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C02"
+        }
+      },
+      "forms": [
+        "C02-base"
+      ],
+      "skills": [],
+      "hitTypes": [
+        "E03"
+      ],
+      "deathTypes": [
+        "E02",
+        "E01"
+      ],
+      "activeCorpses": 0,
+      "corpseIds": [],
+      "hurtIds": [
+        5,
+        6
+      ],
+      "maxCorpses": 4,
+      "aliveImages": 3,
+      "enemyMotions": [
+        {
+          "id": 5,
+          "type": "E03",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 2.2,
+          "clock": 1060.4,
+          "releases": 0,
+          "texture": "enemy-motion-E03"
+        },
+        {
+          "id": 6,
+          "type": "E03",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 2.2,
+          "clock": 1097.4,
+          "releases": 0,
+          "texture": "enemy-motion-E03"
+        },
+        {
+          "id": 7,
+          "type": "E03",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 2.2,
+          "clock": 1134.4,
+          "releases": 0,
+          "texture": "enemy-motion-E03"
+        }
+      ],
+      "enemyHistory": {
+        "E02": {
+          "modes": [
+            "idle",
+            "move"
+          ],
+          "frames": [
+            0,
+            3,
+            4
+          ],
+          "releases": 0
+        },
+        "E01": {
+          "modes": [
+            "idle",
+            "move"
+          ],
+          "frames": [
+            0,
+            5,
+            6
+          ],
+          "releases": 0
+        },
+        "E03": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0,
+            1
+          ],
+          "releases": 0
+        }
+      },
+      "cutin": {
+        "visible": false,
+        "id": null,
+        "age": null,
+        "duration": 1200,
+        "top": 323,
+        "bottom": 435,
+        "depth": 20
+      },
+      "statuses": [],
+      "burnNumbers": [],
+      "bossIntro": null,
+      "range": null,
+      "detail": "full",
+      "activeEffects": 4,
+      "peakEffects": 4,
+      "warnings": {
+        "visible": false,
+        "text": "",
+        "top": 21.1591796875,
+        "bottom": 48.8408203125,
+        "depth": 100,
+        "geometryDepth": 90
+      },
+      "textureFrames": {
+        "C02": 6
+      },
+      "effectsDepth": 9,
+      "alliesDepth": 7,
+      "visibleEffects": [
+        {
+          "seq": 9,
+          "kind": "hit",
+          "source": "C02",
+          "age": 155.4000000000001,
+          "duration": 260
+        },
+        {
+          "seq": 11,
+          "kind": "hit",
+          "source": "C02",
+          "age": 155.4000000000001,
+          "duration": 260
+        },
+        {
+          "seq": 8,
+          "kind": "beam",
+          "source": "C02",
+          "age": 155.4000000000001,
+          "duration": 300
+        },
+        {
+          "seq": 10,
+          "kind": "arc",
+          "source": "C02",
+          "age": 155.4000000000001,
+          "duration": 300
+        }
+      ],
+      "hostileProjectileImages": 0,
+      "enemyTextureFrames": {
+        "E01": 12,
+        "E02": 12,
+        "E03": 12,
+        "E04": 12,
+        "E05": 12,
+        "E06": 12,
+        "E07": 12,
+        "E08": 12,
+        "B03": 12
+      }
+    },
+    "hp": 299981.28
+  },
+  "errors": []
+}

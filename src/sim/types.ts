@@ -1,5 +1,6 @@
-export type CharacterId = 'C01' | 'C02' | 'C03' | 'C04' | 'C05' | 'C06';
-export type StageId = 'S01' | 'S02' | 'S03';
+export type CharacterId = 'C01' | 'C02' | 'C03' | 'C04' | 'C05' | 'C06' | 'C07' | 'C08';
+export type StageId = 'S01' | 'S02' | 'S03' | 'S04' | 'S05' | 'S06' | 'S07' | 'S08' | 'S09' | 'S10' | 'S11' | 'S12' | 'X01' | 'X02' | 'X03';
+export type FormId = `${CharacterId}-${'original' | 'summer'}`;
 export type EnemyId = 'E01' | 'E02' | 'E03' | 'E04' | 'E05' | 'E06' | 'E07' | 'E08' | 'B01' | 'B02' | 'B03';
 export type Branch = 'A' | 'B';
 export type DamageType = 'plasma' | 'arc' | 'kinetic' | 'gravity' | 'thermal';
@@ -8,6 +9,7 @@ export type PauseReason = 'user' | 'upgrade' | 'hidden' | 'orientation' | 'tutor
 export interface RunConfig {
   stageId: StageId; squadIds: CharacterId[]; captainId: CharacterId;
   preferredBranches?: Partial<Record<CharacterId, Branch>>; seed: number; challengeId?: ChallengeId;
+  forms?: Partial<Record<CharacterId, FormId>>;
 }
 export interface CharacterDef {
   id: CharacterId; name: string; english: string; age: number; role: string; color: string;
@@ -33,6 +35,7 @@ export interface DraftOffer { id: number; choice: number; cards: UpgradeCard[]; 
 export interface Effect {
   id: string; kind: 'slow' | 'stun' | 'exposure' | 'burn'; source: CharacterId | 'boss';
   expires: number; value: number; armorIgnore: number; nextTick: number;
+  damageType?: DamageType;
 }
 export interface Enemy {
   id: number; defId: EnemyId; x: number; y: number; hp: number; maxHp: number;
@@ -70,7 +73,9 @@ export interface Shield { source: string; value: number; expires: number }
 export interface WeaponState {
   id: CharacterId; branch: Branch | null; rank: number; readyAt: number;
   nextAttack: number; attacks: number; droneAttacks: [number, number]; shieldAt: number;
+  heat?: number; cooling?: boolean; ventUntil?: number;
 }
+export interface Mine { id: number; source: CharacterId; x: number; y: number; plantedAt: number; armedAt: number; expires: number; radius: number; triggerRadius: number; packet: DamagePacket; chargeRate: number; chargeCap: number }
 export interface SpawnEntry { at: number; defId: EnemyId; x: number; xp: number; wave: number }
 export interface ScheduledHit { at: number; packet: DamagePacket | null; x: number; y: number; radius: number; enemyDamage: number; enemySource: EnemyId | null }
 export interface VisualEvent {
@@ -78,6 +83,7 @@ export interface VisualEvent {
   x: number; y: number; x2?: number; y2?: number; radius?: number; value?: number; source?: CharacterId; color?: string;
   affectedIds?: number[];
   weaponTree?: string; targetId?: number; enemyDefId?: EnemyId; skill?: string; weaponRank?: number; weaponBranch?: Branch | null;
+  damageType?: DamageType; weakness?: boolean;
 }
 export interface ActionRecord { tick: number; seq: number; command: Command }
 export interface RunStats {
@@ -96,6 +102,7 @@ export interface RunState {
   wavePlan?: WaveBrief[]; support?: SupportState; upgradePendingAt?: number;
   weapons: WeaponState[]; commonRanks: Record<string, number>; preferredBranches: Record<CharacterId, Branch>;
   enemies: Enemy[]; projectiles: Projectile[]; fields: Field[]; scheduled: ScheduledHit[];
+  mines?: Mine[];
   spawnPlan: SpawnEntry[]; spawnCursor: number; bossSpawned: boolean; bossKilled: boolean;
   bossIntro?: { enemyId: number; remainingMs: number };
   rng: { spawn: number; draft: number; visual: number }; nextEntityId: number;

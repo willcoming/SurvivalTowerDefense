@@ -11,7 +11,7 @@ export function keyPixels(context: CanvasRenderingContext2D, width: number, heig
 const imageCache = new Map<string, string>();
 export function keyInterfaceImage(image: HTMLImageElement) {
   const source = image.getAttribute('src') ?? '';
-  if (!/\/assets\/(enemies|weapons|evolutions)\//.test(source) || !image.naturalWidth) return;
+  if (!/\/assets\/(enemies|weapons|evolutions|forms)\//.test(source) || !image.naturalWidth) return;
   const cached = imageCache.get(source); if (cached) { image.src = cached; return; }
   const canvas = document.createElement('canvas'); canvas.width = image.naturalWidth; canvas.height = image.naturalHeight;
   const context = canvas.getContext('2d', { willReadFrequently: true }); if (!context) return;

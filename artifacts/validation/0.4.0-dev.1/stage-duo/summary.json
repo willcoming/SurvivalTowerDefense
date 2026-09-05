@@ -1,0 +1,112 @@
+{
+  "passed": true,
+  "contentVersion": "0.4.0-dev.1",
+  "measuredAt": "2026-09-05T07:08:59.115Z",
+  "scope": "C07/C08 original and summer artwork; shared portrait routing and codex weapon thumbnail",
+  "sourceSha256": "083c0222c4a9b5a7ec0e4ac4aeea440e8176d6f355f47f9f70e62dc3151de067",
+  "ruleTestsPassed": 283,
+  "browserTestsPassed": 12,
+  "cases": [
+    {
+      "title": "COLLECTION: free pool, disabled draws, full artwork and responsive layouts",
+      "project": "chromium",
+      "status": "passed"
+    },
+    {
+      "title": "COLLECTION: a double click draws once, commits first, and survives reload",
+      "project": "chromium",
+      "status": "passed"
+    },
+    {
+      "title": "COLLECTION: summer-first exchange directly unlocks one character, not original form",
+      "project": "chromium",
+      "status": "passed"
+    },
+    {
+      "title": "COLLECTION: all 51 goals grant full collection once and stop spending",
+      "project": "chromium",
+      "status": "passed"
+    },
+    {
+      "title": "COLLECTION: codex keyboard navigation and native form selection use current artwork without old portraits",
+      "project": "chromium",
+      "status": "passed"
+    },
+    {
+      "title": "COLLECTION: new captain mechanics, elemental portraits, skills and restore",
+      "project": "chromium",
+      "status": "passed"
+    },
+    {
+      "title": "COLLECTION: free pool, disabled draws, full artwork and responsive layouts",
+      "project": "webkit",
+      "status": "passed"
+    },
+    {
+      "title": "COLLECTION: a double click draws once, commits first, and survives reload",
+      "project": "webkit",
+      "status": "passed"
+    },
+    {
+      "title": "COLLECTION: summer-first exchange directly unlocks one character, not original form",
+      "project": "webkit",
+      "status": "passed"
+    },
+    {
+      "title": "COLLECTION: all 51 goals grant full collection once and stop spending",
+      "project": "webkit",
+      "status": "passed"
+    },
+    {
+      "title": "COLLECTION: codex keyboard navigation and native form selection use current artwork without old portraits",
+      "project": "webkit",
+      "status": "passed"
+    },
+    {
+      "title": "COLLECTION: new captain mechanics, elemental portraits, skills and restore",
+      "project": "webkit",
+      "status": "passed"
+    }
+  ],
+  "assets": [
+    {
+      "id": "C07-original",
+      "path": "/assets/forms/C07-original-stage-v3.webp",
+      "sha256": "ffcee71bfe73f132e1d5b7a627d2e9dcbd8960a464a87c6a4b7fb588f63c7a30",
+      "width": 512,
+      "height": 768,
+      "builtAndServedMatch": true
+    },
+    {
+      "id": "C07-summer",
+      "path": "/assets/forms/C07-summer-stage-v3.webp",
+      "sha256": "faea72f4f543d2e51f84142986577066a591fe08f040b28751a7b90e0ddb915b",
+      "width": 512,
+      "height": 768,
+      "builtAndServedMatch": true
+    },
+    {
+      "id": "C08-original",
+      "path": "/assets/forms/C08-original-stage-v3.webp",
+      "sha256": "0e94c1b63895586d36946aaf625b39cc930f66b667d93108af75186e03958d4c",
+      "width": 512,
+      "height": 768,
+      "builtAndServedMatch": true
+    },
+    {
+      "id": "C08-summer",
+      "path": "/assets/forms/C08-summer-stage-v3.webp",
+      "sha256": "df862ca9193a7be7cd548bc57dc88a8869e74953793c78a53d00b16b70baa122",
+      "width": 512,
+      "height": 768,
+      "builtAndServedMatch": true
+    }
+  ],
+  "assetBudgetPassed": true,
+  "inventory": {
+    "characters": 8,
+    "forms": 16,
+    "poolEntries": 10
+  },
+  "note": "Targeted art-revision verification. Previous full campaign/balance/performance reports were not rerun for this visual-only change. Art style was inspected against C01/C02 by the assistant, not asserted by a pixel test. The first WebKit keyboard-select attempt is retained in browser-results; native-arrow behavior was reproduced on a standalone select, so the recheck uses native selectOption on mobile headless WebKit while retaining keyboard button navigation. Desktop browser emulation is not physical phone testing. No public deployment."
+}

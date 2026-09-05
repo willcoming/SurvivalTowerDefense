@@ -1,10 +1,13 @@
 import type { CharacterId, RunState } from '../sim/types';
 import type { TreeMods } from './skill-trees';
+import { COLLECTION_CONTENT_VERSION } from './forms';
 
 export const FREE_CONTENT_VERSION = '0.3.0-dev.1';
-export const usesFreeSkills = (s: Pick<RunState, 'contentVersion'>) => s.contentVersion === FREE_CONTENT_VERSION;
+export const usesFreeSkills = (s: Pick<RunState, 'contentVersion'>) => s.contentVersion === FREE_CONTENT_VERSION || s.contentVersion === COLLECTION_CONTENT_VERSION;
 export type SkillOwner = CharacterId | 'common';
 export interface DeepMods extends TreeMods {
+  mineCap?:number; mineCharge?:number; mineChargeCap?:number; mineTrigger?:number; mineArm?:number;
+  heatBonus?:number; cooling?:number; heatCost?:number; ventHaste?:number; ventDuration?:number;
   secondaryPower?: number; salvoEvery?: number; salvoShots?: number; critEvery?: number; critPower?: number;
   armorBreak?: number; executeDamage?: number; executeThreshold?: number; mainDamage?: number;
   markSpread?: number; chainReturn?: number; chainBurst?: number; burstEvery?: number; burstStun?: number;
@@ -213,6 +216,49 @@ export const CHARACTER_TREES: DeepTree[] = [
     ['絕對防衛線','防線受傷減少 12%；瀕危護盾再 +140，反射比例再 +30 個百分點。',{wallReduction:.12,emergencyShield:140,shieldReflect:.3}],
   ]),
 ];
+
+CHARACTER_TREES.push(
+  tree('C07','A','預置雷網','提前封路，擴大觸發與爆炸覆蓋。',[
+    ['擴充雷架','同時地雷上限 +1。',{mineCap:1}],
+    ['快速投放','部署速度 +15%。',{haste:.15}],
+    ['廣域感應','觸發半徑 +12。',{mineTrigger:12}],
+    ['破片外殼','爆炸半徑 +15%。',{radius:.15}],
+    ['即時解鎖','地雷啟動時間減少 0.2 秒。',{mineArm:.2}],
+    ['雙層雷架','同時地雷上限再 +1。',{mineCap:1}],
+    ['滯留碎片','爆炸附加 20% 緩速 1.5 秒。',{slow:.2}],
+    ['連鎖校準','隊長引爆傷害 +25%，冷卻 −8%。',{skillDamage:.25,skillCooldown:.08}],
+  ],[['潮線封鎖','地雷上限再 +2，爆炸半徑再 +25%，武器傷害 +25%。',{mineCap:2,radius:.25,damage:.25}]],true),
+  tree('C07','B','蓄能破城','等待蓄能，以單次爆炸拆解重甲。',[
+    ['增壓雷芯','武器傷害 +15%。',{damage:.15}],
+    ['加速蓄能','每秒預置增傷額外 +8 個百分點。',{mineCharge:.08}],
+    ['穿甲破片','爆炸忽略 20% 裝甲。',{armor:.2}],
+    ['儲能匣','預置增傷上限 +30 個百分點。',{mineChargeCap:.3}],
+    ['破盾共振','對盾倍率 +0.5。',{shield:.5}],
+    ['增壓迴路','武器傷害再 +20%。',{damage:.2}],
+    ['失衡雷芯','爆炸附加 0.4 秒暈眩；Boss 適用控場抗性。',{stunSeconds:.4}],
+    ['遠端起爆','隊長引爆傷害 +35%。',{skillDamage:.35}],
+  ],[['零點塌縮','預置增傷上限再 +75 個百分點，每秒蓄能再 +12 個百分點，忽略裝甲再 +25 個百分點。',{mineChargeCap:.75,mineCharge:.12,armor:.25}]]),
+  tree('C08','A','高熱連射','提高熱量峰值，把停火前的每一發打滿。',[
+    ['高熱膛室','最高熱量增傷 +20 個百分點。',{heatBonus:.2}],
+    ['快速供彈','武器攻速 +15%。',{haste:.15}],
+    ['貫甲彈芯','忽略 15% 裝甲。',{armor:.15}],
+    ['強壓槍口','武器傷害 +15%。',{damage:.15}],
+    ['臨界聚能','最高熱量增傷再 +30 個百分點。',{heatBonus:.3}],
+    ['同步扳機','每 4 發暴擊，傷害 +50%。',{critEvery:4,critPower:.5}],
+    ['排熱追擊','強制排熱後攻速額外 +20%。',{ventHaste:.2}],
+    ['射界校準','射程 +55，對盾倍率 +0.25。',{range:55,shield:.25}],
+  ],[['赤曜彈幕','最高熱量增傷再 +80 個百分點，子彈額外貫穿 2 人。',{heatBonus:.8,pierce:2}]],true),
+  tree('C08','B','循環散熱','縮短停火窗口，延長穩定射擊時間。',[
+    ['雙向散熱','散熱速度 +20%。',{cooling:.2}],
+    ['低耗彈鏈','每發熱量減少 1 點（最低 3 點）。',{heatCost:1}],
+    ['長效排熱','隊長排熱攻速增益延長 2 秒。',{ventDuration:2}],
+    ['穩定火控','武器傷害 +12%。',{damage:.12}],
+    ['冷卻回路','散熱速度再 +25%。',{cooling:.25}],
+    ['緊急旁通','隊長冷卻 −10%。',{skillCooldown:.1}],
+    ['熱回收','每發熱量再減少 1 點。',{heatCost:1}],
+    ['精密供彈','武器攻速 +18%。',{haste:.18}],
+  ],[['海風循環','散熱速度再 +60%，隊長排熱增益延長 3 秒，武器傷害 +25%。',{cooling:.6,ventDuration:3,damage:.25}]]),
+);
 
 const commonRoutes: {name:string;nodes:Input[]}[] = [
   {name:'防線工程',nodes:[

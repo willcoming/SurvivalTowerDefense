@@ -1,4 +1,5 @@
 import './ui/styles.css';
+import './ui/collection.css';
 import { GameApp } from './ui/app';
 
 const root = document.getElementById('app');

@@ -6,7 +6,7 @@ import { bolt, burst, colorOf, glow, laser, line, polygon, reticle, type Origin 
 export function drawSkill(g: Phaser.GameObjects.Graphics, fx: ActiveEffect, now: number, detail: Detail, origin: Origin) {
   const e = fx.event, t = Math.max(0, Math.min(1, (now - fx.born) / fx.duration));
   const a = t < .6 ? 1 : (1 - t) / .4, release = Math.max(0, 1 - t / .28);
-  const c = colorOf(e.source), compact = detail === 'compact', r = e.radius ?? 90;
+  const c = e.color?parseInt(e.color.slice(1),16):colorOf(e.source), compact = detail === 'compact', r = e.radius ?? 90;
   // A steady peripheral signal, with the top warning area left open.
   for (const x of [7, 383]) {
     line(g, [{ x, y: 92 }, { x, y: 309 }], c, 4, a * .45);
@@ -18,7 +18,7 @@ export function drawSkill(g: Phaser.GameObjects.Graphics, fx: ActiveEffect, now:
     // Four moving lanes identify the barrage; actual hits still come from its four scheduled pulses.
     for (let i = 0; i < 4; i++) {
       const x = e.x + (i - 1.5) * 26, y = e.y - 30 + Math.min(1, t * 1.6) * 65;
-      laser(g, { x: x - 45, y: y - 130 }, { x, y }, 0xffa16d, 7 + release * 5, a);
+      laser(g, { x: x - 45, y: y - 130 }, { x, y }, e.damageType?c:0xffa16d, 7 + release * 5, a);
       glow(g, x, y, 15, c, a);
     }
     burst(g, e.x, e.y, r * (1 + t * .3), 0xffecc1, a * .8, compact ? 6 : 10);
@@ -34,7 +34,7 @@ export function drawSkill(g: Phaser.GameObjects.Graphics, fx: ActiveEffect, now:
     polygon(g, 195, 208, 66 + t * 68, 6, c, a * .8, Math.PI / 6, 4);
   } else if (e.source === 'C03') {
     const from = origin(e.source, e.x);
-    laser(g, from, e, 0x9ddcff, 12 + release * 16, a);
+    laser(g, from, e, e.damageType?c:0x9ddcff, 12 + release * 16, a);
     glow(g, e.x, e.y, 30 + release * 20, 0xd2f3ff, a);
     reticle(g, e.x, e.y, 32 + t * 44, 0xe1faff, a);
     polygon(g, e.x, e.y, 40 + t * 38, 4, 0x8acfff, a, Math.PI / 4, 4);
@@ -65,6 +65,11 @@ export function drawSkill(g: Phaser.GameObjects.Graphics, fx: ActiveEffect, now:
       const base = radius * .38, tip = radius * (1.05 + i % 3 * .12), width = 6 * (1 - t) + 2;
       g.fillStyle(i % 2 ? c : 0xffe8a5, a).fillTriangle(e.x + ux * base - uy * width, e.y + uy * base + ux * width, e.x + ux * base + uy * width, e.y + uy * base - ux * width, e.x + ux * tip, e.y + uy * tip);
     }
+  } else if (e.source === 'C07') {
+    for(let i=0;i<(compact?4:7);i++){const x=55+i*280/(compact?3:6),y=190+(i%2)*72;polygon(g,x,y,20+t*38,6,c,a,Math.PI/6,3);burst(g,x,y,12+t*48,c,a,6);line(g,[{x:195,y:410},{x,y}],c,2,a*.6);}
+  } else if (e.source === 'C08') {
+    const from=origin(e.source,e.x);glow(g,from.x,from.y,28+release*35,c,a);for(let i=0;i<5;i++){const x=from.x+(i-2)*20;line(g,[{x,y:from.y},{x:x+(i-2)*12,y:from.y-85-t*85}],c,4,a);}
+    polygon(g,from.x,from.y,28+t*42,8,c,a,-t*2,4);
   } else if (e.source === 'C06') {
     // Raise the canopy above the portrait strip so the defensive skill remains visible.
     g.fillStyle(0x8dffe6, a * .10).fillRect(15, 271, 360, 160);

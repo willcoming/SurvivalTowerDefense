@@ -1,11 +1,12 @@
 import { readFileSync, statSync, existsSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
-import { CONTENT_VERSION, CHARACTER_IDS, ENEMIES, STAGES } from '../src/data/content';
+import { CONTENT_VERSION, ENEMIES } from '../src/data/content';
+import { STARTER_IDS as CHARACTER_IDS, POOL, formPortrait } from '../src/data/forms';
 
 const expected = [
   ...CHARACTER_IDS.flatMap(id => [`characters/${id}-portrait.webp`, `characters/${id}-chibi.webp`, `weapons/${id}.webp`, `evolutions/${id}-A.webp`, `evolutions/${id}-B.webp`]),
-  ...ENEMIES.map(e => `enemies/${e.id}.webp`), ...STAGES.map(s => `stages/${s.id}.webp`),
+  ...ENEMIES.map(e => `enemies/${e.id}.webp`), ...['S01','S02','S03'].map(id => `stages/${id}.webp`), ...POOL.map(f=>formPortrait(f.id).replace('/assets/','')), ...['coast','resonance','hive','summer'].map(id=>`campaign/${id}.webp`),
   ...CHARACTER_IDS.map(id => `animations/${id}-motion.webp`),
   ...ENEMIES.map(e => `enemy-animations/${e.id}-motion.webp`),
 ];
@@ -18,14 +19,15 @@ const runtimeBytes=files.reduce((n,path)=>n+statSync(path).size,0);
 const bundles=walk('dist').filter(path=>/\.(js|css|html)$/.test(path)).map(path=>({path,rawBytes:statSync(path).size,gzipBytes:gzipSync(readFileSync(path)).length}));
 const bundleGzip=bundles.reduce((n,x)=>n+x.gzipBytes,0);
 const homeImages=manifest.filter(a=>a.assetId.endsWith('-portrait')).reduce((n,a)=>n+a.bytes,0);
+const battleAssetBytes=manifest.filter(a=>a.path.includes('/animations/')||a.path.includes('/enemy-animations/')||a.path.includes('/forms/')).reduce((n,a)=>n+a.bytes,0)+homeImages+Math.max(...manifest.filter(a=>a.path.includes('/stages/')||a.path.includes('/campaign/')).map(a=>a.bytes));
 const decodedAllBytes=manifest.reduce((n,a)=>n+a.width*a.height*4,0);
-const keyedCopies=manifest.filter(a=>a.path.includes('/enemies/')||a.assetId.endsWith('-chibi')).reduce((n,a)=>n+a.width*a.height*4,0);
+const keyedCopies=manifest.filter(a=>a.path.includes('/enemies/')||a.path.includes('/forms/')||a.assetId.endsWith('-chibi')).reduce((n,a)=>n+a.width*a.height*4,0);
 const result={contentVersion:CONTENT_VERSION,measuredAt:new Date().toISOString(),requiredAssets:expected.length,manifestAssets:manifest.length,missing,invalidManifest:invalidManifest.map(a=>a.assetId),runtimeBytes,bundles,
   conservativeHomeTransferBytes:bundleGzip+homeImages,
-  conservativeFirstBattleBytes:bundleGzip+runtimeBytes,
+  conservativeFirstBattleBytes:bundleGzip+battleAssetBytes,
   conservativeDecodedBytesIncludingKeyedCopies:decodedAllBytes+keyedCopies+390*520*4,
-  notes:'Static upper bounds: home includes all six portraits; first battle includes ALL runtime artwork. WebP is counted as stored; code uses measured gzip. Decoded estimate includes every manifest texture plus extra keyed combat copies and the390×520 world RenderTexture, but excludes browser/GPU allocation overhead. Network timing measured separately in production smoke.',
-  passed:missing.length===0&&invalidManifest.length===0&&runtimeBytes<=20*1024**2&&bundleGzip+homeImages<=4*1024**2&&bundleGzip+runtimeBytes<=8*1024**2&&decodedAllBytes+keyedCopies+390*520*4<=128*1024**2,
+  notes:'Static upper bounds: home includes all six starter portraits (new form portraits are loaded on demand); first battle conservatively includes ALL ally/enemy motion, ALL new forms, six starter portraits and the largest stage. Legacy static weapon/enemy/evolution art and other stages are not requested by BattleScene. WebP is counted as stored; code uses measured gzip. Decoded estimate includes every manifest texture plus extra keyed combat copies and the390×520 world RenderTexture, but excludes browser/GPU allocation overhead. Network timing measured separately in production smoke.',
+  passed:missing.length===0&&invalidManifest.length===0&&runtimeBytes<=20*1024**2&&bundleGzip+homeImages<=4*1024**2&&bundleGzip+battleAssetBytes<=8*1024**2&&decodedAllBytes+keyedCopies+390*520*4<=128*1024**2,
   sha256:files.map(path=>({path,hash:createHash('sha256').update(readFileSync(path)).digest('hex')})),
 };
 const outputDir=process.env.VALIDATION_OUTPUT_DIR??`artifacts/validation/${CONTENT_VERSION}`;

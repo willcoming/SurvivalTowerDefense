@@ -1,0 +1,122 @@
+[
+  {
+    "width": 320,
+    "overflow": false,
+    "buttons": [
+      {
+        "width": 55,
+        "height": 87
+      },
+      {
+        "width": 55,
+        "height": 87
+      },
+      {
+        "width": 55,
+        "height": 87
+      },
+      {
+        "width": 55,
+        "height": 87
+      },
+      {
+        "width": 55,
+        "height": 87
+      },
+      {
+        "width": 50,
+        "height": 44
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "overflow": false,
+    "buttons": [
+      {
+        "width": 75,
+        "height": 87
+      },
+      {
+        "width": 75,
+        "height": 87
+      },
+      {
+        "width": 75,
+        "height": 87
+      },
+      {
+        "width": 75,
+        "height": 87
+      },
+      {
+        "width": 75,
+        "height": 87
+      },
+      {
+        "width": 50,
+        "height": 44
+      }
+    ]
+  },
+  {
+    "width": 1024,
+    "overflow": false,
+    "buttons": [
+      {
+        "width": 71,
+        "height": 87
+      },
+      {
+        "width": 71,
+        "height": 87
+      },
+      {
+        "width": 71,
+        "height": 87
+      },
+      {
+        "width": 71,
+        "height": 87
+      },
+      {
+        "width": 71,
+        "height": 87
+      },
+      {
+        "width": 50,
+        "height": 44
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "overflow": false,
+    "buttons": [
+      {
+        "width": 75,
+        "height": 87
+      },
+      {
+        "width": 75,
+        "height": 87
+      },
+      {
+        "width": 75,
+        "height": 87
+      },
+      {
+        "width": 75,
+        "height": 87
+      },
+      {
+        "width": 75,
+        "height": 87
+      },
+      {
+        "width": 50,
+        "height": 44
+      }
+    ]
+  }
+]

@@ -3,6 +3,7 @@ import { deepMods, teamMod } from './deep-tree';
 import { usesFreeSkills } from '../data/deep-trees';
 import { addShield, alive, emit, hitEnemy, knockback } from './combat';
 import type { RunState } from './types';
+import { equippedForm, usesCollection } from '../data/forms';
 
 export function repairWall(s:RunState,amount:number){
   if(!s.support||s.wallHp<=0)return;
@@ -12,7 +13,7 @@ export function repairWall(s:RunState,amount:number){
 }
 export function emergencySupport(s:RunState){
   const state=s.support;if(!usesFreeSkills(s)||!state||s.wallHp<=0)return;
-  const shield=teamMod(s,'emergencyShield');
+  const shield=teamMod(s,'emergencyShield')+(deepMods(s,'C06').emergencyShield??0)*(equippedForm(s,'C06').shield-1);
   if(shield&&s.wallHp/s.wallMaxHp<.35&&s.tick>=state.emergencyAt){addShield(s,'emergency',shield,ticks(8));state.emergencyAt=s.tick+ticks(45);}
   const rescue=teamMod(s,'secondWind');
   if(rescue&&!state.secondWindUsed&&s.wallHp/s.wallMaxHp<.2){state.secondWindUsed=1;repairWall(s,rescue);}
@@ -33,5 +34,5 @@ export function reflectShield(s:RunState,absorbed:number){
   const target=alive(s).sort((a,b)=>b.y-a.y||a.id-b.id)[0];if(!target)return;
   const value=absorbed*Math.min(1,rate);s.support.reflected+=value;
   hitEnemy(s,target,{source:s.config.squadIds.includes('C06')?'C06':s.config.captainId,skill:'shield-reflect',raw:value,damageType:'plasma',armorIgnore:1,shieldMultiplier:1,secondary:true});
-  emit(s,{kind:'beam',source:s.config.captainId,x:195,y:440,x2:target.x,y2:target.y,skill:'shield-reflect'});
+  emit(s,{kind:'beam',source:usesCollection(s)&&s.config.squadIds.includes('C06')?'C06':s.config.captainId,x:195,y:440,x2:target.x,y2:target.y,skill:'shield-reflect'});
 }

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { inWeaponRange } from '../sim/range';
+import { equippedForm, STARTER_IDS, ELEMENTS, attackType } from '../data/forms';
 import { CaptainCutin } from './captain-cutin';
 import type { CharacterId, EnemyId, RunState, VisualEvent } from '../sim/types';
 import { LAYERS, poseFrame, weaponForm, type Detail } from './presentation';
@@ -28,7 +29,8 @@ export class CombatActors {
   constructor(private scene: Phaser.Scene, private read: () => RunState, private speed: () => number, private keys: Map<string, string>) {
     this.initialTick = read().tick;
     for (const id of read().config.squadIds) {
-      const image = scene.add.sprite(this.center(id), 510, `motion-${id}`, 0).setOrigin(.5, 240 / 256).setDisplaySize(84, 84).setDepth(LAYERS.allies);
+      const illustrated=equippedForm(read(),id).theme==='summer'||!STARTER_IDS.includes(id);
+      const image = scene.add.sprite(this.center(id), 510, illustrated?`keyed-${id}`:`motion-${id}`, 0).setOrigin(.5, 240 / 256).setDisplaySize(illustrated?63:84, illustrated?95:84).setDepth(LAYERS.allies);
       this.allies.set(id, { image, attacks: read().weapons.find(w => w.id === id)!.attacks, firedAt: -Infinity, frame: 0, frames: new Set(), facing: 1 });
     }
     this.cutin = new CaptainCutin(scene);
@@ -82,7 +84,9 @@ export class CombatActors {
         const aim = w.id === 'C03' ? eligible.reduce((a, b) => a.maxHp >= b.maxHp ? a : b) : target;
         ally.facing = aim.x < this.center(w.id) ? -1 : 1;
       }
-      if (frame !== ally.frame) { ally.frame = frame; ally.image.setFrame(frame); }
+      if(equippedForm(run,w.id).theme==='summer'||!STARTER_IDS.includes(w.id)){
+        const recoil=Math.max(0,1-(this.clock-ally.firedAt)/120);ally.image.setY(510+recoil*2-Math.sin(this.clock/400)*.6).setAngle(ally.facing*recoil*3);ally.frame=frame;
+      }else if (frame !== ally.frame) { ally.frame = frame; ally.image.setFrame(frame); }
       ally.frames.add(frame); ally.image.setFlipX(ally.facing < 0);
     }
     const ids = new Set(run.enemies.map(e => e.id));
@@ -115,7 +119,7 @@ export class CombatActors {
       creature.image.setPosition(enemy.x + (hurt ? Math.sin(age / 16) * (1 - age / 180) * (enemy.defId.startsWith('B') ? 1.5 : 3) : 0), enemy.y - kick * (enemy.defId.startsWith('B') ? 2 : 6));
       if (hurt && age < 65) creature.image.setTintFill(0xe9fff3);
       else if (enemy.effects.some(e => e.kind === 'stun' && e.expires > run.tick)) creature.image.setTint(0x7cffff);
-      else if (enemy.effects.some(e => e.kind === 'burn' && e.expires > run.tick)) creature.image.setTint(0xffca95);
+      else if (enemy.effects.some(e => e.kind === 'burn' && e.expires > run.tick)) {const burn=enemy.effects.find(e=>e.kind==='burn'&&e.expires>run.tick)!;creature.image.setTint(parseInt(ELEMENTS[burn.damageType??'thermal'].color.slice(1),16));}
       else creature.image.clearTint();
     }
     this.corpses = this.corpses.filter(c => {

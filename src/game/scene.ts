@@ -15,6 +15,10 @@ import { BossEntrance } from './boss-entrance';
 import { drawRange } from './range-overlay';
 import { inWeaponRange, weaponRange } from '../sim/range';
 import type { BattleSpeed } from '../storage/repository';
+import { stageArt } from '../data/campaign';
+import { equippedForm, formPortrait, STARTER_IDS, ELEMENTS, attackType } from '../data/forms';
+import { keyPixels } from './chroma';
+import { WeaknessMarkers } from './weakness-markers';
 
 const hex = (color: string) => parseInt(color.replace('#', ''), 16);
 interface SceneLoading { ready: () => void; failed: (paths: string[]) => void; progress: (ratio: number) => void }
@@ -29,6 +33,7 @@ export class BattleScene extends Phaser.Scene {
   private worldKey = '';
   private actors!: CombatActors;
   private statuses!: StatusEffects;
+  private weaknesses!: WeaknessMarkers;
   private entrance!: BossEntrance;
   private rangeGraphics!: Phaser.GameObjects.Graphics;
   private rangeKey = "";
@@ -50,12 +55,13 @@ export class BattleScene extends Phaser.Scene {
     this.load.on('progress', (progress: number) => this.loading.progress(progress));
     this.load.on('loaderror', (file: Phaser.Loader.File) => { this.missing.push(String(file.src)); });
     const run = this.read();
-    this.load.image('stage', `/assets/stages/${run.config.stageId}.webp`);
-    run.config.squadIds.forEach(id => this.load.spritesheet(`motion-${id}`, `/assets/animations/${id}-motion.webp`, { frameWidth: 256, frameHeight: 256 }));
-    this.load.image('captain-portrait', `/assets/characters/${run.config.captainId}-portrait.webp`);
+    this.load.image('stage', stageArt(run.config.stageId));
+    run.config.squadIds.forEach(id => {const f=equippedForm(run,id);if(f.theme==='original'&&STARTER_IDS.includes(id))this.load.spritesheet(`motion-${id}`, `/assets/animations/${id}-motion.webp`, { frameWidth: 256, frameHeight: 256 });else this.load.image(`motion-${id}`,formPortrait(f.id));});
+    this.load.image('captain-portrait', formPortrait(equippedForm(run,run.config.captainId).id));
     [...new Set([...STAGE_MAP[run.config.stageId].enemyIds, STAGE_MAP[run.config.stageId].bossId])].forEach(id => this.load.spritesheet(enemyTexture(id), `/assets/enemy-animations/${id}-motion.webp`, { frameWidth: enemyFrameSize(id), frameHeight: enemyFrameSize(id) }));
   }
   create() {
+    for(const id of this.read().config.squadIds){const f=equippedForm(this.read(),id);if(f.theme==='original'&&STARTER_IDS.includes(id))continue;const key=`motion-${id}`,source=this.textures.get(key).getSourceImage() as HTMLImageElement,canvas=this.textures.createCanvas(`keyed-${id}`,source.width,source.height)!;canvas.context.drawImage(source,0,0);keyPixels(canvas.context,source.width,source.height);canvas.refresh();}
     Object.keys(ENEMY_MAP).forEach(id => {
       if (this.textures.exists(enemyTexture(id))) this.spriteKeys.set(id, enemyTexture(id));
     });
@@ -78,6 +84,7 @@ export class BattleScene extends Phaser.Scene {
     this.warnings = this.add.graphics().setDepth(LAYERS.warnings);
     this.actors = new CombatActors(this, this.read, this.speed, this.spriteKeys);
     this.statuses = new StatusEffects(this);
+    this.weaknesses = new WeaknessMarkers(this);
     this.entrance = new BossEntrance(this, enemyTexture(STAGE_MAP[this.read().config.stageId].bossId));
     this.rangeGraphics = this.add.graphics().setDepth(6);
     const ids = this.read().config.squadIds;
@@ -92,7 +99,8 @@ export class BattleScene extends Phaser.Scene {
   }
   private drawWorld(run: RunState) {
     const g = this.worldGraphics; g.clear();
-    run.fields.forEach(f => drawField(g, f, run.tick, this.detail));
+    run.fields.forEach(f => drawField(g, f, run.tick, this.detail, run));
+    for(const mine of run.mines??[]){const color=hex(ELEMENTS[attackType(run,mine.source)].color),charge=Math.min(1,(run.tick-mine.plantedAt)/30*mine.chargeRate/mine.chargeCap);g.fillStyle(0x0a2734,.95).fillCircle(mine.x,mine.y,10);polygon(g,mine.x,mine.y,10,6,color,.9,Math.PI/6,2);g.fillStyle(color,.4+charge*.6).fillCircle(mine.x,mine.y,3+charge*3);g.lineStyle(1,color,.22).strokeCircle(mine.x,mine.y,mine.triggerRadius);}
     for (const enemy of run.enemies) {
       if (run.bossIntro?.enemyId === enemy.id) continue;
       const boss = enemy.defId.startsWith('B'), size = enemySize(enemy.defId);
@@ -187,6 +195,7 @@ export class BattleScene extends Phaser.Scene {
     if (run !== this.worldRun || key !== this.worldKey) { this.worldRun = run; this.worldKey = key; this.drawWorld(run); }
     const now = this.actors.clock;
     this.statuses.update(run, now, fresh, this.detail);
+    this.weaknesses.update(run);
     this.entrance.update(run, this.detail);
     const rangeKey = `${key}:${this.selectedRange()}`;
     if (rangeKey !== this.rangeKey) { this.rangeKey = rangeKey; drawRange(this.rangeGraphics, run, this.selectedRange()); }
