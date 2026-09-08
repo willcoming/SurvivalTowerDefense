@@ -1,6 +1,7 @@
 import { ENEMY_MAP, STAGE_MAP, ticks } from '../data/content';
 import { usesFreeSkills } from '../data/deep-trees';
 import { nextRandom } from './rng';
+import { pressure } from './difficulty';
 import type { EnemyId, RunState, WaveBrief } from './types';
 
 export const VARIANT_INFO = {
@@ -29,10 +30,11 @@ export function prepareOperation(s:RunState) {
   }
 }
 export function waveStats(s:RunState,id:EnemyId,wave:number){
-  const d=ENEMY_MAP[id],boss=id.startsWith('B'),factor=boss?1:STAGE_MAP[s.config.stageId].hpMultiplier;
+  const d=ENEMY_MAP[id],boss=id.startsWith('B'),tuning=pressure(s),ramped=wave>=7;
+  const factor=boss?tuning.bossHealth:STAGE_MAP[s.config.stageId].hpMultiplier*(ramped?tuning.health:1);
   const brief=usesFreeSkills(s)&&!boss?s.wavePlan?.find(w=>w.wave===wave):undefined;
   const hp=d.hp*factor*(brief?.variant==='fast'?.9:brief?.variant==='shielded'?.92:1);
-  return {hp,shield:d.shield*factor+hp*((brief?.variant==='shielded'?.15:0)+(brief?.event==='ion'?.1:0)),armor:Math.min(.7,d.armor+(brief?.variant==='armored'?.08:0)+(brief?.event==='heat'?.05:0)),speed:d.speed*(brief?.variant==='fast'?1.15:brief?.variant==='armored'?.9:1)*(brief?.event==='gravity'?1.1:1)};
+  return {hp,shield:d.shield*factor+hp*((brief?.variant==='shielded'?.15:0)+(brief?.event==='ion'?.1:0)),armor:Math.min(.7,d.armor+(brief?.variant==='armored'?.08:0)+(brief?.event==='heat'?.05:0)),speed:d.speed*(ramped?tuning.speed:1)*(brief?.variant==='fast'?1.15:brief?.variant==='armored'?.9:1)*(brief?.event==='gravity'?1.1:1)};
 }
 export function eventMultiplier(s:RunState,wave:number,type:string){
   const event=s.wavePlan?.find(w=>w.wave===wave)?.event;

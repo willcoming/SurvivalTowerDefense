@@ -60,7 +60,7 @@ describe('EN01–07 · independent enemy cooldowns and interruptible phases', ()
 
   it('an interrupted first-half-health rush cannot retry after another damage hit', () => {
     const state = isolated(), enemy = createEnemy(state, 'E08', 195, 100);
-    hitEnemy(state, enemy, { source: 'C01', skill: 'fixture', raw: 210, damageType: 'plasma', armorIgnore: 1, shieldMultiplier: 1 });
+    hitEnemy(state, enemy, { source: 'C01', skill: 'fixture', raw: enemy.maxHp / 2 + 10, damageType: 'plasma', armorIgnore: 1, shieldMultiplier: 1 });
     expect(enemy.chargeKind).toBe('rush'); expect(enemy.chargeUntil).toBe(36);
     state.tick = 1;
     applyEffect(state, enemy, { id: 'test-stun', kind: 'stun', source: 'C02', value: 1, expires: 4, nextTick: 0, armorIgnore: 0 });
@@ -72,10 +72,10 @@ describe('EN01–07 · independent enemy cooldowns and interruptible phases', ()
 
   it('B01 uses complete initial timers, summons six zero-XP allies, and stops summoning after death', () => {
     const state = isolated(), boss = createEnemy(state, 'B01', 195, 150);
-    until(state, 419); expect(boss.chargeKind).toBeNull();
-    until(state, 420); expect(boss.chargeUntil).toBe(480);
-    until(state, 479); expect(state.wallHp).toBe(1000);
-    until(state, 480); expect(state.wallHp).toBe(930);
+    until(state, 149); expect(boss.chargeKind).toBeNull();
+    until(state, 150); expect(boss.chargeUntil).toBe(210);
+    until(state, 209); expect(state.wallHp).toBe(1000);
+    until(state, 210); expect(state.wallHp).toBe(919.5);
     until(state, 539); expect(state.enemies).toHaveLength(1);
     until(state, 540);
     const allies = state.enemies.filter(enemy => enemy.defId === 'E01');
@@ -87,34 +87,35 @@ describe('EN01–07 · independent enemy cooldowns and interruptible phases', ()
   it('B02 schedules three shots nine ticks apart and restores shield only at the 20-second cooldown', () => {
     const state = isolated(), boss = createEnemy(state, 'B02', 195, 150);
     boss.shield = 1600;
-    until(state, 359); expect(boss.chargeKind).toBeNull();
-    until(state, 360); expect(boss.chargeUntil).toBe(420);
-    until(state, 419); expect(state.wallHp).toBe(1000);
-    stepRun(state); expect(state.tick).toBe(420); expect(state.wallHp).toBe(975);
-    expect(state.scheduled.map(shot => [shot.at, shot.enemyDamage, shot.enemySource])).toEqual([[429, 25, 'B02'], [438, 25, 'B02']]);
-    stepRun(state, 8); expect(state.wallHp).toBe(975);
-    stepRun(state); expect(state.tick).toBe(429); expect(state.wallHp).toBe(950);
-    stepRun(state, 8); expect(state.wallHp).toBe(950);
-    stepRun(state); expect(state.tick).toBe(438); expect(state.wallHp).toBe(925);
+    until(state, 149); expect(boss.chargeKind).toBeNull();
+    until(state, 150); expect(boss.chargeUntil).toBe(210);
+    until(state, 209); expect(state.wallHp).toBe(1000);
+    stepRun(state); expect(state.tick).toBe(210); expect(state.wallHp).toBe(971.25);
+    expect(state.scheduled.map(shot => [shot.at, shot.enemySource])).toEqual([[219, 'B02'], [228, 'B02']]);
+    for(const shot of state.scheduled)expect(shot.enemyDamage).toBeCloseTo(28.75);
+    stepRun(state, 8); expect(state.wallHp).toBe(971.25);
+    stepRun(state); expect(state.tick).toBe(219); expect(state.wallHp).toBe(942.5);
+    stepRun(state, 8); expect(state.wallHp).toBe(942.5);
+    stepRun(state); expect(state.tick).toBe(228); expect(state.wallHp).toBe(913.75);
     until(state, 599); expect(boss.shield).toBe(1600);
     until(state, 600); expect(boss.shield).toBe(1800);
     boss.shield = 100; until(state, 1200); expect(boss.shield).toBe(700);
   });
 
-  it('B03 interrupted charge still exposes on schedule; summons alternate and only allies receive stage scaling', () => {
+  it('B03 interrupted charge still exposes on schedule; summons alternate and allies receive stage scaling', () => {
     const state = isolated('S03'), boss = createEnemy(state, 'B03', 195, 150);
-    expect(boss.maxHp).toBe(13000);
+    expect(boss.maxHp).toBe(16250);
     until(state, 149); expect(boss.chargeKind).toBeNull();
     until(state, 150); expect(boss.chargeUntil).toBe(240);
     until(state, 239);
     applyEffect(state, boss, { id: 'test-stun', kind: 'stun', source: 'C02', value: 1, expires: 269, nextTick: 0, armorIgnore: 0 });
     until(state, 240);
-    expect(state.wallHp).toBe(1000); expect(boss.exposureUntil).toBe(420); expect(boss.abilityAt).toBe(690);
+    expect(state.wallHp).toBe(1000); expect(boss.exposureUntil).toBe(420); expect(boss.abilityAt).toBe(582);
     until(state, ticks(24));
     expect(state.enemies.filter(enemy => enemy.defId === 'E02')).toHaveLength(4);
     until(state, ticks(48));
     expect(state.enemies.filter(enemy => enemy.defId === 'E03')).toHaveLength(2);
     const allies = state.enemies.filter(enemy => !enemy.defId.startsWith('B'));
-    expect(allies.every(enemy => enemy.xp === 0 && enemy.maxHp === ENEMY_MAP[enemy.defId].hp * 1.2)).toBe(true);
+    expect(allies.every(enemy => enemy.xp === 0 && Math.abs(enemy.maxHp - ENEMY_MAP[enemy.defId].hp * 1.2 * (1.06 + 2 / 11 * .06)) < 1e-8)).toBe(true);
   });
 });

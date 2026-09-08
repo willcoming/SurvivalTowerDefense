@@ -1,7 +1,9 @@
-import type { CharacterId, VisualEvent } from '../sim/types';
+import type { CharacterId, Enemy, VisualEvent } from '../sim/types';
+export const priorityEnemy = (enemy: Enemy) => enemy.defId.startsWith('B') || enemy.defId === 'E07' || enemy.defId === 'E08' || !!enemy.chargeKind && !enemy.chargeCancelled;
 import { visualPriority } from '../sim/visual';
 
-export const POSE_NAMES = ['idle', 'ready', 'aim', 'fire', 'recoil', 'recover'] as const;
+import { ALLY_MOTION } from '../data/character-motion';
+export const POSE_NAMES = ALLY_MOTION.poses;
 export const CUTIN_MS = 1200;
 export const SKILL_FX_MS = 1500;
 export const LAYERS = { actors: 3, world: 5, effects: 9, allies: 7, cutin: 20, warnings: 90, warningText: 100 } as const;

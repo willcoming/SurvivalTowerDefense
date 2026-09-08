@@ -1,0 +1,46 @@
+.battle-layout.battle-focused { display:flex; justify-content:center; min-height:100dvh; height:100dvh; max-width:none; padding:0; margin:0; gap:0; background:#071a24; overflow:hidden; }
+.battle-focused > .battle-aside,.battle-focused > .battle-right { display:none; }
+.battle-focused .battle-phone { width:min(100%,520px); height:100dvh; min-height:0; max-height:none; border-radius:0; }
+.battle-focused .battle-hud { grid-template-columns:minmax(0,1fr) auto auto; gap:4px 8px; padding:max(6px,env(safe-area-inset-top)) 10px 4px; background:linear-gradient(110deg,#112e38,#0b202b); border-bottom:1px solid #39564f; }
+.battle-focused .wall-hud { grid-column:1; grid-row:1; }
+.battle-focused .wall-hud b { font-size:11px; }
+.battle-focused .wall-hud #wall-text { font-size:11px; margin-left:3px; }
+.battle-focused .wall-hud #shield-text { font-size:10px; }
+.battle-focused .hp-track { height:5px; margin-top:5px; }
+.battle-focused .time-hud { grid-column:2; grid-row:1; margin:0; }
+.battle-focused .time-hud > strong { font-size:21px; letter-spacing:0; color:#f3ddb0; }
+.battle-focused .battle-header-controls { grid-column:3; grid-row:1; gap:4px; }
+.battle-focused .battle-header-controls > button { min-width:44px; width:44px; height:44px; min-height:44px; padding:0; }
+.battle-focused .xp-track { grid-column:1/-1; grid-row:2; height:2px; }
+.battle-focused .battle-canvas { flex:1; min-height:0; }
+.battle-focused .range-toolbar { position:relative; flex:none; display:flex; gap:8px; padding:0 10px; min-height:44px; border-top:1px solid #385951; background:#0c252f; z-index:4; }
+.battle-focused .range-toolbar > button { min-height:44px; min-width:64px; flex:1; color:#ead9ac; font-size:12px; border:0; background:transparent; }
+.battle-intel { flex:1; min-width:0; }
+.battle-intel > summary { min-height:44px; display:flex; align-items:center; justify-content:center; gap:10px; cursor:pointer; color:#cde1d4; font-size:12px; list-style:none; }
+.battle-intel > summary::-webkit-details-marker { display:none; }
+.battle-intel > summary::after { content:'⌃'; font-size:17px; }
+.battle-intel[open] > summary::after { content:'⌄'; }
+.battle-intel[open] > summary { color:#f1d89d; }
+.battle-intel-body { position:absolute; bottom:100%; left:0; right:0; max-height:55dvh; overflow:auto; overscroll-behavior:contain; padding:14px 12px; background:#0c2634f5; border:1px solid #6b8475; box-shadow:0 -12px 35px #00101985; color:#c3dacf; font-size:12px; }
+.battle-intel-body > :is(span,div) { margin:0 0 10px; }
+.battle-intel-body > span { display:block; }
+.battle-intel-body .xp-caption { display:flex; justify-content:space-between; font-size:11px; }
+.battle-intel-body .operation-event { font-size:12px; line-height:1.6; }
+.battle-intel-body .weapon-strip { padding:10px 0; background:transparent; border-top:1px solid #355850; margin-bottom:10px; }
+.battle-intel-body .weapon-strip > button { min-width:44px; min-height:76px; gap:2px; border:1px solid transparent; }
+.battle-intel-body .weapon-strip > button[aria-pressed=true] { border-color:#d9bd81; background:#345044; }
+.battle-intel-body .weapon-strip small,.battle-intel-body .weapon-strip .element-badge { display:block; font-size:10px; }
+.battle-intel-body #range-info { font-size:12px; color:#f0d8a5; }
+.battle-focused .tactical-control { padding:4px 10px max(8px,env(safe-area-inset-bottom)); gap:6px; background:#0b212c; }
+.battle-focused .tactical-button { min-height:54px; padding:6px 10px; gap:8px; border:1px solid #d59265; background:#b14f38; }
+.battle-focused .tactical-button:not(:disabled) { background:linear-gradient(110deg,#d47041,#a23f31); box-shadow:inset 0 0 16px #f6bd5940; border-color:#f0c486; }
+.battle-focused .tactical-button b { font-size:15px; }
+.battle-focused .tactical-button small { margin-bottom:2px; font-size:10px; }
+.battle-focused .auto-tactical-button { min-height:54px; flex-basis:66px; font-size:11px; }
+.battle-focused :is(button,summary):focus-visible { outline:2px solid #ffe2a1; outline-offset:-3px; }
+@media(max-height:600px) {
+  .battle-focused .tactical-control { padding-top:2px; padding-bottom:max(5px,env(safe-area-inset-bottom)); }
+  .battle-focused .tactical-button,.battle-focused .auto-tactical-button { min-height:48px; }
+  .battle-focused .tactical-button b { font-size:13px; }
+  .battle-focused .battle-hud { padding-top:max(3px,env(safe-area-inset-top)); }
+}

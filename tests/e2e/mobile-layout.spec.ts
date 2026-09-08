@@ -79,22 +79,28 @@ for (const size of phoneSizes) {
     await fullyVisible(page.locator('.action-bar .primary'));
     await page.locator('.action-bar [data-action="roster"]').click();
 
-    const character = page.getByRole('combobox', { name: '選擇隊員', exact: true });
-    await character.selectOption({ index: 1 });
-    const selectedValue = await character.inputValue();
-    const selectedId = await page.locator('.character-card:visible .add-character').getAttribute('data-id');
-    await expect(page.locator('.character-card:visible')).toHaveCount(1);
-    await fullyVisible(page.locator('.character-card:visible .add-character'));
+    const tiles = page.locator('.roster-tile');
+    await expect(tiles).toHaveCount(8);
+    await expect(page.locator('.roster-summary')).toContainText('已招募 6 / 8');
+    await expect(page.locator('.roster-summary')).toContainText('出戰 5 / 5');
+    for (const tile of await tiles.all()) await fullyVisible(tile);
     await fullyVisible(page.locator('[data-action="start"]'));
-    // Rerendering a squad mutation must not jump the pager back to the first card.
-    await page.locator('.character-card:visible .add-character').click();
-    await expect(character).toHaveValue(selectedValue);
-    await expect(page.locator('.character-card:visible .add-character')).toHaveAttribute('data-id', selectedId!);
-    await page.locator('.character-card:visible .add-character').click();
-    await expect(character).toHaveValue(selectedValue);
-    await page.locator('.character-card:visible .captain-button').click();
-    await expect(character).toHaveValue(selectedValue);
-    await expect(page.locator('.character-card:visible .captain-button')).toHaveClass(/selected/);
+    await page.locator('.roster-tile[data-id="C02"]').click();
+    const panel = page.locator('[data-roster-view="character"]');
+    const toggle = panel.locator('[data-action="toggle-character"][data-id="C02"]');
+    await fullyVisible(toggle);
+    // Squad mutations keep the same character panel open, including on Safari.
+    await toggle.click();
+    await expect(panel).toBeVisible();
+    expect(await page.evaluate(() => window.__game.getSave().preferences.squadIds.includes('C02'))).toBe(false);
+    await toggle.click();
+    await expect(panel).toBeVisible();
+    expect(await page.evaluate(() => window.__game.getSave().preferences.squadIds.includes('C02'))).toBe(true);
+    await panel.locator('[data-action="captain"][data-id="C02"]').click();
+    await expect(panel.locator('[data-action="captain"][data-id="C02"]')).toHaveClass(/selected/);
+    await panel.locator('[data-action="roster-close"]').click();
+    await expect(tiles).toHaveCount(8);
+    await fullyVisible(page.locator('[data-action="start"]'));
     await noDocumentScroll(page);
 
     await nav(page, 'recruitment');
@@ -284,23 +290,28 @@ test('MOBILE: tutorial, skill allocation, pause and result controls fit every ph
   expect(errors).toEqual([]);
 });
 
-test('MOBILE: crossing the desktop breakpoint restores all content and preserves selection', async ({ page }) => {
+test('MOBILE: crossing the desktop breakpoint preserves the full roster and selected character panel', async ({ page }) => {
   await ready(page);
   await nav(page, 'roster');
-  const picker = page.getByRole('combobox', { name: '選擇隊員', exact: true });
-  await picker.selectOption({ index: 4 });
-  const selectedValue = await picker.inputValue();
+  await page.locator('.roster-tile[data-id="C05"]').click();
+  const panel = page.locator('[data-roster-view="character"]');
+  await expect(panel.locator('[data-action="toggle-character"]')).toHaveAttribute('data-id', 'C05');
   for (const width of [768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 1024 });
-    await expect(page.locator('.character-card:visible')).toHaveCount(width <= 800 ? 1 : 8);
-    await expect(page.locator('dialog.mobile-detail[open]')).toHaveCount(0);
+    await expect(page.locator('.roster-tile:visible')).toHaveCount(8);
+    await expect(panel).toBeVisible();
+    await expect(panel.locator('[data-action="toggle-character"]')).toHaveAttribute('data-id', 'C05');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    await panel.locator('[data-action="roster-close"]').click();
     await page.locator('[data-action="start"]').scrollIntoViewIfNeeded();
     await expect(page.locator('[data-action="start"]')).toBeEnabled();
     await page.setViewportSize({ width: 390, height: 844 });
-    await expect(picker).toHaveValue(selectedValue);
-    await expect(page.locator('.character-card:visible')).toHaveCount(1);
+    await expect(page.locator('#app.mobile-app')).toBeVisible();
+    await expect(page.locator('[data-action="start"]')).toBeVisible();
+    await expect(page.locator('.roster-tile:visible')).toHaveCount(8);
     await fullyVisible(page.locator('[data-action="start"]'));
     await noDocumentScroll(page);
+    await page.locator('.roster-tile[data-id="C05"]').click();
   }
+  await panel.locator('[data-action="roster-close"]').click();
 });

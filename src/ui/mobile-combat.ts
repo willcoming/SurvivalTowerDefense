@@ -1,4 +1,5 @@
 import type { MobileControls } from './mobile-controls';
+import { enhanceTacticalTree } from './tactical-tree';
 
 function region(className: string) {
   const element = document.createElement('div');
@@ -103,8 +104,9 @@ function upgrade(panel: HTMLElement, ui: MobileControls) {
 
 /** Reorganize presentation only; all choices still reach the existing game actions. */
 export function enhanceMobileCombat(holder: HTMLElement, ui: MobileControls) {
+  for (const panel of holder.querySelectorAll<HTMLElement>('.deep-panel:not(.tactical-tree)')) enhanceTacticalTree(panel, ui);
   if (!window.matchMedia('(max-width: 800px)').matches) return;
-  for (const panel of holder.querySelectorAll<HTMLElement>('.tree-panel:not(.mobile-tree)')) tree(panel, ui);
+  for (const panel of holder.querySelectorAll<HTMLElement>('.tree-panel:not(.deep-panel):not(.mobile-tree)')) tree(panel, ui);
   for (const panel of holder.querySelectorAll<HTMLElement>('.tutorial-dialog:not(.mobile-combat-dialog)')) tutorial(panel, ui);
   for (const panel of holder.querySelectorAll<HTMLElement>('.pause-dialog:not(.mobile-combat-dialog)')) pause(panel, ui);
   for (const panel of holder.querySelectorAll<HTMLElement>('.upgrade-dialog:not(.mobile-combat-dialog)')) upgrade(panel, ui);

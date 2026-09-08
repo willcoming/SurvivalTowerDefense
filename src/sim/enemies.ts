@@ -1,6 +1,17 @@
 import { ENEMY_MAP, ticks, WORLD } from '../data/content';
 import { alive, boss, createEnemy, distance, hitWall } from './combat';
 import type { Enemy, RunState } from './types';
+import { pressure } from './difficulty';
+export const BOSS_ESCORT_COUNT = 32;
+/** Deterministic entrance formation; escorts do not add farmable skill XP. */
+export function spawnBossEscort(s: RunState, leader: Enemy) {
+  const specialist = leader.defId === 'B02' ? 'E03' : 'E02';
+  for (let i = 0; i < BOSS_ESCORT_COUNT; i++) {
+    const row = Math.floor(i / 8), column = i % 8;
+    createEnemy(s, leader.defId === 'B01' || i % 4 !== 3 ? 'E01' : specialist,
+      24 + column * 48 + (row % 2) * 6, 20 + row * 20, 0, 9);
+  }
+}
 function acted(s:RunState,e:Enemy,kind:NonNullable<Enemy['lastAction']>['kind']){e.lastAction={tick:s.tick,kind};}
 function wallShot(s:RunState,e:Enemy,damage:number){
   acted(s,e,'shot');
@@ -13,6 +24,7 @@ function summon(s:RunState,e:Enemy){
   e.summonCount++;e.summonAt+=ticks(e.defId==='B01'?18:24);
 }
 export function stepEnemies(s:RunState){
+  const tuning=pressure(s);
   for(const e of alive(s)){
     const stunned=e.effects.some(f=>f.kind==='stun'&&f.expires>s.tick);
     const slow=Math.max(0,...e.effects.filter(f=>f.kind==='slow'&&f.expires>s.tick).map(f=>f.value));
@@ -20,11 +32,11 @@ export function stepEnemies(s:RunState){
       if(!stunned)e.y+=Math.sign(150-e.y)*Math.min(Math.abs(150-e.y),8/30);
       if(e.summonAt<=s.tick){if(e.defId==='B02'){acted(s,e,'shield');e.shield=Math.min(1800,e.shield+600);e.summonAt+=ticks(20);}else summon(s,e);}
       if(e.chargeKind&&e.chargeUntil<=s.tick){
-        if(!e.chargeCancelled&&!stunned){acted(s,e,e.defId==='B02'?'burst':'blast');if(e.defId==='B02'){hitWall(s,25,e.defId);for(let i=1;i<3;i++)s.scheduled.push({at:s.tick+i*ticks(.3),packet:null,x:195,y:450,radius:0,enemyDamage:25,enemySource:e.defId});}else hitWall(s,ENEMY_MAP[e.defId].damage,e.defId);}
+        if(!e.chargeCancelled&&!stunned){acted(s,e,e.defId==='B02'?'burst':'blast');if(e.defId==='B02'){hitWall(s,25*tuning.bossDamage,e.defId);for(let i=1;i<3;i++)s.scheduled.push({at:s.tick+i*ticks(.3),packet:null,x:195,y:450,radius:0,enemyDamage:25*tuning.bossDamage,enemySource:e.defId});}else hitWall(s,ENEMY_MAP[e.defId].damage*tuning.bossDamage,e.defId);}
         if(e.defId==='B03')e.exposureUntil=s.tick+ticks(6);
         e.chargeKind=null;e.chargeUntil=0;
       }
-      if(!stunned&&!e.chargeKind&&e.abilityAt<=s.tick){e.chargeKind='boss';e.chargeCancelled=false;e.chargeUntil=s.tick+ticks(e.defId==='B03'?3:2);e.abilityAt+=ticks(ENEMY_MAP[e.defId].interval);}
+      if(!stunned&&!e.chargeKind&&e.abilityAt<=s.tick){e.chargeKind='boss';e.chargeCancelled=false;e.chargeUntil=s.tick+ticks(e.defId==='B03'?3:2);e.abilityAt+=Math.round(ticks(ENEMY_MAP[e.defId].interval)*tuning.bossInterval);}
       continue;
     }
     if(e.chargeKind&&e.chargeUntil<=s.tick){

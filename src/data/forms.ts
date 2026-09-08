@@ -1,8 +1,9 @@
 import { assetUrl } from '../assets';
 import type { CharacterId, DamageType, EnemyId, FormId, RunState } from '../sim/types';
 
-export const COLLECTION_CONTENT_VERSION = '0.4.0-dev.1';
-export const usesCollection = (s: Pick<RunState, 'contentVersion'>) => s.contentVersion === COLLECTION_CONTENT_VERSION;
+export const PREVIOUS_COLLECTION_VERSION = '0.4.0-dev.1';
+export const COLLECTION_CONTENT_VERSION = '0.4.0-dev.2';
+export const usesCollection = (s: Pick<RunState, 'contentVersion'>) => s.contentVersion === COLLECTION_CONTENT_VERSION || s.contentVersion === PREVIOUS_COLLECTION_VERSION;
 export const STARTER_IDS: CharacterId[] = ['C01','C02','C03','C04','C05','C06'];
 export const ELEMENTS: Record<DamageType,{name:string;icon:string;color:string;dot:string}> = {
   kinetic:{name:'動能',icon:'◆',color:'#acd3ef',dot:'碎裂'},
@@ -42,4 +43,12 @@ export function formPortrait(id:FormId){
   const revision=form.ownerId==='C07'||form.ownerId==='C08'?(form.theme==='summer'?'-pose-v4':'-stage-v3'):'';
   return assetUrl(`forms/${id}${revision}.webp`);
 }
-export const formMotion=(id:FormId)=>FORM_MAP[id].theme==='original'&&STARTER_IDS.includes(FORM_MAP[id].ownerId)?assetUrl(`animations/${FORM_MAP[id].ownerId}-motion.webp`):formPortrait(id);
+/** Portrait-camera illustrations matching the original cards, never battle maps. */
+export function formBackdrop(id:FormId):string|null {
+  const form=FORM_MAP[id];
+  if(form.theme==='summer')return assetUrl('portrait-backgrounds/summer-v1.webp');
+  if(form.ownerId==='C07')return assetUrl('portrait-backgrounds/shion-v1.webp');
+  if(form.ownerId==='C08')return assetUrl('portrait-backgrounds/chika-v1.webp');
+  return null; // Starter original portraits already contain their scenery.
+}
+export const formMotion=(id:FormId)=>FORM_MAP[id].theme==='original'&&STARTER_IDS.includes(FORM_MAP[id].ownerId)?assetUrl(`animations/${FORM_MAP[id].ownerId}-motion.webp`):assetUrl(`animations/${id}-motion-v1.webp`);

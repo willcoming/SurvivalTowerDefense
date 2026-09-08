@@ -29,6 +29,18 @@ async function raw(name: string, value?: unknown): Promise<unknown> {
 }
 
 describe('AC09/SAVE01–06 · complete reproducible local snapshots', () => {
+  it('discards departed battles on app load without losing permanent progress or equipment', async () => {
+    const repository = repo(), save = await repository.load();
+    save.activeRun = run(); stepRun(save.activeRun, 40);
+    save.profile.cleared = ['S01']; save.collection.owned.push('C01-summer'); save.collection.equipped.C01 = 'C01-summer';
+    await repository.save(save);
+    const loaded = await repository.load({ discardActiveRun: true });
+    expect(loaded.activeRun).toBeNull();
+    expect(loaded.profile.cleared).toEqual(['S01']);
+    expect(loaded.preferences).toEqual(save.preferences);
+    expect(loaded.collection.equipped.C01).toBe('C01-summer');
+    expect((await repository.load()).activeRun).toBeNull();
+  });
   it('keeps dev.2 active combat and unlocked progress through save/load; only a new run adopts dev.3', async () => {
     const repository = repo(), save = await repository.load();
     save.activeRun = run(); save.activeRun.contentVersion = LEGACY_CONTENT_VERSION;

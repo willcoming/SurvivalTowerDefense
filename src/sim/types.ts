@@ -31,7 +31,16 @@ export interface StageDef {
   intro: string[]; outro: string[];
 }
 export interface UpgradeCard { nodeId: string; kind: 'random' | 'focus' | 'evolution' | 'empty' }
-export interface DraftOffer { id: number; choice: number; cards: UpgradeCard[]; focusId: CharacterId; selectedEvolution: string | null; customNodeId?: string; pointTarget?: number }
+export interface DraftOffer {
+  id: number;
+  choice: number;
+  cards: UpgradeCard[];
+  focusId: CharacterId;
+  selectedEvolution: string | null;
+  customNodeId?: string;
+  pointTarget?: number;
+  pendingNodeIds?: string[];
+}
 export interface Effect {
   id: string; kind: 'slow' | 'stun' | 'exposure' | 'burn'; source: CharacterId | 'boss';
   expires: number; value: number; armorIgnore: number; nextTick: number;
@@ -113,6 +122,7 @@ export interface RunState {
 export type Command =
   | { type: 'cast' }
   | { type: 'buy-node'; offerId: number; nodeId: string }
+  | { type: 'confirm-node'; offerId: number; nodeIds: string[] }
   | { type: 'finish-boss-intro' }
   | { type: 'pause'; reason: PauseReason }
   | { type: 'resume'; reason: PauseReason }

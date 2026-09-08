@@ -1,6 +1,7 @@
 import { usesFreeSkills } from '../data/deep-trees';
 import { deepMods, teamMod } from './deep-tree';
 import { waveStats, eventMultiplier } from './operations';
+import { usesPressureRules } from './difficulty';
 import { emergencySupport, repairWall, reflectShield } from './deep-support';
 import { usesSkillTrees } from '../data/skill-trees';
 import { ultimateFor } from './skill-tree';
@@ -68,7 +69,7 @@ export function hitWall(s:RunState,value:number,source:EnemyId){
   s.shields=s.shields.filter(x=>x.expires>s.tick&&x.value>0).sort((a,b)=>a.expires-b.expires||a.source.localeCompare(b.source));
   for(const shield of s.shields){const v=Math.min(remaining,shield.value);shield.value-=v;remaining-=v;s.stats.shieldAbsorbed+=v;absorbed+=v;}
   const damage=Math.min(s.wallHp,remaining);s.wallHp-=damage;s.stats.wallDamageByEnemy[source]=(s.stats.wallDamageByEnemy[source]??0)+damage;
-  emit(s,{kind:'wall-hit',x:195,y:450,value:damage});
+  emit(s,{kind:'wall-hit',x:195,y:450,value:damage,...(usesCollection(s)?{enemyDefId:source}:{})});
   if(free&&s.support){const repair=teamMod(s,'emergencyRepair');if(repair)s.support.damageTaken+=damage;if(repair&&s.support.damageTaken>=100){const count=Math.floor(s.support.damageTaken/100);s.support.damageTaken%=100;repairWall(s,repair*count);}reflectShield(s,absorbed);emergencySupport(s);}
 }
 export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
@@ -132,5 +133,6 @@ export function createEnemy(s:RunState,defId:EnemyId,x:number,y:number,xp=0,wave
   const d=ENEMY_MAP[defId];const isBoss=defId.startsWith('B');const multiplier=isBoss?1:STAGE_MAP[s.config.stageId].hpMultiplier;
   const e:Enemy={id:s.nextEntityId++,defId,x,y,hp:d.hp*multiplier,maxHp:d.hp*multiplier,shield:d.shield*multiplier,armor:d.armor,speed:d.speed,radius:d.radius,xp,wave,spawnedAt:s.tick,effects:[],attackAt:0,abilityAt:s.tick+ticks(defId==='B03'?5:isBoss?d.interval:8),summonAt:s.tick+ticks(defId==='B01'?18:defId==='B02'?20:24),chargeUntil:0,chargeKind:null,chargeCancelled:false,phaseTriggered:false,rushUntil:0,stunImmuneUntil:0,moveImmuneUntil:0,exposureUntil:0,summonCount:0,arcCharges:0};
   if(usesFreeSkills(s)){const values=waveStats(s,defId,wave);e.hp=e.maxHp=values.hp;e.shield=values.shield;e.armor=values.armor;e.speed=values.speed;}
+  if(isBoss && usesPressureRules(s))e.abilityAt=s.tick+ticks(5);
   s.enemies.push(e);if(!s.stats.encountered.includes(defId))s.stats.encountered.push(defId);emit(s,{kind:'spawn',x,y});return e;
 }

@@ -39,14 +39,22 @@ test('AC01/02: fresh local game, all six characters, legal squad and three respo
   await expect(page.locator('[data-action="stage"][data-id="S01"]')).toBeEnabled();
   await expect(page.locator('[data-action="stage"][data-id="S02"]')).toBeDisabled();
   await page.locator('.main-nav [data-action="roster"]').click();
-  await expect(page.locator('.character-card')).toHaveCount(8);
-  await expect(page.locator('.add-character[data-id="C03"]')).toBeDisabled();
-  while (await page.locator('.filled-slot').count()) await page.locator('.filled-slot').first().click();
+  await expect(page.locator('.roster-tile')).toHaveCount(8);
+  await page.locator('.roster-tile[data-id="C03"]').click();
+  await expect(page.locator('[data-roster-view="character"] [data-action="toggle-character"][data-id="C03"]')).toBeDisabled();
+  await page.locator('[data-roster-view="character"] [data-action="roster-close"]').click();
+  const squad = await page.evaluate(() => [...window.__game.getSave().preferences.squadIds]);
+  for (const id of squad) {
+    await page.locator(`.roster-tile[data-id="${id}"]`).click();
+    await page.locator(`[data-roster-view="character"] [data-action="toggle-character"][data-id="${id}"]`).click();
+    await page.locator('[data-roster-view="character"] [data-action="roster-close"]').click();
+  }
   await expect(page.locator('[data-action="start"]')).toBeDisabled();
-  await page.getByRole('combobox', { name: '選擇隊員', exact: true }).selectOption({ index: 2 });
-  await page.locator('.add-character[data-id="C03"]').click();
+  await page.locator('.roster-tile[data-id="C03"]').click();
+  await page.locator('[data-roster-view="character"] [data-action="toggle-character"][data-id="C03"]').click();
   await expect(page.locator('[data-action="start"]')).toBeEnabled();
-  await expect(page.locator('.captain-button[data-id="C03"]')).toHaveClass(/selected/);
+  await expect(page.locator('[data-roster-view="character"] [data-action="captain"][data-id="C03"]')).toHaveClass(/selected/);
+  await page.locator('[data-roster-view="character"] [data-action="roster-close"]').click();
   await page.getByRole('button', { name: '編隊說明與推薦', exact: true }).click();
   await page.locator('[data-action="build"][data-id="T01"]').click();
   await page.getByRole('button', { name: '關閉詳細資訊', exact: true }).click();
@@ -217,8 +225,7 @@ test('SPEED: 1×/2×/3× advance real combat time, preserve pauses and restore t
   const stillDraft = await page.evaluate(() => structuredClone(window.__game.state()!));
   expect(stillDraft.tick).toBe(draft.tick); expect(stillDraft.draft).toEqual(draft.draft);
   await page.locator('[data-action="deep-owner"][data-id="common"]').click();
-  for(const [layer,id] of ['TEAM/0','TEAM/1'].entries()){
-    await page.getByRole('combobox',{name:'技能階段',exact:true}).selectOption(String(layer));
+  for(const id of ['TEAM/0','TEAM/1']){
     await page.locator(`[data-action="deep-node"][data-id="${id}"]`).click();await page.locator('[data-action="buy-node"]').click();
   }
   await expect(speed).toHaveText('3×');

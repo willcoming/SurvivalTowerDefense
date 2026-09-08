@@ -1,0 +1,9 @@
+/* Portrait-camera artwork preserves the original cards' depth and lighting.
+   Existing fit/crop and unrecruited filters therefore apply without shifting the card. */
+img[data-portrait-backdrop] {
+  background-color:#081c29;
+  background-image:var(--portrait-background);
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+}

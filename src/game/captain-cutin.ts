@@ -15,7 +15,7 @@ export class CaptainCutin {
   private born = -Infinity;
   private id: CharacterId | null = null;
   private color = 0x8bf5dc;
-  constructor(scene: Phaser.Scene) {
+  constructor(private scene: Phaser.Scene) {
     this.plate = scene.add.graphics();
     const texture=scene.textures.get('captain-portrait'),source=texture.getSourceImage() as HTMLImageElement;
     const canvas=scene.textures.createCanvas('captain-keyed',source.width,source.height)!;canvas.context.drawImage(source,0,0);keyPixels(canvas.context,source.width,source.height);canvas.refresh();
@@ -38,6 +38,7 @@ export class CaptainCutin {
     this.plate.fillStyle(this.color, 1).fillRect(146, 14, 3, 83);
   }
   update(now: number, detail: Detail) {
+    this.container.setScale(1,this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY);
     const age = now - this.born, visible = age >= 0 && age < CUTIN_MS;
     this.container.setVisible(visible); if (!visible) return;
     const enter = Math.min(1, age / 130), exit = Math.max(0, (age - 980) / 220);

@@ -2,6 +2,7 @@ import type { Page } from './model';
 import { MobileControls } from './mobile-controls';
 import { enhanceSecondary } from './mobile-secondary';
 import { stageArt } from '../data/campaign';
+import { enhanceBattleFocus } from './battle-focus';
 
 export const mobileQuery = '(max-width: 800px)';
 
@@ -14,7 +15,7 @@ function mount(parent: HTMLElement, className: string, label?: string, before?: 
 }
 
 function compactHome(root: HTMLElement, ui: MobileControls) {
-  root.querySelector('.hero h1')!.textContent = '防線就緒，準備出擊。';
+
   const panel = root.querySelector<HTMLElement>('.operation-panel')!;
   const campaign = panel.querySelector<HTMLElement>('.campaign-selector')!;
   const chapters = [...campaign.querySelectorAll<HTMLElement>('.chapter-group')];
@@ -22,7 +23,7 @@ function compactHome(root: HTMLElement, ui: MobileControls) {
   ui.pager('home-chapter', chapters, chapters.map(chapter => chapter.querySelector('h3')!.textContent!.trim()), controls,
     Math.max(0, chapters.findIndex(chapter => chapter.querySelector('.selected'))));
   const note = panel.querySelector<HTMLElement>(':scope > .quiet-note');
-  if (note) {
+  if (note && !root.querySelector('.operation-select')) {
     const notes = mount(root.querySelector<HTMLElement>('.masthead-right')!, 'mobile-home-notes');
     const button = ui.detail('home-notes', '作戰說明', [note], notes);
     button.textContent = 'ⓘ';
@@ -31,26 +32,16 @@ function compactHome(root: HTMLElement, ui: MobileControls) {
 }
 
 function compactRoster(root: HTMLElement, ui: MobileControls) {
-  const main = root.querySelector<HTMLElement>('.roster-screen')!;
+  const main = root.querySelector<HTMLElement>('.roster-screen');
+  if (!main) return;
   const intro = main.querySelector<HTMLElement>('.page-intro')!;
-  intro.querySelector('h1')!.textContent = '小隊編成';
   const help = mount(intro, 'mobile-inline-help');
-  const notes = ['.page-intro > p', '.formation-capabilities', '.recommendations']
-    .map(selector => main.querySelector<HTMLElement>(selector)).filter((node): node is HTMLElement => !!node);
-  ui.detail('roster-notes', '編隊說明與推薦', notes, help);
-  const grid = main.querySelector<HTMLElement>('.roster-grid')!;
-  const cards = [...grid.querySelectorAll<HTMLElement>('.character-card')];
-  const picker = mount(main, 'mobile-roster-picker', '選擇隊員', grid);
-  ui.pager('roster-character', cards, cards.map(card => card.querySelector('h2')!.textContent!), picker);
-  for (const card of cards) {
-    const passive = card.querySelector<HTMLElement>('.form-controls > small');
-    if (passive) {
-      const details = mount(card.querySelector<HTMLElement>('.form-controls')!, 'mobile-form-help');
-      const button = ui.detail(`form-${card.querySelector<HTMLElement>('[data-id]')!.dataset.id}`, '形態能力詳情', [passive], details);
-      button.textContent = '詳情';
-      button.setAttribute('aria-label', '形態能力詳情');
-    }
-  }
+  const notes = main.querySelector<HTMLElement>('.roster-help-copy')!;
+  const disclosure = main.querySelector<HTMLElement>('.roster-help')!;
+  const button = ui.detail('roster-notes', '編隊說明與推薦', [notes], help);
+  button.textContent = '編隊說明 ⓘ';
+  button.setAttribute('aria-label', '編隊說明與推薦');
+  disclosure.remove();
 }
 
 function compactCodex(root: HTMLElement, ui: MobileControls) {
@@ -99,7 +90,8 @@ export function enhanceMobile(root: HTMLElement, page: Page, ui: MobileControls)
   const active = matchMedia(mobileQuery).matches;
   root.classList.toggle('mobile-app', active);
   root.dataset.page = page;
-  if (!active || page === 'battle') return;
+  if (page === 'battle') { enhanceBattleFocus(root); return; }
+  if (!active) return;
   const scene = document.createElement('div');
   scene.className = 'mobile-game-scene';
   scene.setAttribute('aria-hidden', 'true');

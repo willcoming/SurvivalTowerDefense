@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { inWeaponRange } from '../sim/range';
-import { equippedForm, STARTER_IDS, ELEMENTS, attackType } from '../data/forms';
+import { ELEMENTS } from '../data/forms';
+import { ALLY_MOTION, ALLY_ATTACKS } from '../data/character-motion';
 import { CaptainCutin } from './captain-cutin';
 import type { CharacterId, EnemyId, RunState, VisualEvent } from '../sim/types';
 import { LAYERS, poseFrame, weaponForm, type Detail } from './presentation';
@@ -29,8 +30,7 @@ export class CombatActors {
   constructor(private scene: Phaser.Scene, private read: () => RunState, private speed: () => number, private keys: Map<string, string>) {
     this.initialTick = read().tick;
     for (const id of read().config.squadIds) {
-      const illustrated=equippedForm(read(),id).theme==='summer'||!STARTER_IDS.includes(id);
-      const image = scene.add.sprite(this.center(id), 510, illustrated?`keyed-${id}`:`motion-${id}`, 0).setOrigin(.5, 240 / 256).setDisplaySize(illustrated?63:84, illustrated?95:84).setDepth(LAYERS.allies);
+      const image = scene.add.sprite(this.center(id), 510, `motion-${id}`, 0).setOrigin(ALLY_MOTION.originX, ALLY_MOTION.originY).setDisplaySize(ALLY_MOTION.displaySize, ALLY_MOTION.displaySize).setDepth(LAYERS.allies);
       this.allies.set(id, { image, attacks: read().weapons.find(w => w.id === id)!.attacks, firedAt: -Infinity, frame: 0, frames: new Set(), facing: 1 });
     }
     this.cutin = new CaptainCutin(scene);
@@ -38,7 +38,8 @@ export class CombatActors {
   center(id?: CharacterId) { const ids = this.read().config.squadIds, i = ids.indexOf(id!); return i < 0 ? 195 : 195 + (i - (ids.length - 1) / 2) * 70; }
   origin = (id?: CharacterId, targetX?: number) => {
     const x = this.center(id), sign = (targetX ?? x + 1) < x ? -1 : 1;
-    return { x: x + sign * (id === 'C03' ? 29 : id === 'C05' ? 18 : 23), y: id === 'C03' || id === 'C05' ? 453 : 462 };
+    const mount = ALLY_ATTACKS[id ?? 'C01'];
+    return { x: x + sign * mount.mountX, y: mount.mountY };
   };
   private corpse(event: VisualEvent, detail: Detail) {
     if (event.targetId === undefined || !event.enemyDefId || this.deadIds.has(event.targetId)) return;
@@ -78,15 +79,14 @@ export class CombatActors {
       const eligible = run.enemies.filter(e => inWeaponRange(run, w.id, e));
       const target = eligible.sort((a, b) => b.y - a.y)[0];
       const ally = this.allies.get(w.id)!;
+      ally.image.setDisplaySize(ALLY_MOTION.displaySize,ALLY_MOTION.displaySize*this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY);
       if (w.attacks !== ally.attacks) { ally.attacks = w.attacks; ally.firedAt = this.clock; this.forms.add(weaponForm(w.id, w.rank, w.branch)); }
       const frame = poseFrame(this.clock, ally.firedAt, w.nextAttack - run.tick, this.speed(), !!target, run.config.squadIds.indexOf(w.id) * 90);
       if (frame === 2 && target) {
         const aim = w.id === 'C03' ? eligible.reduce((a, b) => a.maxHp >= b.maxHp ? a : b) : target;
         ally.facing = aim.x < this.center(w.id) ? -1 : 1;
       }
-      if(equippedForm(run,w.id).theme==='summer'||!STARTER_IDS.includes(w.id)){
-        const recoil=Math.max(0,1-(this.clock-ally.firedAt)/120);ally.image.setY(510+recoil*2-Math.sin(this.clock/400)*.6).setAngle(ally.facing*recoil*3);ally.frame=frame;
-      }else if (frame !== ally.frame) { ally.frame = frame; ally.image.setFrame(frame); }
+      if (frame !== ally.frame) { ally.frame = frame; ally.image.setFrame(frame); }
       ally.frames.add(frame); ally.image.setFlipX(ally.facing < 0);
     }
     const ids = new Set(run.enemies.map(e => e.id));
@@ -115,7 +115,7 @@ export class CombatActors {
       const age = this.clock - creature.hitAt, hurt = age < 180;
       const kick = hurt ? Math.sin(Math.min(1, age / 180) * Math.PI) * creature.hitPower : 0;
       const size = enemySize(enemy.defId);
-      creature.image.setDisplaySize(size * (1 + kick * .09), size * (1 - kick * .06));
+      creature.image.setDisplaySize(size * (1 + kick * .09), size * (1 - kick * .06)*this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY);
       creature.image.setPosition(enemy.x + (hurt ? Math.sin(age / 16) * (1 - age / 180) * (enemy.defId.startsWith('B') ? 1.5 : 3) : 0), enemy.y - kick * (enemy.defId.startsWith('B') ? 2 : 6));
       if (hurt && age < 65) creature.image.setTintFill(0xe9fff3);
       else if (enemy.effects.some(e => e.kind === 'stun' && e.expires > run.tick)) creature.image.setTint(0x7cffff);
@@ -125,7 +125,7 @@ export class CombatActors {
     this.corpses = this.corpses.filter(c => {
       const t = (this.clock - c.born) / c.duration;
       if (t >= 1) { c.image.destroy(); return false; }
-      c.image.setDisplaySize(c.size * (1 + t * .12), c.size * (1 - t * .65)).setPosition(c.x + (c.id % 2 ? -1 : 1) * t * 5, c.y + t * 12).setAngle((c.id % 2 ? -1 : 1) * t * (c.boss ? 5 : 18)).setAlpha(1 - t);
+      c.image.setDisplaySize(c.size * (1 + t * .12), c.size * (1 - t * .65)*this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY).setPosition(c.x + (c.id % 2 ? -1 : 1) * t * 5, c.y + t * 12).setAngle((c.id % 2 ? -1 : 1) * t * (c.boss ? 5 : 18)).setAlpha(1 - t);
       if (t < .12) c.image.setTintFill(0xffeac9); else c.image.setTint(0x809d9f);
       return true;
     });
@@ -133,7 +133,7 @@ export class CombatActors {
   }
   diagnostics() {
     return {
-      clock: this.clock, poses: Object.fromEntries([...this.allies].map(([id, a]) => [id, { frame: a.frame, seen: [...a.frames].sort(), texture: a.image.texture.key }])),
+      clock: this.clock, poses: Object.fromEntries([...this.allies].map(([id, a]) => [id, { frame: a.frame, renderedFrame: Number(a.image.frame.name), seen: [...a.frames].sort(), texture: a.image.texture.key, action: ALLY_ATTACKS[id].action, origin: { x: a.image.originX, y: a.image.originY }, width: a.image.displayWidth }])),
       forms: [...this.forms], skills: [...this.skills], hitTypes: [...this.hits], deathTypes: [...this.deaths],
       activeCorpses: this.corpses.length, corpseIds: this.corpses.map(c => c.id),
       hurtIds: [...this.creatures].filter(([, c]) => this.clock - c.hitAt < 180).map(([id]) => id),

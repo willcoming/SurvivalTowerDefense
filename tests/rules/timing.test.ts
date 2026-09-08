@@ -33,7 +33,7 @@ describe('AC02/AC11 · valid squads and one legal tactical', () => {
   });
   it('C01 tactical deals its four bursts exactly at cast tick, +6, +12 and +18', () => {
     const state = base('C01'); state.enemies = []; state.weapons = []; state.spawnPlan = []; state.spawnCursor = 0;state.tacticalReadyAt=0;
-    const target = createEnemy(state, 'E01', 195, 150); target.speed = 0;
+    const target = createEnemy(state, 'E01', 195, 150); target.speed = 0; target.hp = target.maxHp = 140; // Isolate four 35-damage bursts from stage health tuning.
     expect(command(state, { type: 'cast' })).toBe(true);
     expect(target.hp).toBe(105);
     expect(state.scheduled.map(shot => shot.at)).toEqual([6, 12, 18]);
@@ -80,9 +80,12 @@ describe('TIME04/DRAFT14 · exact spawn distribution and XP budget', () => {
         const entries = state.spawnPlan.filter(p => p.wave === wave);
         expect(entries.reduce((n, p) => n + p.xp, 0)).toBe(90);
         const at = (wave - 1) * 1350;
-        const groups = Array.from({ length: 8 }, (_, i) => entries.filter(p => p.at === at + i * 150).length);
+        const rewarded = entries.filter(p => p.xp > 0);
+        const reinforcements = entries.filter(p => p.xp === 0);
+        expect(reinforcements.every(p => p.defId === 'E01' && wave >= 7 && p.at === at + 750)).toBe(true);
+        const groups = Array.from({ length: 8 }, (_, i) => rewarded.filter(p => p.at === at + i * 150).length);
         expect(Math.max(...groups) - Math.min(...groups)).toBeLessThanOrEqual(1);
-        expect(groups.reduce((a, b) => a + b, 0)).toBe(entries.length);
+        expect(groups.reduce((a, b) => a + b, 0)).toBe(rewarded.length);
         expect(entries.filter(p => p.defId === 'E07' || p.defId === 'E08').every(p => p.at === at + 600)).toBe(true);
       }
       expect(state.spawnPlan.reduce((n, p) => n + p.xp, 0)).toBe(720);

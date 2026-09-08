@@ -1,0 +1,38 @@
+{
+  "tool": "imagegen built-in",
+  "assets": [
+    {
+      "id": "shion",
+      "filename": "shion-v1.webp",
+      "source": "artifacts/portrait-background-sources/shion-v1.png",
+      "generatedSource": "/Users/willcoming/.codex/generated_images/01a0708e-237b-70e1-83f7-01892de45979/exec-76896444-6b1a-4374-82e0-db7ecb8500b4.png",
+      "prompt": "Use case: stylized-concept. Generate a NEW 2:3 vertical, 1024x1536, full-bleed background-only illustration for a premium anime science-fiction character collection card. Reference images 1 and 2 show the game's original character-card illustration STYLE, visual richness, environment perspective and dramatic lighting ONLY. Do not reproduce their people, guns or circular accessories. No characters, silhouettes, faces, text, logos, UI panels or frames. The actual existing full-body character will be layered on top afterward, filling the central 70% width and 92% height, so keep central space legible with gentle darker midtones and place detailed scenery and light accents at both sides. Eye-level portrait camera, normal human scale, horizon near 45% image height, small foreground floor near bottom 15%, layered midground and distant architecture. NOT a top-down battlefield, NOT a long empty road down the middle, NOT abstract geometric gradients. Hand-painted anime background with crisp cel-style structural detail, rich depth and atmospheric blue light as in original references. Shion's coastal engineering outpost at blue hour. Futuristic harbor architecture with cyan-lit resonator equipment on the right, compact industrial crane and hanging cables framing the upper left edge, distant ocean city towers and a low sea wall behind the portrait position, luminous wave reflections and subtle amber port signal lights. Grounded contemporary sci-fi coastal workshop mood, deep navy and teal with tiny warm accents. Human-height standing deck with small reflective wet floor at bottom. Visually detailed and cinematic, not an aerial view.",
+      "reference": [
+        "public/assets/characters/C01-portrait.webp",
+        "public/assets/characters/C02-portrait.webp"
+      ]
+    },
+    {
+      "id": "chika",
+      "filename": "chika-v1.webp",
+      "source": "artifacts/portrait-background-sources/chika-v1.png",
+      "generatedSource": "/Users/willcoming/.codex/generated_images/01a0708e-237b-70e1-83f7-01892de45979/exec-e9b4f05e-2e36-4d94-8c40-820d4f5c9fb0.png",
+      "prompt": "Use case: stylized-concept. Generate a NEW 2:3 vertical, 1024x1536, full-bleed background-only illustration for a premium anime science-fiction character collection card. Reference images 1 and 2 show the game's original character-card illustration STYLE, visual richness, environment perspective and dramatic lighting ONLY. Do not reproduce their people, guns or circular accessories. No characters, silhouettes, faces, text, logos, UI panels or frames. The actual existing full-body character will be layered on top afterward, filling the central 70% width and 92% height, so keep central space legible with gentle darker midtones and place detailed scenery and light accents at both sides. Eye-level portrait camera, normal human scale, horizon near 45% image height, small foreground floor near bottom 15%, layered midground and distant architecture. NOT a top-down battlefield, NOT a long empty road down the middle, NOT abstract geometric gradients. Hand-painted anime background with crisp cel-style structural detail, rich depth and atmospheric blue light as in original references. Chika's resonance weapons hangar at night. Dark futuristic maintenance bay opening toward a dense luminous city, paired glowing amber coolant pipes along the far sides, mechanical racks and vent structures with cool cyan monitor light, a warm diagonal shaft of light and a few suspended sparks. Rich metallic depth, dark blue base with amber highlights. No weapons or floating guns in foreground: the character will carry her own rotary cannon. Small reflective steel floor at bottom. The detailed architecture frames a full-body standing character naturally at eye-level.",
+      "reference": [
+        "public/assets/characters/C01-portrait.webp",
+        "public/assets/characters/C02-portrait.webp"
+      ]
+    },
+    {
+      "id": "summer",
+      "filename": "summer-v1.webp",
+      "source": "artifacts/portrait-background-sources/summer-v1.png",
+      "generatedSource": "/Users/willcoming/.codex/generated_images/01a0708e-237b-70e1-83f7-01892de45979/exec-6e97378f-ffc0-49e8-90cf-13847bcadd96.png",
+      "prompt": "Use case: stylized-concept. Generate a NEW 2:3 vertical, 1024x1536, full-bleed background-only illustration for a premium anime science-fiction character collection card. Reference images 1 and 2 show the game's original character-card illustration STYLE, visual richness, environment perspective and dramatic lighting ONLY. Do not reproduce their people, guns or circular accessories. No characters, silhouettes, faces, text, logos, UI panels or frames. The actual existing full-body character will be layered on top afterward, filling the central 70% width and 92% height, so keep central space legible with gentle darker midtones and place detailed scenery and light accents at both sides. Eye-level portrait camera, normal human scale, horizon near 45% image height, small foreground floor near bottom 15%, layered midground and distant architecture. NOT a top-down battlefield, NOT a long empty road down the middle, NOT abstract geometric gradients. Hand-painted anime background with crisp cel-style structural detail, rich depth and atmospheric blue light as in original references. Summer collection's futuristic waterfront terrace at dusk, still the SAME serious anime sci-fi world as the references. A glowing coastal city skyline across dark turquoise water, distant slender illuminated towers, warm sunset fading into deep navy overhead, cyan-lit low glass rail along back of a human-scale terrace, a palm frond and soft string lights confined to the upper outer corners, subtle warm light reflections on foreground deck. Rich detailed city-and-coast atmosphere with adult character-portrait staging. Avoid a generic resort photo or beach battlefield; stay painted anime concept art, moody and sophisticated with crisp architecture.",
+      "reference": [
+        "public/assets/characters/C01-portrait.webp",
+        "public/assets/characters/C02-portrait.webp"
+      ]
+    }
+  ]
+}

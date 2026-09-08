@@ -12,7 +12,7 @@ export class BossEntrance {
   private caption: Phaser.GameObjects.Text;
   private footer: Phaser.GameObjects.Text;
   private container: Phaser.GameObjects.Container;
-  constructor(scene: Phaser.Scene, initialTexture: string) {
+  constructor(private scene: Phaser.Scene, initialTexture: string) {
     this.graphics = scene.add.graphics();
     this.image = scene.add.image(195, 150, initialTexture, 0);
     this.caption = scene.add.text(195, 85, 'WARNING / 大型外星反應', { fontFamily: 'sans-serif', fontSize: '17px', fontStyle: 'bold', color: '#ffb48a', stroke: '#132530', strokeThickness: 4 }).setOrigin(.5);
@@ -24,6 +24,8 @@ export class BossEntrance {
     const intro = run.bossIntro, enemy = run.enemies.find(e => e.id === intro?.enemyId);
     this.container.setVisible(!!intro && !!enemy); if (!intro || !enemy) return;
     const t = 1 - intro.remainingMs / BOSS_INTRO_MS, compact = detail === 'compact';
+    const aspect=this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY;
+    for(const text of [this.caption,this.title,this.footer])text.setScale(1,aspect);
     const reveal = Math.min(1, Math.max(0, (t - .18) / .35)), fade = Math.min(1, (1 - t) / .15);
     const color = enemy.defId === 'B01' ? 0xc6ee9a : enemy.defId === 'B02' ? 0x76e9ff : 0xff9068;
     const g = this.graphics; g.clear().fillStyle(0x031b25, .58 * fade).fillRect(0, 0, 390, 520);
@@ -41,7 +43,7 @@ export class BossEntrance {
       burst(g, 195, 169, radius * 1.2, color, fade, compact ? 6 : 12, t);
       polygon(g, 195, 169, radius * .8, 4, 0xffdeb7, fade, t * .8, 3);
     }
-    this.image.setTexture(enemyTexture(enemy.defId), t > .7 ? 10 : 0).setDisplaySize(106 + (1 - reveal) * 68, 106 + (1 - reveal) * 68).setPosition(enemy.x, enemy.y - (1 - reveal) * (compact ? 0 : 28)).setAlpha(reveal);
+    this.image.setTexture(enemyTexture(enemy.defId), t > .7 ? 10 : 0).setDisplaySize(106 + (1 - reveal) * 68, (106 + (1 - reveal) * 68)*aspect).setPosition(enemy.x, enemy.y - (1 - reveal) * (compact ? 0 : 28)).setAlpha(reveal);
     this.title.setText(ENEMY_MAP[enemy.defId].name).setAlpha(Math.min(1, t * 5) * fade);
     this.caption.setAlpha(fade); this.footer.setAlpha(fade);
   }

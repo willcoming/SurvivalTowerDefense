@@ -124,6 +124,25 @@ export function drawEffect(g: Graphics, fx: ActiveEffect, now: number, detail: D
   const from = e.y === 490 ? {...baseOrigin,x:baseOrigin.x+(e.source==='C06'?e.x-195:0)} : { x: e.x, y: e.y }, to = { x: e.x2 ?? e.x, y: e.y2 ?? e.y };
   if (e.kind === 'shot') {
     const p = origin(e.source, e.x2);
+    if (e.skill === 'mine-deploy') {
+      // A launched mine travels from its owner's hands to the real deployment point.
+      const progress = Math.min(1, t / .8);
+      const x = p.x + (to.x - p.x) * progress;
+      const y = p.y + (to.y - p.y) * progress - Math.sin(progress * Math.PI) * 36;
+      polygon(g, x, y, 6, 6, c, a, progress * Math.PI, 2);
+      glow(g, x, y, 4, c, a);
+      if (progress === 1) g.lineStyle(2, c, a).strokeEllipse(to.x, to.y, 18 + t * 12, 10 + t * 6);
+      return;
+    }
+    if (e.source === 'C08') {
+      // Rotating barrel ports and short tracer bursts distinguish the rotary cannon.
+      const angle = e.seq * 1.7 + t * 8;
+      for (let i = 0; i < 6; i++) {
+        const phase = angle + i * TAU / 6;
+        g.fillStyle(i % 2 ? c : 0xffefbf, a).fillCircle(p.x + Math.cos(phase) * 5, p.y + Math.sin(phase) * 3, 1.5);
+      }
+      if (!compact) line(g, [{ x: p.x - 6, y: p.y + 5 }, { x: p.x - 12 - t * 10, y: p.y + 8 + t * 10 }], 0xffd093, 2, a);
+    }
     muzzle(g, p, to, e.damageType?c:e.source === 'C05' ? 0xffaa4a : 0x70f6ff, a, e.source === 'C05'); burst(g, p.x, p.y, (e.source === 'C05' ? 20 : 13) * (1 + t * .3), e.damageType?c:e.source === 'C01' ? 0x9bffff : c, a, compact ? 4 : 7);
     if(e.weaponTree==='C01-C')reticle(g,to.x,to.y,14+t*7,c,a);
     if (evolved && e.source === 'C01' && branch === 'A' && e.weaponTree!=='C01-C') for (let i = -1; i <= 1; i++) line(g, [p, { x: p.x + i * 12, y: p.y - 20 }], 0xb0ffff, 1.5, a);

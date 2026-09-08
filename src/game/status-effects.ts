@@ -2,6 +2,7 @@ import type Phaser from 'phaser';
 import { ELEMENTS, usesCollection } from '../data/forms';
 import type { Effect, RunState, VisualEvent } from '../sim/types';
 import type { Detail } from './presentation';
+import { priorityEnemy } from './presentation';
 import { enemySize } from './actors';
 
 type Status = Effect['kind'];
@@ -52,6 +53,10 @@ export class StatusEffects {
     for (const enemy of run.enemies) {
       const active = new Set(enemy.effects.filter(f => f.expires > run.tick).map(f => f.kind));
       if (enemy.exposureUntil > run.tick) active.add('exposure');
+      if (run.enemies.length>=24 && !priorityEnemy(enemy)) {
+        // Body tint still communicates burning; reserve large overlays for urgent control cues.
+        active.delete('burn'); active.delete('slow');
+      }
       if (enemy.hp <= 0 || run.bossIntro?.enemyId === enemy.id) active.clear();
       let sprites = this.sprites.get(enemy.id);
       if (!sprites && active.size) { sprites = new Map(); this.sprites.set(enemy.id, sprites); }
@@ -71,7 +76,7 @@ export class StatusEffects {
       }
       if (active.size) this.visible.push({ id: enemy.id, states: [...active] });
     }
-    const limit = detail === 'compact' ? 6 : 12;
+    const limit = run.enemies.length>=24 ? 4 : detail === 'compact' ? 6 : 12;
     for (const event of fresh) if (event.kind === 'hit' && event.skill === 'burn' && (event.value ?? 0) > 0) {
       const key = `${event.damageType??'thermal'}:`+(detail === 'compact' ? `${Math.floor(event.x / 65)}:${Math.floor(event.y / 50)}` : String(event.targetId));
       let label = this.labels.slice(0, limit).find(l => l.key === key && now - l.born < 700);
@@ -79,7 +84,7 @@ export class StatusEffects {
       label.value += event.value!;label.prefix=event.damageType?ELEMENTS[event.damageType].dot:'燃';label.color=event.damageType?ELEMENTS[event.damageType].color:'#ffcf78';
     }
     // Upload each merged label at most once per frame, rather than once per damage event.
-    this.labels.forEach((label, i) => { const t = (now - label.born) / 700, visible = i < limit && t >= 0 && t < 1; label.text.setVisible(visible); if (visible) label.text.setText(`${label.prefix} ${Number(label.value.toFixed(1))}`).setColor(label.color).setPosition(label.x, label.y - t * 20).setAlpha(t < .6 ? 1 : (1 - t) / .4); });
+    this.labels.forEach((label, i) => { const t = (now - label.born) / 700, visible = i < limit && t >= 0 && t < 1; label.text.setScale(1,this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY).setVisible(visible); if (visible) label.text.setText(`${label.prefix} ${Number(label.value.toFixed(1))}`).setColor(label.color).setPosition(label.x, label.y - t * 20).setAlpha(t < .6 ? 1 : (1 - t) / .4); });
   }
   diagnostics() { return { statuses: this.visible, burnNumbers: this.labels.filter(l => l.text.visible).map(l => ({ value: l.value, text: l.text.text, born: l.born })) }; }
 }

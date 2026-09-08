@@ -1,32 +1,32 @@
 {
   "contentVersion": "0.4.0-dev.1",
-  "measuredAt": "2026-09-05T06:42:35.276Z",
-  "requiredAssets": 75,
-  "manifestAssets": 76,
+  "measuredAt": "2026-09-08T04:35:47.731Z",
+  "requiredAssets": 85,
+  "manifestAssets": 86,
   "missing": [],
   "invalidManifest": [],
-  "runtimeBytes": 8574487,
+  "runtimeBytes": 11958484,
   "bundles": [
     {
-      "path": "dist/assets/index-B1Q7fJrr.css",
-      "rawBytes": 63947,
-      "gzipBytes": 13353
+      "path": "dist/assets/index-BAs8Nxtk.css",
+      "rawBytes": 132365,
+      "gzipBytes": 26084
     },
     {
-      "path": "dist/assets/index-DwP_6aBk.js",
-      "rawBytes": 1449463,
-      "gzipBytes": 403071
+      "path": "dist/assets/index-Bxq2klf5.js",
+      "rawBytes": 1486261,
+      "gzipBytes": 414299
     },
     {
       "path": "dist/index.html",
-      "rawBytes": 626,
-      "gzipBytes": 465
+      "rawBytes": 710,
+      "gzipBytes": 509
     }
   ],
-  "conservativeHomeTransferBytes": 1291475,
-  "conservativeFirstBattleBytes": 5068409,
-  "conservativeDecodedBytesIncludingKeyedCopies": 126953920,
-  "notes": "Static upper bounds: home includes all six starter portraits (new form portraits are loaded on demand); first battle conservatively includes ALL ally/enemy motion, ALL new forms, six starter portraits and the largest stage. Legacy static weapon/enemy/evolution art and other stages are not requested by BattleScene. WebP is counted as stored; code uses measured gzip. Decoded estimate includes every manifest texture plus extra keyed combat copies and the390×520 world RenderTexture, but excludes browser/GPU allocation overhead. Network timing measured separately in production smoke.",
+  "conservativeHomeTransferBytes": 1315478,
+  "conservativeFirstBattleBytes": 3972458,
+  "conservativeDecodedBytesIncludingKeyedCopies": 121711040,
+  "notes": "Static upper bounds: home includes six starter portraits. Battle includes the five largest per-owner motion sheets (maximum squad size), all enemy motion, the largest captain portrait and stage. Each form has its own sheet loaded on demand. Legacy static weapon/enemy/evolution art and other stages are not requested by BattleScene. WebP uses stored bytes; code uses measured gzip. Decoded bound includes every manifest texture plus the largest keyed captain copy and world RenderTexture; it excludes browser/GPU overhead. Network timing measured separately.",
   "passed": true,
   "sha256": [
     {
@@ -34,24 +34,64 @@
       "hash": "6d9f4304a18f7d9a17cfd1ed9127276e34554d5e51bfb0c95e8689654d5eaff5"
     },
     {
+      "path": "public/assets/animations/C01-summer-motion-v1.webp",
+      "hash": "613f36699357a2433ee30c8e39a40d99dfd8175159fbcb1745fed2e056db7528"
+    },
+    {
       "path": "public/assets/animations/C02-motion.webp",
       "hash": "c742e7cb46caf9f5de962f6128228c61e0d371993384d11c70840c4a2372c3ff"
+    },
+    {
+      "path": "public/assets/animations/C02-summer-motion-v1.webp",
+      "hash": "f91ef2d83ddb7575e1b4f3dd67d18eaf49cb8f55c6d81f07432545b7b6c378df"
     },
     {
       "path": "public/assets/animations/C03-motion.webp",
       "hash": "5df460c865e3d4e79eb428406955592c4ec6e4f0a738fb00b6481718f205fd2d"
     },
     {
+      "path": "public/assets/animations/C03-summer-motion-v1.webp",
+      "hash": "1d8e5e91cdc4065b68a813e575ea71ad17381cb4ca5ecda27515a534b79d91a9"
+    },
+    {
       "path": "public/assets/animations/C04-motion.webp",
       "hash": "5c99712378bea2ea80ddb6c14915c0153718bc275c6290e03b7f59a754a89007"
+    },
+    {
+      "path": "public/assets/animations/C04-summer-motion-v1.webp",
+      "hash": "f7852e8db6accb8ea0dc1347b76414c62a2b34721be1453cdafd91e88bb0d766"
     },
     {
       "path": "public/assets/animations/C05-motion.webp",
       "hash": "bbb87c3c5d5ae82ec303709cc9e2a59a6dc7434c7023c3ebd771af15d93cb8c1"
     },
     {
+      "path": "public/assets/animations/C05-summer-motion-v1.webp",
+      "hash": "ff8b1ded3bfd4ce941764dc54b67eedc685763300398f7097eccd3a390361246"
+    },
+    {
       "path": "public/assets/animations/C06-motion.webp",
       "hash": "2779c53d5e502589d7aa83a9eb3c00b02d7f6f9c306b9387e09edd5185fafea9"
+    },
+    {
+      "path": "public/assets/animations/C06-summer-motion-v1.webp",
+      "hash": "94601f49360e0365929c6e8fb247bd47d2e057d7018dd1569d94049d036651e0"
+    },
+    {
+      "path": "public/assets/animations/C07-original-motion-v1.webp",
+      "hash": "9c541820b454b9ecde304c4b20cd650753673f43346b85180277479a3c56d14b"
+    },
+    {
+      "path": "public/assets/animations/C07-summer-motion-v1.webp",
+      "hash": "e2f331e2f19383ee6c223fbe4f59c89af849bee621a9bfd9cf223e3ded0997cc"
+    },
+    {
+      "path": "public/assets/animations/C08-original-motion-v1.webp",
+      "hash": "0a0b2aaa90d112f4b761a3fc9dcaf462cb6071793ad188331132e48762ddc739"
+    },
+    {
+      "path": "public/assets/animations/C08-summer-motion-v1.webp",
+      "hash": "4af9fbf6bae11933078d2c9443b2d94b4cca78b14bad85ddce45be9127809621"
     },
     {
       "path": "public/assets/campaign/coast.webp",
@@ -286,16 +326,56 @@
       "hash": "f2343d4c0488d4bf7f5704356cca0d28f377c5d1ec66257f5322a47b96f5109a"
     },
     {
+      "path": "public/assets/forms/C07-original-stage-v2.webp",
+      "hash": "6243f0170c9041bf899fa4757bf4208e1a8ebfb824e3c562df91fc57815ac6c2"
+    },
+    {
+      "path": "public/assets/forms/C07-original-stage-v3.webp",
+      "hash": "ffcee71bfe73f132e1d5b7a627d2e9dcbd8960a464a87c6a4b7fb588f63c7a30"
+    },
+    {
       "path": "public/assets/forms/C07-original.webp",
       "hash": "799ab5d62e62e16991372832979d2d6c59d53931799a80194a227c1976425b49"
+    },
+    {
+      "path": "public/assets/forms/C07-summer-pose-v4.webp",
+      "hash": "3cdd78fafd9db3010ec41688c9cf78c05674bc68a4552342936394017b99c5fe"
+    },
+    {
+      "path": "public/assets/forms/C07-summer-stage-v2.webp",
+      "hash": "ab97c86d85746188484cdeffbfe9dc1dc842a1233cafff990e63920bac37e2b1"
+    },
+    {
+      "path": "public/assets/forms/C07-summer-stage-v3.webp",
+      "hash": "faea72f4f543d2e51f84142986577066a591fe08f040b28751a7b90e0ddb915b"
     },
     {
       "path": "public/assets/forms/C07-summer.webp",
       "hash": "1505912e477c529d1f86d8b0498b5bf1d271a5a79117be20ff147f6d904b894a"
     },
     {
+      "path": "public/assets/forms/C08-original-stage-v2.webp",
+      "hash": "61d686604ae3cf39016d94d9ed5c700a9e40ded757cddcb72f6792dd0e529ed8"
+    },
+    {
+      "path": "public/assets/forms/C08-original-stage-v3.webp",
+      "hash": "0e94c1b63895586d36946aaf625b39cc930f66b667d93108af75186e03958d4c"
+    },
+    {
       "path": "public/assets/forms/C08-original.webp",
       "hash": "4db63c81cbedc2b3b90bd528e1880abbf14c98503821d614a96216df6138a450"
+    },
+    {
+      "path": "public/assets/forms/C08-summer-pose-v4.webp",
+      "hash": "ad3a3e64fbac8d885b3d1a8aaacc8d9ea707b8fecd06ba84a6843593dae9fd68"
+    },
+    {
+      "path": "public/assets/forms/C08-summer-stage-v2.webp",
+      "hash": "fbeaddcfed2be66e613accb55f50330d49398f556f10626fa7c47d66368a0efb"
+    },
+    {
+      "path": "public/assets/forms/C08-summer-stage-v3.webp",
+      "hash": "df862ca9193a7be7cd548bc57dc88a8869e74953793c78a53d00b16b70baa122"
     },
     {
       "path": "public/assets/forms/C08-summer.webp",
@@ -303,7 +383,7 @@
     },
     {
       "path": "public/assets/manifest.json",
-      "hash": "6b6a5f87bcc8dcecdf08fce447b0932fea9edff040fecd200103a6ca1c44335d"
+      "hash": "3e27d589cbb043f64b8308b4fdfce94992d6b9fd5983e66efcdaaae94b56a4cf"
     },
     {
       "path": "public/assets/stages/S01.webp",

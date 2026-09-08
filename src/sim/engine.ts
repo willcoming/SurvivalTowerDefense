@@ -7,7 +7,7 @@ import { validateTreeState } from './skill-tree';
 import { CHARACTER_IDS, CHARACTER_MAP, ENEMY_MAP, CONTENT_VERSION, BOSS_INTRO_MS, supportedContent, SCHEMA_VERSION, STAGE_MAP, ticks } from '../data/content';
 import { alive, applyEffect, area, boss, createEnemy, distance, emit, hitEnemy, hitWall, stepEffects } from './combat';
 import { getLegalNodeIds, getReadyEvolutions, openDraft, rebuildDraft, rerollDraft } from './draft';
-import { stepEnemies } from './enemies';
+import { spawnBossEscort, stepEnemies } from './enemies';
 import { seedValue } from './rng';
 import { makeSpawnPlan } from './spawn';
 import { usesRangeRules } from './range';
@@ -44,6 +44,21 @@ export function command(s:RunState,cmd:Command):boolean{
     applyUpgrade(s,cmd.nodeId);s.stats.choices.push({tick:s.tick,nodeId:cmd.nodeId});s.choicesSpent++;
     if(s.choicesSpent===s.draft.pointTarget){s.draft=null;s.pauseReasons=s.pauseReasons.filter(r=>r!=='upgrade'&&r!=='tree');openDraft(s);}
     if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!alive(s).length&&s.choicesSpent>=s.choicesEarned)s.outcome='victory';accepted=true;
+  }
+  if(cmd.type==='confirm-node'&&usesFreeSkills(s)&&s.draft?.id===cmd.offerId&&s.pauseReasons.includes('upgrade')&&!s.pauseReasons.some(r=>['error','hidden','orientation','tutorial'].includes(r))){
+    const target=s.draft.pointTarget??s.choicesSpent;
+    const ids=cmd.nodeIds;
+    const pending=s.draft.pendingNodeIds??[];
+    const remaining=target-s.choicesSpent;
+    if(remaining>0&&ids.length===remaining&&new Set(ids).size===ids.length&&(pending.length===0||pending.length===remaining)&&(!pending.length||pending.every((id,i)=>id===ids[i]))){
+      const shadow={...s,treeNodes:[...(s.treeNodes??[])]};
+      const legal=ids.every(id=>getLegalNodeIds(shadow).includes(id)&&((shadow.treeNodes??[]).push(id),true));
+      if(legal){
+        for(const id of ids){applyUpgrade(s,id);s.stats.choices.push({tick:s.tick,nodeId:id});s.choicesSpent++;}
+        s.draft=null;s.pauseReasons=s.pauseReasons.filter(r=>r!=='upgrade'&&r!=='tree');openDraft(s);
+        if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!alive(s).length&&s.choicesSpent>=s.choicesEarned)s.outcome='victory';accepted=true;
+      }
+    }
   }
   if(cmd.type==='reroll'&&s.draft?.id===cmd.offerId)accepted=rerollDraft(s);
   if(cmd.type==='custom-node'&&usesSkillTrees(s)&&!usesFreeSkills(s)&&s.draft&&getLegalNodeIds(s).includes(cmd.nodeId)){s.draft.customNodeId=cmd.nodeId;if(NODE_MAP[cmd.nodeId])s.draft.focusId=NODE_MAP[cmd.nodeId].ownerId;rebuildDraft(s);accepted=true;}
@@ -102,7 +117,7 @@ export function stepRun(s:RunState,count=1):void{
     }s.scheduled=s.scheduled.filter(h=>h.at>s.tick);
     if(usesFreeSkills(s))stepSupport(s);
     stepEnemies(s);s.enemies=s.enemies.filter(e=>e.hp>0);
-    if(usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(360)&&s.wallHp>0){s.bossSpawned=true;const entering=createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,9);s.bossIntro={enemyId:entering.id,remainingMs:BOSS_INTRO_MS};s.pauseReasons.push('boss-intro');}
+    if(usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(360)&&s.wallHp>0){s.bossSpawned=true;const entering=createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,9);if(usesCollection(s))spawnBossEscort(s,entering);s.bossIntro={enemyId:entering.id,remainingMs:BOSS_INTRO_MS};s.pauseReasons.push('boss-intro');}
     if(s.wallHp<=0)s.outcome='wall';
     else if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!s.enemies.length&&(!usesFreeSkills(s)||s.choicesSpent>=s.choicesEarned))s.outcome='victory';
     else if(s.tick>=ticks(480))s.outcome='timeout';

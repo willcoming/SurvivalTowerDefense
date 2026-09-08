@@ -5,6 +5,11 @@ import './ui/mobile-secondary.css';
 import './ui/mobile-combat.css';
 import './ui/mobile-game.css';
 import './ui/mobile-notice.css';
+import './ui/roster.css';
+import './ui/tactical-tree.css';
+import './ui/battle-focus.css';
+import './ui/portrait.css';
+import './ui/squad-lobby.css';
 import { GameApp } from './ui/app';
 
 const root = document.getElementById('app');

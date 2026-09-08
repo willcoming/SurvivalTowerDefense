@@ -1,0 +1,736 @@
+{
+  "passed": true,
+  "forms": [
+    {
+      "id": "C01-original",
+      "path": "public/assets/animations/C01-motion.webp",
+      "bytes": 235438,
+      "action": "carbine",
+      "bounds": [
+        {
+          "pixels": 13965,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 29
+        },
+        {
+          "pixels": 14326,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 17
+        },
+        {
+          "pixels": 15333,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 15
+        },
+        {
+          "pixels": 14887,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 26
+        },
+        {
+          "pixels": 15840,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 18
+        },
+        {
+          "pixels": 13591,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 21
+        }
+      ]
+    },
+    {
+      "id": "C01-summer",
+      "path": "public/assets/animations/C01-summer-motion-v1.webp",
+      "bytes": 277838,
+      "action": "carbine",
+      "bounds": [
+        {
+          "pixels": 16826,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18085,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18708,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18768,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19349,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16003,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C02-original",
+      "path": "public/assets/animations/C02-motion.webp",
+      "bytes": 291084,
+      "action": "arc-emitter",
+      "bounds": [
+        {
+          "pixels": 16171,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 26
+        },
+        {
+          "pixels": 15938,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 25
+        },
+        {
+          "pixels": 17454,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 36
+        },
+        {
+          "pixels": 15877,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 44
+        },
+        {
+          "pixels": 20383,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 44
+        },
+        {
+          "pixels": 15251,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 23
+        }
+      ]
+    },
+    {
+      "id": "C02-summer",
+      "path": "public/assets/animations/C02-summer-motion-v1.webp",
+      "bytes": 298548,
+      "action": "arc-emitter",
+      "bounds": [
+        {
+          "pixels": 17965,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18070,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18530,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18631,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18989,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17710,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C03-original",
+      "path": "public/assets/animations/C03-motion.webp",
+      "bytes": 213130,
+      "action": "sniper",
+      "bounds": [
+        {
+          "pixels": 13072,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 5
+        },
+        {
+          "pixels": 13599,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 9
+        },
+        {
+          "pixels": 13192,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 5
+        },
+        {
+          "pixels": 13294,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 12
+        },
+        {
+          "pixels": 13074,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 12
+        },
+        {
+          "pixels": 12792,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 7
+        }
+      ]
+    },
+    {
+      "id": "C03-summer",
+      "path": "public/assets/animations/C03-summer-motion-v1.webp",
+      "bytes": 302352,
+      "action": "sniper",
+      "bounds": [
+        {
+          "pixels": 22689,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22935,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22328,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22679,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22644,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21540,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C04-original",
+      "path": "public/assets/animations/C04-motion.webp",
+      "bytes": 297656,
+      "action": "gravity-projector",
+      "bounds": [
+        {
+          "pixels": 16323,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 42
+        },
+        {
+          "pixels": 17169,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 31
+        },
+        {
+          "pixels": 17815,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 40
+        },
+        {
+          "pixels": 16153,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 63
+        },
+        {
+          "pixels": 16393,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 46
+        },
+        {
+          "pixels": 15182,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 34
+        }
+      ]
+    },
+    {
+      "id": "C04-summer",
+      "path": "public/assets/animations/C04-summer-motion-v1.webp",
+      "bytes": 364782,
+      "action": "gravity-projector",
+      "bounds": [
+        {
+          "pixels": 21977,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 24107,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21422,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22504,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21400,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20991,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C05-original",
+      "path": "public/assets/animations/C05-motion.webp",
+      "bytes": 270618,
+      "action": "mortar",
+      "bounds": [
+        {
+          "pixels": 14826,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 11
+        },
+        {
+          "pixels": 16681,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 10
+        },
+        {
+          "pixels": 16244,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 15
+        },
+        {
+          "pixels": 15640,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 57
+        },
+        {
+          "pixels": 16961,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 25
+        },
+        {
+          "pixels": 14284,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 7
+        }
+      ]
+    },
+    {
+      "id": "C05-summer",
+      "path": "public/assets/animations/C05-summer-motion-v1.webp",
+      "bytes": 268958,
+      "action": "mortar",
+      "bounds": [
+        {
+          "pixels": 17039,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16635,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17284,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16269,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15951,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16542,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C06-original",
+      "path": "public/assets/animations/C06-motion.webp",
+      "bytes": 257116,
+      "action": "drone-command",
+      "bounds": [
+        {
+          "pixels": 15041,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 8
+        },
+        {
+          "pixels": 14706,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 8
+        },
+        {
+          "pixels": 14775,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 7
+        },
+        {
+          "pixels": 14597,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 22
+        },
+        {
+          "pixels": 14194,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 8
+        },
+        {
+          "pixels": 13644,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 8
+        }
+      ]
+    },
+    {
+      "id": "C06-summer",
+      "path": "public/assets/animations/C06-summer-motion-v1.webp",
+      "bytes": 333706,
+      "action": "drone-command",
+      "bounds": [
+        {
+          "pixels": 21029,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22180,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21030,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20551,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20230,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19672,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C07-original",
+      "path": "public/assets/animations/C07-original-motion-v1.webp",
+      "bytes": 274548,
+      "action": "mine-launcher",
+      "bounds": [
+        {
+          "pixels": 19822,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21474,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20456,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20925,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18293,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18917,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C07-summer",
+      "path": "public/assets/animations/C07-summer-motion-v1.webp",
+      "bytes": 322298,
+      "action": "mine-launcher",
+      "bounds": [
+        {
+          "pixels": 23446,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 24194,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 23716,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22975,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 23371,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22774,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C08-original",
+      "path": "public/assets/animations/C08-original-motion-v1.webp",
+      "bytes": 223196,
+      "action": "rotary-cannon",
+      "bounds": [
+        {
+          "pixels": 14496,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 14813,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 14781,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 14965,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 13883,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 14484,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C08-summer",
+      "path": "public/assets/animations/C08-summer-motion-v1.webp",
+      "bytes": 237152,
+      "action": "rotary-cannon",
+      "bounds": [
+        {
+          "pixels": 15681,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16734,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15797,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15800,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16396,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15634,
+          "bottom": 239,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "contactSheetOrder": [
+    "C01-original",
+    "C01-summer",
+    "C02-original",
+    "C02-summer",
+    "C03-original",
+    "C03-summer",
+    "C04-original",
+    "C04-summer",
+    "C05-original",
+    "C05-summer",
+    "C06-original",
+    "C06-summer",
+    "C07-original",
+    "C07-summer",
+    "C08-original",
+    "C08-summer"
+  ],
+  "poseOrder": [
+    "idle",
+    "ready",
+    "aim",
+    "fire",
+    "recoil",
+    "recover"
+  ]
+}

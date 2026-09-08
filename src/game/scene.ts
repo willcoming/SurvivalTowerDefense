@@ -10,15 +10,16 @@ import { CombatActors, enemySize } from './actors';
 import { drawSkill } from './skill-effects';
 import { enemyFrameSize, enemyTexture } from './enemy-motion';
 import { drawEffect, drawField, drawProjectile, polygon, line } from './effects';
-import { capEffects, effectDetail, effectLifetime, LAYERS, type ActiveEffect, type Detail } from './presentation';
+import { capEffects, effectDetail, effectLifetime, LAYERS, priorityEnemy, type ActiveEffect, type Detail } from './presentation';
+import { BossAssault } from './boss-assault';
 import { StatusEffects } from './status-effects';
 import { BossEntrance } from './boss-entrance';
 import { drawRange } from './range-overlay';
 import { inWeaponRange, weaponRange } from '../sim/range';
 import type { BattleSpeed } from '../storage/repository';
 import { stageArt } from '../data/campaign';
-import { equippedForm, formPortrait, STARTER_IDS, ELEMENTS, attackType } from '../data/forms';
-import { keyPixels } from './chroma';
+import { equippedForm, formPortrait, formMotion, ELEMENTS, attackType } from '../data/forms';
+import { ALLY_MOTION } from '../data/character-motion';
 import { WeaknessMarkers } from './weakness-markers';
 
 const hex = (color: string) => parseInt(color.replace('#', ''), 16);
@@ -35,10 +36,12 @@ export class BattleScene extends Phaser.Scene {
   private actors!: CombatActors;
   private statuses!: StatusEffects;
   private weaknesses!: WeaknessMarkers;
+  private bossAssault!: BossAssault;
   private entrance!: BossEntrance;
   private rangeGraphics!: Phaser.GameObjects.Graphics;
   private rangeKey = "";
   private warnings!: Phaser.GameObjects.Graphics;
+  private worldLabels: Phaser.GameObjects.Text[] = [];
   private detail: Detail = 'full'; private slowFrames = 0; private peakEffects = 0;
   private warning!: Phaser.GameObjects.Text;
   private flashes: ActiveEffect[] = [];
@@ -57,12 +60,20 @@ export class BattleScene extends Phaser.Scene {
     this.load.on('loaderror', (file: Phaser.Loader.File) => { this.missing.push(String(file.src)); });
     const run = this.read();
     this.load.image('stage', stageArt(run.config.stageId));
-    run.config.squadIds.forEach(id => {const f=equippedForm(run,id);if(f.theme==='original'&&STARTER_IDS.includes(id))this.load.spritesheet(`motion-${id}`, assetUrl(`animations/${id}-motion.webp`), { frameWidth: 256, frameHeight: 256 });else this.load.image(`motion-${id}`,formPortrait(f.id));});
+    run.config.squadIds.forEach(id => this.load.spritesheet(`motion-${id}`, formMotion(equippedForm(run,id).id), { frameWidth: ALLY_MOTION.frameWidth, frameHeight: ALLY_MOTION.frameHeight }));
     this.load.image('captain-portrait', formPortrait(equippedForm(run,run.config.captainId).id));
     [...new Set([...STAGE_MAP[run.config.stageId].enemyIds, STAGE_MAP[run.config.stageId].bossId])].forEach(id => this.load.spritesheet(enemyTexture(id), assetUrl(`enemy-animations/${id}-motion.webp`), { frameWidth: enemyFrameSize(id), frameHeight: enemyFrameSize(id) }));
   }
   create() {
-    for(const id of this.read().config.squadIds){const f=equippedForm(this.read(),id);if(f.theme==='original'&&STARTER_IDS.includes(id))continue;const key=`motion-${id}`,source=this.textures.get(key).getSourceImage() as HTMLImageElement,canvas=this.textures.createCanvas(`keyed-${id}`,source.width,source.height)!;canvas.context.drawImage(source,0,0);keyPixels(canvas.context,source.width,source.height);canvas.refresh();}
+    const resize = () => {
+      const camera=this.cameras.main;
+      camera.setZoom(this.scale.width/390,this.scale.height/520).centerOn(195,260);
+      const aspect=camera.zoomX/camera.zoomY;
+      this.worldLabels.forEach(label=>label.setScale(1,aspect));
+      this.warning?.setScale(1,aspect);
+    };
+    resize(); this.scale.on('resize',resize);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN,()=>this.scale.off('resize',resize));
     Object.keys(ENEMY_MAP).forEach(id => {
       if (this.textures.exists(enemyTexture(id))) this.spriteKeys.set(id, enemyTexture(id));
     });
@@ -86,14 +97,16 @@ export class BattleScene extends Phaser.Scene {
     this.actors = new CombatActors(this, this.read, this.speed, this.spriteKeys);
     this.statuses = new StatusEffects(this);
     this.weaknesses = new WeaknessMarkers(this);
+    this.bossAssault = new BossAssault(this);
     this.entrance = new BossEntrance(this, enemyTexture(STAGE_MAP[this.read().config.stageId].bossId));
     this.rangeGraphics = this.add.graphics().setDepth(6);
     const ids = this.read().config.squadIds;
     ids.forEach((id, i) => {
       const x = 195 + (i - (ids.length - 1) / 2) * 70;
-      this.add.text(x, 518, `${this.read().config.captainId === id ? '★ ' : ''}${CHARACTER_MAP[id].name}`, { fontSize: '10px', fontFamily: 'sans-serif', color: '#fff7e7' }).setOrigin(.5, 1).setDepth(8);
+      this.worldLabels.push(this.add.text(x, 518, `${this.read().config.captainId === id ? '★ ' : ''}${CHARACTER_MAP[id].name}`, { fontSize: '10px', fontFamily: 'sans-serif', color: '#fff7e7' }).setOrigin(.5, 1).setDepth(8));
     });
     this.warning = this.add.text(195, 35, '', { fontSize: '14px', fontFamily: 'sans-serif', color: '#fff7e7', backgroundColor: '#aa3933', padding: { x: 12, y: 6 }, wordWrap: { width: 340, useAdvancedWrap: true }, align: 'center' }).setOrigin(.5).setDepth(LAYERS.warningText).setVisible(false);
+    resize();
     this.lastSeq = this.read().eventSeq;
     if (this.missing.length) this.loading.failed(this.missing);
     else this.loading.ready();
@@ -106,10 +119,10 @@ export class BattleScene extends Phaser.Scene {
       if (run.bossIntro?.enemyId === enemy.id) continue;
       const boss = enemy.defId.startsWith('B'), size = enemySize(enemy.defId);
       const w = boss ? 84 : 26; const hpY = enemy.y - size / 2 - 4;
-      if (enemy.hp < enemy.maxHp || boss) { g.fillStyle(0x091e25, .9).fillRect(enemy.x - w / 2, hpY, w, boss ? 5 : 3); g.fillStyle(boss ? 0xff8666 : 0xf2dab8).fillRect(enemy.x - w / 2, hpY, w * Math.max(0, enemy.hp / enemy.maxHp), boss ? 5 : 3); }
+      if ((enemy.hp < enemy.maxHp || boss) && (run.enemies.length<24 || priorityEnemy(enemy))) { g.fillStyle(0x091e25, .9).fillRect(enemy.x - w / 2, hpY, w, boss ? 5 : 3); g.fillStyle(boss ? 0xff8666 : 0xf2dab8).fillRect(enemy.x - w / 2, hpY, w * Math.max(0, enemy.hp / enemy.maxHp), boss ? 5 : 3); }
       if (enemy.shield > 0) { g.lineStyle(1.5, 0x7eebff, .75).strokeCircle(enemy.x, enemy.y, size * .47); }
     }
-    const charging = run.enemies.find(e => e.chargeKind && !e.chargeCancelled);
+    const charging = run.enemies.find(e => e.defId.startsWith('B') && e.chargeKind && !e.chargeCancelled) ?? run.enemies.find(e => e.chargeKind && !e.chargeCancelled);
     for (const e of run.enemies) {
       if (e.chargeKind && !e.chargeCancelled && !this.previousCharges.has(e.id)) this.audio.feedback('alert');
       if (e.shield <= 0 && (this.previousShields.get(e.id) ?? 0) > 0) this.audio.feedback('shield-break');
@@ -118,7 +131,7 @@ export class BattleScene extends Phaser.Scene {
     const cooldown = Math.max(0, run.tacticalReadyAt - run.tick);
     if (this.previousCooldown > 0 && cooldown === 0) this.audio.feedback('ready'); this.previousCooldown = cooldown;
     this.warning.setVisible(!!charging);
-    if (charging) { const stun = Math.max(0, Math.ceil((charging.stunImmuneUntil - run.tick) / 30)), move = Math.max(0, Math.ceil((charging.moveImmuneUntil - run.tick) / 30)); const immunity = [stun ? `免暈 ${stun}s` : '', move ? `免位移 ${move}s` : ''].filter(Boolean).join(' / '); this.warning.setText(`⚠ ${ENEMY_MAP[charging.defId].name} 蓄力中\n${immunity || '可使用有效暈眩或位移打斷'}`); }
+    if (charging) { const stun = Math.max(0, Math.ceil((charging.stunImmuneUntil - run.tick) / 30)), move = Math.max(0, Math.ceil((charging.moveImmuneUntil - run.tick) / 30)); const immunity = [stun ? `免暈 ${stun}s` : '', move ? `免位移 ${move}s` : ''].filter(Boolean).join(' / '); this.warning.setText(`⚠ ${ENEMY_MAP[charging.defId].name} · ${Math.max(0,(charging.chargeUntil-run.tick)/30).toFixed(1)}s\n${immunity || '蓄力中 · 可用控場打斷'}`); }
     let boltIndex = 0;
     for (const p of run.projectiles) {
       if (p.enemyDamage && !p.packet && !p.impactAt) {
@@ -182,6 +195,11 @@ export class BattleScene extends Phaser.Scene {
       const r = enemySize(e.defId) * .65;
       g.fillStyle(0xff674e, .10).fillTriangle(e.x, e.y + r, e.x - 27, 450, e.x + 27, 450);
       g.lineStyle(2.5, 0xffa06e, 1).strokeCircle(e.x, e.y, r);
+      if(e.defId.startsWith('B')) {
+        const duration=(e.defId==='B03'?3:2)*30,progress=Math.max(0,Math.min(1,1-(e.chargeUntil-run.tick)/duration));
+        g.lineStyle(5,0xffd58c,.9).beginPath().arc(e.x,e.y,r+5,-Math.PI/2,-Math.PI/2+progress*Math.PI*2,false).strokePath();
+        g.lineStyle(3,0xff9b73,.85).strokeEllipse(e.x,448,70+progress*45,14);
+      }
       line(g, [{ x: e.x, y: e.y + r }, { x: e.x, y: 450 }], 0xff8d64, 1.5, .8);
     }
   }
@@ -197,6 +215,7 @@ export class BattleScene extends Phaser.Scene {
     const now = this.actors.clock;
     this.statuses.update(run, now, fresh, this.detail);
     this.weaknesses.update(run);
+    this.bossAssault.update(run,now,fresh,this.low());
     this.entrance.update(run, this.detail);
     const rangeKey = `${key}:${this.selectedRange()}`;
     if (rangeKey !== this.rangeKey) { this.rangeKey = rangeKey; drawRange(this.rangeGraphics, run, this.selectedRange()); }
@@ -222,7 +241,7 @@ export class BattleScene extends Phaser.Scene {
   }
   diagnostics() {
     const bounds = this.warning.getBounds(), selected = this.selectedRange(), run = this.read();
-    return { ...this.actors.diagnostics(), ...this.statuses.diagnostics(),
+    return { ...this.actors.diagnostics(), ...this.statuses.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(),
       bossIntro: run.bossIntro ? { ...run.bossIntro, type: run.enemies.find(e => e.id === run.bossIntro?.enemyId)?.defId, visible: true, depth: 30 } : null,
       range: selected ? { id: selected, radius: weaponRange(run, selected), insideIds: run.enemies.filter(e => inWeaponRange(run, selected, e)).map(e => e.id) } : null, detail: this.detail, activeEffects: this.flashes.length, peakEffects: this.peakEffects,
       warnings: { visible: this.warning.visible, text: this.warning.text, top: bounds.top, bottom: bounds.bottom, depth: this.warning.depth, geometryDepth: this.warnings.depth },
@@ -239,5 +258,5 @@ export class BattleScene extends Phaser.Scene {
 export function createBattleCanvas(parent: HTMLElement, read: () => RunState, audio: GameAudio, low: () => boolean, loading: SceneLoading, speed: () => BattleSpeed = () => 1, selectedRange: () => CharacterId | null = () => null) {
   // Keep linear filtering for the illustrated sprites. The 2D canvas does not need
   // a multisampled WebGL backbuffer, whose resolves dominate dense mobile rendering.
-  return new Phaser.Game({ type: Phaser.AUTO, width: 390, height: 520, parent, backgroundColor: '#102c35', antialias: true, audio: { noAudio: true }, scene: new BattleScene(read, audio, low, loading, speed, selectedRange), scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, render: { roundPixels: false, antialiasGL: false }, fps: { target: 60 } });
+  return new Phaser.Game({ type: Phaser.AUTO, width: parent.clientWidth, height: parent.clientHeight, parent, backgroundColor: '#102c35', antialias: true, audio: { noAudio: true }, scene: new BattleScene(read, audio, low, loading, speed, selectedRange), scale: { mode: Phaser.Scale.RESIZE }, render: { roundPixels: false, antialiasGL: false }, fps: { target: 60 } });
 }

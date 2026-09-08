@@ -1,0 +1,57 @@
+/* Squad overview and stage selection share the game's existing navigation and art. */
+.squad-lobby { --ink:#f0ecd9; --gold:#edcc87; position:relative; display:grid; grid-template-rows:34% 40px minmax(0,1fr) 76px; height:calc(100dvh - 150px); min-height:570px; max-width:680px; margin:0 auto; background:#091b26; color:var(--ink); overflow:hidden; }
+.squad-portraits { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); min-height:0; border-bottom:1px solid #c3aa70; }
+.squad-strip { position:relative; min-width:0; padding:0; overflow:hidden; background:#102532; color:#e7e9dc; border:0; border-right:1px solid #968562; border-radius:0; }
+.squad-strip img { width:100%; height:100%; object-fit:cover; object-position:50% 18%; mix-blend-mode:normal; }
+.squad-strip > span { position:absolute; inset:auto 0 0; min-height:34px; display:flex; flex-direction:column; justify-content:center; padding:4px 0; background:#061522e8; font-size:16px; font-weight:700; line-height:1.3; }
+.squad-strip small { font-size:10px; color:#f5d58d; }
+.squad-strip.selected { outline:2px solid #edcc87; outline-offset:-2px; z-index:1; }
+.squad-strip.is-captain > span { color:#f4d68f; }
+.squad-status { display:flex; align-items:center; gap:18px; padding:0 14px; font-size:13px; border-bottom:1px solid #99885f; background:#091c27; }
+.squad-status b { color:#edcc87; font-weight:600; }
+.squad-hero { position:relative; min-height:0; overflow:hidden; }
+.squad-hero-art { width:100%; height:100%; object-fit:cover; object-position:50% 21%; mix-blend-mode:normal; }
+.squad-hero-copy { position:absolute; top:42%; left:4%; max-width:47%; padding:10px 12px; background:#071722c9; border-left:2px solid #bc9c5c; text-shadow:0 2px 8px #06131d; }
+.squad-hero-copy h2 { margin:0; font-size:34px; line-height:1.2; color:#f4e3bc; }
+.squad-hero-copy > span { color:#d9bb80; font-size:12px; }
+.squad-hero-copy p { font-size:12px; line-height:1.5; margin:8px 0 12px; color:#e3e6df; }
+.squad-hero-copy .button { min-height:44px; padding:7px 10px; border:1px solid #b09c70; color:#f1d497; background:#0a202bcf; font-size:14px; }
+.squad-edit-action { display:flex; justify-content:center; align-items:center; padding:8px 22px 12px; border-bottom:1px solid #786c4b; background:#091c28; }
+.squad-edit-action .button.primary { width:100%; min-height:54px; font-size:26px; color:#fff0d1; background:#be4d34; border:2px solid #efb26d; border-radius:2px; box-shadow:inset 0 0 0 3px #943e31; }
+#app:has(.squad-lobby) > .site-footer { display:none; }
+.operation-select { max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:22px; padding:24px; }
+.operation-map { min-height:300px; background-size:cover; background-position:center; padding:22px; color:#f0ebd7; display:flex; flex-direction:column; text-shadow:0 2px 7px #00121b; }
+.operation-map h1 { font-size:34px; margin:8px 0; }
+.operation-map-title { margin-top:auto; padding:14px; background:#061824dd; border-left:2px solid #edcc87; }
+.operation-map-title h2 { font-size:26px; margin:6px 0; }
+.operation-map-title p { font-size:13px; }
+.operation-squad-link { display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:14px; }
+.operation-select .operation-panel { min-width:0; }
+.operation-select .quiet-note { font-size:12px; text-align:center; }
+.roster-deploy { gap:8px; }
+.roster-deploy > span small { display:block; }
+@media (max-width:800px) {
+  .mobile-app > main.squad-lobby { display:grid; flex:1; width:100%; min-height:0; height:auto; margin:0; padding:0; gap:0; max-width:none; grid-template-rows:34% 34px minmax(0,1fr) 72px; }
+  .mobile-app:has(.squad-lobby) > .mobile-game-scene { display:none; }
+  .mobile-app:has(.squad-lobby) .local-status { display:none; }
+  .mobile-app > .operation-select { flex:1; min-height:0; width:100%; display:flex; flex-direction:column; gap:10px; padding:10px 12px; overflow:auto; }
+  .mobile-app .operation-map { min-height:190px; height:30%; flex-shrink:0; padding:14px; }
+  .mobile-app .operation-map h1 { font-size:25px; }
+  .mobile-app .operation-map-title { padding:8px; }
+  .mobile-app .operation-map-title h2 { font-size:23px; }
+  .mobile-app .operation-map-title p { margin:0; }
+  .mobile-app .operation-select .operation-panel { flex:1; min-height:280px; gap:10px; }
+  .mobile-app .operation-select .campaign-selector { flex:1; overflow:auto; }
+  .mobile-app .operation-select .deploy-button { flex:none; min-height:50px; margin:0; }
+  .mobile-app .roster-deploy { display:flex; flex-wrap:nowrap; }
+  .mobile-app .roster-deploy > span { flex:1; min-width:0; }
+  .mobile-app .roster-deploy > .button { flex:none; }
+}
+@media (max-height:680px) and (max-width:800px) {
+  .mobile-app > main.squad-lobby { grid-template-rows:31% 30px minmax(0,1fr) 60px; }
+  .squad-hero-copy { top:25%; padding:6px 10px; }
+  .squad-hero-copy h2 { font-size:26px; }
+  .squad-hero-copy p { display:none; }
+  .squad-hero-copy .button { margin-top:8px; }
+  .squad-edit-action .button.primary { min-height:44px; font-size:23px; }
+}

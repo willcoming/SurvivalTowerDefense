@@ -1,0 +1,515 @@
+{
+  "passed": true,
+  "report": [
+    {
+      "browser": "chromium",
+      "width": 320,
+      "overflow": false,
+      "cards": [
+        {
+          "id": "C01",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C02",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C03",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C04",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C05",
+          "form": "C05-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C06",
+          "form": "C06-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C07",
+          "form": "C07-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/coast.webp\")",
+          "filter": "grayscale(0.85)"
+        },
+        {
+          "id": "C08",
+          "form": "C08-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/resonance.webp\")",
+          "filter": "none"
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "width": 390,
+      "overflow": false,
+      "cards": [
+        {
+          "id": "C01",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C02",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C03",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C04",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C05",
+          "form": "C05-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C06",
+          "form": "C06-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C07",
+          "form": "C07-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/coast.webp\")",
+          "filter": "grayscale(0.85)"
+        },
+        {
+          "id": "C08",
+          "form": "C08-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/resonance.webp\")",
+          "filter": "none"
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "width": 768,
+      "overflow": false,
+      "cards": [
+        {
+          "id": "C01",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C02",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C03",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C04",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C05",
+          "form": "C05-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C06",
+          "form": "C06-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C07",
+          "form": "C07-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/coast.webp\")",
+          "filter": "grayscale(0.85)"
+        },
+        {
+          "id": "C08",
+          "form": "C08-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/resonance.webp\")",
+          "filter": "none"
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "width": 1024,
+      "overflow": false,
+      "cards": [
+        {
+          "id": "C01",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C02",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C03",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C04",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C05",
+          "form": "C05-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C06",
+          "form": "C06-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C07",
+          "form": "C07-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/coast.webp\")",
+          "filter": "grayscale(0.85)"
+        },
+        {
+          "id": "C08",
+          "form": "C08-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/resonance.webp\")",
+          "filter": "none"
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "width": 1440,
+      "overflow": false,
+      "cards": [
+        {
+          "id": "C01",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C02",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C03",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C04",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C05",
+          "form": "C05-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C06",
+          "form": "C06-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C07",
+          "form": "C07-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/coast.webp\")",
+          "filter": "grayscale(0.85)"
+        },
+        {
+          "id": "C08",
+          "form": "C08-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/resonance.webp\")",
+          "filter": "none"
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "width": 320,
+      "overflow": false,
+      "cards": [
+        {
+          "id": "C01",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C02",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C03",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C04",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C05",
+          "form": "C05-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C06",
+          "form": "C06-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C07",
+          "form": "C07-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/coast.webp\")",
+          "filter": "grayscale(0.85)"
+        },
+        {
+          "id": "C08",
+          "form": "C08-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/resonance.webp\")",
+          "filter": "none"
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "width": 390,
+      "overflow": false,
+      "cards": [
+        {
+          "id": "C01",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C02",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C03",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C04",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C05",
+          "form": "C05-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C06",
+          "form": "C06-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C07",
+          "form": "C07-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/coast.webp\")",
+          "filter": "grayscale(0.85)"
+        },
+        {
+          "id": "C08",
+          "form": "C08-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/resonance.webp\")",
+          "filter": "none"
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "width": 768,
+      "overflow": false,
+      "cards": [
+        {
+          "id": "C01",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C02",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C03",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C04",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C05",
+          "form": "C05-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C06",
+          "form": "C06-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C07",
+          "form": "C07-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/coast.webp\")",
+          "filter": "grayscale(0.85)"
+        },
+        {
+          "id": "C08",
+          "form": "C08-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/resonance.webp\")",
+          "filter": "none"
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "width": 1024,
+      "overflow": false,
+      "cards": [
+        {
+          "id": "C01",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C02",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C03",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C04",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C05",
+          "form": "C05-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C06",
+          "form": "C06-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C07",
+          "form": "C07-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/coast.webp\")",
+          "filter": "grayscale(0.85)"
+        },
+        {
+          "id": "C08",
+          "form": "C08-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/resonance.webp\")",
+          "filter": "none"
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "width": 1440,
+      "overflow": false,
+      "cards": [
+        {
+          "id": "C01",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C02",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C03",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C04",
+          "background": "none",
+          "filter": "none"
+        },
+        {
+          "id": "C05",
+          "form": "C05-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C06",
+          "form": "C06-summer",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/summer.webp\")",
+          "filter": "none"
+        },
+        {
+          "id": "C07",
+          "form": "C07-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/coast.webp\")",
+          "filter": "grayscale(0.85)"
+        },
+        {
+          "id": "C08",
+          "form": "C08-original",
+          "background": "linear-gradient(rgba(7, 27, 48, 0.15), rgba(7, 27, 48, 0.4)), url(\"http://127.0.0.1:5174/assets/campaign/resonance.webp\")",
+          "filter": "none"
+        }
+      ]
+    }
+  ]
+}

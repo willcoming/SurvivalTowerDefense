@@ -1,0 +1,592 @@
+{
+  "version": "0.4.0-dev.2",
+  "method": "All 51 unique reward objectives, four/five starter originals, fixed legal 24-point plan; no HP/XP overrides; all ten pool forms on S12 with representative legal builds. Save/restore after seven purchases.",
+  "passed": false,
+  "seeds": [
+    101
+  ],
+  "rows": [
+    {
+      "stage": "S01",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 383.43333333333334,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S01",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 386,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S01",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 385.23333333333335,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S01",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 381.6333333333333,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S02",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1081.65,
+      "seconds": 412.23333333333335,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S02",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1080.575,
+      "seconds": 416.53333333333336,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S02",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1079.5,
+      "seconds": 416,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S02",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1033.3249999999998,
+      "seconds": 408.6333333333333,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S03",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 804.9199999999998,
+      "seconds": 415.96666666666664,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S03",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 804.9199999999998,
+      "seconds": 420.3666666666667,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S03",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 804.9199999999998,
+      "seconds": 419.4,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S03",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 909.2399999999999,
+      "seconds": 414,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S04",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 384.5,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S04",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 386.53333333333336,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S04",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 385.23333333333335,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S04",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 383.43333333333334,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S05",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1067.25,
+      "seconds": 413.6,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S05",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1046.5000000000002,
+      "seconds": 419,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S05",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1066.175,
+      "seconds": 417.6,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S05",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1067.25,
+      "seconds": 411.8,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S06",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 884.92,
+      "seconds": 415.8333333333333,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S06",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 919.92,
+      "seconds": 421.23333333333335,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S06",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 884.92,
+      "seconds": 419.43333333333334,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S06",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 953.8399999999998,
+      "seconds": 414.03333333333336,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S07",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1027.6,
+      "seconds": 413,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S07",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1019.6249999999999,
+      "seconds": 419,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S07",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1026.5249999999999,
+      "seconds": 417.6333333333333,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S07",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1027.6,
+      "seconds": 410.53333333333336,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S08",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 384.3333333333333,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S08",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 387.03333333333336,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S08",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 386,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S08",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 383.43333333333334,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S09",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 884.9199999999998,
+      "seconds": 416.43333333333334,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S09",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 781.9199999999997,
+      "seconds": 423,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S09",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 884.9199999999998,
+      "seconds": 420.26666666666665,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S09",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 849.5199999999999,
+      "seconds": 414,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S10",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 387,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S10",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "wall",
+      "wallHp": 0,
+      "seconds": 121.96666666666667,
+      "restored": false,
+      "choices": 6
+    },
+    {
+      "stage": "S10",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 837.9999999999999,
+      "seconds": 388,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S10",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 387,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S11",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 685.575,
+      "seconds": 414.1333333333333,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S11",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "wall",
+      "wallHp": 0,
+      "seconds": 116.63333333333334,
+      "restored": false,
+      "choices": 4
+    },
+    {
+      "stage": "S11",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 233.4250000000001,
+      "seconds": 418.96666666666664,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S11",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 877.4000000000001,
+      "seconds": 414,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S12",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 707.9199999999997,
+      "seconds": 417.5,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S12",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "wall",
+      "wallHp": 0,
+      "seconds": 104.23333333333333,
+      "restored": false,
+      "choices": 4
+    },
+    {
+      "stage": "S12",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 313.91999999999973,
+      "seconds": 420.3333333333333,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "S12",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1008.0399999999996,
+      "seconds": 414,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "X01",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1100,
+      "seconds": 384.03333333333336,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "X02",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 1014.2749999999999,
+      "seconds": 412.23333333333335,
+      "restored": true,
+      "choices": 24
+    },
+    {
+      "stage": "X03",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 839.9199999999998,
+      "seconds": 416.73333333333335,
+      "restored": true,
+      "choices": 24
+    }
+  ],
+  "forms": [
+    {
+      "form": "C01-summer",
+      "outcome": "victory",
+      "damage": 28285.46790900008,
+      "restored": true,
+      "points": 5
+    },
+    {
+      "form": "C02-summer",
+      "outcome": "victory",
+      "damage": 25313.598122782074,
+      "restored": true,
+      "points": 5
+    },
+    {
+      "form": "C03-summer",
+      "outcome": "wall",
+      "damage": 4692.038232000002,
+      "restored": false,
+      "points": 2
+    },
+    {
+      "form": "C04-summer",
+      "outcome": "victory",
+      "damage": 18769.791895299943,
+      "restored": true,
+      "points": 5
+    },
+    {
+      "form": "C05-summer",
+      "outcome": "victory",
+      "damage": 46223.73556641997,
+      "restored": true,
+      "points": 5
+    },
+    {
+      "form": "C06-summer",
+      "outcome": "victory",
+      "damage": 22978.025782300196,
+      "restored": true,
+      "points": 5
+    },
+    {
+      "form": "C07-original",
+      "outcome": "victory",
+      "damage": 25340.364366999995,
+      "restored": true,
+      "points": 5
+    },
+    {
+      "form": "C07-summer",
+      "outcome": "victory",
+      "damage": 22232.905138800037,
+      "restored": true,
+      "points": 5
+    },
+    {
+      "form": "C08-original",
+      "outcome": "victory",
+      "damage": 20534.379780325075,
+      "restored": true,
+      "points": 5
+    },
+    {
+      "form": "C08-summer",
+      "outcome": "victory",
+      "damage": 19359.099055687515,
+      "restored": true,
+      "points": 5
+    }
+  ]
+}

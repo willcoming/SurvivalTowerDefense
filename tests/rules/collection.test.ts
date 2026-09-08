@@ -12,7 +12,7 @@ import type { CharacterId,DamagePacket,FormId } from '../../src/sim/types';
 
 describe('permanent free recruitment',()=>{
   it('keeps original stage artwork and uses separate summer pose revisions without changing form IDs',()=>{
-    for(const owner of ['C07','C08'] as const)for(const theme of ['original','summer'] as const){const id=`${owner}-${theme}` as const;expect(formPortrait(id)).toBe(`/assets/forms/${id}-${theme==='summer'?'pose-v4':'stage-v3'}.webp`);expect(formMotion(id)).toBe(formPortrait(id));expect(FORM_MAP[id].ownerId).toBe(owner);}
+    for(const owner of ['C07','C08'] as const)for(const theme of ['original','summer'] as const){const id=`${owner}-${theme}` as const;expect(formPortrait(id)).toBe(`/assets/forms/${id}-${theme==='summer'?'pose-v4':'stage-v3'}.webp`);expect(formMotion(id)).toBe(`/assets/animations/${id}-motion-v1.webp`);expect(FORM_MAP[id].ownerId).toBe(owner);}
     expect(formPortrait('C03-summer')).toBe('/assets/forms/C03-summer.webp');expect(formPortrait('C01-original')).toBe('/assets/characters/C01-portrait.webp');expect(formMotion('C01-original')).toBe('/assets/animations/C01-motion.webp');
   });
   it('has ten distinct equally sized probability bins; six originals remain free',()=>{

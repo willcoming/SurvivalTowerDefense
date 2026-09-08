@@ -1,6 +1,6 @@
 # 文件總覽
 
-現行新戰局內容版本：**0.4.0-dev.1**。文件同步日期：**2026-09-05**。本目錄包含現行招募／章節版與歷史自由技能樹基礎；`package.json` 的套件版本不作為戰局規則版本。
+現行新戰局內容版本：**0.4.0-dev.2**。文件同步日期：**2026-09-08**。最新規則見 [難度與編隊更新](PRESSURE_UPDATE.md)。每次關卡独立，離場後重新開始；下方舊版續玩紀錄只作歷史參考。`package.json` 的套件版本不作為戰局規則版本。
 
 ## 閱讀入口
 
@@ -16,6 +16,8 @@
 | 線上遊戲、發布方式與路徑驗證 | [GitHub Pages 部署](GITHUB_PAGES.md) |
 | 測試覆蓋、重現方式與平衡研究 | [驗收矩陣](VALIDATION_MATRIX.md)、[測試策略](TEST_POLICIES.md)、[研究結果](FREE_SKILL_VALIDATION.md) |
 | 角色與變裝的統一畫風 | [角色畫風基準](CHARACTER_ART_DIRECTION.md) |
+| 從定位到交付新增一位角色 | [新增角色 SOP](NEW_CHARACTER_SOP.md)、[角色規格模板](templates/CHARACTER_BRIEF.md) |
+| 新角色與變裝的製作、動畫、攻擊及驗收流程 | [角色製作 SOP](CHARACTER_PRODUCTION_SOP.md) |
 | 畫面、計時、音訊與模組 | [介面與音訊](UI_AUDIO.md) |
 | 手機全螢幕操作、分頁與詳細面板 | [手機介面更新](MOBILE_LAYOUT_UPDATE.md) |
 | 尚待執行的手機與真人測試 | [外部測試表](EXTERNAL_PLAYTEST.md) |

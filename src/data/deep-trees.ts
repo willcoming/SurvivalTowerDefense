@@ -1,9 +1,9 @@
 import type { CharacterId, RunState } from '../sim/types';
 import type { TreeMods } from './skill-trees';
-import { COLLECTION_CONTENT_VERSION } from './forms';
+import { usesCollection } from './forms';
 
 export const FREE_CONTENT_VERSION = '0.3.0-dev.1';
-export const usesFreeSkills = (s: Pick<RunState, 'contentVersion'>) => s.contentVersion === FREE_CONTENT_VERSION || s.contentVersion === COLLECTION_CONTENT_VERSION;
+export const usesFreeSkills = (s: Pick<RunState, 'contentVersion'>) => s.contentVersion === FREE_CONTENT_VERSION || usesCollection(s);
 export type SkillOwner = CharacterId | 'common';
 export interface DeepMods extends TreeMods {
   mineCap?:number; mineCharge?:number; mineChargeCap?:number; mineTrigger?:number; mineArm?:number;

@@ -1,4 +1,5 @@
 import { DEEP_NODE_MAP, DEEP_TREE_MAP, deepTreesFor, usesFreeSkills, type SkillOwner } from '../data/deep-trees';
+import { deepLock } from '../sim/deep-tree';
 import { deepTreePanel } from './deep-tree';
 import { NODE_MAP, TREE_MAP, treesFor, usesSkillTrees } from '../data/skill-trees';
 import { treePanel } from './skill-tree';
@@ -7,7 +8,9 @@ import { createRun, stepRun, command, restoreRun, advanceBossIntro } from '../si
 import { GameRepository, createDefaultSave, completeRun, IncompatibleRunError, SaveConflictError, type GameSave } from '../storage/repository';
 import type { Branch, CharacterId, ChallengeId, Command, RunConfig, RunState, StageId } from '../sim/types';
 import type { Page, ViewModel } from './model';
-import { header, home, intel, roster, codex, stories, settings } from './lobby';
+import { header, home, intel, codex, stories, settings } from './lobby';
+import { roster, rosterDialog } from './roster';
+import { createFormationDraft, formationView, confirmFormation, type FormationDraft } from './formation-draft';
 import { battleShell, updateHud, upgradeDialog, pauseDialog, tutorialDialog, result } from './battle';
 import { esc } from './format';
 import { GameAudio } from '../game/audio';
@@ -16,7 +19,7 @@ import { keyInterfaceImage } from '../game/chroma';
 import { shouldAutoCast } from './auto-tactical';
 import { recruitment } from './collection';
 import { stageUnlocked, MAIN_IDS } from '../data/campaign';
-import { FORM_MAP, formPortrait, equippedForm, originalForm, usesCollection } from '../data/forms';
+import { FORMS, FORM_MAP, formPortrait, formBackdrop, equippedForm, originalForm, usesCollection } from '../data/forms';
 import { ownedForm, isPlayable, validateRoster, type CollectionAction } from '../storage/collection';
 import type { FormId } from '../sim/types';
 import { MobileControls } from './mobile-controls';
@@ -42,6 +45,9 @@ export class GameApp {
   private collecting = false;
   private mobile = new MobileControls();
   private clickedControl: HTMLElement | null = null;
+  private rosterFocusId: string | null = null;
+  private formationDraft: FormationDraft | null = null;
+  private rosterSave() { return this.vm.rosterEditing && this.formationDraft ? formationView(this.save, this.formationDraft) : this.save; }
   constructor(root: HTMLElement) {
     this.root = root;
     this.root.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLElement>('[data-action]'); if (button && !(button as HTMLButtonElement).disabled) { this.clickedControl = button; void this.audio.unlock(); void this.action(button.dataset.action!, button.dataset.id); } });
@@ -56,7 +62,7 @@ export class GameApp {
   async init() {
     this.root.innerHTML = '<div class="loading-screen"><span class="brand-star">✦</span><h1>星骸防線</h1><p>正在連接本機作戰紀錄…</p></div>';
     try {
-      this.save = await this.repository.load();
+      this.save = await this.repository.load({ discardActiveRun: true });
       if (this.save.activeRun) this.save.activeRun = restoreRun(this.save.activeRun);
       this.audio.volumes(this.save.preferences.musicVolume, this.save.preferences.sfxVolume);
       const latest = STAGES.find(s => !this.save.profile.cleared.includes(s.id)&&stageUnlocked(s.id,this.save.profile.cleared)); this.vm.stageId = latest?.id ?? 'S12';
@@ -72,6 +78,8 @@ export class GameApp {
   private render() {
     const focused = document.activeElement as HTMLElement | null;
     const samePage = this.root.dataset.page === this.vm.page;
+    const rosterView = this.root.querySelector<HTMLElement>('[data-roster-view]')?.dataset.rosterView;
+    const rosterScroll = this.root.querySelector('.roster-panel-body')?.scrollTop ?? 0;
     this.canvas?.destroy(true); this.canvas = null; this.renderedOverlay = ''; this.overlayKey = '';
     const page = this.vm.page; const run = this.save.activeRun ?? this.lastRun;
     this.mobile.begin(page);
@@ -88,7 +96,7 @@ export class GameApp {
       }, () => this.save.preferences.battleSpeed, () => this.selectedRange);
       updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
-      const screens = { recruitment:()=>recruitment(this.save,this.collecting),home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.save, this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.rewards) : home(this.save, this.vm), battle: () => '' };
+      const screens = { recruitment:()=>recruitment(this.save,this.collecting),home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.rosterSave(), this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.rewards) : home(this.save, this.vm), battle: () => '' };
       this.root.innerHTML = `${header(page, this.vm.saveStatus)}${this.notice()}${screens[page]()}<footer class="site-footer"><span>星骸防線 / 黎明反攻</span><span>免登入 · 免費招募 · ${this.temporary ? '暫時試玩，不儲存進度' : '進度保存在目前瀏覽器'}</span></footer><div id="global-overlay"></div>`;
       enhanceMobile(this.root, page, this.mobile);
       enhanceMobileNotice(this.root, this.mobile);
@@ -97,7 +105,14 @@ export class GameApp {
     this.root.classList.toggle('reduced-effects', this.save.preferences.reducedEffects);
     this.prepareImages(this.root);
     this.mobile.finish(this.root);
-    if (samePage && focused && !this.root.querySelector('dialog.mobile-detail[open]') && page !== 'battle') {
+    if (this.vm.rosterPanel && rosterView === this.vm.rosterPanel.view) {
+      const panel = this.root.querySelector<HTMLElement>('.roster-dialog');
+      const replacement = focused?.dataset.action ? [...panel?.querySelectorAll<HTMLElement>('[data-action]') ?? []].find(element =>
+        element.dataset.action === focused.dataset.action && element.dataset.id === focused.dataset.id && !element.matches(':disabled')) : null;
+      replacement?.focus({ preventScroll: true });
+      const body = panel?.querySelector('.roster-panel-body'); if (body) body.scrollTop = rosterScroll;
+    }
+    if (samePage && focused && !this.vm.rosterPanel && !this.root.querySelector('dialog.mobile-detail[open]') && page !== 'battle') {
       const replacement = [...this.root.querySelectorAll<HTMLElement>('[data-action], [data-change]')].find(element =>
         element.getClientRects().length > 0 && !element.matches(':disabled') &&
         (focused.dataset.action ? element.dataset.action === focused.dataset.action && element.dataset.id === focused.dataset.id :
@@ -110,13 +125,15 @@ export class GameApp {
     const holder = document.getElementById(this.vm.page === 'battle' ? 'battle-overlay' : 'global-overlay'); if (!holder) return;
     const run = this.save.activeRun;
     if(run&&this.vm.page==='battle'&&usesFreeSkills(run)&&run.draft&&!this.vm.treePanel){const ownerId=run.draft.focusId;this.vm.treePanel={ownerId,treeId:deepTreesFor(ownerId)[0].id,nodeId:null,mode:'choose'};}
-    const key = `${JSON.stringify(this.vm.treePanel)}:${this.vm.page}:${this.vm.modal}:${this.vm.selectedCard}:${this.vm.showBuild}:${this.vm.saveStatus}:${run?.runId}:${run?.tick}:${run?.actionSeq}:${run?.draft?.id}:${run?.pauseReasons.join(',')}:${this.save.preferences.musicVolume}:${this.save.preferences.sfxVolume}:${this.save.preferences.reducedEffects}:${this.save.preferences.autoTactical}`;
+    const key = `${JSON.stringify(this.vm.treePanel)}:${JSON.stringify(this.vm.rosterPanel)}:${this.collecting}:${this.save.revision}:${this.vm.message}:${this.vm.page}:${this.vm.modal}:${this.vm.selectedCard}:${this.vm.showBuild}:${this.vm.saveStatus}:${run?.runId}:${run?.tick}:${run?.actionSeq}:${run?.draft?.id}:${JSON.stringify(run?.draft?.pendingNodeIds)}:${run?.pauseReasons.join(',')}:${this.save.preferences.musicVolume}:${this.save.preferences.sfxVolume}:${this.save.preferences.reducedEffects}:${this.save.preferences.autoTactical}`;
     if (key === this.overlayKey) return;
     this.overlayKey = key;
     let html = '';
     if (this.vm.modal === 'reset' || this.vm.modal === 'abandon') {
       const reset = this.vm.modal === 'reset';
       html = `<div class="modal-backdrop"><section class="dialog confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"><span class="eyebrow">${reset ? 'RESET LOCAL DATA' : 'ABANDON OPERATION'}</span><h2 id="confirm-title">${reset ? '重置這個瀏覽器的進度？' : '確定放棄本次行動？'}</h2><p>${reset ? '關卡紀錄、招募收藏、券、點數、碎片、偏好設定與進行中的行動將被刪除。初始六位角色原裝仍免費開放。' : '本局改造將結束。妳可以立即重新出擊，不會失去任何戰力資源。'}</p><div class="result-actions"><button class="button secondary" data-action="cancel-confirm">保留紀錄</button><button class="button danger" data-action="${reset ? 'reset' : 'abandon'}">${reset ? '確認重置' : '確認放棄'}</button></div></section></div>`;
+    } else if (this.vm.page === 'roster' && this.vm.rosterPanel) {
+      html = rosterDialog(this.rosterSave(), this.vm.rosterPanel, this.collecting, this.temporary, this.vm.challengeId === 'four' ? 4 : 5, this.vm.message, !!this.vm.rosterEditing);
     } else if (this.vm.page === 'battle' && run) {
       if (run.pauseReasons.includes('tutorial')) html = tutorialDialog(run);
       else if (this.vm.treePanel && !run.pauseReasons.some(r=>['error','orientation','hidden'].includes(r))) html = usesFreeSkills(run)?deepTreePanel(run,this.vm):treePanel(run,this.vm);
@@ -128,23 +145,51 @@ export class GameApp {
     this.clickedControl = null;
     const focusId = focus?.id; const focusAction = focus?.dataset.action; const focusItem = focus?.dataset.id;
     const scroll=holder.querySelector('.tree-scroll')?.scrollTop??0;const disclosures=[...holder.querySelectorAll('details')].map(d=>d.open);
+    const previousTree = holder.querySelector<HTMLElement>('.tree-panel')?.dataset.treeId;
+    const mapScroll = holder.querySelector('.skill-map-viewport')?.scrollTop ?? 0;
+    const rosterView = holder.querySelector<HTMLElement>('[data-roster-view]')?.dataset.rosterView;
+    const rosterScroll = holder.querySelector('.roster-panel-body')?.scrollTop ?? 0;
     const wasOpen = !!this.renderedOverlay; this.renderedOverlay = html; holder.innerHTML = html;
-    if (matchMedia(mobileQuery).matches) enhanceMobileCombat(holder, this.mobile);
+    for (const child of this.root.children) if (child instanceof HTMLElement && child !== holder) child.inert = !!this.vm.rosterPanel;
+    enhanceMobileCombat(holder, this.mobile);
+    const map = holder.querySelector('.skill-map-viewport');
+    if (map && previousTree === this.vm.treePanel?.treeId) map.scrollTop = mapScroll;
     this.mobile.finish(this.root);
     const nextScroll=holder.querySelector('.tree-scroll');if(nextScroll)nextScroll.scrollTop=scroll;holder.querySelectorAll('details').forEach((d,i)=>{if(disclosures[i]!==undefined)d.open=disclosures[i];});
+    const nextRosterBody = holder.querySelector('.roster-panel-body');
+    if (nextRosterBody && rosterView === this.vm.rosterPanel?.view) nextRosterBody.scrollTop = rosterScroll;
     const modal = holder.querySelector<HTMLElement>('[role="dialog"], [role="alertdialog"]');
     this.prepareImages(holder);
     if (modal) {
       if (!wasOpen) this.lastFocused = focus;
       const replacement = focusId ? holder.querySelector<HTMLElement>(`#${focusId}`) : focusAction ? [...holder.querySelectorAll<HTMLElement>('[data-action]')].find(el => el.dataset.action === focusAction && el.dataset.id === focusItem) : null;
-      (replacement ?? modal.querySelector<HTMLElement>('button:not(:disabled),select:not(:disabled),input:not(:disabled)'))?.focus({ preventScroll: true });
+      (replacement && !replacement.matches(':disabled') ? replacement : modal.querySelector<HTMLElement>('button:not(:disabled),select:not(:disabled),input:not(:disabled)'))?.focus({ preventScroll: true });
     } else if (wasOpen && this.lastFocused?.isConnected) this.lastFocused.focus({ preventScroll: true });
   }
-  private prepareImages(root: HTMLElement) { root.querySelectorAll<HTMLImageElement>('img').forEach(img => { const owner=img.dataset.owner as CharacterId|undefined;if(owner){const run=this.vm.page==='battle'||this.vm.page==='result'?this.save.activeRun??this.lastRun:null;const f=run?equippedForm(run,owner).id:ownedForm(this.save.collection,owner)??originalForm(owner);img.src=formPortrait(f);img.alt=`${CHARACTER_MAP[owner].name}・${FORM_MAP[f].name}`;}if (img.complete) keyInterfaceImage(img); else img.addEventListener('load', () => keyInterfaceImage(img), { once: true }); img.addEventListener('error', () => { img.classList.add('asset-error'); img.alt = `${img.alt || '圖片'}：素材載入失敗`; }, { once: true }); }); }
-  private go(page: Page) { this.vm.page = page; this.vm.modal = null; this.vm.showBuild = false; this.vm.treePanel=undefined; this.render(); window.scrollTo(0, 0); const title = this.root.querySelector('h1'); if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); } }
+  private prepareImages(root: HTMLElement) {
+    root.querySelectorAll<HTMLImageElement>('img').forEach(img => {
+      const owner=img.dataset.owner as CharacterId|undefined;
+      if(owner){
+        const run=this.vm.page==='battle'||this.vm.page==='result'?this.save.activeRun??this.lastRun:null;
+        const f=run?equippedForm(run,owner).id:ownedForm(this.vm.page === 'roster' ? this.rosterSave().collection : this.save.collection,owner)??originalForm(owner);
+        img.src=formPortrait(f);img.alt=`${CHARACTER_MAP[owner].name}・${FORM_MAP[f].name}`;
+      }
+      const form=FORMS.find(f=>formPortrait(f.id)===img.getAttribute('src'));
+      const backdrop=form?formBackdrop(form.id):null;
+      if(backdrop){
+        img.dataset.portraitBackdrop=form!.id;
+        img.dataset.portraitTheme=form!.theme;
+        img.style.setProperty('--portrait-background',`url("${backdrop}")`);
+      }
+      if (img.complete) keyInterfaceImage(img);
+      else img.addEventListener('load', () => keyInterfaceImage(img), { once: true });
+      img.addEventListener('error', () => { img.classList.add('asset-error'); img.alt = `${img.alt || '圖片'}：素材載入失敗`; }, { once: true });
+    });
+  }
+  private go(page: Page) { if(this.vm.page === 'battle' && page !== 'battle' && this.save.activeRun) { command(this.save.activeRun, { type: 'abandon' }); completeRun(this.save, this.save.activeRun); void this.persist(); } if(page !== 'roster') this.vm.rosterEditing = false; this.vm.page = page; this.vm.modal = null; this.vm.showBuild = false; this.vm.treePanel=undefined; this.vm.rosterPanel=undefined; this.rosterFocusId=null; this.render(); window.scrollTo(0, 0); const title = this.root.querySelector('h1'); if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); } }
   private seed() { const data = new Uint32Array(1); crypto.getRandomValues(data); return data[0] || 101; }
   private async start(config?: RunConfig, contentVersion=CONTENT_VERSION) {
-    if (this.save.activeRun && this.save.activeRun.phase !== 'ended' && !config) { this.vm.message = '已有進行中的行動，請先繼續或放棄。'; this.go('home'); return; }
+    if (this.save.activeRun) { command(this.save.activeRun, { type: 'abandon' }); completeRun(this.save, this.save.activeRun); }
     const prefs = this.save.preferences;
     const selected=config??{ stageId: this.vm.stageId, squadIds: [...prefs.squadIds], captainId: prefs.captainId, preferredBranches: { ...prefs.branches },forms:Object.fromEntries(prefs.squadIds.map(id=>[id,ownedForm(this.save.collection,id)])), seed: this.vm.retrySeed ?? this.seed(), challengeId: this.vm.challengeId };
     if(!config){try{if(!stageUnlocked(selected.stageId,this.save.profile.cleared)||selected.challengeId&&(!MAIN_IDS.includes(selected.stageId)||!this.save.profile.cleared.includes(selected.stageId)))throw new Error('請先完成前置關卡');validateRoster(this.save.collection,selected);}catch(error){this.vm.message=String(error);this.render();return;}}
@@ -156,7 +201,7 @@ export class GameApp {
   private execute(cmd: Command) {
     const run = this.save.activeRun; if (!run) return false;
     const accepted = command(run, cmd);
-    if (accepted) { if (cmd.type === 'choose' || cmd.type === 'buy-node') { this.vm.selectedCard = null; if(cmd.type==='buy-node'&&!run.draft)this.vm.treePanel=undefined; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); }
+    if (accepted) { if (cmd.type === 'choose' || cmd.type === 'buy-node' || cmd.type === 'confirm-node') { this.vm.selectedCard = null; if((cmd.type==='buy-node'||cmd.type==='confirm-node')&&!run.draft)this.vm.treePanel=undefined; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); }
     return accepted;
   }
   private pauseFor(reason: 'hidden' | 'orientation') {
@@ -214,6 +259,8 @@ export class GameApp {
     if (!this.ready || this.temporary) return Promise.resolve();
     for (const id of this.save.activeRun?.stats.encountered ?? []) if (!this.save.profile.seenEnemies.includes(id)) this.save.profile.seenEnemies.push(id);
     const copy = structuredClone(this.save);
+    // A run lives only in this play session. Persist collection and formation, never a resumable battle.
+    copy.activeRun = null;
     this.saveQueue = this.saveQueue.catch(() => {}).then(async () => {
       try {
         const revision = await this.repository.save(copy); this.save.revision = revision;
@@ -231,27 +278,74 @@ export class GameApp {
   private async action(action: string, id?: string) {
     if(this.collecting)return;
     if (['home', 'intel', 'roster', 'codex', 'stories', 'settings','recruitment'].includes(action)) {
-      if (this.vm.page === 'battle') { this.execute({ type: 'pause', reason: 'user' }); return; }
+
       this.go(action as Page); return;
     }
     switch (action) {
+      case 'roster-select': if (this.save.preferences.squadIds.includes(id as CharacterId)) { this.vm.rosterSelectedId = id as CharacterId; this.render(); } break;
+      case 'roster-edit': this.formationDraft ??= createFormationDraft(this.save); this.vm.rosterEditing = true; this.vm.rosterPanel = undefined; this.render(); break;
+      case 'roster-commit': {
+        if (!this.formationDraft || !this.vm.rosterEditing) break;
+        this.collecting = true;
+        try {
+          await this.saveQueue;
+          const candidate = confirmFormation(this.save, this.formationDraft, this.vm.challengeId === 'four' ? 4 : 5);
+          candidate.activeRun = null;
+          if (!this.temporary) candidate.revision = await this.repository.save(candidate);
+          this.save = candidate; this.formationDraft = null; this.vm.rosterEditing = false; this.vm.rosterPanel = undefined; this.vm.message = ''; this.vm.saveStatus = this.temporary ? '暫時試玩' : '已儲存在本機';
+        } catch (error) { this.vm.message = `編隊尚未套用：${error instanceof Error ? error.message : String(error)}`; }
+        finally { this.collecting = false; this.render(); }
+        break;
+      }
       case 'draw': await this.collect({type:'draw'});break;
       case 'exchange': await this.collect({type:'exchange',formId:id as FormId});break;
       case 'stage': this.vm.stageId = id as StageId; this.vm.challengeId = null; this.vm.retrySeed = null; this.render(); break;
       case 'challenge': this.vm.challengeId = (id || null) as ChallengeId; this.render(); break;
       case 'character': this.vm.characterId = id as CharacterId; this.go('codex'); break;
+      case 'roster-open': {
+        const ownerId = id as CharacterId;
+        if (this.vm.page !== 'roster' || !CHARACTER_MAP[ownerId]) break;
+        this.rosterFocusId = this.clickedControl?.id || `roster-card-${ownerId}`;
+        this.vm.rosterPanel = { ownerId, view: 'character', previewFormId: ownedForm(this.rosterSave().collection, ownerId) ?? originalForm(ownerId) };
+        this.overlay(); break;
+      }
+      case 'roster-close': this.closeRoster(); break;
+      case 'roster-wardrobe': {
+        const panel = this.vm.rosterPanel; if (!panel) break;
+        panel.view = 'wardrobe'; panel.previewFormId = ownedForm(this.rosterSave().collection, panel.ownerId) ?? originalForm(panel.ownerId);
+        this.overlay(); break;
+      }
+      case 'roster-back': if (this.vm.rosterPanel) { this.vm.rosterPanel.view = 'character'; this.overlay(); } break;
+      case 'roster-preview': {
+        const panel = this.vm.rosterPanel, form = FORM_MAP[id as FormId];
+        if (panel?.view !== 'wardrobe' || !form || form.ownerId !== panel.ownerId) break;
+        panel.previewFormId = form.id; this.overlay(); break;
+      }
+      case 'roster-equip': {
+        const panel = this.vm.rosterPanel, form = FORM_MAP[id as FormId];
+        if (panel?.view !== 'wardrobe' || !form || form.ownerId !== panel.ownerId || form.id !== panel.previewFormId ||
+          !this.save.collection.owned.includes(form.id) || ownedForm(this.rosterSave().collection, panel.ownerId) === form.id || this.save.activeRun || this.temporary) break;
+        if (!this.vm.rosterEditing || !this.formationDraft) break; this.formationDraft.equipped[panel.ownerId] = form.id; this.render(); break;
+      }
       case 'toggle-character': {
-        const cid = id as CharacterId; const prefs = this.save.preferences;
+        if (!this.vm.rosterEditing || !this.formationDraft) break;
+        const cid = id as CharacterId; const prefs = this.formationDraft;
         if(!isPlayable(this.save.collection,cid))break;
         if (prefs.squadIds.includes(cid)) prefs.squadIds = prefs.squadIds.filter(c => c !== cid);
         else if (prefs.squadIds.length < (this.vm.challengeId === 'four' ? 4 : 5)) prefs.squadIds.push(cid);
         if (!prefs.squadIds.includes(prefs.captainId) && prefs.squadIds[0]) prefs.captainId = prefs.squadIds[0];
-        this.render(); void this.persist(); break;
+        this.render(); break;
       }
-      case 'captain': if (this.save.preferences.squadIds.includes(id as CharacterId)) { this.save.preferences.captainId = id as CharacterId; this.render(); void this.persist(); } break;
-      case 'build': { const build = BUILDS.find(b => b.id === id)!; this.save.preferences.squadIds = [...build.squadIds].slice(0, this.vm.challengeId === 'four' ? 4 : 5); this.save.preferences.captainId = this.save.preferences.squadIds.includes(build.captainId) ? build.captainId : this.save.preferences.squadIds[0]; build.routes.forEach(r => { this.save.preferences.branches[r.slice(0, 3) as CharacterId] = r.slice(-1) as Branch; }); this.render(); void this.persist(); break; }
+      case 'captain': if (this.vm.rosterEditing && this.formationDraft?.squadIds.includes(id as CharacterId)) { this.formationDraft.captainId = id as CharacterId; this.render(); } break;
+      case 'build': {
+        if (!this.vm.rosterEditing || !this.formationDraft) break;
+        const build = BUILDS.find(b => b.id === id); if (!build) break;
+        const draft = this.formationDraft;
+        draft.squadIds = [...build.squadIds].slice(0, this.vm.challengeId === 'four' ? 4 : 5);
+        draft.captainId = draft.squadIds.includes(build.captainId) ? build.captainId : draft.squadIds[0];
+        build.routes.forEach(r => { draft.branches[r.slice(0, 3) as CharacterId] = r.slice(-1) as Branch; }); this.render(); break;
+      }
       case 'start': await this.start(); break;
-      case 'continue': if (this.save.activeRun) { this.go('battle'); this.orientation(); } break;
       case 'speed': {
         const run = this.save.activeRun;
         if (this.vm.page !== 'battle' || run?.phase !== 'running') break;
@@ -278,9 +372,34 @@ export class GameApp {
       }
       case 'deep-owner': if(this.vm.treePanel&&(id==='common'||this.save.activeRun?.config.squadIds.includes(id as CharacterId))){const ownerId=id as SkillOwner;this.vm.treePanel={...this.vm.treePanel,ownerId,treeId:deepTreesFor(ownerId)[0].id,nodeId:null};this.overlay();}break;
       case 'deep-tab': if(this.vm.treePanel&&DEEP_TREE_MAP[id!]?.ownerId===this.vm.treePanel.ownerId){this.vm.treePanel.treeId=id!;this.vm.treePanel.nodeId=null;this.overlay();}break;
-      case 'deep-node': if(this.vm.treePanel&&DEEP_NODE_MAP[id!]?.treeId===this.vm.treePanel.treeId){this.vm.treePanel.nodeId=id!;this.overlay();}break;
-      case 'buy-node': if(this.save.activeRun?.draft&&this.vm.treePanel?.nodeId)this.execute({type:'buy-node',offerId:this.save.activeRun.draft.id,nodeId:this.vm.treePanel.nodeId});break;
-      case 'tree-save-home': if(this.save.activeRun){command(this.save.activeRun,{type:'pause',reason:'user'});await this.persist();this.go('home');}break;
+      case 'deep-node': {
+        const run=this.save.activeRun, panel=this.vm.treePanel, node=DEEP_NODE_MAP[id!];
+        if(!run||!panel||!node||node.treeId!==panel.treeId)break;
+        panel.nodeId=id!;
+        if(run.draft){
+          const pending=run.draft.pendingNodeIds??[];
+          const index=pending.indexOf(id!);
+          if(index>=0) pending.splice(index,1);
+          else {
+            const remaining=(run.draft.pointTarget??run.choicesSpent)-run.choicesSpent;
+            const shadow={...run,treeNodes:[...(run.treeNodes??[]),...pending]};
+            if(pending.length<remaining&&!deepLock(shadow,id!))pending.push(id!);
+          }
+          run.draft.pendingNodeIds=pending;
+        }
+        this.overlay();
+        void this.persist();
+        break;
+      }
+      case 'buy-node': {
+        const run=this.save.activeRun;
+        if(run?.draft&&this.vm.treePanel){
+          if(usesFreeSkills(run))this.execute({type:'confirm-node',offerId:run.draft.id,nodeIds:[...(run.draft.pendingNodeIds??[])]});
+          else if(this.vm.treePanel.nodeId)this.execute({type:'buy-node',offerId:run.draft.id,nodeId:this.vm.treePanel.nodeId});
+        }
+        break;
+      }
+      case 'tree-save-home': this.go('home'); break;
       case 'codex-node': this.vm.codexNode=id;this.render();document.getElementById('codex-node-detail')?.scrollIntoView({block:'nearest'});break;
       case 'tree-open': this.openTree('choose',id);break;
       case 'tree-close': this.closeTree();break;
@@ -291,7 +410,7 @@ export class GameApp {
       case 'tree-candidate': if(this.vm.treePanel?.mode==='choose'&&this.vm.treePanel.nodeId&&this.execute({type:'custom-node',nodeId:this.vm.treePanel.nodeId})){this.vm.selectedCard=this.vm.treePanel.nodeId;this.closeTree();}break;
       case 'view-build': if(this.save.activeRun&&usesSkillTrees(this.save.activeRun)){this.openTree(this.save.activeRun.draft?'choose':'view');break;} this.vm.showBuild = !this.vm.showBuild; if (!this.save.activeRun?.draft) this.execute({ type: 'pause', reason: 'user' }); this.overlay(); break;
       case 'tutorial-done': this.save.preferences.tutorialSeen = true; this.execute({ type: 'resume', reason: 'tutorial' }); break;
-      case 'save-home': await this.persist(); this.go('home'); break;
+      case 'save-home': this.go('home'); break;
       case 'abandon-confirm': this.vm.modal = 'abandon'; this.overlay(); break;
       case 'abandon': this.vm.modal = null; if (this.execute({ type: 'abandon' })) await this.finish(); break;
       case 'cancel-confirm': this.vm.modal = null; this.overlay(); break;
@@ -324,9 +443,25 @@ export class GameApp {
     if(this.collecting)return;
     if(this.temporary){this.vm.message='暫時試玩不提供招募；請先恢復可儲存的本地紀錄。';this.render();return;}
     const previousSequence=this.save.collection.sequence;this.collecting=true;this.render();
-    try{await this.persist(true);if(this.vm.saveStatus!=='已儲存在本機')throw new Error('請先解決存檔問題，再進行招募');this.save=await this.repository.collect(this.save.revision,action);this.vm.message='';this.audio.feedback('choose');}
+    try{await this.persist(true);if(this.vm.saveStatus!=='已儲存在本機')throw new Error(action.type==='equip'?'請先解決存檔問題，再更換裝備':'請先解決存檔問題，再進行招募');this.save=await this.repository.collect(this.save.revision,action);this.vm.message='';this.audio.feedback('choose');}
     catch(error){this.vm.message=error instanceof Error?error.message:String(error);}
-    finally{this.collecting=false;this.render();const focus=action.type!=='equip'&&this.save.collection.sequence>previousSequence?'.recruitment-receipt':action.type==='equip'?`#form-${FORM_MAP[action.formId].ownerId}`:action.type==='draw'?'[data-action="draw"]':`[data-action="exchange"][data-id="${action.formId}"]`;this.root.querySelector<HTMLElement>(focus)?.focus({preventScroll:true});}
+    finally {
+      this.collecting = false; this.render();
+      let focus: string;
+      if (action.type === 'equip') {
+        focus = this.vm.rosterPanel ? `[data-action="roster-preview"][data-id="${action.formId}"]` : `#form-${FORM_MAP[action.formId].ownerId}`;
+      } else if (this.save.collection.sequence > previousSequence) focus = '.recruitment-receipt';
+      else focus = action.type === 'draw' ? '[data-action="draw"]' : `[data-action="exchange"][data-id="${action.formId}"]`;
+      this.root.querySelector<HTMLElement>(focus)?.focus({ preventScroll: true });
+    }
+  }
+  private closeRoster() {
+    if (!this.vm.rosterPanel || this.collecting) return;
+    const ownerId = this.vm.rosterPanel.ownerId;
+    this.vm.rosterPanel = undefined; this.overlay();
+    const opener = this.rosterFocusId ? document.getElementById(this.rosterFocusId) : null;
+    (opener ?? document.getElementById(`roster-card-${ownerId}`))?.focus({ preventScroll: true });
+    this.rosterFocusId = null;
   }
   private change(input: HTMLInputElement | HTMLSelectElement) {
     if(this.collecting)return;
@@ -345,6 +480,10 @@ export class GameApp {
   private key(event: KeyboardEvent) {
     if (this.mobile.handleKey(event)) return;
     const dialog = [...this.root.querySelectorAll<HTMLElement>('[role="dialog"], [role="alertdialog"]')].find(element => element.getClientRects().length > 0);
+    const intel = this.root.querySelector<HTMLDetailsElement>('.battle-intel[open]');
+    if (event.key === 'Escape' && intel && !dialog) {
+      event.preventDefault(); intel.open = false; intel.querySelector('summary')?.focus(); return;
+    }
     if (event.key === 'Tab' && dialog) {
       const nodes = [...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),input:not(:disabled),select:not(:disabled),[tabindex="0"]')].filter(el => el.offsetParent !== null);
       const first = nodes[0], last = nodes[nodes.length - 1];
@@ -352,6 +491,13 @@ export class GameApp {
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
     }
     if (event.key === 'Escape') {
+      if (this.vm.rosterPanel) {
+        event.preventDefault();
+        if (this.collecting) return;
+        if (this.vm.rosterPanel.view === 'wardrobe') { this.vm.rosterPanel.view = 'character'; this.overlay(); }
+        else this.closeRoster();
+        return;
+      }
       if(this.vm.treePanel){event.preventDefault();this.closeTree();return;}
       if (this.vm.modal === 'reset' || this.vm.modal === 'abandon') { this.vm.modal = null; this.overlay(); return; }
       if (this.vm.page === 'battle' && !this.save.activeRun?.draft && !this.save.activeRun?.pauseReasons.includes('tutorial')) { event.preventDefault(); void this.action(this.save.activeRun?.phase === 'running' || this.save.activeRun?.bossIntro && this.save.activeRun.pauseReasons.length === 1 ? 'pause' : 'resume'); }
@@ -359,7 +505,7 @@ export class GameApp {
     if (event.code === 'Space' && this.vm.page === 'battle' && !dialog && !['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes((event.target as HTMLElement).tagName)) { event.preventDefault(); if (!event.repeat) void this.action('cast'); }
   }
   private async reset() {
-    try { await this.saveQueue; await this.repository.reset(); this.save = createDefaultSave(); this.lastRun = null; this.temporary = false; this.ready = true; this.vm.message = ''; this.vm.saveStatus = '已儲存在本機'; this.vm.stageId = 'S01'; this.vm.challengeId = null; this.vm.retrySeed = null; this.go('home'); await this.persist(); }
+    try { await this.saveQueue; await this.repository.reset(); this.save = createDefaultSave(); this.formationDraft = null; this.lastRun = null; this.temporary = false; this.ready = true; this.vm.message = ''; this.vm.saveStatus = '已儲存在本機'; this.vm.stageId = 'S01'; this.vm.challengeId = null; this.vm.retrySeed = null; this.go('home'); await this.persist(); }
     catch (error) { this.vm.message = `無法重置：${String(error)}`; if (this.ready) this.render(); else this.renderLoadError(); }
   }
   private exposeTesting() {

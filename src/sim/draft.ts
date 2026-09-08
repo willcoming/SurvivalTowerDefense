@@ -65,7 +65,7 @@ export function openDraft(s:RunState):void{
     s.upgradePendingAt??=s.tick;
     if(s.tick-s.upgradePendingAt<60&&s.enemies.some(e=>e.hp>0&&e.chargeKind&&!e.chargeCancelled&&e.chargeUntil>s.tick))return;
     delete s.upgradePendingAt;
-    s.draft={id:s.nextOfferId++,choice:Math.floor(s.choicesSpent/2)+1,cards:[],focusId:s.config.captainId,selectedEvolution:null,pointTarget:Math.min(s.choicesEarned,(Math.floor(s.choicesSpent/2)+1)*2)};
+    s.draft={id:s.nextOfferId++,choice:Math.floor(s.choicesSpent/2)+1,cards:[],focusId:s.config.captainId,selectedEvolution:null,pointTarget:Math.min(s.choicesEarned,(Math.floor(s.choicesSpent/2)+1)*2),pendingNodeIds:[]};
     if(!s.pauseReasons.includes('upgrade'))s.pauseReasons.push('upgrade');s.phase='choosing';return;
   }
   const focusId=[...s.actions].reverse().find(a=>a.command.type==='focus')?.command;

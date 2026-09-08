@@ -33,9 +33,10 @@ describe('DMG01–07 · shield overflow, armor and real damage statistics', () =
   it('records HP and shield damage separately and awards each enemy XP once', () => {
     const state = fixture();
     const enemy = createEnemy(state, 'E04', 195, 200, 40);
+    const initialShield = enemy.shield, initialHp = enemy.hp;
     hitEnemy(state, enemy, packet(1000));
-    expect(state.stats.shieldDamageByCharacter.C01).toBe(300);
-    expect(state.stats.damageByCharacter.C01).toBe(220);
+    expect(state.stats.shieldDamageByCharacter.C01).toBe(initialShield);
+    expect(state.stats.damageByCharacter.C01).toBe(initialHp);
     expect(state.xp).toBe(40);
     expect(state.choicesEarned).toBe(0);
     hitEnemy(state, enemy, packet(1000));
@@ -170,7 +171,7 @@ describe('FX08–09 · defense shields and enemy mechanisms', () => {
     state.tick = 30; hitEnemy(state, b02, packet(1));
     expect(b02.exposureUntil).toBe(180);
     const elite = createEnemy(state, 'E07', 100, 200);
-    hitEnemy(state, elite, packet(501, { armorIgnore: 1 }));
+    hitEnemy(state, elite, packet(elite.maxHp / 2 + 1, { armorIgnore: 1 }));
     expect(elite.shield).toBe(300);
     hitEnemy(state, elite, packet(301, { armorIgnore: 1 }));
     expect(elite.shield).toBe(0);

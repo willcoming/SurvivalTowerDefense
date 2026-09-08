@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-08",
+  "basedOnDisplayedOption": 2,
+  "screen": "squad-overview",
+  "status": "revised-design-only",
+  "source": "/Users/willcoming/.codex/generated_images/01a0708e-237b-70e1-83f7-01892de45979/exec-15200eec-3a27-4f34-ace4-5271a0479617.png",
+  "referenceImages": [
+    "/Users/willcoming/code/SurvivalTowerDefense/artifacts/design/home-lobby-2026-09-08/option-2.png",
+    "/Users/willcoming/code/SurvivalTowerDefense/public/assets/characters/C01-portrait.webp",
+    "/Users/willcoming/code/SurvivalTowerDefense/public/assets/characters/C04-portrait.webp",
+    "/Users/willcoming/code/SurvivalTowerDefense/public/assets/characters/C05-portrait.webp",
+    "/Users/willcoming/code/SurvivalTowerDefense/public/assets/characters/C06-portrait.webp"
+  ],
+  "prompt": "Revise the FIRST attached mobile game UI mockup, the user-selected Squad ready room direction. Produce exactly ONE revised screen, production-quality mobile GAME SQUAD OVERVIEW, 390 x 844 design/aspect ratio, portrait app content only without phone frame, OS chrome or external captions. Preserve the first mock's distinctive five joined tall character portrait slices at top, cinematic captain illustration below, midnight navy/cyan world, restrained angular gold borders, coral beveled main button. IMPORTANT USER CORRECTION: this is the 編隊 tab, NOT the combat or home screen. REMOVE the entire S06 mission panel, stage title 藍潮中繼塔, elapsed timer 04:03, mission progress, 關卡情報 and 繼續行動. There is NO resume in this game; each battle is independent and starts fresh, but do not clutter this squad screen with explanatory gameplay text. Use the removed panel's space for more breathing room and fuller captain illustration, not new panels. Header 星骸防線 and small settings button. Top row exactly five portraits left to right using the four additional attached character assets plus 雷娜 already visible in the selected mock: 璃音 red short hair/red jacket rifle; 雷娜 purple hair white coat blue energy ring rifle (captain); 米菈 mint twin tails blue drone discs; 芙蕾 orange ponytail heavy orange launcher; 希雅 blonde bob white tech coat tablet. Faithfully reuse their existing facial identities and outfits; don't invent new characters or costumes. Put their readable Traditional Chinese names under each portrait; captain gold mark on 雷娜 only. Thin info strip below five portraits: 目前小隊 5 / 5 and 隊長 雷娜. NO 檢視小隊 button because we are already on squad overview. Main illustration shows 雷娜 faithfully from the selected mock's purple-haired captain portrait, consistent with her top portrait, on right with rich futuristic atmospheric background, not a top-down game map, not a plain gradient. Left nameplate 雷娜 / 隊長, one concise character line optional. One clear PRIMARY button above bottom nav labeled 編隊, starts editing in a separate state; this overview does NOT show confirm/cancel buttons, editable dropdowns, change-team toggles, or draggable controls yet. A small secondary 角色詳情 action may sit by her nameplate. Bottom persistent nav 作戰 / 編隊 / 招募 / 圖鑑 / 紀錄 with 編隊 selected gold and 作戰 neutral. 作戰 is the separate stage-selection page; don't include stage selection in this image. Readable 14-16px body at design size, comfortably tappable ~44px targets, one-screen fit with no scroll and no crop or overlap of any labels. No currency, power metrics, stamina, rewards, notifications, or invented equipment. Keep the attractive native anime videogame feel of the selected mock; avoid web dashboard cards, rounded panel stacks and generic landing page layout. Today 2026-09-08 but no date shown.",
+  "notes": [
+    "作戰 is stage selection. Every run starts fresh after exiting; no resume.",
+    "This image is squad overview. Edit explicitly, draft changes, confirm once.",
+    "Use real assets and exact character labels in code; generated mock typography is not authoritative."
+  ]
+}

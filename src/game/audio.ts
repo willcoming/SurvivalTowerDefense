@@ -68,7 +68,11 @@ export class GameAudio {
   }
   event(event: VisualEvent) {
     if (!this.eligible(`${event.kind}:${event.source ?? ''}`)) return;
-    if (event.kind === 'shot') this.tone(event.source === 'C05' ? 120 : 850, .07, .07, event.source === 'C05' ? 'triangle' : 'sine', this.effects, event.source === 'C05' ? 45 : 220, 1);
+    if (event.kind === 'shot') {
+      if (event.source === 'C07') this.tone(320, .11, .07, 'triangle', this.effects, 95, 1);
+      else if (event.source === 'C08') this.tone(170, .055, .055, 'sawtooth', this.effects, 65, 1);
+      else this.tone(event.source === 'C05' ? 120 : 850, .07, .07, event.source === 'C05' ? 'triangle' : 'sine', this.effects, event.source === 'C05' ? 45 : 220, 1);
+    }
     if (event.kind === 'arc' || (event.kind === 'beam' && event.source === 'C02')) this.tone(1200, .06, .035, 'sawtooth', this.effects, 280, 1);
     if (event.kind === 'beam' && event.source === 'C03') this.tone(230, .10, .12, 'triangle', this.effects, 48, 1);
     if (event.kind === 'beam' && event.source === 'C06') this.tone(1650, .06, .05, 'sine', this.effects, 890, 1);

@@ -32,7 +32,7 @@ export function completeRun(save:GameSave,run:RunState){
  syncRewards(save.collection,save.profile);
  if(!recorded){const summary=save.profile.recentRuns.find(r=>r.runId===run.runId)!;summary.rewards={tickets:save.collection.tickets-before.tickets,points:save.collection.points-before.points,forms:save.collection.owned.length-before.forms,completed:!before.completed&&save.collection.completionGranted};}
 }
-function validSave(raw:unknown):GameSave{
+function validSave(raw:unknown, discardActiveRun=false):GameSave{
  if(!raw||typeof raw!=='object')throw new SaveValidationError();const s=structuredClone(raw) as GameSave;
  if(s.profile?.schemaVersion!==SCHEMA_VERSION)throw new SaveValidationError('存檔版本不相容，原始資料已保留');
  const p=s.preferences;
@@ -45,6 +45,7 @@ function validSave(raw:unknown):GameSave{
  if(typeof p.autoTactical!=='boolean')throw new SaveValidationError();
  if(s.collection===undefined)s.collection=createCollection();
  try{validateCollection(s.collection);syncRewards(s.collection,s.profile);}catch{throw new SaveValidationError('招募紀錄損壞，原始資料已保留');}
+ if(discardActiveRun && s.activeRun?.phase !== 'ended')s.activeRun=null;
  if(s.activeRun!==null){
    if(s.activeRun?.schemaVersion!==SCHEMA_VERSION||!supportedContent(s.activeRun?.contentVersion))throw new IncompatibleRunError(s);
    try{restoreRun(s.activeRun);}catch{throw new SaveValidationError('進行中戰局損壞，原始資料已保留');}
@@ -64,12 +65,12 @@ export class GameRepository {
    request.onblocked=()=>reject(new Error('請先關閉其他遊戲分頁再重試'));
   });return this.dbPromise;
  }
- async load():Promise<GameSave>{
+ async load(options:{discardActiveRun?:boolean}={}):Promise<GameSave>{
   await this.queue.catch(()=>{});const db=await this.db();
   try{
    const result=await new Promise<GameSave>((resolve,reject)=>{
     const tx=db.transaction(STORE_NAME,'readwrite'),store=tx.objectStore(STORE_NAME),q=store.get(SAVE_KEY);let result:GameSave,failure:unknown;
-    q.onsuccess=()=>{try{result=q.result===undefined?createDefaultSave():validSave(q.result);if(q.result!==undefined&&JSON.stringify(result.collection)!==JSON.stringify(q.result.collection)){result.revision++;store.put(result,SAVE_KEY);}}catch(error){failure=error;tx.abort();}};
+    q.onsuccess=()=>{try{result=q.result===undefined?createDefaultSave():validSave(q.result,options.discardActiveRun);if(q.result!==undefined&&(JSON.stringify(result.collection)!==JSON.stringify(q.result.collection)||result.activeRun===null&&q.result.activeRun!==null)){result.revision++;store.put(result,SAVE_KEY);}}catch(error){failure=error;tx.abort();}};
     tx.oncomplete=()=>resolve(result);tx.onabort=()=>reject(failure??tx.error);tx.onerror=()=>{failure??=tx.error;};
    });this.revision=result.revision;this.loaded=true;return result;
   }catch(error){if(error instanceof IncompatibleRunError){this.revision=error.preservedSave.revision;this.loaded=true;}throw error;}
