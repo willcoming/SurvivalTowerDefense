@@ -4435,5 +4435,1162 @@
     "promptBrief": "汐音夏日裝：淺金長直髮、淺青露肩短上衣、白短褲與白涼鞋，腰間浮標式六角地雷。 畫風與既有日系 2D 動漫及 C07 原裝一致。 夏日獨立姿勢：側身回望、抬手托起浮標地雷，另一手持發射器。",
     "backgroundMode": "runtime-magenta-key",
     "loadGroup": "form"
+  },
+  {
+    "assetId": "C07-original-motion",
+    "path": "/assets/animations/C07-original-motion-v1.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 274548,
+    "sha256": "9c541820b454b9ecde304c4b20cd650753673f43346b85180277479a3c56d14b",
+    "source": "artifacts/animation-sources/C07-original-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Create a production CHIBI six-pose sprite sheet for C07-original, Starfall Defense. Image 1 references ONLY the 2.5-head-tall chibi proportions, compact cel-shaded anime rendering and 3x2 six-frame layout. Image 2 references ONLY character identity, costume and weapon. Subject: adult operative with long pale blonde straight hair, silver feather shoulders, silver top, black shorts and boots, hexagonal mines on silver chains, compact cylindrical mine launcher. Completely convert to big-head compact-body Q version, NOT full-size portrait proportions. Canvas 1536x1024, exactly THREE columns TWO rows of equal square cells. Each cell contains one separately drawn whole character and equipment. Reading order six DISTINCT actions: holding launcher low; loading hexagonal mine; aim launcher up-right; deploy hexagonal mine with small spark; recoil crouch; lower launcher. Face and aim towards upper right, 3/4 view. Same head size, same fixed foot baseline and scale in all cells, no floating. Generous 40px empty margin per cell; no overlap, no clipped weapon/hair/feet. SOLID FLAT PURE MAGENTA #FF00FF backdrop for the game's existing chroma-key pipeline. NO checkerboard, no gradients, no ground shadows, no panel outlines, no labels, no text, no extra characters. Preserve hair, outfit identity, weapon type of image 2, with short chibi limbs matching image 1. Keep weapon sparks tiny and localized, no long beam leaving the cell. Crisp ink and limited cel shades.",
+    "reference": "public/assets/forms/C07-original-stage-v3.webp",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        541,
+        1016,
+        1536
+      ],
+      "ys": [
+        0,
+        510,
+        1024
+      ]
+    },
+    "scale": 0.49361702127659574,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "6a6477028b84dd82996334207137a7da276511cecaf2194ef79d6f5a233d4b8e",
+        "sourceBounds": {
+          "left": 119,
+          "top": 59,
+          "right": 462,
+          "bottom": 475,
+          "center": 292
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "a689be24bc1a5bac9efcba83659e9634e2294d772ec02726b11e1d1463ead95a",
+        "sourceBounds": {
+          "left": 592,
+          "top": 62,
+          "right": 943,
+          "bottom": 475,
+          "center": 770
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "1fd12fb5b9f966027fc32500d5fcb43e1a5cd1d904061cee7e2685ecd82c6da0",
+        "sourceBounds": {
+          "left": 1069,
+          "top": 71,
+          "right": 1444,
+          "bottom": 475,
+          "center": 1242
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "ad73feb41d6463bd497646824b810cb9a900978b067bbce204bf76ba58c3ffd6",
+        "sourceBounds": {
+          "left": 91,
+          "top": 544,
+          "right": 509,
+          "bottom": 949,
+          "center": 275
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "9f9b3da10386547616377f3e1c87e926fc87524a24b5355eb655e83afc042ed8",
+        "sourceBounds": {
+          "left": 583,
+          "top": 582,
+          "right": 930,
+          "bottom": 951,
+          "center": 789
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "06a41b0104e0797e865ae25b5b9114c4834456fb485dfa3bd3d9dc172b8cb7d5",
+        "sourceBounds": {
+          "left": 1077,
+          "top": 544,
+          "right": 1398,
+          "bottom": 954,
+          "center": 1232
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C02-summer-motion",
+    "path": "/assets/animations/C02-summer-motion-v1.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 298548,
+    "sha256": "f91ef2d83ddb7575e1b4f3dd67d18eaf49cb8f55c6d81f07432545b7b6c378df",
+    "source": "artifacts/animation-sources/C02-summer-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Create a production CHIBI six-pose sprite sheet for C02-summer, Starfall Defense. Image 1 references ONLY the 2.5-head-tall chibi proportions, compact cel-shaded anime rendering and 3x2 six-frame layout. Image 2 references ONLY character identity, costume and weapon. Subject: adult operative with dark navy high ponytail, headphones, navy summer shorts and top, open white patterned jacket, sandals, forked electric arc emitter. Completely convert to big-head compact-body Q version, NOT full-size portrait proportions. Canvas 1536x1024, exactly THREE columns TWO rows of equal square cells. Each cell contains one separately drawn whole character and equipment. Reading order six DISTINCT actions: hold emitter low; charge emitter; aim up-right; electric discharge small fork sparks; recoil; recover. Face and aim towards upper right, 3/4 view. Same head size, same fixed foot baseline and scale in all cells, no floating. Generous 40px empty margin per cell; no overlap, no clipped weapon/hair/feet. SOLID FLAT PURE MAGENTA #FF00FF backdrop for the game's existing chroma-key pipeline. NO checkerboard, no gradients, no ground shadows, no panel outlines, no labels, no text, no extra characters. Preserve hair, outfit identity, weapon type of image 2, with short chibi limbs matching image 1. Keep weapon sparks tiny and localized, no long beam leaving the cell. Crisp ink and limited cel shades.",
+    "reference": "public/assets/forms/C02-summer.webp",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        524,
+        1009,
+        1536
+      ],
+      "ys": [
+        0,
+        510,
+        1024
+      ]
+    },
+    "scale": 0.4884210526315789,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "634b7646fab5e6275b47b7a7f4354ed57a521aa10894cf286b5259edfa5e54ea",
+        "sourceBounds": {
+          "left": 100,
+          "top": 77,
+          "right": 438,
+          "bottom": 470,
+          "center": 285
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "3c6bb235d4a3fe8f439a484248926e7e4692a6586bd9cf8d1654e7d40a3b07bb",
+        "sourceBounds": {
+          "left": 589,
+          "top": 83,
+          "right": 955,
+          "bottom": 471,
+          "center": 767.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "de4cd7f72b087088d00588557cb02121f71d827ab399cfed65caf074bbe4930d",
+        "sourceBounds": {
+          "left": 1059,
+          "top": 95,
+          "right": 1447,
+          "bottom": 471,
+          "center": 1253.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "213665429cc934ba147b82d30047cc24c4627c9bfdf5dff03354d2c8cafb0c13",
+        "sourceBounds": {
+          "left": 70,
+          "top": 555,
+          "right": 494,
+          "bottom": 937,
+          "center": 257.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "ab2b8aa5ccf12200c152be7f187966220764678f4358f45304509d3bf5bcc539",
+        "sourceBounds": {
+          "left": 554,
+          "top": 569,
+          "right": 936,
+          "bottom": 937,
+          "center": 784.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "87cbaad44890f51ecbd504635633d1c7e17cab759b74a2cf114ff3c1a6720ed0",
+        "sourceBounds": {
+          "left": 1054,
+          "top": 549,
+          "right": 1412,
+          "bottom": 943,
+          "center": 1223.5
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C01-summer-motion",
+    "path": "/assets/animations/C01-summer-motion-v1.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 277838,
+    "sha256": "613f36699357a2433ee30c8e39a40d99dfd8175159fbcb1745fed2e056db7528",
+    "source": "artifacts/animation-sources/C01-summer-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Create a production CHIBI six-pose sprite sheet for C01-summer, Starfall Defense. Image 1 references ONLY the 2.5-head-tall chibi proportions, compact cel-shaded anime rendering and 3x2 six-frame layout. Image 2 references ONLY character identity, costume and weapon. Subject: adult operative with short red hair, orange rescue cropped jacket, white shorts, sandals, futuristic carbine. Completely convert to big-head compact-body Q version, NOT full-size portrait proportions. Canvas 1536x1024, exactly THREE columns TWO rows of equal square cells. Each cell contains one separately drawn whole character and equipment. Reading order six DISTINCT actions: low ready; breathing ready; shoulder aim up-right; fire small muzzle flash; recoil; recover. Face and aim towards upper right, 3/4 view. Same head size, same fixed foot baseline and scale in all cells, no floating. Generous 40px empty margin per cell; no overlap, no clipped weapon/hair/feet. SOLID FLAT PURE MAGENTA #FF00FF backdrop for the game's existing chroma-key pipeline. NO checkerboard, no gradients, no ground shadows, no panel outlines, no labels, no text, no extra characters. Preserve hair, outfit identity, weapon type of image 2, with short chibi limbs matching image 1. Keep weapon sparks tiny and localized, no long beam leaving the cell. Crisp ink and limited cel shades.",
+    "reference": "public/assets/forms/C01-summer.webp",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        527,
+        1024,
+        1536
+      ],
+      "ys": [
+        0,
+        515,
+        1024
+      ]
+    },
+    "scale": 0.5555555555555556,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "9f1e1ba087bc2194d2dae1e32ad720f97261a970150651267ea08768a3c1336d",
+        "sourceBounds": {
+          "left": 136,
+          "top": 78,
+          "right": 401,
+          "bottom": 473,
+          "center": 265
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "e7f7cd8479d2a06757e7ed4bfdbfe03e3a569aefc875c7619ed18677bd956866",
+        "sourceBounds": {
+          "left": 620,
+          "top": 82,
+          "right": 909,
+          "bottom": 473,
+          "center": 758.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "84f8fc35cebc1b71face591117e9f7b6ba1f55f4b92eedd53368354c51ba0ee2",
+        "sourceBounds": {
+          "left": 1130,
+          "top": 82,
+          "right": 1435,
+          "bottom": 472,
+          "center": 1278.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "58dc1f4201ca6fcd0a0197a90e30e33f0d3418717e1244398fa32edf74f7eeaa",
+        "sourceBounds": {
+          "left": 120,
+          "top": 556,
+          "right": 481,
+          "bottom": 939,
+          "center": 274.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "6b77d4168da97dfb7ab451c0fd5a5931c68f2235ba87700fd5eec6383c871734",
+        "sourceBounds": {
+          "left": 584,
+          "top": 566,
+          "right": 910,
+          "bottom": 939,
+          "center": 772
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "e2c499600d887ec295b0b5fdfe79a7c04c51f06aa6e6bc37f98770ffee47e98b",
+        "sourceBounds": {
+          "left": 1122,
+          "top": 560,
+          "right": 1385,
+          "bottom": 939,
+          "center": 1249.5
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C05-summer-motion",
+    "path": "/assets/animations/C05-summer-motion-v1.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 268958,
+    "sha256": "ff8b1ded3bfd4ce941764dc54b67eedc685763300398f7097eccd3a390361246",
+    "source": "artifacts/animation-sources/C05-summer-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Create a production CHIBI six-pose sprite sheet for C05-summer, Starfall Defense. Image 1 references ONLY the 2.5-head-tall chibi proportions, compact cel-shaded anime rendering and 3x2 six-frame layout. Image 2 references ONLY character identity, costume and weapon. Subject: adult operative with orange ponytail, orange floral tied summer shirt, white shorts, black sun-emblem apron, sandals, heavy shoulder mortar cannon. Completely convert to big-head compact-body Q version, NOT full-size portrait proportions. Canvas 1536x1024, exactly THREE columns TWO rows of equal square cells. Each cell contains one separately drawn whole character and equipment. Reading order six DISTINCT actions: cannon resting shoulder; grip cannon; tilt cannon up-right; launch shell tiny orange spark; deep knee recoil; recover. Face and aim towards upper right, 3/4 view. Same head size, same fixed foot baseline and scale in all cells, no floating. Generous 40px empty margin per cell; no overlap, no clipped weapon/hair/feet. SOLID FLAT PURE MAGENTA #FF00FF backdrop for the game's existing chroma-key pipeline. NO checkerboard, no gradients, no ground shadows, no panel outlines, no labels, no text, no extra characters. Preserve hair, outfit identity, weapon type of image 2, with short chibi limbs matching image 1. Keep weapon sparks tiny and localized, no long beam leaving the cell. Crisp ink and limited cel shades.",
+    "reference": "public/assets/forms/C05-summer.webp",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        536,
+        1016,
+        1536
+      ],
+      "ys": [
+        0,
+        513,
+        1024
+      ]
+    },
+    "scale": 0.48232848232848236,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "0e37b8c638ecd8c455d9dd8036c9c24040689c40c17ae29639a79fbe878b197a",
+        "sourceBounds": {
+          "left": 121,
+          "top": 54,
+          "right": 458,
+          "bottom": 462,
+          "center": 254
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "075a2c484dd1d18f427249cb01672c9130619b97354f2a34a6f2387e1ef9b3d2",
+        "sourceBounds": {
+          "left": 603,
+          "top": 80,
+          "right": 958,
+          "bottom": 462,
+          "center": 743.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "fe571c990f3208ba83e7403370681384f8b423e18bef9dda1924fa5f803dd184",
+        "sourceBounds": {
+          "left": 1073,
+          "top": 74,
+          "right": 1441,
+          "bottom": 462,
+          "center": 1227
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "f926e18b7cb51c02b59c02835199349b424de860c2427773fd072f9ae93b8ac7",
+        "sourceBounds": {
+          "left": 110,
+          "top": 577,
+          "right": 499,
+          "bottom": 948,
+          "center": 259.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "aefd92b7cab7657d7328141115bcaf7891409f74e4351c73d86525a4af7a207d",
+        "sourceBounds": {
+          "left": 573,
+          "top": 606,
+          "right": 925,
+          "bottom": 948,
+          "center": 754
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "f88bab70a9157c3ee5368a11052cd47272dae7341d81423d2d474a750f3ef279",
+        "sourceBounds": {
+          "left": 1068,
+          "top": 563,
+          "right": 1420,
+          "bottom": 948,
+          "center": 1207.5
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C08-original-motion",
+    "path": "/assets/animations/C08-original-motion-v1.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 223196,
+    "sha256": "0a0b2aaa90d112f4b761a3fc9dcaf462cb6071793ad188331132e48762ddc739",
+    "source": "artifacts/animation-sources/C08-original-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Create a production CHIBI six-pose sprite sheet for C08-original, Starfall Defense. Image 1 references ONLY the 2.5-head-tall chibi proportions, compact cel-shaded anime rendering and 3x2 six-frame layout. Image 2 references ONLY character identity, costume and weapon. Subject: adult operative with long wavy black hair, black and white striped stage top, asymmetric black skirt, silver fringes, black boots, heavy rotating six-barrel minigun. Completely convert to big-head compact-body Q version, NOT full-size portrait proportions. Canvas 1536x1024, exactly THREE columns TWO rows of equal square cells. Each cell contains one separately drawn whole character and equipment. Reading order six DISTINCT actions: holding heavy gun low; grip and spin barrels; brace aim up-right; sustained burst small muzzle flare; firm recoil stance; lower gun with subtle heat vents. Face and aim towards upper right, 3/4 view. Same head size, same fixed foot baseline and scale in all cells, no floating. Generous 40px empty margin per cell; no overlap, no clipped weapon/hair/feet. SOLID FLAT PURE MAGENTA #FF00FF backdrop for the game's existing chroma-key pipeline. NO checkerboard, no gradients, no ground shadows, no panel outlines, no labels, no text, no extra characters. Preserve hair, outfit identity, weapon type of image 2, with short chibi limbs matching image 1. Keep weapon sparks tiny and localized, no long beam leaving the cell. Crisp ink and limited cel shades.",
+    "reference": "public/assets/forms/C08-original-stage-v3.webp",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        548,
+        1005,
+        1536
+      ],
+      "ys": [
+        0,
+        506,
+        1024
+      ]
+    },
+    "scale": 0.43283582089552236,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "1573b56f1068948be89c3a24e5b26d7d1904d801d2095a9cd3b3f238bd736918",
+        "sourceBounds": {
+          "left": 104,
+          "top": 82,
+          "right": 476,
+          "bottom": 459,
+          "center": 253
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "d9284d36132822dd1eeb51f7e3dc4bae5f078a9213e5f17f820a34ea3748ebe9",
+        "sourceBounds": {
+          "left": 582,
+          "top": 82,
+          "right": 960,
+          "bottom": 459,
+          "center": 732.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "6895bebca7330ea0205c6ed4e7e75af3a3f979cf80a761715355b2bba816f95d",
+        "sourceBounds": {
+          "left": 1065,
+          "top": 95,
+          "right": 1450,
+          "bottom": 459,
+          "center": 1232
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "fe6fa09d75c3f3524c398884b131ed57d9fed958cd420d2ccca3cecdd81b9ba7",
+        "sourceBounds": {
+          "left": 86,
+          "top": 555,
+          "right": 523,
+          "bottom": 920,
+          "center": 256
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "6c294d9ec399ba82b2344e2ec815506da0a6c787a7072df257df343ddaac295f",
+        "sourceBounds": {
+          "left": 576,
+          "top": 560,
+          "right": 936,
+          "bottom": 920,
+          "center": 729.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "9ec8054a0955af7c2869ed6b5b0698edde6567c17927ae71b4583eba7b6d82b5",
+        "sourceBounds": {
+          "left": 1047,
+          "top": 552,
+          "right": 1431,
+          "bottom": 920,
+          "center": 1188
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C08-summer-motion",
+    "path": "/assets/animations/C08-summer-motion-v1.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 237152,
+    "sha256": "4af9fbf6bae11933078d2c9443b2d94b4cca78b14bad85ddce45be9127809621",
+    "source": "artifacts/animation-sources/C08-summer-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Create a production CHIBI six-pose sprite sheet for C08-summer, Starfall Defense. Image 1 references ONLY the 2.5-head-tall chibi proportions, compact cel-shaded anime rendering and 3x2 six-frame layout. Image 2 references ONLY character identity, costume and weapon. Subject: adult operative with long wavy black hair, black summer top, open white floral coverup, black white floral asymmetrical summer skirt, sandals, heavy rotary minigun. Completely convert to big-head compact-body Q version, NOT full-size portrait proportions. Canvas 1536x1024, exactly THREE columns TWO rows of equal square cells. Each cell contains one separately drawn whole character and equipment. Reading order six DISTINCT actions: gun held low; grip and spin barrels; brace aim up-right; sustained burst tiny spark; recoil with planted feet; lower gun and vent. Face and aim towards upper right, 3/4 view. Same head size, same fixed foot baseline and scale in all cells, no floating. Generous 40px empty margin per cell; no overlap, no clipped weapon/hair/feet. SOLID FLAT PURE MAGENTA #FF00FF backdrop for the game's existing chroma-key pipeline. NO checkerboard, no gradients, no ground shadows, no panel outlines, no labels, no text, no extra characters. Preserve hair, outfit identity, weapon type of image 2, with short chibi limbs matching image 1. Keep weapon sparks tiny and localized, no long beam leaving the cell. Crisp ink and limited cel shades.",
+    "reference": "public/assets/forms/C08-summer-pose-v4.webp",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        505,
+        1015,
+        1536
+      ],
+      "ys": [
+        0,
+        495,
+        1024
+      ]
+    },
+    "scale": 0.43856332703213613,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "f823b10eea14920de997e38908ddd424d75795e1957d005ece40fd7853b2a8d7",
+        "sourceBounds": {
+          "left": 112,
+          "top": 55,
+          "right": 476,
+          "bottom": 448,
+          "center": 269.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "6b1a9ed341406309f58d68b46c6433ab68ac37b5f5254c7626ef513aa7cbaba5",
+        "sourceBounds": {
+          "left": 564,
+          "top": 52,
+          "right": 989,
+          "bottom": 448,
+          "center": 725.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "1871ffa7a2fd6e10c0b480ba0587b87c03fb4266c1b5f07c05264bcb12826ad1",
+        "sourceBounds": {
+          "left": 1041,
+          "top": 54,
+          "right": 1431,
+          "bottom": 448,
+          "center": 1211
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "7a583d70d7713cdc0a1c677e05bc9eea22311c5b008f45c3863f1b97c5818bf0",
+        "sourceBounds": {
+          "left": 103,
+          "top": 539,
+          "right": 501,
+          "bottom": 931,
+          "center": 273.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "372bdaef92e08b6edb2a56670a98e8ea8e727486664d5aca52c9f896f4317671",
+        "sourceBounds": {
+          "left": 508,
+          "top": 557,
+          "right": 964,
+          "bottom": 929,
+          "center": 735
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "5ddf43f2075d357f6a517f9895f75523870992c70868d8978d39358652bd3466",
+        "sourceBounds": {
+          "left": 1047,
+          "top": 539,
+          "right": 1422,
+          "bottom": 928,
+          "center": 1245.5
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C04-summer-motion",
+    "path": "/assets/animations/C04-summer-motion-v1.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 364782,
+    "sha256": "f7852e8db6accb8ea0dc1347b76414c62a2b34721be1453cdafd91e88bb0d766",
+    "source": "artifacts/animation-sources/C04-summer-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Create a production CHIBI six-pose sprite sheet for C04-summer, Starfall Defense. Image 1 references ONLY the 2.5-head-tall chibi proportions, compact cel-shaded anime rendering and 3x2 six-frame layout. Image 2 references ONLY character identity, costume and weapon. Subject: adult operative with mint twin tails, teal and white summer suit with short skirt, swim ring at waist, sandals, twin gravity ring projectors. Completely convert to big-head compact-body Q version, NOT full-size portrait proportions. Canvas 1536x1024, exactly THREE columns TWO rows of equal square cells. Each cell contains one separately drawn whole character and equipment. Reading order six DISTINCT actions: hands low; charge rings; lift and aim rings; push gravity core up-right; arms recoil; recover. Face and aim towards upper right, 3/4 view. Same head size, same fixed foot baseline and scale in all cells, no floating. Generous 40px empty margin per cell; no overlap, no clipped weapon/hair/feet. SOLID FLAT PURE MAGENTA #FF00FF backdrop for the game's existing chroma-key pipeline. NO checkerboard, no gradients, no ground shadows, no panel outlines, no labels, no text, no extra characters. Preserve hair, outfit identity, weapon type of image 2, with short chibi limbs matching image 1. Keep weapon sparks tiny and localized, no long beam leaving the cell. Crisp ink and limited cel shades.",
+    "reference": "public/assets/forms/C04-summer.webp",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        533,
+        1019,
+        1536
+      ],
+      "ys": [
+        0,
+        506,
+        1024
+      ]
+    },
+    "scale": 0.5432098765432098,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "ef745124e2b7a7e892e9a1aaf7667bd9525012820ea14f9d3b5ecc1ce2c7e37b",
+        "sourceBounds": {
+          "left": 120,
+          "top": 79,
+          "right": 439,
+          "bottom": 470,
+          "center": 285.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "403c1cba77ef94414e6ed0100ec906694ba5ee37e23d49eb9566637885073b8a",
+        "sourceBounds": {
+          "left": 572,
+          "top": 83,
+          "right": 958,
+          "bottom": 471,
+          "center": 768
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "6c844d141bb2d7af1bd2ca9726e99973c5f015d06a2d146ed37fc7d40b71c05c",
+        "sourceBounds": {
+          "left": 1075,
+          "top": 89,
+          "right": 1451,
+          "bottom": 471,
+          "center": 1250.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "093a19afc92d4ea39f410a5d96afa197cd812b10ff293120947d23d8f65f7752",
+        "sourceBounds": {
+          "left": 111,
+          "top": 540,
+          "right": 494,
+          "bottom": 944,
+          "center": 287.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "52f001d20b4320252160fc7718a2f89d96b735f3bd30b8d1e74750e1ddc19d01",
+        "sourceBounds": {
+          "left": 576,
+          "top": 572,
+          "right": 924,
+          "bottom": 943,
+          "center": 760
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "6b1e8aee72888d2a008f68a5691eb58f63f9558d7acbce09280e444d1d89a46f",
+        "sourceBounds": {
+          "left": 1079,
+          "top": 572,
+          "right": 1411,
+          "bottom": 949,
+          "center": 1239.5
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C03-summer-motion",
+    "path": "/assets/animations/C03-summer-motion-v1.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 302352,
+    "sha256": "1d8e5e91cdc4065b68a813e575ea71ad17381cb4ca5ecda27515a534b79d91a9",
+    "source": "artifacts/animation-sources/C03-summer-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Create a production CHIBI six-pose sprite sheet for C03-summer, Starfall Defense. Image 1 references ONLY the 2.5-head-tall chibi proportions, compact cel-shaded anime rendering and 3x2 six-frame layout. Image 2 references ONLY character identity, costume and weapon. Subject: adult operative with long silver hair, black star hairclip, pale blue summer dress, white shrug and sandals, long sniper rifle. Completely convert to big-head compact-body Q version, NOT full-size portrait proportions. Canvas 1536x1024, exactly THREE columns TWO rows of equal square cells. Each cell contains one separately drawn whole character and equipment. Reading order six DISTINCT actions: low ready; prepare rifle; crouch aim up-right; precise single shot; shoulder recoil; recover. Face and aim towards upper right, 3/4 view. Same head size, same fixed foot baseline and scale in all cells, no floating. Generous 40px empty margin per cell; no overlap, no clipped weapon/hair/feet. SOLID FLAT PURE MAGENTA #FF00FF backdrop for the game's existing chroma-key pipeline. NO checkerboard, no gradients, no ground shadows, no panel outlines, no labels, no text, no extra characters. Preserve hair, outfit identity, weapon type of image 2, with short chibi limbs matching image 1. Keep weapon sparks tiny and localized, no long beam leaving the cell. Crisp ink and limited cel shades.",
+    "editPrompt": "Edit this C03-summer Q-version six-pose sprite sheet for uniform battle scale. Preserve the existing 2.5-head chibi character, face, hair, outfit, six poses and solid #FF00FF background. Fix weapon footprint ONLY: keep recognizable black/white scoped rail sniper rifle, but use chibi foreshortening to shorten its barrel by about 35% in EVERY frame, including ready, aim, fire and recovery. KEEP a visible medium-length barrel in recoil too, do not remove it. Rifle should be compact enough to fit mostly over the torso and diagonally up-right. All pixels for each pose must fit within 210px left and 210px right from the center BETWEEN THE FEET, so the weapon will not force the whole character to shrink when packed. Keep full character height about 380px per 512px cell, feet aligned per row. Three columns two rows, 1536x1024. No long beams/trails, no detached debris, no shadows, no text, no borders, no checkerboard. Six distinct poses: idle, ready, aim, fire, recoil, recover. Keep existing exact clothing identity, NOT long-leg portrait proportions.",
+    "editReference": "artifacts/animation-sources/C03-summer-first-generated.png",
+    "reference": "public/assets/forms/C03-summer.webp",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        512,
+        1010,
+        1536
+      ],
+      "ys": [
+        0,
+        508,
+        1024
+      ]
+    },
+    "scale": 0.5898123324396782,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "70ddf3b8c3ea00468f43716dfd634592a1753287d1a5b9a473bc019c05d2686c",
+        "sourceBounds": {
+          "left": 129,
+          "top": 81,
+          "right": 393,
+          "bottom": 453,
+          "center": 282.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "3ff0a51ce6d29f69d8c0b28d3e78f5b9369a74d4cd2912637498295bb3b354cc",
+        "sourceBounds": {
+          "left": 600,
+          "top": 92,
+          "right": 893,
+          "bottom": 453,
+          "center": 753.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "aa0c4ff46b3094b876be6b921289e7155c51b7a7d338b3df2af3067f2f8aa3fc",
+        "sourceBounds": {
+          "left": 1056,
+          "top": 119,
+          "right": 1352,
+          "bottom": 448,
+          "center": 1204.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "02ecc100311d773ecfd7cedfb57009f7ab955091c58609c8e441a21197268dbc",
+        "sourceBounds": {
+          "left": 128,
+          "top": 563,
+          "right": 450,
+          "bottom": 920,
+          "center": 300.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "f65c6e2ac6ad925db291f57eaadca3da8ad1bb88fcb8a07a038d8995398bc7db",
+        "sourceBounds": {
+          "left": 601,
+          "top": 562,
+          "right": 875,
+          "bottom": 918,
+          "center": 784.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "78dc80b159f08cfdb5223f07639e1b76c347489c95ab1d2a58397dc36dcc3b9e",
+        "sourceBounds": {
+          "left": 1064,
+          "top": 562,
+          "right": 1346,
+          "bottom": 919,
+          "center": 1221
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C07-summer-motion",
+    "path": "/assets/animations/C07-summer-motion-v1.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 322298,
+    "sha256": "e2f331e2f19383ee6c223fbe4f59c89af849bee621a9bfd9cf223e3ded0997cc",
+    "source": "artifacts/animation-sources/C07-summer-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Create a production CHIBI six-pose sprite sheet for C07-summer, Starfall Defense. Image 1 references ONLY the 2.5-head-tall chibi proportions, compact cel-shaded anime rendering and 3x2 six-frame layout. Image 2 references ONLY character identity, costume and weapon. Subject: adult operative with long pale blonde hair, pale aqua ruffle summer top, white shorts, sandals, silver chains with circular buoy mines, compact cylindrical launcher. Completely convert to big-head compact-body Q version, NOT full-size portrait proportions. Canvas 1536x1024, exactly THREE columns TWO rows of equal square cells. Each cell contains one separately drawn whole character and equipment. Reading order six DISTINCT actions: launcher low; load buoy mine; aim up-right; launch buoy mine tiny spark; recoil crouch; recover. Face and aim towards upper right, 3/4 view. Same head size, same fixed foot baseline and scale in all cells, no floating. Generous 40px empty margin per cell; no overlap, no clipped weapon/hair/feet. SOLID FLAT PURE MAGENTA #FF00FF backdrop for the game's existing chroma-key pipeline. NO checkerboard, no gradients, no ground shadows, no panel outlines, no labels, no text, no extra characters. Preserve hair, outfit identity, weapon type of image 2, with short chibi limbs matching image 1. Keep weapon sparks tiny and localized, no long beam leaving the cell. Crisp ink and limited cel shades.",
+    "editPrompt": "Edit this C07-summer Q-version six-pose sprite sheet for uniform battle scale. Preserve the existing 2.5-head chibi character, face, hair, outfit, six poses and solid #FF00FF background. Fix weapon footprint ONLY: keep recognizable cylindrical mine launcher, but REMOVE the airborne mine and distant muzzle effect from firing frame (runtime draws the deployed mine). Shorten launcher by about 15%, use compact two-hand grip. All pixels for each pose must fit within 210px left and 210px right from the center BETWEEN THE FEET, so the weapon will not force the whole character to shrink when packed. Keep full character height about 380px per 512px cell, feet aligned per row. Three columns two rows, 1536x1024. No long beams/trails, no detached debris, no shadows, no text, no borders, no checkerboard. Six distinct poses: idle, ready, aim, fire, recoil, recover. Keep existing exact clothing identity, NOT long-leg portrait proportions.",
+    "editReference": "artifacts/animation-sources/C07-summer-first-generated.png",
+    "reference": "public/assets/forms/C07-summer-pose-v4.webp",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        512,
+        1013,
+        1536
+      ],
+      "ys": [
+        0,
+        503,
+        1024
+      ]
+    },
+    "scale": 0.5789473684210527,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "e2f72742397621e462ed0cc4c1d4699fd85c712e52914073e00c6ff18d556368",
+        "sourceBounds": {
+          "left": 103,
+          "top": 86,
+          "right": 397,
+          "bottom": 465,
+          "center": 283.5
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "739a548436b712f557272d4f03b7deeec0a05e25e964ccf54d9dbfccda06049f",
+        "sourceBounds": {
+          "left": 602,
+          "top": 86,
+          "right": 898,
+          "bottom": 465,
+          "center": 753.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "22e3e95a0f72198e1d62d20e0f634e62d9ee45bf9215e0b30653175d5ee7d9f6",
+        "sourceBounds": {
+          "left": 1068,
+          "top": 90,
+          "right": 1389,
+          "bottom": 464,
+          "center": 1236
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "df10c997683ba1ef88813518ecbd7cfde4ffc0d24d06ee72a9806c4f8bd47cca",
+        "sourceBounds": {
+          "left": 121,
+          "top": 542,
+          "right": 418,
+          "bottom": 914,
+          "center": 289
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "52d9db6c081e346eb17bd488e96c49de89b3b981ee878a8776b836338e4b0dc3",
+        "sourceBounds": {
+          "left": 621,
+          "top": 556,
+          "right": 913,
+          "bottom": 915,
+          "center": 763
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "c2af9194a42c416f34b5f8f48eff99d27e6af43aaa891590c71853f06ee9f624",
+        "sourceBounds": {
+          "left": 1062,
+          "top": 541,
+          "right": 1349,
+          "bottom": 914,
+          "center": 1239
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "C06-summer-motion",
+    "path": "/assets/animations/C06-summer-motion-v1.webp",
+    "width": 768,
+    "height": 512,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 6,
+    "origin": {
+      "x": 0.5,
+      "y": 0.9375
+    },
+    "hasAlpha": true,
+    "bytes": 333706,
+    "sha256": "94601f49360e0365929c6e8fb247bd47d2e057d7018dd1569d94049d036651e0",
+    "source": "artifacts/animation-sources/C06-summer-generated.png",
+    "backgroundMode": "alpha-keyed-from-magenta",
+    "tool": "imagegen built-in",
+    "prompt": "Use case: stylized-concept. Create a production CHIBI six-pose sprite sheet for C06-summer, Starfall Defense. Image 1 references ONLY the 2.5-head-tall chibi proportions, compact cel-shaded anime rendering and 3x2 six-frame layout. Image 2 references ONLY character identity, costume and weapon. Subject: adult operative with short blonde bob, teal visor, dark navy summer suit, open flowing white teal geometric robe, sandals, control tablet and two triangular drones. Completely convert to big-head compact-body Q version, NOT full-size portrait proportions. Canvas 1536x1024, exactly THREE columns TWO rows of equal square cells. Each cell contains one separately drawn whole character and equipment. Reading order six DISTINCT actions: tablet at waist drones close; tablet raised; command gesture drones aim up-right; point to order two tiny drone beams; hand retracts drones settle; recover. Face and aim towards upper right, 3/4 view. Same head size, same fixed foot baseline and scale in all cells, no floating. Generous 40px empty margin per cell; no overlap, no clipped weapon/hair/feet. SOLID FLAT PURE MAGENTA #FF00FF backdrop for the game's existing chroma-key pipeline. NO checkerboard, no gradients, no ground shadows, no panel outlines, no labels, no text, no extra characters. Preserve hair, outfit identity, weapon type of image 2, with short chibi limbs matching image 1. Keep weapon sparks tiny and localized, no long beam leaving the cell. Crisp ink and limited cel shades.",
+    "editPrompt": "Edit this C06 summer CHIBI sprite sheet, preserving the character identity, all six poses, the large-head chibi proportions, costume, transparent-like SOLID MAGENTA background, three-column two-row arrangement. Fix spacing ONLY: keep EACH WHOLE pose plus its TWO drones completely inside its own 512x512 cell with at least 45 pixels of pure magenta gutter on ALL FOUR sides. Especially in lower-left firing frame, pull both drones closer to her torso/shoulders and remove all long light beams, using only a TINY spark at drone tip. In upper-right aiming frame also pull drones closer, no long trails. Scale ALL SIX complete characters and their equipment by a common factor if needed to fit, preserving equal head sizes across the sheet and equal foot baseline per row. No checkerboard or transparency texture. Entire background flat #FF00FF. No lines, labels, shadows, no overlapping cell boundaries. 1536x1024 exactly.",
+    "editReference": "artifacts/animation-sources/C06-summer-first-generated.png",
+    "reference": "public/assets/forms/C06-summer.webp",
+    "loadGroup": "battle-motion",
+    "gridCuts": {
+      "xs": [
+        0,
+        512,
+        1009,
+        1536
+      ],
+      "ys": [
+        0,
+        516,
+        1024
+      ]
+    },
+    "scale": 0.5913978494623656,
+    "frames": [
+      {
+        "index": 0,
+        "name": "idle",
+        "sha256": "623e03885b24c6343e5a36e53a6d2f1b7c010cd71cc3fd74a0e1db4d2fe4f535",
+        "sourceBounds": {
+          "left": 129,
+          "top": 96,
+          "right": 441,
+          "bottom": 467,
+          "center": 293
+        }
+      },
+      {
+        "index": 1,
+        "name": "ready",
+        "sha256": "c1f1927e74b33f949313d146da1de49be7fef12527d6e500babbc3f9ac62c7ed",
+        "sourceBounds": {
+          "left": 598,
+          "top": 99,
+          "right": 932,
+          "bottom": 464,
+          "center": 768.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "aim",
+        "sha256": "d078d83b6394464b812cbc6b1b496f2d231379f2b757f412da288010c0b14378",
+        "sourceBounds": {
+          "left": 1076,
+          "top": 113,
+          "right": 1364,
+          "bottom": 464,
+          "center": 1203
+        }
+      },
+      {
+        "index": 3,
+        "name": "fire",
+        "sha256": "33547ea7a426a4d85084bc2083ba7113be7ad7ab2a6e02395602d52ae7318f0f",
+        "sourceBounds": {
+          "left": 143,
+          "top": 565,
+          "right": 446,
+          "bottom": 917,
+          "center": 269.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "recoil",
+        "sha256": "bc4aeff9aa4be04b9a4eec78d25052d9d0aee385df7574c6c60c630aeb07c0a7",
+        "sourceBounds": {
+          "left": 619,
+          "top": 568,
+          "right": 934,
+          "bottom": 923,
+          "center": 774.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "recover",
+        "sha256": "2c0fcbe951c06d923192c2e62801b85ca79909c61e68f5fdecadd239bf755de7",
+        "sourceBounds": {
+          "left": 1055,
+          "top": 567,
+          "right": 1358,
+          "bottom": 925,
+          "center": 1209.5
+        }
+      }
+    ]
+  },
+  {
+    "assetId": "shion-portrait-background",
+    "path": "/assets/portrait-backgrounds/shion-v1.webp",
+    "width": 512,
+    "height": 768,
+    "bytes": 93374,
+    "sha256": "962a64bab8aad3552500b3da85e01a781824e1818287c1ab4908e0d328027a8c",
+    "source": "artifacts/portrait-background-sources/shion-v1.png",
+    "prompt": "Use case: stylized-concept. Generate a NEW 2:3 vertical, 1024x1536, full-bleed background-only illustration for a premium anime science-fiction character collection card. Reference images 1 and 2 show the game's original character-card illustration STYLE, visual richness, environment perspective and dramatic lighting ONLY. Do not reproduce their people, guns or circular accessories. No characters, silhouettes, faces, text, logos, UI panels or frames. The actual existing full-body character will be layered on top afterward, filling the central 70% width and 92% height, so keep central space legible with gentle darker midtones and place detailed scenery and light accents at both sides. Eye-level portrait camera, normal human scale, horizon near 45% image height, small foreground floor near bottom 15%, layered midground and distant architecture. NOT a top-down battlefield, NOT a long empty road down the middle, NOT abstract geometric gradients. Hand-painted anime background with crisp cel-style structural detail, rich depth and atmospheric blue light as in original references. Shion's coastal engineering outpost at blue hour. Futuristic harbor architecture with cyan-lit resonator equipment on the right, compact industrial crane and hanging cables framing the upper left edge, distant ocean city towers and a low sea wall behind the portrait position, luminous wave reflections and subtle amber port signal lights. Grounded contemporary sci-fi coastal workshop mood, deep navy and teal with tiny warm accents. Human-height standing deck with small reflective wet floor at bottom. Visually detailed and cinematic, not an aerial view.",
+    "reference": [
+      "public/assets/characters/C01-portrait.webp",
+      "public/assets/characters/C02-portrait.webp"
+    ],
+    "tool": "imagegen built-in",
+    "backgroundMode": "opaque",
+    "loadGroup": "portrait-background"
+  },
+  {
+    "assetId": "chika-portrait-background",
+    "path": "/assets/portrait-backgrounds/chika-v1.webp",
+    "width": 512,
+    "height": 768,
+    "bytes": 100600,
+    "sha256": "11dee1a148175dce755c2726d44a9ec7bb23aa18b272d997f3834ffa8f79a2c1",
+    "source": "artifacts/portrait-background-sources/chika-v1.png",
+    "prompt": "Use case: stylized-concept. Generate a NEW 2:3 vertical, 1024x1536, full-bleed background-only illustration for a premium anime science-fiction character collection card. Reference images 1 and 2 show the game's original character-card illustration STYLE, visual richness, environment perspective and dramatic lighting ONLY. Do not reproduce their people, guns or circular accessories. No characters, silhouettes, faces, text, logos, UI panels or frames. The actual existing full-body character will be layered on top afterward, filling the central 70% width and 92% height, so keep central space legible with gentle darker midtones and place detailed scenery and light accents at both sides. Eye-level portrait camera, normal human scale, horizon near 45% image height, small foreground floor near bottom 15%, layered midground and distant architecture. NOT a top-down battlefield, NOT a long empty road down the middle, NOT abstract geometric gradients. Hand-painted anime background with crisp cel-style structural detail, rich depth and atmospheric blue light as in original references. Chika's resonance weapons hangar at night. Dark futuristic maintenance bay opening toward a dense luminous city, paired glowing amber coolant pipes along the far sides, mechanical racks and vent structures with cool cyan monitor light, a warm diagonal shaft of light and a few suspended sparks. Rich metallic depth, dark blue base with amber highlights. No weapons or floating guns in foreground: the character will carry her own rotary cannon. Small reflective steel floor at bottom. The detailed architecture frames a full-body standing character naturally at eye-level.",
+    "reference": [
+      "public/assets/characters/C01-portrait.webp",
+      "public/assets/characters/C02-portrait.webp"
+    ],
+    "tool": "imagegen built-in",
+    "backgroundMode": "opaque",
+    "loadGroup": "portrait-background"
+  },
+  {
+    "assetId": "summer-portrait-background",
+    "path": "/assets/portrait-backgrounds/summer-v1.webp",
+    "width": 512,
+    "height": 768,
+    "bytes": 103770,
+    "sha256": "f41bcd9352978e41b1769003d7c68cfc685a9443933e4d985cadf4b8969e3a10",
+    "source": "artifacts/portrait-background-sources/summer-v1.png",
+    "prompt": "Use case: stylized-concept. Generate a NEW 2:3 vertical, 1024x1536, full-bleed background-only illustration for a premium anime science-fiction character collection card. Reference images 1 and 2 show the game's original character-card illustration STYLE, visual richness, environment perspective and dramatic lighting ONLY. Do not reproduce their people, guns or circular accessories. No characters, silhouettes, faces, text, logos, UI panels or frames. The actual existing full-body character will be layered on top afterward, filling the central 70% width and 92% height, so keep central space legible with gentle darker midtones and place detailed scenery and light accents at both sides. Eye-level portrait camera, normal human scale, horizon near 45% image height, small foreground floor near bottom 15%, layered midground and distant architecture. NOT a top-down battlefield, NOT a long empty road down the middle, NOT abstract geometric gradients. Hand-painted anime background with crisp cel-style structural detail, rich depth and atmospheric blue light as in original references. Summer collection's futuristic waterfront terrace at dusk, still the SAME serious anime sci-fi world as the references. A glowing coastal city skyline across dark turquoise water, distant slender illuminated towers, warm sunset fading into deep navy overhead, cyan-lit low glass rail along back of a human-scale terrace, a palm frond and soft string lights confined to the upper outer corners, subtle warm light reflections on foreground deck. Rich detailed city-and-coast atmosphere with adult character-portrait staging. Avoid a generic resort photo or beach battlefield; stay painted anime concept art, moody and sophisticated with crisp architecture.",
+    "reference": [
+      "public/assets/characters/C01-portrait.webp",
+      "public/assets/characters/C02-portrait.webp"
+    ],
+    "tool": "imagegen built-in",
+    "backgroundMode": "opaque",
+    "loadGroup": "portrait-background"
   }
 ]
