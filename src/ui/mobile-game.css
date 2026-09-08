@@ -1,5 +1,5 @@
 /* The mobile command deck shares the battle's visual world and stays viewport sized. */
-@media (max-width: 800px) {
+@media (min-width: 0px) {
   .mobile-app {
     --ink: #ecf5ef;
     --muted: #a5bbc0;
@@ -64,17 +64,11 @@
   .mobile-app .operation-title h2 { color: #f5f3db; letter-spacing: .04em; font-size: 21px; }
   .mobile-app .duration { color: #e0d3ac; }
   .mobile-app .duration small { color: var(--muted); }
-  .mobile-app .chapter-group .stage-selector button { color: #d3e4df; background: #102833e8; border: 1px solid #385560; border-radius: 0; padding: 6px 10px; }
-  .mobile-app .chapter-group .stage-selector button > span { font-weight: 600; color: #9db8b8; }
-  .mobile-app .chapter-group .stage-selector button.selected { color: #fff6d8; background: #364439e8; border-color: #c3b478 !important; box-shadow: inset 3px 0 var(--gold); }
-  .mobile-app .chapter-group .stage-selector button.selected > span { color: var(--gold); }
-  .mobile-app .chapter-group .stage-selector small { color: #b8cac5; }
   .mobile-app .squad-ribbon { padding-top: 3px; border-top: 1px solid #8bad8547; }
   .mobile-app .squad-ribbon > div button { border: 1px solid #849a7b; background: #153342; }
   .mobile-app .squad-ribbon > div button b { background: #d1b877; color: #0b1c25; }
   .mobile-app .deploy-button { letter-spacing: .06em; }
   .mobile-app .resume-banner { background: #0f302f; border: 1px solid #78a789; }
-  .mobile-app .mobile-home-notes > .button { color: #b7cbcc; background: #0d232ac2; border: 1px solid #334f57; }
 
   .mobile-app .formation-strip { background: #0b222ed9; border-color: #668574; box-shadow: inset 0 1px #9bba8b14; }
   .mobile-app .filled-slot { background: #24444d; border: 1px solid #527979; }
@@ -161,7 +155,7 @@
   .mobile-app button:focus-visible, .mobile-app select:focus-visible, .mobile-app input:focus-visible, .mobile-app summary:focus-visible { outline-color: #ffe0a0; }
 }
 
-@media (max-width: 800px) and (min-height: 701px) {
+@media (min-height: 701px) {
   .mobile-app .hero { height: 180px; min-height: 180px; }
   .mobile-app .hero-type { padding: 32px 18px; }
   .mobile-app .hero h1 { width: 150px; font-size: 26px; line-height: 1.55; }
@@ -174,12 +168,10 @@
   .mobile-app .codex-screen > .dossier { flex: 1; grid-template-columns: 42% minmax(0, 1fr); align-items: end; min-height: 210px; }
   .mobile-app .codex-screen > .dossier .mobile-portrait-preview { height: 100%; min-height: 210px; }
   .mobile-app .codex-screen > .dossier .mobile-portrait-preview img { object-fit: cover; }
-  .mobile-app .mobile-recruitment .mobile-recruit-overview { min-height: 150px; }
-  .mobile-app .mobile-recruitment .mobile-recruit-overview img { height: 138px; width: 94px; }
   .mobile-app .mobile-stories .journal-entry > img { height: 200px; }
 }
 
-@media (max-width: 800px) and (max-height: 600px) {
+@media (max-height: 600px) {
   .mobile-app > .masthead { min-height: 44px; padding: env(safe-area-inset-top) 10px 0; }
   .mobile-app .wordmark { font-size: 16px; }
   .mobile-app .brand-star { font-size: 23px; }

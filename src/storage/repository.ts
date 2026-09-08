@@ -1,50 +1,67 @@
+import {createCommander,validateCommander,type CommanderState,type CommanderReward} from '../data/commander';
+import {migrateCommander,awardCommander} from './commander';
 import { CHARACTER_IDS, supportedContent, SCHEMA_VERSION, STAGE_MAP } from '../data/content';
 import { restoreRun } from '../sim/engine';
+import { awardDifficulty, easyClearedStages, hardClearedStages, ratingTier, type Difficulty } from './mission-rewards';
 import type { Branch, CharacterId, EnemyId, RunState, StageId } from '../sim/types';
-import { createCollection, syncRewards, validateCollection, applyCollectionAction, type CollectionState, type CollectionAction } from './collection';
+import { createCollection, migrateCollection, syncRewards, validateCollection, applyCollectionAction, type CollectionState, type CollectionAction } from './collection';
 export const DB_NAME='starfall-defense';export const STORE_NAME='records';export const SAVE_KEY='save';
 export type BattleSpeed = 1 | 2 | 3;
 export interface RewardSummary {tickets:number;points:number;forms:number;completed:boolean}
-export interface RunSummary {rewards?:RewardSummary;runId:string;stageId:StageId;seed:number;squadIds:CharacterId[];captainId:CharacterId;outcome:RunState['outcome'];tick:number;wallHp:number;stats:RunState['stats'];challengeId:RunState['config']['challengeId']}
+export interface RunSummary {difficulty?:Difficulty;rating?:number;rewards?:RewardSummary;commanderReward?:CommanderReward;runId:string;stageId:StageId;seed:number;squadIds:CharacterId[];captainId:CharacterId;outcome:RunState['outcome'];tick:number;wallHp:number;stats:RunState['stats'];challengeId:RunState['config']['challengeId']}
 export interface GameSave {
  revision:number;
  collection:CollectionState;
- profile:{schemaVersion:1;cleared:StageId[];seenEnemies:EnemyId[];best:Record<string,{time:number;hp:number}>;challengeClears:string[];recentRuns:RunSummary[]};
- preferences:{squadIds:CharacterId[];captainId:CharacterId;branches:Record<CharacterId,Branch>;musicVolume:number;sfxVolume:number;reducedEffects:boolean;tutorialSeen:boolean;battleSpeed:BattleSpeed;autoTactical:boolean};
+ profile:{commander?:CommanderState;schemaVersion:1;cleared:StageId[];easyCleared?:StageId[];hardCleared?:StageId[];seenEnemies:EnemyId[];best:Record<string,{time:number;hp:number}>;challengeClears:string[];recentRuns:RunSummary[]};
+ preferences:{difficulty?:Difficulty;commanderName?:string;squadIds:CharacterId[];captainId:CharacterId;branches:Record<CharacterId,Branch>;musicVolume:number;sfxVolume:number;reducedEffects:boolean;tutorialSeen:boolean;battleSpeed:BattleSpeed;autoTactical:boolean};
  activeRun:RunState|null;
 }
 export class SaveConflictError extends Error {constructor(){super('另一個分頁已更新存檔，請重新讀取最新進度');this.name='SaveConflictError';}}
 export class SaveValidationError extends Error {constructor(message='本機紀錄格式損壞，原始資料已保留'){super(message);this.name='SaveValidationError';}}
 export class IncompatibleRunError extends SaveValidationError {preservedSave:GameSave;constructor(save:GameSave){super('本局內容版本不相容；可保留解鎖進度並放棄舊局');this.name='IncompatibleRunError';this.preservedSave=structuredClone(save);}}
-export function createDefaultSave():GameSave{return{revision:0,collection:createCollection(),profile:{schemaVersion:1,cleared:[],seenEnemies:[],best:{},challengeClears:[],recentRuns:[]},preferences:{squadIds:['C01','C02','C04','C05','C06'],captainId:'C02',branches:Object.fromEntries(CHARACTER_IDS.map(id=>[id,'A'])) as Record<CharacterId,Branch>,musicVolume:.35,sfxVolume:.65,reducedEffects:false,tutorialSeen:false,battleSpeed:1,autoTactical:false},activeRun:null};}
-export function summarizeRun(run:RunState):RunSummary{return structuredClone({runId:run.runId,stageId:run.config.stageId,seed:run.config.seed,squadIds:run.config.squadIds,captainId:run.config.captainId,outcome:run.outcome,tick:run.tick,wallHp:run.wallHp,stats:run.stats,challengeId:run.config.challengeId??null});}
+export function createDefaultSave():GameSave{return{revision:0,collection:createCollection(),profile:{commander:createCommander(),schemaVersion:1,cleared:[],hardCleared:[],seenEnemies:[],best:{},challengeClears:[],recentRuns:[]},preferences:{squadIds:['C01','C02','C04','C05','C06'],captainId:'C02',branches:Object.fromEntries(CHARACTER_IDS.map(id=>[id,'A'])) as Record<CharacterId,Branch>,musicVolume:.35,sfxVolume:.65,reducedEffects:false,tutorialSeen:false,battleSpeed:1,autoTactical:false},activeRun:null};}
+export function summarizeRun(run:RunState):RunSummary{return structuredClone({difficulty:run.config.difficulty,rating:ratingTier(run),runId:run.runId,stageId:run.config.stageId,seed:run.config.seed,squadIds:run.config.squadIds,captainId:run.config.captainId,outcome:run.outcome,tick:run.tick,wallHp:run.wallHp,stats:run.stats,challengeId:run.config.challengeId??null});}
 export function completeRun(save:GameSave,run:RunState){
  if(!run.outcome)throw new Error('戰局尚未結束');
- const recorded=save.profile.recentRuns.some(r=>r.runId===run.runId),before={tickets:save.collection.tickets,points:save.collection.points,forms:save.collection.owned.length,completed:save.collection.completionGranted};
+ save.profile.commander??=migrateCommander(save.profile.cleared);
+ const recorded=save.profile.recentRuns.some(r=>r.runId===run.runId);
+ const commanderReward=recorded?undefined:awardCommander(save.profile.commander,run);
+ save.profile.easyCleared??=easyClearedStages(save);
+ save.profile.hardCleared??=hardClearedStages(save);
+ const before={tickets:save.collection.tickets,points:save.collection.points,forms:save.collection.owned.length,completed:save.collection.completionGranted};
  for(const id of run.stats.encountered)if(!save.profile.seenEnemies.includes(id))save.profile.seenEnemies.push(id);
  if(!save.profile.recentRuns.some(r=>r.runId===run.runId))save.profile.recentRuns=[summarizeRun(run),...save.profile.recentRuns].slice(0,10);
  if(run.outcome==='victory'){
+  if(run.config.difficulty==='hard'&&!save.profile.hardCleared.includes(run.config.stageId))save.profile.hardCleared.push(run.config.stageId);
+  if(run.config.difficulty!=='hard'&&!save.profile.easyCleared.includes(run.config.stageId))save.profile.easyCleared.push(run.config.stageId);
+  awardDifficulty(save.collection,run);
   if(!save.profile.cleared.includes(run.config.stageId))save.profile.cleared.push(run.config.stageId);
   const key=run.config.stageId,old=save.profile.best[key];if(!old||run.tick<old.time||(run.tick===old.time&&run.wallHp>old.hp))save.profile.best[key]={time:run.tick,hp:run.wallHp};
   if(run.config.challengeId){const challenge=`${key}:${run.config.challengeId}`;if(!save.profile.challengeClears.includes(challenge))save.profile.challengeClears.push(challenge);}
  }
  if(save.activeRun?.runId===run.runId)save.activeRun=null;
  syncRewards(save.collection,save.profile);
- if(!recorded){const summary=save.profile.recentRuns.find(r=>r.runId===run.runId)!;summary.rewards={tickets:save.collection.tickets-before.tickets,points:save.collection.points-before.points,forms:save.collection.owned.length-before.forms,completed:!before.completed&&save.collection.completionGranted};}
+ if(!recorded){const summary=save.profile.recentRuns.find(r=>r.runId===run.runId)!;summary.commanderReward=commanderReward;summary.rewards={tickets:save.collection.tickets-before.tickets,points:save.collection.points-before.points,forms:save.collection.owned.length-before.forms,completed:!before.completed&&save.collection.completionGranted};}
 }
 function validSave(raw:unknown, discardActiveRun=false):GameSave{
  if(!raw||typeof raw!=='object')throw new SaveValidationError();const s=structuredClone(raw) as GameSave;
  if(s.profile?.schemaVersion!==SCHEMA_VERSION)throw new SaveValidationError('存檔版本不相容，原始資料已保留');
  const p=s.preferences;
+ if(s.profile.hardCleared!==undefined&&(!Array.isArray(s.profile.hardCleared)||s.profile.hardCleared.some(id=>!STAGE_MAP[id]||!s.profile.cleared.includes(id))||new Set(s.profile.hardCleared).size!==s.profile.hardCleared.length))throw new SaveValidationError('困難通關紀錄格式不正確');
+ if(s.profile.easyCleared!==undefined&&(!Array.isArray(s.profile.easyCleared)||s.profile.easyCleared.some(id=>!STAGE_MAP[id]||!s.profile.cleared.includes(id))||new Set(s.profile.easyCleared).size!==s.profile.easyCleared.length))throw new SaveValidationError('簡單通關紀錄格式不正確');
+ if(p?.difficulty!==undefined&&!['easy','hard'].includes(p.difficulty))throw new SaveValidationError('難度設定格式不正確');
+ if(p && p.commanderName!==undefined && (typeof p.commanderName!=='string'||p.commanderName.length>20))throw new SaveValidationError('指揮官名稱格式不正確');
  if(p?.branches){p.branches.C07??='A';p.branches.C08??='A';}
  if(!Number.isInteger(s.revision)||s.revision<0||!Array.isArray(s.profile.cleared)||s.profile.cleared.some(id=>!STAGE_MAP[id])||!Array.isArray(s.profile.seenEnemies)||!Array.isArray(s.profile.recentRuns)||!Array.isArray(s.profile.challengeClears)||!s.profile.best||!p||!Array.isArray(p.squadIds)||p.squadIds.length>5||new Set(p.squadIds).size!==p.squadIds.length||p.squadIds.some(id=>!CHARACTER_IDS.includes(id))||!CHARACTER_IDS.includes(p.captainId)||!p.branches||CHARACTER_IDS.some(id=>!['A','B'].includes(p.branches[id]))||![p.musicVolume,p.sfxVolume].every(v=>Number.isFinite(v)&&v>=0&&v<=1)||typeof p.tutorialSeen!=='boolean'||typeof p.reducedEffects!=='boolean')throw new SaveValidationError();
+ try{s.profile.commander??=migrateCommander(s.profile.cleared);validateCommander(s.profile.commander);}catch{throw new SaveValidationError('指揮官成長紀錄損壞，原始資料已保留');}
  // Older local saves have no speed preference; their active run remains unchanged.
  if(p.battleSpeed===undefined)p.battleSpeed=1;
  if(![1,2,3].includes(p.battleSpeed))throw new SaveValidationError();
  if(p.autoTactical===undefined)p.autoTactical=false;
  if(typeof p.autoTactical!=='boolean')throw new SaveValidationError();
+ const legacyRewards=s.collection===undefined||(s.collection as {version:number;rewardVersion?:number}).version===1||s.collection.rewardVersion!==2;
  if(s.collection===undefined)s.collection=createCollection();
- try{validateCollection(s.collection);syncRewards(s.collection,s.profile);}catch{throw new SaveValidationError('招募紀錄損壞，原始資料已保留');}
+ try{s.collection=migrateCollection(s.collection);syncRewards(s.collection,s.profile,legacyRewards);s.collection.rewardVersion=2;s.profile.hardCleared??=hardClearedStages(s);validateCollection(s.collection);}catch{throw new SaveValidationError('招募紀錄損壞，原始資料已保留');}
  if(discardActiveRun && s.activeRun?.phase !== 'ended')s.activeRun=null;
  if(s.activeRun!==null){
    if(s.activeRun?.schemaVersion!==SCHEMA_VERSION||!supportedContent(s.activeRun?.contentVersion))throw new IncompatibleRunError(s);
@@ -70,7 +87,7 @@ export class GameRepository {
   try{
    const result=await new Promise<GameSave>((resolve,reject)=>{
     const tx=db.transaction(STORE_NAME,'readwrite'),store=tx.objectStore(STORE_NAME),q=store.get(SAVE_KEY);let result:GameSave,failure:unknown;
-    q.onsuccess=()=>{try{result=q.result===undefined?createDefaultSave():validSave(q.result,options.discardActiveRun);if(q.result!==undefined&&(JSON.stringify(result.collection)!==JSON.stringify(q.result.collection)||result.activeRun===null&&q.result.activeRun!==null)){result.revision++;store.put(result,SAVE_KEY);}}catch(error){failure=error;tx.abort();}};
+    q.onsuccess=()=>{try{result=q.result===undefined?createDefaultSave():validSave(q.result,options.discardActiveRun);if(q.result!==undefined&&(JSON.stringify(result.profile.commander)!==JSON.stringify(q.result.profile.commander)||JSON.stringify(result.collection)!==JSON.stringify(q.result.collection)||JSON.stringify(result.profile.hardCleared)!==JSON.stringify(q.result.profile.hardCleared)||result.activeRun===null&&q.result.activeRun!==null)){result.revision++;store.put(result,SAVE_KEY);}}catch(error){failure=error;tx.abort();}};
     tx.oncomplete=()=>resolve(result);tx.onabort=()=>reject(failure??tx.error);tx.onerror=()=>{failure??=tx.error;};
    });this.revision=result.revision;this.loaded=true;return result;
   }catch(error){if(error instanceof IncompatibleRunError){this.revision=error.preservedSave.revision;this.loaded=true;}throw error;}

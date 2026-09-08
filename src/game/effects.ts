@@ -1,7 +1,7 @@
 import { attackType, ELEMENTS, usesCollection } from '../data/forms';
 import type Phaser from 'phaser';
 import { CHARACTER_MAP } from '../data/content';
-import type { CharacterId, Field, Projectile, RunState, VisualEvent } from '../sim/types';
+import type { CharacterId, Field, Projectile, RunState } from '../sim/types';
 import type { ActiveEffect, Detail } from './presentation';
 
 type Graphics = Phaser.GameObjects.Graphics;

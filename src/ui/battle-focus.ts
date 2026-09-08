@@ -17,7 +17,15 @@ export function enhanceBattleFocus(root: HTMLElement) {
   }
   details.append(trigger, body);
   toolbar.prepend(details);
+  const commands = document.createElement('button');
+  commands.type = 'button';
+  commands.dataset.action = 'command-panel';
+  commands.dataset.id = 'shortcuts';
+  commands.setAttribute('aria-label', '開啟快捷選單');
+  commands.setAttribute('aria-haspopup', 'dialog');
+  commands.textContent = '指揮選單';
+  toolbar.append(commands);
   toolbar.addEventListener('click', event => {
-    if ((event.target as HTMLElement).closest('[data-action="view-build"]')) details.open = false;
+    if ((event.target as HTMLElement).closest('[data-action="view-build"],[data-action="command-panel"]')) details.open = false;
   });
 }

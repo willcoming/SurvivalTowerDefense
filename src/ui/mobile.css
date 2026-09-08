@@ -1,5 +1,5 @@
 /* Compact, viewport-sized mobile command screens. Long content lives in dialogs. */
-@media (max-width:800px) {
+@media (min-width:0px) {
   .mobile-app { height:100dvh; min-height:0; display:flex; flex-direction:column; padding-bottom:env(safe-area-inset-bottom); }
   .mobile-app[data-page=battle] { padding-bottom:0; }
   .mobile-app [hidden] { display:none!important; }
@@ -60,11 +60,6 @@
   .mobile-app .operation-title p { font-size:12px; margin-top:2px; }
   .mobile-app .duration { font-size:20px; }
   .mobile-app .duration small { font-size:8px; }
-  .mobile-app .campaign-selector { overflow:visible; max-height:none; margin:0; padding:0; flex:none; }
-  .mobile-app .chapter-group h3 { display:none; }
-  .mobile-app .stage-selector { gap:6px; margin:0; }
-  .mobile-app .chapter-group .stage-selector button { min-height:46px; padding:7px 10px; font-size:14px; grid-template-columns:30px 1fr auto; gap:5px; }
-  .mobile-app .chapter-group .stage-selector small { font-size:10px; line-height:1.4; }
   .mobile-app .squad-ribbon { margin:0; gap:6px; }
   .mobile-app .squad-ribbon > div { gap:4px; }
   .mobile-app .squad-ribbon > div button { width:44px; height:44px; min-width:44px; }
@@ -72,8 +67,6 @@
   .mobile-app .squad-ribbon > .text-button { margin-left:auto; min-height:44px; }
   .mobile-app .deploy-button, .mobile-app .resume-banner { margin-top:auto; min-height:48px; flex:none; }
   .mobile-app .resume-banner { padding:8px; }
-  .mobile-app .mobile-home-notes { text-align:center; }
-  .mobile-app .mobile-home-notes > .button { min-height:44px; width:44px; padding:4px; border:0; background:transparent; font-size:22px; }
   .mobile-pager-step { width:44px; height:44px; min-width:44px; padding:0; flex:none; color:var(--ink); background:var(--paper); border:1px solid var(--line); font-size:24px; }
   .mobile-app .roster-screen .page-intro { display:flex; align-items:center; justify-content:space-between; gap:8px; }
   .mobile-app .mobile-inline-help > .button { font-size:12px; padding:8px; }

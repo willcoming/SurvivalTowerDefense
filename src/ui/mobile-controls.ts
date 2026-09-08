@@ -13,6 +13,11 @@ export class MobileControls {
     if (!root.querySelector('dialog.mobile-detail[open]')) this.openDetail = null;
   }
 
+  dismissDetails() {
+    this.openDetail = null;
+    document.querySelectorAll<HTMLDialogElement>('dialog.mobile-detail[open]').forEach(dialog => dialog.close());
+  }
+
   detail(key: string, label: string, nodes: HTMLElement[], mount: HTMLElement): HTMLButtonElement {
     const trigger = document.createElement('button');
     trigger.type = 'button';

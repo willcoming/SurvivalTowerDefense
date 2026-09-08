@@ -1,10 +1,16 @@
-/* In-run skill command screen: portraits, connected routes and a fixed purchase tray. */
+/* Connected skill routes and battle selection controls. */
+.modal-backdrop.skill-modal-backdrop {
+  padding:24px; background:#030b1459; backdrop-filter:blur(3px);
+}
+
 .tree-panel.tactical-tree {
   --ink:#e6f2eb; --muted:#a6c2be; --paper:#0b202b; --line:#3c646a;
-  width:min(100%,960px); color:var(--ink); background:#091d28;
-  height:100dvh; max-height:100dvh; border-inline:1px solid #486664;
+  width:min(100%,800px); color:var(--ink); background:#101e2a;
+  height:min(760px,calc(100dvh - 112px)); max-height:calc(100dvh - 112px);
+  border:1px solid #a3946e; border-radius:22px;
+  box-shadow:0 28px 100px #000b,0 0 0 4px #0c1729a6,inset 0 1px #f3dfaa33;
 }
-.tactical-tree .tree-header { min-height:62px; padding:10px 16px; border-bottom:1px solid #526f67; background:linear-gradient(110deg,#19373c,#0a202b); }
+.tactical-tree .tree-header { min-height:76px; padding:12px 22px; border-bottom:1px solid #ad956b40; background:linear-gradient(110deg,#2b3842,#172531); }
 .tactical-tree .tree-header .eyebrow { color:#9bbfb8; font-size:10px; letter-spacing:.1em; }
 .tactical-tree .tree-header h2 { color:#f2dfb4; margin:3px 0 0; font-size:24px; }
 .tactical-tree .tree-header h2 small { color:#b8d3ca; font-size:13px; }
@@ -27,7 +33,7 @@
 .skill-map-legend .owned { color:#a0d8af; }.skill-map-legend .available { color:#f2d295; }.skill-map-legend .locked { color:#9eb4bc; }
 .tactical-tree .mobile-detail-trigger { width:auto; min-height:44px; margin:0; padding:6px 10px; font-size:12px; color:#c9ddd2; border:1px solid #456b68; background:#17353d; white-space:nowrap; }
 .skill-map-viewport { flex:1; min-height:70px; overflow:auto; overscroll-behavior:contain; border:1px solid #2b4c57; background:radial-gradient(ellipse at 50% 50%,#21413b66,transparent 75%),linear-gradient(#0b202be6,#081a25f2); }
-.tactical-tree .deep-graph { margin:0 auto; width:100%; max-width:800px; height:100%!important; min-height:calc(var(--map-rows) * 68px); }
+.tactical-tree .deep-graph { margin:0 auto; width:100%; max-width:800px; height:100%!important; min-height:calc(var(--map-rows) * 64px); }
 .tactical-tree .deep-connections { display:block; opacity:1; }
 .tactical-tree .deep-connections path { stroke:#4c6973; stroke-width:2; stroke-dasharray:3 3; }
 .tactical-tree .deep-connections .connected { stroke:#8ac4a5; stroke-width:3; stroke-dasharray:none; }
@@ -56,9 +62,9 @@
 .tactical-tree .deep-footer-note .text-button { min-height:44px; color:#c5d9c9; }
 .tactical-tree .deep-footer-note small { font-size:11px; }
 .tactical-tree .mobile-detail { color:#e3eee5; background:#0e2630; border:1px solid #577369; }
-.tactical-tree dialog.mobile-detail { position:fixed; inset:0; margin:auto; width:min(100%,680px); height:min(100dvh,850px); max-width:100%; max-height:100dvh; padding:0; }
+.tactical-tree dialog.mobile-detail { position:fixed; inset:0; margin:auto; width:min(calc(100% - 40px),600px); height:auto; max-width:100%; max-height:calc(100dvh - 80px); padding:0; border-radius:18px; box-shadow:0 24px 80px #0009; }
 .tactical-tree dialog.mobile-detail[open] { display:flex; flex-direction:column; }
-.tactical-tree dialog.mobile-detail::backdrop { background:#06141de8; }
+.tactical-tree dialog.mobile-detail::backdrop { background:#030b1480; backdrop-filter:blur(4px); }
 .tactical-tree .mobile-detail-header { display:flex; align-items:center; justify-content:space-between; flex:none; padding:12px 16px; gap:12px; }
 .tactical-tree .mobile-detail-header h2 { margin:0; font-size:20px; }
 .tactical-tree .mobile-detail-body { flex:1; min-height:0; overflow:auto; overscroll-behavior:contain; padding:16px; }
@@ -79,7 +85,7 @@
   .tactical-tree .tree-characters img, .tactical-tree .tree-characters .common-emblem { width:28px; height:26px; }
   .tactical-tree .tree-tabs { gap:4px; }
   .tactical-tree .node-preview { padding:8px 10px max(6px,env(safe-area-inset-bottom)); }
-  .tactical-tree .deep-graph { min-height:calc(var(--map-rows) * 60px); }
+  .tactical-tree .deep-graph { min-height:calc(var(--map-rows) * 56px); }
   .tactical-tree .deep-node { height:46px; min-height:44px; }
   .tactical-tree .deep-node strong { font-size:11px; }
   .skill-map-legend { gap:5px; font-size:10px; }
@@ -95,3 +101,127 @@
   .tactical-tree .node-preview { padding-top:5px; }
   .tactical-tree .deep-footer-note small { max-width:65%; }
 }
+
+/* Recessed map, portrait medallions and illuminated skill modules. */
+.tactical-tree .tree-header h2 { font-size:23px; letter-spacing:.03em; }
+.tactical-tree .tree-header h2 small { font-size:11px; color:#9caebc; margin-left:8px; }
+.tactical-tree .tree-header .eyebrow { color:#b1c4cd; letter-spacing:.06em; }
+.tactical-tree .points-left { display:grid; text-align:right; gap:2px; font-size:10px; color:#a9b8c5; }
+.tactical-tree .points-left strong { font-size:15px; font-weight:500; }
+.tactical-tree .points-left b { font-size:28px; margin:0 3px; }
+.tactical-tree .icon-button { border-radius:50%; border-color:#65798566; background:#ffffff08; }
+.tactical-tree .tree-scroll { padding:12px 20px; gap:10px; }
+.tactical-tree .tree-characters { grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px; }
+.tactical-tree .tree-characters button { border:0; border-radius:12px; background:transparent; min-height:86px; padding:5px; color:#9aaebc; box-shadow:none; }
+.tactical-tree .tree-characters button.active { color:#ffe0a0; border:0; background:linear-gradient(#dac18a1c,#dac18a08); box-shadow:inset 0 -2px #d9b777; }
+.tactical-tree .tree-characters img, .tactical-tree .tree-characters .common-emblem { width:46px; height:46px; border-radius:50%; border:1px solid #6c8191; box-shadow:0 3px 8px #0006; object-fit:cover; object-position:center 18%; }
+.tactical-tree .tree-characters .common-emblem { display:grid; place-items:center; background:#1b3540; }
+.tactical-tree .tree-characters button.active img { border-color:#eac886; box-shadow:0 0 0 3px #eac88620; }
+.tactical-tree .tree-characters small { position:relative; color:#92a8b7; font-size:10px; }
+.tactical-tree .tree-characters em { font-style:normal; color:#ffe0a0; padding-left:4px; }
+.tactical-tree .tree-tabs { padding:4px; gap:4px; background:#070f1880; border-radius:12px; }
+.tactical-tree .tree-tabs button { border:1px solid transparent; border-radius:8px; background:transparent; min-height:44px; display:flex; justify-content:center; align-items:center; gap:10px; }
+.tactical-tree .tree-tabs button.active { background:linear-gradient(#394750,#26333d); border-color:#a28d6166; color:#f1dbaf; box-shadow:0 2px 5px #0004; }
+.tactical-tree .tree-tabs small { color:#a6b2bd; }
+.tactical-tree .mobile-detail-trigger { border:0; border-radius:8px; background:#ffffff08; color:#b5c7d1; font-weight:500; }
+.skill-map-legend .locked { color:#8fa5b5; }
+.skill-map-viewport { border:1px solid #52657844; border-radius:14px; scrollbar-width:thin; scrollbar-color:#596b7b #0c1823; background:radial-gradient(ellipse at 50% 40%,#27414850,transparent 75%),radial-gradient(#91acbb20 .7px,transparent .7px),#0b1621; background-size:auto,18px 18px,auto; box-shadow:inset 0 2px 16px #0005; }
+.tactical-tree .deep-connections path { stroke:#526678; stroke-width:1.4; stroke-dasharray:none; }
+.tactical-tree .deep-connections .connected { stroke:#88c3b3; stroke-width:2; }
+.tactical-tree .deep-connections .traced { stroke:#e3bf7b; stroke-width:2; }
+.tactical-tree .deep-node { width:26%; max-width:172px; border-radius:10px; border-color:#d1b071; background:linear-gradient(145deg,#3a4d50,#23343d); box-shadow:inset 0 1px #f4d69b40,0 4px 10px #0008,0 0 14px #dfb76a15; }
+.tactical-tree .deep-node .node-symbol { border:0; font-size:18px; color:#e5c482; text-shadow:0 0 12px #f1c77570; }
+.tactical-tree .deep-node.locked { opacity:1; color:#8fa4b5; border:1px solid #354859; background:linear-gradient(#1c2a37,#14202c); }
+.tactical-tree .deep-node.locked .node-symbol { color:#6d8599; text-shadow:none; }
+.tactical-tree .deep-node.ultimate { border-radius:4px 16px; border-color:#d5b77c; }
+.tactical-tree .deep-node.ultimate.locked { color:#ab9f84; border-color:#685e49; background:#252b2e; }
+.tactical-tree .deep-node.pending { color:#fff0c7; border:1px solid #f9ce7e; background:linear-gradient(#72603c,#473b29); box-shadow:0 0 0 2px #eec78422,0 0 20px #edc36b33; }
+.tactical-tree .deep-node.inspecting { outline:1px solid #ffe2a1; outline-offset:3px; }
+.tactical-tree .deep-node:focus-visible { outline:2px solid #fff1bf; outline-offset:3px; }
+.tactical-tree .node-preview { max-height:none; overflow:visible; padding:12px 20px 6px; background:linear-gradient(120deg,#26353f,#182630); border-color:#a48b584d; box-shadow:0 -6px 20px #0003; }
+.skill-selection { min-height:58px; }
+.skill-selection-copy h3 { font-size:17px; }
+.skill-selection-copy p { color:#afc0ca; font-size:12px; }
+.tactical-tree .node-preview > .button { border-radius:10px; min-height:48px; background:linear-gradient(#f3d799,#d6b572); border-color:#f5dfac; color:#283139; box-shadow:inset 0 1px #fff7,0 3px 8px #0003; letter-spacing:.04em; }
+.tactical-tree .node-preview > .button:disabled { opacity:1; color:#9fa9ad; border-color:#67727355; background:linear-gradient(#3a464c,#303d44); box-shadow:inset 0 1px #ffffff0a; cursor:default; }
+.tactical-tree .deep-footer-note { gap:6px; }
+.tactical-tree .deep-footer-note small { color:#94a9b8; font-size:10px; }
+.tactical-tree .deep-footer-note .text-button { color:#9cabb5; font-size:10px; border:0; background:transparent; padding:4px 2px; }
+@media(hover:hover) {
+  .tactical-tree .deep-node.available:hover { background:#435450; box-shadow:0 0 18px #e5c07840; }
+  .tactical-tree .tree-characters button:hover { background:#ffffff08; }
+  .tactical-tree .mobile-detail-trigger:hover { background:#ffffff14; }
+}
+@media(max-width:800px) {
+  .modal-backdrop.skill-modal-backdrop { padding:12px; }
+  .tree-panel.tactical-tree { height:min(760px,calc(100dvh - 112px)); max-height:calc(100dvh - 112px); border-radius:18px; }
+  .tactical-tree .tree-header { min-height:66px; padding:10px 14px; gap:6px; }
+  .tactical-tree .tree-header .eyebrow { display:block; font-size:9px; }
+  .tactical-tree .tree-header h2 { font-size:19px; }
+  .tactical-tree .tree-header h2 small { margin-left:4px; font-size:10px; }
+  .tactical-tree .tree-scroll { padding:8px 10px; gap:6px; }
+  .tactical-tree .tree-characters { gap:2px; }
+  .tactical-tree .tree-characters button { min-height:76px; padding:4px 1px; font-size:11px; border-radius:8px; }
+  .tactical-tree .tree-characters img,.tactical-tree .tree-characters .common-emblem { width:36px; height:36px; }
+  .tactical-tree .tree-tabs button { gap:5px; font-size:11px; }
+  .tactical-tree .tree-tabs small { font-size:9px; }
+  .tactical-tree .deep-node { width:27%; border-radius:8px; }
+  .tactical-tree .deep-node strong { font-size:10px; }
+  .tactical-tree .node-preview { padding:8px 10px 4px; }
+  .skill-selection-copy h3 { font-size:15px; }
+  .skill-selection-copy p { font-size:11px; }
+  .skill-selection { gap:6px; min-height:52px; }
+  .tactical-tree .mobile-detail-trigger { font-size:10px; padding:6px; }
+  .skill-map-legend { font-size:9px; gap:4px; }
+}
+@media(max-height:600px) {
+  .tree-panel.tactical-tree { height:calc(100dvh - 32px); max-height:calc(100dvh - 32px); }
+  .tactical-tree .tree-header { min-height:52px; padding:6px 12px; }
+  .tactical-tree .tree-header .eyebrow { display:none; }
+  .tactical-tree .tree-characters button { min-height:44px; }
+  .tactical-tree .tree-characters img,.tactical-tree .tree-characters .common-emblem { display:none; }
+  .tactical-tree .tree-scroll { gap:4px; padding:4px 8px; }
+  .tactical-tree .node-preview { padding-top:5px; }
+  .skill-selection { min-height:44px; }
+}
+
+/* Full-screen skill configuration with readable labels on every viewport. */
+#app .skill-modal-backdrop { padding:0; }
+#app .tree-panel.tactical-tree { position:fixed; inset:0; width:100vw; max-width:100vw; height:100dvh; max-height:100dvh; margin:0; border:0; border-radius:0; }
+#app .tactical-tree .tree-header { padding:12px 16px; gap:8px; }
+#app .tactical-tree .tree-header h2 { font-family:inherit; font-size:26px; line-height:1.3; letter-spacing:0; }
+#app .tactical-tree :is(.tree-header .eyebrow,.tree-header h2 small,.points-left,.points-left strong,.tree-characters small,.tree-tabs small,.skill-map-legend,.deep-footer-note small,.deep-footer-note .text-button) { font-family:inherit; font-size:14px; line-height:1.5; }
+#app .tactical-tree .points-left b { font-size:30px; }
+#app .tactical-tree .tree-characters button { font-size:16px; line-height:1.4; }
+#app .tactical-tree .tree-tabs button { font-size:16px; line-height:1.4; min-height:48px; flex-wrap:wrap; }
+#app .tactical-tree .mobile-detail-trigger { font-size:14px; line-height:1.5; min-height:44px; }
+#app .tactical-tree .deep-graph { min-height:calc(var(--map-rows) * 88px); }
+#app .tactical-tree .deep-node { height:72px; min-height:72px; padding:6px 3px; }
+#app .tactical-tree .deep-node strong { font-family:inherit; font-size:16px; line-height:1.4; }
+#app .tactical-tree .skill-selection-copy h3 { font-size:20px; line-height:1.4; }
+#app .tactical-tree .skill-selection-copy p { font-size:16px; line-height:1.5; }
+#app .tactical-tree .skill-selection-copy > small { font-size:14px; line-height:1.5; }
+#app .tactical-tree .node-preview > .button { font-size:18px; min-height:48px; }
+#app .tactical-tree .skill-selection { max-height:120px; overflow:auto; }
+#app .tactical-tree .mobile-detail-body { font-size:16px; }
+#app .tactical-tree .mobile-detail-body :is(p,small) { font-size:16px; line-height:1.7; }
+@media(max-width:600px) {
+  #app .tactical-tree .tree-characters { gap:2px; }
+  #app .tactical-tree .tree-characters button { font-size:14px; }
+  #app .tactical-tree .tree-tabs button { gap:2px 6px; padding:6px 3px; }
+  #app .tactical-tree .skill-map-legend { gap:3px 6px; }
+}
+@media(max-height:600px) {
+  #app .tactical-tree .tree-header { min-height:54px; padding:6px 12px; }
+  #app .tactical-tree .tree-header h2 { font-size:24px; }
+  #app .tactical-tree .tree-header .eyebrow { display:none; }
+  #app .tactical-tree .tree-characters button { min-height:48px; padding:2px 0; }
+  #app .tactical-tree .tree-scroll { gap:4px; padding:4px 8px; }
+  #app .tactical-tree .skill-selection { min-height:44px; max-height:90px; }
+  #app .tactical-tree .node-preview { padding:6px 10px; }
+  #app .tactical-tree .deep-footer-note small { max-width:58%; }
+}
+
+#app .tactical-tree .deep-node.ultimate .node-symbol { font-size:14px; }
+
+#app .tactical-tree .deep-characters { grid-template-columns:repeat(var(--squad-size,5),minmax(0,1fr)); }

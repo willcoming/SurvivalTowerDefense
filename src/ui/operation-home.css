@@ -1,0 +1,153 @@
+/* A miniature battlefield is the center of the operation selector. */
+#app .reward-preview-backdrop { background:#00131c20; backdrop-filter:none; }
+#app .reward-preview-dialog { position:fixed; width:232px; max-width:calc(100vw - 24px); max-height:calc(100dvh - 24px); margin:0; padding:9px 12px 14px; overflow:auto; background:#f2f1ed; color:#18272b; border:2px solid #d8d7d0; border-radius:2px; box-shadow:0 8px 28px #0008; }
+.reward-preview-dialog header { display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #8f9898; }
+#app .reward-preview-dialog h2 { font-size:19px; line-height:1.4; margin:0; color:#172629; }
+.reward-preview-dialog header button { width:44px; height:44px; padding:0; border:0; background:transparent; color:#24383c; font-size:25px; }
+#app .reward-preview-dialog p { margin:9px 0; color:#3d5053; font-size:13px; line-height:1.5; }
+.reward-preview-item { display:flex; align-items:center; justify-content:center; gap:13px; padding:3px 0; }
+.reward-ticket-icon { display:block; position:relative; width:88px; height:72px; border:1px solid #c1a86b; background:#081923; box-shadow:0 2px 7px #13202744; }
+#app .reward-ticket-icon img { display:block; width:100%; height:100%; object-fit:contain; mix-blend-mode:lighten; }
+.reward-ticket-icon b { position:absolute; bottom:0; right:3px; color:white; font:bold 17px/20px sans-serif; text-shadow:1px 1px 2px #111; }
+.reward-preview-item > span:last-child { display:flex; flex-direction:column; gap:4px; }
+.reward-preview-item strong { font-size:16px; color:#223336; }
+.reward-preview-item small { font-size:12px; color:#536566; }
+#app .reward-preview-dialog p.is-claimed { color:#276341; }
+.mission-difficulty { flex:none; width:min(90%,440px); margin:0 auto; }
+.difficulty-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.difficulty-options button { min-height:44px; padding:6px 10px; border:1px solid #78918b; border-radius:9px; background:#112d37; color:#e8efeb; font-family:inherit; font-size:17px; font-weight:700; line-height:1.35; }
+.difficulty-options button[aria-pressed=true] { color:#ffdda0; background:#51472d; border:2px solid #e7c477; box-shadow:inset 0 0 0 2px #08212a; }
+.durability-rewards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); position:relative; padding-top:22px; padding-bottom:14px; }
+.durability-reward { position:relative; display:flex; flex-direction:column; align-items:center; min-width:0; border:0; background:transparent; padding:0 0 2px; color:#f0e6ca; }
+.durability-case { position:relative; width:100%; max-width:112px; height:80px; }
+#app .durability-case img { display:block; width:100%; height:100%; object-fit:contain; mix-blend-mode:lighten; }
+.durability-reward strong { font-size:14px; line-height:20px; }
+@media(max-height:560px) { .difficulty-options button { min-height:44px; padding:3px 6px; } .durability-case { width:70px; height:48px; } .durability-rewards { padding-top:18px; padding-bottom:10px; } .durability-rewards::before { top:46px; } .durability-reward + .durability-reward::before { top:16px; } }
+#app[data-page=home] > .command-rail { display:none; }
+#app[data-page=home] .command-menu-grid + .button { margin-top:12px; }
+#app[data-page=home] > .game-hud { background:linear-gradient(#132b36e8,#0b202ab8); }
+#app.game-app > main.mission-lobby {
+  display:flex; flex-direction:column; position:relative; isolation:isolate;
+  padding:0; gap:0; overflow:hidden; background:#081923;
+}
+.mission-lobby::before {
+  content:''; position:absolute; inset:0; z-index:-2; pointer-events:none;
+  background-image:linear-gradient(#08192385,#081923d9),var(--operation-backdrop);
+  background-position:center; background-size:cover; opacity:.7;
+}
+.mission-lobby::after {
+  content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:radial-gradient(ellipse at 50% 44%,#29434a35,transparent 65%);
+}
+.mission-heading { flex:none; position:relative; text-align:center; padding:15px 18px 3px; }
+.mission-title { display:flex; align-items:center; justify-content:center; gap:5px; margin:2px 0; }
+.mission-title h1 { margin:0; font-size:32px; line-height:1.25; font-weight:900; letter-spacing:.035em; color:#f3f1e6; text-shadow:0 2px 0 #071015,0 3px 10px #000; }
+.mission-title h1 small { font:600 17px ui-monospace,monospace; letter-spacing:0; color:#d8c18f; }
+.mission-title .mission-intel { width:44px; height:44px; flex:none; display:grid; place-items:center; font:bold 19px ui-monospace,monospace; color:#e4ddc5; background:#061822a6; border:1px solid #7c898061; border-radius:50%; }
+.mission-theater { flex:1; min-height:150px; position:relative; display:grid; place-items:center; }
+.mission-model { position:absolute; inset:0 36px; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+.mission-diorama { display:block; width:100%; height:100%; object-fit:contain; mix-blend-mode:lighten; }
+.mission-theater .stage-arrow { position:absolute; z-index:3; top:50%; transform:translateY(-50%); width:48px; height:58px; border:2px solid #ffe6a9; border-radius:9px; padding:0; font:800 48px/1 sans-serif; color:#17272e; background:linear-gradient(140deg,#fff2bd,#d8ae55); box-shadow:0 3px 9px #00111ac9,0 0 0 2px #071c28; text-shadow:none; }
+.mission-theater .stage-arrow-previous { left:69px; }
+.mission-theater .stage-arrow-next { right:60px; }
+.mission-theater .stage-arrow:hover:not(:disabled) { color:#f4c773; transform:translateY(-50%) scale(1.12); }
+#app .mission-theater .stage-arrow:disabled { opacity:.8; color:#25363c; border-color:#e9d6a4; }
+#app .mission-lobby .mission-deployment { flex:none; display:flex; flex-direction:column; align-items:center; min-height:0; padding:10px 20px 9px; gap:6px; background:linear-gradient(transparent,#07192399); border:0; }
+#app .mission-deployment .mission-start { position:relative; isolation:isolate; display:grid; grid-template-columns:1fr auto; grid-template-rows:15px 28px; column-gap:9px; align-items:center; justify-content:center; width:min(84%,370px); min-height:67px; height:67px; margin:0; padding:8px 56px; overflow:hidden; border:2px solid #f3ca7a; border-radius:36px; color:#172226; background:linear-gradient(110deg,#e8b84e,#f4cb73 48%,#d6a541); box-shadow:0 0 0 2px #07131b,0 0 0 3px #9b7d49,0 5px 0 #604823,inset 0 2px #ffe6a682; letter-spacing:0; }
+.mission-start::before,.mission-start::after { content:''; position:absolute; top:-3px; bottom:-3px; width:28px; z-index:-1; background:repeating-linear-gradient(110deg,#15252a 0 6px,transparent 6px 12px); }
+.mission-start::before { left:17px; }
+.mission-start::after { right:17px; }
+.mission-start > small { display:block; grid-column:1/-1; grid-row:1; font-size:9px; letter-spacing:.08em; line-height:1.2; text-align:center; color:#394036; font-weight:600; }
+.mission-start > strong { grid-column:1; grid-row:2; justify-self:end; font:900 28px/1 Arial,sans-serif; letter-spacing:.02em; text-shadow:0 1px #fff4; }
+#app .mission-start > span { grid-column:2; grid-row:2; font-size:11px; line-height:1.1; width:24px; font-weight:900; text-align:left; }
+#app .mission-start:hover:not(:disabled) { filter:brightness(1.08); }
+.mission-start:active:not(:disabled) { transform:translateY(2px); }
+.mission-objective-heading > span { font:10px ui-monospace,monospace; color:#d8b76f; }
+.mission-objective-reward { display:flex; align-items:center; gap:16px; padding:14px 0; margin:14px 0; border-block:1px solid #71816b55; }
+.mission-objective-reward > span { font-size:40px; color:#e0bf78; }
+.mission-objective-reward strong { font-size:14px; color:#ecdec0; }
+.mission-objective-reward p { margin:5px 0 0; }
+.mission-challenge-options { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.mission-challenge-options button { min-height:65px; padding:8px; background:#18343e; color:#e6d9b6; border:1px solid #637969; font-size:12px; }
+.mission-challenge-options small { display:block; font-size:10px; color:#a6bfba; margin-top:5px; }
+.mission-record { margin-top:18px; border-top:1px solid #61777566; padding-top:10px; }
+.mission-record .button { width:100%; }
+@media(max-width:420px) {
+  .mission-heading { padding-top:12px; }
+  .mission-title h1 { font-size:26px; }
+  .mission-title h1 small { font-size:14px; }
+  .mission-theater .stage-arrow-previous { left:49px; }
+  .mission-theater .stage-arrow-next { right:12px; }
+  .mission-theater .stage-arrow { font-size:47px; }
+  .mission-model { inset:0 18px; }
+  #app .mission-lobby .mission-deployment { padding-top:7px; }
+  #app .mission-deployment .mission-start { width:87%; padding-inline:40px; }
+}
+@media(max-height:700px) {
+  .mission-heading { padding-top:6px; }
+  .mission-title h1 { font-size:24px; }
+  .mission-theater { min-height:110px; }
+  .mission-theater .stage-arrow-previous { left:18px; }
+  .mission-theater .stage-arrow-next { right:18px; }
+  #app .mission-deployment .mission-start { height:55px; min-height:55px; padding-top:4px; padding-bottom:4px; }
+  #app .mission-lobby .mission-deployment { padding:5px 15px 4px; gap:3px; }
+}
+@media(max-height:560px) {
+  .mission-theater { min-height:40px; }
+  .mission-theater .stage-arrow { height:44px; }
+  .mission-heading { padding:3px 50px 0; height:52px; }
+  .mission-title { margin:1px 0; }
+  .mission-title h1 { font-size:20px; white-space:nowrap; }
+  .mission-title h1 small { font-size:11px; }
+  .mission-title .mission-intel { position:absolute; left:8px; top:4px; }
+  #app .mission-deployment .mission-start { width:82%; height:49px; min-height:49px; grid-template-rows:11px 23px; }
+  .mission-start > strong { font-size:24px; }
+  .mission-start > small { font-size:8px; }
+  #app .mission-start > span { font-size:10px; width:22px; }
+}
+@media(prefers-reduced-motion:reduce) { .mission-start { transition:none; } }
+
+/* Keep the art atmospheric while all actionable copy uses readable type. */
+#app.game-app { font-family:'PingFang TC','Microsoft JhengHei','Noto Sans TC',system-ui,sans-serif; }
+#app .commander-profile strong { font-size:18px; line-height:1.35; }
+#app .commander-profile small { font-size:11px; line-height:1.4; color:#c0cecf; letter-spacing:.025em; }
+#app .commander-profile > b { font-family:inherit; font-size:14px; }
+#app .hud-resources small { font-size:12px; color:#c6d2d1; line-height:1.4; white-space:nowrap; }
+#app .hud-resources b { font-family:inherit; font-size:16px; line-height:1.4; font-variant-numeric:tabular-nums; }
+#app.game-app > .game-dock button { font-size:13px; }
+.mission-lobby::before { opacity:.3; }
+#app .mission-diorama { mix-blend-mode:lighten; }
+.mission-title h1 { font-size:34px; letter-spacing:0; text-shadow:0 2px 4px #0009; }
+.mission-title h1 small { font-family:inherit; font-size:18px; }
+#app .mission-deployment .mission-start { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:74px; height:74px; padding:7px 42px; gap:2px; }
+#app .mission-start > small { font-family:inherit; font-size:12px; line-height:16px; letter-spacing:0; flex:none; color:#263a32; margin:0; padding:0; }
+#app .mission-deployment .mission-start > .mission-start-label { display:flex; align-items:center; justify-content:center; gap:8px; width:auto; height:auto; margin:0; padding:0; white-space:nowrap; font-family:inherit; letter-spacing:0; line-height:1; }
+.mission-start-label > strong { font:900 30px/1 Arial,sans-serif; }
+.mission-start-label > b { font-size:15px; line-height:1.2; }
+.mission-objective-heading > span { font-family:inherit; font-size:13px; }
+.mission-objective-reward strong { font-size:16px; }
+.mission-challenge-options button { font-size:14px; }
+.mission-challenge-options small { font-size:12px; line-height:1.5; }
+#app .command-dialog-body p { font-size:15px; color:#cfddd8; }
+#app .command-dialog-header small { font-size:12px; }
+@media(max-width:420px) {
+  #app .hud-resources i { display:none; }
+  .mission-title h1 { font-size:28px; }
+  .mission-title h1 small { font-size:16px; }
+}
+@media(max-height:700px) {
+  .mission-title h1 { font-size:27px; }
+  #app .mission-deployment .mission-start { height:62px; min-height:62px; }
+  .mission-start-label > strong { font-size:27px; }
+}
+@media(max-height:560px) {
+  .mission-title h1 { font-size:23px; }
+  .mission-title h1 small { font-size:14px; }
+  .mission-heading { height:58px; }
+  #app .mission-deployment .mission-start { height:57px; min-height:57px; width:87%; }
+  .mission-start-label > strong { font-size:25px; }
+  .mission-start-label > b { font-size:14px; }
+}
+
+.reward-points-icon { display:grid; place-items:center; background:radial-gradient(ellipse,#455051,#081923); }
+.reward-points-icon i { font-size:52px; line-height:1; font-style:normal; color:#efcf87; text-shadow:0 0 18px #d2c18688; }

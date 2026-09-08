@@ -1,0 +1,57 @@
+#app.game-app > .recruitment-v2 { padding:12px; display:flex; flex-direction:column; gap:12px; background:#081923; overflow:hidden; }
+.recruit-v2-heading { display:flex; justify-content:space-between; align-items:center; flex:none; }
+.recruit-v2-heading small { font-size:10px; letter-spacing:.15em; color:#c3b185; }
+.recruit-v2-heading h1 { font-size:27px; line-height:1.3; color:#f0e6cd; margin:3px 0 0; }
+.recruit-help { border:1px solid #617976; color:#edd6a3; background:#122c36; border-radius:50%; width:44px; height:44px; font-size:19px; }
+.recruit-v2-tabs { display:grid; grid-template-columns:repeat(2,1fr); gap:6px; flex:none; border-bottom:1px solid #53736e66; }
+.recruit-v2-tabs button { min-height:44px; background:transparent; color:#a9c1be; border:0; border-bottom:3px solid transparent; font-size:15px; font-weight:600; }
+.recruit-v2-tabs [aria-current] { border-color:#d8b775; color:#f8d38d; }
+.recruit-guarantee { flex:none; text-align:center; font-size:13px; line-height:1.5; color:#e5d3ac; }
+.recruit-purchase-panel { display:flex; flex-direction:column; flex:none; gap:8px; padding-top:8px; border-top:1px solid #53736e66; }
+.recruit-guarantee > div { display:flex; gap:5px; justify-content:center; margin-top:7px; }
+.recruit-guarantee i { width:19px; height:4px; background:#2c4851; }
+.recruit-guarantee i.filled { background:#efd084; box-shadow:0 0 7px #efd08444; }
+.recruit-v2-action { flex:none; text-align:center; padding:3px 0 1px; }
+#app .recruit-v2-action > button { width:100%; min-height:64px; display:flex; align-items:center; justify-content:center; gap:8px; background:linear-gradient(110deg,#be994e,#f0d28d,#c4a05a); color:#15232b; border:1px solid #f6d792; border-radius:6px; padding:6px 16px; font-size:21px; font-weight:800; }
+#app .recruit-v2-action img { width:58px; height:45px; object-fit:contain; background:#081923; border-radius:4px; mix-blend-mode:normal; }
+.recruit-v2-action small { display:block; font-size:12px; font-weight:600; line-height:1.5; }
+.recruit-blocked { color:#e8b893; font-size:12px; }
+#app .recruit-v2-receipt { flex:none; display:flex; min-height:78px; margin:0; gap:12px; padding:8px 12px; background:#16313b; border:1px solid #967a4366; }
+#app .recruit-v2-catalog > .recruit-v2-receipt { margin-bottom:12px; }
+#app .recruit-v2-receipt > .recruit-image-button { flex:none; width:54px; height:62px; }
+#app .recruit-receipt-image > img { object-fit:cover; object-position:center 15%; }
+.recruit-v2-receipt > div { display:flex; flex-direction:column; justify-content:center; gap:4px; }
+.recruit-v2-receipt small { color:#e1be75; font-size:11px; }
+.recruit-v2-receipt strong { color:#f5ead3; font-size:14px; }
+.recruit-v2-receipt span { color:#b8d8cf; font-size:12px; }
+.recruit-v2-catalog { flex:1; min-height:0; overflow:auto; padding:0 1px 8px; }
+.recruit-catalog-meta { display:flex; justify-content:space-between; font-size:12px; color:#bad0c9; padding:0 0 12px; }
+.recruit-catalog-meta b { color:#e8c986; }
+.recruit-card-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.recruit-item { overflow:hidden; background:#102934; border:1px solid #486269; }
+.recruit-item-art { height:170px; position:relative; overflow:hidden; background:radial-gradient(ellipse at bottom,#4a777966,#102330); }
+#app .recruit-image-button { display:block; min-width:0; padding:0; border:0; border-radius:0; background:transparent; cursor:zoom-in; }
+#app .recruit-image-button > img { display:block; width:100%; height:100%; object-fit:contain; object-position:center bottom; }
+#app .recruit-item-art > .recruit-image-button { width:100%; height:100%; }
+.recruit-item-art > :is(span,b) { pointer-events:none; }
+
+#app .recruit-art-viewer { position:fixed; inset:0; z-index:150; display:flex; flex-direction:column; width:100vw; height:100dvh; max-width:none; margin:0; padding:0; overflow:hidden; background:#030d16; color:#edf1e9; }
+.recruit-art-viewer > header { display:flex; align-items:center; justify-content:space-between; flex:none; gap:16px; padding:max(8px,env(safe-area-inset-top)) 16px 8px; border-bottom:1px solid #49616b; }
+#app .recruit-art-viewer h2 { min-width:0; margin:0; font-size:18px; line-height:1.5; }
+#app .recruit-art-viewer .icon-button { flex:none; width:48px; height:48px; min-height:48px; border:1px solid #607678; color:#ecd39f; background:#132b36; font-size:28px; }
+.recruit-art-stage { display:flex; align-items:center; justify-content:center; flex:1; min-height:0; padding-bottom:env(safe-area-inset-bottom); }
+#app .recruit-art-stage img { display:block; width:auto; height:100%; max-width:100%; object-fit:contain; object-position:center; }
+.recruit-item-kind { position:absolute; top:8px; left:8px; padding:3px 7px; font-size:11px; color:#ead59f; background:#061620c9; border:1px solid #bda36266; }
+.recruit-item-art > b { position:absolute; top:8px; right:8px; color:#caffdd; background:#1f655a; width:23px; height:23px; text-align:center; border-radius:50%; }
+.recruit-item-copy { position:relative; padding:9px 10px; }
+.recruit-item-copy h2 { font-size:18px; margin:0 0 2px; color:#ecdfc0; }
+.recruit-item-copy > p { font-size:12px; line-height:1.5; color:#bed0ca; margin:0 0 5px; }
+.recruit-item-element { font-size:12px; }
+.recruit-item-rate { float:right; font-size:13px; color:#e8cf8d; }
+.recruit-item-copy > button { display:block; margin:9px 0 0; min-height:44px; width:100%; font-size:12px; font-weight:600; background:#d1b473; color:#122832; border:1px solid #f3d691; }
+.recruit-item-copy details { margin-top:7px; border-top:1px solid #53666d55; font-size:12px; color:#c1d2cc; }
+.recruit-item-copy summary { min-height:32px; padding-top:8px; cursor:pointer; }
+.recruit-item-copy details p { line-height:1.7; font-size:12px; }
+.recruit-rules table { width:100%; border-collapse:collapse; font-size:13px; }
+.recruit-rules td,.recruit-rules th { text-align:left; padding:10px 6px; border-bottom:1px solid #749e8a66; }
+@media(max-height:600px) { #app.game-app > .recruitment-v2 { gap:4px; padding:8px 12px; } .recruit-v2-heading h1 { font-size:22px; } .recruit-v2-heading small { display:none; } #app .recruit-v2-action > button { min-height:54px; } }

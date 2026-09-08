@@ -1,4 +1,7 @@
-import { usesFreeSkills } from '../data/deep-trees';
+import {validateCommanderSkills} from '../data/commander';
+import { operationProfile } from '../data/progression';
+import { deepNodeCost,deepPointCost } from './deep-tree';
+import { DEEP_NODE_MAP, usesFreeSkills } from '../data/deep-trees';
 import { usesCollection, STARTER_IDS, FORM_MAP } from '../data/forms';
 import { prepareOperation, eventMultiplier } from './operations';
 import { stepSupport } from './deep-support';
@@ -14,7 +17,8 @@ import { usesRangeRules } from './range';
 import type { CharacterId, Command, RunConfig, RunState } from './types';
 import { applyUpgrade, castTactical, stepWeapons } from './weapons';
 export { getLegalNodeIds, getReadyEvolutions } from './draft';
-export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION):RunState{
+export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, compatibility:{legacyOperations?:boolean;legacyCommonSkills?:boolean}={}):RunState{
+  if(config.difficulty!==undefined&&!['easy','hard'].includes(config.difficulty))throw new Error('Unknown difficulty');
   if(!supportedContent(contentVersion))throw new Error('Unknown content version');
   if(!STAGE_MAP[config.stageId]||!Number.isSafeInteger(config.seed)||!config.squadIds.length||config.squadIds.length>5||new Set(config.squadIds).size!==config.squadIds.length||config.squadIds.some(id=>!CHARACTER_IDS.includes(id))||!config.squadIds.includes(config.captainId))throw new Error('Invalid run configuration');
   if(config.challengeId==='four'&&config.squadIds.length>4)throw new Error('四人挑戰最多4人');
@@ -25,8 +29,9 @@ export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION):RunS
   const ids=usesCollection({contentVersion})?CHARACTER_IDS:STARTER_IDS;
   const counters=()=>Object.fromEntries(ids.map(id=>[id,0])) as Record<CharacterId,number>;
   const s:RunState={schemaVersion:SCHEMA_VERSION,contentVersion,...(usesSkillTrees({contentVersion})?{treeNodes:[]}:{}),runId:globalThis.crypto?.randomUUID?.()??`run-${Date.now()}-${config.seed}`,config:structuredClone(config),tick:0,phase:'running',pauseReasons:[],wallHp:1000,wallMaxHp:1000,shields:[],xp:0,choicesEarned:0,choicesSpent:0,rerollsRemaining:3,evolvedCount:0,evolutionLimit:config.challengeId==='two-evolutions'?2:3,tacticalReadyAt:0,weapons:config.squadIds.map(id=>({id,branch:null,rank:0,readyAt:0,nextAttack:0,attacks:0,droneAttacks:[0,0],shieldAt:0})),commonRanks:{},preferredBranches:Object.fromEntries(ids.map(id=>[id,config.preferredBranches?.[id]??'A'])) as RunState['preferredBranches'],enemies:[],projectiles:[],fields:[],scheduled:[],spawnPlan:[],spawnCursor:0,bossSpawned:false,bossKilled:false,rng:{spawn:seedValue(config.seed,1),draft:seedValue(config.seed,2),visual:seedValue(config.seed,3)},nextEntityId:1,draft:null,nextOfferId:1,events:[],eventSeq:0,actions:[],actionSeq:0,stats:{kills:0,damageByCharacter:counters(),shieldDamageByCharacter:counters(),wallDamageByEnemy:{},shieldAbsorbed:0,controlTicks:counters(),choices:[],casts:[],encountered:[]},outcome:null};
-  if(usesFreeSkills(s)){s.rerollsRemaining=0;s.tacticalReadyAt=ticks(CHARACTER_MAP[config.captainId].cooldown);s.support={repairAt:0,pulseAt:0,emergencyAt:0,repulseAt:0,damageTaken:0,secondWindUsed:0,repaired:0,prevented:0,reflected:0};}
+  if(usesFreeSkills(s)){s.skillCostVersion=2;if(!compatibility.legacyOperations&&contentVersion===CONTENT_VERSION)s.operationVersion=2;s.rerollsRemaining=0;s.tacticalReadyAt=ticks(CHARACTER_MAP[config.captainId].cooldown);s.support={repairAt:0,pulseAt:0,emergencyAt:0,repulseAt:0,damageTaken:0,secondWindUsed:0,repaired:0,prevented:0,reflected:0};}
   if(usesCollection(s)){s.mines=[];for(const w of s.weapons)if(w.id==='C08'){w.heat=0;w.cooling=false;w.ventUntil=0;}}
+  if(usesFreeSkills(s)&&contentVersion===CONTENT_VERSION&&!compatibility.legacyCommonSkills){s.commanderSkillVersion=1;s.config.commanderNodes=[...(config.commanderNodes??[])];validateCommanderSkills(s.config.commanderNodes);const health=s.config.commanderNodes.reduce((n,id)=>n+(DEEP_NODE_MAP[id].mods.wallHealth??0),0);s.wallMaxHp+=health;s.wallHp+=health;}
   s.spawnPlan=makeSpawnPlan(s);prepareOperation(s);while(s.spawnCursor<s.spawnPlan.length&&s.spawnPlan[s.spawnCursor].at===0){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,20,p.xp,p.wave);}return s;
 }
 export function getPhase(s:RunState):RunState['phase']{return s.outcome?'ended':s.pauseReasons.includes('upgrade')?'choosing':s.pauseReasons.length?'paused':'running';}
@@ -40,23 +45,23 @@ export function command(s:RunState,cmd:Command):boolean{
   if(cmd.type==='choose'&&!usesFreeSkills(s)&&s.draft?.id===cmd.offerId&&s.draft.cards.some(c=>c.nodeId===cmd.nodeId)&&(cmd.nodeId==='EMPTY'||getLegalNodeIds(s).includes(cmd.nodeId))){
     applyUpgrade(s,cmd.nodeId);s.stats.choices.push({tick:s.tick,nodeId:cmd.nodeId});s.choicesSpent++;s.draft=null;s.pauseReasons=s.pauseReasons.filter(r=>r!=='upgrade');openDraft(s);accepted=true;
   }
-  if(cmd.type==='buy-node'&&usesFreeSkills(s)&&s.draft?.id===cmd.offerId&&s.pauseReasons.includes('upgrade')&&!s.pauseReasons.some(r=>['error','hidden','orientation','tutorial'].includes(r))&&s.choicesSpent<s.draft.pointTarget!&&getLegalNodeIds(s).includes(cmd.nodeId)){
-    applyUpgrade(s,cmd.nodeId);s.stats.choices.push({tick:s.tick,nodeId:cmd.nodeId});s.choicesSpent++;
-    if(s.choicesSpent===s.draft.pointTarget){s.draft=null;s.pauseReasons=s.pauseReasons.filter(r=>r!=='upgrade'&&r!=='tree');openDraft(s);}
-    if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!alive(s).length&&s.choicesSpent>=s.choicesEarned)s.outcome='victory';accepted=true;
+  if(cmd.type==='buy-node'&&usesFreeSkills(s)&&s.draft?.id===cmd.offerId&&s.pauseReasons.includes('upgrade')&&!s.pauseReasons.some(r=>['error','hidden','orientation','tutorial'].includes(r))&&s.choicesSpent+deepNodeCost(cmd.nodeId,s)<=s.draft.pointTarget!&&getLegalNodeIds(s).includes(cmd.nodeId)){
+    applyUpgrade(s,cmd.nodeId);s.stats.choices.push({tick:s.tick,nodeId:cmd.nodeId});s.choicesSpent+=deepNodeCost(cmd.nodeId,s);
+    if(s.choicesSpent===s.draft.pointTarget||!getLegalNodeIds(s).length){s.draft=null;s.pauseReasons=s.pauseReasons.filter(r=>r!=='upgrade'&&r!=='tree');openDraft(s);}
+    if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!alive(s).length&&(s.choicesSpent>=s.choicesEarned||!getLegalNodeIds(s).length))s.outcome='victory';accepted=true;
   }
   if(cmd.type==='confirm-node'&&usesFreeSkills(s)&&s.draft?.id===cmd.offerId&&s.pauseReasons.includes('upgrade')&&!s.pauseReasons.some(r=>['error','hidden','orientation','tutorial'].includes(r))){
     const target=s.draft.pointTarget??s.choicesSpent;
     const ids=cmd.nodeIds;
     const pending=s.draft.pendingNodeIds??[];
     const remaining=target-s.choicesSpent;
-    if(remaining>0&&ids.length===remaining&&new Set(ids).size===ids.length&&(pending.length===0||pending.length===remaining)&&(!pending.length||pending.every((id,i)=>id===ids[i]))){
+    if(remaining>0&&ids.length>0&&deepPointCost(ids,s)<=remaining&&new Set(ids).size===ids.length&&(!pending.length||pending.length===ids.length&&pending.every((id,i)=>id===ids[i]))){
       const shadow={...s,treeNodes:[...(s.treeNodes??[])]};
-      const legal=ids.every(id=>getLegalNodeIds(shadow).includes(id)&&((shadow.treeNodes??[]).push(id),true));
-      if(legal){
-        for(const id of ids){applyUpgrade(s,id);s.stats.choices.push({tick:s.tick,nodeId:id});s.choicesSpent++;}
+      const legal=ids.every(id=>getLegalNodeIds(shadow).includes(id)&&((shadow.treeNodes??[]).push(id),DEEP_NODE_MAP[id].kind==='ultimate'&&shadow.evolvedCount++,true));
+      if(legal&&(deepPointCost(ids,s)===remaining||s.commanderSkillVersion===1&&!getLegalNodeIds(shadow).length)){
+        for(const id of ids){applyUpgrade(s,id);s.stats.choices.push({tick:s.tick,nodeId:id});s.choicesSpent+=deepNodeCost(id,s);}
         s.draft=null;s.pauseReasons=s.pauseReasons.filter(r=>r!=='upgrade'&&r!=='tree');openDraft(s);
-        if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!alive(s).length&&s.choicesSpent>=s.choicesEarned)s.outcome='victory';accepted=true;
+        if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!alive(s).length&&(s.choicesSpent>=s.choicesEarned||!getLegalNodeIds(s).length))s.outcome='victory';accepted=true;
       }
     }
   }
@@ -108,7 +113,7 @@ export function stepRun(s:RunState,count=1):void{
     if(getPhase(s)!=='running')break;
     s.tick++;
     while(s.spawnCursor<s.spawnPlan.length&&s.spawnPlan[s.spawnCursor].at<=s.tick){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,20,p.xp,p.wave);}
-    if(!usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(360)){s.bossSpawned=true;createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,9);}
+    if(!usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(operationProfile(s).bossAt)){s.bossSpawned=true;createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,operationProfile(s).waves.length+1);}
     s.shields=s.shields.filter(x=>x.value>0&&x.expires>s.tick);
     stepEffects(s);stepWeapons(s);stepProjectiles(s);stepFields(s);
     for(const h of s.scheduled.filter(h=>h.at<=s.tick)){
@@ -117,10 +122,10 @@ export function stepRun(s:RunState,count=1):void{
     }s.scheduled=s.scheduled.filter(h=>h.at>s.tick);
     if(usesFreeSkills(s))stepSupport(s);
     stepEnemies(s);s.enemies=s.enemies.filter(e=>e.hp>0);
-    if(usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(360)&&s.wallHp>0){s.bossSpawned=true;const entering=createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,9);if(usesCollection(s))spawnBossEscort(s,entering);s.bossIntro={enemyId:entering.id,remainingMs:BOSS_INTRO_MS};s.pauseReasons.push('boss-intro');}
+    if(usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(operationProfile(s).bossAt)&&s.wallHp>0){s.bossSpawned=true;const entering=createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,operationProfile(s).waves.length+1);if(usesCollection(s))spawnBossEscort(s,entering);s.bossIntro={enemyId:entering.id,remainingMs:BOSS_INTRO_MS};s.pauseReasons.push('boss-intro');}
     if(s.wallHp<=0)s.outcome='wall';
-    else if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!s.enemies.length&&(!usesFreeSkills(s)||s.choicesSpent>=s.choicesEarned))s.outcome='victory';
-    else if(s.tick>=ticks(480))s.outcome='timeout';
+    else if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!s.enemies.length&&(!usesFreeSkills(s)||(s.choicesSpent>=s.choicesEarned||!getLegalNodeIds(s).length)))s.outcome='victory';
+    else if(s.tick>=ticks(operationProfile(s).deadline))s.outcome='timeout';
     if(!s.outcome)openDraft(s);s.phase=getPhase(s);
   }
 }
@@ -128,15 +133,16 @@ export function snapshotRun(s:RunState):RunState{return structuredClone(s);}
 export function restoreRun(raw:unknown):RunState{
   if(!raw||typeof raw!=='object')throw new Error('戰局快照損壞');const s=raw as RunState;
   if(s.schemaVersion!==SCHEMA_VERSION||!supportedContent(s.contentVersion))throw new Error('戰局版本不相容，請保留進度並重開本局');
-  const template=createRun(s.config,s.contentVersion);
+  if(s.operationVersion!==undefined&&s.operationVersion!==2)throw new Error('波次版本損壞');
+  const template=createRun(s.config,s.contentVersion,{legacyOperations:s.operationVersion!==2,legacyCommonSkills:s.commanderSkillVersion!==1});
   const finite=(v:unknown):boolean=>typeof v==='number'?Number.isFinite(v):Array.isArray(v)?v.every(finite):v&&typeof v==='object'?Object.values(v).every(finite):true;
-  if(!finite(s)||!Number.isInteger(s.tick)||s.tick<0||s.tick>ticks(480)||!Array.isArray(s.enemies)||!Array.isArray(s.projectiles)||!Array.isArray(s.fields)||!Array.isArray(s.spawnPlan)||!Array.isArray(s.pauseReasons)||!Array.isArray(s.actions)||!s.rng||!s.stats||s.wallHp<0||s.wallHp>s.wallMaxHp||s.choicesSpent>s.choicesEarned||s.evolvedCount>s.evolutionLimit||s.weapons.length!==s.config.squadIds.length)throw new Error('戰局快照損壞');
+  if(!finite(s)||!Number.isInteger(s.tick)||s.tick<0||s.tick>ticks(operationProfile(s).deadline)||!Array.isArray(s.enemies)||!Array.isArray(s.projectiles)||!Array.isArray(s.fields)||!Array.isArray(s.spawnPlan)||!Array.isArray(s.pauseReasons)||!Array.isArray(s.actions)||!s.rng||!s.stats||s.wallHp<0||s.wallHp>s.wallMaxHp||s.choicesSpent>s.choicesEarned||s.evolvedCount>s.evolutionLimit||s.weapons.length!==s.config.squadIds.length)throw new Error('戰局快照損壞');
   if(!!s.bossIntro!==s.pauseReasons.includes('boss-intro')||s.bossIntro&&(!usesRangeRules(s)||!s.bossSpawned||!Number.isSafeInteger(s.bossIntro.enemyId)||!Number.isFinite(s.bossIntro.remainingMs)||s.bossIntro.remainingMs<0||s.bossIntro.remainingMs>BOSS_INTRO_MS||!s.enemies.some(e=>e.id===s.bossIntro!.enemyId&&e.defId===STAGE_MAP[s.config.stageId].bossId)))throw new Error('首領登場紀錄損壞');
   if(s.projectiles.some(p=>p.travelRemaining!==undefined&&(!Number.isFinite(p.travelRemaining)||p.travelRemaining<0)))throw new Error('彈體射程紀錄損壞');
   const validInteger=(n:unknown,min=0,max=Number.MAX_SAFE_INTEGER)=>typeof n==='number'&&Number.isSafeInteger(n)&&n>=min&&n<=max;
   const required=['weapons','shields','scheduled','events','actions','spawnPlan'] as const;
   if(required.some(key=>!Array.isArray(s[key]))||s.enemies.length>2000||s.projectiles.length>2000||s.fields.length>20||!s.runId||!['running','choosing','paused','ended'].includes(s.phase)||s.pauseReasons.some(p=>!['user','upgrade','hidden','orientation','tutorial','error','boss-intro','tree'].includes(p))||new Set(s.pauseReasons).size!==s.pauseReasons.length||s.phase!==getPhase(s))throw new Error('戰局狀態損壞');
-  if(!validInteger(s.choicesSpent,0,usesFreeSkills(s)?24:18)||!validInteger(s.choicesEarned,0,usesFreeSkills(s)?24:18)||!validInteger(s.rerollsRemaining,0,3)||!validInteger(s.spawnCursor,0,s.spawnPlan.length)||!validInteger(s.nextEntityId,1)||!Object.values(s.rng).every(n=>validInteger(n,1,0xffffffff)))throw new Error('戰局計數損壞');
+  if(!validInteger(s.choicesSpent,0,usesFreeSkills(s)?operationProfile(s).points:18)||!validInteger(s.choicesEarned,0,usesFreeSkills(s)?operationProfile(s).points:18)||!validInteger(s.rerollsRemaining,0,3)||!validInteger(s.spawnCursor,0,s.spawnPlan.length)||!validInteger(s.nextEntityId,1)||!Object.values(s.rng).every(n=>validInteger(n,1,0xffffffff)))throw new Error('戰局計數損壞');
   if(new Set(s.weapons.map(w=>w.id)).size!==s.weapons.length||s.weapons.some(w=>!s.config.squadIds.includes(w.id)||!validInteger(w.rank,0,3)||(w.rank===0?w.branch!==null:!['A','B'].includes(w.branch??''))||!validInteger(w.nextAttack)||!validInteger(w.attacks)||!Array.isArray(w.droneAttacks)||w.droneAttacks.length!==2||!w.droneAttacks.every(n=>validInteger(n)))||Object.entries(s.commonRanks).some(([id,rank])=>!/^G0[1-6]$/.test(id)||!validInteger(rank,0,2)))throw new Error('武器改造紀錄損壞');
   if(s.enemies.some(e=>!ENEMY_MAP[e.defId]||!validInteger(e.id,1)||e.hp<0||e.hp>e.maxHp||e.shield<0||!Array.isArray(e.effects)||e.effects.some(f=>!['slow','stun','exposure','burn'].includes(f.kind)||!CHARACTER_IDS.includes(f.source as CharacterId)&&f.source!=='boss'||!validInteger(f.expires)||!validInteger(f.nextTick)))||s.spawnPlan.some(p=>!ENEMY_MAP[p.defId]||!validInteger(p.at)||!validInteger(p.xp)))throw new Error('敵人或波次紀錄損壞');
   const hasNumbers=(row:unknown,keys:string[])=>!!row&&typeof row==='object'&&keys.every(k=>typeof (row as Record<string,unknown>)[k]==='number'&&Number.isFinite((row as Record<string,number>)[k]));

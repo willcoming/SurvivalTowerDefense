@@ -1,0 +1,33 @@
+import {expect,test} from '@playwright/test';
+for(const viewport of [{width:320,height:500},{width:768,height:1024},{width:1024,height:768},{width:1440,height:900}])test(`commander settings at ${viewport.width}: entry, points, prerequisites and free reset`,async({page},info)=>{
+  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.setViewportSize(viewport);await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);
+  await page.getByRole('button',{name:'指揮官成長與共用技能',exact:true}).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-page','commander');await expect(page.getByRole('heading',{name:'指揮官成長',exact:true})).toBeVisible();
+  await expect(page.locator('.commander-level strong')).toHaveText('Lv.1');await expect(page.locator('[data-action="commander-upgrade"]')).toHaveCount(12);
+  await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/0"]')).toBeDisabled();
+  await page.evaluate(async()=>{window.__game.getSave().profile.commander!.xp=240;await window.__game.save();window.__game.route('commander');});
+  await expect(page.locator('.commander-points strong')).toHaveText('2');
+  await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/1"]')).toBeDisabled();
+  await page.locator('[data-action="commander-upgrade"][data-id="TEAM/0"]').click();
+  await expect(page.locator('.commander-points strong')).toHaveText('1');await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/1"]')).toBeEnabled();
+  await page.locator('[data-action="commander-upgrade"][data-id="TEAM/1"]').focus();await page.keyboard.press('Enter');
+  await expect(page.locator('.commander-points strong')).toHaveText('0');
+  await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/4"]')).toBeDisabled();
+  await page.screenshot({path:info.outputPath(`commander-${viewport.width}.png`),fullPage:true});
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
+  for(const box of await page.locator('.commander-route button').all())expect((await box.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+  await page.reload();await page.waitForFunction(()=>!!window.__game);await page.getByRole('button',{name:'設定',exact:true}).click();
+  await page.getByRole('button',{name:'設定共用技能 →',exact:true}).click();await expect(page.locator('.commander-points strong')).toHaveText('0');
+  await page.locator('[data-action="commander-reset"]').click();await expect(page.locator('.commander-points strong')).toHaveText('2');
+  expect(await page.evaluate(()=>window.__game.getSave().profile.commander!.skillIds)).toEqual([]);expect(errors).toEqual([]);
+});
+test('permanent skill applies on deployment and combat has no shared-skill selection',async({page})=>{
+  await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);
+  await page.evaluate(async()=>{const save=window.__game.getSave();save.preferences.tutorialSeen=true;save.profile.commander!.xp=100;save.profile.commander!.skillIds=['TEAM/0'];await window.__game.save();window.__game.route('home');});
+  await page.locator('[data-action="start"]').click();await page.locator('#battle-loading').waitFor({state:'detached'});
+  expect(await page.evaluate(()=>window.__game.state()!.wallMaxHp)).toBe(1100);
+  await page.locator('.range-toolbar [data-action="view-build"]').click();await expect(page.locator('[data-action="deep-owner"]')).toHaveCount(5);
+  await expect(page.locator('[data-action="deep-owner"][data-id="common"]')).toHaveCount(0);await expect(page.locator('[data-action="deep-node"][data-id^="TEAM/"]')).toHaveCount(0);
+  expect(await page.evaluate(()=>({spent:window.__game.state()!.choicesSpent,nodes:window.__game.state()!.config.commanderNodes}))).toEqual({spent:0,nodes:['TEAM/0']});
+});

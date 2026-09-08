@@ -1,3 +1,4 @@
+import { operationProfile } from '../../src/data/progression';
 import { describe, expect, it } from 'vitest';
 import { ENEMY_MAP, ticks, WORLD } from '../../src/data/content';
 import { applyEffect, createEnemy, hitEnemy, knockback } from '../../src/sim/combat';
@@ -104,7 +105,7 @@ describe('EN01–07 · independent enemy cooldowns and interruptible phases', ()
 
   it('B03 interrupted charge still exposes on schedule; summons alternate and allies receive stage scaling', () => {
     const state = isolated('S03'), boss = createEnemy(state, 'B03', 195, 150);
-    expect(boss.maxHp).toBe(16250);
+    expect(boss.maxHp).toBeCloseTo(16250*operationProfile(state).bossScale);
     until(state, 149); expect(boss.chargeKind).toBeNull();
     until(state, 150); expect(boss.chargeUntil).toBe(240);
     until(state, 239);

@@ -1,7 +1,8 @@
+import { operationProfile } from '../data/progression';
 import { usesFreeSkills } from '../data/deep-trees';
 import { deepMods, teamMod } from './deep-tree';
 import { waveStats, eventMultiplier } from './operations';
-import { usesPressureRules } from './difficulty';
+import { usesPressureRules, difficultyTuning } from './difficulty';
 import { emergencySupport, repairWall, reflectShield } from './deep-support';
 import { usesSkillTrees } from '../data/skill-trees';
 import { ultimateFor } from './skill-tree';
@@ -63,6 +64,7 @@ export function addShield(s:RunState,source:string,value:number,duration:number)
   emit(s,{kind:'shield',x:195,y:450,value:next});
 }
 export function hitWall(s:RunState,value:number,source:EnemyId){
+  value*=difficultyTuning(s).damage;
   const free=usesFreeSkills(s);if(free)emergencySupport(s);
   const reduction=free?Math.min(.4,teamMod(s,'wallReduction')):0;
   let remaining=value*(1-reduction),absorbed=0;if(s.support)s.support.prevented+=value-remaining;
@@ -95,7 +97,7 @@ export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
   emit(s,{kind:'hit',x:e.x,y:e.y,value:damage+result.shieldDamage,source:p.source,color:CHARACTER_MAP[p.source].color,targetId:e.id,enemyDefId:e.defId,skill:p.skill,...(usesCollection(s)?{weakness,damageType:p.damageType}:{})});
   if(previousShield>0&&e.shield<=0&&e.defId==='B02'){interrupt(s,e);e.exposureUntil=s.tick+ticks(6);}
   if(e.hp<=0){
-    s.stats.kills++;s.xp+=e.xp;s.choicesEarned=free?Math.min(24,2*Math.floor(s.xp/60)):Math.min(18,Math.floor(s.xp/40));
+    s.stats.kills++;s.xp+=e.xp;s.choicesEarned=free?Math.min(operationProfile(s).points,2*Math.floor(s.xp/60)):Math.min(18,Math.floor(s.xp/40));
     if(boss(e))s.bossKilled=true;emit(s,{kind:'death',x:e.x,y:e.y,source:p.source,targetId:e.id,enemyDefId:e.defId});
     if(free){
       const m=deepMods(s,p.source),near=alive(s).filter(t=>distance(t,e)<=100).sort((a,b)=>distance(a,e)-distance(b,e)||a.id-b.id);

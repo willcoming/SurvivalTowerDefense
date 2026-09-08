@@ -1,4 +1,4 @@
-import { CHARACTER_MAP, COMMON_UPGRADES } from '../data/content';
+import { CHARACTER_MAP } from '../data/content';
 import { NODE_MAP, TREE_MAP, treesFor } from '../data/skill-trees';
 import { hasNode, nodeLock, ultimateFor } from '../sim/skill-tree';
 import { getLegalNodeIds } from '../sim/draft';

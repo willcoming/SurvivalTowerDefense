@@ -1,0 +1,31 @@
+#app .roster-dialog { position:fixed; inset:0; width:100vw; max-width:100vw; height:100dvh; max-height:100dvh; margin:0; border:0; border-radius:0; }
+#app .roster-dialog .roster-panel-body { flex:1; padding-inline:max(16px,calc((100vw - 1000px)/2)); }
+#app .roster-dialog[data-roster-view=character] .roster-personnel-art { height:clamp(340px,60dvh,640px); }
+#app .roster-personnel { position:relative; display:grid; gap:0; }
+#app .roster-personnel-art { grid-area:1 / 1; }
+#app .roster-personnel-copy { grid-area:1 / 1; z-index:1; align-self:start; justify-self:start; justify-content:flex-start; max-width:min(48%,260px); margin:12px; padding:12px; background:linear-gradient(110deg,#071b24e8,#071b24a6); text-shadow:0 1px 3px #001017; }
+#app .roster-dialog :is(.roster-panel-header,.roster-panel-footer) { padding-inline:max(16px,calc((100vw - 1000px)/2)); }
+#app .personnel-skills-dialog { display:flex; flex-direction:column; width:min(780px,calc(100vw - 32px)); max-width:calc(100vw - 32px); height:min(880px,calc(100dvh - 32px)); max-height:calc(100dvh - 32px); padding:0; margin:0; overflow:hidden; background:#0c222d; color:#edf5e8; border:1px solid #7e927b; border-radius:4px; }
+.personnel-skills-dialog > header { flex:none; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px; background:#16333e; }
+#app .personnel-skills-dialog h2 { font-size:24px; margin:4px 0 0; color:#f2e5c1; }
+.personnel-skills-dialog header small { color:#b9cfc9; font-size:14px; }
+.personnel-skills-dialog .icon-button { flex:none; width:48px; height:48px; color:#dbeadc; background:#17353e; border:1px solid #527572; font-size:28px; }
+.personnel-skill-tabs { flex:none; display:flex; gap:6px; overflow-x:auto; padding:10px 16px; border-bottom:1px solid #527572; scrollbar-width:thin; }
+.personnel-skill-tabs > button { flex:1 0 auto; min-height:48px; padding:10px 14px; font-size:16px; color:#b9cfc9; background:#112b34; border:1px solid #526b72; }
+.personnel-skill-tabs > button[aria-selected=true] { color:#ffdda0; background:#354336; border-color:#e2c88a; box-shadow:inset 0 -3px #e2c88a; }
+.personnel-skill-scroll { flex:1; min-height:0; overflow:auto; overscroll-behavior:contain; padding:16px; }
+.personnel-skills-dialog p { font-size:16px; line-height:1.7; color:#cfddd8; }
+.personnel-skills-dialog .deep-node { color:#f0e2b9; background:#213c42; border:1px solid #c7ae6e; }
+.personnel-skills-dialog .deep-node strong { font-size:14px; line-height:1.4; }
+.personnel-skills-dialog .deep-node small { font-size:12px; line-height:1.3; }
+.personnel-skills-dialog .deep-node.ultimate { background:#3d382b; border:2px solid #c7a25e; }
+.personnel-skills-dialog .deep-node.inspecting { outline:2px solid #ffe2a1; outline-offset:2px; }
+.personnel-skills-dialog .deep-node:active { transform:translateX(-50%); }
+.personnel-skills-dialog .deep-connections path { stroke:#829b91; }
+.personnel-skills-dialog .deep-connections path.traced { stroke:#efd197; stroke-width:3; }
+.personnel-skills-dialog .personnel-skill-note { font-size:14px; }
+.personnel-skill-detail { flex:none; max-height:32%; overflow:auto; overscroll-behavior:contain; border-top:1px solid #527572; padding:14px 16px; background:#16333e; }
+.personnel-skill-detail h3 { color:#f2e5c1; font-size:18px; margin-bottom:6px; }
+.personnel-skill-detail small { display:block; font-size:14px; line-height:1.6; color:#b9cfc9; margin-top:6px; }
+@media(max-width:420px) { #app .personnel-skills-dialog { width:calc(100vw - 16px); max-width:calc(100vw - 16px); height:calc(100dvh - 16px); max-height:calc(100dvh - 16px); } .personnel-skill-scroll { padding:12px 8px; } .personnel-skill-tabs { padding:8px; } }
+@media(max-height:600px) { .personnel-skills-dialog > header { padding:8px 12px; } #app .personnel-skills-dialog h2 { font-size:20px; } .personnel-skill-detail { padding:8px 12px; } }

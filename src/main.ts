@@ -1,3 +1,4 @@
+import './ui/commander.css';
 import './ui/styles.css';
 import './ui/collection.css';
 import './ui/mobile.css';
@@ -10,6 +11,12 @@ import './ui/tactical-tree.css';
 import './ui/battle-focus.css';
 import './ui/portrait.css';
 import './ui/squad-lobby.css';
+import './ui/game-shell.css';
+import './ui/operation-home.css';
+import './ui/recruitment-v2.css';
+import './ui/tactical-command.css';
+import './ui/readability.css';
+import './ui/personnel-skills.css';
 import { GameApp } from './ui/app';
 
 const root = document.getElementById('app');

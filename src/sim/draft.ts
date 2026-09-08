@@ -58,6 +58,7 @@ export function rebuildDraft(s:RunState, randomize=false):void{
   d.cards=cards;
 }
 export function openDraft(s:RunState):void{
+  if(usesFreeSkills(s)&&!getLegalNodeIds(s).length)return;
   if(s.draft||s.choicesSpent>=s.choicesEarned||s.outcome)return;
   if(usesFreeSkills(s)){
     if(s.bossIntro)return;

@@ -6,7 +6,7 @@ import { RANGE_CONTENT_VERSION } from '../../src/data/content';
 import { command, restoreRun, stepRun, getLegalNodeIds } from '../../src/sim/engine';
 import { openDraft } from '../../src/sim/draft';
 import { drawTreeNode } from '../../src/sim/tree-draft';
-import { treeMods, nodeLock } from '../../src/sim/skill-tree';
+import { nodeLock } from '../../src/sim/skill-tree';
 import { createEnemy } from '../../src/sim/combat';
 import { stepWeapons, weaponStats, tacticalCooldown } from '../../src/sim/weapons';
 import { weaponRange } from '../../src/sim/range';

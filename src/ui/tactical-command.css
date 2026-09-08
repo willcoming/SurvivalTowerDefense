@@ -1,0 +1,51 @@
+#app.game-app > .tactical-command-screen { display:flex; flex-direction:column; overflow:hidden; padding:0; background:#081923; }
+#app[data-page=command] > .command-rail { display:none; }
+.tactical-heading { display:flex; align-items:center; gap:10px; padding:18px 16px 14px; flex:none; }
+.tactical-heading > button { width:44px; height:44px; flex:none; border:1px solid #718078; background:#112c35; color:#e4c780; font-size:30px; }
+#app .tactical-heading h1 { margin:0 0 5px; color:#f4e9c9; font-size:28px; line-height:1.25; }
+.tactical-heading p { margin:0; color:#aebfbe; font-size:13px; line-height:1.5; }
+.tactical-heading p span { display:inline-block; margin-left:8px; color:#e2c88a; }
+.tactical-tabs { display:grid; grid-template-columns:repeat(3,1fr); flex:none; margin:0 16px; border-bottom:1px solid #3d555d; }
+.tactical-tabs > button { min-height:48px; border:0; border-radius:0; background:transparent; color:#acbfbe; font-family:inherit; font-size:17px; font-weight:600; line-height:1.4; }
+.tactical-tabs > button[aria-selected=true] { color:#f1d18a; box-shadow:inset 0 -3px #d7b66f; background:linear-gradient(transparent,#d7b66f0c); }
+.tactical-content { flex:1; min-height:0; overflow:auto; overscroll-behavior:contain; padding:18px 16px 24px; scrollbar-color:#667768 #0c222c; }
+.tactical-location { min-height:170px; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; position:relative; isolation:isolate; background-position:center; background-size:cover; }
+.tactical-challenges { margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid #425962; }
+#app .tactical-challenges h2 { margin:0; font-size:22px; color:#f1e5c6; }
+.tactical-challenges > p { margin:10px 0 14px; }
+.tactical-challenge-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-bottom:14px; }
+.tactical-challenge-grid > button { display:flex; flex-direction:column; gap:8px; padding:14px 10px; min-height:100px; border:1px solid #526b72; background:#112b34; color:#f0e8d2; font-family:inherit; text-align:left; }
+.tactical-challenge-grid strong { font-size:16px; line-height:1.5; }
+.tactical-challenge-grid small { color:#b9ccc6; font-size:14px; line-height:1.5; }
+.tactical-challenge-grid > button[aria-pressed=true] { border-color:#e2c88a; background:#2c3c38; box-shadow:inset 0 0 0 1px #e2c88a; }
+.tactical-challenge-grid > button:disabled { opacity:.6; }
+.tactical-challenges > .button { width:100%; min-height:48px; font-size:16px; }
+.tactical-challenges > .tactical-challenge-notice { color:#f1ce8a; }
+.tactical-location::before { content:''; position:absolute; inset:0; z-index:-1; background:linear-gradient(transparent,#03131bec); }
+.tactical-location > span { color:#e5c984; font:600 14px/1.5 ui-monospace,monospace; }
+#app .tactical-location h2 { font-size:25px; color:#fff4d9; margin:3px 0 0; }
+.tactical-content p { font-size:15px; line-height:1.75; color:#c3d0ce; }
+.tactical-description { margin:16px 0; }
+.tactical-facts { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:14px 0; margin:0 0 22px; border-block:1px solid #425962; text-align:center; }
+.tactical-facts dt { font-size:13px; color:#9bb0b2; }
+.tactical-facts dd { margin:5px 0 0; font-size:20px; font-weight:600; color:#eed39c; }
+.tactical-priority > small,.tactical-enemy-list header small { color:#bcab79; font-size:12px; }
+#app .tactical-priority h3 { margin:5px 0 10px; color:#f1e5c6; font-size:21px; }
+.tactical-content p.tactical-counter { border-left:2px solid #97b8ad; padding:8px 12px; background:#26434666; color:#d5e4d9; margin:10px 0 0; }
+.tactical-content .tactical-caption { font-size:13px; margin:0 0 14px; color:#b2c5c4; }
+.tactical-wave-list article { display:grid; grid-template-columns:52px 1fr; gap:14px; padding:17px 0; border-bottom:1px solid #34505a; }
+.tactical-wave-list article:first-child { padding-top:4px; }
+.tactical-wave-index { display:flex; flex-direction:column; gap:6px; align-items:center; }
+.tactical-wave-index strong { font:600 27px/1.2 ui-monospace,monospace; color:#d7b66f; }
+.tactical-wave-index time { font-size:12px; color:#9fb7b8; }
+#app .tactical-wave-list h2 { font-size:17px; margin:0 0 9px; color:#f0e8d2; }
+.tactical-wave-units { display:flex; gap:7px 12px; flex-wrap:wrap; color:#cbd6d2; font-size:14px; line-height:1.6; }
+.tactical-wave-units b { color:#e3c382; font-weight:600; white-space:nowrap; }
+.tactical-enemy-list { display:grid; gap:16px; }
+.tactical-enemy-list article { padding:16px; border:1px solid #40565c; background:#112b34; }
+.tactical-enemy-list header { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+#app .tactical-enemy-list header img { width:50px; height:50px; object-fit:contain; flex:none; }
+.tactical-enemy-list header > div { flex:1; min-width:80px; }
+#app .tactical-enemy-list h2 { margin:3px 0; color:#f2e7ca; font-size:20px; }
+.tactical-enemy-list p { margin-bottom:0; }
+@media(max-height:600px) { .tactical-heading { padding:10px 12px; } #app .tactical-heading h1 { font-size:24px; } .tactical-content { padding:14px 12px 20px; } .tactical-location { min-height:130px; } }

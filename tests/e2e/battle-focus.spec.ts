@@ -9,7 +9,13 @@ async function boot(page:Page) {
 for (const size of [{width:320,height:500},{width:390,height:844},{width:430,height:932}]) test(`focused battle fills ${size.width}×${size.height}`,async({page})=>{
   await page.setViewportSize(size); await boot(page);
   const canvas=await page.locator('canvas').boundingBox();
-  expect(canvas!.height/size.height).toBeGreaterThan(.65);
+  await expect(page.locator('.game-hud')).not.toBeVisible();
+  await expect(page.locator('.game-dock')).not.toBeVisible();
+  const stage=await page.locator('.battle-layout').boundingBox();
+  expect(stage!.y).toBe(0);
+  expect(Math.abs(stage!.height-size.height)).toBeLessThan(1);
+  expect(canvas!.height/stage!.height).toBeGreaterThan(.5);
+  expect(canvas!.height).toBeGreaterThan(160);
   expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight&&document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await expect(page.locator('#weapon-strip')).not.toBeVisible();
   await page.locator('.battle-intel summary').click();
@@ -22,6 +28,17 @@ for (const size of [{width:320,height:500},{width:390,height:844},{width:430,hei
   for(const selector of ['#speed-button','[data-action="pause"]','#auto-tactical-button','.battle-intel summary']) {
     const box=await page.locator(selector).boundingBox();expect(box!.height).toBeGreaterThanOrEqual(44);expect(box!.width).toBeGreaterThanOrEqual(44);
   }
+  await page.locator('.battle-header-controls [data-action="pause"]').click();
+  const pause=page.locator('.pause-dialog');
+  await expect(pause.locator('#pause-title')).toHaveCSS('font-size','24px');
+  await expect(pause.locator(':scope > .eyebrow')).toHaveCSS('font-size','14px');
+  await expect(pause.locator(':scope > p').first()).toHaveCSS('font-size','16px');
+  for(const button of await pause.locator('button:visible').all()) {
+    await expect(button).toHaveCSS('font-size','16px');
+    expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(48);
+  }
+  await pause.locator('[data-action="resume"]').click();
+  expect(await page.evaluate(()=>window.__game.state()!.phase)).toBe('running');
 });
 for(const boss of ['B01','B02','B03'] as const) test(`${boss} actual attack drives wall feedback`,async({page})=>{
   await boot(page);

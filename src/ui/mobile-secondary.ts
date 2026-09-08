@@ -3,7 +3,6 @@ import type { MobileControls } from './mobile-controls';
 
 const find = (root: ParentNode, selector: string) => root.querySelector<HTMLElement>(selector);
 const all = (root: ParentNode, selector: string) => [...root.querySelectorAll<HTMLElement>(selector)];
-let previousReceipt: string | null | undefined;
 
 function block(className: string, tag = 'div') {
   const element = document.createElement(tag);
@@ -27,77 +26,6 @@ function compactIntel(screen: HTMLElement, ui: MobileControls) {
     find(screen, '.challenge-select .section-heading small'),
   ], information);
   screen.classList.add('mobile-intel');
-}
-
-function compactRecruitment(screen: HTMLElement, ui: MobileControls) {
-  const nav = block('mobile-secondary-navigation');
-  nav.dataset.label = '招募與收藏';
-  const drawPanel = block('mobile-recruit-draw', 'section');
-  const collectionPanel = block('mobile-recruit-collection', 'section');
-  const information = block('mobile-secondary-links');
-  find(screen, '.page-intro')?.after(nav, drawPanel, collectionPanel);
-
-  const console = find(screen, '.recruitment-console');
-  const receipt = find(screen, '.recruitment-receipt');
-  if (console) drawPanel.append(console);
-  if (receipt) drawPanel.append(receipt);
-  drawPanel.classList.toggle('has-receipt', !!receipt);
-  const overview = block('mobile-recruit-overview');
-  const banner = find(screen, '.recruitment-banner');
-  const image = find(banner ?? screen, '.recruitment-banner > img');
-  // The full illustration remains available in the collection information sheet.
-  if (image) overview.append(image.cloneNode(true));
-  const message = document.createElement('p');
-  message.textContent = '常駐混合獎池 · 10 項各 10%\n完全免費，以不同形態搭配小隊。';
-  overview.append(message);
-  drawPanel.prepend(overview);
-
-  const progress = find(screen, '.collection-progress');
-  const grid = find(screen, '.collection-grid');
-  const chooser = block('mobile-collection-chooser');
-  chooser.dataset.label = '選擇收藏形態';
-  if (progress) collectionPanel.append(progress);
-  collectionPanel.append(chooser);
-  if (grid) collectionPanel.append(grid);
-
-  const cards = grid ? all(grid, '.collection-card') : [];
-  cards.forEach((card, index) => {
-    const copy = find(card, ':scope > div');
-    const image = find(card, ':scope > img');
-    const passive = find(card, ':scope > div > p');
-    const links = block('mobile-collection-card-links');
-    if (copy) {
-      const heading = find(copy, 'h2');
-      const header = block('mobile-collection-card-heading');
-      if (image) header.append(image.cloneNode(true));
-      if (heading) header.append(heading);
-      card.prepend(header);
-      copy.append(links);
-      detail(ui, `collection-form-${index}`, '形態能力與完整立繪', [image, passive], links);
-    }
-  });
-  if (cards.length) ui.pager('recruitment-forms', cards, cards.map(card => find(card, 'h2')?.textContent ?? '收藏形態'), chooser);
-  screen.append(information);
-  const drawNote = find(console ?? screen, '.recruitment-console > .quiet-note');
-  const activeRunNote = drawNote?.textContent?.startsWith('請先完成') ? drawNote : null;
-  if (activeRunNote) {
-    message.textContent = activeRunNote.textContent;
-    const drawButton = find(console ?? screen, '[data-action="draw"]');
-    if (drawButton) drawButton.textContent = '行動進行中 · 暫停招募';
-  }
-  detail(ui, 'recruitment-information', '獎池說明與取得方式', [
-    find(screen, '.page-intro > p'), banner, drawNote,
-    find(screen, '.collection-progress > progress'), find(screen, '.collection-progress > p'), find(screen, '.reward-ledger'),
-    ...all(screen, ':scope > .quiet-note'),
-  ], information);
-  ui.tabs('recruitment-sections', [drawPanel, collectionPanel], ['招募', '收藏與兌換'], nav);
-  const receiptKey = receipt?.querySelector('.eyebrow')?.textContent ?? null;
-  if (receiptKey && previousReceipt !== undefined && previousReceipt !== receiptKey) {
-    // A newly completed exchange must reveal its receipt even from the collection tab.
-    nav.querySelector<HTMLButtonElement>('button')?.click();
-  }
-  previousReceipt = receiptKey;
-  screen.classList.add('mobile-recruitment');
 }
 
 function compactStories(screen: HTMLElement, ui: MobileControls) {
@@ -177,7 +105,6 @@ export function enhanceSecondary(root: HTMLElement, page: Page, ui: MobileContro
   if (!screen) return;
   const enhancers: Partial<Record<Page, (screen: HTMLElement, ui: MobileControls) => void>> = {
     intel: compactIntel,
-    recruitment: compactRecruitment,
     stories: compactStories,
     settings: compactSettings,
     result: compactResult,

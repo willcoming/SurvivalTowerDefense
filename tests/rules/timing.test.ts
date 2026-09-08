@@ -43,8 +43,8 @@ describe('AC02/AC11 · valid squads and one legal tactical', () => {
     }
     expect(state.stats.damageByCharacter.C01).toBe(140);
   });
-  it('offers all three shared entries for every solo character without legacy common cards', () => {
-    for(const id of CHARACTER_IDS){const legal=getLegalNodeIds(base(id));expect(legal).toEqual(expect.arrayContaining(['TEAM/0','TEAM/4','TEAM/8']));expect(legal.some(id=>id.startsWith('G'))).toBe(false);}
+  it('offers only character entries in battle; commander skills never consume battle points', () => {
+    for(const id of CHARACTER_IDS){const legal=getLegalNodeIds(base(id));expect(legal.every(node=>node.startsWith(id))).toBe(true);expect(legal.some(node=>node.startsWith('TEAM/'))).toBe(false);expect(legal.some(id=>id.startsWith('G'))).toBe(false);}
   });
 });
 
@@ -73,9 +73,9 @@ describe('AC06/TIME01–03 · all pause reasons and independent update frequency
 });
 
 describe('TIME04/DRAFT14 · exact spawn distribution and XP budget', () => {
-  it('all three stages have eight exact90XP waves, balanced eight spawn groups, and elites at+20seconds', () => {
+  it('historical saves have eight exact90XP waves, balanced eight spawn groups, and elites at+20seconds', () => {
     for (const stage of STAGES) for (const seed of [101, 211, 307, 401, 503, 601, 709, 809, 907, 1009]) {
-      const state = createRun({ stageId: stage.id, squadIds: ['C01'], captainId: 'C01', seed });
+      const state = createRun({ stageId: stage.id, squadIds: ['C01'], captainId: 'C01', seed },undefined,{legacyOperations:true,legacyCommonSkills:true});
       for (let wave = 1; wave <= 8; wave++) {
         const entries = state.spawnPlan.filter(p => p.wave === wave);
         expect(entries.reduce((n, p) => n + p.xp, 0)).toBe(90);

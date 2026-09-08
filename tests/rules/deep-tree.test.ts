@@ -1,30 +1,49 @@
 import { describe,it,expect } from 'vitest';
-import { CHARACTER_TREES, DEEP_NODES, DEEP_NODE_MAP, COMMON_TREE, FREE_CONTENT_VERSION } from '../../src/data/deep-trees';
+import { CHARACTER_TREES, DEEP_NODES, DEEP_NODE_MAP, COMMON_TREE } from '../../src/data/deep-trees';
 import { CHARACTER_IDS, CHARACTER_MAP, PREVIOUS_TREE_VERSION, RANGE_CONTENT_VERSION, LEGACY_CONTENT_VERSION, ticks } from '../../src/data/content';
 import { createRun, command, stepRun, restoreRun } from '../../src/sim/engine';
-import { deepLock, deepLegalNodes, deepMods } from '../../src/sim/deep-tree';
+import { deepLock, deepLegalNodes, deepNodeCost } from '../../src/sim/deep-tree';
 import { openDraft } from '../../src/sim/draft';
-import { addShield, createEnemy, hitEnemy, hitWall, stepEffects } from '../../src/sim/combat';
-import { stepWeapons, weaponStats } from '../../src/sim/weapons';
+import { createEnemy, hitEnemy, hitWall } from '../../src/sim/combat';
+import { stepWeapons } from '../../src/sim/weapons';
 import { stepSupport } from '../../src/sim/deep-support';
 import { nextIntel, waveStats } from '../../src/sim/operations';
 import { shouldAutoCast } from '../../src/ui/auto-tactical';
 import { pathTo, ALL_TERMINALS } from '../helpers/deep-build';
 import type { CharacterId, RunState } from '../../src/sim/types';
 
-function funded(ids:CharacterId[]=['C01','C02','C03','C04','C05']){const s=createRun({stageId:'S03',squadIds:ids,captainId:ids[0],seed:101});s.xp=720;s.choicesEarned=24;openDraft(s);return s;}
+function funded(ids:CharacterId[]=['C01','C02','C03','C04','C05']){const s=createRun({stageId:'S12',squadIds:ids,captainId:ids[0],seed:101},undefined,{legacyCommonSkills:true});s.xp=720;s.choicesEarned=24;openDraft(s);return s;}
 function take(s:RunState,id:string){expect(command(s,{type:'buy-node',offerId:s.draft!.id,nodeId:id}),id).toBe(true);}
 function acquire(s:RunState,id:string){for(const n of pathTo(id))if(!s.treeNodes!.includes(n))take(s,n);}
 function readyCombat(s:RunState){s.enemies=[];s.projectiles=[];s.fields=[];s.spawnCursor=s.spawnPlan.length;s.bossSpawned=true;s.draft=null;s.pauseReasons=[];s.choicesEarned=s.choicesSpent;s.phase='running';}
 function durable(s:RunState,x=195,y=300){const e=createEnemy(s,'E03',x,y,0,0);e.hp=e.maxHp=100000;e.shield=0;e.speed=0;return e;}
 
 describe('186-node free allocation',()=>{
+  it('confirms one ultimate for two points and preserves weighted counts on reload',()=>{
+    const s=funded(['C01']);for(const id of pathTo('C01-A/9').slice(0,4))take(s,id);
+    s.draft!.pendingNodeIds=['C01-A/9'];expect(restoreRun(s)).toEqual(s);
+    const before=structuredClone(s);
+    expect(command(s,{type:'confirm-node',offerId:s.draft!.id,nodeIds:['C01-A/9','TEAM/0']})).toBe(false);expect(s).toEqual(before);
+    expect(command(s,{type:'confirm-node',offerId:s.draft!.id,nodeIds:['C01-A/9']})).toBe(true);
+    expect(s.choicesSpent).toBe(6);expect(s.treeNodes).toHaveLength(5);expect(s.evolvedCount).toBe(1);expect(restoreRun(s)).toEqual(s);
+  });
+  it('rejects a two-point ultimate when only one point remains without consuming anything',()=>{
+    const s=funded(['C01']);for(const id of pathTo('C01-A/9').slice(0,4))take(s,id);take(s,'TEAM/0');
+    const before=structuredClone(s);expect(command(s,{type:'buy-node',offerId:s.draft!.id,nodeId:'C01-A/9'})).toBe(false);expect(s).toEqual(before);
+    const invalid=structuredClone(s);invalid.draft!.pendingNodeIds=['C01-A/9'];expect(()=>restoreRun(invalid)).toThrow();
+    take(s,'TEAM/1');take(s,'C01-A/9');expect(s.choicesSpent).toBe(8);
+  });
+  it('preserves legacy snapshots that paid one point per node',()=>{
+    const s=funded(['C01']);delete s.skillCostVersion;
+    for(const id of pathTo('C01-A/9'))take(s,id);
+    expect(s.choicesSpent).toBe(5);expect(restoreRun(s)).toEqual(s);
+  });
   it('matches every agreed asymmetric tree size and provides 29 distinct ultimates',()=>{
     expect(CHARACTER_TREES.map(t=>t.nodes.length)).toEqual([11,9,10,11,9,8,10,12,8,10,9,12,10,9,9,9,9,9]);expect(COMMON_TREE.nodes).toHaveLength(12);expect(DEEP_NODES).toHaveLength(186);expect(ALL_TERMINALS).toHaveLength(29);
     expect(new Set(DEEP_NODES.map(n=>n.id)).size).toBe(186);
     for(const n of DEEP_NODES){expect(Object.keys(n.mods).length).toBeGreaterThan(0);expect(n.parents.every(id=>DEEP_NODE_MAP[id].layer<n.layer&&DEEP_NODE_MAP[id].kind!=='ultimate')).toBe(true);}
   });
-  for(const t of ALL_TERMINALS)it(`${t.name} has a legal five-point path, persists and locks other owner ultimates`,()=>{
+  for(const t of ALL_TERMINALS)it(`${t.name} has a legal six-point path, persists and locks other owner ultimates`,()=>{
     const s=funded([t.ownerId as CharacterId]),path=pathTo(t.id);expect(path).toHaveLength(5);expect(deepLock(s,t.id)).toBeTruthy();
     for(const id of path.slice(0,4))take(s,id);expect(deepLock(s,t.id)).toBeNull();take(s,t.id);expect(s.evolvedCount).toBe(1);expect(restoreRun(s)).toEqual(s);
     for(const alt of ALL_TERMINALS.filter(n=>n.ownerId===t.ownerId&&n.id!==t.id))expect(deepLock(s,alt.id)).toContain('本角色');
@@ -38,7 +57,7 @@ describe('186-node free allocation',()=>{
     const invalid=structuredClone(restored);invalid.treeNodes!.reverse();expect(()=>restoreRun(invalid)).toThrow();
   });
   it('only XP earns points: 59 yields none, 60 yields two, and large XP batches queue multiple mandatory milestones',()=>{
-    const s=createRun({stageId:'S01',squadIds:['C01'],captainId:'C01',seed:101});s.enemies=[];
+    const s=createRun({stageId:'S01',squadIds:['C01'],captainId:'C01',seed:101},undefined,{legacyCommonSkills:true});s.enemies=[];
     const kill=(xp:number)=>hitEnemy(s,createEnemy(s,'E01',195,200,xp),{source:'C01',skill:'test',raw:999,damageType:'plasma',armorIgnore:1,shieldMultiplier:1});
     kill(59);expect(s.choicesEarned).toBe(0);kill(1);openDraft(s);expect(s.choicesEarned).toBe(2);take(s,'TEAM/0');expect(s.phase).toBe('choosing');take(s,'TEAM/1');expect(s.phase).toBe('running');
     kill(120);openDraft(s);expect(s.choicesEarned).toBe(6);take(s,'TEAM/2');take(s,'TEAM/3');expect(s.draft?.choice).toBe(3);expect(s.phase).toBe('choosing');
@@ -46,7 +65,7 @@ describe('186-node free allocation',()=>{
   it('every solo character has at least 24 mutually compatible ordinary nodes; random valid paths never deadlock',()=>{
     for(const owner of CHARACTER_IDS){expect(DEEP_NODES.filter(n=>(n.ownerId===owner||n.ownerId==='common')&&n.kind!=='ultimate').length).toBeGreaterThanOrEqual(24);
       for(let seed=1;seed<=30;seed++){const s=funded([owner]);let rng=seed;
-        for(let i=0;i<24;i++){const legal=deepLegalNodes(s);expect(legal.length).toBeGreaterThan(0);rng=(Math.imul(rng,1664525)+1013904223)>>>0;take(s,legal[rng%legal.length]);}
+        while(s.choicesSpent<24){const legal=deepLegalNodes(s).filter(id=>deepNodeCost(id,s)<=s.draft!.pointTarget!-s.choicesSpent);expect(legal.length).toBeGreaterThan(0);rng=(Math.imul(rng,1664525)+1013904223)>>>0;take(s,legal[rng%legal.length]);}
         expect(s.draft).toBeNull();expect(s.phase).toBe('running');expect(restoreRun(s)).toEqual(s);
       }
     }
@@ -74,7 +93,7 @@ describe('new effects and disclosed battle variations',()=>{
   it('all future enemy counts, defenses and modifiers come from the saved deterministic plan',()=>{
     const a=createRun({stageId:'S03',squadIds:['C01'],captainId:'C01',seed:101}),b=createRun(a.config),other=createRun({...a.config,seed:211});
     expect(a.wavePlan).toEqual(b.wavePlan);expect(a.spawnPlan).toEqual(b.spawnPlan);expect(a.wavePlan).not.toEqual(other.wavePlan);
-    expect(a.spawnPlan.reduce((n,p)=>n+p.xp,0)).toBe(720);expect(a.wavePlan!.filter(w=>w.event!=='none')).toHaveLength(3);
+    expect(a.spawnPlan.reduce((n,p)=>n+p.xp,0)).toBe(360);expect(a.wavePlan!.filter(w=>w.event!=='none')).toHaveLength(2);
     const intel=nextIntel(a);for(const row of intel){expect(row.counts.reduce((n,[,c])=>n+c,0)).toBe(a.spawnPlan.slice(a.spawnCursor).filter(p=>p.wave===row.wave).length);}
     for(const p of a.spawnPlan.filter(p=>p.wave===3)){const expected=waveStats(a,p.defId,p.wave),e=createEnemy(a,p.defId,p.x,20,p.xp,p.wave);expect([e.maxHp,e.shield,e.armor,e.speed]).toEqual([expected.hp,expected.shield,expected.armor,expected.speed]);}
     expect(restoreRun(a).wavePlan).toEqual(a.wavePlan);const corrupt=structuredClone(a);corrupt.wavePlan![0].variant='fast';expect(()=>restoreRun(corrupt)).toThrow();

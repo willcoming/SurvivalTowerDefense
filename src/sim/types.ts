@@ -7,6 +7,8 @@ export type DamageType = 'plasma' | 'arc' | 'kinetic' | 'gravity' | 'thermal';
 export type ChallengeId = 'four' | 'no-skill' | 'two-evolutions' | null;
 export type PauseReason = 'user' | 'upgrade' | 'hidden' | 'orientation' | 'tutorial' | 'error' | 'boss-intro' | 'tree';
 export interface RunConfig {
+  difficulty?: 'easy' | 'hard';
+  commanderNodes?: string[];
   stageId: StageId; squadIds: CharacterId[]; captainId: CharacterId;
   preferredBranches?: Partial<Record<CharacterId, Branch>>; seed: number; challengeId?: ChallengeId;
   forms?: Partial<Record<CharacterId, FormId>>;
@@ -108,6 +110,9 @@ export interface RunState {
   wallHp: number; wallMaxHp: number; shields: Shield[]; xp: number; choicesEarned: number; choicesSpent: number;
   rerollsRemaining: number; evolvedCount: number; evolutionLimit: number; tacticalReadyAt: number;
   treeNodes?: string[];
+  skillCostVersion?:2;
+  operationVersion?:2;
+  commanderSkillVersion?:1;
   wavePlan?: WaveBrief[]; support?: SupportState; upgradePendingAt?: number;
   weapons: WeaponState[]; commonRanks: Record<string, number>; preferredBranches: Record<CharacterId, Branch>;
   enemies: Enemy[]; projectiles: Projectile[]; fields: Field[]; scheduled: ScheduledHit[];

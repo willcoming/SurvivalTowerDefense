@@ -1,7 +1,8 @@
+import { operationProfile } from '../data/progression';
 import { ENEMY_MAP, STAGE_MAP, ticks } from '../data/content';
 import { usesFreeSkills } from '../data/deep-trees';
 import { nextRandom } from './rng';
-import { pressure } from './difficulty';
+import { pressure, difficultyTuning } from './difficulty';
 import type { EnemyId, RunState, WaveBrief } from './types';
 
 export const VARIANT_INFO = {
@@ -21,19 +22,21 @@ export function prepareOperation(s:RunState) {
   if(!usesFreeSkills(s))return;
   const variants:WaveBrief['variant'][]=['standard','fast','armored','shielded'];
   const events:WaveBrief['event'][]=['ion','heat','gravity'];
-  s.wavePlan=Array.from({length:8},(_,i)=>({wave:i+1,variant:i===0?'standard':variants[Math.floor(nextRandom(s.rng,'spawn')*variants.length)],event:[2,4,6].includes(i)?events[Math.floor(nextRandom(s.rng,'spawn')*events.length)]:'none'}));
+  s.wavePlan=Array.from({length:operationProfile(s).waves.length},(_,i)=>({wave:i+1,variant:i===0?'standard':variants[Math.floor(nextRandom(s.rng,'spawn')*variants.length)],event:[2,4,6].includes(i)?events[Math.floor(nextRandom(s.rng,'spawn')*events.length)]:'none'}));
+  // New authored wave rosters match the briefing exactly; variants change defenses, not enemy types.
+  if(s.operationVersion===2)return;
   const types=STAGE_MAP[s.config.stageId].enemyIds.filter(id=>['E02','E03','E04','E05'].includes(id));
   // Replace at most two basic units per wave, with unchanged XP and spawn timing.
-  for(let wave=2;wave<=8;wave++){
+  for(let wave=2;wave<=operationProfile(s).waves.length;wave++){
     const candidates=s.spawnPlan.filter(p=>p.wave===wave&&p.defId==='E01');
     for(const entry of candidates.slice(0,2))if(types.length&&nextRandom(s.rng,'spawn')<.6)entry.defId=types[Math.floor(nextRandom(s.rng,'spawn')*types.length)];
   }
 }
 export function waveStats(s:RunState,id:EnemyId,wave:number){
   const d=ENEMY_MAP[id],boss=id.startsWith('B'),tuning=pressure(s),ramped=wave>=7;
-  const factor=boss?tuning.bossHealth:STAGE_MAP[s.config.stageId].hpMultiplier*(ramped?tuning.health:1);
+  const factor=boss?tuning.bossHealth*operationProfile(s).bossScale:STAGE_MAP[s.config.stageId].hpMultiplier*(ramped?tuning.health:1);
   const brief=usesFreeSkills(s)&&!boss?s.wavePlan?.find(w=>w.wave===wave):undefined;
-  const hp=d.hp*factor*(brief?.variant==='fast'?.9:brief?.variant==='shielded'?.92:1);
+  const hp=d.hp*factor*difficultyTuning(s).health*(brief?.variant==='fast'?.9:brief?.variant==='shielded'?.92:1);
   return {hp,shield:d.shield*factor+hp*((brief?.variant==='shielded'?.15:0)+(brief?.event==='ion'?.1:0)),armor:Math.min(.7,d.armor+(brief?.variant==='armored'?.08:0)+(brief?.event==='heat'?.05:0)),speed:d.speed*(ramped?tuning.speed:1)*(brief?.variant==='fast'?1.15:brief?.variant==='armored'?.9:1)*(brief?.event==='gravity'?1.1:1)};
 }
 export function eventMultiplier(s:RunState,wave:number,type:string){
@@ -42,14 +45,15 @@ export function eventMultiplier(s:RunState,wave:number,type:string){
 }
 export function nextIntel(s:RunState){
   // Include the current unfinished spawn group and the next complete wave.
-  const first=s.spawnPlan[s.spawnCursor],wave=first?.wave??9;
-  const nextWave=Math.min(8,wave+1);
-  const waves=wave===9?[]:[wave,...(nextWave!==wave?[nextWave]:[])];
+  const profile=operationProfile(s),end=profile.waves.length+1;
+  const first=s.spawnPlan[s.spawnCursor],wave=first?.wave??end;
+  const nextWave=Math.min(profile.waves.length,wave+1);
+  const waves=wave===end?[]:[wave,...(nextWave!==wave?[nextWave]:[])];
   return waves.map(number=>{
     const units=s.spawnPlan.slice(s.spawnCursor).filter(p=>p.wave===number),counts=new Map<EnemyId,number>();
     for(const u of units)counts.set(u.defId,(counts.get(u.defId)??0)+1);
     const shielded=units.filter(p=>waveStats(s,p.defId,p.wave).shield>0).length;
     const armored=units.filter(p=>waveStats(s,p.defId,p.wave).armor>0).length;
-    return {wave:number,at:Math.max(s.tick,ticks((number-1)*45)),brief:s.wavePlan?.find(w=>w.wave===number),counts:[...counts.entries()],shieldPercent:units.length?Math.round(shielded/units.length*100):0,armorPercent:units.length?Math.round(armored/units.length*100):0};
+    return {wave:number,at:Math.max(s.tick,ticks((number-1)*profile.interval)),brief:s.wavePlan?.find(w=>w.wave===number),counts:[...counts.entries()],shieldPercent:units.length?Math.round(shielded/units.length*100):0,armorPercent:units.length?Math.round(armored/units.length*100):0};
   });
 }

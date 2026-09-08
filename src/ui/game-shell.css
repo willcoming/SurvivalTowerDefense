@@ -1,0 +1,121 @@
+/* Shared centered stage, HUD, scene and command controls. */
+body { min-width:320px; background:#081923; color-scheme:dark; }
+#app.game-app { --ink:#edf1e9; --muted:#a4b9bc; --paper:#102631; --line:#39565d; --gold:#d7b66f; --teal:#89d8be; --coral:#e87856; position:relative; isolation:isolate; display:flex; flex-direction:column; width:min(100%,600px); height:100dvh; min-height:0; margin:0 auto; padding:0; background:#081923ed; color:var(--ink); border-inline:1px solid #78908745; box-shadow:0 0 90px #000b; overflow:hidden; }
+.game-world { position:fixed; inset:0; z-index:-2; background-size:cover; background-position:center; pointer-events:none; }
+.game-world::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,#021018dd,#04121d88 50%,#021018dd),linear-gradient(0deg,#020c17e8,transparent); }
+.world-wordmark { position:fixed; top:12%; right:calc(50% + 340px); text-align:right; color:#e5d4a8; pointer-events:none; }
+.world-wordmark span { display:block; font:600 15px ui-monospace,monospace; letter-spacing:.32em; }
+.world-wordmark strong { display:block; margin:8px 0; font-size:36px; letter-spacing:.1em; }
+.world-wordmark small { font:10px ui-monospace,monospace; letter-spacing:.15em; color:#91aaa9; }
+#app.game-app > .game-hud { display:grid; grid-template-columns:minmax(0,1fr) auto; width:100%; margin:0; padding:max(6px,env(safe-area-inset-top)) 12px 0; gap:4px 8px; min-height:0; flex:none; background:linear-gradient(115deg,#19313eea,#0b1d29f7); border-bottom:1px solid #a58c5055; }
+.commander-profile { display:flex; align-items:center; gap:9px; min-width:0; padding:0; border:0; color:var(--ink); background:transparent; text-align:left; }
+.commander-profile img { width:44px; height:44px; object-fit:cover; object-position:center 15%; border-radius:50%; border:1px solid var(--gold); background:#193641; }
+.commander-profile > span { min-width:0; flex:1; }
+.commander-profile small { display:block; font-size:8px; letter-spacing:.12em; color:var(--muted); }
+.commander-profile strong { display:block; font-size:16px; max-width:250px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; }
+.commander-profile > b { font:600 12px ui-monospace,monospace; color:var(--gold); white-space:nowrap; }
+.hud-controls { display:flex; align-items:center; gap:4px; }
+#app .hud-controls .icon-button { width:44px; height:44px; min-width:44px; color:var(--gold); }
+.hud-resources { grid-column:1/-1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-top:1px solid #60757835; }
+.hud-battle-progress { grid-column:1/-1; display:flex; justify-content:space-between; padding:4px 0 7px; font-size:13px; color:var(--muted); }
+.hud-battle-progress b { color:var(--gold); }
+.hud-resources > button { display:flex; align-items:center; justify-content:center; gap:6px; min-width:0; min-height:44px; border:0; border-right:1px solid #60757835; background:transparent; color:var(--ink); padding:4px 2px; }
+.hud-resources i { color:var(--gold); font-style:normal; font-size:20px; }
+.hud-resources small { display:block; color:var(--muted); font-size:9px; line-height:1.4; }
+.hud-resources b { display:block; font:600 13px ui-monospace,monospace; line-height:1.4; }
+.game-app .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+#app.game-app > .game-dock { order:20; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); flex:none; width:100%; min-height:62px; margin:0; padding:0 4px env(safe-area-inset-bottom); gap:0; background:#081923f7; border-top:1px solid #a88f585e; overflow:visible; }
+#app.game-app > .game-dock button { min-width:0; min-height:62px; padding:5px 0; gap:2px; font-size:11px; border-radius:0; }
+#app .game-dock button.active { color:var(--gold); box-shadow:inset 0 2px var(--gold); background:linear-gradient(#d7b66f20,transparent); }
+#app .game-dock .game-nav-icon { display:block; }
+.nav-notification { position:absolute; top:8px; left:calc(50% + 11px); width:6px; height:6px; border-radius:50%; background:#f0775f; box-shadow:0 0 7px #f0775f77; }
+#app.game-app > main,#app.game-app > section.content-screen { flex:1; width:100%; max-width:none; height:auto; min-height:0; margin:0; padding:12px; overflow:auto; overscroll-behavior:contain; background:linear-gradient(#102b369c,#071923f2); }
+#app.game-app > .site-footer { display:none; }
+#app.game-app > main.operation-select { display:flex; flex-direction:column; gap:0; padding:0; overflow:auto; }
+.stage-arrow { width:44px; height:44px; flex:none; color:#f4d69b; font-size:28px; border:1px solid #b5a3727a; background:#051e29aa; }
+#app .operation-select .operation-panel { flex:none; min-height:0; gap:8px; margin:0; padding:12px 18px 8px; border-top:1px solid #b6995e77; background:linear-gradient(#102e3af5,#081923); }
+#app.game-app .button.primary { background:linear-gradient(#e2c687,#b39351); border-color:#f0d8a0; color:#1c2728; box-shadow:inset 0 1px #fff6,0 3px 0 #584a31; }
+#app .operation-select .deploy-button { display:flex; align-items:center; justify-content:space-between; width:100%; min-height:58px; margin:0; padding:8px 20px; font-size:23px; font-weight:900; letter-spacing:.1em; }
+.deploy-button > span { display:block; }
+.deploy-button > span > small { display:block; font:8px ui-monospace,monospace; letter-spacing:.25em; margin-bottom:2px; }
+.command-rail { position:fixed; top:50%; transform:translateY(-50%); width:88px; display:grid; gap:12px; z-index:5; }
+.command-rail-left { right:calc(50% + 326px); }
+.command-rail-right { left:calc(50% + 326px); }
+.command-rail > button { min-height:78px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:8px 2px; border:1px solid #9b92635c; color:#becdca; background:linear-gradient(135deg,#1a333fd9,#081923e8); box-shadow:0 4px 12px #0005; }
+.command-rail > button > span { font-size:26px; color:var(--gold); }
+.command-rail b { font-size:11px; font-weight:500; }
+.command-rail button:hover:not(:disabled) { border-color:var(--gold); background:#274349; }
+.game-app :is(button,a,input,select):focus-visible { outline:2px solid #f3d598; outline-offset:-2px; }
+#app.game-app > main.battle-layout.battle-focused { display:flex; padding:0; min-height:0; height:auto; width:100%; background:transparent; overflow:hidden; }
+#app.game-app[data-page=battle] > :is(.game-hud,.game-dock) { display:none; }
+#app .battle-focused .battle-phone { flex:1; min-width:0; width:100%; height:100%; min-height:0; max-height:none; border:0; border-radius:0; box-shadow:none; }
+#app .battle-focused .battle-hud { padding-top:max(6px,env(safe-area-inset-top)); }
+#app .battle-focused .tactical-control { padding-bottom:max(8px,env(safe-area-inset-bottom)); }
+#app.game-app > main.squad-lobby { display:grid; padding:0; gap:0; min-height:0; height:auto; overflow:hidden; grid-template-rows:30% 34px minmax(0,1fr) 68px; }
+#app .squad-status { font-size:11px; gap:12px; }
+#app .squad-hero-copy { top:auto; bottom:12px; max-width:60%; }
+#app .squad-edit-action .button.primary { font-size:20px; min-height:48px; }
+#app .setting-row input[type=text] { width:48%; min-width:0; min-height:44px; padding:8px; color:var(--ink); background:#071d28; border:1px solid var(--line); }
+/* Dialog content scrolls; its title and final action stay in view. */
+#app .modal-backdrop { background:#020c18a6; backdrop-filter:blur(5px); }
+#app .dialog { color:var(--ink); background:linear-gradient(130deg,#16313d,#081d29); border:1px solid #a18d5e; box-shadow:0 24px 80px #000a; border-radius:4px; }
+#app .roster-dialog { width:min(calc(100% - 24px),560px); height:min(760px,calc(100dvh - 48px)); max-height:calc(100dvh - 48px); }
+#app .tactical-tree { max-width:600px; }
+#app dialog.mobile-detail { inset:0; width:calc(100% - 24px); max-width:560px; height:auto; max-height:calc(100dvh - 48px); margin:auto; color:var(--ink); background:#102631; border:1px solid #9d8d63; border-radius:4px; box-shadow:0 24px 80px #000b; }
+#app dialog.mobile-detail::backdrop { background:#020c18ac; backdrop-filter:blur(5px); }
+#app .mobile-detail-header { background:#142d39; border-bottom:1px solid #8b80534d; }
+#app .mobile-detail-body { min-height:0; padding:14px; }
+#app .command-dialog { display:flex; flex-direction:column; width:min(calc(100% - 24px),560px); max-height:calc(100dvh - 48px); margin:0; padding:0; overflow:hidden; }
+.command-dialog-header { flex:none; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; border-bottom:1px solid #8d80554d; background:#16333e; }
+.command-dialog-header small { font-size:9px; letter-spacing:.1em; color:var(--gold); }
+#app .command-dialog-header h2 { font-size:22px; margin:3px 0 0; }
+.command-dialog-body { min-height:0; overflow:auto; overscroll-behavior:contain; padding:16px; }
+.command-dialog-body p { color:#b6c9c7; font-size:13px; line-height:1.8; }
+.command-dialog-body h3 { font-size:16px; color:#ece8cd; margin:8px 0; }
+.command-dialog > footer { flex:none; padding:10px 16px; border-top:1px solid #61777555; }
+.command-dialog > footer .button { width:100%; min-height:44px; }
+.command-menu-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.command-menu-grid button { min-height:80px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:#dfdec9; background:#173641; border:1px solid #73847277; }
+.command-menu-grid span { color:var(--gold); font-size:25px; }
+.command-menu-grid b { font-size:12px; }
+.command-stage-art { min-height:160px; padding:20px 12px; display:flex; flex-direction:column; justify-content:flex-end; background-size:cover; background-position:center; box-shadow:inset 0 -100px 70px -50px #001321; }
+.command-stage-art small { font-size:10px; color:#e5c888; }
+.command-metrics { display:grid; grid-template-columns:repeat(3,1fr); padding:12px 0; gap:12px; border-block:1px solid #657d6344; }
+.command-metrics span { display:flex; flex-direction:column; gap:5px; }
+.command-metrics small { color:var(--muted); font-size:10px; }
+.command-metrics b { color:var(--gold); font-size:20px; }
+.command-dialog-body .command-counter { color:#8ed3b6; border-left:2px solid #628d7c; padding-left:10px; }
+.wave-preview-list article { display:grid; grid-template-columns:44px minmax(0,1fr); gap:12px; border-top:1px solid #48616a88; padding:10px 0; }
+.wave-preview-list article > span { font:12px ui-monospace,monospace; color:var(--gold); padding-top:10px; }
+.wave-preview-list p { margin:5px 0; }
+.wave-preview-list small { font-size:11px; color:#a9b9ad; }
+.command-emblem { font-size:60px; text-align:center; color:var(--gold); padding:18px; }
+.command-squad article { display:flex; align-items:center; gap:14px; padding:10px 0; border-bottom:1px solid #51676d66; }
+.command-squad img { width:65px; height:80px; object-fit:cover; object-position:50% 10%; background:#12303a; }
+.command-squad p { margin:4px 0; }
+.command-squad small { font-size:11px; color:var(--muted); }
+.command-squad + button { margin-top:16px; width:100%; }
+.command-weapons { display:grid; gap:8px; }
+.command-weapons button { display:flex; align-items:center; gap:10px; padding:8px; min-width:0; color:#e5e4cc; text-align:left; border:1px solid #506e6a; background:#14303b; }
+.command-weapons img { width:52px; height:70px; object-fit:cover; object-position:50% 10%; }
+.command-weapons span { flex:1; min-width:0; }
+.command-weapons strong { font-size:13px; }
+.command-weapons small { display:block; margin-top:5px; font-size:10px; color:var(--muted); }
+.command-weapons button[aria-pressed=true] { border-color:var(--gold); }
+.command-enemies article { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid #61757166; }
+.command-enemies img { width:70px; height:90px; object-fit:contain; }
+.command-enemies article > div { min-width:0; }
+.command-enemies p { font-size:12px; }
+@media(max-width:920px) {
+  .command-rail,.world-wordmark { display:none; }
+}
+@media(max-width:600px) { #app.game-app { border:0; } }
+@media(max-height:650px) {
+  #app.game-app > .game-hud { padding-top:3px; gap:1px 6px; }
+  #app .operation-select .operation-panel { gap:4px; padding:4px 12px; }
+  #app .operation-select .deploy-button { min-height:48px; font-size:19px; padding:5px 16px; }
+  .deploy-button > span > small { display:none; }
+  #app.game-app > .game-dock,#app.game-app > .game-dock button { min-height:52px; }
+  #app .game-dock .game-nav-icon { font-size:19px; line-height:20px; }
+}
+@media(prefers-reduced-motion:reduce) { .game-app * { scroll-behavior:auto; } }

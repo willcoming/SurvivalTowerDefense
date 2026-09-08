@@ -1,5 +1,5 @@
 import { CHARACTER_MAP, ticks, WORLD } from '../data/content';
-import { alive, addShield, applyEffect, area, distance, emit, hitEnemy, threat } from './combat';
+import { alive, addShield, area, distance, emit, hitEnemy, threat } from './combat';
 import { hasNode, treeMods, ultimateFor } from './skill-tree';
 import { inWeaponRange, weaponRange } from './range';
 import type { CharacterId, DamagePacket, Enemy, RunState, WeaponState } from './types';

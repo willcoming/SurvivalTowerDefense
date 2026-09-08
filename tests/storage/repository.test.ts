@@ -157,7 +157,7 @@ describe('SAVE07–10 · terminal transactions and revisions', () => {
     expect(recovered.activeRun).toBeNull();
     expect(recovered.profile.best.S01.time).toBe(12000);
   });
-  it('keeps only the latest ten summaries, with no permanent combat upgrades', () => {
+  it('keeps ten recent summaries and permanent commander progression', () => {
     const save = createDefaultSave();
     for (let i = 0; i < 11; i++) {
       const completed = run(); completed.runId = `run-${i}`; completed.outcome = i === 0 ? 'victory' : 'wall'; completed.phase = 'ended';
@@ -166,7 +166,7 @@ describe('SAVE07–10 · terminal transactions and revisions', () => {
     expect(save.profile.recentRuns).toHaveLength(10);
     expect(save.profile.recentRuns[0].runId).toBe('run-10');
     expect(save.profile.recentRuns.some(r => r.runId === 'run-0')).toBe(false);
-    expect(Object.keys(save.profile).sort()).toEqual(['best', 'challengeClears', 'cleared', 'recentRuns', 'schemaVersion', 'seenEnemies']);
+    expect(Object.keys(save.profile).sort()).toEqual(['best', 'challengeClears', 'cleared', 'commander', 'easyCleared', 'hardCleared', 'recentRuns', 'schemaVersion', 'seenEnemies']);
     expect(run().wallHp).toBe(1000);
   });
   it('a stale second tab cannot overwrite the first tab revision', async () => {

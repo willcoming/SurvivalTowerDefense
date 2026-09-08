@@ -1,0 +1,26 @@
+{
+  "tool": "image_gen (built-in)",
+  "prompts": {
+    "closed": "Edit the supplied CLOSED reward chest icon. Preserve exactly the chest design, lighting, silhouette, scale and camera angle. Remove EVERY gray checkerboard square completely. Replace the entire background with a uniform completely flat solid dark navy color #081923. No gradient, no checkerboard, no transparency simulation, no floor, no cast shadow beyond chest. Keep all other details. One closed chest centered with 8% padding around full silhouette.",
+    "open": "Edit the FIRST supplied OPEN chest image, using the SECOND supplied CLOSED chest image as the EXACT MATERIAL AND COLOR reference. Keep the OPEN lid and front/right camera pose of the first image. Replace all pale white/silver/ivory exterior materials with the second image's navy gunmetal body and champagne-gold armor edges and straps. The open chest MUST be the same deep navy blue and gold color as the closed chest. This is not a white/recolored reward. Lid stays open, showing a subtle cyan-lit dark interior, no giant white glow. Preserve recognizable hexagonal cyan clasp, straps and military chest construction. Background completely flat uniform #081923 navy; no checkerboard, no floor, no text, no checkmark. Center full open chest within image with comfortable padding. Premium realistic 3D inventory item icon.",
+    "ticket": "Edit the supplied recruitment ticket icon. Preserve the elegant ivory-and-gold card and its navy/cyan star design exactly, with the same angle and lighting. Remove all gray checkerboard completely. Replace the entire background with an absolutely flat uniform solid dark navy #081923, no gradients, no checkerboard, no transparency simulation, no extra shadow outside the ticket. Full ticket remains inside frame, centered with at least 6% edge padding. No added words or numbers."
+  },
+  "initialPrompts": {
+    "closed": "Create ONE polished raster game UI inventory icon for STARFALL, a premium sci-fi tactical defense game. Subject: a CLOSED compact futuristic military reward chest, three-quarter isometric view showing front and right side. Strong chunky rectangular silhouette with slightly bevelled lid, navy gunmetal body, refined champagne-gold armored edges and two metallic gold vertical straps, small bright cyan central hexagonal clasp, realistic metal highlights but simplified readable planes. High-end 3D game item render, not vector, no cartoon outlines. Full object centered occupying 82% of square canvas, enough padding to avoid clipping, clear at 80px. Isolated on genuine transparent alpha background, no floor, no background scene, no text, no digits, no labels, no check mark, no particles. Front face oriented slightly right. This is the unclaimed closed-chest state; lid shut completely.",
+    "ticket": "Create ONE polished raster inventory icon: a premium sci-fi recruitment ticket for the STARFALL tactical defense game. A single wide rectangular ivory-and-champagne-gold physical ticket/card with clipped notched corners, deep navy central inset and a distinctive luminous cyan four-point star insignia centered on it; elegant metallic frame, subtle micro engraved circuitry around border, twin perforated narrow stub at right, slight three-quarter perspective tilted 10 degrees clockwise. Beautiful high-end 3D game item render with crisp realistic materials, simple readable silhouette when displayed at 60px. Fully centered occupying about 85% width of square canvas. Genuine transparent alpha background, no floor or scene or shadow outside object. No letters, no words, no digits, no extra floating cards, no text. Muted ivory, gold, navy and cyan palette matching premium military reward chests."
+  },
+  "assets": [
+    {
+      "source": "/Users/willcoming/.codex/generated_images/01a080b7-4034-7900-a550-5909bf2538ff/exec-fc91b0d7-a064-41bf-9456-e961917ea5c7.png",
+      "output": "public/assets/rewards/chest-closed-v2.webp"
+    },
+    {
+      "source": "/Users/willcoming/.codex/generated_images/01a080b7-4034-7900-a550-5909bf2538ff/exec-561c1f3f-2fd6-4ad6-86a3-170cb8da6d3b.png",
+      "output": "public/assets/rewards/recruit-ticket-v2.webp"
+    },
+    {
+      "source": "/Users/willcoming/.codex/generated_images/01a080b7-4034-7900-a550-5909bf2538ff/exec-610c623e-2ecf-43b2-bdfa-ddec5e59358c.png",
+      "output": "public/assets/rewards/chest-open-v3.webp"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "version": "0.4.0-dev.2",
-  "method": "All 51 unique reward objectives with seeds 101/211/307; four/five starter originals, one fixed legal 24-point plan and C03 captain. All ten pool forms on S12 with representative legal builds and their owner as captain. No HP/XP overrides. Save/restore after seven purchases. No fallback policies used.",
+  "method": "All 15 easy/hard stages and 36 hard challenges; starter originals and weighted character-only point plans. Commander XP uses preceding easy first clears plus current easy/hard victories required to unlock each mode; fixed legal permanent support policy. No run HP/XP overrides. Ten forms on S12. Save/restore after seven spent points.",
   "passed": true,
   "seeds": [
     101,
@@ -9,1767 +9,3758 @@
   ],
   "rows": [
     {
-      "captain": "C03",
       "stage": "S01",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 383.43333333333334,
+      "wallHp": 919.5,
+      "seconds": 169,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 1,
+      "commanderSkills": []
     },
     {
-      "captain": "C03",
       "stage": "S01",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 384.03333333333336,
+      "wallHp": 919.5,
+      "seconds": 169,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 1,
+      "commanderSkills": []
     },
     {
-      "captain": "C03",
       "stage": "S01",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 383.43333333333334,
+      "wallHp": 919.5,
+      "seconds": 169,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 1,
+      "commanderSkills": []
     },
     {
-      "captain": "C03",
       "stage": "S01",
-      "challenge": "four",
+      "difficulty": "hard",
+      "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 386,
+      "wallHp": 898.75,
+      "seconds": 180.23333333333332,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S01",
-      "challenge": "four",
+      "difficulty": "hard",
+      "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 386,
+      "wallHp": 898.75,
+      "seconds": 180.23333333333332,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S01",
-      "challenge": "four",
+      "difficulty": "hard",
+      "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 386,
+      "wallHp": 898.75,
+      "seconds": 180.23333333333332,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S01",
-      "challenge": "no-skill",
+      "difficulty": "hard",
+      "challenge": "four",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 385.23333333333335,
+      "wallHp": 898.75,
+      "seconds": 182.03333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S01",
-      "challenge": "no-skill",
+      "difficulty": "hard",
+      "challenge": "four",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 385.23333333333335,
+      "wallHp": 898.75,
+      "seconds": 182.03333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S01",
-      "challenge": "no-skill",
+      "difficulty": "hard",
+      "challenge": "four",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 385.23333333333335,
+      "wallHp": 898.75,
+      "seconds": 182.03333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S01",
-      "challenge": "two-evolutions",
+      "difficulty": "hard",
+      "challenge": "no-skill",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 381.6333333333333,
+      "wallHp": 898.75,
+      "seconds": 182.03333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S01",
-      "challenge": "two-evolutions",
+      "difficulty": "hard",
+      "challenge": "no-skill",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 381.6333333333333,
+      "wallHp": 898.75,
+      "seconds": 182.03333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S01",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 898.75,
+      "seconds": 182.03333333333333,
+      "restored": true,
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
+    },
+    {
+      "stage": "S01",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 898.75,
+      "seconds": 180.23333333333332,
+      "restored": true,
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
+    },
+    {
+      "stage": "S01",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 898.75,
+      "seconds": 180.23333333333332,
+      "restored": true,
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
+    },
+    {
+      "stage": "S01",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 381.6333333333333,
+      "wallHp": 898.75,
+      "seconds": 180.23333333333332,
       "restored": true,
-      "choices": 24
+      "choices": 8,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1033.3249999999998,
-      "seconds": 412.23333333333335,
+      "wallHp": 755,
+      "seconds": 238.63333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1067.25,
-      "seconds": 412.23333333333335,
+      "wallHp": 755,
+      "seconds": 238.63333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1046.6499999999999,
-      "seconds": 413.8,
+      "wallHp": 755,
+      "seconds": 238.63333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 2,
+      "commanderSkills": [
+        "TEAM/0"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
-      "challenge": "four",
+      "difficulty": "hard",
+      "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1032.2499999999998,
-      "seconds": 417.5,
+      "wallHp": 289.25,
+      "seconds": 273,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
-      "challenge": "four",
+      "difficulty": "hard",
+      "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1066.175,
-      "seconds": 417.5,
+      "wallHp": 289.25,
+      "seconds": 273,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
-      "challenge": "four",
+      "difficulty": "hard",
+      "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1045.5749999999998,
-      "seconds": 417.6333333333333,
+      "wallHp": 390.59375,
+      "seconds": 273,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
-      "challenge": "no-skill",
+      "difficulty": "hard",
+      "challenge": "four",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1032.2499999999998,
-      "seconds": 416,
+      "wallHp": 211.69999999999993,
+      "seconds": 285,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
-      "challenge": "no-skill",
+      "difficulty": "hard",
+      "challenge": "four",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1066.175,
-      "seconds": 416,
+      "wallHp": 414.38749999999993,
+      "seconds": 284.53333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
-      "challenge": "no-skill",
+      "difficulty": "hard",
+      "challenge": "four",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1025.45,
-      "seconds": 417.6,
+      "wallHp": 211.69999999999993,
+      "seconds": 284.53333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
-      "challenge": "two-evolutions",
+      "difficulty": "hard",
+      "challenge": "no-skill",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1033.3249999999998,
-      "seconds": 408.6333333333333,
+      "wallHp": 390.59375,
+      "seconds": 277.5,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
-      "challenge": "two-evolutions",
+      "difficulty": "hard",
+      "challenge": "no-skill",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1033.3249999999998,
-      "seconds": 409.53333333333336,
+      "wallHp": 390.59375,
+      "seconds": 277.5,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S02",
-      "challenge": "two-evolutions",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 1033.3249999999998,
-      "seconds": 410.2,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S03",
-      "challenge": null,
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 919.9199999999998,
-      "seconds": 416.06666666666666,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S03",
-      "challenge": null,
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 804.9199999999998,
-      "seconds": 415.8333333333333,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S03",
-      "challenge": null,
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 884.9199999999998,
-      "seconds": 415.8333333333333,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S03",
-      "challenge": "four",
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 919.9199999999998,
-      "seconds": 421.23333333333335,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S03",
-      "challenge": "four",
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 804.9199999999998,
-      "seconds": 421.23333333333335,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S03",
-      "challenge": "four",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 884.9199999999998,
-      "seconds": 421.23333333333335,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S03",
-      "challenge": "no-skill",
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 999.9199999999998,
-      "seconds": 420.46666666666664,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S03",
-      "challenge": "no-skill",
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 884.9199999999998,
-      "seconds": 419.43333333333334,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S03",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 884.9199999999998,
-      "seconds": 419.43333333333334,
+      "wallHp": 390.59375,
+      "seconds": 277.5,
       "restored": true,
-      "choices": 24
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
+      "stage": "S02",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 289.25,
+      "seconds": 273,
+      "restored": true,
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
+    },
+    {
+      "stage": "S02",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 289.25,
+      "seconds": 273,
+      "restored": true,
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
+    },
+    {
+      "stage": "S02",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 390.59375,
+      "seconds": 273,
+      "restored": true,
+      "choices": 10,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
+    },
+    {
       "stage": "S03",
-      "challenge": "two-evolutions",
+      "difficulty": "easy",
+      "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 904.1199999999999,
-      "seconds": 414,
+      "wallHp": 710.8399999999999,
+      "seconds": 264,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S03",
-      "challenge": "two-evolutions",
+      "difficulty": "easy",
+      "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 953.8399999999999,
-      "seconds": 414.03333333333336,
+      "wallHp": 710.8399999999999,
+      "seconds": 264.5,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S03",
-      "challenge": "two-evolutions",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 953.8399999999999,
-      "seconds": 414.03333333333336,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S04",
-      "challenge": null,
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 384.3333333333333,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S04",
-      "challenge": null,
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 384.3333333333333,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S04",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 384.3333333333333,
+      "wallHp": 710.8399999999999,
+      "seconds": 264.03333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S04",
-      "challenge": "four",
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 386.1333333333333,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S04",
-      "challenge": "four",
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 386.1333333333333,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S04",
-      "challenge": "four",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 387.03333333333336,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S04",
-      "challenge": "no-skill",
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 385.53333333333336,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S04",
-      "challenge": "no-skill",
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 385.23333333333335,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S04",
-      "challenge": "no-skill",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 385.23333333333335,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S04",
-      "challenge": "two-evolutions",
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 383,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S04",
-      "challenge": "two-evolutions",
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 383.43333333333334,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S04",
-      "challenge": "two-evolutions",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 383.43333333333334,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1032.2499999999998,
-      "seconds": 415.96666666666664,
+      "wallHp": 451.4000000000001,
+      "seconds": 282.6333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1040.225,
-      "seconds": 415.8333333333333,
+      "wallHp": 451.4000000000001,
+      "seconds": 284,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1080.575,
-      "seconds": 414,
+      "wallHp": 451.4000000000001,
+      "seconds": 282.6333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1032.2499999999998,
-      "seconds": 423,
+      "wallHp": 494.6,
+      "seconds": 289.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1054.625,
-      "seconds": 424.8,
+      "wallHp": 494.6,
+      "seconds": 289.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1094.9750000000001,
-      "seconds": 424.1666666666667,
+      "wallHp": 494.6,
+      "seconds": 289.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1032.2499999999998,
-      "seconds": 418.53333333333336,
+      "wallHp": 494.6,
+      "seconds": 286.23333333333335,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1066.175,
-      "seconds": 419.43333333333334,
+      "wallHp": 494.6,
+      "seconds": 286.23333333333335,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1079.5,
-      "seconds": 417.6,
+      "wallHp": 494.6,
+      "seconds": 286.23333333333335,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 414,
+      "wallHp": 494.6,
+      "seconds": 282.6333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 993.6749999999998,
-      "seconds": 414,
+      "wallHp": 494.6,
+      "seconds": 284,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S05",
+      "stage": "S03",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 415.46666666666664,
+      "wallHp": 494.6,
+      "seconds": 282.6333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 804.92,
-      "seconds": 415.8333333333333,
+      "wallHp": 1024.33,
+      "seconds": 276.53333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 884.92,
-      "seconds": 415.8333333333333,
+      "wallHp": 1024.33,
+      "seconds": 276.53333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 884.92,
-      "seconds": 416.2,
+      "wallHp": 1024.33,
+      "seconds": 276.53333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 925.225,
+      "seconds": 288.8333333333333,
+      "restored": true,
+      "choices": 14,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
+    },
+    {
+      "stage": "S04",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 925.225,
+      "seconds": 288.8333333333333,
+      "restored": true,
+      "choices": 14,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
+    },
+    {
+      "stage": "S04",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 925.225,
+      "seconds": 288.8333333333333,
+      "restored": true,
+      "choices": 14,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
+    },
+    {
+      "stage": "S04",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 804.92,
-      "seconds": 421.23333333333335,
+      "wallHp": 865.6375,
+      "seconds": 290.5,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 884.92,
-      "seconds": 421.23333333333335,
+      "wallHp": 865.6375,
+      "seconds": 290.5,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 884.92,
-      "seconds": 421.23333333333335,
+      "wallHp": 865.6375,
+      "seconds": 290.5,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 804.92,
-      "seconds": 419.43333333333334,
+      "wallHp": 865.6375,
+      "seconds": 290.5,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 884.92,
-      "seconds": 419.43333333333334,
+      "wallHp": 865.6375,
+      "seconds": 290.5,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 884.92,
-      "seconds": 420.03333333333336,
+      "wallHp": 865.6375,
+      "seconds": 290.5,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 894.5199999999999,
-      "seconds": 414.03333333333336,
+      "wallHp": 925.225,
+      "seconds": 288.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 944.2399999999999,
-      "seconds": 414.03333333333336,
+      "wallHp": 925.225,
+      "seconds": 288.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S06",
+      "stage": "S04",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1024.24,
-      "seconds": 414,
+      "wallHp": 925.225,
+      "seconds": 288.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     },
     {
-      "captain": "C03",
+      "stage": "S05",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 804.5,
+      "seconds": 347.23333333333335,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 804.5,
+      "seconds": 347.23333333333335,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 804.5,
+      "seconds": 347.23333333333335,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 571.35625,
+      "seconds": 378,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 571.35625,
+      "seconds": 378,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 571.35625,
+      "seconds": 378,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 585.75625,
+      "seconds": 386.8333333333333,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 585.75625,
+      "seconds": 386.8333333333333,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 585.75625,
+      "seconds": 386.8333333333333,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 687.1,
+      "seconds": 382.6333333333333,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 687.1,
+      "seconds": 382.6333333333333,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 687.1,
+      "seconds": 382.5,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 585.75625,
+      "seconds": 386.8333333333333,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 585.75625,
+      "seconds": 386.8333333333333,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S05",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 585.75625,
+      "seconds": 386.8333333333333,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 774.6399999999999,
+      "seconds": 376.8333333333333,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 774.6399999999999,
+      "seconds": 376.8333333333333,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 774.6399999999999,
+      "seconds": 376.8333333333333,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 416.85,
+      "seconds": 401,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 416.85,
+      "seconds": 401,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 416.85,
+      "seconds": 401,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 254.70000000000005,
+      "seconds": 410.1333333333333,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 254.70000000000005,
+      "seconds": 410.03333333333336,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 254.70000000000005,
+      "seconds": 410.1333333333333,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 416.85,
+      "seconds": 405.6333333333333,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 416.85,
+      "seconds": 405.6333333333333,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 416.85,
+      "seconds": 405.5,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 416.85,
+      "seconds": 405.6333333333333,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 416.85,
+      "seconds": 405.6333333333333,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
+    },
+    {
+      "stage": "S06",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 416.85,
+      "seconds": 405.6333333333333,
+      "restored": true,
+      "choices": 18,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
+    },
+    {
       "stage": "S07",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1080.575,
-      "seconds": 413.1333333333333,
+      "wallHp": 793.4250000000001,
+      "seconds": 413.5,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S07",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1033.3249999999998,
+      "wallHp": 793.4250000000001,
+      "seconds": 413.5,
+      "restored": true,
+      "choices": 20,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "S07",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 793.4250000000001,
       "seconds": 413.03333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S07",
+      "difficulty": "hard",
       "challenge": null,
-      "seed": 307,
+      "seed": 101,
       "outcome": "victory",
-      "wallHp": 1032.25,
-      "seconds": 413.1333333333333,
+      "wallHp": 538.7937499999999,
+      "seconds": 439,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S07",
-      "challenge": "four",
-      "seed": 101,
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 211,
       "outcome": "victory",
-      "wallHp": 1079.5,
-      "seconds": 419,
+      "wallHp": 538.7937499999999,
+      "seconds": 438.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S07",
-      "challenge": "four",
-      "seed": 211,
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 307,
       "outcome": "victory",
-      "wallHp": 1032.2499999999998,
-      "seconds": 418.53333333333336,
+      "wallHp": 538.7937499999999,
+      "seconds": 438.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S07",
+      "difficulty": "hard",
       "challenge": "four",
-      "seed": 307,
+      "seed": 101,
       "outcome": "victory",
-      "wallHp": 1031.1749999999997,
-      "seconds": 418.53333333333336,
+      "wallHp": 486.8499999999999,
+      "seconds": 447.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S07",
-      "challenge": "no-skill",
-      "seed": 101,
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 211,
       "outcome": "victory",
-      "wallHp": 1079.5,
-      "seconds": 417.5,
+      "wallHp": 486.8499999999999,
+      "seconds": 448,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S07",
-      "challenge": "no-skill",
-      "seed": 211,
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 307,
       "outcome": "victory",
-      "wallHp": 1032.2499999999998,
-      "seconds": 417.53333333333336,
+      "wallHp": 486.8499999999999,
+      "seconds": 447.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S07",
+      "difficulty": "hard",
       "challenge": "no-skill",
-      "seed": 307,
+      "seed": 101,
       "outcome": "victory",
-      "wallHp": 1031.1749999999997,
-      "seconds": 416.73333333333335,
+      "wallHp": 625.7375,
+      "seconds": 436,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S07",
-      "challenge": "two-evolutions",
-      "seed": 101,
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 211,
       "outcome": "victory",
-      "wallHp": 1076.85,
-      "seconds": 411.5,
+      "wallHp": 625.7375,
+      "seconds": 436,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S07",
-      "challenge": "two-evolutions",
-      "seed": 211,
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 307,
       "outcome": "victory",
-      "wallHp": 1091.25,
-      "seconds": 412.23333333333335,
+      "wallHp": 625.7375,
+      "seconds": 436,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S07",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 619.5374999999999,
+      "seconds": 450.06666666666666,
+      "restored": true,
+      "choices": 20,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
+    },
+    {
+      "stage": "S07",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 685.8812499999999,
+      "seconds": 448.9,
+      "restored": true,
+      "choices": 20,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
+    },
+    {
+      "stage": "S07",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1037.2,
-      "seconds": 412.23333333333335,
+      "wallHp": 689.5374999999999,
+      "seconds": 450.03333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 20,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 384.53333333333336,
+      "wallHp": 998.06,
+      "seconds": 422.1333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 384.3333333333333,
+      "wallHp": 998.06,
+      "seconds": 422.1333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1059.33,
-      "seconds": 384.4,
+      "wallHp": 998.06,
+      "seconds": 422.1333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 6,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
-      "challenge": "four",
+      "difficulty": "hard",
+      "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 387.03333333333336,
+      "wallHp": 865.6375,
+      "seconds": 432.03333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
-      "challenge": "four",
+      "difficulty": "hard",
+      "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 387.03333333333336,
+      "wallHp": 865.6375,
+      "seconds": 432.03333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
-      "challenge": "four",
+      "difficulty": "hard",
+      "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1073.73,
-      "seconds": 387.46666666666664,
+      "wallHp": 865.6375,
+      "seconds": 432.03333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
-      "challenge": "no-skill",
+      "difficulty": "hard",
+      "challenge": "four",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 385.23333333333335,
+      "wallHp": 865.6375,
+      "seconds": 439.1333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
-      "challenge": "no-skill",
+      "difficulty": "hard",
+      "challenge": "four",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 385.23333333333335,
+      "wallHp": 865.6375,
+      "seconds": 439.1333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
-      "challenge": "no-skill",
+      "difficulty": "hard",
+      "challenge": "four",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 386,
+      "wallHp": 865.6375,
+      "seconds": 439.1333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
-      "challenge": "two-evolutions",
+      "difficulty": "hard",
+      "challenge": "no-skill",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 383.43333333333334,
+      "wallHp": 865.6375,
+      "seconds": 433.46666666666664,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
-      "challenge": "two-evolutions",
+      "difficulty": "hard",
+      "challenge": "no-skill",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 383.43333333333334,
+      "wallHp": 865.6375,
+      "seconds": 433.46666666666664,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S08",
-      "challenge": "two-evolutions",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 384.03333333333336,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S09",
-      "challenge": null,
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 919.92,
-      "seconds": 416.6,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S09",
-      "challenge": null,
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 884.92,
-      "seconds": 419.4,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S09",
-      "challenge": null,
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 934.3200000000002,
-      "seconds": 416.43333333333334,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S09",
-      "challenge": "four",
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 919.92,
-      "seconds": 421.7,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S09",
-      "challenge": "four",
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 870.1999999999999,
-      "seconds": 426.6333333333333,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S09",
-      "challenge": "four",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 934.3200000000002,
-      "seconds": 421.8,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S09",
-      "challenge": "no-skill",
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 919.92,
-      "seconds": 420.03333333333336,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S09",
-      "challenge": "no-skill",
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 804.92,
-      "seconds": 423,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S09",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 934.3200000000002,
-      "seconds": 419.43333333333334,
+      "wallHp": 865.6375,
+      "seconds": 433.46666666666664,
       "restored": true,
-      "choices": 24
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
+      "stage": "S08",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 865.6375,
+      "seconds": 432.3333333333333,
+      "restored": true,
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
+    },
+    {
+      "stage": "S08",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 865.6375,
+      "seconds": 432.3333333333333,
+      "restored": true,
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
+    },
+    {
+      "stage": "S08",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 865.6375,
+      "seconds": 433,
+      "restored": true,
+      "choices": 22,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
+    },
+    {
       "stage": "S09",
-      "challenge": "two-evolutions",
+      "difficulty": "easy",
+      "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1033.84,
-      "seconds": 414.2,
+      "wallHp": 809.6399999999999,
+      "seconds": 487.73333333333335,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S09",
-      "challenge": "two-evolutions",
+      "difficulty": "easy",
+      "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 904.12,
-      "seconds": 415,
+      "wallHp": 809.6399999999999,
+      "seconds": 487.73333333333335,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "S09",
-      "challenge": "two-evolutions",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 1059.56,
-      "seconds": 412.96666666666664,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S10",
-      "challenge": null,
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 385.2,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S10",
-      "challenge": null,
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 385.96666666666664,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S10",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 384.6666666666667,
+      "wallHp": 809.6399999999999,
+      "seconds": 487.73333333333335,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S10",
-      "challenge": "four",
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 1086.4000000000003,
-      "seconds": 387.03333333333336,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S10",
-      "challenge": "four",
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 920.3999999999999,
-      "seconds": 388.96666666666664,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S10",
-      "challenge": "four",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 387.46666666666664,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S10",
-      "challenge": "no-skill",
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 386.1333333333333,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S10",
-      "challenge": "no-skill",
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 387.46666666666664,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S10",
-      "challenge": "no-skill",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 386,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S10",
-      "challenge": "two-evolutions",
-      "seed": 101,
-      "outcome": "victory",
-      "wallHp": 982.2599999999999,
-      "seconds": 383.43333333333334,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S10",
-      "challenge": "two-evolutions",
-      "seed": 211,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 387,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S10",
-      "challenge": "two-evolutions",
-      "seed": 307,
-      "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 385.96666666666664,
-      "restored": true,
-      "choices": 24
-    },
-    {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1032.2499999999998,
-      "seconds": 415.96666666666664,
+      "wallHp": 437.45000000000005,
+      "seconds": 509.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1032.2499999999998,
-      "seconds": 423,
+      "wallHp": 437.45000000000005,
+      "seconds": 509.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1025.45,
-      "seconds": 417.6,
+      "wallHp": 437.45000000000005,
+      "seconds": 509.8333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 945.9000000000002,
-      "seconds": 427.96666666666664,
+      "wallHp": 308.9000000000001,
+      "seconds": 521.7333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 744.975,
-      "seconds": 429.46666666666664,
+      "wallHp": 308.9000000000001,
+      "seconds": 521.7333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 669.8000000000002,
-      "seconds": 428.4,
+      "wallHp": 308.9000000000001,
+      "seconds": 522.9333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 999.5,
-      "seconds": 424.8,
+      "wallHp": 456.6500000000001,
+      "seconds": 512.4666666666667,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1046.6499999999999,
-      "seconds": 425.73333333333335,
+      "wallHp": 456.6500000000001,
+      "seconds": 512.0333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1071.5249999999999,
-      "seconds": 423,
+      "wallHp": 456.6500000000001,
+      "seconds": 513.2333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1032.2499999999998,
-      "seconds": 419.4,
+      "wallHp": 884.1,
+      "seconds": 514.3666666666667,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1013.1999999999999,
-      "seconds": 423,
+      "wallHp": 583.8000000000001,
+      "seconds": 514.9333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S11",
+      "stage": "S09",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1098.925,
-      "seconds": 421.4,
+      "wallHp": 771.35,
+      "seconds": 514,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 979.32,
-      "seconds": 418.6,
+      "wallHp": 998.0600000000001,
+      "seconds": 492.26666666666665,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 964.9199999999998,
-      "seconds": 419.4,
+      "wallHp": 998.0600000000001,
+      "seconds": 492.53333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 934.32,
-      "seconds": 417.6,
+      "wallHp": 998.0600000000001,
+      "seconds": 492.53333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 7,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 899.2375000000002,
+      "seconds": 504.9,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S10",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 899.2375000000002,
+      "seconds": 505.1666666666667,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S10",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 899.2375000000002,
+      "seconds": 505.1666666666667,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S10",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 500.91999999999973,
-      "seconds": 424.76666666666665,
+      "wallHp": 839.6500000000002,
+      "seconds": 512.0666666666667,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 964.9199999999998,
-      "seconds": 424.8,
+      "wallHp": 839.6500000000002,
+      "seconds": 512.0666666666667,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "hard",
       "challenge": "four",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 851.92,
-      "seconds": 424.8,
+      "wallHp": 839.6500000000002,
+      "seconds": 512.0666666666667,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 979.32,
-      "seconds": 420.46666666666664,
+      "wallHp": 899.2375000000002,
+      "seconds": 508.3666666666667,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 964.9199999999998,
-      "seconds": 423,
+      "wallHp": 899.2375000000002,
+      "seconds": 508.3666666666667,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "hard",
       "challenge": "no-skill",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 899.32,
-      "seconds": 421.8,
+      "wallHp": 899.2375000000002,
+      "seconds": 509.1333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 974.52,
-      "seconds": 414.46666666666664,
+      "wallHp": 899.2375000000002,
+      "seconds": 510.6333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 920.2399999999999,
-      "seconds": 415.8,
+      "wallHp": 899.2375000000002,
+      "seconds": 510.6333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "S12",
+      "stage": "S10",
+      "difficulty": "hard",
       "challenge": "two-evolutions",
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 894.52,
-      "seconds": 414.46666666666664,
+      "wallHp": 899.2375000000002,
+      "seconds": 510.53333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
     },
     {
-      "captain": "C03",
+      "stage": "S11",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 822.0749999999999,
+      "seconds": 555.6666666666666,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 822.0749999999999,
+      "seconds": 554.9,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 822.0749999999999,
+      "seconds": 555.6666666666666,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 538.6125,
+      "seconds": 581.5333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 538.6125,
+      "seconds": 581.5333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 538.6125,
+      "seconds": 581.5333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 582.175,
+      "seconds": 590.0333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 437.26874999999995,
+      "seconds": 590.0333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 538.6125,
+      "seconds": 590.0666666666667,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 634.1187499999999,
+      "seconds": 578.1333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 634.1187499999999,
+      "seconds": 578.1333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 634.1187499999999,
+      "seconds": 578.1333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 738.8624999999998,
+      "seconds": 584.3333333333334,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 672.5187499999998,
+      "seconds": 583.0333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S11",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 672.5187499999998,
+      "seconds": 583.0333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 724.5199999999999,
+      "seconds": 597.8333333333334,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 724.5199999999999,
+      "seconds": 597.8333333333334,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 714.9199999999998,
+      "seconds": 597.8333333333334,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 8,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 343.9000000000001,
+      "seconds": 622.8333333333334,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 343.9000000000001,
+      "seconds": 623.3333333333334,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 343.9000000000001,
+      "seconds": 622.0666666666667,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 343.9000000000001,
+      "seconds": 633.6666666666666,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 216.7500000000001,
+      "seconds": 635.0333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": "four",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 216.7500000000001,
+      "seconds": 635.0333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 343.9000000000001,
+      "seconds": 625.0666666666667,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 343.9000000000001,
+      "seconds": 625.0666666666667,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": "no-skill",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 343.9000000000001,
+      "seconds": 625.0333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 471.05000000000007,
+      "seconds": 627.3,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 447.05000000000007,
+      "seconds": 626.5333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
+      "stage": "S12",
+      "difficulty": "hard",
+      "challenge": "two-evolutions",
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 343.9000000000001,
+      "seconds": 626.7333333333333,
+      "restored": true,
+      "choices": 24,
+      "commanderLevel": 9,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3",
+        "TEAM/8",
+        "TEAM/9",
+        "TEAM/10",
+        "TEAM/11"
+      ]
+    },
+    {
       "stage": "X01",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 384.03333333333336,
+      "wallHp": 948.66,
+      "seconds": 245.73333333333332,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "X01",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 384.03333333333336,
+      "wallHp": 948.66,
+      "seconds": 246.03333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
       "stage": "X01",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1100,
-      "seconds": 384.03333333333336,
+      "wallHp": 948.66,
+      "seconds": 246.03333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 3,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "X02",
+      "stage": "X01",
+      "difficulty": "hard",
       "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 1033.3249999999998,
-      "seconds": 412.23333333333335,
+      "wallHp": 830.6375,
+      "seconds": 257.43333333333334,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "X02",
+      "stage": "X01",
+      "difficulty": "hard",
       "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 1033.3249999999998,
-      "seconds": 412.23333333333335,
+      "wallHp": 830.6375,
+      "seconds": 257.43333333333334,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "X02",
+      "stage": "X01",
+      "difficulty": "hard",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 1033.3249999999998,
-      "seconds": 412.23333333333335,
+      "wallHp": 830.6375,
+      "seconds": 257.43333333333334,
       "restored": true,
-      "choices": 24
+      "choices": 12,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "X03",
+      "stage": "X02",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 101,
       "outcome": "victory",
-      "wallHp": 884.92,
-      "seconds": 415.8333333333333,
+      "wallHp": 575.6750000000002,
+      "seconds": 329.6333333333333,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "X03",
+      "stage": "X02",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 211,
       "outcome": "victory",
-      "wallHp": 884.92,
-      "seconds": 415.8333333333333,
+      "wallHp": 575.6750000000002,
+      "seconds": 330.03333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
     },
     {
-      "captain": "C03",
-      "stage": "X03",
+      "stage": "X02",
+      "difficulty": "easy",
       "challenge": null,
       "seed": 307,
       "outcome": "victory",
-      "wallHp": 919.92,
-      "seconds": 416,
+      "wallHp": 575.6750000000002,
+      "seconds": 329.53333333333336,
       "restored": true,
-      "choices": 24
+      "choices": 14,
+      "commanderLevel": 4,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2"
+      ]
+    },
+    {
+      "stage": "X02",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 465.0312499999999,
+      "seconds": 367,
+      "restored": true,
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "X02",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 398.6874999999999,
+      "seconds": 366.23333333333335,
+      "restored": true,
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "X02",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 465.0312499999999,
+      "seconds": 367,
+      "restored": true,
+      "choices": 14,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "X03",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 679.9199999999998,
+      "seconds": 355.5,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "X03",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 679.9199999999998,
+      "seconds": 355.3333333333333,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "X03",
+      "difficulty": "easy",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 679.9199999999998,
+      "seconds": 356.23333333333335,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "X03",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 101,
+      "outcome": "victory",
+      "wallHp": 289.70000000000005,
+      "seconds": 384.1333333333333,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "X03",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 211,
+      "outcome": "victory",
+      "wallHp": 289.70000000000005,
+      "seconds": 385.03333333333336,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
+    },
+    {
+      "stage": "X03",
+      "difficulty": "hard",
+      "challenge": null,
+      "seed": 307,
+      "outcome": "victory",
+      "wallHp": 289.70000000000005,
+      "seconds": 385.03333333333336,
+      "restored": true,
+      "choices": 16,
+      "commanderLevel": 5,
+      "commanderSkills": [
+        "TEAM/0",
+        "TEAM/1",
+        "TEAM/2",
+        "TEAM/3"
+      ]
     }
   ],
   "forms": [
     {
-      "captain": "C01",
       "form": "C01-summer",
       "outcome": "victory",
-      "damage": 25718.429900400075,
+      "damage": 36714.20963432792,
       "restored": true,
-      "points": 5
+      "points": 11
     },
     {
-      "captain": "C02",
       "form": "C02-summer",
       "outcome": "victory",
-      "damage": 17790.165665782068,
+      "damage": 19429.84754557982,
       "restored": true,
-      "points": 5
+      "points": 11
     },
     {
-      "captain": "C03",
       "form": "C03-summer",
       "outcome": "victory",
-      "damage": 27761.60216116004,
+      "damage": 40915.85338066298,
       "restored": true,
       "points": 5
     },
     {
-      "captain": "C04",
       "form": "C04-summer",
       "outcome": "victory",
-      "damage": 15443.461130119955,
+      "damage": 15521.387851520023,
       "restored": true,
       "points": 5
     },
     {
-      "captain": "C05",
       "form": "C05-summer",
       "outcome": "victory",
-      "damage": 40316.49419194443,
+      "damage": 61502.48163926431,
       "restored": true,
       "points": 5
     },
     {
-      "captain": "C06",
       "form": "C06-summer",
       "outcome": "victory",
-      "damage": 21553.508819840295,
+      "damage": 37240.044003720104,
       "restored": true,
       "points": 5
     },
     {
-      "captain": "C07",
       "form": "C07-original",
       "outcome": "victory",
-      "damage": 25703.706425999986,
+      "damage": 36951.20113537197,
       "restored": true,
       "points": 5
     },
     {
-      "captain": "C07",
       "form": "C07-summer",
       "outcome": "victory",
-      "damage": 20901.94169523998,
+      "damage": 31575.917737312047,
       "restored": true,
       "points": 5
     },
     {
-      "captain": "C08",
       "form": "C08-original",
       "outcome": "victory",
-      "damage": 18687.298596300017,
+      "damage": 23126.494341315018,
       "restored": true,
       "points": 5
     },
     {
-      "captain": "C08",
       "form": "C08-summer",
       "outcome": "victory",
-      "damage": 17136.64844004376,
+      "damage": 21286.82650669098,
       "restored": true,
       "points": 5
     }

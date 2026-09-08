@@ -1,3 +1,4 @@
+import { operationProfile } from '../data/progression';
 import { ENEMY_MAP, ticks, WORLD } from '../data/content';
 import { alive, boss, createEnemy, distance, hitWall } from './combat';
 import type { Enemy, RunState } from './types';
@@ -9,7 +10,7 @@ export function spawnBossEscort(s: RunState, leader: Enemy) {
   for (let i = 0; i < BOSS_ESCORT_COUNT; i++) {
     const row = Math.floor(i / 8), column = i % 8;
     createEnemy(s, leader.defId === 'B01' || i % 4 !== 3 ? 'E01' : specialist,
-      24 + column * 48 + (row % 2) * 6, 20 + row * 20, 0, 9);
+      24 + column * 48 + (row % 2) * 6, 20 + row * 20, 0, operationProfile(s).waves.length+1);
   }
 }
 function acted(s:RunState,e:Enemy,kind:NonNullable<Enemy['lastAction']>['kind']){e.lastAction={tick:s.tick,kind};}

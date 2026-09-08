@@ -1,9 +1,10 @@
+import { recruitmentRate } from '../../src/data/recruitment';
 import { describe,it,expect } from 'vitest';
 import { FORM_MAP,POOL,STARTER_FORMS,WEAKNESSES,attackType,formPortrait,formMotion } from '../../src/data/forms';
 import { CHAPTERS,MAIN_IDS,SIDE_IDS,CHALLENGES,stageUnlocked } from '../../src/data/campaign';
 import { createCollection,syncRewards,missingForms,applyCollectionAction,validateRoster,ownedForm,REWARD_GOALS } from '../../src/storage/collection';
 import { createDefaultSave,completeRun } from '../../src/storage/repository';
-import { createRun,restoreRun,stepRun,command } from '../../src/sim/engine';
+import { createRun,restoreRun,command } from '../../src/sim/engine';
 import { createEnemy,hitEnemy,stepEffects,addShield } from '../../src/sim/combat';
 import { weaponStats,stepWeapons } from '../../src/sim/weapons';
 import { reflectShield } from '../../src/sim/deep-support';
@@ -15,39 +16,39 @@ describe('permanent free recruitment',()=>{
     for(const owner of ['C07','C08'] as const)for(const theme of ['original','summer'] as const){const id=`${owner}-${theme}` as const;expect(formPortrait(id)).toBe(`/assets/forms/${id}-${theme==='summer'?'pose-v4':'stage-v3'}.webp`);expect(formMotion(id)).toBe(`/assets/animations/${id}-motion-v1.webp`);expect(FORM_MAP[id].ownerId).toBe(owner);}
     expect(formPortrait('C03-summer')).toBe('/assets/forms/C03-summer.webp');expect(formPortrait('C01-original')).toBe('/assets/characters/C01-portrait.webp');expect(formMotion('C01-original')).toBe('/assets/animations/C01-motion.webp');
   });
-  it('has ten distinct equally sized probability bins; six originals remain free',()=>{
+  it('has ten weighted outcomes with 30% characters and 70% outfits; six originals remain free',()=>{
     expect(POOL).toHaveLength(10);expect(new Set(POOL.map(f=>f.id)).size).toBe(10);expect(STARTER_FORMS).toHaveLength(6);
     expect(POOL.filter(f=>f.theme==='summer')).toHaveLength(8);expect(POOL.filter(f=>f.theme==='original').map(f=>f.ownerId)).toEqual(['C07','C08']);
-    for(let i=0;i<10;i++){const c=createCollection();c.tickets=1;applyCollectionAction(c,{type:'draw'},()=>i/10+.001);expect(c.lastReceipt?.formId).toBe(POOL[i].id);expect(c.tickets).toBe(0);}
+    let start=0;for(const form of POOL){const rate=recruitmentRate(form)/100;const c=createCollection();c.tickets=1;applyCollectionAction(c,{type:'draw'},()=>start+rate/2);expect(c.lastReceipt?.formId).toBe(form.id);expect(c.tickets).toBe(0);start+=rate;}expect(start).toBeCloseTo(1);
   });
   it('summer-first ownership enables the new character without granting original',()=>{
-    const c=createCollection();c.tickets=1;applyCollectionAction(c,{type:'draw'},()=>POOL.findIndex(f=>f.id==='C07-summer')/10+.01);
+    const c=createCollection();c.tickets=1;applyCollectionAction(c,{type:'draw'},()=>POOL.slice(0,POOL.findIndex(f=>f.id==='C07-summer')).reduce((sum,f)=>sum+recruitmentRate(f)/100,0)+.01);
     expect(ownedForm(c,'C07')).toBe('C07-summer');expect(c.owned).not.toContain('C07-original');
     expect(()=>validateRoster(c,{stageId:'S01',squadIds:['C07'],captainId:'C07',seed:101,forms:{C07:'C07-summer'}})).not.toThrow();
     expect(()=>validateRoster(c,{stageId:'S01',squadIds:['C07'],captainId:'C07',seed:101})).toThrow();
     expect(()=>createRun({stageId:'S01',squadIds:['C07','C07'],captainId:'C07',seed:101})).toThrow();
   });
-  it('only exact duplicates give ten fragments, exchange buys a missing form without stats',()=>{
-    const c=createCollection();c.tickets=11;
-    for(let i=0;i<11;i++)applyCollectionAction(c,{type:'draw'},()=>.01);
-    expect(c.fragments).toBe(100);expect(c.owned).toHaveLength(7);
-    applyCollectionAction(c,{type:'exchange',formId:'C08-summer'},()=>{throw Error('exchange must not roll');});expect(c.fragments).toBe(0);expect(c.owned).toContain('C08-summer');
+  it('only exact duplicates give twenty resonance points, exchange buys a missing form without stats',()=>{
+    const c=createCollection();c.tickets=6;
+    for(let i=0;i<6;i++)applyCollectionAction(c,{type:'draw'},()=>.01);
+    expect(c.points).toBe(100);expect(c.owned).toHaveLength(7);
+    applyCollectionAction(c,{type:'exchange',formId:'C08-summer'},()=>{throw Error('exchange must not roll');});expect(c.points).toBe(0);expect(c.owned).toContain('C08-summer');
     expect(()=>applyCollectionAction(c,{type:'exchange',formId:'C08-summer'},()=>0)).toThrow();
   });
-  it('51 unique goals yield exactly 15 tickets and 900 points and complete collection',()=>{
+  it('51 unique goals complete collection without adding obsolete flat rewards',()=>{
     expect(REWARD_GOALS).toHaveLength(51);expect(new Set(REWARD_GOALS).size).toBe(51);expect(CHAPTERS).toHaveLength(5);
     const c=createCollection(),p={cleared:[...MAIN_IDS,...SIDE_IDS],challengeClears:MAIN_IDS.flatMap(id=>CHALLENGES.map(k=>`${id}:${k}`))};syncRewards(c,p);
-    expect([c.tickets,c.points,c.claimed.length]).toEqual([15,900,51]);expect(missingForms(c)).toHaveLength(0);expect(c.completionGranted).toBe(true);
+    expect([c.tickets,c.points,c.claimed.length]).toEqual([0,0,51]);expect(missingForms(c)).toHaveLength(0);expect(c.completionGranted).toBe(true);
     const before=structuredClone(c);syncRewards(c,p);expect(c).toEqual(before);expect(()=>applyCollectionAction(c,{type:'draw'},()=>0)).toThrow();expect(c).toEqual(before);
   });
   it('retries, different teams, failed runs and repeated settlement cannot farm',()=>{
     const save=createDefaultSave(),r=createRun({stageId:'S01',squadIds:['C01'],captainId:'C01',seed:101});r.outcome='wall';completeRun(save,r);expect(save.collection.tickets).toBe(0);
-    r.outcome='victory';completeRun(save,r);completeRun(save,r);expect(save.collection.tickets).toBe(1);
-    const other=createRun({...r.config,squadIds:['C02'],captainId:'C02',seed:211});other.outcome='victory';completeRun(save,other);expect(save.collection.tickets).toBe(1);
-    other.config.challengeId='four';completeRun(save,other);completeRun(save,other);expect(save.collection.points).toBe(25);
+    r.outcome='victory';completeRun(save,r);completeRun(save,r);expect(save.collection.tickets).toBe(0);expect(save.collection.points).toBe(100);
+    const other=createRun({...r.config,squadIds:['C02'],captainId:'C02',seed:211});other.outcome='victory';completeRun(save,other);expect(save.collection.tickets).toBe(0);expect(save.collection.points).toBe(100);
+    other.config.challengeId='four';other.config.difficulty='hard';completeRun(save,other);completeRun(save,other);expect(save.collection.points).toBe(100);expect(save.collection.tickets).toBe(18);
   });
-  it('result rewards preserve one first-clear receipt and distinguish repeated runs',()=>{const save=createDefaultSave(),config={stageId:'S01' as const,squadIds:['C01' as const],captainId:'C01' as const,seed:101};const r=createRun(config);r.outcome='victory';completeRun(save,r);const first=structuredClone(save.profile.recentRuns[0]);expect(first.rewards?.tickets).toBe(1);completeRun(save,r);expect(save.profile.recentRuns[0]).toEqual(first);const repeat=createRun(config);repeat.outcome='victory';completeRun(save,repeat);expect(save.profile.recentRuns[0].rewards?.tickets).toBe(0);});
-  it('points are consumed only after tickets, and equipping has no resource cost',()=>{const c=createCollection();c.tickets=1;c.points=125;applyCollectionAction(c,{type:'draw'},()=>0);expect([c.tickets,c.points]).toEqual([0,125]);applyCollectionAction(c,{type:'draw'},()=>.1);expect(c.points).toBe(25);applyCollectionAction(c,{type:'equip',formId:'C01-summer'},()=>0);expect(c.equipped.C01).toBe('C01-summer');expect([c.points,c.fragments]).toEqual([25,0]);});
+  it('result rewards preserve one first-clear receipt and distinguish repeated runs',()=>{const save=createDefaultSave(),config={stageId:'S01' as const,squadIds:['C01' as const],captainId:'C01' as const,seed:101};const r=createRun(config);r.outcome='victory';completeRun(save,r);const first=structuredClone(save.profile.recentRuns[0]);expect(first.rewards?.points).toBe(100);completeRun(save,r);expect(save.profile.recentRuns[0]).toEqual(first);const repeat=createRun(config);repeat.outcome='victory';completeRun(save,repeat);expect(save.profile.recentRuns[0].rewards?.tickets).toBe(0);});
+  it('points are consumed only after tickets, and equipping has no resource cost',()=>{const c=createCollection();c.tickets=1;c.points=125;applyCollectionAction(c,{type:'draw'},()=>0);expect([c.tickets,c.points]).toEqual([0,125]);applyCollectionAction(c,{type:'draw'},()=>.1);expect(c.points).toBe(25);applyCollectionAction(c,{type:'equip',formId:'C01-summer'},()=>0);expect(c.equipped.C01).toBe('C01-summer');expect(c.points).toBe(25);});
   it('main chapters and summer branch unlock without collection requirements',()=>{
     expect(stageUnlocked('S01',[])).toBe(true);expect(stageUnlocked('S04',['S03'])).toBe(true);expect(stageUnlocked('X01',[])).toBe(false);expect(stageUnlocked('X01',['S03'])).toBe(true);expect(stageUnlocked('X02',['S03'])).toBe(false);expect(stageUnlocked('X02',['S03','X01'])).toBe(true);
   });

@@ -1,5 +1,8 @@
 import type { RunState } from './types';
 
+export const difficultyTuning = (s: Pick<RunState, 'config'>) => s.config.difficulty === 'hard'
+  ? {health:1.5,damage:1.25} : {health:1,damage:1};
+
 /** Versioned so deterministic historical simulations keep their original rules. */
 export const usesPressureRules = (s: Pick<RunState, 'contentVersion'>) => s.contentVersion === '0.4.0-dev.2';
 export function pressure(s: Pick<RunState, 'contentVersion' | 'config'>) {

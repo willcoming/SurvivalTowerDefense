@@ -9,7 +9,10 @@ export function enhanceTacticalTree(panel: HTMLElement, ui: MobileControls) {
   const nodes = [...graph.querySelectorAll<HTMLElement>('.deep-node')];
   const rows = Math.max(...nodes.map(node => Number(node.dataset.layer))) + 1;
   graph.style.setProperty('--map-rows', String(rows));
-  for (const node of nodes) node.style.setProperty('--map-row', node.dataset.layer!);
+  for (const node of nodes) {
+    node.style.setProperty('--map-row', node.dataset.layer!);
+    if(node.classList.contains('ultimate')){const symbol=node.querySelector('.node-symbol')!;symbol.textContent=`${symbol.textContent} ${node.dataset.cost} 點`;}
+  }
 
   const toolbar = document.createElement('div');
   toolbar.className = 'skill-map-toolbar';

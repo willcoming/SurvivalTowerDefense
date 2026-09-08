@@ -1,3 +1,4 @@
+import { operationProfile } from '../../src/data/progression';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { CHARACTER_IDS, LEGACY_CONTENT_VERSION, BOSS_INTRO_MS, STAGE_MAP } from '../../src/data/content';
@@ -18,7 +19,7 @@ function durable(s: RunState, y: number, x = 195) {
   return e;
 }
 function entrance(stage: StageId = 'S01') {
-  const s = fixture('C02', stage); s.tick = 10799; s.tacticalReadyAt = 12000;
+  const s = fixture('C02', stage); s.tick = operationProfile(s).bossAt*30-1; s.tacticalReadyAt = 12000;
   stepRun(s); return s;
 }
 
@@ -67,12 +68,12 @@ describe('Primary weapon ranges', () => {
 
 describe('Boss entrance wall-clock and recovery', () => {
   for (const stage of ['S01', 'S02', 'S03'] as const) it(`${stage}: freezes the entire combat state for 1500 ms and resumes once`, () => {
-    const s = entrance(stage); expect(s.bossIntro?.remainingMs).toBe(BOSS_INTRO_MS); expect(s.tick).toBe(10800);
+    const s = entrance(stage); expect(s.bossIntro?.remainingMs).toBe(BOSS_INTRO_MS); expect(s.tick).toBe(operationProfile(s).bossAt*30);
     const frozen = structuredClone(s); stepRun(s, 100); expect(s).toEqual(frozen);
-    for (let i = 0; i < 14; i++) { expect(advanceBossIntro(s, 100)).toBe(false); expect(s.tick).toBe(10800); }
+    for (let i = 0; i < 14; i++) { expect(advanceBossIntro(s, 100)).toBe(false); expect(s.tick).toBe(operationProfile(s).bossAt*30); }
     expect(s.tacticalReadyAt).toBe(12000); expect(s.enemies[0].hp).toBe(s.enemies[0].maxHp);
     expect(advanceBossIntro(s, 100)).toBe(true); expect(s.bossIntro).toBeUndefined(); expect(s.phase).toBe('running');
-    expect(advanceBossIntro(s, 100)).toBe(false); stepRun(s); expect(s.tick).toBe(10801);
+    expect(advanceBossIntro(s, 100)).toBe(false); stepRun(s); expect(s.tick).toBe(operationProfile(s).bossAt*30+1);
     expect(s.actions.filter(a => a.command.type === 'finish-boss-intro')).toHaveLength(1);
   });
   it('pause, hidden, upgrade and suspension gaps never consume entrance time; reload keeps the remainder', () => {
