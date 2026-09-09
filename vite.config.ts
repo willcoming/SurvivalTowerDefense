@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import { execFileSync } from 'node:child_process';
 import { CONTENT_VERSION } from './src/data/content';
+import { offlineBuildPlugin } from './scripts/offline-build';
 
 const buildCommit = process.env.GITHUB_SHA ?? (() => {
   try { return execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); }
@@ -15,7 +16,7 @@ export default defineConfig({
     generateBundle() {
       this.emitFile({ type: 'asset', fileName: 'version.json', source: JSON.stringify({ commit: buildCommit, contentVersion: CONTENT_VERSION }, null, 2) + '\n' });
     },
-  }],
+  }, offlineBuildPlugin()],
   server: { host: '0.0.0.0', port: 5173, strictPort: true },
   preview: { host: '0.0.0.0', port: 5173, strictPort: true },
   build: { target: ['es2022'], chunkSizeWarningLimit: 1600 },

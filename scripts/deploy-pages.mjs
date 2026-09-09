@@ -17,12 +17,19 @@ if (!clean()) throw new Error('Commit the intended source changes before deployi
 const sourceCommit = read(['rev-parse', 'HEAD']);
 const stage = mkdtempSync(join(tmpdir(), 'starfall-publish-'));
 const publish = join(stage, 'website');
-const env = { ...process.env, GITHUB_SHA: sourceCommit, PAGES_BASE_PATH: '/SurvivalTowerDefense/', VALIDATION_OUTPUT_DIR: join(stage, 'validation') };
+const env = {
+  ...process.env, GITHUB_SHA: sourceCommit, PAGES_BASE_PATH: '/SurvivalTowerDefense/',
+  VALIDATION_OUTPUT_DIR: join(stage, 'validation'), OFFLINE_DIST_DIR: join(root, 'dist'),
+  OFFLINE_SCENARIO: 'all', OFFLINE_BROWSER: 'all', PRODUCTION_URL: '',
+};
 
 try {
   run('npm', ['run', 'test:rules']);
   run('npm', ['run', 'build'], root, env);
   run('npm', ['run', 'test:assets'], root, env);
+  run('npm', ['run', 'test:offline:unit'], root, env);
+  run('npm', ['run', 'test:offline'], root, env);
+  const offlineLocalVerification = readFileSync(join(stage, 'validation', 'summary.json'), 'utf8');
   const version = JSON.parse(readFileSync(join(root, 'dist', 'version.json'), 'utf8'));
   if (version.commit !== sourceCommit || read(['rev-parse', 'HEAD']) !== sourceCommit || !clean()) {
     throw new Error('Source changed during validation; deployment stopped.');
@@ -52,8 +59,12 @@ try {
   const remotePages = read(['ls-remote', 'origin', 'refs/heads/gh-pages'], publish).split(/\s+/)[0];
   if (remotePages !== pagesCommit) throw new Error('Remote Pages branch differs from the built website.');
   writeFileSync(join(root, 'dist', 'deployment-receipt.json'), JSON.stringify({ sourceCommit, remoteMain, pagesCommit, remotePages, siteUrl, publishedAt: new Date().toISOString() }, null, 2) + '\n');
+  writeFileSync(join(root, 'dist', 'offline-local-verification.json'), offlineLocalVerification);
   console.log(`Source and website pushed. Verifying ${siteUrl}?v=${sourceCommit}`);
   run('npm', ['run', 'verify:pages']);
+  const liveOfflineOutput = join(stage, 'offline-live');
+  run('npm', ['run', 'test:offline'], root, { ...env, PRODUCTION_URL: siteUrl, EXPECTED_COMMIT: sourceCommit, VALIDATION_OUTPUT_DIR: liveOfflineOutput });
+  cpSync(join(liveOfflineOutput, 'summary.json'), join(root, 'dist', 'offline-live-verification.json'));
 } finally {
   rmSync(stage, { recursive: true, force: true });
 }

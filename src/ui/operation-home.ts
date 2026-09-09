@@ -1,4 +1,5 @@
 import { assetUrl } from '../assets';
+import { offlineSummary } from './offline';
 import { STAGES, STAGE_MAP } from '../data/content';
 import { CHALLENGES, MAIN_IDS, chapterName, stageArt, stageUnlocked } from '../data/campaign';
 import type { GameSave } from '../storage/repository';
@@ -57,6 +58,7 @@ export function operationHome(save: GameSave, vm: ViewModel) {
       <button class="button primary deploy-button mission-start" data-action="start" aria-label="開始作戰" ${!save.preferences.squadIds.length || overCapacity ? 'disabled' : ''}>${vm.challengeId ? `<small>${CHALLENGE_NAMES[vm.challengeId]}${overCapacity ? ' · 請先調整編隊' : ''}</small>` : ''}<span class="mission-start-label"><strong>START</strong><b>開始作戰</b></span></button>
     </section>
     </section>
+    ${offlineSummary()}
   </main>`;
 }
 

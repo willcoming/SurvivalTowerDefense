@@ -19,6 +19,8 @@
     "test:motion-assets": "tsx scripts/verify-character-motion.ts",
     "pack:motion": "node scripts/pack-animation-assets.cjs",
     "test:production": "tsx scripts/verify-production.ts",
+    "test:offline:unit": "vitest run tests/offline",
+    "test:offline": "tsx scripts/verify-offline.ts",
     "test:simulation:legacy": "tsx scripts/validate-balance.ts",
     "test:tree-matchups": "tsx scripts/probe-free-skills.ts",
     "test:trees:e2e": "playwright test tests/e2e/skill-trees.spec.ts tests/e2e/combat-readability.spec.ts",

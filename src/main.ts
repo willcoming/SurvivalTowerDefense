@@ -17,8 +17,11 @@ import './ui/recruitment-v2.css';
 import './ui/tactical-command.css';
 import './ui/readability.css';
 import './ui/personnel-skills.css';
+import './ui/offline.css';
+import { offlineGame } from './offline';
 import { GameApp } from './ui/app';
 
 const root = document.getElementById('app');
 if (!root) throw new Error('找不到遊戲掛載點');
+void offlineGame.start();
 void new GameApp(root).init();

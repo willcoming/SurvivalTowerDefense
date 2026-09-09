@@ -6,6 +6,8 @@
 
 ## 發布流程
 
+離線安裝版在原網址提供 PWA。發布前新增離線核心與正式產物測試，上線後比對 `sw.js`、manifest 與安裝圖示，再以隔離瀏覽器驗證公開站斷網重開。已開啟的舊版遊戲會等待所有視窗關閉後才套用新版；詳見 [離線安裝操作與驗證](OFFLINE.md)。下方早期續戰量測保留為歷史紀錄，現行規則重開時結束未完成戰局。
+
 使用既有 Git HTTPS 憑證，無需 `gh`。原始碼推到 `main`，建置後網站推到 `gh-pages`；Pages Source 設為 **Deploy from a branch → gh-pages → /(root)**。分支更新後，由 GitHub Pages 自動發布靜態檔案。[GitHub 官方說明](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
 
 先將預定上線的檔案明確 `git add` 並提交，再執行：

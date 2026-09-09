@@ -44,6 +44,12 @@ while (true) {
       assert.equal(hash(live), hash(local), `${relative}: live bytes differ from dist`);
       checked.push({ path: relative, sha256: hash(live), bytes: live.length });
     }
+    for (const relative of ['sw.js', 'manifest.webmanifest', 'pwa/icon-192.png', 'pwa/icon-512.png', 'pwa/apple-touch-icon.png']) {
+      const local = readFileSync(join(dist, relative));
+      const live = await fetchFile(relative);
+      assert.equal(hash(live), hash(local), `${relative}: live bytes differ from dist`);
+      checked.push({ path: relative, sha256: hash(live), bytes: live.length });
+    }
     const result = { passed: true, checkedAt: new Date().toISOString(), commit, remoteMain: remote, contentVersion: version.contentVersion, url: `${base.href}?v=${commit}`, version: liveVersion, files: checked };
     writeFileSync(join(dist, 'live-verification.json'), JSON.stringify(result, null, 2) + '\n');
     console.log(JSON.stringify(result, null, 2));

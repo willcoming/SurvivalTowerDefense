@@ -1,3 +1,4 @@
+import { bindOfflineUi, refreshOfflineUi } from './offline';
 import {commanderPage,commanderState} from './commander';
 import {upgradeCommander} from '../data/commander';
 import { operationProfile } from '../data/progression';
@@ -62,6 +63,7 @@ export class GameApp {
   private rosterSave() { return this.vm.rosterEditing && this.formationDraft ? formationView(this.save, this.formationDraft) : this.save; }
   constructor(root: HTMLElement) {
     this.root = root;
+    bindOfflineUi(root);
     this.root.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLElement>('[data-action]'); if (button && !(button as HTMLButtonElement).disabled) { this.clickedControl = button; void this.audio.unlock(); void this.action(button.dataset.action!, button.dataset.id); } });
     this.root.addEventListener('change', event => { const input = event.target as HTMLInputElement | HTMLSelectElement; if (input.dataset.change) this.change(input); });
     document.addEventListener('keydown', event => this.key(event));
@@ -115,6 +117,7 @@ export class GameApp {
       enhanceMobileNotice(this.root, this.mobile);
       this.audio.setMode('lobby'); this.overlay();
     }
+    refreshOfflineUi(this.root);
     this.root.classList.toggle('reduced-effects', this.save.preferences.reducedEffects);
     this.prepareImages(this.root);
     this.mobile.finish(this.root);
@@ -173,6 +176,7 @@ export class GameApp {
     const rosterView = holder.querySelector<HTMLElement>('[data-roster-view]')?.dataset.rosterView;
     const rosterScroll = holder.querySelector('.roster-panel-body')?.scrollTop ?? 0;
     const wasOpen = !!this.renderedOverlay; this.renderedOverlay = html; holder.innerHTML = html;
+    refreshOfflineUi(holder);
     for (const child of this.root.children) if (child instanceof HTMLElement && child !== holder) child.inert = !!html;
     enhanceMobileCombat(holder, this.mobile);
     const map = holder.querySelector('.skill-map-viewport');
@@ -313,7 +317,9 @@ export class GameApp {
         this.overlay(); return;
       }
       this.vm.commandPanel=undefined;
-      this.go(action as Page); return;
+      this.go(action as Page);
+      if (action === 'settings' && id === 'offline') this.root.querySelector<HTMLElement>('.offline-settings')?.scrollIntoView({ block: 'start' });
+      return;
     }
     switch (action) {
       case 'commander-upgrade': if(this.vm.page==='commander'&&!this.save.activeRun){this.save.profile.commander??=commanderState(this.save);if(upgradeCommander(this.save.profile.commander,id??'')){await this.persist();this.render();}}break;
