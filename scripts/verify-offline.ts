@@ -145,16 +145,39 @@ async function allAssetsOffline(page: Page, snapshot: Snapshot, cacheOnly = fals
   assert.equal(result.verifiedBytes, snapshot.bytesTotal);
   return result;
 }
+async function setViewportAndSettle(page: Page, viewport: { width: number; height: number }) {
+  await page.setViewportSize(viewport);
+  await page.waitForFunction(({ width, height }) =>
+    innerWidth === width && innerHeight === height &&
+    matchMedia('(max-width: 800px)').matches === (width <= 800) &&
+    document.querySelector('#app')?.classList.contains('mobile-app'), viewport);
+  // WebKit may deliver matchMedia change after setViewportSize resolves. GameApp
+  // rebuilds its screen then; wait for that DOM to remain stable across frames
+  // before interacting with inputs whose changes are committed on blur.
+  await page.evaluate(async () => {
+    let previous = document.querySelector('#app')?.firstElementChild;
+    let stableFrames = 0;
+    const deadline = performance.now() + 3000;
+    while (stableFrames < 3) {
+      await new Promise<void>(resolveFrame => requestAnimationFrame(() => resolveFrame()));
+      const current = document.querySelector('#app')?.firstElementChild;
+      stableFrames = current === previous ? stableFrames + 1 : 0;
+      previous = current;
+      if (performance.now() > deadline) throw new Error('Responsive screen did not settle after viewport resize');
+    }
+  });
+}
+
 async function layout(page: Page, name: string) {
   for (const width of [320, 768, 1024, 1440]) {
-    await page.setViewportSize({ width, height: width === 320 ? 568 : 1000 });
+    await setViewportAndSettle(page, { width, height: width === 320 ? 568 : 1000 });
     const sizes = await page.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth, height: innerHeight, scrollHeight: document.documentElement.scrollHeight }));
     assert.ok(sizes.scrollWidth <= sizes.width + 1, `${name} overflows horizontally at ${width}: ${JSON.stringify(sizes)}`);
     assert.ok(sizes.scrollHeight <= sizes.height + 1, `${name} overflows the game stage at ${width}: ${JSON.stringify(sizes)}`);
     if (/settings|download-error/.test(name)) await state(page, 'settings').evaluate(element => element.scrollIntoView({ block: 'start' }));
     await page.screenshot({ path: join(output, `${name}-${width}.png`), fullPage: true });
   }
-  await page.setViewportSize({ width: 390, height: 844 });
+  await setViewportAndSettle(page, { width: 390, height: 844 });
 }
 async function startBattle(page: Page) {
   await page.bringToFront();
@@ -221,9 +244,11 @@ async function coreSmoke(engine: BrowserType, name: string, url: URL, snapshot: 
   await ready(page, 'settings');
   await layout(page, `${name}-settings-ready`);
   await page.locator('#commander-name').fill('離線驗證');
+  await expect(page.locator('#commander-name')).toHaveValue('離線驗證');
   await page.locator('#commander-name').press('Tab');
-  await page.locator('#reduced').check();
+  await expect(page.locator('#commander-name')).toHaveValue('離線驗證');
   await expect.poll(async () => (await readSave(page))?.preferences.commanderName).toBe('離線驗證');
+  await page.locator('#reduced').check();
   await expect.poll(async () => (await readSave(page))?.preferences.reducedEffects).toBe(true);
   await page.locator('.game-dock [data-action="roster"]').click();
   await page.locator('[data-action="roster-edit"]').first().click();
