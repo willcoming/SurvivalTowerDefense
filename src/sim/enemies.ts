@@ -1,16 +1,22 @@
+import { highPressure, pressureMode } from '../data/high-pressure';
 import { operationProfile } from '../data/progression';
-import { ENEMY_MAP, ticks, WORLD } from '../data/content';
+import { ENEMY_MAP, STAGE_MAP, ticks, WORLD } from '../data/content';
 import { alive, boss, createEnemy, distance, hitWall } from './combat';
 import type { Enemy, RunState } from './types';
 import { pressure } from './difficulty';
-export const BOSS_ESCORT_COUNT = 32;
-/** Deterministic entrance formation; escorts do not add farmable skill XP. */
+export const BOSS_ESCORT_COUNT = 42;
+/** One-time entrance escorts share the authored skill budget; summons grant no XP. */
 export function spawnBossEscort(s: RunState, leader: Enemy) {
+  const profile=operationProfile(s),count=profile.escortCount??32,xp=profile.escortXp??0;
   const specialist = leader.defId === 'B02' ? 'E03' : 'E02';
-  for (let i = 0; i < BOSS_ESCORT_COUNT; i++) {
+  const escortTypes = ['E03','E04','E05','E02','E06','E03','E05','E02','E04','E03','E05','E06'] as const;
+  const specialists = s.balanceVersion===2?highPressure(s.config.stageId,pressureMode(s.config)).escortSpecialists:s.config.stageId.startsWith('X') || Number(s.config.stageId.slice(1)) > 3 ? 12 : 6;
+  for (let i = 0; i < count; i++) {
     const row = Math.floor(i / 8), column = i % 8;
-    createEnemy(s, leader.defId === 'B01' || i % 4 !== 3 ? 'E01' : specialist,
-      24 + column * 48 + (row % 2) * 6, 20 + row * 20, 0, operationProfile(s).waves.length+1);
+    const authored = i < specialists ? escortTypes[i%escortTypes.length] : 'E01';
+    const type = s.balanceVersion !== undefined ? STAGE_MAP[s.config.stageId].enemyIds.includes(authored) ? authored : 'E01' : leader.defId === 'B01' || i % 4 !== 3 ? 'E01' : specialist;
+    createEnemy(s, type,
+      24 + column * 48 + (row % 2) * 6, 20 + row * 20, Math.floor(xp/count)+(i<xp%count?1:0), profile.waves.length+1);
   }
 }
 function acted(s:RunState,e:Enemy,kind:NonNullable<Enemy['lastAction']>['kind']){e.lastAction={tick:s.tick,kind};}

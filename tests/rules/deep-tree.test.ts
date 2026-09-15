@@ -1,3 +1,4 @@
+import { operationProfile } from '../../src/data/progression';
 import { describe,it,expect } from 'vitest';
 import { CHARACTER_TREES, DEEP_NODES, DEEP_NODE_MAP, COMMON_TREE } from '../../src/data/deep-trees';
 import { CHARACTER_IDS, CHARACTER_MAP, PREVIOUS_TREE_VERSION, RANGE_CONTENT_VERSION, LEGACY_CONTENT_VERSION, ticks } from '../../src/data/content';
@@ -12,7 +13,7 @@ import { shouldAutoCast } from '../../src/ui/auto-tactical';
 import { pathTo, ALL_TERMINALS } from '../helpers/deep-build';
 import type { CharacterId, RunState } from '../../src/sim/types';
 
-function funded(ids:CharacterId[]=['C01','C02','C03','C04','C05']){const s=createRun({stageId:'S12',squadIds:ids,captainId:ids[0],seed:101},undefined,{legacyCommonSkills:true});s.xp=720;s.choicesEarned=24;openDraft(s);return s;}
+function funded(ids:CharacterId[]=['C01','C02','C03','C04','C05'],challengeId:RunState['config']['challengeId']=null){const s=createRun({stageId:'S12',challengeId,squadIds:ids,captainId:ids[0],seed:101},undefined,{legacyCommonSkills:true});s.xp=720;s.choicesEarned=24;openDraft(s);return s;}
 function take(s:RunState,id:string){expect(command(s,{type:'buy-node',offerId:s.draft!.id,nodeId:id}),id).toBe(true);}
 function acquire(s:RunState,id:string){for(const n of pathTo(id))if(!s.treeNodes!.includes(n))take(s,n);}
 function readyCombat(s:RunState){s.enemies=[];s.projectiles=[];s.fields=[];s.spawnCursor=s.spawnPlan.length;s.bossSpawned=true;s.draft=null;s.pauseReasons=[];s.choicesEarned=s.choicesSpent;s.phase='running';}
@@ -71,7 +72,7 @@ describe('186-node free allocation',()=>{
     }
   });
   it('enforces three squad ultimates and the two-ultimate challenge while leaving all common branches available',()=>{
-    for(const limit of [2,3]){const s=funded();s.evolutionLimit=limit;s.config.challengeId=limit===2?'two-evolutions':null;
+    for(const limit of [2,3]){const s=funded(undefined,limit===2?'two-evolutions':null);
       for(const id of ['C01-A/9','C02-A/9','C03-A/7'].slice(0,limit))acquire(s,id);
       expect(deepLock(s,'C04-A/10')).toContain('名額');expect(deepLock(s,'TEAM/0')).toBeNull();expect(restoreRun(s)).toEqual(s);
     }
@@ -92,8 +93,8 @@ describe('186-node free allocation',()=>{
 describe('new effects and disclosed battle variations',()=>{
   it('all future enemy counts, defenses and modifiers come from the saved deterministic plan',()=>{
     const a=createRun({stageId:'S03',squadIds:['C01'],captainId:'C01',seed:101}),b=createRun(a.config),other=createRun({...a.config,seed:211});
-    expect(a.wavePlan).toEqual(b.wavePlan);expect(a.spawnPlan).toEqual(b.spawnPlan);expect(a.wavePlan).not.toEqual(other.wavePlan);
-    expect(a.spawnPlan.reduce((n,p)=>n+p.xp,0)).toBe(360);expect(a.wavePlan!.filter(w=>w.event!=='none')).toHaveLength(2);
+    expect(a.wavePlan).toEqual(b.wavePlan);expect(a.spawnPlan).toEqual(b.spawnPlan);expect(a.wavePlan).toEqual(other.wavePlan);expect(a.spawnPlan).not.toEqual(other.spawnPlan);
+    expect(a.spawnPlan.reduce((n,p)=>n+p.xp,0)).toBe(operationProfile(a).points*30-(operationProfile(a).escortXp??0));expect(a.wavePlan!.filter(w=>w.event!=='none')).toHaveLength(2);
     const intel=nextIntel(a);for(const row of intel){expect(row.counts.reduce((n,[,c])=>n+c,0)).toBe(a.spawnPlan.slice(a.spawnCursor).filter(p=>p.wave===row.wave).length);}
     for(const p of a.spawnPlan.filter(p=>p.wave===3)){const expected=waveStats(a,p.defId,p.wave),e=createEnemy(a,p.defId,p.x,20,p.xp,p.wave);expect([e.maxHp,e.shield,e.armor,e.speed]).toEqual([expected.hp,expected.shield,expected.armor,expected.speed]);}
     expect(restoreRun(a).wavePlan).toEqual(a.wavePlan);const corrupt=structuredClone(a);corrupt.wavePlan![0].variant='fast';expect(()=>restoreRun(corrupt)).toThrow();

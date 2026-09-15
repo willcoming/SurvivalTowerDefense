@@ -51,4 +51,4 @@ export function formBackdrop(id:FormId):string|null {
   if(form.ownerId==='C08')return assetUrl('portrait-backgrounds/chika-v1.webp');
   return null; // Starter original portraits already contain their scenery.
 }
-export const formMotion=(id:FormId)=>FORM_MAP[id].theme==='original'&&STARTER_IDS.includes(FORM_MAP[id].ownerId)?assetUrl(`animations/${FORM_MAP[id].ownerId}-motion.webp`):assetUrl(`animations/${id}-motion-v1.webp`);
+export const formMotion=(id:FormId)=>assetUrl(`animations/${id}-motion-v2.webp`);

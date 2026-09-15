@@ -15,8 +15,9 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test:performance": "tsx scripts/benchmark-simulation.ts",
-    "test:assets": "tsx scripts/verify-assets.ts",
-    "test:motion-assets": "tsx scripts/verify-character-motion.ts",
+    "test:assets": "node --import tsx scripts/verify-assets.ts",
+    "test:motion-assets": "node --import tsx scripts/verify-character-motion.ts",
+    "pack:combat": "node --import tsx scripts/pack-combat-spectacle.ts",
     "pack:motion": "node scripts/pack-animation-assets.cjs",
     "test:production": "tsx scripts/verify-production.ts",
     "test:offline:unit": "vitest run tests/offline",
@@ -29,7 +30,9 @@
     "test:free:e2e": "playwright test tests/e2e/free-skills.spec.ts",
     "deploy:pages": "node scripts/deploy-pages.mjs",
     "verify:pages": "node scripts/verify-pages-live.mjs",
-    "test:collection:production": "tsx scripts/verify-collection-production.ts"
+    "test:collection:production": "tsx scripts/verify-collection-production.ts",
+    "test:difficulty": "node scripts/test-high-pressure.mjs",
+    "test:difficulty:report": "node --import tsx scripts/summarize-high-pressure.ts --rescue=artifacts/difficulty-v2/final/rescue.json"
   },
   "dependencies": {
     "phaser": "3.90.0"

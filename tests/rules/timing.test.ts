@@ -104,7 +104,7 @@ describe('TIME04/DRAFT14 · exact spawn distribution and XP budget', () => {
 
 describe('AC07/TIME05–08 · exact boss and deadline boundaries', () => {
   function finalTick(): RunState {
-    const state = base(); state.tick = 14399; state.enemies = []; state.weapons = [];
+    const state = createRun({stageId:'S01',squadIds:['C01'],captainId:'C01',seed:101},undefined,{legacyOperations:true}); state.tick = 14399; state.enemies = []; state.weapons = [];
     state.spawnPlan = []; state.spawnCursor = 0; state.bossSpawned = true;
     const boss = createEnemy(state, 'B01', 195, 150); boss.hp = 1;
     state.scheduled = [{ at: 14400, packet: { source: 'C01', skill: 'endpoint', raw: 10, damageType: 'plasma', armorIgnore: 1, shieldMultiplier: 1 }, x: 195, y: 150, radius: 90, enemyDamage: 0, enemySource: null }];

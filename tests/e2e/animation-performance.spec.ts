@@ -50,27 +50,29 @@ test('ANIM PERF: 60 seconds of live 3× simulation and animation under synthetic
     if (!gl) return 'unavailable'; const ext = gl.getExtension('WEBGL_debug_renderer_info');
     return String(gl.getParameter(ext ? ext.UNMASKED_RENDERER_WEBGL : gl.RENDERER));
   });
-  const measured = await page.evaluate(() => new Promise<{ frames: number[]; startTick: number; endTick: number; phases: string[]; minEnemies: number; minProjectiles: number; minFields: number; cutinFrames: number; warningMissingFrames: number; positionResets: number; movingFrames: number; finalView: ReturnType<Window['__game']['presentation']> }>(resolve => {
+  const measured = await page.evaluate(() => new Promise<{ frames: number[]; startTick: number; endTick: number; phases: string[]; minEnemies: number; minProjectiles: number; minFields: number; cutinFrames: number; heldMs: number; warningMissingFrames: number; positionResets: number; movingFrames: number; finalView: ReturnType<Window['__game']['presentation']> }>(resolve => {
     const frames: number[] = [], phases = new Set<string>(); let start = 0, previous = 0, startTick = 0;
-    let minEnemies = Infinity, minProjectiles = Infinity, minFields = Infinity, cutinFrames = 0, warningMissingFrames = 0, positionResets = 0, movingFrames = 0;
+    let minEnemies = Infinity, minProjectiles = Infinity, minFields = Infinity, cutinFrames = 0, heldMs = 0, wasHeld = false, warningMissingFrames = 0, positionResets = 0, movingFrames = 0;
     function record(now: number) {
       const s = window.__game.state()!, view = window.__game.presentation();
-      if (previous) frames.push(now - previous); else { start = now; startTick = s.tick; }
+      if (previous) { frames.push(now - previous); if (wasHeld) heldMs += now - previous; } else { start = now; startTick = s.tick; }
       previous = now; phases.add(s.phase);
       minEnemies = Math.min(minEnemies, s.enemies.length); minProjectiles = Math.min(minProjectiles, s.projectiles.length); minFields = Math.min(minFields, s.fields.length);
       for (const e of s.enemies) if (!e.defId.startsWith('B') && e.y > (e.defId === 'E05' ? 235 : 420)) { e.y = 25; positionResets++; }
       if (view.enemyMotions.filter(m => m.mode === 'move').length >= 119) movingFrames++;
-      if (view.cutin.visible) cutinFrames++; if (!view.warnings.visible) warningMissingFrames++;
-      if (now - start >= 60000) resolve({ frames, startTick, endTick: s.tick, phases: [...phases], minEnemies, minProjectiles, minFields, cutinFrames, warningMissingFrames, positionResets, movingFrames, finalView: view });
+      wasHeld = view.cutin.visible; if (view.cutin.visible) cutinFrames++; if (!view.warnings.visible) warningMissingFrames++;
+      if (now - start >= 60000) resolve({ frames, startTick, endTick: s.tick, phases: [...phases], minEnemies, minProjectiles, minFields, cutinFrames, heldMs, warningMissingFrames, positionResets, movingFrames, finalView: view });
       else requestAnimationFrame(record);
     }
     requestAnimationFrame(record);
   }));
   const sorted = [...measured.frames].sort((a, b) => a - b), p95 = sorted[Math.floor(sorted.length * .95)];
   const elapsed = measured.frames.reduce((a, b) => a + b, 0), ticksPerSecond = (measured.endTick - measured.startTick) * 1000 / elapsed;
-  const passed = p95 <= 33.3 && ticksPerSecond >= 85 && measured.phases.join() === 'running' && measured.minEnemies === 120 && measured.minProjectiles >= 400 && measured.minFields >= 12 && measured.cutinFrames > 0 && measured.warningMissingFrames === 0 && measured.movingFrames === measured.frames.length + 1 && measured.positionResets > 0 && fixture.movingTypes.every(id => [2,3,4,5,6,7].every(f => measured.finalView.enemyHistory[id as keyof typeof measured.finalView.enemyHistory]?.frames.includes(f))) && measured.finalView.hostileProjectileImages >= 400 && errors.length === 0;
+  const activeTicksPerSecond = (measured.endTick - measured.startTick) * 1000 / (elapsed - measured.heldMs);
+  const target60fpsMet = p95 <= 20;
+  const passed = p95 <= 33.3 && activeTicksPerSecond >= 85 && measured.phases.join() === 'running' && measured.minEnemies === 120 && measured.minProjectiles >= 400 && measured.minFields >= 12 && measured.cutinFrames > 0 && measured.warningMissingFrames === 0 && measured.movingFrames === measured.frames.length + 1 && measured.positionResets > 0 && fixture.movingTypes.every(id => [2,3,4,5,6,7].every(f => measured.finalView.enemyHistory[id as keyof typeof measured.finalView.enemyHistory]?.frames.includes(f))) && measured.finalView.hostileProjectileImages >= 400 && errors.length === 0;
   mkdirSync(`${dir}/screenshots`, { recursive: true });
-  writeFileSync(`${dir}/live-3x-performance.json`, JSON.stringify({ measuredAt: new Date().toISOString(), sourceDigest: createHash('sha256').update(JSON.stringify(sourceFiles(resolve('src')).map(p => [p.replace(`${process.cwd()}/`, ''), readFileSync(p, 'utf8')]))).digest('hex'), host: { cpu: cpus()[0]?.model, platform: platform(), release: release(), architecture: arch() }, browser: info.project.name, userAgent: await page.evaluate(() => navigator.userAgent), viewport: page.viewportSize(), renderer, fixture, durationMs: elapsed, p95FrameTimeMs: p95, maxFrameTimeMs: sorted.at(-1), ticksPerSecond, gateMs: 33.3, passed, errors, limitation: 'Synthetic peak-density fixture, not a legally earned build or balance test. Immortal targets of all eight normal enemy types keep their actual movement speeds; positions recycle at the edge of the travel lane, while inert hostile projectiles sustain density; the real 3× simulation, automatic attacks, timed captain skills, animation, rendering and autosave run throughout. Desktop Chromium/SwiftShader only, not phone hardware. Tracing disabled and screenshot taken after measurement.', ...measured }, null, 2));
+  writeFileSync(`${dir}/live-3x-performance.json`, JSON.stringify({ measuredAt: new Date().toISOString(), sourceDigest: createHash('sha256').update(JSON.stringify(sourceFiles(resolve('src')).map(p => [p.replace(`${process.cwd()}/`, ''), readFileSync(p, 'utf8')]))).digest('hex'), host: { cpu: cpus()[0]?.model, platform: platform(), release: release(), architecture: arch() }, browser: info.project.name, userAgent: await page.evaluate(() => navigator.userAgent), viewport: page.viewportSize(), renderer, fixture, durationMs: elapsed, p95FrameTimeMs: p95, maxFrameTimeMs: sorted.at(-1), ticksPerSecond, activeTicksPerSecond, gateMs: 33.3, targetFrameTimeMs: 20, target60fpsMet, passed, errors, limitation: 'Synthetic peak-density fixture, not a legally earned build or balance test. Immortal targets of all eight normal enemy types keep their actual movement speeds; positions recycle at the edge of the travel lane, while inert hostile projectiles sustain density; the real 3× simulation, automatic attacks, timed captain skills, animation, rendering and autosave run throughout. Desktop Chromium/SwiftShader only, not phone hardware. Tracing disabled and screenshot taken after measurement.', ...measured }, null, 2));
   await page.screenshot({ path: `${dir}/screenshots/live-3x-pressure.png` });
   expect(passed).toBe(true);
 });

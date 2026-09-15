@@ -1,6 +1,6 @@
 import type { Enemy, EnemyId } from '../sim/types';
 
-export const ENEMY_POSES = ['idle-a', 'idle-b', 'move-1', 'move-2', 'move-3', 'move-4', 'move-5', 'move-6', 'anticipate', 'strike', 'charge-a', 'charge-b'] as const;
+export const ENEMY_POSES = ['idle-a', 'idle-b', 'move-1', 'move-2', 'move-3', 'move-4', 'move-5', 'move-6', 'anticipate', 'strike', 'charge-a', 'charge-b', 'hurt', 'death-start', 'collapse', 'wreckage'] as const;
 export const enemyFrameSize = (id: string) => id.startsWith('B') ? 224 : 160;
 export const enemyTexture = (id: string) => `enemy-motion-${id}`;
 export type EnemyMotionMode = 'idle' | 'move' | 'charge' | 'attack' | 'stunned';

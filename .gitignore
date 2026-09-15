@@ -11,6 +11,8 @@ artifacts/art-sources/
 artifacts/animation-sources/*.png
 artifacts/portrait-background-sources/*.png
 artifacts/enemy-motion-sources/*.png
+artifacts/combat-spectacle/sources/*.png
+artifacts/combat-spectacle/frames/*.png
 test-results/
 playwright-report/
 *.log

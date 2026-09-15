@@ -1,5 +1,4 @@
 import { assetUrl } from '../assets';
-import { usesFreeSkills } from '../data/deep-trees';
 import { usesSkillTrees } from '../data/skill-trees';
 import { treeMods, ultimateFor } from '../sim/skill-tree';
 import Phaser from 'phaser';
@@ -7,9 +6,11 @@ import { CHARACTER_MAP, ENEMY_MAP, STAGE_MAP } from '../data/content';
 import type { CharacterId, RunState } from '../sim/types';
 import type { GameAudio } from './audio';
 import { CombatActors, enemySize } from './actors';
-import { drawSkill } from './skill-effects';
+import { MaterialEffects, MATERIAL_ATLAS, PROP_ATLAS, EFFECT_FRAME_SIZE } from './material-effects';
+import { ProjectileVisuals, AMMO_ATLAS, AMMO_FRAME_SIZE } from './projectile-visuals';
+import { TacticalTimeline } from './tactical-timeline';
 import { enemyFrameSize, enemyTexture } from './enemy-motion';
-import { drawEffect, drawField, drawProjectile, polygon, line } from './effects';
+import { drawInterrupt, drawField, polygon, line } from './effects';
 import { capEffects, effectDetail, effectLifetime, LAYERS, priorityEnemy, type ActiveEffect, type Detail } from './presentation';
 import { BossAssault } from './boss-assault';
 import { StatusEffects } from './status-effects';
@@ -18,7 +19,7 @@ import { drawRange } from './range-overlay';
 import { inWeaponRange, weaponRange } from '../sim/range';
 import type { BattleSpeed } from '../storage/repository';
 import { stageArt } from '../data/campaign';
-import { equippedForm, formPortrait, formMotion, ELEMENTS, attackType } from '../data/forms';
+import { equippedForm, formMotion, ELEMENTS, attackType } from '../data/forms';
 import { ALLY_MOTION } from '../data/character-motion';
 import { WeaknessMarkers } from './weakness-markers';
 
@@ -34,6 +35,7 @@ export class BattleScene extends Phaser.Scene {
   private worldRun: RunState | null = null;
   private worldKey = '';
   private actors!: CombatActors;
+  private materials!: MaterialEffects;
   private statuses!: StatusEffects;
   private weaknesses!: WeaknessMarkers;
   private bossAssault!: BossAssault;
@@ -49,20 +51,21 @@ export class BattleScene extends Phaser.Scene {
   private endingAt = Infinity;
   private endingDone: (() => void) | null = null;
   private spriteKeys = new Map<string, string>();
-  private hostileBolts: Phaser.GameObjects.Image[] = [];
-  private visibleHostileBolts = 0;
+  private projectiles!: ProjectileVisuals;
   private previousShields = new Map<number, number>(); private previousCharges = new Set<number>(); private previousCooldown = 0;
   private originX(id?: string) { const ids = this.read().config.squadIds; const i = ids.findIndex(c => c === id); return i < 0 ? 195 : 195 + (i - (ids.length - 1) / 2) * 70; }
   private loading: SceneLoading; private missing: string[] = [];
-  constructor(read: () => RunState, audio: GameAudio, low: () => boolean, loading: SceneLoading, private speed: () => BattleSpeed = () => 1, private selectedRange: () => CharacterId | null = () => null) { super('battle'); this.read = read; this.audio = audio; this.low = low; this.loading = loading; }
+  constructor(read: () => RunState, audio: GameAudio, low: () => boolean, loading: SceneLoading, private speed: () => BattleSpeed = () => 1, private selectedRange: () => CharacterId | null = () => null, private timeline = new TacticalTimeline()) { super('battle'); this.read = read; this.audio = audio; this.low = low; this.loading = loading; }
   preload() {
     this.load.on('progress', (progress: number) => this.loading.progress(progress));
     this.load.on('loaderror', (file: Phaser.Loader.File) => { this.missing.push(String(file.src)); });
     const run = this.read();
     this.load.image('stage', stageArt(run.config.stageId));
     run.config.squadIds.forEach(id => this.load.spritesheet(`motion-${id}`, formMotion(equippedForm(run,id).id), { frameWidth: ALLY_MOTION.frameWidth, frameHeight: ALLY_MOTION.frameHeight }));
-    this.load.image('captain-portrait', formPortrait(equippedForm(run,run.config.captainId).id));
-    [...new Set([...STAGE_MAP[run.config.stageId].enemyIds, STAGE_MAP[run.config.stageId].bossId])].forEach(id => this.load.spritesheet(enemyTexture(id), assetUrl(`enemy-animations/${id}-motion.webp`), { frameWidth: enemyFrameSize(id), frameHeight: enemyFrameSize(id) }));
+    this.load.spritesheet('combat-fx', assetUrl(MATERIAL_ATLAS.replace('/assets/', '')), { frameWidth: EFFECT_FRAME_SIZE, frameHeight: EFFECT_FRAME_SIZE });
+    this.load.spritesheet('combat-ammo', assetUrl(AMMO_ATLAS.replace('/assets/', '')), { frameWidth: AMMO_FRAME_SIZE, frameHeight: AMMO_FRAME_SIZE });
+    this.load.spritesheet('combat-props', assetUrl(PROP_ATLAS.replace('/assets/', '')), { frameWidth: EFFECT_FRAME_SIZE, frameHeight: EFFECT_FRAME_SIZE });
+    [...new Set([...STAGE_MAP[run.config.stageId].enemyIds, STAGE_MAP[run.config.stageId].bossId])].forEach(id => this.load.spritesheet(enemyTexture(id), assetUrl(`enemy-animations/${id}-motion-v2.webp`), { frameWidth: enemyFrameSize(id), frameHeight: enemyFrameSize(id) }));
   }
   create() {
     const resize = () => {
@@ -87,14 +90,10 @@ export class BattleScene extends Phaser.Scene {
     this.worldGraphics = this.add.graphics().setVisible(false);
     this.worldTexture = this.add.renderTexture(0, 0, 390, 520).setOrigin(0).setDepth(5);
     this.graphics = this.add.graphics().setDepth(LAYERS.effects);
-    // Rasterize the small hostile projectile core once; reuse quads instead of
-    // tessellating the same circle hundreds of times on every simulation update.
-    const bolt = this.make.graphics({ x: 0, y: 0 });
-    bolt.fillStyle(0xff654e, 1).fillCircle(8, 8, 4.5).generateTexture('hostile-bolt-compact', 16, 16);
-    bolt.fillStyle(0xffffff, .9).fillCircle(8, 8, 1.2).generateTexture('hostile-bolt-full', 16, 16);
-    bolt.destroy();
     this.warnings = this.add.graphics().setDepth(LAYERS.warnings);
-    this.actors = new CombatActors(this, this.read, this.speed, this.spriteKeys);
+    this.actors = new CombatActors(this, this.read, this.speed, this.spriteKeys, this.timeline);
+    this.materials = new MaterialEffects(this);
+    this.projectiles = new ProjectileVisuals(this);
     this.statuses = new StatusEffects(this);
     this.weaknesses = new WeaknessMarkers(this);
     this.bossAssault = new BossAssault(this);
@@ -132,30 +131,14 @@ export class BattleScene extends Phaser.Scene {
     if (this.previousCooldown > 0 && cooldown === 0) this.audio.feedback('ready'); this.previousCooldown = cooldown;
     this.warning.setVisible(!!charging);
     if (charging) { const stun = Math.max(0, Math.ceil((charging.stunImmuneUntil - run.tick) / 30)), move = Math.max(0, Math.ceil((charging.moveImmuneUntil - run.tick) / 30)); const immunity = [stun ? `免暈 ${stun}s` : '', move ? `免位移 ${move}s` : ''].filter(Boolean).join(' / '); this.warning.setText(`⚠ ${ENEMY_MAP[charging.defId].name} · ${Math.max(0,(charging.chargeUntil-run.tick)/30).toFixed(1)}s\n${immunity || '蓄力中 · 可用控場打斷'}`); }
-    let boltIndex = 0;
-    for (const p of run.projectiles) {
-      if (p.enemyDamage && !p.packet && !p.impactAt) {
-        const key = `hostile-bolt-${this.detail}`;
-        let sprite = this.hostileBolts[boltIndex++];
-        if (!sprite) { sprite = this.add.image(p.x, p.y, key).setDepth(LAYERS.world + .1); this.hostileBolts.push(sprite); }
-        if (sprite.texture.key !== key) sprite.setTexture(key);
-        sprite.setVisible(true).setPosition(p.x, p.y);
-        if (p.vx || p.vy) line(g, [{ x: p.x - p.vx * .014, y: p.y - p.vy * .014 }, p], 0xff654e, 4, .75);
-      } else drawProjectile(g, p, run, this.actors.origin, this.detail);
-    }
-    for (let i = boltIndex; i < this.hostileBolts.length; i++) this.hostileBolts[i].setVisible(false);
-    this.visibleHostileBolts = boltIndex;
     const shield = run.shields.reduce((sum, s) => sum + s.value, 0);
     if (shield > 0) { g.fillStyle(0x69eedc, .10).fillRect(0, 432, 390, 18); g.lineStyle(3, 0x9cffee, .8).beginPath().moveTo(0, 435).lineTo(390, 435).strokePath(); }
     for (const weapon of run.weapons) {
-      const mods=treeMods(run,weapon.id), tree=ultimateFor(run,weapon.id)?.split(/[:/]/)[0];
+      const mods=treeMods(run,weapon.id);
       if (weapon.rank < 3 && !(usesSkillTrees(run)&&weapon.id==='C06'&&mods.drones)) continue;
       const x = this.originX(weapon.id); const color = hex(CHARACTER_MAP[weapon.id].color);
       g.lineStyle(1.5, color, .8).strokeEllipse(x, 497, 53, 13);
-      if (weapon.id === 'C06') {
-        const count = usesFreeSkills(run)?Math.min(5,1+(mods.drones??0)):usesSkillTrees(run) ? (mods.drones||tree==='C06-A'?2:1) : weapon.branch === 'A' ? 2 : 1;
-        for (let i = 0; i < count; i++) { const dx = x + (usesFreeSkills(run)?(i-(count-1)/2)*14:(i === 0 ? -23 : 23)), dy = 460 + (this.low() ? 0 : Math.sin(run.tick / 16 + i) * 3); g.fillStyle(0xf0f5df, 1).fillTriangle(dx - 7, dy, dx + 7, dy, dx, dy - 6); g.fillStyle(color).fillCircle(dx, dy - 3, 2); }
-      }
+
     }
     this.drawEvolutionModules(run);
     this.drawWarnings(run);
@@ -206,10 +189,10 @@ export class BattleScene extends Phaser.Scene {
   update() {
     const run = this.read(); if (!this.graphics || !this.actors) return;
     const elapsed = this.game.loop.rawDelta;
-    this.slowFrames = elapsed > 33.3 ? Math.min(30, this.slowFrames + 1) : Math.max(0, this.slowFrames - .25);
+    this.slowFrames = elapsed > 20 ? Math.min(30, this.slowFrames + 1) : Math.max(0, this.slowFrames - .25);
     this.detail = effectDetail(this.low(), run.enemies.length, run.projectiles.length, this.slowFrames);
     const fresh = run.events.filter(e => e.seq > this.lastSeq); this.lastSeq = run.eventSeq;
-    this.actors.update(run, elapsed, fresh, this.detail);
+    this.actors.update(run, elapsed, fresh, this.detail, this.low());
     const key = `${run.tick}:${run.actionSeq}:${run.eventSeq}:${run.phase}:${run.enemies.length}:${run.projectiles.length}:${run.fields.length}:${run.shields.length}:${this.detail}`;
     if (run !== this.worldRun || key !== this.worldKey) { this.worldRun = run; this.worldKey = key; this.drawWorld(run); }
     const now = this.actors.clock;
@@ -224,15 +207,17 @@ export class BattleScene extends Phaser.Scene {
     this.flashes = capEffects(this.flashes, this.detail); this.peakEffects = Math.max(this.peakEffects, this.flashes.length);
     this.graphics.clear();
     for (const effect of this.flashes) {
-      if (effect.event.kind === 'tactical') drawSkill(this.graphics, effect, now, this.detail, this.actors.origin);
-      else drawEffect(this.graphics, effect, now, this.detail, this.actors.origin);
+      const kind = effect.event.kind;
+      if (kind === 'interrupt') drawInterrupt(this.graphics, effect, now);
     }
+    this.materials.update(run, this.flashes, now, this.detail, this.actors.origin);
+    this.projectiles.update(run, this.actors.origin);
     if (now >= this.endingAt) this.endingDone?.();
   }
   playVictoryEnding(): Promise<void> {
     // Let the final defeated actor collapse before the result screen destroys the scene.
     // The simulation is already ended and the completed profile is already being saved.
-    this.endingAt = this.actors.clock + 700;
+    this.endingAt = this.actors.clock + 900;
     return new Promise(resolve => {
       const done = () => { this.endingAt = Infinity; this.endingDone = null; this.events.off(Phaser.Scenes.Events.SHUTDOWN, done); resolve(); };
       this.endingDone = done;
@@ -241,22 +226,21 @@ export class BattleScene extends Phaser.Scene {
   }
   diagnostics() {
     const bounds = this.warning.getBounds(), selected = this.selectedRange(), run = this.read();
-    return { ...this.actors.diagnostics(), ...this.statuses.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(),
+    return { ...this.actors.diagnostics(), ...this.materials.diagnostics(), ...this.projectiles.diagnostics(), ...this.statuses.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(),
       bossIntro: run.bossIntro ? { ...run.bossIntro, type: run.enemies.find(e => e.id === run.bossIntro?.enemyId)?.defId, visible: true, depth: 30 } : null,
       range: selected ? { id: selected, radius: weaponRange(run, selected), insideIds: run.enemies.filter(e => inWeaponRange(run, selected, e)).map(e => e.id) } : null, detail: this.detail, activeEffects: this.flashes.length, peakEffects: this.peakEffects,
       warnings: { visible: this.warning.visible, text: this.warning.text, top: bounds.top, bottom: bounds.bottom, depth: this.warning.depth, geometryDepth: this.warnings.depth },
       textureFrames: Object.fromEntries(this.read().config.squadIds.map(id => [id, this.textures.get(`motion-${id}`).frameTotal - 1])),
       effectsDepth: this.graphics.depth, alliesDepth: LAYERS.allies,
       visibleEffects: this.flashes.map(f => ({ seq: f.event.seq, kind: f.event.kind, source: f.event.source, age: this.actors.clock - f.born, duration: f.duration })),
-      hostileProjectileImages: this.visibleHostileBolts,
       enemyTextureFrames: Object.fromEntries([...this.spriteKeys].map(([id, key]) => [id, this.textures.get(key).frameTotal - 1])),
     };
   }
 
 }
 
-export function createBattleCanvas(parent: HTMLElement, read: () => RunState, audio: GameAudio, low: () => boolean, loading: SceneLoading, speed: () => BattleSpeed = () => 1, selectedRange: () => CharacterId | null = () => null) {
+export function createBattleCanvas(parent: HTMLElement, read: () => RunState, audio: GameAudio, low: () => boolean, loading: SceneLoading, speed: () => BattleSpeed = () => 1, selectedRange: () => CharacterId | null = () => null, timeline = new TacticalTimeline()) {
   // Keep linear filtering for the illustrated sprites. The 2D canvas does not need
   // a multisampled WebGL backbuffer, whose resolves dominate dense mobile rendering.
-  return new Phaser.Game({ type: Phaser.AUTO, width: parent.clientWidth, height: parent.clientHeight, parent, backgroundColor: '#102c35', antialias: true, audio: { noAudio: true }, scene: new BattleScene(read, audio, low, loading, speed, selectedRange), scale: { mode: Phaser.Scale.RESIZE }, render: { roundPixels: false, antialiasGL: false }, fps: { target: 60 } });
+  return new Phaser.Game({ type: Phaser.AUTO, width: parent.clientWidth, height: parent.clientHeight, parent, backgroundColor: '#102c35', antialias: true, audio: { noAudio: true }, scene: new BattleScene(read, audio, low, loading, speed, selectedRange, timeline), scale: { mode: Phaser.Scale.RESIZE }, render: { roundPixels: false, antialiasGL: false }, fps: { target: 60 } });
 }

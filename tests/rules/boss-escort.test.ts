@@ -12,17 +12,17 @@ function entrance(stageId: StageId, version?: string) {
 }
 describe('Boss entrance escort surge', () => {
   for (const stage of ['S01','S02','S03'] as const) {
-    it(`${stage}: spawns 32 escorts simultaneously with the boss and freezes them during the entrance`, () => {
+    it(`${stage}: spawns 42 escorts simultaneously with the boss and freezes them during the entrance`, () => {
       const s=entrance(stage), escorts=s.enemies.filter(e=>!e.defId.startsWith('B'));
       expect(escorts).toHaveLength(BOSS_ESCORT_COUNT);
       expect(s.enemies.filter(e=>e.defId.startsWith('B'))).toHaveLength(1);
-      expect(escorts.every(e=>e.spawnedAt===operationProfile(s).bossAt*30&&e.wave===operationProfile(s).waves.length+1&&e.xp===0&&e.y<150)).toBe(true);
+      expect(escorts.every(e=>e.spawnedAt===operationProfile(s).bossAt*30&&e.wave===operationProfile(s).waves.length+1&&e.xp===1&&e.y<150)).toBe(true);
       expect(new Set(escorts.map(e=>`${e.x},${e.y}`)).size).toBe(BOSS_ESCORT_COUNT);
       const frozen=structuredClone(s);stepRun(s,100);expect(s).toEqual(frozen);
       const restored=restoreRun(structuredClone(s));
       expect(command(restored,{type:'finish-boss-intro'})).toBe(true);
       stepRun(restored);
-      expect(restored.enemies).toHaveLength(33);
+      expect(restored.enemies).toHaveLength(43);
       expect(restored.enemies.find(e=>e.id===escorts[0].id)!.y).toBeGreaterThan(escorts[0].y);
       const repeated=entrance(stage);expect(repeated.enemies).toEqual(frozen.enemies);
     });

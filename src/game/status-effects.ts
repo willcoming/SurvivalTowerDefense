@@ -57,6 +57,9 @@ export class StatusEffects {
         // Body tint still communicates burning; reserve large overlays for urgent control cues.
         active.delete('burn'); active.delete('slow');
       }
+      // Dense battles already show burn through body tint and merged damage labels.
+      // Keep the large flame only on bosses; it otherwise hides a crowd's actual poses.
+      if (detail === 'compact' && !enemy.defId.startsWith('B')) active.delete('burn');
       if (enemy.hp <= 0 || run.bossIntro?.enemyId === enemy.id) active.clear();
       let sprites = this.sprites.get(enemy.id);
       if (!sprites && active.size) { sprites = new Map(); this.sprites.set(enemy.id, sprites); }
@@ -69,9 +72,14 @@ export class StatusEffects {
             const scale = status === 'stun' ? .8 : status === 'exposure' ? 1.05 : .95;
             sprite = this.scene.add.image(0, 0, 'status-atlas', key).setDepth(8.5).setDisplaySize(size * scale, size * scale); sprites.set(status, sprite);
           }
-          if (sprite.frame.name !== key) sprite.setFrame(key);
+          const element = enemy.effects.find(f => f.kind === 'burn')?.damageType ?? 'thermal';
+          const row = { plasma: 0, thermal: 1, arc: 2, gravity: 3, kinetic: 0 }[element];
+          if (status === 'burn') sprite.setTexture('combat-fx', row * 4 + 1 + frame % 2);
+          else if (sprite.texture.key !== 'status-atlas' || sprite.frame.name !== key) sprite.setTexture('status-atlas', key);
           if(status==='burn'){const effect=enemy.effects.find(f=>f.kind==='burn'),element=effect?.damageType;if(usesCollection(run)&&element)sprite.setTint(parseInt(ELEMENTS[element].color.slice(1),16));else sprite.clearTint();}
-          sprite.setVisible(true).setPosition(enemy.x, enemy.y + (status === 'stun' ? -size * .7 : status === 'slow' ? size * .42 : status === 'burn' ? size * .12 : 0));
+          const scale = detail === 'compact' ? .55 : status === 'stun' ? .8 : status === 'exposure' ? 1.05 : .95;
+          sprite.setDisplaySize(size * scale, size * scale * this.scene.cameras.main.zoomX / this.scene.cameras.main.zoomY);
+          sprite.setVisible(true).setPosition(enemy.x, enemy.y + (status === 'stun' ? -size * .55 : status === 'slow' ? size * .35 : status === 'burn' ? size * .12 : 0));
         } else sprite?.setVisible(false);
       }
       if (active.size) this.visible.push({ id: enemy.id, states: [...active] });

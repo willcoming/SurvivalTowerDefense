@@ -4,7 +4,7 @@ import { visualPriority } from '../sim/visual';
 
 import { ALLY_MOTION } from '../data/character-motion';
 export const POSE_NAMES = ALLY_MOTION.poses;
-export const CUTIN_MS = 1200;
+export { TACTICAL_DURATION_MS as CUTIN_MS } from './tactical-timeline';
 export const SKILL_FX_MS = 1500;
 export const LAYERS = { actors: 3, world: 5, effects: 9, allies: 7, cutin: 20, warnings: 90, warningText: 100 } as const;
 

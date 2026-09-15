@@ -17,7 +17,11 @@ import { usesRangeRules } from './range';
 import type { CharacterId, Command, RunConfig, RunState } from './types';
 import { applyUpgrade, castTactical, stepWeapons } from './weapons';
 export { getLegalNodeIds, getReadyEvolutions } from './draft';
-export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, compatibility:{legacyOperations?:boolean;legacyCommonSkills?:boolean}={}):RunState{
+export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, compatibility:{operationVersion?:2|3;legacyOperations?:boolean;legacyCommonSkills?:boolean;legacyBalance?:boolean;balanceVersion?:1|2}={}):RunState{
+  if(compatibility.operationVersion!==undefined&&![2,3].includes(compatibility.operationVersion))throw new Error('Unknown operation version');
+  if(compatibility.operationVersion===3&&compatibility.legacyBalance)throw new Error('New operations require authored balance');
+  if(compatibility.legacyBalance&&compatibility.balanceVersion!==undefined)throw new Error('Conflicting balance compatibility');
+  if(compatibility.balanceVersion!==undefined&&![1,2].includes(compatibility.balanceVersion))throw new Error('Unknown balance version');
   if(config.difficulty!==undefined&&!['easy','hard'].includes(config.difficulty))throw new Error('Unknown difficulty');
   if(!supportedContent(contentVersion))throw new Error('Unknown content version');
   if(!STAGE_MAP[config.stageId]||!Number.isSafeInteger(config.seed)||!config.squadIds.length||config.squadIds.length>5||new Set(config.squadIds).size!==config.squadIds.length||config.squadIds.some(id=>!CHARACTER_IDS.includes(id))||!config.squadIds.includes(config.captainId))throw new Error('Invalid run configuration');
@@ -29,9 +33,10 @@ export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, comp
   const ids=usesCollection({contentVersion})?CHARACTER_IDS:STARTER_IDS;
   const counters=()=>Object.fromEntries(ids.map(id=>[id,0])) as Record<CharacterId,number>;
   const s:RunState={schemaVersion:SCHEMA_VERSION,contentVersion,...(usesSkillTrees({contentVersion})?{treeNodes:[]}:{}),runId:globalThis.crypto?.randomUUID?.()??`run-${Date.now()}-${config.seed}`,config:structuredClone(config),tick:0,phase:'running',pauseReasons:[],wallHp:1000,wallMaxHp:1000,shields:[],xp:0,choicesEarned:0,choicesSpent:0,rerollsRemaining:3,evolvedCount:0,evolutionLimit:config.challengeId==='two-evolutions'?2:3,tacticalReadyAt:0,weapons:config.squadIds.map(id=>({id,branch:null,rank:0,readyAt:0,nextAttack:0,attacks:0,droneAttacks:[0,0],shieldAt:0})),commonRanks:{},preferredBranches:Object.fromEntries(ids.map(id=>[id,config.preferredBranches?.[id]??'A'])) as RunState['preferredBranches'],enemies:[],projectiles:[],fields:[],scheduled:[],spawnPlan:[],spawnCursor:0,bossSpawned:false,bossKilled:false,rng:{spawn:seedValue(config.seed,1),draft:seedValue(config.seed,2),visual:seedValue(config.seed,3)},nextEntityId:1,draft:null,nextOfferId:1,events:[],eventSeq:0,actions:[],actionSeq:0,stats:{kills:0,damageByCharacter:counters(),shieldDamageByCharacter:counters(),wallDamageByEnemy:{},shieldAbsorbed:0,controlTicks:counters(),choices:[],casts:[],encountered:[]},outcome:null};
-  if(usesFreeSkills(s)){s.skillCostVersion=2;if(!compatibility.legacyOperations&&contentVersion===CONTENT_VERSION)s.operationVersion=2;s.rerollsRemaining=0;s.tacticalReadyAt=ticks(CHARACTER_MAP[config.captainId].cooldown);s.support={repairAt:0,pulseAt:0,emergencyAt:0,repulseAt:0,damageTaken:0,secondWindUsed:0,repaired:0,prevented:0,reflected:0};}
+  if(usesFreeSkills(s)){s.skillCostVersion=2;if(!compatibility.legacyOperations&&contentVersion===CONTENT_VERSION)s.operationVersion=compatibility.operationVersion??(compatibility.legacyBalance?2:3);s.rerollsRemaining=0;s.tacticalReadyAt=ticks(CHARACTER_MAP[config.captainId].cooldown);s.support={repairAt:0,pulseAt:0,emergencyAt:0,repulseAt:0,damageTaken:0,secondWindUsed:0,repaired:0,prevented:0,reflected:0};}
   if(usesCollection(s)){s.mines=[];for(const w of s.weapons)if(w.id==='C08'){w.heat=0;w.cooling=false;w.ventUntil=0;}}
   if(usesFreeSkills(s)&&contentVersion===CONTENT_VERSION&&!compatibility.legacyCommonSkills){s.commanderSkillVersion=1;s.config.commanderNodes=[...(config.commanderNodes??[])];validateCommanderSkills(s.config.commanderNodes);const health=s.config.commanderNodes.reduce((n,id)=>n+(DEEP_NODE_MAP[id].mods.wallHealth??0),0);s.wallMaxHp+=health;s.wallHp+=health;}
+  if(s.operationVersion!==undefined&&!compatibility.legacyBalance)s.balanceVersion=compatibility.balanceVersion??2;
   s.spawnPlan=makeSpawnPlan(s);prepareOperation(s);while(s.spawnCursor<s.spawnPlan.length&&s.spawnPlan[s.spawnCursor].at===0){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,20,p.xp,p.wave);}return s;
 }
 export function getPhase(s:RunState):RunState['phase']{return s.outcome?'ended':s.pauseReasons.includes('upgrade')?'choosing':s.pauseReasons.length?'paused':'running';}
@@ -125,7 +130,7 @@ export function stepRun(s:RunState,count=1):void{
     if(usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(operationProfile(s).bossAt)&&s.wallHp>0){s.bossSpawned=true;const entering=createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,operationProfile(s).waves.length+1);if(usesCollection(s))spawnBossEscort(s,entering);s.bossIntro={enemyId:entering.id,remainingMs:BOSS_INTRO_MS};s.pauseReasons.push('boss-intro');}
     if(s.wallHp<=0)s.outcome='wall';
     else if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!s.enemies.length&&(!usesFreeSkills(s)||(s.choicesSpent>=s.choicesEarned||!getLegalNodeIds(s).length)))s.outcome='victory';
-    else if(s.tick>=ticks(operationProfile(s).deadline))s.outcome='timeout';
+    else if(!operationProfile(s).unlimited&&s.tick>=ticks(operationProfile(s).deadline))s.outcome='timeout';
     if(!s.outcome)openDraft(s);s.phase=getPhase(s);
   }
 }
@@ -133,10 +138,12 @@ export function snapshotRun(s:RunState):RunState{return structuredClone(s);}
 export function restoreRun(raw:unknown):RunState{
   if(!raw||typeof raw!=='object')throw new Error('戰局快照損壞');const s=raw as RunState;
   if(s.schemaVersion!==SCHEMA_VERSION||!supportedContent(s.contentVersion))throw new Error('戰局版本不相容，請保留進度並重開本局');
-  if(s.operationVersion!==undefined&&s.operationVersion!==2)throw new Error('波次版本損壞');
-  const template=createRun(s.config,s.contentVersion,{legacyOperations:s.operationVersion!==2,legacyCommonSkills:s.commanderSkillVersion!==1});
+  if(s.operationVersion!==undefined&&s.operationVersion!==2&&s.operationVersion!==3)throw new Error('波次版本損壞');
+  if(s.operationVersion===3&&s.balanceVersion===undefined)throw new Error('關卡平衡版本遺失');
+  if(s.balanceVersion!==undefined&&(![1,2].includes(s.balanceVersion)||s.operationVersion===undefined))throw new Error('關卡平衡版本損壞');
+  const template=createRun(s.config,s.contentVersion,{operationVersion:s.operationVersion,legacyOperations:s.operationVersion===undefined,legacyCommonSkills:s.commanderSkillVersion!==1,legacyBalance:s.balanceVersion===undefined,balanceVersion:s.balanceVersion});
   const finite=(v:unknown):boolean=>typeof v==='number'?Number.isFinite(v):Array.isArray(v)?v.every(finite):v&&typeof v==='object'?Object.values(v).every(finite):true;
-  if(!finite(s)||!Number.isInteger(s.tick)||s.tick<0||s.tick>ticks(operationProfile(s).deadline)||!Array.isArray(s.enemies)||!Array.isArray(s.projectiles)||!Array.isArray(s.fields)||!Array.isArray(s.spawnPlan)||!Array.isArray(s.pauseReasons)||!Array.isArray(s.actions)||!s.rng||!s.stats||s.wallHp<0||s.wallHp>s.wallMaxHp||s.choicesSpent>s.choicesEarned||s.evolvedCount>s.evolutionLimit||s.weapons.length!==s.config.squadIds.length)throw new Error('戰局快照損壞');
+  if(!finite(s)||!Number.isSafeInteger(s.tick)||s.tick<0||(!operationProfile(s).unlimited&&s.tick>ticks(operationProfile(s).deadline))||!Array.isArray(s.enemies)||!Array.isArray(s.projectiles)||!Array.isArray(s.fields)||!Array.isArray(s.spawnPlan)||!Array.isArray(s.pauseReasons)||!Array.isArray(s.actions)||!s.rng||!s.stats||s.wallHp<0||s.wallHp>s.wallMaxHp||s.choicesSpent>s.choicesEarned||s.evolvedCount>s.evolutionLimit||s.weapons.length!==s.config.squadIds.length)throw new Error('戰局快照損壞');
   if(!!s.bossIntro!==s.pauseReasons.includes('boss-intro')||s.bossIntro&&(!usesRangeRules(s)||!s.bossSpawned||!Number.isSafeInteger(s.bossIntro.enemyId)||!Number.isFinite(s.bossIntro.remainingMs)||s.bossIntro.remainingMs<0||s.bossIntro.remainingMs>BOSS_INTRO_MS||!s.enemies.some(e=>e.id===s.bossIntro!.enemyId&&e.defId===STAGE_MAP[s.config.stageId].bossId)))throw new Error('首領登場紀錄損壞');
   if(s.projectiles.some(p=>p.travelRemaining!==undefined&&(!Number.isFinite(p.travelRemaining)||p.travelRemaining<0)))throw new Error('彈體射程紀錄損壞');
   const validInteger=(n:unknown,min=0,max=Number.MAX_SAFE_INTEGER)=>typeof n==='number'&&Number.isSafeInteger(n)&&n>=min&&n<=max;

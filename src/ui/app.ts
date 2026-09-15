@@ -21,6 +21,7 @@ import { battleShell, updateHud, upgradeDialog, pauseDialog, tutorialDialog, res
 import { esc } from './format';
 import { GameAudio } from '../game/audio';
 import { BattleScene, createBattleCanvas } from '../game/scene';
+import { TacticalTimeline } from '../game/tactical-timeline';
 import { keyInterfaceImage } from '../game/chroma';
 import { shouldAutoCast } from './auto-tactical';
 import { recruitment, recruitmentPreview } from './recruitment';
@@ -43,6 +44,7 @@ export class GameApp {
   private repository = new GameRepository();
   private audio = new GameAudio();
   private canvas: ReturnType<typeof createBattleCanvas> | null = null;
+  private tacticalTimeline = new TacticalTimeline();
   private vm: ViewModel = { page: 'home', stageId: 'S01', characterId: 'C01', challengeId: null, retrySeed: null, selectedCard: null, modal: null, saveStatus: '正在讀取本機進度', message: '', showBuild: false };
   private lastFrame = performance.now(); private accumulator = 0; private lastAutosave = 0;
   private saveQueue: Promise<void> = Promise.resolve(); private renderedOverlay = ''; private endedId = '';
@@ -108,7 +110,7 @@ export class GameApp {
         ready: () => { this.sceneReady = true; this.assetFailure = false; this.lastFrame = performance.now(); this.accumulator = 0; document.getElementById('battle-loading')?.remove(); if (run.pauseReasons.includes('error')) void this.persist().then(() => { if (this.vm.saveStatus === '已儲存在本機') { command(run, { type: 'pause', reason: 'user' }); command(run, { type: 'resume', reason: 'error' }); this.overlay(); } }); },
         progress: ratio => { const el = document.getElementById('battle-loading'); if (el) el.textContent = `正在載入戰場 · ${Math.round(ratio * 100)}%`; },
         failed: paths => { this.assetFailure = true; this.vm.message = `有 ${paths.length} 個戰場素材未能載入。行動已暫停，請重新載入後繼續。`; command(run, { type: 'pause', reason: 'error' }); document.getElementById('battle-loading')?.remove(); this.root.insertAdjacentHTML('afterbegin', this.notice()); enhanceMobileNotice(this.root, this.mobile); this.overlay(); void this.persist(); },
-      }, () => this.save.preferences.battleSpeed, () => this.selectedRange);
+      }, () => this.save.preferences.battleSpeed, () => this.selectedRange, this.tacticalTimeline);
       updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
       const screens = { commander:()=>commanderPage(this.save),command:()=>tacticalCommand(this.save,this.vm),recruitment:()=>recruitment(this.save,this.collecting,this.vm.recruitView),home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.rosterSave(), this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.rewards,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.commanderReward) : home(this.save, this.vm), battle: () => '' };
@@ -231,7 +233,12 @@ export class GameApp {
   }
   private execute(cmd: Command) {
     const run = this.save.activeRun; if (!run) return false;
+    if (cmd.type === 'cast' && this.tacticalTimeline.active(run)) return false;
     const accepted = command(run, cmd);
+    if (accepted && cmd.type === 'cast') {
+      this.tacticalTimeline.play(run);
+      this.accumulator = 0;
+    }
     if (accepted) { if (cmd.type === 'choose' || cmd.type === 'buy-node' || cmd.type === 'confirm-node') { this.vm.selectedCard = null; if((cmd.type==='buy-node'||cmd.type==='confirm-node')&&!run.draft)this.vm.treePanel=undefined; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); }
     return accepted;
   }
@@ -257,14 +264,19 @@ export class GameApp {
     if (!this.ready || this.vm.page !== 'battle' || !run || !this.sceneReady) return;
     if ((run.phase === 'running' || run.bossIntro && run.pauseReasons.length === 1) && rawElapsed > 500 && !document.hidden) { command(run, { type: 'pause', reason: 'user' }); this.accumulator = 0; this.vm.message = '畫面曾短暫停頓，確認後繼續行動。'; const old = this.root.querySelector('.system-notice'); if (old) old.outerHTML = this.notice(); else this.root.insertAdjacentHTML('afterbegin', this.notice()); enhanceMobileNotice(this.root, this.mobile); void this.persist(); }
     const entering = !!run.bossIntro;
+    const performing = this.tacticalTimeline.advance(run, elapsed);
     if (entering && advanceBossIntro(run, elapsed)) { this.lastFrame = time; void this.persist(); }
-    if (!entering && run.phase === 'running') {
+    if (!entering && !performing && run.phase === 'running') {
       const speed = this.save.preferences.battleSpeed;
       // Keep fixed 30 Hz rule steps; scale wall-clock time, including catch-up capacity.
       const maxSteps = 5 * speed;
       this.accumulator = Math.min(maxSteps * 1000 / 30, this.accumulator + elapsed * speed);
       let steps = 0;
-      while (this.accumulator >= 1000 / 30 && run.phase === 'running' && steps++ < maxSteps) { if (shouldAutoCast(run, this.save.preferences.autoTactical)) this.execute({ type: 'cast' }); stepRun(run); this.accumulator -= 1000 / 30; }
+      while (this.accumulator >= 1000 / 30 && run.phase === 'running' && steps++ < maxSteps) {
+        if (shouldAutoCast(run, this.save.preferences.autoTactical)) this.execute({ type: 'cast' });
+        if (this.tacticalTimeline.active(run)) { this.accumulator = 0; break; }
+        stepRun(run); this.accumulator -= 1000 / 30;
+      }
     }
     else this.accumulator = 0;
     updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); this.overlay();

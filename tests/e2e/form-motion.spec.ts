@@ -52,7 +52,7 @@ for (const theme of ['original', 'summer'] as const) for (const group of [
   });
   expect(samples.mismatch).toBe(false);
   for (const id of group) {
-    expect(samples.view.textureFrames[id]).toBe(6);
+    expect(samples.view.textureFrames[id]).toBe(ALLY_MOTION.frameCount);
     expect(samples.poses[id]).toEqual(expect.arrayContaining([3,4,5]));
     expect(samples.view.poses[id].texture).toBe(`motion-${id}`);
     expect(samples.view.poses[id].width).toBe(ALLY_MOTION.displaySize);

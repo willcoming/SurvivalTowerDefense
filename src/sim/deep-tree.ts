@@ -48,7 +48,7 @@ export function validateDeepTree(s:RunState){
   if(s.commanderSkillVersion!==undefined&&s.commanderSkillVersion!==1)throw new Error('指揮官技能版本損壞');
   if(s.commanderSkillVersion===1)validateCommanderSkills(s.config.commanderNodes);
   if(s.skillCostVersion!==undefined&&s.skillCostVersion!==2)throw new Error('技能消耗版本損壞');
-  if(!Array.isArray(s.treeNodes)||s.treeNodes.length>24||new Set(s.treeNodes).size!==s.treeNodes.length||Object.keys(s.commonRanks).length)throw new Error('自由技能樹紀錄損壞');
+  if(!Array.isArray(s.treeNodes)||s.treeNodes.length>operationProfile(s).points||new Set(s.treeNodes).size!==s.treeNodes.length||Object.keys(s.commonRanks).length)throw new Error('自由技能樹紀錄損壞');
   const shadow={...s,treeNodes:[] as string[],evolvedCount:0};
   for(const id of s.treeNodes){if(deepLock(shadow,id))throw new Error('技能前置或終極互斥損壞');shadow.treeNodes=[...shadow.treeNodes,id];if(DEEP_NODE_MAP[id].kind==='ultimate')shadow.evolvedCount++;}
   if(shadow.evolvedCount!==s.evolvedCount||deepPointCost(s.treeNodes,s)!==s.choicesSpent||s.evolutionLimit!==(s.config.challengeId==='two-evolutions'?2:3)||s.choicesEarned!==Math.min(operationProfile(s).points,2*Math.floor(s.xp/60))||s.rerollsRemaining!==0)throw new Error('技能點計數損壞');

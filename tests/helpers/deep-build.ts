@@ -36,7 +36,7 @@ export function playDeep(config:RunConfig,plan:string[],checkRestore=false){
   return {s,restored,bossDeadAt};
 }
 export function replayDeep(recorded:RunState){
-  const s=createRun(recorded.config);let cursor=0;
+  const s=createRun(recorded.config,recorded.contentVersion,{legacyOperations:recorded.operationVersion!==2,legacyCommonSkills:recorded.commanderSkillVersion!==1,legacyBalance:recorded.balanceVersion===undefined,balanceVersion:recorded.balanceVersion});let cursor=0;
   for(let guard=0;guard<24000&&!s.outcome;guard++){
     while(recorded.actions[cursor]?.tick===s.tick)if(!command(s,recorded.actions[cursor++].command))throw new Error('Replay command rejected');
     if(s.outcome)break;if(s.pauseReasons.length)throw new Error('Replay stalled');stepRun(s);

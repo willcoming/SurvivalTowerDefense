@@ -7,7 +7,7 @@ import { stepEnemies } from '../../src/sim/enemies';
 import type { RunState } from '../../src/sim/types';
 
 function isolated(stageId: 'S01' | 'S03' = 'S01') {
-  const state = createRun({ stageId, squadIds: ['C01'], captainId: 'C01', seed: 101 });
+  const state = createRun({ stageId, squadIds: ['C01'], captainId: 'C01', seed: 101 }, undefined, {legacyBalance:true});
   state.enemies = []; state.weapons = []; state.spawnPlan = []; state.spawnCursor = 0;
   return state;
 }

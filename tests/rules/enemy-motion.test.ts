@@ -1,3 +1,4 @@
+import { pressure } from '../../src/sim/difficulty';
 import { describe, expect, it } from 'vitest';
 import { ENEMIES, ENEMY_MAP } from '../../src/data/content';
 import { command, createRun, restoreRun, snapshotRun } from '../../src/sim/engine';
@@ -60,7 +61,7 @@ describe('enemy movement presentation', () => {
       const s = state(); s.enemies = []; s.tick = 100;
       const e = createEnemy(s, id, 195, 150); e.chargeKind = 'boss'; e.chargeUntil = 100;
       stepEnemies(s); expect(e.lastAction).toEqual({ tick: 100, kind: id === 'B02' ? 'burst' : 'blast' });
-      expect(s.wallHp).toBe(1000 - (id === 'B02' ? 25 : ENEMY_MAP[id].damage) * 1.15);
+      expect(s.wallHp).toBe(1000 - (id === 'B02' ? 25 : ENEMY_MAP[id].damage) * pressure(s).bossDamage);
       e.summonAt = 101; s.tick = 101; stepEnemies(s); expect(e.lastAction?.kind).toBe(id === 'B02' ? 'shield' : 'summon');
     }
     const s = state(); s.enemies = []; s.tick = 100;

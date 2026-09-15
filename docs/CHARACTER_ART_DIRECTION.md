@@ -1,6 +1,6 @@
 # 角色畫風基準
 
-完整角色交付須遵守 [角色製作 SOP](CHARACTER_PRODUCTION_SOP.md)：每套形態都有獨立 Q 版六格戰鬥動畫與對應攻擊，不可使用全身立繪替代戰鬥 spritesheet。
+完整角色交付須遵守 [角色製作 SOP](CHARACTER_PRODUCTION_SOP.md)：每套形態都有獨立 Q 版十二格戰鬥動畫與對應攻擊，不可使用全身立繪替代戰鬥 spritesheet。
 
 適用於新角色、原裝與主題變裝。真人照片只提供髮型、服裝輪廓與配件參考，不改變遊戲的既有美術風格。
 

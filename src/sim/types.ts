@@ -111,7 +111,9 @@ export interface RunState {
   rerollsRemaining: number; evolvedCount: number; evolutionLimit: number; tacticalReadyAt: number;
   treeNodes?: string[];
   skillCostVersion?:2;
-  operationVersion?:2;
+  operationVersion?:2|3;
+  /** Authored encounters and combat tuning; absent keeps historical rules. */
+  balanceVersion?:1|2;
   commanderSkillVersion?:1;
   wavePlan?: WaveBrief[]; support?: SupportState; upgradePendingAt?: number;
   weapons: WeaponState[]; commonRanks: Record<string, number>; preferredBranches: Record<CharacterId, Branch>;

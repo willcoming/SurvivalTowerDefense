@@ -6,7 +6,7 @@ import { stepEnemies } from '../../src/sim/enemies';
 import { waveStats } from '../../src/sim/operations';
 import type { StageId } from '../../src/sim/types';
 
-const run = (stageId: StageId = 'S01', version?: string) => createRun({stageId,squadIds:['C01'],captainId:'C01',seed:101}, version);
+const run = (stageId: StageId = 'S01', version?: string) => createRun({stageId,squadIds:['C01'],captainId:'C01',seed:101}, version, {legacyBalance:true});
 describe('0.4.0-dev.2 pressure tuning', () => {
   it('increases crowds without changing eight waves, 90 XP per wave or deterministic restoration', () => {
     const config={stageId:'S01',squadIds:['C01'],captainId:'C01',seed:101} as const;

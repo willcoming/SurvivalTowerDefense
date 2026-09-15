@@ -1,8 +1,8 @@
 import { COMMANDER_MAX_XP, commanderProgress, createCommander, type CommanderReward, type CommanderState } from '../data/commander';
-import { stageProfile } from '../data/progression';
+import { previousStageProfile } from '../data/progression';
 import type { RunState,StageId } from '../sim/types';
 
-export const commanderVictoryXp=(id:StageId,difficulty?:'easy'|'hard',challenge=false)=>Math.round((40+stageProfile(id).waves.length*10)*(challenge?1.5:difficulty==='hard'?1.25:1));
+export const commanderVictoryXp=(id:StageId,difficulty?:'easy'|'hard',challenge=false)=>Math.round((40+previousStageProfile(id).waves.length*10)*(challenge?1.5:difficulty==='hard'?1.25:1));
 /** Existing completed stages receive their first-clear XP once when this system is introduced. */
 export function migrateCommander(cleared:StageId[]):CommanderState {
   const state=createCommander();state.firstClears=[...new Set(cleared)];

@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import type { EnemyId, StageId } from '../../src/sim/types';
+import { ENEMY_POSES } from '../../src/game/enemy-motion';
 const dir = process.env.VALIDATION_OUTPUT_DIR ?? 'artifacts/validation/enemy-motion';
 mkdirSync(`${dir}/screenshots`, { recursive: true });
 const groups: [StageId, EnemyId[]][] = [['S03',['E01','E02','E03','E04','E05','E06','E07','E08','B03']], ['S01',['B01']], ['S02',['B02']]];
@@ -27,7 +28,7 @@ for (const [stage, types] of groups) for(const speed of [1,3]) test(`ENEMY ${sta
   const positions=await page.evaluate(()=>window.__game.state()!.enemies.map(e=>({id:e.id,y:e.y})));
   await page.waitForFunction(types=>types.every(id=>[2,3,4,5,6,7].every(f=>window.__game.presentation().enemyHistory[id]?.frames.includes(f))),types);
   const moving=await page.evaluate(()=>({view:window.__game.presentation(), enemies:structuredClone(window.__game.state()!.enemies)}));
-  for(const e of moving.enemies){expect(e.y).toBeGreaterThan(positions.find(p=>p.id===e.id)!.y);const m=moving.view.enemyMotions.find(m=>m.id===e.id)!;expect(m.mode).toBe('move');expect(m.fps).toBeLessThanOrEqual(14);expect(m.texture).toBe(`enemy-motion-${e.defId}`);expect(moving.view.enemyTextureFrames[e.defId]).toBe(12);}
+  for(const e of moving.enemies){expect(e.y).toBeGreaterThan(positions.find(p=>p.id===e.id)!.y);const m=moving.view.enemyMotions.find(m=>m.id===e.id)!;expect(m.mode).toBe('move');expect(m.fps).toBeLessThanOrEqual(14);expect(m.texture).toBe(`enemy-motion-${e.defId}`);expect(moving.view.enemyTextureFrames[e.defId]).toBe(ENEMY_POSES.length);}
   await page.screenshot({path:`${dir}/screenshots/${info.project.name}-${stage}-${speed}x-moving.png`});
   await page.evaluate(()=>{const s=window.__game.state()!;s.enemies.forEach(e=>{e.y=e.defId.startsWith('B')?150:e.defId==='E05'?250:450;e.attackAt=s.tick+90000;});});
   await page.waitForFunction(types=>types.every(id=>[0,1].every(f=>window.__game.presentation().enemyHistory[id]?.frames.includes(f))),types);
@@ -71,4 +72,34 @@ test('ENEMY: stun freezes every pose, compact effects retain gait, pause and sav
   await page.evaluate(()=>{window.__game.state()!.enemies.find(e=>e.defId==='B03')!.chargeCancelled=true;});await page.waitForTimeout(1100);
   expect(await page.evaluate(()=>window.__game.presentation().enemyMotions.find(m=>m.type==='B03')!.releases)).toBe(0);
   writeFileSync(`${dir}/${info.project.name}-motion-recovery.json`,JSON.stringify({frozen,paused,saved,restored,resumed,warning},null,2));
+});
+
+for (const [stage, types] of groups) test(`ENEMY ${stage}: actual hit damage renders hurt and three death poses`, async ({ page }, info) => {
+  await boot(page, stage, 3); await fixture(page, types);
+  await page.evaluate(() => { for (const e of window.__game.state()!.enemies) { e.speed = 0; e.y += 125; } });
+  await page.waitForFunction(types => types.every(id => window.__game.presentation().enemyMotions.some(m => m.type === id)), types);
+  const ids = await page.evaluate(async () => {
+    const path = '/src/sim/combat.ts'; const { hitEnemy } = await import(path); const s = window.__game.state()!;
+    for (const e of s.enemies) hitEnemy(s, e, { source: 'C01', skill: 'normal', raw: 100, damageType: 'plasma', armorIgnore: 1, shieldMultiplier: 1 });
+    return s.enemies.map(e => e.id);
+  });
+  await page.waitForFunction(ids => ids.every(id => window.__game.presentation().enemyMotions.find(m => m.id === id)?.frame === 12), ids);
+  await page.screenshot({ path: `${dir}/screenshots/${info.project.name}-${stage}-hurt.png` });
+  await page.evaluate(async () => {
+    const path = '/src/sim/combat.ts'; const { hitEnemy } = await import(path); const s = window.__game.state()!;
+    for (const e of s.enemies) hitEnemy(s, e, { source: 'C01', skill: 'normal', raw: 1e12, damageType: 'plasma', armorIgnore: 1, shieldMultiplier: 1 });
+    // Leave the fixture battle open to observe all collapse frames before result navigation.
+    s.bossKilled = false;
+  });
+  const frames = await page.evaluate(() => new Promise<Record<number, number[]>>(resolve => {
+    const seen: Record<number, number[]> = {}; const start = performance.now();
+    function sample() {
+      for (const c of window.__game.presentation().corpseFrames) { const frames = seen[c.id] ?? (seen[c.id] = []); if (!frames.includes(c.frame)) frames.push(c.frame); }
+      if (performance.now() - start > 1000) resolve(seen); else requestAnimationFrame(sample);
+    }
+    sample();
+  }));
+  for (const id of ids) expect(frames[id]).toEqual([13, 14, 15]);
+  expect(await page.evaluate(() => window.__game.presentation().activeCorpses)).toBe(0);
+  writeFileSync(`${dir}/${info.project.name}-${stage}-hurt-death.json`, JSON.stringify({ evidence: 'Synthetic durable enemies; actual hitEnemy damage and normal RAF drive hurt and death, never a forced sprite frame.', ids, frames }, null, 2));
 });

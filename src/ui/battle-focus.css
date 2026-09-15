@@ -44,3 +44,12 @@
   .battle-focused .tactical-button b { font-size:13px; }
   .battle-focused .battle-hud { padding-top:max(3px,env(safe-area-inset-top)); }
 }
+
+/* Keep timing and wave progress visible without squeezing the wall and controls. */
+.battle-focused .battle-hud { grid-template-columns:minmax(0,1fr) auto; }
+.battle-focused .battle-header-controls { grid-column:2; }
+.battle-focused .time-hud { grid-column:1/-1; grid-row:2; display:flex; flex-wrap:wrap; justify-content:space-between; gap:2px 8px; }
+.battle-focused .time-hud > strong { font-size:14px; }
+.battle-focused .time-hud > span { font-size:11px; }
+.battle-focused .xp-track { grid-row:3; }
+#boss-countdown:empty { display:none; }

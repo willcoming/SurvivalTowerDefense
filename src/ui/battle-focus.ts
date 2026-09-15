@@ -11,7 +11,7 @@ export function enhanceBattleFocus(root: HTMLElement) {
   const body = document.createElement('div');
   body.className = 'battle-intel-body';
   body.setAttribute('aria-label', '隊伍與戰況資訊');
-  for (const selector of ['#wave-text', '.xp-caption', '#evolution-text', '#operation-event', '#weapon-strip', '#mechanic-readout', '#range-info']) {
+  for (const selector of ['.xp-caption', '#evolution-text', '#operation-event', '#weapon-strip', '#mechanic-readout', '#range-info']) {
     const node = layout.querySelector<HTMLElement>(selector);
     if (node) body.append(node);
   }
