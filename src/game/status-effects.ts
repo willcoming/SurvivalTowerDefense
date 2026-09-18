@@ -22,16 +22,19 @@ export class StatusEffects {
         g.fillStyle(0xfff1a8, .95).fillTriangle(x - 3, 54, x + 3, 54, x + bend * .5, 48 - h * .55);
       }
       g.generateTexture(`status-burn-${frame}`, 64, 64);
-      g.clear().lineStyle(2, 0xceeaff, .85).strokeEllipse(32, 32, 48, 16);
-      for (let i = 0; i < 3; i++) { const a = frame * Math.PI / 2 + i * Math.PI * 2 / 3, x = 32 + Math.cos(a) * 23, y = 32 + Math.sin(a) * 8; g.fillStyle(0xffffff, 1).fillTriangle(x - 4, y + 3, x + 4, y + 3, x, y - 6); }
+      g.clear();
+      // Compact solid stars communicate stun without orbit rings or connecting strokes.
+      for(let i=0;i<3;i++){
+        const x=16+i*16,y=32+(i===1?-7:4);
+        g.fillStyle(0xffef9a,1).fillTriangle(x-6,y,x+6,y,x,y-9).fillTriangle(x-6,y-4,x+6,y-4,x,y+5);
+      }
       g.generateTexture(`status-stun-${frame}`, 64, 64);
     }
-    g.clear().lineStyle(4, 0x67f7dc, .95).strokeEllipse(32, 32, 57, 22);
-    for (const x of [20, 32, 44]) g.lineStyle(2, 0xceffee, 1).beginPath().moveTo(x - 4, 23).lineTo(x + 4, 23).lineTo(x - 4, 40).lineTo(x + 4, 40).strokePath();
-    g.generateTexture('status-slow', 64, 64);
-    g.clear();
-    for (const x of [7, 57]) for (const y of [7, 57]) g.lineStyle(3, 0xffdf70, 1).beginPath().moveTo(x, y + (y < 32 ? 12 : -12)).lineTo(x, y).lineTo(x + (x < 32 ? 12 : -12), y).strokePath();
-    g.fillStyle(0xffdc66, 1).fillTriangle(26, 1, 38, 1, 32, 9).generateTexture('status-exposure', 64, 64);
+    g.clear().fillStyle(0x67f7dc,1);
+    g.fillTriangle(12,17,52,17,32,36).fillTriangle(12,34,52,34,32,53);
+    g.generateTexture('status-slow',64,64);
+    g.clear().fillStyle(0xffdc66,1).fillTriangle(10,15,54,15,32,53);
+    g.generateTexture('status-exposure',64,64);
     g.destroy();
     // Pack every state/frame into one texture so interleaved burn/slow/stun icons
     // share a single WebGL batch even when a hundred enemies have multiple states.
@@ -69,17 +72,21 @@ export class StatusEffects {
         let sprite = sprites.get(status); const key = `status-${status}${status === 'burn' || status === 'stun' ? `-${frame}` : ''}`;
         if (active.has(status)) {
           if (!sprite) {
-            const scale = status === 'stun' ? .8 : status === 'exposure' ? 1.05 : .95;
-            sprite = this.scene.add.image(0, 0, 'status-atlas', key).setDepth(8.5).setDisplaySize(size * scale, size * scale); sprites.set(status, sprite);
+            sprite = this.scene.add.image(0, 0, 'status-atlas', key).setDepth(8.5).setDisplaySize(16,16); sprites.set(status, sprite);
           }
           const element = enemy.effects.find(f => f.kind === 'burn')?.damageType ?? 'thermal';
           const row = { plasma: 0, thermal: 1, arc: 2, gravity: 3, kinetic: 0 }[element];
           if (status === 'burn') sprite.setTexture('combat-fx', row * 4 + 1 + frame % 2);
           else if (sprite.texture.key !== 'status-atlas' || sprite.frame.name !== key) sprite.setTexture('status-atlas', key);
           if(status==='burn'){const effect=enemy.effects.find(f=>f.kind==='burn'),element=effect?.damageType;if(usesCollection(run)&&element)sprite.setTint(parseInt(ELEMENTS[element].color.slice(1),16));else sprite.clearTint();}
-          const scale = detail === 'compact' ? .55 : status === 'stun' ? .8 : status === 'exposure' ? 1.05 : .95;
-          sprite.setDisplaySize(size * scale, size * scale * this.scene.cameras.main.zoomX / this.scene.cameras.main.zoomY);
-          sprite.setVisible(true).setPosition(enemy.x, enemy.y + (status === 'stun' ? -size * .55 : status === 'slow' ? size * .35 : status === 'burn' ? size * .12 : 0));
+          const controlStates=statuses.filter(state=>state!=='burn'&&active.has(state));
+          const width=status==='burn'?size*(detail==='compact'?.32:.46):enemy.defId.startsWith('B')?18:14;
+          sprite.setDisplaySize(width,width*this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY);
+          const slot=controlStates.indexOf(status);
+          sprite.setVisible(true).setPosition(
+            status==='burn'?enemy.x:enemy.x+size*.45+8,
+            status==='burn'?enemy.y+size*.2:enemy.y-size*.35+slot*16
+          );
         } else sprite?.setVisible(false);
       }
       if (active.size) this.visible.push({ id: enemy.id, states: [...active] });

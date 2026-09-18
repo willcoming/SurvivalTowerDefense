@@ -25,3 +25,24 @@ for(const width of [320,768,1024,1440])test(`dense battle remains readable at ${
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   expect(errors).toEqual([]);
 });
+
+for(const width of [320,1440])test(`stacked status indicators stay compact at ${width}`,async({page},info)=>{
+  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.setViewportSize({width,height:width===320?600:900});
+  await page.goto('/');await page.waitForFunction(()=>!!window.__game);
+  await page.evaluate(()=>window.__game.start({stageId:'S03',squadIds:['C01'],captainId:'C01',seed:101}));
+  await page.locator('#battle-loading').waitFor({state:'detached'});
+  await page.locator('[data-action="tutorial-done"]').first().click();
+  const id=await page.evaluate(async()=>{
+    const path='/src/sim/combat.ts';const {createEnemy}=await import(path),s=window.__game.state()!;
+    s.enemies=[];s.spawnCursor=s.spawnPlan.length;s.weapons.forEach(w=>w.nextAttack=s.tick+999999);s.tacticalReadyAt=s.tick+999999;
+    const e=createEnemy(s,'E03',195,250,0);e.speed=0;
+    for(const kind of ['burn','slow','stun','exposure'] as const)e.effects.push({id:`visual-${kind}`,kind,source:'C01',value:.1,expires:s.tick+300,nextTick:s.tick+300,armorIgnore:0});
+    s.actionSeq++;return e.id;
+  });
+  await expect.poll(()=>page.evaluate(id=>window.__game.presentation().statuses.find(s=>s.id===id)?.states.length,id)).toBe(4);
+  await page.screenshot({path:info.outputPath(`stacked-status-${width}.png`)});
+  await page.evaluate(id=>{const s=window.__game.state()!;s.enemies.find(e=>e.id===id)!.effects=[];s.actionSeq++;},id);
+  await expect.poll(()=>page.evaluate(id=>window.__game.presentation().statuses.some(s=>s.id===id),id)).toBe(false);
+  expect(errors).toEqual([]);
+});
