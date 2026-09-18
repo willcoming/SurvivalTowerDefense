@@ -50,24 +50,13 @@ export function bolt(g: Graphics, from: Point, to: Point, color: number, alpha: 
 }
 
 export function drawField(g: Graphics, field: Field, tick: number, detail: Detail, run?:RunState) {
-  const { x, y, radius: r } = field, phase = tick / 22 + field.id;
-  const c=run&&usesCollection(run)?parseInt(ELEMENTS[attackType(run,field.source)].color.slice(1),16):undefined;
-  if (field.kind === 'gravity') {
-    g.fillStyle(c??0x4de0c7, .08).fillCircle(x, y, r);
-    g.lineStyle(3, c??0x65f4da, .9).strokeCircle(x, y, r);
-    g.lineStyle(1, 0xb1ffff, .5).strokeEllipse(x, y, r * 1.4, r * .72);
-    polygon(g, x, y, r * .42, 6, 0xb2fff1, .7, phase, 1);
-    g.fillStyle(0x092f37, .9).fillCircle(x, y, r * .17);
-    if (detail === 'full') for (let i = 0; i < 6; i++) { const a = phase + i * TAU / 6; const rr = r * (.45 + .4 * ((tick / 40 + i / 6) % 1)); g.fillStyle(0xb2fff1, .7).fillCircle(x + Math.cos(a) * rr, y + Math.sin(a) * rr * .5, 2); }
-  } else {
-    g.fillStyle(c??0xff572c, .16).fillCircle(x, y, r);
-    g.lineStyle(3, c??0xffb761, .9).strokeCircle(x, y, r);
-    for (let i = 0; i < (detail === 'full' ? 9 : 4); i++) {
-      const a = i * 2.399, rr = r * Math.sqrt((i + 1) / 10), fx = x + Math.cos(a) * rr, fy = y + Math.sin(a) * rr;
-      const h = 9 + (Math.sin(phase * 2 + i) + 1) * 6;
-      g.fillStyle(c??0xff8a3a, .55).fillTriangle(fx - 4, fy, fx + 5, fy, fx + 2, fy - h);
-      g.fillStyle(0xffe8a5, .8).fillTriangle(fx - 2, fy, fx + 2, fy, fx, fy - h * .55);
-    }
+  const { x, y, radius: r } = field;
+  const c=run&&usesCollection(run)?parseInt(ELEMENTS[attackType(run,field.source)].color.slice(1),16):field.kind==='gravity'?0x65f4da:0xff8a3a;
+  // A quiet footprint communicates area; the material atlas supplies the effect itself.
+  g.fillStyle(c, detail==='compact'?.025:.045).fillCircle(x,y,r);
+  if(detail==='full')for(let i=0;i<3;i++){
+    const a=tick/50+field.id+i*TAU/3;
+    g.fillStyle(c,.3).fillCircle(x+Math.cos(a)*r*.6,y+Math.sin(a)*r*.6,1.5);
   }
 }
 

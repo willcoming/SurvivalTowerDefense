@@ -31,11 +31,12 @@ export class BossAssault {
     const g=this.graphics;g.clear();
     for (const strike of this.strikes) {
       const t=(now-strike.born)/500,alpha=1-t;
-      // Instant beam conveys the already-resolved hit; trailing rings never imply delayed damage.
-      g.lineStyle((strike.heavy?10:5)*(1-t*.65),strike.color,alpha*.75);
-      g.beginPath().moveTo(strike.x,strike.y+18).lineTo(195,450).strokePath();
-      g.lineStyle(2,0xfff4dc,alpha*.85).beginPath().moveTo(strike.x,strike.y+18).lineTo(195,450).strokePath();
-      g.lineStyle(3,strike.color,alpha).strokeEllipse(195,446,30+t*(strike.heavy?230:140),10+t*22);
+      // Only a brief release cue spans the arena; impact feedback stays at the wall.
+      if(t<.2){
+        g.lineStyle(strike.heavy?4:2,strike.color,(1-t/.2)*.65);
+        g.beginPath().moveTo(strike.x,strike.y+18).lineTo(195,450).strokePath();
+      }
+      g.fillStyle(strike.color,alpha*.16).fillEllipse(195,446,30+t*(strike.heavy?140:90),8+t*12);
       if (!reduced) for(let i=0;i<7;i++) {
         const a=Math.PI+(i/6)*Math.PI,r=12+t*(strike.heavy?70:45);
         g.fillStyle(strike.color,alpha).fillCircle(195+Math.cos(a)*r,446+Math.sin(a)*r,2*(1-t)+1);
