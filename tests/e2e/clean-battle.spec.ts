@@ -46,3 +46,21 @@ for(const width of [320,1440])test(`stacked status indicators stay compact at ${
   await expect.poll(()=>page.evaluate(id=>window.__game.presentation().statuses.some(s=>s.id===id),id)).toBe(false);
   expect(errors).toEqual([]);
 });
+
+for(const kind of ['shield','tactical'] as const)test(`C06 ${kind} uses a small core instead of a stretched blue oval`,async({page},info)=>{
+  await page.setViewportSize({width:390,height:844});await page.goto('/');await page.waitForFunction(()=>!!window.__game);
+  await page.evaluate(()=>window.__game.start({stageId:'S01',squadIds:['C06'],captainId:'C06',seed:101}));
+  await page.locator('#battle-loading').waitFor({state:'detached'});await page.locator('[data-action="tutorial-done"]').first().click();
+  const core=await page.evaluate(async kind=>{
+    const path='/src/sim/combat.ts';const {emit}=await import(path),s=window.__game.state()!;
+    emit(s,{kind,source:'C06',skill:'shield-visual-check',x:195,y:421,value:100});
+    return new Promise<{width:number;height:number}>((resolve,reject)=>{
+      const start=performance.now();function check(){
+        const cores=window.__game.presentation().materialEffects.shieldCores;
+        if(cores.length)resolve(cores[0]);else if(performance.now()-start>2000)reject(new Error('Shield feedback absent'));else requestAnimationFrame(check);
+      }requestAnimationFrame(check);
+    });
+  },kind);
+  expect(core.width).toBeLessThanOrEqual(42);expect(core.height).toBeGreaterThan(0);
+  await page.screenshot({path:info.outputPath(`${kind}-core.png`)});
+});

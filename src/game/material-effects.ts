@@ -60,7 +60,7 @@ export class MaterialEffects {
       const evolved = e.weaponRank === 3, size = evolved ? 1.3 : 1;
       if (e.kind === 'explosion' || e.kind === 'tactical') {
         if (e.kind === 'tactical' && e.source === 'C06') {
-          this.draw('combat-props', 8 + phase, 195, 365, 160, alpha * .85, 0, 330);
+          this.draw('combat-props', 8, 195, 420, 42, alpha * .85);
         } else {
           this.impact(type, phase, e.x, e.y, Math.min(220, (e.radius ?? 55) * 2), alpha);
         }
@@ -87,7 +87,7 @@ export class MaterialEffects {
       } else if (e.kind === 'death') {
         this.draw('combat-props', t < .4 ? 6 : 5, e.x, e.y - t * 9, e.enemyDefId?.startsWith('B') ? 106 : 33, alpha * .8, 0);
       } else if (e.kind === 'shield') {
-        this.draw('combat-props', 8 + phase, 195, 421, 48, alpha, 0, 330);
+        this.draw('combat-props', 8, 195, 421, 24, alpha);
       } else if (e.kind === 'evolution') {
         const p = origin(e.source);
         this.impact(type, phase, p.x, 465, 64, alpha);
@@ -101,5 +101,5 @@ export class MaterialEffects {
     for (let i = this.used; i < this.sprites.length; i++) this.sprites[i].setVisible(false);
     this.peak = Math.max(this.peak, this.used);
   }
-  diagnostics() { return { materialEffects: { active: this.used, allocated: this.sprites.length, peak: this.peak, textures: this.counts, limit: this.limit, ammunition: this.sprites.slice(0, this.used).filter(s => s.texture.key === 'combat-ammo').map(s => ({ frame: Number(s.frame.name), x: s.x, y: s.y, width: s.displayWidth })) } }; }
+  diagnostics() { return { materialEffects: { active: this.used, allocated: this.sprites.length, peak: this.peak, textures: this.counts, limit: this.limit, shieldCores: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===8).map(s=>({x:s.x,y:s.y,width:s.displayWidth,height:s.displayHeight})), ammunition: this.sprites.slice(0, this.used).filter(s => s.texture.key === 'combat-ammo').map(s => ({ frame: Number(s.frame.name), x: s.x, y: s.y, width: s.displayWidth })) } }; }
 }
