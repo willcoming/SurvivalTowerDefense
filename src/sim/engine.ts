@@ -18,6 +18,7 @@ import type { CharacterId, Command, RunConfig, RunState } from './types';
 import { applyUpgrade, castTactical, stepWeapons } from './weapons';
 export { getLegalNodeIds, getReadyEvolutions } from './draft';
 export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, compatibility:{operationVersion?:2|3;legacyOperations?:boolean;legacyCommonSkills?:boolean;legacyBalance?:boolean;balanceVersion?:1|2}={}):RunState{
+  if(config.mode!==undefined&&(config.mode!=='hundred'||config.stageId!=='S03'||config.difficulty!=='easy'||config.challengeId||contentVersion!==CONTENT_VERSION||compatibility.legacyOperations||compatibility.legacyBalance||compatibility.operationVersion===2||compatibility.balanceVersion===1))throw new Error('百波挑戰設定不相容');
   if(compatibility.operationVersion!==undefined&&![2,3].includes(compatibility.operationVersion))throw new Error('Unknown operation version');
   if(compatibility.operationVersion===3&&compatibility.legacyBalance)throw new Error('New operations require authored balance');
   if(compatibility.legacyBalance&&compatibility.balanceVersion!==undefined)throw new Error('Conflicting balance compatibility');
@@ -118,7 +119,7 @@ export function stepRun(s:RunState,count=1):void{
     if(getPhase(s)!=='running')break;
     s.tick++;
     while(s.spawnCursor<s.spawnPlan.length&&s.spawnPlan[s.spawnCursor].at<=s.tick){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,20,p.xp,p.wave);}
-    if(!usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(operationProfile(s).bossAt)){s.bossSpawned=true;createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,operationProfile(s).waves.length+1);}
+    if(!usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(operationProfile(s).bossAt)){s.bossSpawned=true;createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,s.config.mode==='hundred'?100:operationProfile(s).waves.length+1);}
     s.shields=s.shields.filter(x=>x.value>0&&x.expires>s.tick);
     stepEffects(s);stepWeapons(s);stepProjectiles(s);stepFields(s);
     for(const h of s.scheduled.filter(h=>h.at<=s.tick)){
@@ -127,7 +128,7 @@ export function stepRun(s:RunState,count=1):void{
     }s.scheduled=s.scheduled.filter(h=>h.at>s.tick);
     if(usesFreeSkills(s))stepSupport(s);
     stepEnemies(s);s.enemies=s.enemies.filter(e=>e.hp>0);
-    if(usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(operationProfile(s).bossAt)&&s.wallHp>0){s.bossSpawned=true;const entering=createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,operationProfile(s).waves.length+1);if(usesCollection(s))spawnBossEscort(s,entering);s.bossIntro={enemyId:entering.id,remainingMs:BOSS_INTRO_MS};s.pauseReasons.push('boss-intro');}
+    if(usesRangeRules(s)&&!s.bossSpawned&&s.tick>=ticks(operationProfile(s).bossAt)&&s.wallHp>0){s.bossSpawned=true;const entering=createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,s.config.mode==='hundred'?100:operationProfile(s).waves.length+1);if(usesCollection(s))spawnBossEscort(s,entering);s.bossIntro={enemyId:entering.id,remainingMs:BOSS_INTRO_MS};s.pauseReasons.push('boss-intro');}
     if(s.wallHp<=0)s.outcome='wall';
     else if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!s.enemies.length&&(!usesFreeSkills(s)||(s.choicesSpent>=s.choicesEarned||!getLegalNodeIds(s).length)))s.outcome='victory';
     else if(!operationProfile(s).unlimited&&s.tick>=ticks(operationProfile(s).deadline))s.outcome='timeout';

@@ -27,7 +27,7 @@ function wallShot(s:RunState,e:Enemy,damage:number){
 function summon(s:RunState,e:Enemy){
   acted(s,e,'summon');
   const def=e.defId==='B01'?'E01':e.summonCount%2===0?'E02':'E03';const count=e.defId==='B01'?6:def==='E02'?4:2;
-  for(let i=0;i<count;i++)createEnemy(s,def,Math.max(20,Math.min(370,e.x+(i-(count-1)/2)*35)),Math.min(320,e.y+50),0,9);
+  for(let i=0;i<count;i++)createEnemy(s,def,Math.max(20,Math.min(370,e.x+(i-(count-1)/2)*35)),Math.min(320,e.y+50),0,s.config.mode==='hundred'?e.wave:9);
   e.summonCount++;e.summonAt+=ticks(e.defId==='B01'?18:24);
 }
 export function stepEnemies(s:RunState){

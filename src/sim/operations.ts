@@ -24,7 +24,7 @@ export function prepareOperation(s:RunState) {
   const variants:WaveBrief['variant'][]=['standard','fast','armored','shielded'];
   const events:WaveBrief['event'][]=['ion','heat','gravity'];
   if(s.balanceVersion!==undefined){
-    s.wavePlan=operationProfile(s).waves.map((_,i)=>{const pattern=encounterPattern(s.config.stageId,i+1,{balanceVersion:s.balanceVersion,difficulty:s.config.difficulty,challengeId:s.config.challengeId});return {wave:i+1,variant:i===0||i<4&&pattern.variant==='armored'?'standard':pattern.variant,event:i<2?'none':pattern.event};});
+    s.wavePlan=operationProfile(s).waves.map((_,i)=>{const pattern=encounterPattern(s.config.stageId,s.config.mode==='hundred'?i%10+1:i+1,{balanceVersion:s.balanceVersion,difficulty:s.config.difficulty,challengeId:s.config.challengeId});return {wave:i+1,variant:i===0||i<4&&pattern.variant==='armored'?'standard':pattern.variant,event:i<2?'none':pattern.event};});
     return;
   }
   s.wavePlan=Array.from({length:operationProfile(s).waves.length},(_,i)=>({wave:i+1,variant:i===0?'standard':variants[Math.floor(nextRandom(s.rng,'spawn')*variants.length)],event:[2,4,6].includes(i)?events[Math.floor(nextRandom(s.rng,'spawn')*events.length)]:'none'}));
@@ -39,10 +39,11 @@ export function prepareOperation(s:RunState) {
 }
 export function waveStats(s:RunState,id:EnemyId,wave:number){
   const d=ENEMY_MAP[id],boss=id.startsWith('B'),tuning=pressure(s),ramped=wave>=7;
-  const factor=boss?tuning.bossHealth*operationProfile(s).bossScale:STAGE_MAP[s.config.stageId].hpMultiplier*(s.balanceVersion!==undefined||ramped?tuning.health:1);
+  const band=Math.min(9,Math.floor((wave-1)/10));
+  const factor=s.config.mode==='hundred'&&!boss?(.85+band*.35):boss?tuning.bossHealth*operationProfile(s).bossScale:STAGE_MAP[s.config.stageId].hpMultiplier*(s.balanceVersion!==undefined||ramped?tuning.health:1);
   const brief=usesFreeSkills(s)&&!boss?s.wavePlan?.find(w=>w.wave===wave):undefined;
   const hp=d.hp*factor*difficultyTuning(s).health*(brief?.variant==='fast'?.9:brief?.variant==='shielded'?.92:1);
-  return {hp,shield:d.shield*factor+hp*((brief?.variant==='shielded'?.15:0)+(brief?.event==='ion'?.1:0)),armor:Math.min(.7,d.armor+(brief?.variant==='armored'?.08:0)+(brief?.event==='heat'?.05:0)),speed:d.speed*(s.balanceVersion!==undefined||ramped?tuning.speed:1)*(brief?.variant==='fast'?1.15:brief?.variant==='armored'?.9:1)*(brief?.event==='gravity'?1.1:1)};
+  return {hp,shield:d.shield*factor+hp*((brief?.variant==='shielded'?.15:0)+(brief?.event==='ion'?.1:0)),armor:Math.min(.7,d.armor+(brief?.variant==='armored'?.08:0)+(brief?.event==='heat'?.05:0)),speed:d.speed*(s.config.mode==='hundred'&&!boss?1+band*.025:1)*(s.balanceVersion!==undefined||ramped?tuning.speed:1)*(brief?.variant==='fast'?1.15:brief?.variant==='armored'?.9:1)*(brief?.event==='gravity'?1.1:1)};
 }
 export function eventMultiplier(s:RunState,wave:number,type:string){
   const event=s.wavePlan?.find(w=>w.wave===wave)?.event;

@@ -58,6 +58,7 @@ export function operationHome(save: GameSave, vm: ViewModel) {
       <button class="button primary deploy-button mission-start" data-action="start" aria-label="開始作戰" ${!save.preferences.squadIds.length || overCapacity ? 'disabled' : ''}>${vm.challengeId ? `<small>${CHALLENGE_NAMES[vm.challengeId]}${overCapacity ? ' · 請先調整編隊' : ''}</small>` : ''}<span class="mission-start-label"><strong>START</strong><b>開始作戰</b></span></button>
     </section>
     </section>
+    <button class="hundred-entry" data-action="hundred"><span>百波挑戰 <small>100 WAVES</small></span><b>${save.profile.hundredBest?`最高 ${save.profile.hundredBest.waves} 波`:'挑戰最高紀錄'} →</b></button>
     ${offlineSummary()}
   </main>`;
 }

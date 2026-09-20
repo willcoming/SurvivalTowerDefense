@@ -7,6 +7,7 @@ export type DamageType = 'plasma' | 'arc' | 'kinetic' | 'gravity' | 'thermal';
 export type ChallengeId = 'four' | 'no-skill' | 'two-evolutions' | null;
 export type PauseReason = 'user' | 'upgrade' | 'hidden' | 'orientation' | 'tutorial' | 'error' | 'boss-intro' | 'tree';
 export interface RunConfig {
+  mode?: 'hundred';
   difficulty?: 'easy' | 'hard';
   commanderNodes?: string[];
   stageId: StageId; squadIds: CharacterId[]; captainId: CharacterId;

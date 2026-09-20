@@ -10,7 +10,7 @@ import type { StageId } from '../sim/types';
 import { esc, num, portrait } from './format';
 
 export const destinationNames: Record<string, string> = {
-  commander:'指揮官成長', home: '作戰', command:'戰術指揮台', intel: '作戰情報', roster: '編隊', recruitment: '招募', codex: '圖鑑', stories: '紀錄', settings: '設定',
+  hundred:'百波挑戰',commander:'指揮官成長', home: '作戰', command:'戰術指揮台', intel: '作戰情報', roster: '編隊', recruitment: '招募', codex: '圖鑑', stories: '紀錄', settings: '設定',
 };
 
 export function gameHud(save: GameSave, status: string, page: Page) {
@@ -19,7 +19,7 @@ export function gameHud(save: GameSave, status: string, page: Page) {
   const captain = run?.config.captainId ?? save.preferences.captainId;
   return `<header class="masthead game-hud" aria-label="指揮官與資源">
     <button class="commander-profile" data-action="${battle ? 'battle-settings' : 'commander'}" aria-label="${battle?'編輯指揮官資料':'指揮官成長與共用技能'}">
-      ${portrait(captain)}<span><small>${battle?`${difficultyName(run?.config.difficulty)} / 作戰中`:"STARFALL / 指揮官"}</small><strong>${esc(save.preferences.commanderName ?? '指揮官')}</strong></span>
+      ${portrait(captain)}<span><small>${battle?`${run?.config.mode==='hundred'?'百波挑戰':difficultyName(run?.config.difficulty)} / 作戰中`:"STARFALL / 指揮官"}</small><strong>${esc(save.preferences.commanderName ?? '指揮官')}</strong></span>
       <b title="每升一級獲得 1 點共用技能點">Lv.${commanderProgress(commanderState(save)).level}</b>
     </button>
     <div class="hud-controls"><button class="icon-button" data-action="${battle ? 'battle-settings' : 'settings'}" aria-label="設定">⚙</button></div>
@@ -34,7 +34,7 @@ export function gameHud(save: GameSave, status: string, page: Page) {
 
 export function gameNav(save: GameSave, page: Page) {
   const canRecruit = missingForms(save.collection).length > 0 && (save.collection.tickets > 0 || save.collection.points >= 100);
-  const active = ['battle', 'intel', 'result', 'command'].includes(page) ? 'home' : page;
+  const active = ['hundred','battle', 'intel', 'result', 'command'].includes(page) ? 'home' : page;
   return `<nav class="main-nav game-dock" aria-label="主選單">${[
     ['home', '⌖', '作戰中心'], ['roster', '◈', '小隊編成'], ['recruitment', '✦', '星際招募'],
   ].map(([id, icon, label]) => `<button data-action="${id}" aria-label="${label}" ${active === id ? 'aria-current="page" class="active"' : ''}><span class="game-nav-icon" aria-hidden="true">${icon}</span><span class="game-nav-label">${destinationNames[id]}</span>${id === 'recruitment' && canRecruit ? '<span class="nav-notification" aria-label="可招募或兌換"></span>' : ''}</button>`).join('')}</nav>`;

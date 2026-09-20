@@ -1,0 +1,17 @@
+#app .hundred-entry { flex:none; display:flex; justify-content:space-between; align-items:center; gap:8px; margin:0 16px; padding:12px; border:1px solid #d7b69366; border-radius:8px; color:#f1d9b8; background:#142b36; text-align:left; cursor:pointer; }
+.hundred-entry small { display:block; font-size:10px; letter-spacing:.1em; color:#a5b7bf; }
+.hundred-entry b { font-size:12px; }
+.hundred-screen { max-width:850px; }
+.hundred-record { padding:24px; margin:16px 0; border:1px solid #d7b69355; border-radius:12px; background:linear-gradient(120deg,#183340,#101e2b); }
+.hundred-record h2 { font-size:36px; color:#f1d9b8; margin:12px 0; }
+.hundred-record h2 small { font-size:18px; color:#a5b7bf; }
+.hundred-rules p { line-height:1.8; color:var(--muted); }
+.hundred-squad { display:flex; gap:8px; margin:24px 0; }
+.hundred-squad img { width:52px; height:64px; object-fit:cover; border-radius:8px; }
+.hundred-screen .action-bar { display:flex; flex-wrap:wrap; gap:12px; }
+@media(max-width:480px) { .hundred-record { padding:16px; } .hundred-screen .action-bar .button { flex:1 1 100%; } }
+
+.hundred-screen > [data-action="start-hundred"] { width:100%; min-height:50px; flex:none; }
+.hundred-screen .action-bar { margin:16px 0; flex:none; position:static; }
+.hundred-summary { margin:16px 0; color:#c4d4da; font-size:14px; }
+.hundred-rules summary { cursor:pointer; padding:12px 0; font-weight:700; color:#f1d9b8; }

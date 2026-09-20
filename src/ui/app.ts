@@ -1,3 +1,6 @@
+import { hundredCleared } from '../data/hundred';
+import './hundred.css';
+import { hundredPage } from './hundred';
 import { bindOfflineUi, refreshOfflineUi } from './offline';
 import {commanderPage,commanderState} from './commander';
 import {upgradeCommander} from '../data/commander';
@@ -10,7 +13,7 @@ import { NODE_MAP, TREE_MAP, treesFor, usesSkillTrees } from '../data/skill-tree
 import { treePanel } from './skill-tree';
 import { CHARACTER_MAP, STAGES, BUILDS, CONTENT_VERSION } from '../data/content';
 import { createRun, stepRun, command, restoreRun, advanceBossIntro } from '../sim/engine';
-import { GameRepository, createDefaultSave, completeRun, IncompatibleRunError, SaveConflictError, type GameSave } from '../storage/repository';
+import { GameRepository, createDefaultSave, completeRun, recordHundred, IncompatibleRunError, SaveConflictError, type GameSave } from '../storage/repository';
 import type { Branch, CharacterId, ChallengeId, Command, RunConfig, RunState, StageId } from '../sim/types';
 import type { Page, ViewModel } from './model';
 import { intel, codex, stories, settings } from './lobby';
@@ -113,7 +116,7 @@ export class GameApp {
       }, () => this.save.preferences.battleSpeed, () => this.selectedRange, this.tacticalTimeline);
       updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
-      const screens = { commander:()=>commanderPage(this.save),command:()=>tacticalCommand(this.save,this.vm),recruitment:()=>recruitment(this.save,this.collecting,this.vm.recruitView),home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.rosterSave(), this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.rewards,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.commanderReward) : home(this.save, this.vm), battle: () => '' };
+      const screens = { hundred:()=>hundredPage(this.save), commander:()=>commanderPage(this.save),command:()=>tacticalCommand(this.save,this.vm),recruitment:()=>recruitment(this.save,this.collecting,this.vm.recruitView),home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.rosterSave(), this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.rewards,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.commanderReward,this.save.profile.hundredBest) : home(this.save, this.vm), battle: () => '' };
       this.root.innerHTML = `${gameSurround(this.vm.stageId, false)}${gameHud(this.save, this.vm.saveStatus, page)}${this.notice()}${screens[page]()}${gameNav(this.save, page)}<div id="global-overlay"></div>`;
       enhanceMobile(this.root, page, this.mobile);
       enhanceMobileNotice(this.root, this.mobile);
@@ -283,7 +286,7 @@ export class GameApp {
     let discovered = false;
     for (const id of run.stats.encountered) if (!this.save.profile.seenEnemies.includes(id)) { this.save.profile.seenEnemies.push(id); discovered = true; }
     if (discovered) void this.persist();
-    const boundary = `${Math.floor(run.tick / (operationProfile(run).interval*30))}:${run.draft?.id ?? '-'}:${run.bossSpawned}`;
+    const boundary = `${Math.floor(run.tick / (operationProfile(run).interval*30))}:${run.draft?.id ?? '-'}:${run.bossSpawned}:${run.config.mode==='hundred'?hundredCleared(run):''}`;
     if (boundary !== this.saveBoundary) { this.saveBoundary = boundary; void this.persist(); }
     this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     if (run.phase === 'ended') { void this.finish(); return; }
@@ -301,6 +304,7 @@ export class GameApp {
     if(this.collecting&&!collectionFlush)return this.saveQueue;
     if (!this.ready || this.temporary) return Promise.resolve();
     for (const id of this.save.activeRun?.stats.encountered ?? []) if (!this.save.profile.seenEnemies.includes(id)) this.save.profile.seenEnemies.push(id);
+    if(this.save.activeRun)recordHundred(this.save,this.save.activeRun);
     const copy = structuredClone(this.save);
     // A run lives only in this play session. Persist collection and formation, never a resumable battle.
     copy.activeRun = null;
@@ -320,7 +324,7 @@ export class GameApp {
   private updateSaveStatus() { this.root.querySelectorAll('.local-status').forEach(el => { el.innerHTML = `<i></i>${esc(this.vm.saveStatus)}`; }); const status = this.root.querySelector('.save-information h2'); if (status) status.textContent = this.vm.saveStatus; }
   private async action(action: string, id?: string) {
     if(this.collecting)return;
-    if (['home', 'intel', 'roster', 'codex', 'stories', 'settings','recruitment','command','commander'].includes(action)) {
+    if (['hundred','home', 'intel', 'roster', 'codex', 'stories', 'settings','recruitment','command','commander'].includes(action)) {
       if(this.vm.page==='battle' && this.save.activeRun) {
         if(action==='home') return;
         this.vm.navigationTarget=action as Page;
@@ -329,6 +333,7 @@ export class GameApp {
         this.overlay(); return;
       }
       this.vm.commandPanel=undefined;
+      if(action==='hundred')this.vm.challengeId=null;
       this.go(action as Page);
       if (action === 'settings' && id === 'offline') this.root.querySelector<HTMLElement>('.offline-settings')?.scrollIntoView({ block: 'start' });
       return;
@@ -441,6 +446,12 @@ export class GameApp {
         build.routes.forEach(r => { draft.branches[r.slice(0, 3) as CharacterId] = r.slice(-1) as Branch; }); this.render(); break;
       }
       case 'difficulty': if(id==='hard'&&!hardUnlocked(this.save,this.vm.stageId))break;if(id==='easy'||id==='hard'){this.save.preferences.difficulty=id;this.vm.challengeId=null;this.render();this.root.querySelector<HTMLElement>(`[data-action="difficulty"][data-id="${id}"]`)?.focus({preventScroll:true});void this.persist();} break;
+      case 'start-hundred': {
+        const p=this.save.preferences;
+        const config:RunConfig={mode:'hundred',stageId:'S03',difficulty:'easy',squadIds:[...p.squadIds],captainId:p.captainId,preferredBranches:{...p.branches},forms:Object.fromEntries(p.squadIds.map(id=>[id,ownedForm(this.save.collection,id)])),seed:this.seed()};
+        try{validateRoster(this.save.collection,config);}catch(error){this.vm.message=String(error);this.render();break;}
+        await this.start(config);break;
+      }
       case 'start': await this.start(); break;
       case 'speed': {
         const run = this.save.activeRun;

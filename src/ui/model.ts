@@ -2,7 +2,7 @@ import type { SkillOwner } from '../data/deep-trees';
 import type { CharacterId, StageId, ChallengeId } from '../sim/types';
 import type { RosterPanel } from './roster';
 import type { CommandPanel } from './command-panel';
-export type Page = 'home' | 'intel' | 'roster' | 'codex' | 'stories' | 'settings' | 'battle' | 'result' | 'recruitment' | 'command' | 'commander';
+export type Page = 'hundred' | 'home' | 'intel' | 'roster' | 'codex' | 'stories' | 'settings' | 'battle' | 'result' | 'recruitment' | 'command' | 'commander';
 export interface ViewModel {
   page: Page; stageId: StageId; characterId: CharacterId; challengeId: ChallengeId;
   retrySeed: number | null; selectedCard: string | null; modal: 'pause' | 'tutorial' | 'abandon' | 'reset' | null;

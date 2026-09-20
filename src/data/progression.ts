@@ -1,3 +1,4 @@
+import { HUNDRED_PROFILE, isHundred } from './hundred';
 import { encounterPattern, encounterWeights, type EncounterContext } from './encounters';
 import { STAGE_MAP, ENEMY_CODE } from './content';
 import type { RunConfig, RunState, StageId } from '../sim/types';
@@ -71,6 +72,7 @@ export function stageProfile(id:StageId,difficulty:NonNullable<RunConfig['diffic
 }
 /** Existing snapshots retain their authored schedule and balance rules. */
 export function operationProfile(s:Pick<RunState,'config'|'operationVersion'|'balanceVersion'>):OperationProfile {
+  if(isHundred(s))return HUNDRED_PROFILE;
   if(s.operationVersion===3)return stageProfile(s.config.stageId,s.config.difficulty,{balanceVersion:s.balanceVersion,challengeId:s.config.challengeId});
   if(s.operationVersion===2)return s.balanceVersion!==undefined?previousStageProfile(s.config.stageId,s.config.difficulty,{balanceVersion:s.balanceVersion,challengeId:s.config.challengeId}):legacyStageProfile(s.config.stageId);
   const waves=STAGE_MAP[s.config.stageId].waves;

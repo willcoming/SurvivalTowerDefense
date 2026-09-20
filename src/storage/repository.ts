@@ -1,3 +1,4 @@
+import { betterHundred, hundredScore, isHundred, type HundredScore } from '../data/hundred';
 import {createCommander,validateCommander,type CommanderState,type CommanderReward} from '../data/commander';
 import {migrateCommander,awardCommander} from './commander';
 import { CHARACTER_IDS, supportedContent, SCHEMA_VERSION, STAGE_MAP } from '../data/content';
@@ -8,11 +9,11 @@ import { createCollection, migrateCollection, syncRewards, validateCollection, a
 export const DB_NAME='starfall-defense';export const STORE_NAME='records';export const SAVE_KEY='save';
 export type BattleSpeed = 1 | 2 | 3;
 export interface RewardSummary {tickets:number;points:number;forms:number;completed:boolean}
-export interface RunSummary {difficulty?:Difficulty;rating?:number;rewards?:RewardSummary;commanderReward?:CommanderReward;runId:string;stageId:StageId;seed:number;squadIds:CharacterId[];captainId:CharacterId;outcome:RunState['outcome'];tick:number;wallHp:number;stats:RunState['stats'];challengeId:RunState['config']['challengeId']}
+export interface RunSummary {mode?:'hundred';hundredScore?:HundredScore;difficulty?:Difficulty;rating?:number;rewards?:RewardSummary;commanderReward?:CommanderReward;runId:string;stageId:StageId;seed:number;squadIds:CharacterId[];captainId:CharacterId;outcome:RunState['outcome'];tick:number;wallHp:number;stats:RunState['stats'];challengeId:RunState['config']['challengeId']}
 export interface GameSave {
  revision:number;
  collection:CollectionState;
- profile:{commander?:CommanderState;schemaVersion:1;cleared:StageId[];easyCleared?:StageId[];hardCleared?:StageId[];seenEnemies:EnemyId[];best:Record<string,{time:number;hp:number}>;challengeClears:string[];recentRuns:RunSummary[]};
+ profile:{hundredBest?:HundredScore;commander?:CommanderState;schemaVersion:1;cleared:StageId[];easyCleared?:StageId[];hardCleared?:StageId[];seenEnemies:EnemyId[];best:Record<string,{time:number;hp:number}>;challengeClears:string[];recentRuns:RunSummary[]};
  preferences:{difficulty?:Difficulty;commanderName?:string;squadIds:CharacterId[];captainId:CharacterId;branches:Record<CharacterId,Branch>;musicVolume:number;sfxVolume:number;reducedEffects:boolean;tutorialSeen:boolean;battleSpeed:BattleSpeed;autoTactical:boolean};
  activeRun:RunState|null;
 }
@@ -20,9 +21,21 @@ export class SaveConflictError extends Error {constructor(){super('另一個分�
 export class SaveValidationError extends Error {constructor(message='本機紀錄格式損壞，原始資料已保留'){super(message);this.name='SaveValidationError';}}
 export class IncompatibleRunError extends SaveValidationError {preservedSave:GameSave;constructor(save:GameSave){super('本局內容版本不相容；可保留解鎖進度並放棄舊局');this.name='IncompatibleRunError';this.preservedSave=structuredClone(save);}}
 export function createDefaultSave():GameSave{return{revision:0,collection:createCollection(),profile:{commander:createCommander(),schemaVersion:1,cleared:[],hardCleared:[],seenEnemies:[],best:{},challengeClears:[],recentRuns:[]},preferences:{squadIds:['C01','C02','C04','C05','C06'],captainId:'C02',branches:Object.fromEntries(CHARACTER_IDS.map(id=>[id,'A'])) as Record<CharacterId,Branch>,musicVolume:.35,sfxVolume:.65,reducedEffects:false,tutorialSeen:false,battleSpeed:1,autoTactical:false},activeRun:null};}
-export function summarizeRun(run:RunState):RunSummary{return structuredClone({difficulty:run.config.difficulty,rating:ratingTier(run),runId:run.runId,stageId:run.config.stageId,seed:run.config.seed,squadIds:run.config.squadIds,captainId:run.config.captainId,outcome:run.outcome,tick:run.tick,wallHp:run.wallHp,stats:run.stats,challengeId:run.config.challengeId??null});}
+export function summarizeRun(run:RunState):RunSummary{return structuredClone({... (isHundred(run)?{mode:run.config.mode,hundredScore:hundredScore(run)}:{}),difficulty:run.config.difficulty,rating:ratingTier(run),runId:run.runId,stageId:run.config.stageId,seed:run.config.seed,squadIds:run.config.squadIds,captainId:run.config.captainId,outcome:run.outcome,tick:run.tick,wallHp:run.wallHp,stats:run.stats,challengeId:run.config.challengeId??null});}
+export function recordHundred(save:GameSave,run:RunState){
+ if(!isHundred(run))return;
+ const score=hundredScore(run);
+ if(betterHundred(score,save.profile.hundredBest))save.profile.hundredBest=score;
+}
 export function completeRun(save:GameSave,run:RunState){
  if(!run.outcome)throw new Error('戰局尚未結束');
+ if(isHundred(run)){
+  recordHundred(save,run);
+  if(!save.profile.recentRuns.some(r=>r.runId===run.runId))save.profile.recentRuns=[summarizeRun(run),...save.profile.recentRuns].slice(0,10);
+  for(const id of run.stats.encountered)if(!save.profile.seenEnemies.includes(id))save.profile.seenEnemies.push(id);
+  if(save.activeRun?.runId===run.runId)save.activeRun=null;
+  return;
+ }
  save.profile.commander??=migrateCommander(save.profile.cleared);
  const recorded=save.profile.recentRuns.some(r=>r.runId===run.runId);
  const commanderReward=recorded?undefined:awardCommander(save.profile.commander,run);
@@ -47,6 +60,8 @@ function validSave(raw:unknown, discardActiveRun=false):GameSave{
  if(!raw||typeof raw!=='object')throw new SaveValidationError();const s=structuredClone(raw) as GameSave;
  if(s.profile?.schemaVersion!==SCHEMA_VERSION)throw new SaveValidationError('存檔版本不相容，原始資料已保留');
  const p=s.preferences;
+ const best=s.profile.hundredBest;
+ if(best!==undefined&&(!best||typeof best.runId!=='string'||!best.runId||!Number.isInteger(best.waves)||best.waves<0||best.waves>100||!Number.isSafeInteger(best.kills)||best.kills<0||!Number.isFinite(best.wallHp)||best.wallHp<0||!Number.isSafeInteger(best.tick)||best.tick<0))throw new SaveValidationError('百波挑戰紀錄格式不正確');
  if(s.profile.hardCleared!==undefined&&(!Array.isArray(s.profile.hardCleared)||s.profile.hardCleared.some(id=>!STAGE_MAP[id]||!s.profile.cleared.includes(id))||new Set(s.profile.hardCleared).size!==s.profile.hardCleared.length))throw new SaveValidationError('困難通關紀錄格式不正確');
  if(s.profile.easyCleared!==undefined&&(!Array.isArray(s.profile.easyCleared)||s.profile.easyCleared.some(id=>!STAGE_MAP[id]||!s.profile.cleared.includes(id))||new Set(s.profile.easyCleared).size!==s.profile.easyCleared.length))throw new SaveValidationError('簡單通關紀錄格式不正確');
  if(p?.difficulty!==undefined&&!['easy','hard'].includes(p.difficulty))throw new SaveValidationError('難度設定格式不正確');
