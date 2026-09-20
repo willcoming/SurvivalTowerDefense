@@ -1,3 +1,4 @@
+import { easyClearedStages, hardClearedStages } from '../../src/storage/mission-rewards';
 import 'fake-indexeddb/auto';
 import { expect, it } from 'vitest';
 import { createRun, command } from '../../src/sim/engine';
@@ -41,4 +42,12 @@ it('saves in-progress records independently of the disposable active battle and 
   expect((await repo.load()).activeRun).toBeNull();
   save.profile.hundredBest!.waves=101;await expect(repo.save(save)).rejects.toThrow('百波挑戰');
  }finally{repo.close();}
+});
+
+it('does not infer campaign entitlements from a hundred-wave victory in legacy saves',()=>{
+ const save=createDefaultSave();save.profile.cleared=['S03'];delete save.profile.easyCleared;delete save.profile.hardCleared;
+ save.collection.difficultyClaims={'S03:easy':0,'S03:hard':3};
+ const s=run();s.outcome='victory';s.phase='ended';s.bossKilled=true;s.enemies=[];s.spawnCursor=s.spawnPlan.length;
+ completeRun(save,s);
+ expect(easyClearedStages(save)).toEqual([]);expect(hardClearedStages(save)).toEqual(['S03']);
 });

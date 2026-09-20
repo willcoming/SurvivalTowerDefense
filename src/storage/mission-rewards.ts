@@ -11,12 +11,12 @@ export function easyClearedStages(save:GameSave):StageId[] {
   return EASY_CAMPAIGN.filter(id=>save.profile.cleared.includes(id)&&(
     save.collection.difficultyClaims?.[`${id}:easy`]===undefined ||
     (save.collection.difficultyClaims?.[`${id}:easy`]??0)>0 ||
-    save.profile.recentRuns.some(run=>run.stageId===id&&run.outcome==='victory'&&run.difficulty!=='hard')
+    save.profile.recentRuns.some(run=>!run.mode&&run.stageId===id&&run.outcome==='victory'&&run.difficulty!=='hard')
   ));
 }
 export const hardUnlocked = (save:GameSave,id:StageId) => easyClearedStages(save).includes(id);
 export function hardClearedStages(save:GameSave):StageId[] {
-  return save.profile.hardCleared ?? EASY_CAMPAIGN.filter(id=>(save.collection.difficultyClaims?.[`${id}:hard`]??0)>0 || save.profile.recentRuns.some(run=>run.stageId===id&&run.outcome==='victory'&&run.difficulty==='hard'));
+  return save.profile.hardCleared ?? EASY_CAMPAIGN.filter(id=>(save.collection.difficultyClaims?.[`${id}:hard`]??0)>0 || save.profile.recentRuns.some(run=>!run.mode&&run.stageId===id&&run.outcome==='victory'&&run.difficulty==='hard'));
 }
 export const challengesUnlocked = (save:GameSave,id:StageId) => MAIN_IDS.includes(id)&&hardClearedStages(save).includes(id);
 export const selectedDifficulty = (save:GameSave,id:StageId):Difficulty => save.preferences.difficulty==='hard'&&hardUnlocked(save,id)?'hard':'easy';
