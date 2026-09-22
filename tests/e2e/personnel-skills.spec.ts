@@ -23,9 +23,9 @@ for(const viewport of [{width:320,height:500},{width:390,height:844},{width:768,
       await expect(modal.getByRole('tab')).toHaveText(deepTreesFor(owner).map(t=>t.name));
       for(const tree of deepTreesFor(owner)){
         await modal.getByRole('tab',{name:tree.name,exact:true}).click();
-        await expect(modal.locator('[data-action="personnel-skill-node"]')).toHaveCount(tree.nodes.length);
-        expect(await modal.locator('[data-action="personnel-skill-node"]').evaluateAll(es=>es.map(e=>(e as HTMLElement).dataset.id))).toEqual(tree.nodes.map(n=>n.id));
-        const last=tree.nodes.at(-1)!;await modal.locator(`[data-action="personnel-skill-node"][data-id="${last.id}"]`).click();
+        await expect(modal.locator('[data-action="personnel-skill-node"]')).toHaveCount(deepTreesFor(owner).flatMap(t=>t.nodes).length);
+        expect(await modal.locator('[data-action="personnel-skill-node"].active-branch').evaluateAll(es=>es.map(e=>(e as HTMLElement).dataset.id))).toEqual(expect.arrayContaining(tree.nodes.map(n=>n.id)));
+        const last=tree.nodes.at(-1)!;await modal.locator(`[data-action="personnel-skill-node"][data-id="${last.id}"]`).focus();await modal.locator(`[data-action="personnel-skill-node"][data-id="${last.id}"]`).click();
         await expect(modal.locator('.personnel-skill-detail')).toContainText(last.description);
       }
       const tabs=modal.getByRole('tab');await tabs.last().focus();await page.keyboard.press('Home');await expect(tabs.first()).toHaveAttribute('aria-selected','true');

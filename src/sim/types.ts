@@ -78,14 +78,14 @@ export interface Projectile {
 }
 export interface Field {
   id: number; source: CharacterId; kind: 'gravity' | 'fire'; x: number; y: number;
-  radius: number; expires: number; nextTick: number; dps: number; damageType: DamageType;
+  radius: number; expires: number; nextTick: number; dps: number; damageType: DamageType; ultimate?: boolean;
   slow: number; slowDuration: number; pull: number; burnDuration: number; armorIgnore: number; exposure?: number;
 }
 export interface Shield { source: string; value: number; expires: number }
 export interface WeaponState {
   id: CharacterId; branch: Branch | null; rank: number; readyAt: number;
   nextAttack: number; attacks: number; droneAttacks: [number, number]; shieldAt: number;
-  heat?: number; cooling?: boolean; ventUntil?: number;
+  heat?: number; cooling?: boolean; ventUntil?: number; ultimateReadyAt?: number; ultimateBuffUntil?: number;
 }
 export interface Mine { id: number; source: CharacterId; x: number; y: number; plantedAt: number; armedAt: number; expires: number; radius: number; triggerRadius: number; packet: DamagePacket; chargeRate: number; chargeCap: number }
 export interface SpawnEntry { at: number; defId: EnemyId; x: number; xp: number; wave: number }
@@ -101,6 +101,7 @@ export interface ActionRecord { tick: number; seq: number; command: Command }
 export interface RunStats {
   kills: number; damageByCharacter: Record<CharacterId, number>; shieldDamageByCharacter: Record<CharacterId, number>;
   wallDamageByEnemy: Record<string, number>; shieldAbsorbed: number; controlTicks: Record<CharacterId, number>;
+  ultimateCasts?: {tick:number;ownerId:CharacterId;formId:FormId}[];
   choices: { tick: number; nodeId: string }[]; casts: number[]; encountered: EnemyId[];
 }
 export interface WaveBrief { wave: number; variant: 'standard' | 'fast' | 'armored' | 'shielded'; event: 'none' | 'ion' | 'heat' | 'gravity' }

@@ -6,20 +6,15 @@ export function enhanceTacticalTree(panel: HTMLElement, ui: MobileControls) {
   const scroll = panel.querySelector<HTMLElement>('.tree-scroll')!;
   const graph = scroll.querySelector<HTMLElement>('.deep-graph')!;
   const key = panel.dataset.treeId!;
-  const nodes = [...graph.querySelectorAll<HTMLElement>('.deep-node')];
-  const rows = Math.max(...nodes.map(node => Number(node.dataset.layer))) + 1;
-  graph.style.setProperty('--map-rows', String(rows));
-  for (const node of nodes) {
-    node.style.setProperty('--map-row', node.dataset.layer!);
-    if(node.classList.contains('ultimate')){const symbol=node.querySelector('.node-symbol')!;symbol.textContent=`${symbol.textContent} ${node.dataset.cost} 點`;}
-  }
+  const characters = scroll.querySelector<HTMLElement>('.tree-characters')!;
+  panel.querySelector('.tree-header')!.append(characters);
 
   const toolbar = document.createElement('div');
   toolbar.className = 'skill-map-toolbar';
   const legend = document.createElement('div');
   legend.className = 'skill-map-legend';
   legend.setAttribute('aria-label', '節點狀態');
-  legend.innerHTML = '<span class="owned">✓ 已取得</span><span class="available">＋ 可解鎖</span><span class="locked">◇ 待解鎖</span>';
+  legend.innerHTML = '<span class="owned">● 已取得</span><span class="available">○ 可解鎖</span><span class="pending">◉ 待確認</span><span class="locked">● 未解鎖</span>';
   toolbar.append(legend);
   graph.before(toolbar);
   const context = [...scroll.querySelectorAll<HTMLElement>(':scope > .operation-intel, :scope > .tree-intro, :scope > .tree-path-note, :scope > .tree-owned')];

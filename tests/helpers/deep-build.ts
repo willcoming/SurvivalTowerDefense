@@ -1,5 +1,6 @@
-import { DEEP_NODE_MAP, DEEP_NODES, CHARACTER_TREES } from '../../src/data/deep-trees';
-import { command, createRun, restoreRun, stepRun } from '../../src/sim/engine';
+import { PRE_REWORK_VERSION } from '../../src/data/forms';
+import { DEEP_NODE_MAP, COMMON_TREE, CHARACTER_TREES } from '../../src/data/deep-trees';
+import { command, createRun as createVersionedRun, restoreRun, stepRun } from '../../src/sim/engine';
 import { deepLegalNodes, deepPointCost, deepNodeCost } from '../../src/sim/deep-tree';
 import { shouldAutoCast } from '../../src/ui/auto-tactical';
 import type { CharacterId, RunConfig, RunState } from '../../src/sim/types';
@@ -43,4 +44,8 @@ export function replayDeep(recorded:RunState){
   }
   return s;
 }
+const DEEP_NODES=[...CHARACTER_TREES.flatMap(t=>t.nodes),...COMMON_TREE.nodes];
 export const ALL_TERMINALS=DEEP_NODES.filter(n=>n.kind==='ultimate');
+
+// Archived 0.4 rules remain replayable after the skill rework.
+function createRun(config:Parameters<typeof createVersionedRun>[0],version=PRE_REWORK_VERSION,compatibility:Parameters<typeof createVersionedRun>[2]={}){return createVersionedRun(config,version,compatibility);}

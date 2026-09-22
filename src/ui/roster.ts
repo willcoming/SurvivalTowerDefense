@@ -1,6 +1,7 @@
+import { CAPTAIN_BONUSES } from '../data/reworked-skills';
 import { BUILDS, CHARACTERS, CHARACTER_MAP } from '../data/content';
 import { deepTreesFor } from '../data/deep-trees';
-import { ELEMENTS, FORMS, FORM_MAP, formPortrait, originalForm, STARTER_FORMS } from '../data/forms';
+import { FORMS, FORM_MAP, formPortrait, originalForm, STARTER_FORMS } from '../data/forms';
 import { RANGE_LABEL } from '../sim/range';
 import type { CharacterId, FormId } from '../sim/types';
 import { isPlayable, ownedForm } from '../storage/collection';
@@ -76,7 +77,7 @@ export function rosterDialog(save: GameSave, panel: RosterPanel, busy: boolean, 
   const owned = save.collection.owned.includes(previewId);
   const equipped = currentId === previewId;
   const equipReason = !editing ? '請先進入編隊，再調整造型。' : busy ? '正在儲存裝備…' : !owned ? '尚未取得，解鎖後即可裝備。' : temporary ? '暫時試玩無法儲存換裝，請先恢復本機存檔。' : save.activeRun ? '請先完成或放棄進行中的行動，再換裝。' : equipped ? '目前已裝備這套造型。' : '加入編隊草稿，確認編隊後一起套用。';
-  const tacticalDescription = current ? character.tacticalDescription.replaceAll(ELEMENTS[character.damageType].name, ELEMENTS[current.damageType].name) : character.tacticalDescription;
+
   const equipDisabled = busy || !owned || temporary || !!save.activeRun || equipped || !editing;
   const addDisabled = busy || !current || !chosen && save.preferences.squadIds.length >= max;
   return `<div class="modal-backdrop roster-backdrop"><section class="dialog roster-dialog" role="dialog" aria-modal="true" aria-label="${esc(title)}" data-roster-view="${panel.view}" style="--character:${character.color}">
@@ -92,8 +93,8 @@ export function rosterDialog(save: GameSave, panel: RosterPanel, busy: boolean, 
       ${!owned ? `<section class="wardrobe-acquisition"><h3>▣ 取得方式</h3><p>${STARTER_FORMS.includes(previewId) ? '初始隊員的原始形態會隨新進度解鎖。' : '星際招募可取得此造型，也可使用 100 共鳴點數指定兌換。完成全部 51 項獎勵目標可補齊全收集。'}</p><button class="button secondary" data-action="recruitment">前往星際招募 ↗</button></section>` : ''}
     ` : `
       <div class="roster-personnel"><div class="roster-personnel-art">${formImage(currentId ?? originalForm(character.id))}<span>${esc(character.english)}</span></div><div class="roster-personnel-copy"><span class="roster-personnel-state">${captain ? '★ 隊長 · ' : ''}${statusLabel(save, character.id)}</span><h3>${esc(character.name)}</h3><p>${esc(character.role)}</p><div class="roster-role-tags">${roleTags[character.id].map(tag => `<span>${esc(tag)}</span>`).join('')}</div>${current ? `${elementBadge(current.damageType)}<small>${esc(current.name)}</small>` : ''}<strong class="roster-outfit-count">造型 ${count} / ${forms.length}${count > 1 ? ' · 可換裝' : ''}</strong></div></div>
-      <div class="roster-character-links"><button class="button secondary" data-action="roster-wardrobe">${count > 1 ? '造型換裝' : '查看造型'} · ${count} / ${forms.length} ↗</button><button class="button secondary" data-action="personnel-skills" data-id="${character.id}" aria-haspopup="dialog">${deepTreesFor(character.id).length} 條技能樹 ↗</button></div>
-      <div class="roster-ability"><h3>${esc(character.weaponName)}</h3><span>${esc(RANGE_LABEL[character.id])}</span><dl><dt>固有被動</dt><dd>${esc(character.passive)}</dd>${current?.theme === 'summer' ? `<dt>造型效果 · ${esc(current.name)}</dt><dd>${esc(current.passive)}</dd>` : ''}<dt>隊長技能 · ${esc(character.tacticalName)}</dt><dd>${esc(tacticalDescription)}<small>冷卻 ${character.cooldown} 秒${current?.theme === 'summer' ? ' · 以上為基礎數值，實際效果套用造型調整。' : ''}</small></dd></dl></div>
+      <div class="roster-character-links"><button class="button secondary" data-action="roster-wardrobe">${count > 1 ? '造型換裝' : '查看造型'} · ${count} / ${forms.length} ↗</button><button class="button secondary" data-action="personnel-skills" data-id="${character.id}" aria-haspopup="dialog">${deepTreesFor(character.id).reduce((total,tree)=>total+tree.nodes.length,0)} 節點技能樹 ↗</button></div>
+      <div class="roster-ability"><h3>${esc(character.weaponName)}</h3><span>${esc(RANGE_LABEL[character.id])}</span><dl><dt>固有被動</dt><dd>${esc(character.passive)}</dd>${current?.theme === 'summer' ? `<dt>造型效果 · ${esc(current.name)}</dt><dd>${esc(current.passive)}</dd>` : ''}<dt>隊長加成 · ${esc(CAPTAIN_BONUSES[character.id].name)}</dt><dd>${esc(CAPTAIN_BONUSES[character.id].description)}<small>開場生效 · 不消耗技能點 · 換裝不改變隊長加成</small></dd></dl></div>
       <p class="roster-biography">${esc(character.description)}</p>
     `}</div>
     <footer class="roster-panel-footer">${wardrobe ? `<p class="roster-equip-reason" id="roster-equip-reason" aria-live="polite">${equipReason}</p><button id="roster-equip" class="button primary roster-equip-button" data-action="roster-equip" data-id="${previewId}" aria-describedby="roster-equip-reason" ${equipDisabled ? 'disabled' : ''}>${busy ? '儲存中…' : equipped ? '已選用' : '加入草稿'}</button>` : !editing ? '<button class="button primary" data-action="roster-edit">編隊與換裝</button>' : `<p class="roster-team-reason">${!current ? '尚未招募 · 可先查看造型與取得方式' : !chosen && save.preferences.squadIds.length >= max ? `出戰已滿 ${max} 人，請先將一位隊員移至待命。` : chosen ? `出戰 ${save.preferences.squadIds.length} / ${max} · ${captain ? '目前為隊長' : '可任命為隊長'}` : `出戰 ${save.preferences.squadIds.length} / ${max} · 有空位可加入`}</p><div class="roster-team-actions"><button class="button ${chosen ? 'secondary' : 'primary'}" data-action="toggle-character" data-id="${character.id}" aria-label="${chosen ? '移除' : '選擇'}${esc(character.name)}" ${addDisabled ? 'disabled' : ''}>${chosen ? '移至待命' : current ? '加入出戰' : '未招募'}</button><button class="button secondary captain-button ${captain ? 'selected' : ''}" data-action="captain" data-id="${character.id}" aria-pressed="${captain}" ${!chosen || busy ? 'disabled' : ''}>${captain ? '★ 隊長' : '☆ 任命隊長'}</button></div>`}</footer>

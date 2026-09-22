@@ -1,3 +1,4 @@
+import { usesReworkedSkills, ultimateForForm } from '../data/reworked-skills';
 import { DEEP_NODE_MAP, usesFreeSkills } from '../data/deep-trees';
 import { equippedForm, attackType } from '../data/forms';
 import { detonateMines } from './special-weapons';
@@ -82,6 +83,7 @@ export function stepWeapons(s:RunState){
 }
 export function tacticalCooldown(s:RunState){return ticks(CHARACTER_MAP[s.config.captainId].cooldown*Math.max(.5,1-(s.commonRanks.G04??0)*.06-(treeMods(s,s.config.captainId).skillCooldown??0)));}
 export function castTactical(s:RunState):boolean{
+  if(usesReworkedSkills(s))return false;
   const id=s.config.captainId;if(s.tick<s.tacticalReadyAt||s.config.challengeId==='no-skill')return false;
   const target=threat(s)[0];if(!target&&id!=='C06')return false;let visualTarget=target;
   const m=treeMods(s,id);
@@ -105,7 +107,7 @@ export function applyUpgrade(s:RunState,nodeId:string){
     if(node.ownerId!=='common'){
       syncDeepWeapon(s,node.ownerId);const w=s.weapons.find(w=>w.id===node.ownerId)!;
       if(!beforeShield&&deepMods(s,node.ownerId).autoShield)w.shieldAt=s.tick+ticks(deepMods(s,node.ownerId).shieldInterval??15);
-      if(node.kind==='ultimate'){s.evolvedCount++;emit(s,{kind:'evolution',x:195,y:490,source:w.id});}
+      if(node.kind==='ultimate'){s.evolvedCount++;if(usesReworkedSkills(s))w.ultimateReadyAt=s.tick+ticks(ultimateForForm(w.id,s.config.forms?.[w.id]).cooldown);emit(s,{kind:'evolution',x:195,y:490,source:w.id});}
     }
     if(node.mods.wallHealth){s.wallMaxHp+=node.mods.wallHealth;s.wallHp+=node.mods.wallHealth;}
     if(s.support){if(node.mods.periodicRepair)s.support.repairAt=s.tick+ticks(20);if(node.mods.pulseShield)s.support.pulseAt=s.tick+ticks(18);}

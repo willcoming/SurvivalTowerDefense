@@ -12,9 +12,9 @@ const waves = Array.from({length:100}, (_,i) => {
   const source=patterns[i%10].split(' ').filter(t=>band>0||!['H','D'].includes(t[0]));
   return source.map(t=>`${t[0]}${Number(t.slice(1))+(t[0]==='C'?band*2:Math.floor(band/3))}`).join(' ');
 });
-const waveXp=waves.map((_,i)=>i<20?60:i<60?23:22);
+const waveXp=waves.map((_,i)=>i<20?36:i<60?14:13);
 export const HUNDRED_PROFILE: OperationProfile = {
-  unlimited:true,waves,waveXp,points:100,interval:20,groupInterval:2,
+  unlimited:true,waves,waveXp,points:60,interval:20,groupInterval:2,
   bossAt:99*20,deadline:99*20+180,bossScale:4,escortCount:0,escortXp:0,
   enemies:waves.reduce((n,w)=>n+w.split(' ').reduce((m,t)=>m+Number(t.slice(1)),0),0),
   waveNames:waves.map((_,i)=>i===99?'核心決戰':`第 ${Math.floor(i/10)+1} 階段 · ${i%10===8?'整備間隙':'防線推進'}`),

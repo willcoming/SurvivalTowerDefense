@@ -1,0 +1,1730 @@
+[
+  {
+    "form": "C01-original",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 12838,
+        "ordinary": 12317,
+        "damageRatio": 1.04,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 12838,
+        "ordinary": 13789,
+        "damageRatio": 0.93,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 12838,
+        "ordinary": 18476,
+        "damageRatio": 0.69,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 6419,
+        "ordinary": 6651,
+        "damageRatio": 0.97,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 7178,
+        "ordinary": 10088,
+        "damageRatio": 0.71,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 4785,
+        "ordinary": 6725,
+        "damageRatio": 0.71,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C01-original",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 17606,
+        "ordinary": 23665,
+        "damageRatio": 0.74,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 17606,
+        "ordinary": 23665,
+        "damageRatio": 0.74,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 21511,
+        "ordinary": 35497,
+        "damageRatio": 0.61,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 8803,
+        "ordinary": 12779,
+        "damageRatio": 0.69,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 8961,
+        "ordinary": 14424,
+        "damageRatio": 0.62,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 5974,
+        "ordinary": 9616,
+        "damageRatio": 0.62,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C01-summer",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 20557,
+        "ordinary": 18690,
+        "damageRatio": 1.1,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 19507,
+        "ordinary": 19764,
+        "damageRatio": 0.99,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 13705,
+        "ordinary": 17088,
+        "damageRatio": 0.8,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 6852,
+        "ordinary": 6626,
+        "damageRatio": 1.03,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 4735,
+        "ordinary": 5311,
+        "damageRatio": 0.89,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 7102,
+        "ordinary": 7966,
+        "damageRatio": 0.89,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C01-summer",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 26723,
+        "ordinary": 33333,
+        "damageRatio": 0.8,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 24648,
+        "ordinary": 29679,
+        "damageRatio": 0.83,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 20689,
+        "ordinary": 30931,
+        "damageRatio": 0.67,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 9099,
+        "ordinary": 11808,
+        "damageRatio": 0.77,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 6039,
+        "ordinary": 7565,
+        "damageRatio": 0.8,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 9059,
+        "ordinary": 11347,
+        "damageRatio": 0.8,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C02-original",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 21229,
+        "ordinary": 20594,
+        "damageRatio": 1.03,
+        "control": 26,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 21229,
+        "ordinary": 20594,
+        "damageRatio": 1.03,
+        "control": 26,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 45924,
+        "ordinary": 46337,
+        "damageRatio": 0.99,
+        "control": 26,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 10614,
+        "ordinary": 10297,
+        "damageRatio": 1.03,
+        "control": 26,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 4961,
+        "ordinary": 6682,
+        "damageRatio": 0.74,
+        "control": 3,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 4961,
+        "ordinary": 6682,
+        "damageRatio": 0.74,
+        "control": 22,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C02-original",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 27026,
+        "ordinary": 32586,
+        "damageRatio": 0.83,
+        "control": 27,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 27026,
+        "ordinary": 32586,
+        "damageRatio": 0.83,
+        "control": 27,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 58968,
+        "ordinary": 73320,
+        "damageRatio": 0.8,
+        "control": 27,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 13513,
+        "ordinary": 16293,
+        "damageRatio": 0.83,
+        "control": 27,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 5626,
+        "ordinary": 9878,
+        "damageRatio": 0.57,
+        "control": 3,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 5626,
+        "ordinary": 9878,
+        "damageRatio": 0.57,
+        "control": 25,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C02-summer",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 16505,
+        "ordinary": 13083,
+        "damageRatio": 1.26,
+        "control": 22,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 16505,
+        "ordinary": 13083,
+        "damageRatio": 1.26,
+        "control": 22,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 23726,
+        "ordinary": 23025,
+        "damageRatio": 1.03,
+        "control": 22,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 8735,
+        "ordinary": 7079,
+        "damageRatio": 1.23,
+        "control": 22,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 6286,
+        "ordinary": 8520,
+        "damageRatio": 0.74,
+        "control": 3,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 4190,
+        "ordinary": 5680,
+        "damageRatio": 0.74,
+        "control": 22,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C02-summer",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 23136,
+        "ordinary": 26171,
+        "damageRatio": 0.88,
+        "control": 25,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 23136,
+        "ordinary": 26171,
+        "damageRatio": 0.88,
+        "control": 25,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 33667,
+        "ordinary": 41184,
+        "damageRatio": 0.82,
+        "control": 25,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 12121,
+        "ordinary": 13728,
+        "damageRatio": 0.88,
+        "control": 25,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 7066,
+        "ordinary": 11952,
+        "damageRatio": 0.59,
+        "control": 3,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 4711,
+        "ordinary": 7968,
+        "damageRatio": 0.59,
+        "control": 25,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C03-original",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 10936,
+        "ordinary": 17671,
+        "damageRatio": 0.62,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 10936,
+        "ordinary": 18764,
+        "damageRatio": 0.58,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 10936,
+        "ordinary": 17671,
+        "damageRatio": 0.62,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 12048,
+        "ordinary": 17892,
+        "damageRatio": 0.67,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 8602,
+        "ordinary": 7279,
+        "damageRatio": 1.18,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 7405,
+        "ordinary": 5490,
+        "damageRatio": 1.35,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C03-original",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 26402,
+        "ordinary": 30342,
+        "damageRatio": 0.87,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 24493,
+        "ordinary": 32218,
+        "damageRatio": 0.76,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 26402,
+        "ordinary": 30342,
+        "damageRatio": 0.87,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 27707,
+        "ordinary": 30721,
+        "damageRatio": 0.9,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 11179,
+        "ordinary": 10182,
+        "damageRatio": 1.1,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 9933,
+        "ordinary": 8758,
+        "damageRatio": 1.13,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C03-summer",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 9075,
+        "ordinary": 11899,
+        "damageRatio": 0.76,
+        "control": 12,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 9075,
+        "ordinary": 13137,
+        "damageRatio": 0.69,
+        "control": 12,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 9075,
+        "ordinary": 11899,
+        "damageRatio": 0.76,
+        "control": 12,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 6299,
+        "ordinary": 8032,
+        "damageRatio": 0.78,
+        "control": 12,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 9965,
+        "ordinary": 8610,
+        "damageRatio": 1.16,
+        "control": 12,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 6536,
+        "ordinary": 4911,
+        "damageRatio": 1.33,
+        "control": 12,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C03-summer",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 15846,
+        "ordinary": 17340,
+        "damageRatio": 0.91,
+        "control": 12,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 15846,
+        "ordinary": 22542,
+        "damageRatio": 0.7,
+        "control": 12,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 15846,
+        "ordinary": 17340,
+        "damageRatio": 0.91,
+        "control": 12,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 10947,
+        "ordinary": 11705,
+        "damageRatio": 0.94,
+        "control": 12,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 12033,
+        "ordinary": 10975,
+        "damageRatio": 1.1,
+        "control": 12,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 7892,
+        "ordinary": 6259,
+        "damageRatio": 1.26,
+        "control": 12,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C04-original",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 34156,
+        "ordinary": 39633,
+        "damageRatio": 0.86,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 34121,
+        "ordinary": 39633,
+        "damageRatio": 0.86,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 34156,
+        "ordinary": 39633,
+        "damageRatio": 0.86,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 17078,
+        "ordinary": 19838,
+        "damageRatio": 0.86,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 4278,
+        "ordinary": 4965,
+        "damageRatio": 0.86,
+        "control": 72,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 4278,
+        "ordinary": 4965,
+        "damageRatio": 0.86,
+        "control": 72,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C04-original",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 46659,
+        "ordinary": 57396,
+        "damageRatio": 0.81,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 46659,
+        "ordinary": 73693,
+        "damageRatio": 0.63,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 46659,
+        "ordinary": 61632,
+        "damageRatio": 0.76,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 23350,
+        "ordinary": 30783,
+        "damageRatio": 0.76,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 5843,
+        "ordinary": 6725,
+        "damageRatio": 0.87,
+        "control": 72,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 5734,
+        "ordinary": 6300,
+        "damageRatio": 0.91,
+        "control": 72,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C04-summer",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 29699,
+        "ordinary": 34532,
+        "damageRatio": 0.86,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 29699,
+        "ordinary": 34532,
+        "damageRatio": 0.86,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 44594,
+        "ordinary": 51797,
+        "damageRatio": 0.86,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 14865,
+        "ordinary": 17266,
+        "damageRatio": 0.86,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 3716,
+        "ordinary": 4385,
+        "damageRatio": 0.85,
+        "control": 72,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 3716,
+        "ordinary": 4316,
+        "damageRatio": 0.86,
+        "control": 72,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C04-summer",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 23450,
+        "ordinary": 39036,
+        "damageRatio": 0.6,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 30708,
+        "ordinary": 39036,
+        "damageRatio": 0.79,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 39290,
+        "ordinary": 57837,
+        "damageRatio": 0.68,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 13048,
+        "ordinary": 19533,
+        "damageRatio": 0.67,
+        "control": 576,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 5060,
+        "ordinary": 5882,
+        "damageRatio": 0.86,
+        "control": 72,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 2368,
+        "ordinary": 4883,
+        "damageRatio": 0.48,
+        "control": 72,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C05-original",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 49591,
+        "ordinary": 53789,
+        "damageRatio": 0.92,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 44890,
+        "ordinary": 43106,
+        "damageRatio": 1.04,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 33061,
+        "ordinary": 35859,
+        "damageRatio": 0.92,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 19269,
+        "ordinary": 27784,
+        "damageRatio": 0.69,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 5376,
+        "ordinary": 6077,
+        "damageRatio": 0.88,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 8064,
+        "ordinary": 9116,
+        "damageRatio": 0.88,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C05-original",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 66590,
+        "ordinary": 73889,
+        "damageRatio": 0.9,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 62155,
+        "ordinary": 67551,
+        "damageRatio": 0.92,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 44393,
+        "ordinary": 49259,
+        "damageRatio": 0.9,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 28957,
+        "ordinary": 32823,
+        "damageRatio": 0.88,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 6698,
+        "ordinary": 8083,
+        "damageRatio": 0.83,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 10047,
+        "ordinary": 12125,
+        "damageRatio": 0.83,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C05-summer",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 33802,
+        "ordinary": 29021,
+        "damageRatio": 1.16,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 28664,
+        "ordinary": 28688,
+        "damageRatio": 1,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 42002,
+        "ordinary": 38598,
+        "damageRatio": 1.09,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 17840,
+        "ordinary": 23072,
+        "damageRatio": 0.77,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 6864,
+        "ordinary": 6839,
+        "damageRatio": 1,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 4576,
+        "ordinary": 4559,
+        "damageRatio": 1,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C05-summer",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 42222,
+        "ordinary": 41125,
+        "damageRatio": 1.03,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 37413,
+        "ordinary": 39670,
+        "damageRatio": 0.94,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 50422,
+        "ordinary": 50701,
+        "damageRatio": 0.99,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 25260,
+        "ordinary": 27830,
+        "damageRatio": 0.91,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 8443,
+        "ordinary": 9108,
+        "damageRatio": 0.93,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 5629,
+        "ordinary": 6072,
+        "damageRatio": 0.93,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C06-original",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 3060,
+        "ordinary": 11283,
+        "damageRatio": 0.27,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 3060,
+        "ordinary": 11560,
+        "damageRatio": 0.26,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 2670,
+        "ordinary": 10957,
+        "damageRatio": 0.24,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 1530,
+        "ordinary": 6014,
+        "damageRatio": 0.25,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 4590,
+        "ordinary": 15243,
+        "damageRatio": 0.3,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 3060,
+        "ordinary": 10162,
+        "damageRatio": 0.3,
+        "control": 0,
+        "shield": 402
+      }
+    ]
+  },
+  {
+    "form": "C06-original",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 7455,
+        "ordinary": 14567,
+        "damageRatio": 0.51,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 7455,
+        "ordinary": 15201,
+        "damageRatio": 0.49,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 6915,
+        "ordinary": 14408,
+        "damageRatio": 0.48,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 3965,
+        "ordinary": 7912,
+        "damageRatio": 0.5,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 9049,
+        "ordinary": 20028,
+        "damageRatio": 0.45,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 6033,
+        "ordinary": 13352,
+        "damageRatio": 0.45,
+        "control": 0,
+        "shield": 402
+      }
+    ]
+  },
+  {
+    "form": "C06-summer",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 2601,
+        "ordinary": 9457,
+        "damageRatio": 0.28,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 2601,
+        "ordinary": 9626,
+        "damageRatio": 0.27,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 2270,
+        "ordinary": 9269,
+        "damageRatio": 0.24,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 1951,
+        "ordinary": 7503,
+        "damageRatio": 0.26,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 2601,
+        "ordinary": 8627,
+        "damageRatio": 0.3,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 2651,
+        "ordinary": 8627,
+        "damageRatio": 0.31,
+        "control": 0,
+        "shield": 396
+      }
+    ]
+  },
+  {
+    "form": "C06-summer",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 6269,
+        "ordinary": 12309,
+        "damageRatio": 0.51,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 6269,
+        "ordinary": 12841,
+        "damageRatio": 0.49,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 5825,
+        "ordinary": 12167,
+        "damageRatio": 0.48,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 4993,
+        "ordinary": 10016,
+        "damageRatio": 0.5,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 5115,
+        "ordinary": 11333,
+        "damageRatio": 0.45,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 5164,
+        "ordinary": 11333,
+        "damageRatio": 0.46,
+        "control": 0,
+        "shield": 396
+      }
+    ]
+  },
+  {
+    "form": "C07-original",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 28739,
+        "ordinary": 46180,
+        "damageRatio": 0.62,
+        "control": 370,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 28739,
+        "ordinary": 41529,
+        "damageRatio": 0.69,
+        "control": 370,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 28739,
+        "ordinary": 46180,
+        "damageRatio": 0.62,
+        "control": 401,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 30176,
+        "ordinary": 36211,
+        "damageRatio": 0.83,
+        "control": 431,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 4790,
+        "ordinary": 5773,
+        "damageRatio": 0.83,
+        "control": 62,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 4790,
+        "ordinary": 5773,
+        "damageRatio": 0.83,
+        "control": 62,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C07-original",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 56524,
+        "ordinary": 62632,
+        "damageRatio": 0.9,
+        "control": 558,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 49459,
+        "ordinary": 54803,
+        "damageRatio": 0.9,
+        "control": 489,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 56524,
+        "ordinary": 62632,
+        "damageRatio": 0.9,
+        "control": 558,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 47480,
+        "ordinary": 56369,
+        "damageRatio": 0.84,
+        "control": 558,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 7066,
+        "ordinary": 7829,
+        "damageRatio": 0.9,
+        "control": 70,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 7066,
+        "ordinary": 7829,
+        "damageRatio": 0.9,
+        "control": 70,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C07-summer",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 25253,
+        "ordinary": 33245,
+        "damageRatio": 0.76,
+        "control": 296,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 24883,
+        "ordinary": 29089,
+        "damageRatio": 0.86,
+        "control": 296,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 34171,
+        "ordinary": 43219,
+        "damageRatio": 0.79,
+        "control": 321,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 15501,
+        "ordinary": 18484,
+        "damageRatio": 0.84,
+        "control": 346,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 6128,
+        "ordinary": 7018,
+        "damageRatio": 0.87,
+        "control": 49,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 4086,
+        "ordinary": 4679,
+        "damageRatio": 0.87,
+        "control": 49,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C07-summer",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 42434,
+        "ordinary": 43327,
+        "damageRatio": 0.98,
+        "control": 387,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 36442,
+        "ordinary": 37137,
+        "damageRatio": 0.98,
+        "control": 332,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 54328,
+        "ordinary": 73656,
+        "damageRatio": 0.74,
+        "control": 387,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 26609,
+        "ordinary": 24758,
+        "damageRatio": 1.07,
+        "control": 443,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 8988,
+        "ordinary": 9284,
+        "damageRatio": 0.97,
+        "control": 55,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 5992,
+        "ordinary": 6190,
+        "damageRatio": 0.97,
+        "control": 55,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C08-original",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 9551,
+        "ordinary": 16503,
+        "damageRatio": 0.58,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 9551,
+        "ordinary": 16503,
+        "damageRatio": 0.58,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 6367,
+        "ordinary": 11002,
+        "damageRatio": 0.58,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 3661,
+        "ordinary": 5501,
+        "damageRatio": 0.67,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 6325,
+        "ordinary": 7851,
+        "damageRatio": 0.81,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 9551,
+        "ordinary": 11812,
+        "damageRatio": 0.81,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C08-original",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 14456,
+        "ordinary": 22268,
+        "damageRatio": 0.65,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 14514,
+        "ordinary": 22324,
+        "damageRatio": 0.65,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 9637,
+        "ordinary": 14845,
+        "damageRatio": 0.65,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 6023,
+        "ordinary": 8536,
+        "damageRatio": 0.71,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 9593,
+        "ordinary": 10307,
+        "damageRatio": 0.93,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 14456,
+        "ordinary": 15532,
+        "damageRatio": 0.93,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C08-summer",
+    "budget": 6,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 6275,
+        "ordinary": 11217,
+        "damageRatio": 0.56,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 6275,
+        "ordinary": 11239,
+        "damageRatio": 0.56,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 12236,
+        "ordinary": 22714,
+        "damageRatio": 0.54,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 3608,
+        "ordinary": 5608,
+        "damageRatio": 0.64,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 6275,
+        "ordinary": 7918,
+        "damageRatio": 0.79,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 6275,
+        "ordinary": 7942,
+        "damageRatio": 0.79,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  },
+  {
+    "form": "C08-summer",
+    "budget": 10,
+    "scenarios": [
+      {
+        "scenario": "dense",
+        "ultimate": 9760,
+        "ordinary": 14849,
+        "damageRatio": 0.66,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "line",
+        "ultimate": 10045,
+        "ordinary": 14849,
+        "damageRatio": 0.68,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "shield",
+        "ultimate": 19031,
+        "ordinary": 36751,
+        "damageRatio": 0.52,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "armor",
+        "ultimate": 6100,
+        "ordinary": 8538,
+        "damageRatio": 0.71,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "boss",
+        "ultimate": 9709,
+        "ordinary": 10492,
+        "damageRatio": 0.93,
+        "control": 0,
+        "shield": 0
+      },
+      {
+        "scenario": "pressure",
+        "ultimate": 9760,
+        "ordinary": 10550,
+        "damageRatio": 0.93,
+        "control": 0,
+        "shield": 0
+      }
+    ]
+  }
+]

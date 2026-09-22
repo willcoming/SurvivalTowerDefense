@@ -15,10 +15,11 @@ for (const viewport of [{ width:390, height:844 }, { width:320, height:500 }, { 
     await page.locator('.range-toolbar [data-action="view-build"]').click();
     await expect(page.getByRole('combobox', {name:'技能階段', exact:true})).toHaveCount(0);
     await page.locator('[data-action="deep-owner"][data-id="C06"]').click();
-    await page.locator('[data-action="deep-tab"][data-id="C06-A"]').click();
+    await page.locator('[data-action="deep-tab"][data-id="C06-A3"]').click();
     const map = page.locator('.skill-map-viewport');
-    await expect(map.locator('.deep-node')).toHaveCount(12);
-    await expect(map.locator('.deep-connections')).toBeVisible();
+    await expect(map.locator('.deep-node.active-branch')).toHaveCount(8);
+    await expect(map.locator('.deep-node')).toHaveCount(24);
+    await expect(map.locator('.deep-connections:visible')).toBeVisible();
     const mapGeometry = await map.evaluate(element => ({height:element.clientHeight,content:element.scrollHeight}));
     expect(mapGeometry.height).toBeGreaterThan(60);
     const modal = await page.locator('.tactical-tree').boundingBox();
@@ -26,12 +27,16 @@ for (const viewport of [{ width:390, height:844 }, { width:320, height:500 }, { 
     expect(modal!.y).toBe(0);
     expect(Math.abs(modal!.width-viewport.width)).toBeLessThan(1);
     expect(Math.abs(modal!.height-viewport.height)).toBeLessThan(1);
-    await expect(page.locator('.tactical-tree .deep-node strong').first()).toHaveCSS('font-size','16px');
-    await expect(page.locator('.tactical-tree .skill-selection-copy p')).toHaveCSS('font-size','16px');
-    if (viewport.height < 600) expect(mapGeometry.content).toBeGreaterThan(mapGeometry.height);
-    await page.locator('[data-action="deep-node"][data-id="C06-A/11"]').click();
+    const nodeBounds = await map.locator('.deep-node.active-branch').first().boundingBox();
+    expect(nodeBounds!.width).toBeGreaterThanOrEqual(44);
+    expect(nodeBounds!.height).toBeGreaterThanOrEqual(44);
+    await expect(map).toHaveCSS('touch-action','none');
+    await page.locator('[data-action="deep-node"][data-id="C06-A3/4"]').focus();await page.locator('[data-action="deep-node"][data-id="C06-A3/4"]').click();
     await expect(page.locator('.deep-node.inspecting')).toBeInViewport();
     await expect(page.locator('[data-action="buy-node"]')).toBeDisabled();
+    const summaryBounds = await page.locator('.skill-selection').boundingBox();
+    const titleBounds = await page.locator('.skill-selection-copy h3').boundingBox();
+    expect(titleBounds!.y).toBeGreaterThanOrEqual(summaryBounds!.y);
     const scroll = await map.evaluate(element => element.scrollTop);
     await page.getByRole('button', {name:'效果／前置', exact:true}).click();
     await expect(page.locator('dialog[open] .node-prerequisites')).toBeVisible();
@@ -65,11 +70,11 @@ test('skill selection stays over the paused battle and confirms across character
   await expect(page.locator('#battle-canvas canvas')).toBeVisible();
   const tick = await page.evaluate(() => window.__game.state()!.tick);
   await page.locator('[data-action="deep-owner"][data-id="C06"]').click();
-  await page.locator('[data-action="deep-node"][data-id="C06-A/0"]').click();
+  await page.locator('[data-action="deep-node"][data-id="C06-A3/0"]').focus();await page.locator('[data-action="deep-node"][data-id="C06-A3/0"]').click();
   await expect(page.locator('[data-action="buy-node"]')).toBeDisabled();
   await expect(page.locator('.points-left')).toContainText('1 / 2');
   await page.locator('[data-action="deep-owner"][data-id="C02"]').click();
-  await page.locator('[data-action="deep-node"][data-id="C02-A/0"]').click();
+  await page.locator('[data-action="deep-node"][data-id="C02-A3/0"]').focus();await page.locator('[data-action="deep-node"][data-id="C02-A3/0"]').click();
   await expect(page.locator('[data-action="buy-node"]')).toBeEnabled();
   await page.keyboard.press('Escape');
   await expect(page.locator('.tactical-tree')).toBeVisible();
@@ -78,7 +83,7 @@ test('skill selection stays over the paused battle and confirms across character
   await page.locator('[data-action="buy-node"]').click();
   await expect(page.locator('.tactical-tree')).toHaveCount(0);
   const state = await page.evaluate(() => window.__game.state()!);
-  expect(state.treeNodes).toEqual(expect.arrayContaining(['C06-A/0','C02-A/0']));
+  expect(state.treeNodes).toEqual(expect.arrayContaining(['C06-A3/0','C02-A3/0']));
   expect(state.choicesSpent).toBe(2);
   expect(state.phase).toBe('running');
 });
@@ -88,16 +93,40 @@ test('an ultimate uses both milestone points, blocks overspending and confirms a
   await page.locator('[data-action="start"]').click();await page.locator('#battle-loading').waitFor({state:'detached'});await page.locator('[data-action="tutorial-done"]').first().click();
   await page.evaluate(async()=>{
     const path='/tests/helpers/deep-build.ts';const {pathTo}=await import(path);const s=window.__game.state()!;s.xp=180;s.choicesEarned=6;window.__game.ticks(1);
-    for(const nodeId of pathTo('C01-A/9').slice(0,4))window.__game.command({type:'buy-node',offerId:s.draft!.id,nodeId});
+    for(const nodeId of pathTo('C01-A3/4').slice(0,4))window.__game.command({type:'buy-node',offerId:s.draft!.id,nodeId});
   });
   await page.locator('[data-action="deep-owner"][data-id="C01"]').click();
-  const ult=page.locator('[data-action="deep-node"][data-id="C01-A/9"]');await expect(ult).toContainText('2 點');
-  await page.locator('[data-action="deep-owner"][data-id="C02"]').click();await page.locator('[data-action="deep-node"][data-id="C02-A/0"]').click();
-  await page.locator('[data-action="deep-owner"][data-id="C01"]').click();await expect(ult).toBeDisabled();await expect(ult).toHaveAttribute('aria-label',/剩餘點數不足/);
-  await page.locator('[data-action="deep-owner"][data-id="C02"]').click();await page.locator('[data-action="deep-node"][data-id="C02-A/0"]').click();
-  await page.locator('[data-action="deep-owner"][data-id="C01"]').click();await ult.click();
+  const ult=page.locator('[data-action="deep-node"][data-id="C01-A3/4"]');await expect(ult).toHaveAttribute('aria-label',/2 點/);
+  await page.locator('[data-action="deep-owner"][data-id="C02"]').click();await page.locator('[data-action="deep-node"][data-id="C02-A3/0"]').focus();await page.locator('[data-action="deep-node"][data-id="C02-A3/0"]').click();
+  await page.locator('[data-action="deep-owner"][data-id="C01"]').click();await expect(ult).toHaveAttribute('data-state','locked');
+  await ult.focus();await ult.click();await expect(page.locator('.points-left')).toContainText('1 / 2');await expect(ult).toHaveAttribute('aria-label',/剩餘點數不足/);
+  await page.locator('[data-action="deep-owner"][data-id="C02"]').click();await page.locator('[data-action="deep-node"][data-id="C02-A3/0"]').focus();await page.locator('[data-action="deep-node"][data-id="C02-A3/0"]').click();
+  await page.locator('[data-action="deep-owner"][data-id="C01"]').click();await ult.focus();await ult.click();
   await expect(page.locator('.points-left')).toContainText('2 / 2');await expect(page.locator('[data-action="buy-node"]')).toBeEnabled();
   await page.locator('[data-action="buy-node"]').click();await expect(page.locator('.tactical-tree')).toHaveCount(0);
   const result=await page.evaluate(()=>({spent:window.__game.state()!.choicesSpent,nodes:window.__game.state()!.treeNodes,phase:window.__game.state()!.phase}));
-  expect(result.spent).toBe(6);expect(result.nodes).toHaveLength(5);expect(result.nodes).toContain('C01-A/9');expect(result.nodes).not.toContain('C02-A/0');expect(result.phase).toBe('running');
+  expect(result.spent).toBe(6);expect(result.nodes).toHaveLength(5);expect(result.nodes).toContain('C01-A3/4');expect(result.nodes).not.toContain('C02-A3/0');expect(result.phase).toBe('running');
+});
+
+test.describe('desktop atlas',()=>{
+  test.use({isMobile:false,hasTouch:false});
+test('desktop atlas selects across branches and locked nodes remain inspectable without spending points',async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);
+  await page.locator('[data-action="start"]').click();await page.locator('#battle-loading').waitFor({state:'detached'});await page.locator('[data-action="tutorial-done"]').first().click();
+  await page.evaluate(()=>{const s=window.__game.state()!;s.xp=60;s.choicesEarned=2;window.__game.ticks(1);});
+  await page.locator('[data-action="deep-owner"][data-id="C01"]').click();
+  await page.locator('[data-action="deep-node"][data-id="C01-A3/0"]').focus();await page.locator('[data-action="deep-node"][data-id="C01-A3/0"]').click();
+  // All branches are clickable without first changing the branch tab.
+  await page.locator('[data-action="deep-node"][data-id="C01-B3/0"]').focus();await page.locator('[data-action="deep-node"][data-id="C01-B3/0"]').click();
+  await expect(page.locator('[data-action="deep-tab"][data-id="C01-B3"]')).toHaveAttribute('aria-pressed','true');
+  await expect(page.locator('.points-left')).toContainText('2 / 2');
+  await expect(page.locator('[data-action="buy-node"]')).toBeEnabled();
+  await page.locator('[data-action="deep-node"][data-id="C01-C3/4"]').focus();await page.locator('[data-action="deep-node"][data-id="C01-C3/4"]').click();
+  await expect(page.locator('.skill-selection-copy')).toContainText('終結追獵');
+  await expect(page.locator('.points-left')).toContainText('2 / 2');
+  expect(await page.evaluate(()=>window.__game.state()!.draft!.pendingNodeIds)).toEqual(['C01-A3/0','C01-B3/0']);
+  await page.locator('[data-action="buy-node"]').click();
+  expect(await page.evaluate(()=>window.__game.state()!.treeNodes)).toEqual(['C01-A3/0','C01-B3/0']);
+});
 });

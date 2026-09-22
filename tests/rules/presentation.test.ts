@@ -1,3 +1,4 @@
+import { droneX } from '../../src/game/drone-formation';
 import { describe, expect, it } from 'vitest';
 import { createRun, stepRun } from '../../src/sim/engine';
 import { createEnemy, emit, hitEnemy } from '../../src/sim/combat';
@@ -5,6 +6,14 @@ import { castTactical } from '../../src/sim/weapons';
 import { capEffects, effectDetail, effectLifetime, LAYERS, poseFrame, type ActiveEffect } from '../../src/game/presentation';
 
 describe('animation contracts without changing combat rules', () => {
+  it('keeps one through five drones inside either battlefield edge', () => {
+    for (const origin of [33, 195, 313]) for (const count of [1, 2, 3, 4, 5]) {
+      const positions = Array.from({length:count}, (_,i)=>droneX(origin,count,i));
+      expect(positions[0]-13.5).toBeGreaterThanOrEqual(0);
+      expect(positions.at(-1)!+13.5).toBeLessThanOrEqual(390);
+      expect(new Set(positions).size).toBe(count);
+    }
+  });
   it('delivers new burn/hit cues after old primary attacks fill the event queue', () => {
     const s = createRun({ stageId: 'S01', squadIds: ['C05'], captainId: 'C05', seed: 101 });
     for (let i = 0; i < 100; i++) emit(s, { kind: 'shot', source: 'C05', x: 195, y: 490 });
@@ -54,8 +63,18 @@ describe('animation contracts without changing combat rules', () => {
     expect(compact.filter(f => f.event.kind === 'hit')).toHaveLength(22);
     expect(state.events).toHaveLength(100);
   });
+  it('retains every link of an upgraded summer chain under hit pressure', () => {
+    const state = createRun({ stageId: 'S01', squadIds: ['C02'], captainId: 'C02', seed: 101 });
+    for (let i = 0; i < 10; i++) emit(state, { kind: i ? 'arc' : 'beam', source: 'C02', x: 195, y: 490, x2: 30 + i * 30, y2: 200 });
+    emit(state, { kind: 'explosion', source: 'C02', x: 195, y: 200 });
+    for (let i = 0; i < 150; i++) emit(state, { kind: 'hit', source: 'C02', x: 195, y: 200 });
+    for (const detail of ['full', 'compact'] as const) {
+      const cues = capEffects(state.events.map(event => ({ event, born: 0, duration: effectLifetime(event) })), detail);
+      expect(cues.filter(f => ['beam', 'arc', 'explosion'].includes(f.event.kind))).toHaveLength(11);
+    }
+  });
   it('keeps skill cues after dense hits and targets the sniper skill at its actual victim', () => {
-    const state = createRun({ stageId: 'S01', squadIds: ['C03'], captainId: 'C03', seed: 101 });
+    const state = createRun({ stageId: 'S01', squadIds: ['C03'], captainId: 'C03', seed: 101 }, '0.4.0-dev.2');
     state.enemies = [];
     createEnemy(state, 'E01', 40, 400);
     const boss = createEnemy(state, 'B01', 270, 150);

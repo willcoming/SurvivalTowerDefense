@@ -60,7 +60,7 @@ describe('commander experience and permanent common skills',()=>{
     expect(restoreRun(s)).toEqual(s);expect(()=>createRun({...s.config,commanderNodes:['TEAM/2']})).toThrow();
   });
   it('finishes a solo character with an odd remaining node without an impossible mandatory allocation',()=>{
-    const s=createRun({stageId:'S12',squadIds:['C04'],captainId:'C04',seed:101});s.xp=720;s.choicesEarned=24;openDraft(s);
+    const s=createRun({stageId:'S12',squadIds:['C04'],captainId:'C04',seed:101},'0.4.0-dev.2');s.xp=720;s.choicesEarned=24;openDraft(s);
     for(const id of pathTo('C04-A/10'))expect(command(s,{type:'buy-node',offerId:s.draft!.id,nodeId:id})).toBe(true);
     let partial=false;
     while(s.draft){const shadow={...s,treeNodes:[...s.treeNodes!]},ids:string[]=[];

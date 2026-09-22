@@ -1,3 +1,4 @@
+import { mountSkillMaps } from './skill-map-controls';
 import { hundredCleared } from '../data/hundred';
 import './hundred.css';
 import { hundredPage } from './hundred';
@@ -57,6 +58,7 @@ export class GameApp {
   private saveBoundary = '';
   private sceneReady = false; private assetFailure = false;
   private overlayKey = '';
+  private disposeSkillMaps=()=>{};
   private selectedRange: CharacterId | null = null;
   private collecting = false;
   private mobile = new MobileControls();
@@ -95,6 +97,7 @@ export class GameApp {
     this.root.innerHTML = `<main class="loading-screen"><span class="brand-star">!</span><h1>本機紀錄暫時無法讀取</h1><p>${esc(this.vm.message)}</p><div class="result-actions"><button class="button primary" data-action="reload">重新讀取</button>${this.preservedSave ? '<button class="button secondary" data-action="discard-old-run">保留進度，放棄舊版本戰局</button>' : ''}<button class="button secondary" data-action="temporary-play">暫時試玩（不儲存）</button><button class="button secondary" data-action="reset-confirm">重置本機紀錄</button></div><p>重置會清除進度；原有資料不會被默默覆寫。</p></main><div id="global-overlay"></div>`;
   }
   private render() {
+    this.disposeSkillMaps();
     this.root.classList.add('game-app');
     const focused = document.activeElement as HTMLElement | null;
     const samePage = this.root.dataset.page === this.vm.page;
@@ -145,7 +148,7 @@ export class GameApp {
   private overlay() {
     const holder = document.getElementById(this.vm.page === 'battle' ? 'battle-overlay' : 'global-overlay'); if (!holder) return;
     const run = this.save.activeRun;
-    if(run&&this.vm.page==='battle'&&usesFreeSkills(run)&&run.draft&&!this.vm.treePanel){const ownerId=run.draft.focusId;this.vm.treePanel={ownerId,treeId:deepTreesFor(ownerId)[0].id,nodeId:null,mode:'choose'};}
+    if(run&&this.vm.page==='battle'&&usesFreeSkills(run)&&run.draft&&!this.vm.treePanel){const ownerId=run.draft.focusId;this.vm.treePanel={ownerId,treeId:deepTreesFor(ownerId,run)[0].id,nodeId:null,mode:'choose'};}
     const key = `${JSON.stringify(this.vm.personnelSkills)}:${this.vm.recruitPreview}:${this.vm.commandPanel}:${this.vm.navigationTarget}:${JSON.stringify(this.vm.treePanel)}:${JSON.stringify(this.vm.rosterPanel)}:${this.collecting}:${this.save.revision}:${this.vm.message}:${this.vm.page}:${this.vm.modal}:${this.vm.selectedCard}:${this.vm.showBuild}:${this.vm.saveStatus}:${run?.runId}:${run?.tick}:${run?.actionSeq}:${run?.draft?.id}:${JSON.stringify(run?.draft?.pendingNodeIds)}:${run?.pauseReasons.join(',')}:${this.save.preferences.musicVolume}:${this.save.preferences.sfxVolume}:${this.save.preferences.reducedEffects}:${this.save.preferences.autoTactical}`;
     if (key === this.overlayKey) return;
     this.overlayKey = key;
@@ -180,10 +183,11 @@ export class GameApp {
     const mapScroll = holder.querySelector('.skill-map-viewport')?.scrollTop ?? 0;
     const rosterView = holder.querySelector<HTMLElement>('[data-roster-view]')?.dataset.rosterView;
     const rosterScroll = holder.querySelector('.roster-panel-body')?.scrollTop ?? 0;
-    const wasOpen = !!this.renderedOverlay; this.renderedOverlay = html; holder.innerHTML = html;
+    const wasOpen = !!this.renderedOverlay; this.disposeSkillMaps();this.renderedOverlay = html; holder.innerHTML = html;
     refreshOfflineUi(holder);
     for (const child of this.root.children) if (child instanceof HTMLElement && child !== holder) child.inert = !!html;
     enhanceMobileCombat(holder, this.mobile);
+    this.disposeSkillMaps=mountSkillMaps(holder);
     const map = holder.querySelector('.skill-map-viewport');
     if (map && previousTree === this.vm.treePanel?.treeId) map.scrollTop = mapScroll;
     this.mobile.finish(this.root);
@@ -477,16 +481,17 @@ export class GameApp {
         this.selectedRange = this.selectedRange === id ? null : id as CharacterId;
         updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); break;
       }
-      case 'deep-owner': if(this.vm.treePanel&&this.save.activeRun?.config.squadIds.includes(id as CharacterId)){const ownerId=id as SkillOwner;this.vm.treePanel={...this.vm.treePanel,ownerId,treeId:deepTreesFor(ownerId)[0].id,nodeId:null};this.overlay();}break;
+      case 'deep-owner': if(this.vm.treePanel&&this.save.activeRun?.config.squadIds.includes(id as CharacterId)){const ownerId=id as SkillOwner;this.vm.treePanel={...this.vm.treePanel,ownerId,treeId:deepTreesFor(ownerId,this.save.activeRun!)[0].id,nodeId:null};this.overlay();}break;
       case 'deep-tab': if(this.vm.treePanel&&DEEP_TREE_MAP[id!]?.ownerId===this.vm.treePanel.ownerId){this.vm.treePanel.treeId=id!;this.vm.treePanel.nodeId=null;this.overlay();}break;
       case 'deep-node': {
         const run=this.save.activeRun, panel=this.vm.treePanel, node=DEEP_NODE_MAP[id!];
-        if(!run||!panel||!node||node.treeId!==panel.treeId)break;
+        if(!run||!panel||!node||node.ownerId!==panel.ownerId)break;
+        panel.treeId=node.treeId;
         panel.nodeId=id!;
         if(run.draft){
           const pending=run.draft.pendingNodeIds??[];
           const index=pending.indexOf(id!);
-          if(index>=0) pending.splice(index,1);
+          if(index>=0) {pending.splice(index,1);for(let i=0;i<pending.length;){const shadow={...run,treeNodes:[...(run.treeNodes??[]),...pending.slice(0,i)]};if(deepLock(shadow,pending[i]))pending.splice(i,1);else i++;}}
           else {
             const remaining=(run.draft.pointTarget??run.choicesSpent)-run.choicesSpent;
             const shadow={...run,treeNodes:[...(run.treeNodes??[]),...pending]};
@@ -511,11 +516,12 @@ export class GameApp {
         const ownerId=this.vm.rosterPanel?.ownerId??this.vm.characterId;
         if(!['roster','codex'].includes(this.vm.page)||id!==ownerId)break;
         this.personnelReturnScroll=this.root.querySelector('.roster-panel-body')?.scrollTop??0;
-        this.vm.personnelSkills={ownerId,treeId:deepTreesFor(ownerId)[0].id,nodeId:null};this.overlay();break;
+        this.vm.personnelSkills={ownerId,treeId:deepTreesFor(ownerId)[0].id,nodeId:null,formId:this.vm.rosterPanel?.previewFormId??ownedForm(this.rosterSave().collection,ownerId)??originalForm(ownerId)};this.overlay();break;
       }
+      case 'personnel-skill-form': if(this.vm.personnelSkills&&[`${this.vm.personnelSkills.ownerId}-original`,`${this.vm.personnelSkills.ownerId}-summer`].includes(id!)){this.vm.personnelSkills.formId=id as import('../sim/types').FormId;this.overlay();}break;
       case 'personnel-skills-close': this.closePersonnelSkills();break;
       case 'personnel-skill-tab': if(this.vm.personnelSkills&&DEEP_TREE_MAP[id!]?.ownerId===this.vm.personnelSkills.ownerId){this.vm.personnelSkills.treeId=id!;this.vm.personnelSkills.nodeId=null;this.overlay();this.root.querySelector<HTMLElement>(`#personnel-tab-${id}`)?.focus({preventScroll:true});}break;
-      case 'personnel-skill-node': if(this.vm.personnelSkills&&DEEP_NODE_MAP[id!]?.treeId===this.vm.personnelSkills.treeId){this.vm.personnelSkills.nodeId=id!;this.overlay();}break;
+      case 'personnel-skill-node': if(this.vm.personnelSkills&&DEEP_NODE_MAP[id!]?.ownerId===this.vm.personnelSkills.ownerId){this.vm.personnelSkills.treeId=DEEP_NODE_MAP[id!].treeId;this.vm.personnelSkills.nodeId=id!;this.overlay();}break;
       case 'tree-open': this.openTree('choose',id);break;
       case 'tree-close': this.closeTree();break;
       case 'tree-character': if(this.vm.treePanel&&this.save.activeRun?.config.squadIds.includes(id as CharacterId)){this.vm.treePanel={...this.vm.treePanel,ownerId:id as CharacterId,treeId:treesFor(id as CharacterId)[0].id,nodeId:null};this.overlay();}break;
@@ -554,7 +560,7 @@ export class GameApp {
   }
   private openTree(mode: 'choose'|'view', nodeId?: string) {
     const run=this.save.activeRun;if(!run||!usesSkillTrees(run))return;
-    if(usesFreeSkills(run)){const chosen=DEEP_NODE_MAP[nodeId??''],ownerId=chosen?.ownerId??run.config.captainId;this.vm.treePanel={ownerId,treeId:chosen?.treeId??deepTreesFor(ownerId)[0].id,nodeId:chosen?.id??null,mode:run.draft?'choose':'view'};command(run,{type:'pause',reason:'tree'});this.overlay();void this.persist();return;}
+    if(usesFreeSkills(run)){const chosen=DEEP_NODE_MAP[nodeId??''],ownerId=chosen?.ownerId??run.config.captainId;this.vm.treePanel={ownerId,treeId:chosen?.treeId??deepTreesFor(ownerId,run)[0].id,nodeId:chosen?.id??null,mode:run.draft?'choose':'view'};command(run,{type:'pause',reason:'tree'});this.overlay();void this.persist();return;}
     const chosen=NODE_MAP[nodeId??run.draft?.customNodeId??''];const ownerId=chosen?.ownerId??run.config.captainId;
     this.vm.treePanel={ownerId,treeId:chosen?.treeId??treesFor(ownerId)[0].id,nodeId:chosen?.id??null,mode:run.draft?mode:'view'};
     command(run,{type:'pause',reason:'tree'});this.overlay();void this.persist();

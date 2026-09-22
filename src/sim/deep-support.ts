@@ -1,3 +1,4 @@
+import { usesReworkedSkills } from '../data/reworked-skills';
 import { ticks, WORLD } from '../data/content';
 import { deepMods, teamMod } from './deep-tree';
 import { usesFreeSkills } from '../data/deep-trees';
@@ -30,7 +31,7 @@ export function stepSupport(s:RunState){
   emergencySupport(s);
 }
 export function reflectShield(s:RunState,absorbed:number){
-  const rate=teamMod(s,'shieldReflect');if(!rate||!absorbed||!s.support)return;
+  const rate=teamMod(s,'shieldReflect')+(usesReworkedSkills(s)&&equippedForm(s,'C06').theme==='summer'&&(s.weapons.find(w=>w.id==='C06')?.ultimateBuffUntil??0)>s.tick?.3:0);if(!rate||!absorbed||!s.support)return;
   const target=alive(s).sort((a,b)=>b.y-a.y||a.id-b.id)[0];if(!target)return;
   const value=absorbed*Math.min(1,rate);s.support.reflected+=value;
   hitEnemy(s,target,{source:s.config.squadIds.includes('C06')?'C06':s.config.captainId,skill:'shield-reflect',raw:value,damageType:'plasma',armorIgnore:1,shieldMultiplier:1,secondary:true});

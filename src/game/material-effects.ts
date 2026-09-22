@@ -1,4 +1,5 @@
 import type Phaser from 'phaser';
+import { droneX } from './drone-formation';
 import { AMMO_FRAMES } from './projectile-visuals';
 import { attackType } from '../data/forms';
 import { visualPriority } from '../sim/visual';
@@ -42,12 +43,14 @@ export class MaterialEffects {
     this.limit = detail === 'compact' ? 88 : 144;
     // Real deployed equipment stays intact in compact mode.
     for (const mine of run.mines ?? []) this.draw('combat-props', 2, mine.x, mine.y, 24, 1, 0, 24, LAYERS.world + .5);
+    let droneCount = 1;
     for (const weapon of run.weapons) {
       const p = origin(weapon.id);
       if (weapon.id === 'C06') {
         const mods = treeMods(run, weapon.id), tree = ultimateFor(run, weapon.id)?.split(/[:/]/)[0];
         const count = usesFreeSkills(run) ? Math.min(5, 1 + (mods.drones ?? 0)) : usesSkillTrees(run) ? (mods.drones || tree === 'C06-A' ? 2 : 1) : weapon.rank === 3 && weapon.branch === 'A' ? 2 : 1;
-        for (let i = 0; i < count; i++) this.draw('combat-props', 0, p.x + i * 23, p.y + Math.sin(now / 380 + i) * 3, 27, 1, 0, 27, LAYERS.allies + 1);
+        droneCount = count;
+        for (let i = 0; i < count; i++) this.draw('combat-props', 0, droneX(p.x, count, i), p.y + Math.sin(now / 380 + i) * 3, 27, 1, 0, 27, LAYERS.allies + 1);
       }
       if (weapon.id === 'C08' && weapon.cooling && detail === 'full') this.draw('combat-props', 5, p.x, p.y - 15 - now % 550 / 35, 29, .4, 0);
     }
@@ -75,7 +78,11 @@ export class MaterialEffects {
         }
       } else if (e.kind === 'beam' || e.kind === 'arc') {
         const base = origin(e.source, e.x2);
-        const p = e.y === 490 ? { x: base.x + (e.source === 'C06' ? e.x - 195 : 0), y: base.y } : e;
+        const droneIndex = Math.max(0, Math.min(droneCount - 1, Math.round((e.x - 195) / 12 + (droneCount - 1) / 2)));
+        const muzzleX = e.source === 'C06'
+          ? usesFreeSkills(run) ? droneX(base.x, droneCount, droneIndex) : base.x + e.x - 195
+          : base.x;
+        const p = e.y === 490 ? { x: muzzleX, y: base.y } : e;
         const to = { x: e.x2 ?? e.x, y: e.y2 ?? e.y };
         const progress = Math.min(1, t / .55), angle = Math.atan2(to.y - p.y, to.x - p.x) * 180 / Math.PI;
         // Hitscan damage is unchanged; its short flight cue is a finite illustrated object.
@@ -101,5 +108,5 @@ export class MaterialEffects {
     for (let i = this.used; i < this.sprites.length; i++) this.sprites[i].setVisible(false);
     this.peak = Math.max(this.peak, this.used);
   }
-  diagnostics() { return { materialEffects: { active: this.used, allocated: this.sprites.length, peak: this.peak, textures: this.counts, limit: this.limit, shieldCores: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===8).map(s=>({x:s.x,y:s.y,width:s.displayWidth,height:s.displayHeight})), ammunition: this.sprites.slice(0, this.used).filter(s => s.texture.key === 'combat-ammo').map(s => ({ frame: Number(s.frame.name), x: s.x, y: s.y, width: s.displayWidth })) } }; }
+  diagnostics() { return { materialEffects: { active: this.used, allocated: this.sprites.length, peak: this.peak, textures: this.counts, limit: this.limit, drones: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===0).map(s=>({x:s.x,y:s.y,width:s.displayWidth})), shieldCores: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===8).map(s=>({x:s.x,y:s.y,width:s.displayWidth,height:s.displayHeight})), ammunition: this.sprites.slice(0, this.used).filter(s => s.texture.key === 'combat-ammo').map(s => ({ frame: Number(s.frame.name), x: s.x, y: s.y, width: s.displayWidth })) } }; }
 }

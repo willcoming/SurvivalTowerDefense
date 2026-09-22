@@ -38,11 +38,12 @@ export function effectLifetime(event: VisualEvent) {
 export interface ActiveEffect { event: VisualEvent; born: number; duration: number }
 export function capEffects(effects: ActiveEffect[], detail: Detail): ActiveEffect[] {
   const critical = effects.filter(f => importantEffect(f.event)).slice(-12);
-  // Reserve up to six recent primary cues per weapon (including all chain links).
+  // Reserve twelve primary cues per weapon: upgraded summer chains can emit
+  // ten links plus a magnetic explosion in one attack.
   // Heavy hit batches must not erase another squad member's visible attack.
   const counts = new Map<CharacterId | undefined, number>();
   const primary = effects.filter(f => visualPriority(f.event) === 2).reverse().filter(f => {
-    const n = (counts.get(f.event.source) ?? 0) + 1; counts.set(f.event.source, n); return n <= 6;
+    const n = (counts.get(f.event.source) ?? 0) + 1; counts.set(f.event.source, n); return n <= 12;
   }).reverse();
   const normal = effects.filter(f => visualPriority(f.event) < 2).slice(-(detail === 'compact' ? 22 : 64));
   return [...normal, ...primary, ...critical];

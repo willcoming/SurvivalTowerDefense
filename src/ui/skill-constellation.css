@@ -1,0 +1,256 @@
+/* A shared, full-screen ability atlas for the archive and live allocations. */
+#app :is(.tree-panel.tactical-tree,.personnel-skills-dialog.constellation-preview) {
+  --atlas-gold:#dec777; --atlas-ink:#e8e8dc; --atlas-muted:#95a5af;
+  position:fixed; inset:0; width:100%; max-width:100%; height:100dvh; max-height:100dvh;
+  margin:0; padding:0; border:0; border-radius:0; color:var(--atlas-ink);
+  background:radial-gradient(ellipse at 50% 65%,#162732 0%,#0b1721 52%,#070f17 100%);
+  box-shadow:none; overflow:hidden;
+}
+#app .personnel-skills-backdrop { padding:0; }
+#app :is(.tactical-tree .tree-header,.constellation-preview > header) {
+  min-height:88px; padding:18px 36px; background:#0b141dd9;
+  border-bottom:1px solid #c4b88928; flex:none;
+}
+#app :is(.tactical-tree .tree-header h2,.constellation-preview h2) { color:#ede7d6; font-size:25px; letter-spacing:.12em; margin:5px 0 0; }
+#app :is(.tactical-tree .tree-header .eyebrow,.constellation-preview header small) { font-size:10px; color:#bca971; letter-spacing:.22em; }
+#app :is(.tactical-tree .icon-button,.constellation-preview .icon-button) { width:44px; height:44px; min-height:44px; border:1px solid #8a9aa348; background:transparent; color:#e6dfca; border-radius:50%; }
+#app :is(.tactical-tree .icon-button,.constellation-preview .icon-button):hover { border-color:var(--atlas-gold); background:#dec77714; }
+#app .tactical-tree .points-left { color:#9daab2; font-size:11px; }
+#app .tactical-tree .points-left strong { font-size:15px; }
+#app .tactical-tree .points-left b { font-size:32px; font-weight:400; color:var(--atlas-gold); }
+#app .tactical-tree .tree-scroll { padding:0 28px; gap:0; overflow:hidden; }
+#app .tactical-tree .tree-characters { max-width:720px; width:100%; align-self:center; gap:16px; padding:10px 0 0; }
+#app .tactical-tree .tree-characters button { border-radius:0; min-height:80px; font-size:13px; background:none; padding:4px; color:#9daab2; }
+#app .tactical-tree .tree-characters button.active { background:none; color:var(--atlas-gold); box-shadow:inset 0 -1px var(--atlas-gold); }
+#app .tactical-tree .tree-characters img { width:36px; height:36px; border:1px solid #8c9aa055; border-radius:50%; filter:saturate(.65); }
+#app .tactical-tree .tree-characters .active img { border-color:var(--atlas-gold); box-shadow:0 0 15px #d8bd4930; filter:none; }
+#app .tactical-tree .tree-characters small { font-size:10px; }
+#app :is(.tactical-tree .tree-tabs,.personnel-skill-tabs) { flex:none; display:flex; justify-content:center; gap:28px; margin:0; padding:0 20px; background:none; border:0; border-bottom:1px solid #c4b88920; overflow-x:auto; }
+#app :is(.tactical-tree .tree-tabs button,.personnel-skill-tabs > button) { flex:0 1 220px; min-height:50px; padding:10px 12px; background:none; border:0; border-bottom:2px solid transparent; border-radius:0; color:#95a5af; box-shadow:none; font-size:14px; white-space:nowrap; }
+#app :is(.tactical-tree .tree-tabs button.active,.personnel-skill-tabs > button[aria-selected=true]) { background:none; color:var(--atlas-gold); border-bottom-color:var(--atlas-gold); box-shadow:none; }
+#app .tactical-tree .tree-tabs small { color:#91a0a8; font-size:10px; }
+#app .tactical-tree .skill-map-toolbar { min-height:44px; padding:3px 0; z-index:1; }
+#app .tactical-tree .skill-map-legend { gap:16px; font-size:11px; color:var(--atlas-muted); }
+#app .tactical-tree .skill-map-legend .owned { color:var(--atlas-gold); }
+#app .tactical-tree .skill-map-legend .available { color:#ece0b7; }
+#app .tactical-tree .skill-map-legend .pending { color:#fff2c3; }
+#app .tactical-tree .skill-map-legend .locked { color:#84929e; }
+#app .tactical-tree .mobile-detail-trigger { color:#c9c4af; border:0; border-bottom:1px solid #9c987c55; background:none; font-size:12px; border-radius:0; min-height:44px; }
+#app .tactical-tree .skill-map-viewport { border:0; border-radius:0; background:none; display:grid; place-items:center; min-height:80px; }
+#app .personnel-skill-scroll { display:flex; flex-direction:column; overflow:auto; padding:0 30px; }
+.constellation-intro { display:flex; align-items:center; gap:18px; padding:18px 6px 0; color:#c6b57d; }
+.constellation-intro > span { font-size:11px; letter-spacing:.16em; white-space:nowrap; }
+#app .constellation-intro > p { font-size:12px; margin:0; color:#9cabb3; }
+.constellation-intro > small { margin-left:auto; color:#b8b19a; font-size:11px; white-space:nowrap; }
+#app .personnel-skill-note { text-align:center; font-size:11px; color:#95a5af; margin:0 0 14px; }
+#app .deep-graph.constellation-map {
+  flex:none; width:100%; max-width:1200px; height:auto!important; min-height:0;
+  aspect-ratio:1200 / 660; margin:auto; position:relative; isolation:isolate;
+}
+.constellation-grid { position:absolute; inset:0; width:100%; height:100%; color:#536e7c; opacity:.12; pointer-events:none; }
+#app .constellation-map .deep-connections { opacity:1; }
+#app .constellation-map .deep-connections path { fill:none; stroke:#50616e; stroke-width:1.2; stroke-dasharray:none; vector-effect:non-scaling-stroke; opacity:.65; }
+#app .constellation-map .deep-connections path.active-route { stroke:#849197; opacity:.75; }
+#app .constellation-map .deep-connections path.connected { stroke:#d4b757; stroke-width:2; opacity:1; filter:drop-shadow(0 0 3px #eaca5440); }
+#app .constellation-map .deep-connections path.queued { stroke:#f2dea0; stroke-width:2; opacity:1; stroke-dasharray:5 4; }
+#app .constellation-map .deep-connections path.traced { stroke:#d9c782; stroke-width:2; opacity:1; }
+#app .constellation-map .constellation-mobile-edges { display:none; }
+#app .constellation-map .constellation-node {
+  --size:44px;
+  position:absolute; left:var(--node-x); top:var(--node-y)!important;
+  transform:translate(-50%,-50%); display:flex; align-items:center; justify-content:center;
+  width:var(--size); height:var(--size); min-height:var(--size); padding:8px;
+  border:1px solid #778791; border-radius:50%; color:#bfc9cc;
+  background:radial-gradient(circle at 40% 30%,#344551,#192833 70%);
+  box-shadow:inset 0 0 0 3px #0b192580,0 0 0 3px #72818a16;
+  outline:none; z-index:2; overflow:visible; transition:box-shadow .18s,border-color .18s,color .18s;
+}
+#app .constellation-map .constellation-node .node-symbol { display:block; width:26px; height:26px; border:0; border-radius:0; padding:0; margin:0; color:inherit; font-size:inherit; line-height:1; background:none; }
+.constellation-node svg { width:100%; height:100%; }
+#app .constellation-map .constellation-node strong { position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%); width:110px; font-size:11px; font-weight:400; line-height:1.4; color:#9eafb8; white-space:nowrap; text-shadow:0 2px 4px #03080e; }
+#app .constellation-map .constellation-node small { display:block; position:absolute; right:-3px; bottom:-2px; background:#0b1721; border-radius:50%; color:#deca88; min-width:14px; font-size:10px; line-height:14px; }
+#app .constellation-map .constellation-node small:empty { display:none; }
+#app .constellation-map .constellation-node.owned { border-color:#f0dc8c; color:#18212a; background:radial-gradient(circle at 35% 25%,#f1df95,#baa34f); box-shadow:inset 0 0 0 3px #66521d50,0 0 0 3px #d8bd4920,0 0 20px #d8bd4925; }
+#app .constellation-map .constellation-node.owned strong { color:#dfcc8b; }
+#app .constellation-map .constellation-node.available { color:#ecd990; border-color:#dfc76e; background:radial-gradient(circle at 40% 30%,#514c31,#242c2a 70%); box-shadow:inset 0 0 0 3px #bdaa4220,0 0 0 3px #d8bd491a; }
+#app .constellation-map .constellation-node.pending { color:#18212a; border-color:#fff3b9; background:#efda92; box-shadow:inset 0 0 0 3px #ae8e3444,0 0 0 4px #e5ce7640,0 0 24px #d8bd4960; }
+#app .constellation-map .constellation-node.locked { border:1px solid #4b5d6c; color:#82939f; background:radial-gradient(circle at 40% 30%,#24313e,#12202c 75%); box-shadow:inset 0 0 0 3px #07131c60,0 0 0 3px #51657416; }
+#app .constellation-map .constellation-node.ultimate { --size:50px; border-style:double; border-width:3px; }
+#app .constellation-map .constellation-node.inspecting { outline:1px solid #f1e9c7; outline-offset:6px; border-color:#efe4b8; box-shadow:0 0 25px #d6c68038; }
+#app .constellation-map .constellation-node.inspecting strong { color:#f2e4b2; }
+#app .constellation-map .constellation-node:hover { border-color:#f5e4ad; color:#fff2c1; box-shadow:0 0 18px #dec77744; }
+#app .constellation-map .constellation-node:focus-visible { outline:2px solid #fff2c1; outline-offset:6px; }
+#app .constellation-map .constellation-node:active { transform:translate(-50%,-50%)!important; }
+.constellation-core { position:absolute; left:50%; top:86.97%; transform:translate(-50%,-50%); color:#d8c57b; text-align:center; }
+.constellation-core > span { display:grid; place-items:center; width:66px; height:66px; border:1px solid #c9b76899; border-radius:50%; font-size:43px; box-shadow:0 0 0 5px #c9b76808,0 0 0 6px #c9b76833,inset 0 0 18px #d4b95928; background:#14202a; }
+.constellation-core small { display:block; margin-top:12px; font-size:12px; letter-spacing:.18em; }
+.constellation-branch { position:absolute; left:var(--branch-x); top:3%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:6px; color:#9faeb6; }
+.constellation-branch small { font-size:9px; letter-spacing:.2em; color:#7d8f9c; }
+.constellation-branch strong { font-size:15px; letter-spacing:.14em; font-weight:400; }
+.constellation-branch.active strong { color:#decb8b; }
+.constellation-caption { position:absolute; left:0; bottom:5%; font:9px ui-monospace,monospace; color:#6a8191; letter-spacing:.2em; }
+.constellation-caption span { display:block; margin-top:8px; font:11px system-ui,sans-serif; letter-spacing:.04em; color:#9aa9b1; }
+#app :is(.tactical-tree .node-preview,.personnel-skill-detail) { flex:none; padding:20px 36px; border-top:1px solid #c4b88930; background:#0a141ddd; max-height:28dvh; overflow:auto; }
+#app .tactical-tree .node-preview { display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:0 40px; }
+#app .tactical-tree .skill-selection { min-height:68px; max-height:120px; }
+#app .tactical-tree .skill-selection-copy h3,#app .personnel-skill-detail h3 { color:#e8dba8; font-size:19px; font-weight:500; margin:0 0 7px; }
+#app .tactical-tree .skill-selection-copy p,#app .personnel-skill-detail p { color:#b9c5c9; font-size:14px; line-height:1.65; margin:0; }
+#app .personnel-skill-detail small { color:#8e9fa9; font-size:12px; margin-top:8px; }
+#app .tactical-tree .node-preview > .button { align-self:center; margin:0; min-height:48px; font-size:15px; border:1px solid #cbb770; border-radius:0; color:#f2e8c5; background:linear-gradient(110deg,#50492e,#353724); box-shadow:inset 0 0 0 3px #090f152e; }
+#app .tactical-tree .node-preview > .button:disabled { color:#71818b; background:#14212a; border-color:#46525c; opacity:1; }
+#app .tactical-tree .deep-footer-note { grid-column:1/-1; min-height:28px; margin-top:8px; }
+#app .tactical-tree .deep-footer-note :is(small,.text-button) { color:#8f9eaa; font-size:11px; }
+#app .tactical-tree .deep-footer-note .text-button { min-height:32px; }
+#app .tactical-tree .mobile-detail { background:#101f2b; border-color:#647072; }
+#app .tactical-tree .mobile-detail-header { background:#182934; }
+@media(min-width:801px) and (max-height:850px) {
+  #app .tactical-tree .tree-header { min-height:66px; padding:8px 28px; }
+  #app .tactical-tree .tree-characters { padding-top:4px; }
+  #app .tactical-tree .tree-characters button { min-height:62px; }
+  #app .tactical-tree .tree-characters img { width:28px; height:28px; }
+  #app .tactical-tree .node-preview { padding:12px 28px; }
+  #app .tactical-tree .skill-map-viewport { display:block; }
+}
+@media(max-width:800px) {
+  #app :is(.tactical-tree .tree-header,.constellation-preview > header) { min-height:70px; padding:12px 16px; padding-top:max(12px,env(safe-area-inset-top)); }
+  #app :is(.tactical-tree .tree-header h2,.constellation-preview h2) { font-size:21px; letter-spacing:.04em; }
+  #app .tactical-tree .tree-header h2 small { display:block; font-size:10px; margin:3px 0 0; }
+  #app .tactical-tree .tree-scroll { padding:0 14px; }
+  #app .tactical-tree .tree-characters { gap:4px; padding-top:5px; }
+  #app .tactical-tree .tree-characters button { font-size:12px; min-height:66px; }
+  #app .tactical-tree .tree-characters img { width:30px; height:30px; }
+  #app :is(.tactical-tree .tree-tabs,.personnel-skill-tabs) { gap:4px; padding:0; }
+  #app :is(.tactical-tree .tree-tabs button,.personnel-skill-tabs > button) { flex:1; min-height:44px; padding:6px 3px; font-size:12px; }
+  #app .personnel-skill-tabs { padding-inline:12px; }
+  #app .tactical-tree .skill-map-legend { font-size:10px; gap:6px; }
+  #app .tactical-tree .mobile-detail-trigger { font-size:11px; padding:4px; }
+  #app .tactical-tree .skill-map-viewport { display:block; }
+  #app .deep-graph.constellation-map { width:100%; max-width:540px; height:var(--mobile-map-height)!important; min-height:var(--mobile-map-height); aspect-ratio:auto; margin:12px auto; }
+  #app .constellation-map :is(.constellation-desktop-edges,.constellation-grid,.constellation-core,.constellation-branch,.constellation-caption) { display:none; }
+  #app .constellation-map .constellation-mobile-edges { display:block; }
+  #app .constellation-map .constellation-mobile-edges path:not(.active-route) { display:none; }
+  #app .constellation-map .constellation-node:not(.active-branch) { display:none; }
+  #app .constellation-map .constellation-node { left:var(--mobile-x); top:var(--mobile-y)!important; --size:46px; }
+  #app .constellation-map .constellation-node.ultimate { --size:50px; }
+  #app .constellation-map .constellation-node strong { font-size:11px; width:100px; top:calc(100% + 7px); }
+  #app .personnel-skill-scroll { padding:0 12px; }
+  .constellation-intro { padding:12px 4px 0; gap:10px; flex-wrap:wrap; }
+  .constellation-intro > small { display:none; }
+  #app .constellation-intro > p { font-size:11px; }
+  #app :is(.tactical-tree .node-preview,.personnel-skill-detail) { padding:12px 16px max(12px,env(safe-area-inset-bottom)); max-height:36dvh; }
+  #app .tactical-tree .node-preview { display:block; }
+  #app .tactical-tree .skill-selection { min-height:60px; max-height:100px; }
+  #app .tactical-tree .skill-selection-copy h3,#app .personnel-skill-detail h3 { font-size:17px; }
+  #app .tactical-tree .skill-selection-copy p,#app .personnel-skill-detail p { font-size:13px; }
+  #app .tactical-tree .node-preview > .button { margin-top:10px; width:100%; min-height:46px; }
+  #app .tactical-tree .deep-footer-note { margin-top:3px; }
+  #app .tactical-tree .deep-footer-note :is(small,.text-button) { font-size:10px; }
+}
+@media(max-width:800px) and (max-height:600px) {
+  #app :is(.tactical-tree .tree-header,.constellation-preview > header) { min-height:56px; padding:6px 12px; }
+  #app .tactical-tree .tree-header h2 { font-size:18px; }
+  #app .tactical-tree .tree-header h2 small { display:none; }
+  #app .tactical-tree .tree-characters button { min-height:44px; padding:2px; }
+  #app .tactical-tree .tree-characters img { display:none; }
+  #app .tactical-tree .tree-scroll { padding:0 10px; }
+  #app .tactical-tree .skill-map-toolbar { min-height:36px; }
+  #app .tactical-tree .skill-map-toolbar .mobile-detail-trigger { min-height:36px; }
+  #app :is(.tactical-tree .node-preview,.personnel-skill-detail) { padding:8px 12px; max-height:38dvh; }
+  #app .tactical-tree .skill-selection { min-height:44px; max-height:64px; }
+  #app .tactical-tree .node-preview > .button { margin-top:6px; }
+  #app .tactical-tree .deep-footer-note > small { display:none; }
+  #app .tactical-tree .deep-footer-note { justify-content:flex-end; }
+}
+@media(prefers-reduced-motion:reduce) { #app .constellation-map .constellation-node { transition:none; } }
+@media(min-width:801px) {
+  #app .tactical-tree .tree-header { position:relative; display:grid; grid-template-columns:minmax(180px,1fr) minmax(320px,560px) minmax(160px,1fr); align-items:center; gap:20px; min-height:96px; }
+  #app .tactical-tree .tree-header > div { grid-column:1; grid-row:1; }
+  #app .tactical-tree .tree-header > :is(.points-left,.icon-button) { grid-column:3; grid-row:1; justify-self:end; }
+  #app .tactical-tree .tree-header .tree-characters { grid-column:2; grid-row:1; margin:0; padding:0; gap:6px; align-self:center; }
+  #app .tactical-tree .tree-header .tree-characters button { min-height:70px; }
+  #app .tactical-tree .skill-map-viewport { display:grid; place-items:start center; container-type:size; }
+  #app .tactical-tree .constellation-map { width:clamp(min(100%,900px),calc(100cqh * 1.81818),100%); }
+  #app .tactical-tree .node-preview { padding-block:14px; }
+  #app .tactical-tree .deep-footer-note .text-button { min-height:44px; }
+  #app .tactical-tree .constellation-caption { bottom:0; }
+}
+@media(max-width:800px) {
+  #app .tactical-tree .tree-header { flex-wrap:wrap; }
+  #app .tactical-tree .tree-header .tree-characters { flex:0 0 100%; margin:0; max-width:none; }
+  #app .tactical-tree .tree-header { padding-bottom:0; }
+  #app .tactical-tree .deep-footer-note .text-button { min-height:44px; }
+}
+#app .constellation-map .constellation-node.ultimate small { right:-10px; bottom:-4px; min-width:30px; font-size:9px; }
+@media(min-width:801px) {
+  #app .tactical-tree .constellation-branch { top:1%; }
+  #app .tactical-tree .constellation-branch small { display:none; }
+  #app .tactical-tree .constellation-branch strong { font-size:13px; }
+}
+@media(max-width:400px) {
+  #app .tactical-tree .skill-map-legend { font-size:9px; gap:4px; }
+  #app .tactical-tree .skill-map-toolbar .mobile-detail-trigger { font-size:10px; }
+}
+@media(max-width:800px) and (max-height:600px) {
+  #app .tactical-tree .points-left { font-size:9px; gap:0; }
+  #app .tactical-tree .points-left strong { font-size:12px; line-height:1.2; }
+  #app .tactical-tree .points-left b { font-size:24px; }
+  #app .tactical-tree .tree-header .tree-characters button { min-height:40px; }
+  #app .tactical-tree .tree-header .tree-characters { padding-top:0; }
+  #app .tactical-tree .node-preview { max-height:36dvh; }
+}
+#app .tactical-tree .skill-selection { align-items:flex-start; }
+@media(max-width:800px) and (max-height:600px) {
+  #app .tactical-tree .skill-selection-copy p { -webkit-line-clamp:1; }
+}
+
+.skill-form-switch{display:flex;gap:8px;align-items:center;padding:8px 20px;flex-wrap:wrap;color:#9aaeb9;font-size:12px}.skill-form-switch button{padding:8px 16px;background:#12232d;color:#c3cbd1;border:1px solid #36505d;border-radius:4px}.skill-form-switch button[aria-pressed="true"]{border-color:#d9bd68;color:#ffe198}.ultimate-strip{display:flex;gap:4px;padding:5px 10px;background:#101f29}.ultimate-strip>div{flex:1;text-align:center;min-width:0}.ultimate-strip small{display:block;color:#9faeb4;font-size:10px}.ultimate-strip b{font-size:12px;color:#e1c976}.ultimate-cue{min-height:20px;text-align:center;font-size:11px;color:#d3c391;background:#101f29;padding-bottom:3px}
+
+.skill-form-switch button{min-height:44px}
+
+/* Connected character trees share one pannable world at every screen size. */
+#app .network-panel .tree-scroll { display:flex; flex-direction:column; flex:1; min-height:0; }
+#app .network-panel .personnel-skill-scroll { flex:1; min-height:0; padding:0 24px; overflow:hidden; }
+#app .network-panel .constellation-intro { padding:10px 4px; flex:none; }
+#app .network-panel .personnel-skill-note { margin:3px 0 8px; font-size:10px; }
+#app .network-panel .network-viewport { display:block; position:relative; flex:1; width:100%; min-height:80px; overflow:hidden; touch-action:none; cursor:grab; outline-offset:-3px; contain:layout paint; background:radial-gradient(ellipse at 50% 95%,#182c38aa,transparent 75%); }
+#app .network-viewport.dragging { cursor:grabbing; }
+#app .deep-graph.skill-network { position:absolute; left:0; top:0; display:block; width:1240px!important; height:620px!important; max-width:none; min-width:0; margin:0; aspect-ratio:auto; transform-origin:0 0; will-change:transform; user-select:none; touch-action:none; }
+#app .skill-network .network-grid { position:absolute; inset:0; width:100%; height:100%; color:#4e6b7d; opacity:.13; pointer-events:none; }
+#app .skill-network .network-edges { display:block; position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+#app .skill-network .network-edges path { stroke:#718a98; opacity:.68; stroke-width:1.35; }
+#app .skill-network .network-edges path.cross-route { stroke:#8e9f9a; stroke-dasharray:none; }
+#app .skill-network .network-edges path.traced { stroke:#f0d57b; opacity:1; stroke-width:2; }
+#app .skill-network .constellation-node { display:flex!important; --size:64px; left:var(--node-x)!important; top:var(--node-y)!important; width:64px; height:64px; min-height:64px; padding:13px; }
+#app .skill-network .constellation-node.ultimate { --size:76px; width:76px; height:76px; min-height:76px; border-width:2px; box-shadow:0 0 0 5px #dec77714,inset 0 0 0 4px #dec77718; }
+#app .skill-network .constellation-node.capstone { border-style:double; border-width:3px; }
+#app .skill-network .constellation-node strong { width:140px; font-size:14px; top:calc(100% + 10px); text-shadow:0 0 5px #07111c,0 0 8px #07111c,0 0 12px #07111c; }
+#app .skill-network .constellation-node small { right:-7px; bottom:-5px; font-size:10px; border-radius:4px; padding:1px 4px; }
+#app .skill-network .node-symbol { width:32px; height:32px; }
+#app .skill-network .constellation-node:focus-visible { outline:2px solid #fff0b4; outline-offset:7px; }
+.network-core { position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:10px; color:#d9c778; pointer-events:none; }
+.network-core span { display:grid; place-items:center; width:54px; height:54px; border:1px solid #bca766; border-radius:50%; background:#122431; font-size:36px; box-shadow:0 0 35px #e2c66615; }
+.network-core b { font-size:18px; font-weight:400; }.network-core small{font-size:11px;color:#8d9fa9}
+.network-discipline { position:absolute; top:38px; transform:translateX(-50%); display:flex; align-items:center; gap:12px; color:#afbdc2; }
+.network-discipline small { font-size:11px; color:#8e8057; }.network-discipline strong{font-size:18px;font-weight:400;letter-spacing:.14em}
+#app .network-controls { display:flex; flex:none; align-items:center; justify-content:center; gap:6px; min-height:48px; padding:2px 0; color:#a1b3bd; }
+#app .network-controls button { display:grid; place-items:center; min-width:44px; min-height:44px; padding:5px 12px; border:1px solid #66777d55; border-radius:4px; background:#0e1c27; color:#d7d1b9; font-size:13px; }
+#app .network-controls button:hover { border-color:#d9c778; }
+#app .network-controls output { width:40px; text-align:center; font-size:11px; font-variant-numeric:tabular-nums; }
+@media(max-width:800px){
+ #app .network-panel .tree-scroll,#app .network-panel .personnel-skill-scroll{padding:0 10px}
+ #app .network-panel .personnel-skill-tabs,#app .network-panel .tree-tabs{gap:0;padding:0}
+ #app .network-panel .personnel-skill-tabs>button,#app .network-panel .tree-tabs button{flex:1;min-height:44px;font-size:12px;padding:8px 4px}
+ #app .network-panel .constellation-intro{padding:7px 0;gap:8px}
+ #app .network-panel .constellation-intro>p{font-size:11px}
+ #app .network-panel .personnel-skill-note{font-size:9px}
+ #app .network-panel .skill-form-switch{padding:5px 12px;gap:5px}
+ #app .network-panel .skill-form-switch>span{font-size:10px}
+ #app .network-panel .network-viewport{min-height:90px}
+}
+@media(max-height:600px){
+ #app .network-panel .constellation-intro,#app .network-panel .personnel-skill-note{display:none}
+ #app .network-panel .skill-form-switch{padding-block:2px}
+ #app .network-panel .personnel-skill-detail{max-height:30dvh;overflow:auto;padding:8px 12px}
+}
+
+#app .network-gesture-hint { position:absolute; top:8px; right:10px; z-index:3; padding:3px 6px; border-radius:3px; color:#a2afb6; background:#0b1721cc; font-size:10px; pointer-events:none; }

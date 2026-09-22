@@ -1,5 +1,6 @@
+import { PRE_REWORK_VERSION } from '../../src/data/forms';
 import { describe, expect, it } from 'vitest';
-import { command, createRun, stepRun } from '../../src/sim/engine';
+import { command, createRun as createVersionedRun, stepRun } from '../../src/sim/engine';
 import { createEnemy } from '../../src/sim/combat';
 import { getLegalNodeIds } from '../../src/sim/draft';
 import { CHARACTER_IDS, STAGES } from '../../src/data/content';
@@ -142,3 +143,6 @@ describe('AC07/TIME05–08 · exact boss and deadline boundaries', () => {
     expect(state.outcome).toBe('timeout');
   });
 });
+
+// Archived 0.4 rules remain replayable after the skill rework.
+function createRun(config:Parameters<typeof createVersionedRun>[0],version=PRE_REWORK_VERSION,compatibility:Parameters<typeof createVersionedRun>[2]={}){return createVersionedRun(config,version,compatibility);}

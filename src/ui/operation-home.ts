@@ -9,7 +9,7 @@ import { claimedTier, difficultyName, rewardMode, rewardName, rewardAmount, hard
 import { esc, clock } from './format';
 
 export const CHALLENGE_NAMES: Record<string, string> = {
-  four: '四人小隊', 'no-skill': '禁用隊長技能', 'two-evolutions': '最多兩個終極',
+  four: '四人小隊', 'no-skill': '禁止取得終極技', 'two-evolutions': '最多兩個終極',
 };
 
 export function challengeChoices(save:GameSave,vm:ViewModel) {

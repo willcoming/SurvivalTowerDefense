@@ -1,3 +1,4 @@
+import { usesReworkedSkills } from '../data/reworked-skills';
 import { ticks } from '../data/content';
 import { isSummer } from '../data/forms';
 import { area, distance, emit, hitEnemy } from './combat';
@@ -31,5 +32,6 @@ export function coolWeapon(s:RunState,w:WeaponState){
 export function heatShot(s:RunState,w:WeaponState,p:DamagePacket){
   const m=deepMods(s,w.id),heat=w.heat??0;
   p.raw*=1+heat/100*((isSummer(s,w.id)?.65:1)+(m.heatBonus??0));
+  if(usesReworkedSkills(s)&&isSummer(s,w.id)&&(w.ultimateBuffUntil??0)>s.tick)return;
   w.heat=Math.min(100,heat+Math.max(3,8-(m.heatCost??0)));if(w.heat>=100)w.cooling=true;
 }

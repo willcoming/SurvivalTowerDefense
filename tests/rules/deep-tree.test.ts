@@ -1,8 +1,9 @@
+import { PRE_REWORK_VERSION } from '../../src/data/forms';
 import { operationProfile } from '../../src/data/progression';
 import { describe,it,expect } from 'vitest';
-import { CHARACTER_TREES, DEEP_NODES, DEEP_NODE_MAP, COMMON_TREE } from '../../src/data/deep-trees';
+import { CHARACTER_TREES, DEEP_NODE_MAP, COMMON_TREE } from '../../src/data/deep-trees';
 import { CHARACTER_IDS, CHARACTER_MAP, PREVIOUS_TREE_VERSION, RANGE_CONTENT_VERSION, LEGACY_CONTENT_VERSION, ticks } from '../../src/data/content';
-import { createRun, command, stepRun, restoreRun } from '../../src/sim/engine';
+import { createRun as createVersionedRun, command, stepRun, restoreRun } from '../../src/sim/engine';
 import { deepLock, deepLegalNodes, deepNodeCost } from '../../src/sim/deep-tree';
 import { openDraft } from '../../src/sim/draft';
 import { createEnemy, hitEnemy, hitWall } from '../../src/sim/combat';
@@ -145,3 +146,8 @@ describe('new effects and disclosed battle variations',()=>{
     expect(s.projectiles.at(-1)!.packet!.burn!.dps).toBeGreaterThan(packet!.burn!.dps);
   });
 });
+
+// Archived 0.4 rules remain replayable after the skill rework.
+function createRun(config:Parameters<typeof createVersionedRun>[0],version=PRE_REWORK_VERSION,compatibility:Parameters<typeof createVersionedRun>[2]={}){return createVersionedRun(config,version,compatibility);}
+
+const DEEP_NODES=[...CHARACTER_TREES.flatMap(t=>t.nodes),...COMMON_TREE.nodes];

@@ -1,3 +1,5 @@
+import { usesReworkedSkills } from '../data/reworked-skills';
+import { captainDamageBonus, captainWallReduction } from './captain-bonuses';
 import { operationProfile } from '../data/progression';
 import { usesFreeSkills } from '../data/deep-trees';
 import { deepMods, teamMod } from './deep-tree';
@@ -66,7 +68,7 @@ export function addShield(s:RunState,source:string,value:number,duration:number)
 export function hitWall(s:RunState,value:number,source:EnemyId){
   value*=difficultyTuning(s).damage;
   const free=usesFreeSkills(s);if(free)emergencySupport(s);
-  const reduction=free?Math.min(.4,teamMod(s,'wallReduction')):0;
+  const reduction=free?Math.min(.4,teamMod(s,'wallReduction')+captainWallReduction(s)):0;
   let remaining=value*(1-reduction),absorbed=0;if(s.support)s.support.prevented+=value-remaining;
   s.shields=s.shields.filter(x=>x.expires>s.tick&&x.value>0).sort((a,b)=>a.expires-b.expires||a.source.localeCompare(b.source));
   for(const shield of s.shields){const v=Math.min(remaining,shield.value);shield.value-=v;remaining-=v;s.stats.shieldAbsorbed+=v;absorbed+=v;}
@@ -82,14 +84,15 @@ export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
     if(p.source==='C06'&&(p.skill==='tactical'||p.skill==='shield-reflect'))factor=1;
     if(p.source==='C03'&&form.theme==='summer')factor*=boss(e)||['E07','E08'].includes(e.defId)?1.2:.85;
     p={...p,raw:p.raw*factor,damageType:form.damageType};
-    if(p.source==='C01'&&isSummer(s,'C01')&&!dot&&p.skill!=='tactical'&&p.raw>0)p.burn={dps:8,duration:ticks(2),armorIgnore:0,key:'summer'};
+    if(p.source==='C01'&&isSummer(s,'C01')&&!dot&&p.skill!=='tactical'&&p.skill!=='ultimate'&&p.raw>0)p.burn={dps:8*(1+(deepMods(s,p.source).burn??0)),duration:ticks(2),armorIgnore:0,key:'summer'};
   }
   const exposure=Math.max(e.exposureUntil>s.tick?.25:0,...e.effects.filter(f=>f.kind==='exposure'&&f.expires>s.tick).map(f=>f.value),0);
   const free=usesFreeSkills(s),direct=p.skill!=='burn'&&p.skill!=='gravity-field';
   const controlled=e.effects.some(f=>(f.kind==='slow'||f.kind==='stun')&&f.expires>s.tick);
   const conditional=free&&direct?(exposure>0?teamMod(s,'teamExposeDamage'):0)+(controlled?(p.controlledBonus??0)+teamMod(s,'teamControlDamage'):0)+(e.hp/e.maxHp<=(p.executeThreshold??0)?p.executeDamage??0:0):0;
+  if(usesReworkedSkills(s)&&s.config.captainId==='C02'&&e.shield>0)p={...p,shieldMultiplier:p.shieldMultiplier+.25};
   const weakness=usesCollection(s)&&WEAKNESSES[e.defId]===p.damageType;
-  const raw=p.raw*(1+(exposure>0?(p.exposureBonus??0):0)+conditional)*(free?eventMultiplier(s,e.wave,p.damageType):1)*(weakness?1.5:1);
+  const raw=p.raw*(1+(exposure>0?(p.exposureBonus??0):0)+conditional+captainDamageBonus(s,e,direct,exposure,controlled))*(free?eventMultiplier(s,e.wave,p.damageType):1)*(weakness?1.5:1);
   const armorBreak=free&&e.armorBroken&&e.armorBroken.expires>s.tick?e.armorBroken.value:0;
   const result=computeDamage(raw,e.shield,e.armor,p.armorIgnore,exposure,p.shieldMultiplier,armorBreak);
   const previousShield=e.shield;e.shield-=result.shieldDamage;const damage=Math.min(e.hp,result.hpDamage);e.hp-=damage;

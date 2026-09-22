@@ -10,7 +10,7 @@ import type { RunConfig } from '../../src/sim/types';
 describe('balance v2 compatibility', () => {
   it('retains all 66 version-one battle states byte-for-byte after 120 ticks', () => {
     for (const fixture of fixtures) {
-      const state = createRun(fixture.config as RunConfig, undefined, { balanceVersion:1,operationVersion:2 });
+      const state = createRun(fixture.config as RunConfig, '0.4.0-dev.2', { balanceVersion:1,operationVersion:2 });
       state.runId = 'compatibility-fixture'; stepRun(state,120);
       expect(createHash('sha256').update(JSON.stringify(state)).digest('hex'), `${state.config.stageId}/${state.config.challengeId??state.config.difficulty}`).toBe(fixture.sha256);
       const restored = restoreRun(state); stepRun(state,30); stepRun(restored,30); expect(restored).toEqual(state);

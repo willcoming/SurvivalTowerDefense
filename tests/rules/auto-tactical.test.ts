@@ -1,6 +1,7 @@
+import { PRE_REWORK_VERSION } from '../../src/data/forms';
 import { expect, it } from 'vitest';
 import { shouldAutoCast } from '../../src/ui/auto-tactical';
-import { createRun, command } from '../../src/sim/engine';
+import { createRun as createVersionedRun, command } from '../../src/sim/engine';
 import { stepWeapons } from '../../src/sim/weapons';
 import { createEnemy } from '../../src/sim/combat';
 import { CHARACTER_IDS } from '../../src/data/content';
@@ -16,3 +17,6 @@ it.each(CHARACTER_IDS.filter(id=>id!=='C07'))('%s auto input respects target, co
   s.config.challengeId=null;e.hp=0;expect(shouldAutoCast(s,true)).toBe(false);
 });
 it('C07 automatic detonation requires a deployed mine and ready cooldown',()=>{const s=createRun({stageId:'S01',squadIds:['C07'],captainId:'C07',seed:101});s.tick=s.tacticalReadyAt;createEnemy(s,'B01',195,150);expect(shouldAutoCast(s,true)).toBe(false);stepWeapons(s);expect(shouldAutoCast(s,true)).toBe(true);expect(command(s,{type:'cast'})).toBe(true);expect(s.mines).toHaveLength(0);expect(shouldAutoCast(s,true)).toBe(false);});
+
+// Archived 0.4 rules remain replayable after the skill rework.
+function createRun(config:Parameters<typeof createVersionedRun>[0],version=PRE_REWORK_VERSION,compatibility:Parameters<typeof createVersionedRun>[2]={}){return createVersionedRun(config,version,compatibility);}

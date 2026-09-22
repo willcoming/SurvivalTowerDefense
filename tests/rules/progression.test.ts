@@ -59,7 +59,7 @@ describe('unlimited operation regression coverage',()=>{
       expect(p.interval).toBe(25);expect(p.unlimited).toBe(true);
       expect(p.points).toBe(2*Math.round(old.points*1.3/2));
       expect(s.spawnPlan.reduce((n,e)=>n+e.xp,0)+p.escortXp!).toBe(p.points*30);
-      expect(s.evolutionLimit).toBe(challengeId==='two-evolutions'?2:3);
+      expect(s.evolutionLimit).toBe(challengeId==='two-evolutions'?2:s.config.squadIds.length);
       expect(Math.max(...s.spawnPlan.map(e=>e.at))).toBeLessThan(p.bossAt*30);
       expect(restoreRun(s)).toEqual(s);
     });

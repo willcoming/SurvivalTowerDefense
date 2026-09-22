@@ -1,10 +1,11 @@
+import { PRE_REWORK_VERSION } from '../../src/data/forms';
 import { recruitmentRate } from '../../src/data/recruitment';
 import { describe,it,expect } from 'vitest';
 import { FORM_MAP,POOL,STARTER_FORMS,WEAKNESSES,attackType,formPortrait,formMotion } from '../../src/data/forms';
 import { CHAPTERS,MAIN_IDS,SIDE_IDS,CHALLENGES,stageUnlocked } from '../../src/data/campaign';
 import { createCollection,syncRewards,missingForms,applyCollectionAction,validateRoster,ownedForm,REWARD_GOALS } from '../../src/storage/collection';
 import { createDefaultSave,completeRun } from '../../src/storage/repository';
-import { createRun,restoreRun,command } from '../../src/sim/engine';
+import { createRun as createVersionedRun,restoreRun,command } from '../../src/sim/engine';
 import { createEnemy,hitEnemy,stepEffects,addShield } from '../../src/sim/combat';
 import { weaponStats,stepWeapons } from '../../src/sim/weapons';
 import { reflectShield } from '../../src/sim/deep-support';
@@ -68,7 +69,7 @@ describe('forms, weakness and special weapons',()=>{
     const s=fixture('C01','C01-summer'),e=createEnemy(s,'E01',195,300);e.hp=e.maxHp=10000;
     hitEnemy(s,e,{...packet('C01'),slow:{value:.2,duration:90}});expect(s.stats.damageByCharacter.C01).toBeCloseTo(120);expect(e.effects.find(f=>f.kind==='slow')?.expires).toBe(90);
     expect(e.effects.find(f=>f.kind==='burn')?.damageType).toBe('thermal');s.tick=15;stepEffects(s);expect(s.stats.damageByCharacter.C01).toBeCloseTo(126);
-    for(const form of POOL){const run=fixture(form.ownerId,form.id);expect(attackType(run,form.ownerId)).toBe(form.damageType);}
+    for(const form of POOL){const run=fixture(form.ownerId,form.id);expect(attackType(run,form.ownerId)).toBe(form.id==='C05-summer'?'thermal':form.damageType);}
   });
   it('form radius, elite tradeoff and shield bonuses apply only when equipped',()=>{
     const a=fixture('C05'),b=fixture('C05','C05-summer');expect(weaponStats(b,b.weapons[0]).radius/weaponStats(a,a.weapons[0]).radius).toBeCloseTo(1.25);
@@ -87,3 +88,6 @@ describe('forms, weakness and special weapons',()=>{
     s.tick=s.tacticalReadyAt;expect(command(s,{type:'cast'})).toBe(true);expect(w.heat).toBe(0);expect(w.cooling).toBe(false);stepWeapons(s);expect(w.attacks).toBe(attacks+1);
   });
 });
+
+// Archived 0.4 rules remain replayable after the skill rework.
+function createRun(config:Parameters<typeof createVersionedRun>[0],version=PRE_REWORK_VERSION,compatibility:Parameters<typeof createVersionedRun>[2]={}){return createVersionedRun(config,version,compatibility);}
