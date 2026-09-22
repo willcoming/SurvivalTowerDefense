@@ -60,11 +60,11 @@ export const ENEMIES: EnemyDef[] = [
   {id:'E04',name:'棱盾哨兵',hp:220,shield:300,armor:.1,speed:12,damage:16,interval:1.2,radius:15,color:'#65ced6',mechanic:'300點護盾，不自動回復。',counter:'電弧、破盾武器'},
   {id:'E05',name:'孢子砲手',hp:140,shield:0,armor:0,speed:10,damage:35,interval:8,radius:14,color:'#c890d0',mechanic:'停在後排，蓄力1.5秒後發射防線砲彈。',counter:'穿透、蓄力時打斷、護盾'},
   {id:'E06',name:'縫合工蜂',hp:190,shield:0,armor:.1,speed:12,damage:8,interval:1,radius:13,color:'#8acda8',mechanic:'每8秒修復附近受損友軍5%生命。',counter:'範圍清除、穿透'},
-  {id:'E07',name:'精英鐵脊',hp:1000,shield:0,armor:.55,speed:10,damage:35,interval:1.2,radius:21,color:'#c79d82',mechanic:'生命降至50%時，首次產生300護盾。',counter:'破盾、單體戰術技能'},
-  {id:'E08',name:'精英迅刃',hp:400,shield:0,armor:.1,speed:28,damage:30,interval:1,radius:17,color:'#e09383',mechanic:'半血後蓄力衝刺，能被打斷。',counter:'保留控場，觀察蓄力'},
+  {id:'E07',name:'精英鐵脊',hp:1000,shield:0,armor:.55,speed:10,damage:35,interval:1.2,radius:21,color:'#c79d82',mechanic:'生命降至50%時，首次產生300護盾。',counter:'破盾、單體爆發'},
+  {id:'E08',name:'精英迅刃',hp:400,shield:0,armor:.1,speed:28,damage:30,interval:1,radius:17,color:'#e09383',mechanic:'半血後蓄力衝刺，能被打斷。',counter:'配置緩速、暈眩與擊退'},
   {id:'B01',name:'群巢播種者',hp:6500,shield:0,armor:.1,speed:0,damage:70,interval:14,radius:37,color:'#babe87',mechanic:'召喚爬行者，蓄力轟擊防線。',counter:'清召喚物、打斷蓄力'},
   {id:'B02',name:'棱盾監工',hp:10000,shield:1800,armor:.25,speed:0,damage:25,interval:12,radius:39,color:'#70cad5',mechanic:'定時補盾；破盾後取消蓄力並曝露6秒。',counter:'破盾與爆發配合'},
-  {id:'B03',name:'降臨核心',hp:13000,shield:0,armor:.2,speed:0,damage:120,interval:18,radius:43,color:'#dc998e',mechanic:'蓄力後重擊防線，接著曝露6秒；半血產生護盾。',counter:'保留戰術技能、利用曝露窗口'},
+  {id:'B03',name:'降臨核心',hp:13000,shield:0,armor:.2,speed:0,damage:120,interval:18,radius:43,color:'#dc998e',mechanic:'蓄力後重擊防線，接著曝露6秒；半血產生護盾。',counter:'配置破盾與控場、強化對曝露目標的傷害'},
 ];
 export const ENEMY_MAP = Object.fromEntries(ENEMIES.map(e => [e.id,e])) as Record<EnemyId, EnemyDef>;
 export const ENEMY_CODE: Record<string, EnemyId> = {C:'E01',R:'E02',P:'E03',S:'E04',A:'E05',M:'E06',H:'E07',D:'E08'};

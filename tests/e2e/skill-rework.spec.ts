@@ -24,3 +24,23 @@ test('battle exposes individual automatic cooldowns and prunes dependent pending
  await expect(page.locator('.tactical-tree')).toHaveCount(0);await expect(page.locator('#ultimate-C01')).toHaveText(/\d+s/);await expect(page.locator('#ultimate-C02')).toHaveText('未取得');
  await page.screenshot({path:info.outputPath('automatic-ultimates.png')});
 });
+test('all character details show passive captain bonuses and the current skill network',async({page})=>{
+ await page.goto('/');await page.waitForFunction(()=>!!window.__game);
+ await page.locator('.game-dock [data-action="roster"]').click();
+ await page.locator('[data-action="roster-edit"]').click();
+ for(const id of ['C01','C02','C03','C04','C05','C06','C07','C08']){
+  await page.locator(`[data-action="roster-open"][data-id="${id}"]`).first().click();
+  const details=page.getByRole('dialog');
+  await expect(details).toContainText('隊長加成');
+  await expect(details).toContainText('開場生效 · 不消耗技能點');
+  await expect(details).not.toContainText('隊長技能');
+  await expect(details.locator('[data-action="personnel-skills"]')).toHaveText('24 節點技能樹 ↗');
+  await page.getByRole('button',{name:'關閉隊員詳情',exact:true}).click();
+ }
+ await page.evaluate(()=>window.__game.route('codex'));
+ for(const id of ['C01','C02','C03','C04','C05','C06','C07','C08']){
+  await page.locator(`.character-tabs [data-id="${id}"]`).click();
+  await expect(page.locator('.skill-definitions')).toContainText('隊長加成');
+  await expect(page.locator('.skill-definitions')).not.toContainText('隊長技能');
+ }
+});
