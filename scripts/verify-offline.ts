@@ -6,6 +6,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve, extname } from 'node:path';
 import { writeOfflineWorker } from './offline-build';
 import type { GameSave } from '../src/storage/repository';
+import { buildTime } from '../src/build-version';
 
 interface Snapshot {
   buildId: string;
@@ -179,6 +180,14 @@ async function layout(page: Page, name: string) {
   }
   await setViewportAndSettle(page, { width: 390, height: 844 });
 }
+async function verifyVersion(page: Page, url: URL) {
+  const version = await page.evaluate(async href => (await fetch(new URL('version.json', href))).json(), url.href);
+  assert.ok(Number.isFinite(Date.parse(version.builtAt)), 'Published version must include a fixed build timestamp');
+  await expect(page.locator('.build-version')).toHaveText(`v${version.contentVersion} · ${version.commit.slice(0, 7)}`);
+  await expect(page.locator('.build-information time')).toHaveAttribute('datetime', version.builtAt);
+  await expect(page.locator('.build-information time')).toHaveText(`${buildTime(version.builtAt)}（台灣時間）`);
+  await expect(page.locator('[data-offline-action="force-update"]')).toBeEnabled();
+}
 async function startBattle(page: Page) {
   await page.bringToFront();
   await page.locator('.deploy-button').click();
@@ -242,6 +251,7 @@ async function coreSmoke(engine: BrowserType, name: string, url: URL, snapshot: 
   await state(page).focus();
   await page.keyboard.press('Enter');
   await ready(page, 'settings');
+  await verifyVersion(page, url);
   await layout(page, `${name}-settings-ready`);
   await page.locator('#commander-name').fill('離線驗證');
   await expect(page.locator('#commander-name')).toHaveValue('離線驗證');
@@ -357,6 +367,7 @@ async function webkitLiveCompatibility(url: URL, snapshot: Snapshot) {
   await state(page).focus();
   await page.keyboard.press('Enter');
   await ready(page, 'settings');
+  await verifyVersion(page, url);
   await layout(page, 'webkit-live-settings');
   assert.deepEqual(errors, []);
   cases.push({ name: currentCase, passed: true, commit, buildId: snapshot.buildId, ...cachedAssets, offlineVerified: false, limitation: 'WebKit offline emulation blocks Service Worker fetches. Local production tests prove offline behavior using destroyed server sockets; a remote live server cannot be cut off by this verifier.' });
@@ -410,10 +421,10 @@ async function retryAndRepair(snapshot: Snapshot) {
   await closeContext(context);
 }
 
-async function updateSafety(snapshot: Snapshot) {
-  currentCase = 'atomic-update-with-active-battle-and-multiple-tabs';
+async function updateSafety(snapshot: Snapshot, forced = false, engine: BrowserType = chromium) {
+  currentCase = `${engine.name()}-${forced ? 'force-update-with-save-and-other-battle-preserved' : 'atomic-update-with-active-battle-and-multiple-tabs'}`;
   console.log(`Checking ${currentCase}`);
-  const candidate = join(work, 'candidate-dist');
+  const candidate = join(work, forced ? 'forced-candidate-dist' : 'candidate-dist');
   cpSync(dist, candidate, { recursive: true });
   const htmlPath = join(candidate, 'index.html');
   const originalHtml = readFileSync(htmlPath, 'utf8');
@@ -425,7 +436,7 @@ async function updateSafety(snapshot: Snapshot) {
   const newer = await writeOfflineWorker(candidate, snapshot.base);
   assert.notEqual(newer.buildId, snapshot.buildId, 'Candidate must have genuinely changed hashed content');
   const fixture = await serve(dist, snapshot.base);
-  const context = await launch(chromium, join(work, 'update-profile'));
+  const context = await launch(engine, join(work, `${engine.name()}-${forced ? 'forced-update-profile' : 'update-profile'}`));
   const first = context.pages()[0] ?? await context.newPage();
   await track(first);
   await first.goto(fixture.url.href);
@@ -449,10 +460,14 @@ async function updateSafety(snapshot: Snapshot) {
   assert.equal(await first.evaluate(() => performance.timeOrigin), documentToken, 'Failed update must not reload active battle');
   await expect(first.locator('#app')).toHaveAttribute('data-page', 'battle');
   await expect(first.locator('#time-text')).toHaveText(pausedBattleTime);
-  await context.setOffline(true);
+  if (engine.name() === 'webkit') fixture.unavailable = true;
+  else await context.setOffline(true);
   const oldAssets = await allAssetsOffline(second, snapshot);
   fixture.failedPath = null;
-  await context.setOffline(false);
+  if (engine.name() === 'webkit') {
+    fixture.unavailable = false;
+    await second.evaluate(async () => { await (await navigator.serviceWorker.getRegistration())!.update(); });
+  } else await context.setOffline(false);
   await state(second).click();
   // Reconnecting automatically retries a failed update; the earlier scenario verifies the manual button.
   await expect(state(second, 'settings')).toHaveAttribute('data-offline-update', 'waiting', { timeout: 90000 });
@@ -461,6 +476,32 @@ async function updateSafety(snapshot: Snapshot) {
   assert.equal(await first.evaluate(() => performance.timeOrigin), documentToken, 'Successful background update must not reload active battle');
   await expect(first.locator('#app')).toHaveAttribute('data-page', 'battle');
   await expect(first.locator('#time-text')).toHaveText(pausedBattleTime);
+  if (forced) {
+    await expect(first.locator('[data-offline-action="force-update"]')).toBeDisabled();
+    await second.locator('[data-offline-action="force-update"]').focus();
+    await Promise.all([second.waitForEvent('load'), second.keyboard.press('Enter')]);
+    await ready(second);
+    await expect.poll(() => second.evaluate(() => document.documentElement.dataset.offlineFixture)).toBe('candidate-b');
+    assert.equal(await first.evaluate(() => performance.timeOrigin), documentToken);
+    await expect(first.locator('#time-text')).toHaveText(pausedBattleTime);
+    const beforeReloadAssets = await allAssetsOffline(first, snapshot);
+    const newAssets = await allAssetsOffline(second, newer);
+    const after = await readSave(second); assert.ok(after);
+    assert.deepEqual(after.collection, before.collection);
+    assert.deepEqual(after.preferences, before.preferences);
+    assert.deepEqual(after.profile, before.profile);
+    await state(second).click();
+    const token = await second.evaluate(() => performance.timeOrigin);
+    await context.setOffline(true);
+    await second.locator('[data-offline-action="force-update"]').click();
+    await expect(second.locator('[data-offline-field="force-message"]')).toContainText('沒有網路');
+    assert.equal(await second.evaluate(() => performance.timeOrigin), token);
+    await context.setOffline(false);
+    await Promise.all([second.waitForEvent('load'), second.locator('[data-offline-action="force-update"]').click()]);
+    await ready(second);
+    cases.push({ name: currentCase, passed: true, otherBattleRetainedOldAssets: beforeReloadAssets.verifiedEntries, newAssets: newAssets.verifiedEntries, savedProgressPreserved: true, offlineFailurePreservedPage: true, currentVersionReload: true, keyboardActivation: true });
+    await closeContext(context); return;
+  }
   await first.close();
   await expect.poll(() => second.evaluate(async () => !!(await navigator.serviceWorker.getRegistration())?.waiting)).toBe(true);
   await second.reload();
@@ -502,7 +543,11 @@ try {
   assert.equal(url.pathname, snapshot.base, 'Verify the exact installed scope URL');
   if (['all', 'core'].includes(selectedScenario) && selectedBrowser !== 'webkit') await coreSmoke(chromium, 'chromium', url, snapshot, fixture);
   if (!live && selectedBrowser !== 'webkit' && ['all', 'retry'].includes(selectedScenario)) await retryAndRepair(snapshot);
-  if (!live && selectedBrowser !== 'webkit' && ['all', 'update'].includes(selectedScenario)) await updateSafety(snapshot);
+  if (!live && selectedBrowser !== 'webkit' && ['all', 'update'].includes(selectedScenario)) {
+    await updateSafety(snapshot);
+    await updateSafety(snapshot, true);
+  }
+  if (!live && selectedBrowser !== 'chromium' && ['all', 'update'].includes(selectedScenario)) await updateSafety(snapshot, true, webkit);
   if (['all', 'core'].includes(selectedScenario) && selectedBrowser !== 'chromium') try {
     if (live) await webkitLiveCompatibility(url, snapshot);
     else await coreSmoke(webkit, 'webkit', url, snapshot, fixture);

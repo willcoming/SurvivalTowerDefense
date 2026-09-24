@@ -1,5 +1,10 @@
 #app .offline-summary { display:flex; flex:none; align-items:center; gap:9px; width:calc(100% - 24px); min-height:44px; margin:0 12px 2px; padding:6px 10px; color:var(--muted); background:transparent; border-top:1px solid var(--line); border-radius:0; text-align:left; font-size:12px; line-height:1.4; }
 .offline-summary [data-offline-field=summary] { flex:1; min-width:0; }
+.offline-summary-copy { flex:1; min-width:0; }
+.build-summary { display:block; margin-top:3px; font-size:10px; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+#app .build-information { padding-bottom:16px; margin-bottom:16px; border-bottom:1px solid var(--line); }
+#app .build-information .build-version { color:var(--gold); font-weight:700; font-variant-numeric:tabular-nums; }
+#app .build-information time { font-variant-numeric:tabular-nums; }
 .offline-indicator { flex:none; color:var(--gold); font-size:16px; }
 .offline-summary-arrow { flex:none; font-size:22px; }
 #app [data-offline-state=ready] .offline-indicator,#app [data-offline-state=ready] .offline-title { color:var(--teal); }

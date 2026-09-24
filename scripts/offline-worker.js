@@ -1,16 +1,39 @@
 const SNAPSHOT = __OFFLINE_SNAPSHOT__;
 
-// Each build is a complete immutable snapshot. Never activate an update early:
-// the browser waits until every client of the preceding worker has closed.
+// Automatic updates wait for all clients to close. An explicit update may
+// activate early, pinning other open documents to their original snapshot.
 const SCOPE = new URL(self.registration.scope);
 const CACHE_NAME = `${SNAPSHOT.cachePrefix}${SNAPSHOT.buildId}`;
 const MARKER_URL = new URL('__offline_complete__', SCOPE).href;
+const CLIENTS_URL = new URL('__offline_clients__', SCOPE).href;
 const ENTRIES = new Map(SNAPSHOT.entries.map((entry) => [new URL(entry.url, SCOPE).pathname, entry]));
 const INDEX = ENTRIES.get(`${SNAPSHOT.base}index.html`);
 let pending = null;
 let completed = 0;
 let bytesLoaded = 0;
 let lastError;
+let clientSnapshots;
+
+async function pinnedClients() {
+  if (!clientSnapshots) {
+    const saved = await (await caches.open(CACHE_NAME)).match(CLIENTS_URL);
+    clientSnapshots = saved ? await saved.json() : {};
+  }
+  return clientSnapshots;
+}
+
+async function pinExistingClients(previousBuildId) {
+  const previousName = `${SNAPSHOT.cachePrefix}${previousBuildId}`;
+  if (!previousBuildId || previousName === CACHE_NAME || !(await caches.keys()).includes(previousName)) return;
+  const previous = await caches.open(previousName);
+  const inherited = await previous.match(CLIENTS_URL);
+  const olderPins = inherited ? await inherited.json() : {};
+  const pins = await pinnedClients();
+  for (const client of await self.clients.matchAll({ type: 'window', includeUncontrolled: true })) {
+    if (client.id && inScope(new URL(client.url))) pins[client.id] = olderPins[client.id] || previousName;
+  }
+  await (await caches.open(CACHE_NAME)).put(CLIENTS_URL, new Response(JSON.stringify(pins)));
+}
 
 function status(ready = false) {
   return {
@@ -166,20 +189,25 @@ self.addEventListener('activate', (event) => {
     }
     await self.clients.claim();
     const names = await caches.keys();
-    await Promise.all(names.filter((name) => name.startsWith(SNAPSHOT.cachePrefix) && name !== CACHE_NAME).map((name) => caches.delete(name)));
+    const retained = new Set(Object.values(await pinnedClients()));
+    await Promise.all(names.filter((name) => name.startsWith(SNAPSHOT.cachePrefix) && name !== CACHE_NAME && !retained.has(name)).map((name) => caches.delete(name)));
     await broadcast(result);
   })());
 });
 
 self.addEventListener('message', (event) => {
   if (!event.source?.url || !inScope(new URL(event.source.url))) return;
-  if (event.data?.type !== 'OFFLINE_STATUS' && event.data?.type !== 'OFFLINE_REPAIR') return;
+  if (!['OFFLINE_STATUS', 'OFFLINE_REPAIR', 'OFFLINE_ACTIVATE'].includes(event.data?.type)) return;
   event.waitUntil((async () => {
     let result;
     if (event.data.type === 'OFFLINE_REPAIR') {
       try { result = await ensureSnapshot(); }
       catch { result = await inspectSnapshot(); }
     } else result = await inspectSnapshot();
+    if (event.data.type === 'OFFLINE_ACTIVATE' && result.ready) {
+      await pinExistingClients(event.data.previousBuildId);
+      await self.skipWaiting();
+    }
     const port = event.ports?.[0];
     if (port) { port.postMessage(result); port.close(); }
     else event.source.postMessage(result);
@@ -214,5 +242,18 @@ self.addEventListener('fetch', (event) => {
   if (!inScope(url)) return;
   // URL queries (including deployment revision links) share the verified asset.
   const entry = request.mode === 'navigate' ? INDEX : ENTRIES.get(url.pathname);
-  if (entry) event.respondWith(serveEntry(entry));
+  if (!entry && !event.clientId) return;
+  event.respondWith((async () => {
+    // Navigation begins a new document on the latest version. Existing tabs
+    // keep exact old public assets as well as old bundles until they reload.
+    if (request.mode !== 'navigate' && event.clientId) {
+      const pinned = (await pinnedClients())[event.clientId];
+      if (pinned) {
+        const response = await (await caches.open(pinned)).match(`${url.origin}${url.pathname}`);
+        if (response) return response;
+        if (entry) return new Response('舊版素材已失效，請返回作戰中心後更新。', { status: 503 });
+      }
+    }
+    return entry ? serveEntry(entry) : fetch(request);
+  })());
 });

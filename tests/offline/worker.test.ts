@@ -78,7 +78,7 @@ function runtime(base = '/', buildId = 'build-one', storage = new Map<string, Me
         claim,
         async matchAll() {
           return [
-            { url: scope, postMessage(message: Status) { messages.push(message); } },
+            { id: 'old-tab', url: scope, postMessage(message: Status) { messages.push(message); } },
             { url: 'https://outside.example/', postMessage(message: Status) { outsideMessages.push(message); } },
           ];
         },
@@ -99,10 +99,11 @@ function runtime(base = '/', buildId = 'build-one', storage = new Map<string, Me
     });
     return result!;
   }
-  async function request(path: string, mode = 'cors', method = 'GET') {
+  async function request(path: string, mode = 'cors', method = 'GET', clientId?: string) {
     let response: Promise<Response> | undefined;
     await dispatch('fetch', {
       request: { url: new URL(path, scope).href, mode, method },
+      clientId,
       respondWith: (result: Promise<Response>) => { response = result; },
     });
     return response;
@@ -148,6 +149,27 @@ describe('offline build inventory', () => {
 });
 
 describe('complete offline worker', () => {
+  it('only force-activates complete snapshots and preserves other tabs across worker restarts', async () => {
+    const old = runtime('/', 'old'); await old.dispatch('install'); await old.dispatch('activate');
+    const next = runtime('/', 'next', old.storage);
+    await next.message('OFFLINE_ACTIVATE'); expect(next.skipWaiting).not.toHaveBeenCalled();
+    await next.dispatch('install');
+    const oldCache = await old.caches.open(old.cacheName);
+    await oldCache.put('https://game.example/assets/never-viewed.webp', new Response('old art'));
+    await next.dispatch('message', {
+      source: { url: 'https://outside.example/', postMessage() {} }, data: { type: 'OFFLINE_ACTIVATE', previousBuildId: 'old' },
+    });
+    expect(next.skipWaiting).not.toHaveBeenCalled();
+    await next.dispatch('message', {
+      source: { url: 'https://game.example/', postMessage() {} }, data: { type: 'OFFLINE_ACTIVATE', previousBuildId: 'old' },
+    });
+    expect(next.skipWaiting).toHaveBeenCalledOnce(); await next.dispatch('activate');
+    expect(old.storage.has(old.cacheName)).toBe(true);
+    const restarted = runtime('/', 'next', old.storage);
+    expect(await (await restarted.request('/assets/never-viewed.webp', 'cors', 'GET', 'old-tab'))?.text()).toBe('old art');
+    expect(await (await restarted.request('/assets/never-viewed.webp', 'cors', 'GET', 'reloaded-tab'))?.text()).toBe('complete animation artwork');
+  });
+
   for (const base of ['/', '/SurvivalTowerDefense/']) it(`downloads the complete verified snapshot and serves navigation and query assets offline under ${base}`, async () => {
     const worker = runtime(base);
     await worker.dispatch('install');

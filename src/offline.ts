@@ -1,3 +1,4 @@
+import { forceUpdate } from './force-update';
 /** Page-side PWA lifecycle. Readiness always belongs to the worker controlling this page. */
 export interface OfflineStatus {
   type: 'OFFLINE_STATUS';
@@ -19,6 +20,8 @@ export interface OfflineState {
   install: 'available' | 'standalone' | 'installed' | 'ios' | 'manual';
   installBusy: boolean;
   installMessage: string;
+  forceBusy: boolean;
+  forceMessage: string;
 }
 interface InstallPrompt extends Event {
   prompt(): Promise<void>;
@@ -59,6 +62,8 @@ class OfflineGame {
   private ios = false;
   private scope = '';
   private script = '';
+  private forceBusy = false;
+  private forceMessage = '';
 
   get state(): OfflineState {
     const controller = this.controller;
@@ -77,6 +82,7 @@ class OfflineGame {
       progress: ready ? next ?? current : current ?? next ?? uncontrolled, error, online: this.online, busy: this.busy || downloading,
       install: this.standalone ? 'standalone' : this.installed ? 'installed' : this.promptEvent ? 'available' : this.ios ? 'ios' : 'manual',
       installBusy: this.installBusy, installMessage: this.installMessage,
+      forceBusy: this.forceBusy, forceMessage: this.forceMessage,
     };
   }
   subscribe(listener: () => void) { this.listeners.add(listener); return () => this.listeners.delete(listener); }
@@ -181,7 +187,7 @@ class OfflineGame {
     await this.refresh();
   }
   async retry() {
-    if (!import.meta.env.PROD || this.unsupported || this.busy) return;
+    if (!import.meta.env.PROD || this.unsupported || this.busy || this.forceBusy) return;
     this.busy = true; this.failure = ''; this.emit();
     try {
       const active = this.controller ?? this.registration?.active;
@@ -202,6 +208,22 @@ class OfflineGame {
       await this.refresh();
     } catch (error) { this.failure = message(error); }
     finally { this.busy = false; this.emit(); }
+  }
+  async forceUpdate(beforeReload: () => Promise<void>) {
+    if (this.forceBusy || !import.meta.env.PROD || this.unsupported) return;
+    if (!this.online) { this.forceMessage = '目前沒有網路連線，請連線後再強制更新。'; this.emit(); return; }
+    this.forceBusy = true; this.forceMessage = '正在檢查並下載最新版本，完成後會重新載入…'; this.emit();
+    try {
+      if (!this.registration) await this.register();
+      if (!this.registration || !this.container) throw new Error('無法取得遊戲更新，請稍後重試。');
+      await this.refresh();
+      const previous = this.controller ? this.statuses.get(this.controller)?.buildId : undefined;
+      if (this.controller && !previous) throw new Error('無法確認目前版本，請稍後重試更新。');
+      await forceUpdate(this.container, this.registration, beforeReload, previous);
+    } catch (error) {
+      this.forceMessage = error instanceof Error && /[\u3400-\u9fff]/.test(error.message)
+        ? error.message : '無法取得最新版本，請確認網路連線後再試。目前版本與存檔已保留。';
+    } finally { this.forceBusy = false; this.emit(); }
   }
   async install() {
     const prompt = this.promptEvent; if (!prompt || this.installBusy) return;

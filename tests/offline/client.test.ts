@@ -57,7 +57,7 @@ function environment(registration = new TestRegistration()) {
   const navigator = { onLine: true, userAgent: 'Test Browser', platform: 'MacIntel', maxTouchPoints: 0, serviceWorker: container };
   vi.stubGlobal('window', browser);
   vi.stubGlobal('navigator', navigator);
-  vi.stubGlobal('location', { href: scope });
+  vi.stubGlobal('location', { href: scope, reload: vi.fn() });
   vi.stubGlobal('matchMedia', () => Object.assign(new EventTarget(), { matches: false }));
   vi.stubGlobal('MessageChannel', TestChannel);
   vi.stubEnv('PROD', true);
@@ -71,6 +71,71 @@ async function settle() { for (let i = 0; i < 30; i++) await Promise.resolve(); 
 afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
 
 describe('offline page controller', () => {
+  it('repairs and reloads the current version only after the save completes', async () => {
+    const active = new TestWorker('activated', full());
+    const { container, registration } = environment(new TestRegistration(active));
+    container.controller = active;
+    const game = await client(); await game.start();
+    const save = vi.fn(async () => { expect(location.reload).not.toHaveBeenCalled(); });
+    await game.forceUpdate(save);
+    expect(registration.update).toHaveBeenCalledOnce();
+    expect(active.postMessage.mock.calls.some(([request]) => request.type === 'OFFLINE_REPAIR')).toBe(true);
+    expect(save).toHaveBeenCalledOnce(); expect(location.reload).toHaveBeenCalledOnce();
+  });
+
+  it('activates a complete waiting update explicitly, then reloads with the new controller', async () => {
+    const active = new TestWorker('activated', full());
+    const next = new TestWorker('installed', full('version-b'));
+    const registration = new TestRegistration(active); registration.waiting = next;
+    const { container } = environment(registration); container.controller = active;
+    const save = vi.fn(async () => {});
+    next.postMessage.mockImplementation((request, ports) => {
+      if (request.type === 'OFFLINE_ACTIVATE') {
+        expect(save).toHaveBeenCalledOnce();
+        registration.waiting = null; registration.active = next;
+        next.transition('activated'); container.control(next);
+      }
+      ports[0].postMessage(next.status);
+    });
+    const game = await client(); await game.start();
+    expect(next.postMessage.mock.calls.every(([request]) => request.type === 'OFFLINE_STATUS')).toBe(true);
+    await game.forceUpdate(save);
+    expect(next.postMessage).toHaveBeenCalledWith({ type: 'OFFLINE_ACTIVATE', previousBuildId: 'version-a' }, expect.any(Array));
+    expect(container.controller).toBe(next); expect(location.reload).toHaveBeenCalledOnce();
+  });
+
+  it('keeps the page open on save conflict, offline connection, or failed network update', async () => {
+    const active = new TestWorker('activated', full());
+    const { container, registration, browser } = environment(new TestRegistration(active)); container.controller = active;
+    const game = await client(); await game.start();
+    await game.forceUpdate(async () => { throw new Error('存檔尚未完成'); });
+    expect(game.state.forceMessage).toContain('存檔尚未完成');
+    expect(location.reload).not.toHaveBeenCalled();
+    registration.update.mockRejectedValueOnce(new TypeError('Network failure'));
+    const save = vi.fn(async () => {}); await game.forceUpdate(save);
+    expect(game.state.forceMessage).toContain('目前版本與存檔已保留');
+    browser.dispatchEvent(new Event('offline'));
+    await game.forceUpdate(save);
+    expect(game.state.forceMessage).toContain('沒有網路');
+    expect(save).not.toHaveBeenCalled(); expect(location.reload).not.toHaveBeenCalled();
+  });
+
+  it('waits for installation and prevents duplicate force-update requests', async () => {
+    const active = new TestWorker('activated', full());
+    const next = new TestWorker('installing', partial('version-b'));
+    const { container, registration } = environment(new TestRegistration(active)); container.controller = active;
+    registration.installing = next;
+    const game = await client(); await game.start();
+    const save = vi.fn(async () => {});
+    const pending = game.forceUpdate(save); await settle();
+    await game.forceUpdate(save);
+    expect(game.state.forceBusy).toBe(true); expect(registration.update).toHaveBeenCalledOnce();
+    next.transition('redundant'); await pending;
+    expect(game.state.forceMessage).toContain('新版下載未完成');
+    expect(game.state.forceBusy).toBe(false);
+    expect(save).not.toHaveBeenCalled(); expect(location.reload).not.toHaveBeenCalled();
+  });
+
   it('re-registers after a failed first install and waits for control before reporting ready', async () => {
     const registration = new TestRegistration();
     const failed = new TestWorker('installing', partial());

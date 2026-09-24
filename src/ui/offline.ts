@@ -1,11 +1,20 @@
 import { offlineGame, type OfflineState } from '../offline';
+import { buildTime, buildVersion } from '../build-version';
+import { esc } from './format';
+
+function versionLabel() { return `v${buildVersion.contentVersion} · ${buildVersion.commit.slice(0, 7)}`; }
+function versionTime() { return `${buildTime(buildVersion.builtAt)}${buildVersion.builtAt ? '（台灣時間）' : ''}`; }
 
 export function offlineSummary() {
-  return '<button class="offline-summary" data-offline="summary" data-action="settings" data-id="offline" data-offline-state="checking"><span class="offline-indicator" aria-hidden="true">↓</span><span data-offline-field="summary">正在確認離線下載</span><span class="offline-summary-arrow" aria-hidden="true">›</span><span class="sr-only" data-offline-field="announcement" role="status" aria-live="polite"></span></button>';
+  return `<button class="offline-summary" data-offline="summary" data-action="settings" data-id="offline" data-offline-state="checking"><span class="offline-indicator" aria-hidden="true">↓</span><span class="offline-summary-copy"><span data-offline-field="summary">正在確認離線下載</span><small class="build-summary">${esc(versionLabel())}<br>${esc(versionTime())}</small></span><span class="offline-summary-arrow" aria-hidden="true">›</span><span class="sr-only" data-offline-field="announcement" role="status" aria-live="polite"></span></button>`;
 }
 export function offlineSettings(embedded = false) {
   const heading = embedded ? 'h3' : 'h2';
   return `<section class="offline-settings" data-offline="settings" data-offline-state="checking" aria-label="離線遊玩與安裝">
+    <div class="build-information"><${heading}>遊戲版本與更新</${heading}><p class="build-version">${esc(versionLabel())}</p><p>建置時間 <time datetime="${esc(buildVersion.builtAt)}">${esc(versionTime())}</time></p>
+    <div class="offline-actions"><button type="button" class="button secondary" data-offline-action="force-update" data-battle="${embedded}" ${embedded ? 'disabled' : ''}>強制更新</button></div>
+    <p>${embedded ? '請先結束戰局並返回作戰中心，再進行強制更新。' : '重新檢查並下載最新版本後重開遊戲，保留收藏、編隊與通關進度。'}</p>
+    <p data-offline-field="force-message" role="status" aria-live="polite" hidden></p></div>
     <${heading}>離線遊玩與安裝</${heading}>
     <p class="offline-title" data-offline-field="title" role="status" aria-live="polite">正在確認離線下載</p>
     <p data-offline-field="detail"></p>
@@ -28,7 +37,7 @@ function copy(state: OfflineState) {
   if (state.phase === 'ready') {
     title = '可離線遊玩'; detail = '完整遊戲已下載；之後可從主畫面或這個網址開啟遊玩。';
     if (state.update === 'downloading') detail = '正在背景下載新版；目前版本仍可離線遊玩。';
-    if (state.update === 'waiting') detail = '新版已下載。關閉所有遊戲分頁與視窗後，下次開啟會套用更新。';
+    if (state.update === 'waiting') detail = '新版已下載。可在此強制更新，或關閉所有遊戲視窗後重新開啟。';
     if (state.update === 'error') detail = '新版下載未完成；目前版本仍可離線遊玩，可稍後重試更新。';
   }
   if (!state.online && state.phase !== 'ready' && !['unsupported', 'development', 'downloaded'].includes(state.phase)) detail = '目前沒有網路連線。重新連線後會繼續準備離線遊戲。';
@@ -69,14 +78,24 @@ export function refreshOfflineUi(root: HTMLElement) {
     setText(holder, 'install-guide', text.installGuide);
     setText(holder, 'install-message', state.installMessage);
     const installMessage = holder.querySelector<HTMLElement>('[data-offline-field="install-message"]'); if (installMessage) installMessage.hidden = !state.installMessage;
+    const force = holder.querySelector<HTMLButtonElement>('[data-offline-action="force-update"]');
+    if (force) {
+      force.disabled = force.dataset.battle === 'true' || state.forceBusy || ['development', 'unsupported'].includes(state.phase);
+      force.textContent = state.forceBusy ? '正在更新…' : '強制更新';
+    }
+    const forceMessage = holder.querySelector<HTMLElement>('[data-offline-field="force-message"]');
+    const forceText = state.forceMessage || (state.phase === 'development' ? '本地開發模式；強制更新於正式版本啟用。' : '');
+    if (forceMessage) forceMessage.hidden = !forceText;
+    setText(holder, 'force-message', forceText);
   }
 }
-export function bindOfflineUi(root: HTMLElement) {
+export function bindOfflineUi(root: HTMLElement, beforeReload: () => Promise<void>) {
   offlineGame.subscribe(() => refreshOfflineUi(root));
   root.addEventListener('click', event => {
     const control = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-offline-action]');
     if (!control || control.disabled) return;
     if (control.dataset.offlineAction === 'retry') void offlineGame.retry();
     if (control.dataset.offlineAction === 'install') void offlineGame.install();
+    if (control.dataset.offlineAction === 'force-update') void offlineGame.forceUpdate(beforeReload);
   });
 }

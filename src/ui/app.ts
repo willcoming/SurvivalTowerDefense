@@ -70,7 +70,12 @@ export class GameApp {
   private rosterSave() { return this.vm.rosterEditing && this.formationDraft ? formationView(this.save, this.formationDraft) : this.save; }
   constructor(root: HTMLElement) {
     this.root = root;
-    bindOfflineUi(root);
+    bindOfflineUi(root, async () => {
+      if (this.save.activeRun && this.save.activeRun.phase !== 'ended') throw new Error('請先結束戰局並返回作戰中心，再進行強制更新。');
+      if (!this.ready || this.temporary || this.collecting) throw new Error('請等本機存檔準備完成，再進行強制更新。');
+      await this.saveQueue;
+      if (this.vm.saveStatus !== '已儲存在本機') throw new Error('存檔尚未完成，請先重試儲存，再進行強制更新。');
+    });
     this.root.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLElement>('[data-action]'); if (button && !(button as HTMLButtonElement).disabled) { this.clickedControl = button; void this.audio.unlock(); void this.action(button.dataset.action!, button.dataset.id); } });
     this.root.addEventListener('change', event => { const input = event.target as HTMLInputElement | HTMLSelectElement; if (input.dataset.change) this.change(input); });
     document.addEventListener('keydown', event => this.key(event));
