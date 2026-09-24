@@ -1,4 +1,5 @@
-import { REWORKED_TREES, LINEAR_REWORKED_TREES, LINEAR_SKILL_VERSION, usesReworkedSkills } from './reworked-skills';
+import { NETWORK_CONTENT_VERSION } from './skill-network';
+import { REWORKED_TREES, NETWORK_TREES, LINEAR_REWORKED_TREES, LINEAR_SKILL_VERSION, usesReworkedSkills } from './reworked-skills';
 import type { CharacterId, RunState } from '../sim/types';
 import type { TreeMods } from './skill-trees';
 import { usesCollection } from './forms';
@@ -7,6 +8,7 @@ export const FREE_CONTENT_VERSION = '0.3.0-dev.1';
 export const usesFreeSkills = (s: Pick<RunState, 'contentVersion'>) => s.contentVersion === FREE_CONTENT_VERSION || usesCollection(s);
 export type SkillOwner = CharacterId | 'common';
 export interface DeepMods extends TreeMods {
+  crowdDamage?:number; isolatedDamage?:number; guardDamage?:number; freshDamage?:number; markedHaste?:number; pressureHaste?:number;
   mineCap?:number; mineCharge?:number; mineChargeCap?:number; mineTrigger?:number; mineArm?:number;
   heatBonus?:number; cooling?:number; heatCost?:number; ventHaste?:number; ventDuration?:number;
   secondaryPower?: number; salvoEvery?: number; salvoShots?: number; critEvery?: number; critPower?: number;
@@ -282,9 +284,9 @@ const commonRoutes: {name:string;nodes:Input[]}[] = [
   ]},
 ];
 export const COMMON_TREE: DeepTree = {id:'TEAM',ownerId:'common',name:'全隊共用',purpose:'防線工程 · 緊急應變 · 戰術協同；全為被動或自動觸發。',visualBranch:'A',nodes:commonRoutes.flatMap((route,lane)=>route.nodes.map(([name,description,mods],layer)=>({id:`TEAM/${lane*4+layer}`,treeId:'TEAM',ownerId:'common' as const,name,description,mods,kind:layer===0?'entry' as const:'branch' as const,parents:layer?[`TEAM/${lane*4+layer-1}`]:[],requires:'all' as const,layer,lane})))};
-export const DEEP_TREES = [...CHARACTER_TREES,...LINEAR_REWORKED_TREES,...REWORKED_TREES,COMMON_TREE];
+export const DEEP_TREES = [...CHARACTER_TREES,...LINEAR_REWORKED_TREES,...NETWORK_TREES,...REWORKED_TREES,COMMON_TREE];
 export const DEEP_TREE_MAP = Object.fromEntries(DEEP_TREES.map(t=>[t.id,t])) as Record<string,DeepTree>;
 export const DEEP_NODES = DEEP_TREES.flatMap(t=>t.nodes);
 export const DEEP_NODE_MAP = Object.fromEntries(DEEP_NODES.map(n=>[n.id,n])) as Record<string,DeepNode>;
-export const deepTreesFor = (owner: SkillOwner,run?:Pick<RunState,'contentVersion'>) => owner==='common'?[COMMON_TREE]:(run&&!usesReworkedSkills(run)?CHARACTER_TREES:run?.contentVersion===LINEAR_SKILL_VERSION?LINEAR_REWORKED_TREES:REWORKED_TREES).filter(t=>t.ownerId===owner);
+export const deepTreesFor = (owner: SkillOwner,run?:Pick<RunState,'contentVersion'>) => owner==='common'?[COMMON_TREE]:(run&&!usesReworkedSkills(run)?CHARACTER_TREES:run?.contentVersion===LINEAR_SKILL_VERSION?LINEAR_REWORKED_TREES:run?.contentVersion===NETWORK_CONTENT_VERSION?NETWORK_TREES:REWORKED_TREES).filter(t=>t.ownerId===owner);
 export const COMMON_ROUTE_NAMES = commonRoutes.map(r=>r.name);

@@ -1,0 +1,27 @@
+{
+  "rules": {
+    "passed": 576,
+    "files": 32
+  },
+  "offline": {
+    "passed": 18,
+    "files": 2
+  },
+  "browser": {
+    "passed": 22,
+    "skipped": 1,
+    "scope": "Chromium/WebKit at desktop and mobile widths; dense mobile viewport Chromium"
+  },
+  "build": {
+    "passed": true,
+    "offlineFiles": 126,
+    "offlineMB": 17.3,
+    "warning": "Existing large bundle warning remains"
+  },
+  "versions": {
+    "skills": "0.6.0-dev.1",
+    "balance": 3
+  },
+  "deployed": false,
+  "physicalPhoneTested": false
+}

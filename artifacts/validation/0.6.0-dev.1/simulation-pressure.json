@@ -1,0 +1,24 @@
+{
+  "contentVersion": "0.6.0-dev.1",
+  "measuredAt": "2026-09-23T12:44:38.308Z",
+  "node": "v22.22.3",
+  "platform": "darwin",
+  "arch": "arm64",
+  "cpu": "Apple M4",
+  "logicalCores": 10,
+  "command": "node --import tsx scripts/benchmark-simulation.ts",
+  "samples": 1800,
+  "fixture": {
+    "enemies": 120,
+    "projectiles": 400,
+    "fields": 12,
+    "evolvedWeapons": 5,
+    "bossEscortsPrecomputed": true
+  },
+  "p95ProcessingMs": 6.161707999999862,
+  "maxProcessingMs": 27.61745800000017,
+  "meanProcessingMs": 5.787500772222238,
+  "budgetMs": 33.333333333333336,
+  "passed": true,
+  "limitation": "Desktop Node CPU only; 1,800 reset-fixture live core steps. Clone cost excluded. Not continuous live browser frame time and not actual-phone evidence."
+}

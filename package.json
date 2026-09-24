@@ -32,7 +32,12 @@
     "verify:pages": "node scripts/verify-pages-live.mjs",
     "test:collection:production": "tsx scripts/verify-collection-production.ts",
     "test:difficulty": "node scripts/test-high-pressure.mjs",
-    "test:difficulty:report": "node --import tsx scripts/summarize-high-pressure.ts --rescue=artifacts/difficulty-v2/final/rescue.json"
+    "test:difficulty:report": "node --import tsx scripts/summarize-high-pressure.ts --rescue=artifacts/difficulty-v2/final/rescue.json",
+    "test:tactical:matrix": "node --import tsx scripts/validate-tactical-balance.ts",
+    "test:tactical:probes": "node --import tsx scripts/validate-tactical-probes.ts",
+    "test:tactical:report": "node --import tsx scripts/report-tactical-balance.ts",
+    "docs:tactical": "node --import tsx scripts/document-tactical-rework.ts",
+    "test:tactical": "node scripts/run-tactical-validation.mjs"
   },
   "dependencies": {
     "phaser": "3.90.0"

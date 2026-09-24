@@ -1,10 +1,11 @@
+import { buildTacticalSkills, specializeNode, TACTICAL_CONTENT_VERSION } from './tactical-skills';
 import { buildSkillNetworks, NETWORK_CONTENT_VERSION } from './skill-network';
 import type { DeepMods, DeepNode, DeepTree } from './deep-trees';
 import type { CharacterId, FormId, RunState } from '../sim/types';
 
 export const LINEAR_SKILL_VERSION = '0.5.0-dev.1';
-export const SKILL_REWORK_VERSION = NETWORK_CONTENT_VERSION;
-export const usesReworkedSkills = (s: Pick<RunState, 'contentVersion'>) => s.contentVersion === SKILL_REWORK_VERSION || s.contentVersion === LINEAR_SKILL_VERSION;
+export const SKILL_REWORK_VERSION = TACTICAL_CONTENT_VERSION;
+export const usesReworkedSkills = (s: Pick<RunState, 'contentVersion'>) => s.contentVersion === SKILL_REWORK_VERSION || s.contentVersion === LINEAR_SKILL_VERSION || s.contentVersion === NETWORK_CONTENT_VERSION;
 export const CAPTAIN_BONUSES: Record<CharacterId, {name:string;description:string}> = {
   C01:{name:'弱點集火',description:'全隊對曝露中的敵人直擊傷害 +10%。'},
   C02:{name:'破盾協奏',description:'全隊對仍有護盾的敵人，護盾傷害倍率 +0.25。'},
@@ -113,14 +114,15 @@ for(const [owner,branches] of Object.entries(specs))for(const [branchIndex,[name
  const nodes:DeepNode[]=inputs.map(([name,description,mods],layer)=>({id:`${id}/${layer}`,treeId:id,ownerId,name,description,mods,kind:hasUltimate&&layer===4?'ultimate':layer===0?'entry':'branch',parents:layer?[`${id}/${layer-1}`]:[],requires:'all',layer,lane:1}));
  LINEAR_REWORKED_TREES.push({id,ownerId,name,purpose,visualBranch:branchIndex===1?'B':'A',nodes});summerNodes[`${id}/2`]=summer;
 }
-export const REWORKED_TREES=buildSkillNetworks(LINEAR_REWORKED_TREES);
-for(const [id,input] of Object.entries(summerNodes))summerNodes[id.replace('2/','3/')]=input;
-export const NETWORK_NODE_IDS=new Set(REWORKED_TREES.flatMap(t=>t.nodes.map(n=>n.id)));
-export const REWORKED_NODE_IDS=new Set([...LINEAR_REWORKED_TREES,...REWORKED_TREES].flatMap(t=>t.nodes.map(n=>n.id)));
+export const NETWORK_TREES=buildSkillNetworks(LINEAR_REWORKED_TREES);
+export const REWORKED_TREES=buildTacticalSkills(NETWORK_TREES);
+for(const [id,input] of Object.entries(summerNodes)){summerNodes[id.replace('2/','3/')]=input;summerNodes[id.replace('2/','4/')]=input;}
+export const NETWORK_NODE_IDS=new Set([...NETWORK_TREES,...REWORKED_TREES].flatMap(t=>t.nodes.map(n=>n.id)));
+export const REWORKED_NODE_IDS=new Set([...LINEAR_REWORKED_TREES,...NETWORK_TREES,...REWORKED_TREES].flatMap(t=>t.nodes.map(n=>n.id)));
 export function resolveSkillNode(node:DeepNode,form?:FormId):DeepNode {
  if(!REWORKED_NODE_IDS.has(node.id))return node;
  if(node.kind==='ultimate'){const u=ULTIMATES[form??`${node.ownerId as CharacterId}-original`];return {...node,name:u.name,description:`${u.description} 冷卻 ${u.cooldown} 秒；取得後先完成一次冷卻。`};}
  if(!form?.endsWith('-summer'))return node;
- const alt=summerNodes[node.id];return alt?{...node,name:alt[0],description:alt[1],mods:alt[2]}:node;
+ const alt=summerNodes[node.id];const resolved=alt?{...node,name:alt[0],description:alt[1],mods:alt[2]}:node;return node.id.includes('4/')&&alt?specializeNode(resolved,true):resolved;
 }
 export const resolveSkillTree=(tree:DeepTree,form?:FormId):DeepTree=>({...tree,nodes:tree.nodes.map(n=>resolveSkillNode(n,form))});

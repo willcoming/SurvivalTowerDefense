@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { HUNDRED_PROFILE, hundredCleared } from '../../src/data/hundred';
 import { operationProfile } from '../../src/data/progression';
-import { command, createRun, restoreRun, stepRun } from '../../src/sim/engine';
+import { command, createRun as versionedRun, restoreRun, stepRun } from '../../src/sim/engine';
 import { waveStats } from '../../src/sim/operations';
 import { createEnemy } from '../../src/sim/combat';
 import type { RunConfig } from '../../src/sim/types';
+const createRun=(...args:Parameters<typeof versionedRun>)=>versionedRun(args[0],args[1]??'0.5.0-dev.2',args[2]);
 const config:RunConfig={mode:'hundred',stageId:'S03',difficulty:'easy',squadIds:['C01'],captainId:'C01',seed:101};
 
 describe('hundred-wave survival',()=>{

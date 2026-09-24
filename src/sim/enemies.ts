@@ -7,6 +7,7 @@ import { pressure } from './difficulty';
 export const BOSS_ESCORT_COUNT = 42;
 /** One-time entrance escorts share the authored skill budget; summons grant no XP. */
 export function spawnBossEscort(s: RunState, leader: Enemy) {
+  if(s.balanceVersion===3)return; // Entrance escorts are deterministic delayed spawn entries.
   const profile=operationProfile(s),count=profile.escortCount??32,xp=profile.escortXp??0;
   const specialist = leader.defId === 'B02' ? 'E03' : 'E02';
   const escortTypes = ['E03','E04','E05','E02','E06','E03','E05','E02','E04','E03','E05','E06'] as const;

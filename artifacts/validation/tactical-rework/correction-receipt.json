@@ -1,0 +1,29 @@
+{
+  "scopes": {
+    "hundred-correction": 360,
+    "hundred-rescue-correction": 60,
+    "c08-correction": 12060,
+    "c08-rescue-correction": 1650,
+    "c08-probes-correction": 1232
+  },
+  "order": "hundred first, C08 second (includes latest hundred rules)",
+  "reason": "Cross-decade recovery windows; C08 cooling branch conditional effects",
+  "finalShardSha256": {
+    "matrix-4.json": "e84a6a61b66c4c61ac0084f98890d83ba014be3c55e48d330baab22804ad5825",
+    "matrix-5.json": "59af471aa2bf907915e7f7336eb2b6ec8798b3e15207bfe289af68125f57b558",
+    "matrix-2.json": "8ae3f623cb552fa21307ccddb4e5c29f24a4e4994a1dfda4810a1f7708e63c61",
+    "matrix-3.json": "bc6e59659af444fb59338ff273a01c7ac7fb5bc3c9a426e46558bbd103ab71dd",
+    "matrix-0.json": "d5479f05706e560833cb455d5895834618c2d5f516f449ed0f1948653babbd98",
+    "matrix-1.json": "7a1b53bad448d69619f085986ba03a5d4ce01627ec2586422d3036748a70dd1f",
+    "matrix-6.json": "830408991c7f11192ee970fc66e92937bac6b977a33b1c41a8650f5f96be3b0b",
+    "matrix-7.json": "1b5ef2040ffac8e21022fac431a92eb190838caa3e0625e108d573594d51582b",
+    "probes-0.json": "a166496b4a236f8e0defbb9081597841f15361c143e41aac302a7f7a61db30df",
+    "probes-1.json": "8131176b5b8f99a9c54a09faff76dd75a4555a5bee9281d573cde564a70399b3",
+    "probes-2.json": "b4ab3fa4ec8084f2abbef688a4269b587200d8fd86a26fe94ac7c62a433ac031",
+    "probes-3.json": "f0e956a8bad28fdcdd80868b2900f95c6162519114621a631daa63fe709c5c30",
+    "rescue/matrix-2.json": "3c9f64b52a30f04426ad470d971338d50f36894cb847c9dc2487a4fb8fe60ea8",
+    "rescue/matrix-3.json": "c7861d118e668bb79a3cfdbbc0dfbe73dd4a0b5e84bbdedce328dc605f5287bb",
+    "rescue/matrix-0.json": "e38c2c38e33039b7e9419e79f956a81df37ce0681decd69f1f1b67cafdf2032b",
+    "rescue/matrix-1.json": "55d733f61ef140becaf95b827cb32faed065fb72c41bd4f3da691426901a8639"
+  }
+}

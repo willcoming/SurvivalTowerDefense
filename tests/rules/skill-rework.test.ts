@@ -1,17 +1,20 @@
 import { describe,expect,it } from 'vitest';
 import { CHARACTER_IDS } from '../../src/data/content';
 import { FORM_MAP, attackType } from '../../src/data/forms';
-import { REWORKED_TREES, resolveSkillTree, ultimateForForm } from '../../src/data/reworked-skills';
-import { deepTreesFor } from '../../src/data/deep-trees';
+import { NETWORK_TREES as REWORKED_TREES, resolveSkillTree, ultimateForForm } from '../../src/data/reworked-skills';
+import { deepTreesFor as versionedTrees } from '../../src/data/deep-trees';
 import { HUNDRED_PROFILE } from '../../src/data/hundred';
-import { createRun, command, restoreRun, stepRun } from '../../src/sim/engine';
+import { createRun as versionedRun, command, restoreRun, stepRun } from '../../src/sim/engine';
 import { openDraft } from '../../src/sim/draft';
 import { createEnemy,hitEnemy,hitWall,addShield } from '../../src/sim/combat';
 import { deepLock,deepLegalNodes,deepPointCost } from '../../src/sim/deep-tree';
-import { hasUltimate, stepUltimates,ultimateNodeId } from '../../src/sim/ultimates';
+import { hasUltimate, stepUltimates,ultimateNodeId as versionedUltimate } from '../../src/sim/ultimates';
 import { stepWeapons } from '../../src/sim/weapons';
 import { captainDamageBonus, captainHaste } from '../../src/sim/captain-bonuses';
 import type {CharacterId,FormId,RunState,ChallengeId} from '../../src/sim/types';
+const createRun=(...args:Parameters<typeof versionedRun>)=>versionedRun(args[0],args[1]??'0.5.0-dev.2',args[2]);
+const deepTreesFor=(id:CharacterId)=>versionedTrees(id,{contentVersion:'0.5.0-dev.2'});
+const ultimateNodeId=(id:CharacterId)=>versionedUltimate(id,createRun({stageId:'S12',squadIds:[id],captainId:id,seed:101}));
 function funded(id:CharacterId='C01',form:FormId=`${id}-original`,challengeId:ChallengeId|null=null){const s=createRun({stageId:'S12',squadIds:[id],captainId:id,seed:101,forms:{[id]:form},challengeId});s.xp=780;s.choicesEarned=26;openDraft(s);return s;}
 function buy(s:RunState,id:string){expect(command(s,{type:'buy-node',offerId:s.draft!.id,nodeId:id}),id).toBe(true);}
 function unlock(s:RunState,id:CharacterId){for(const n of deepTreesFor(id).find(t=>t.nodes.some(n=>n.kind==='ultimate'))!.nodes.slice(0,5))buy(s,n.id);}

@@ -1,3 +1,7 @@
+import { deepTreesFor } from '../src/data/deep-trees';
+import { openDraft } from '../src/sim/draft';
+import { command } from '../src/sim/engine';
+import { cpus } from 'node:os';
 import { performance } from 'node:perf_hooks';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { CONTENT_VERSION } from '../src/data/content';
@@ -6,7 +10,9 @@ import { createEnemy } from '../src/sim/combat';
 
 // Independent worst-density fixtures keep all 1,800 samples equally heavy.
 // The clone is outside the timed section. This measures core CPU work, not renderer/GPU or real mobile hardware.
-const fixture = createRun({ stageId: 'S03', squadIds: ['C01', 'C02', 'C04', 'C05', 'C06'], captainId: 'C02', seed: 101 });
+const fixture = createRun({ stageId: 'S12', squadIds: ['C01', 'C02', 'C04', 'C05', 'C06'], captainId: 'C02', seed: 101 });
+fixture.xp=900;fixture.choicesEarned=30;openDraft(fixture);
+for(const w of fixture.weapons){const tree=deepTreesFor(w.id,fixture).find(t=>t.nodes.some(n=>n.kind==='ultimate'))!;for(const n of tree.nodes.slice(0,5))if(!command(fixture,{type:'buy-node',offerId:fixture.draft!.id,nodeId:n.id}))throw Error('Invalid benchmark allocation');}
 fixture.tick = 1000;
 fixture.enemies = [];
 fixture.spawnCursor = fixture.spawnPlan.length;
@@ -17,9 +23,8 @@ for (let i = 0; i < 120; i++) {
   e.attackAt = 1000;
   if (i === 119) { e.chargeKind = 'boss'; e.chargeUntil = 1050; e.summonAt = 1000; }
 }
-fixture.weapons.slice(0, 3).forEach(w => { w.branch = 'A'; w.rank = 3; });
-fixture.evolvedCount = 3;
-for (let i = 0; i < 400; i++) fixture.projectiles.push({ id: fixture.nextEntityId++, x: 20 + i % 20 * 18, y: 30 + Math.floor(i / 20) * 21, tx: 195, ty: 20, vx: 0, vy: -700, expires: 1100, hitIds: [], remaining: 3, falloff: [1, .8, .8], radius: 4, blastRadius: 0, packet: { source: 'C01', skill: 'stress', raw: 24, damageType: 'plasma', armorIgnore: 0, shieldMultiplier: 1 }, enemyDamage: 0, enemySource: null, impactAt: 0 });
+
+for (let i = 0; i < 400; i++) fixture.projectiles.push({ id: fixture.nextEntityId++, x: 20 + i % 20 * 18, y: 30 + Math.floor(i / 20) * 21, tx: 195, ty: 20, vx: 0, vy: -700, expires: 1100, hitIds: [], remaining: 3, falloff: [1, .8, .8], radius: 4, blastRadius: 0, packet: { source: 'C01', skill: 'stress', tacticalWeapon: true, raw: 24, damageType: 'plasma', armorIgnore: 0, shieldMultiplier: 1 }, enemyDamage: 0, enemySource: null, impactAt: 0 });
 for (let i = 0; i < 12; i++) fixture.fields.push({ id: fixture.nextEntityId++, source: i % 2 ? 'C04' : 'C05', kind: i % 2 ? 'gravity' : 'fire', x: 65 + i % 3 * 120, y: 80 + Math.floor(i / 3) * 95, radius: 85, expires: 1100, nextTick: 1000, dps: 14, damageType: 'gravity', slow: .3, slowDuration: 20, pull: 18, burnDuration: 30, armorIgnore: 0 });
 const samples: number[] = [];
 for (let i = 0; i < 1850; i++) {
@@ -32,9 +37,9 @@ for (let i = 0; i < 1850; i++) {
 }
 const sorted = [...samples].sort((a, b) => a - b);
 const result = {
-  contentVersion: CONTENT_VERSION, measuredAt: new Date().toISOString(), node: process.version, platform: process.platform, arch: process.arch,
-  command: 'npx tsx scripts/benchmark-simulation.ts', samples: samples.length,
-  fixture: { enemies: 120, projectiles: 400, fields: 12, evolvedWeapons: 3, bossSummonDue: true },
+  contentVersion: CONTENT_VERSION, measuredAt: new Date().toISOString(), node: process.version, platform: process.platform, arch: process.arch, cpu:cpus()[0]?.model, logicalCores:cpus().length,
+  command: 'node --import tsx scripts/benchmark-simulation.ts', samples: samples.length,
+  fixture: { enemies: 120, projectiles: 400, fields: 12, evolvedWeapons: fixture.evolvedCount, bossEscortsPrecomputed: true },
   p95ProcessingMs: sorted[Math.floor(sorted.length * .95)], maxProcessingMs: sorted.at(-1), meanProcessingMs: samples.reduce((a, b) => a + b, 0) / samples.length,
   budgetMs: 1000 / 30, passed: sorted[Math.floor(sorted.length * .95)] < 1000 / 30,
   limitation: 'Desktop Node CPU only; 1,800 reset-fixture live core steps. Clone cost excluded. Not continuous live browser frame time and not actual-phone evidence.',

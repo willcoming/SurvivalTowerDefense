@@ -3,7 +3,7 @@ import { highPressure, pressureMode } from './high-pressure';
 import type { ChallengeId, RunConfig } from '../sim/types';
 export { STAGE_ENCOUNTERS, ENCOUNTER_PATTERNS };
 export type { EncounterKind, EncounterPattern } from './encounters-v1';
-export interface EncounterContext { balanceVersion?:1|2; difficulty?:RunConfig['difficulty']; challengeId?:ChallengeId }
+export interface EncounterContext { balanceVersion?:1|2|3; difficulty?:RunConfig['difficulty']; challengeId?:ChallengeId }
 
 export function encounterPattern(stage: Parameters<typeof versionOnePattern>[0], wave: number, context: EncounterContext = {}) {
   const pattern = versionOnePattern(stage, wave);

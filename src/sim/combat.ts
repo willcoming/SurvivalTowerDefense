@@ -92,7 +92,16 @@ export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
   const conditional=free&&direct?(exposure>0?teamMod(s,'teamExposeDamage'):0)+(controlled?(p.controlledBonus??0)+teamMod(s,'teamControlDamage'):0)+(e.hp/e.maxHp<=(p.executeThreshold??0)?p.executeDamage??0:0):0;
   if(usesReworkedSkills(s)&&s.config.captainId==='C02'&&e.shield>0)p={...p,shieldMultiplier:p.shieldMultiplier+.25};
   const weakness=usesCollection(s)&&WEAKNESSES[e.defId]===p.damageType;
-  const raw=p.raw*(1+(exposure>0?(p.exposureBonus??0):0)+conditional+captainDamageBonus(s,e,direct,exposure,controlled))*(free?eventMultiplier(s,e.wave,p.damageType):1)*(weakness?1.5:1);
+  let tacticalBonus=0;
+  if(p.tacticalWeapon&&direct){
+    const m=deepMods(s,p.source);
+    if(m.guardDamage&&(e.shield>0||e.armor>=.2))tacticalBonus+=m.guardDamage;
+    if(m.freshDamage&&e.hp/e.maxHp>.7)tacticalBonus+=m.freshDamage;
+    if(m.crowdDamage||m.isolatedDamage){let near80=0,near100=0;for(const other of s.enemies){if(other.id===e.id||other.hp<=0)continue;const d=distance(other,e);if(d<=80)near80++;if(d<=100)near100++;if(near80>=2)break;}
+      if(near80>=2)tacticalBonus+=m.crowdDamage??0;if(near100===0)tacticalBonus+=m.isolatedDamage??0;
+    }
+  }
+  const raw=p.raw*(1+tacticalBonus+(exposure>0?(p.exposureBonus??0):0)+conditional+captainDamageBonus(s,e,direct,exposure,controlled))*(free?eventMultiplier(s,e.wave,p.damageType):1)*(weakness?1.5:1);
   const armorBreak=free&&e.armorBroken&&e.armorBroken.expires>s.tick?e.armorBroken.value:0;
   const result=computeDamage(raw,e.shield,e.armor,p.armorIgnore,exposure,p.shieldMultiplier,armorBreak);
   const previousShield=e.shield;e.shield-=result.shieldDamage;const damage=Math.min(e.hp,result.hpDamage);e.hp-=damage;

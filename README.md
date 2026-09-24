@@ -125,3 +125,13 @@ git show v0.3.0-dev.1 --stat
 `src/sim/`：30 Hz、無渲染依賴的確定性戰鬥；`src/data/`：角色、路線、敵人及關卡；`src/storage/`：有序交易與 revision 衝突控制；`src/ui/`：繁體中文操作流程；`src/game/`：Phaser 畫面與原創合成音訊；`public/assets/`：本機美術素材。
 
 這份交付不代表已完成真實手機效能或真人趣味性測試。實際裝置與真人驗證記錄會在工程交付報告中分開列示。
+
+### 戰術技能與編隊版本
+
+新開局採用技能 `0.6.0-dev.1` 與關卡平衡 `3`，既有戰局依保存的版本繼續。八角色各 24 節點，終極可由兩條入口擇一抵達；隊長維持不花點數的開場被動。
+
+- [完整 192 節點與換裝規格](docs/TACTICAL_SKILLS.md)
+- [全部模式與波次編隊](docs/TACTICAL_ENCOUNTERS.md)
+- [配對驗證、可重現方法與未達標項目](docs/TACTICAL_BALANCE.md)
+
+`npm run docs:tactical` 更新規格。`test:tactical:matrix`／`test:tactical:probes` 執行模擬，`test:tactical:report` 彙整結果。長矩陣支援 `--shard`／`--shards`；所有分片完成後才是完整報告。平衡驗證仍有未達標項目，詳見報告；發布狀態以部署收據為準。

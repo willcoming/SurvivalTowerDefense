@@ -1,3 +1,4 @@
+import { usesTacticalSkills } from '../data/tactical-skills';
 import { usesSkillNetwork } from '../data/skill-network';
 import { REWORKED_NODE_IDS, NETWORK_NODE_IDS, resolveSkillNode, usesReworkedSkills } from '../data/reworked-skills';
 import {validateCommanderSkills} from '../data/commander';
@@ -28,6 +29,7 @@ export const deepHas = (s:RunState,id:string) => (s.treeNodes??[]).includes(id);
 export const deepUltimate = (s:RunState,owner:CharacterId) => (s.treeNodes??[]).find(id=>DEEP_NODE_MAP[id]?.ownerId===owner&&DEEP_NODE_MAP[id].kind==='ultimate');
 export function deepLock(s:RunState,id:string):string|null {
   const n=DEEP_NODE_MAP[id];if(!n||n.ownerId!=='common'&&(REWORKED_NODE_IDS.has(id)!==usesReworkedSkills(s)||REWORKED_NODE_IDS.has(id)&&NETWORK_NODE_IDS.has(id)!==usesSkillNetwork(s)))return '未知節點';
+  if(n.ownerId!=='common'&&NETWORK_NODE_IDS.has(id)&&id.includes('4/')!==usesTacticalSkills(s))return '未知節點';
   if(n.ownerId==='common'&&s.commanderSkillVersion===1)return '共用技能由指揮官等級升級';
   if(n.ownerId!=='common'&&!s.config.squadIds.includes(n.ownerId))return '角色未出戰';
   if(deepHas(s,id))return '已取得';

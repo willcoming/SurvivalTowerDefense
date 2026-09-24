@@ -1,3 +1,4 @@
+import { usesTacticalSkills } from '../data/tactical-skills';
 import { usesReworkedSkills } from '../data/reworked-skills';
 import { captainHaste } from './captain-bonuses';
 import { CHARACTER_MAP, ticks, WORLD } from '../data/content';
@@ -10,7 +11,8 @@ import type { CharacterId, DamagePacket, Enemy, RunState, WeaponState } from './
 
 export function deepWeaponStats(s:RunState,w:WeaponState){
   const d=CHARACTER_MAP[w.id],m=deepMods(s,w.id),bonus=m.damage??0;
-  const haste=captainHaste(s)+(m.haste??0)+teamMod(s,'teamHaste')+(s.shields.some(x=>x.expires>s.tick&&x.value>0)?m.shieldHaste??0:0)+(w.id==='C08'&&(w.ventUntil??0)>s.tick?.35+(m.ventHaste??0):0);
+  const conditionalHaste=usesTacticalSkills(s)?((m.markedHaste&&s.enemies.some(e=>e.hp>0&&inWeaponRange(s,w.id,e)&&(e.exposureUntil>s.tick||e.effects.some(f=>f.kind==='exposure'&&f.expires>s.tick)))?m.markedHaste:0)+(m.pressureHaste&&s.enemies.some(e=>e.hp>0&&e.y>=350)?m.pressureHaste:0)):0;
+  const haste=conditionalHaste+captainHaste(s)+(m.haste??0)+teamMod(s,'teamHaste')+(s.shields.some(x=>x.expires>s.tick&&x.value>0)?m.shieldHaste??0:0)+(w.id==='C08'&&(w.ventUntil??0)>s.tick?.35+(m.ventHaste??0):0);
   const radiusMultiplier=(1+(m.radius??0))*equippedForm(s,w.id).radius;
   return {damage:d.damage*(1+bonus),bonus,interval:ticks(Math.max(.12,d.interval/(1+haste)*(w.id==='C07'&&isSummer(s,w.id)?1.25:1))),radius:(w.id==='C04'?45:w.id==='C05'?48:w.id==='C07'?58:0)*radiusMultiplier,duration:1+(m.duration??0),burnDamage:1+(m.burn??0),radiusMultiplier};
 }
@@ -18,7 +20,7 @@ function packet(s:RunState,w:WeaponState):DamagePacket{
   const m=deepMods(s,w.id),n=deepWeaponStats(s,w),every=m.exposureEvery??(w.id==='C06'?4:0);
   const own=every&&w.attacks%every===0?{value:Math.min(.25,(w.id==='C06'?.1:0)+(m.exposureValue??0)),duration:ticks(((w.id==='C06'?4:0)+(m.exposureSeconds??0))*n.duration)}:undefined;
   const shared=deepMods(s,'common'),common=shared.teamMarkEvery&&w.attacks%shared.teamMarkEvery===0?{value:shared.teamMarkValue??.08,duration:ticks(3)}:undefined;
-  return {source:w.id,skill:'weapon',raw:n.damage*(usesReworkedSkills(s)&&w.id==='C08'&&!isSummer(s,w.id)&&(w.ultimateBuffUntil??0)>s.tick?1.6:1)*(m.critEvery&&w.attacks%m.critEvery===0?1+(m.critPower??.5):1),damageType:attackType(s,w.id),armorIgnore:Math.min(1,(w.id==='C03'?.35:0)+(m.armor??0)),shieldMultiplier:(w.id==='C02'?1.25:1)+(m.shield??0),exposureBonus:(w.id==='C01'?.15:0)+(m.exposureDamage??0),exposure:own&&common?{value:Math.max(own.value,common.value),duration:Math.max(own.duration,common.duration)}:own??common,armorBreak:m.armorBreak,executeDamage:m.executeDamage,executeThreshold:m.executeThreshold,controlledBonus:m.controlledDamage};
+  return {...(usesTacticalSkills(s)?{tacticalWeapon:true}:{}),source:w.id,skill:'weapon',raw:n.damage*(usesReworkedSkills(s)&&w.id==='C08'&&!isSummer(s,w.id)&&(w.ultimateBuffUntil??0)>s.tick?1.6:1)*(m.critEvery&&w.attacks%m.critEvery===0?1+(m.critPower??.5):1),damageType:attackType(s,w.id),armorIgnore:Math.min(1,(w.id==='C03'?.35:0)+(m.armor??0)),shieldMultiplier:(w.id==='C02'?1.25:1)+(m.shield??0),exposureBonus:(w.id==='C01'?.15:0)+(m.exposureDamage??0),exposure:own&&common?{value:Math.max(own.value,common.value),duration:Math.max(own.duration,common.duration)}:own??common,armorBreak:m.armorBreak,executeDamage:m.executeDamage,executeThreshold:m.executeThreshold,controlledBonus:m.controlledDamage};
 }
 function bullet(s:RunState,t:Enemy,p:DamagePacket,count:number){
   const dx=t.x-195,dy=t.y-490,len=Math.hypot(dx,dy)||1;

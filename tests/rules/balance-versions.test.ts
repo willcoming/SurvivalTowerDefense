@@ -1,11 +1,12 @@
 import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 import fixtures from '../fixtures/balance-v1.json';
-import { createRun, restoreRun, stepRun } from '../../src/sim/engine';
+import { createRun as versionedRun, restoreRun, stepRun } from '../../src/sim/engine';
 import { operationProfile, stageProfile } from '../../src/data/progression';
 import { pressure } from '../../src/sim/difficulty';
 import { STAGES } from '../../src/data/content';
 import type { RunConfig } from '../../src/sim/types';
+const createRun=(...args:Parameters<typeof versionedRun>)=>versionedRun(args[0],args[1]??'0.5.0-dev.2',args[2]);
 
 describe('balance v2 compatibility', () => {
   it('retains all 66 version-one battle states byte-for-byte after 120 ticks', () => {

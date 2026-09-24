@@ -1,8 +1,9 @@
 import { operationProfile } from '../../src/data/progression';
 import { describe, expect, it } from 'vitest';
-import { createRun, stepRun, restoreRun, command } from '../../src/sim/engine';
+import { createRun as versionedRun, stepRun, restoreRun, command } from '../../src/sim/engine';
 import { BOSS_ESCORT_COUNT } from '../../src/sim/enemies';
 import type { StageId } from '../../src/sim/types';
+const createRun=(...args:Parameters<typeof versionedRun>)=>versionedRun(args[0],args[1]??'0.5.0-dev.2',args[2]);
 
 function entrance(stageId: StageId, version?: string) {
   const s = createRun({stageId,squadIds:['C01'],captainId:'C01',seed:101}, version);

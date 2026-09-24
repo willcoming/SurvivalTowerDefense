@@ -61,6 +61,7 @@ export interface Enemy {
   lastAction?: { tick: number; kind: 'melee' | 'shot' | 'blast' | 'burst' | 'rush' | 'summon' | 'repair' | 'shield' };
 }
 export interface DamagePacket {
+  tacticalWeapon?:boolean;
   source: CharacterId; skill: string; raw: number; damageType: DamageType;
   armorIgnore: number; shieldMultiplier: number; exposureBonus?: number; exposure?: { value: number; duration: number };
   armorBreak?: number; executeDamage?: number; executeThreshold?: number; controlledBonus?: number; secondary?: boolean;
@@ -88,7 +89,7 @@ export interface WeaponState {
   heat?: number; cooling?: boolean; ventUntil?: number; ultimateReadyAt?: number; ultimateBuffUntil?: number;
 }
 export interface Mine { id: number; source: CharacterId; x: number; y: number; plantedAt: number; armedAt: number; expires: number; radius: number; triggerRadius: number; packet: DamagePacket; chargeRate: number; chargeCap: number }
-export interface SpawnEntry { at: number; defId: EnemyId; x: number; xp: number; wave: number }
+export interface SpawnEntry { y?:number; at: number; defId: EnemyId; x: number; xp: number; wave: number }
 export interface ScheduledHit { at: number; packet: DamagePacket | null; x: number; y: number; radius: number; enemyDamage: number; enemySource: EnemyId | null }
 export interface VisualEvent {
   seq: number; tick: number; kind: 'shot' | 'beam' | 'arc' | 'explosion' | 'hit' | 'death' | 'shield' | 'evolution' | 'tactical' | 'wall-hit' | 'spawn' | 'interrupt';
@@ -115,7 +116,7 @@ export interface RunState {
   skillCostVersion?:2;
   operationVersion?:2|3;
   /** Authored encounters and combat tuning; absent keeps historical rules. */
-  balanceVersion?:1|2;
+  balanceVersion?:1|2|3;
   commanderSkillVersion?:1;
   wavePlan?: WaveBrief[]; support?: SupportState; upgradePendingAt?: number;
   weapons: WeaponState[]; commonRanks: Record<string, number>; preferredBranches: Record<CharacterId, Branch>;

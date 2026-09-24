@@ -1,4 +1,4 @@
-import { HUNDRED_PROFILE, isHundred, runName } from '../data/hundred';
+import { isHundred, runName } from '../data/hundred';
 import { operationProfile, stageProfile } from '../data/progression';
 import { CHARACTER_MAP, ENEMY_MAP, ENEMY_CODE, STAGE_MAP } from '../data/content';
 import { stageArt } from '../data/campaign';
@@ -31,7 +31,7 @@ export function commandPanel(save: GameSave, vm: ViewModel, selectedRange: strin
   const hundred=run?isHundred(run):vm.page==='hundred';
   const stage = STAGE_MAP[hundred?'S03':run?.config.stageId ?? vm.stageId];
   const name=hundred?'百波挑戰':run?runName(run):stage.name;
-  const profile=hundred?HUNDRED_PROFILE:run?operationProfile(run):stageProfile(stage.id,vm.challengeId?'hard':selectedDifficulty(save,stage.id),{challengeId:vm.challengeId});
+  const profile=run?operationProfile(run):hundred?operationProfile({config:{mode:'hundred',stageId:'S03',difficulty:'easy',squadIds:[],captainId:'C01',seed:0},balanceVersion:3,operationVersion:3}):stageProfile(stage.id,vm.challengeId?'hard':selectedDifficulty(save,stage.id),{challengeId:vm.challengeId,balanceVersion:3});
   const ids = run?.config.squadIds ?? save.preferences.squadIds;
   const boss = ENEMY_MAP[stage.bossId];
   const enemyContent = `    <p>${esc(name)} · 已知敵方情報</p><div class="command-enemies">${stage.enemyIds.map(id => { const e = ENEMY_MAP[id]; return `<article><img src="${assetUrl(`enemies/${id}.webp`)}" alt="${esc(e.name)}"><div><h3>${esc(e.name)}</h3>${elementBadge(WEAKNESSES[id], true)}<p>${esc(e.mechanic)}</p><p class="command-counter">${esc(e.counter)}</p></div></article>`; }).join('')}</div>`;

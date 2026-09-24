@@ -2,12 +2,13 @@ import { describe,it,expect } from 'vitest';
 import { STAGES } from '../../src/data/content';
 import { MAIN_IDS,SIDE_IDS } from '../../src/data/campaign';
 import { stageProfile,operationProfile,previousStageProfile } from '../../src/data/progression';
-import { createRun,restoreRun,stepRun,command } from '../../src/sim/engine';
+import { createRun as versionedRun,restoreRun,stepRun,command } from '../../src/sim/engine';
 import { createEnemy,hitEnemy } from '../../src/sim/combat';
 import { deepLegalNodes } from '../../src/sim/deep-tree';
 import { DEEP_NODE_MAP } from '../../src/data/deep-trees';
 import { openDraft } from '../../src/sim/draft';
 import { nextIntel } from '../../src/sim/operations';
+const createRun=(...args:Parameters<typeof versionedRun>)=>versionedRun(args[0],args[1]??'0.5.0-dev.2',args[2]);
 
 const run=(stageId:typeof STAGES[number]['id'])=>createRun({stageId,squadIds:['C01'],captainId:'C01',seed:101});
 describe('progressive stage schedules and skill budgets',()=>{

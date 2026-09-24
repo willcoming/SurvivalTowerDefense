@@ -3,11 +3,11 @@ import { difficultyTuning as originalDifficulty, pressure as originalPressure } 
 import type { RunState } from './types';
 export { usesPressureRules } from './difficulty-v1';
 
-export const difficultyTuning = (s: Pick<RunState, 'config'|'balanceVersion'>) => originalDifficulty(s.balanceVersion === 2 ? {...s,balanceVersion:1} : s);
+export const difficultyTuning = (s: Pick<RunState, 'config'|'balanceVersion'>) => originalDifficulty((s.balanceVersion === 2 || s.balanceVersion === 3) ? {...s,balanceVersion:1} : s);
 export function pressure(s: Pick<RunState, 'contentVersion'|'config'|'balanceVersion'>) {
-  if (s.balanceVersion !== 2) return originalPressure(s);
+  if (s.balanceVersion !== 2 && s.balanceVersion !== 3) return originalPressure(s);
   const base = originalPressure({...s,balanceVersion:1});
   const tuning = highPressure(s.config.stageId, pressureMode(s.config));
   return { ...base, health:base.health*tuning.health, speed:base.speed*tuning.speed,
-    bossHealth:base.bossHealth*tuning.bossHealth, bossDamage:base.bossDamage*tuning.bossDamage, bossInterval:base.bossInterval*tuning.bossInterval };
+    bossHealth:base.bossHealth*tuning.bossHealth*(s.balanceVersion===3?1.08:1), bossDamage:base.bossDamage*tuning.bossDamage*(s.balanceVersion===3?1.03:1), bossInterval:base.bossInterval*tuning.bossInterval };
 }

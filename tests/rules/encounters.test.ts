@@ -2,11 +2,12 @@ import { describe, expect, it } from 'vitest';
 import { STAGES, ENEMY_CODE, ticks } from '../../src/data/content';
 import { STAGE_ENCOUNTERS } from '../../src/data/encounters';
 import { legacyStageProfile, operationProfile, previousStageProfile as stageProfile } from '../../src/data/progression';
-import { createRun, restoreRun, stepRun } from '../../src/sim/engine';
+import { createRun as versionedRun, restoreRun, stepRun } from '../../src/sim/engine';
 import { createEnemy } from '../../src/sim/combat';
 import { spawnBossEscort, stepEnemies } from '../../src/sim/enemies';
 import { difficultyTuning } from '../../src/sim/difficulty';
 import { nextIntel } from '../../src/sim/operations';
+const createRun=(...args:Parameters<typeof versionedRun>)=>versionedRun(args[0],args[1]??'0.5.0-dev.2',args[2]);
 
 describe('authored encounters and historical battle compatibility', () => {
   it.each(STAGES)('$id preserves the point, XP, wave, enemy and time budgets in both difficulties', stage => {
