@@ -106,8 +106,31 @@ async function ready(page: Page, location = 'summary') {
   await expect(state(page, location).locator(`[data-offline-field="${location === 'summary' ? 'summary' : 'title'}"]`)).toContainText('可離線遊玩');
 }
 async function home(page: Page) {
+  await closeDetails(page);
   await page.locator('.game-dock [data-action="home"]').click();
   await expect(page.locator('#app')).toHaveAttribute('data-page', 'home');
+}
+async function closeDetails(page: Page) {
+  const close = page.locator('dialog.mobile-detail[open] .mobile-detail-header button');
+  if (await close.count()) await close.last().click();
+}
+async function settingsCategory(page: Page, name: string) {
+  await closeDetails(page);
+  const tab = page.getByRole('button', { name, exact: true });
+  if (await tab.isVisible()) await tab.click();
+}
+async function offlineDetails(page: Page) {
+  await settingsCategory(page, '離線與版本');
+  const details = page.getByRole('button', { name: '離線下載、版本與更新', exact: true });
+  if (await details.isVisible()) await details.click();
+}
+async function revealCard(page: Page, card: ReturnType<Page['locator']>, label: string) {
+  const pager = page.getByRole('combobox', { name: label, exact: true });
+  if (await pager.isVisible()) {
+    const count = await pager.locator('option').count();
+    for (let index = 0; index < count && !(await card.isVisible()); index++) await pager.selectOption(String(index));
+  }
+  await expect(card).toBeVisible();
 }
 async function readSave(page: Page): Promise<GameSave | undefined> {
   return page.evaluate(() => new Promise<GameSave | undefined>((resolveSave, reject) => {
@@ -179,6 +202,7 @@ async function layout(page: Page, name: string) {
     await page.screenshot({ path: join(output, `${name}-${width}.png`), fullPage: true });
   }
   await setViewportAndSettle(page, { width: 390, height: 844 });
+  if (/settings|download-error/.test(name)) await offlineDetails(page);
 }
 async function verifyVersion(page: Page, url: URL) {
   const version = await page.evaluate(async href => (await fetch(new URL('version.json', href))).json(), url.href);
@@ -253,6 +277,7 @@ async function coreSmoke(engine: BrowserType, name: string, url: URL, snapshot: 
   await ready(page, 'settings');
   await verifyVersion(page, url);
   await layout(page, `${name}-settings-ready`);
+  await settingsCategory(page, '一般');
   await page.locator('#commander-name').fill('離線驗證');
   await expect(page.locator('#commander-name')).toHaveValue('離線驗證');
   await page.locator('#commander-name').press('Tab');
@@ -262,7 +287,9 @@ async function coreSmoke(engine: BrowserType, name: string, url: URL, snapshot: 
   await expect.poll(async () => (await readSave(page))?.preferences.reducedEffects).toBe(true);
   await page.locator('.game-dock [data-action="roster"]').click();
   await page.locator('[data-action="roster-edit"]').first().click();
-  await page.locator('.roster-tile[data-id="C05"]').click();
+  const member = page.locator('.roster-tile[data-id="C05"]');
+  await revealCard(page, member, '隊員');
+  await member.click();
   await page.locator('[data-action="toggle-character"][data-id="C05"]').click();
   await page.locator('[data-action="roster-close"]').click();
   await page.locator('[data-action="roster-commit"]').click();
@@ -300,6 +327,7 @@ async function coreSmoke(engine: BrowserType, name: string, url: URL, snapshot: 
   assert.ok(beforeDraw);
   assert.equal(beforeDraw.collection.tickets, 1);
   await page.locator('[data-action="draw"]').click();
+  await page.getByRole('button', { name: '招募結果', exact: true }).click();
   await expect(page.locator('.recruitment-receipt')).toBeVisible();
   await expect.poll(async () => (await readSave(page))?.collection.sequence).toBe(beforeDraw.collection.sequence + 1);
   const drawn = await readSave(page);
@@ -308,7 +336,9 @@ async function coreSmoke(engine: BrowserType, name: string, url: URL, snapshot: 
   assert.equal(drawn.collection.lastReceipt.kind, 'draw');
   assert.equal(drawn.collection.lastReceipt.spent, 'ticket');
   assert.ok(drawn.collection.owned.includes(drawn.collection.lastReceipt.formId));
+  await closeDetails(page);
   const preview = page.locator('.recruit-card-grid [data-action="recruit-preview"]').last();
+  await revealCard(page, preview, '獎池項目');
   await preview.scrollIntoViewIfNeeded();
   await preview.click();
   await expect.poll(() => page.getByRole('dialog').locator('img').evaluate(image => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
