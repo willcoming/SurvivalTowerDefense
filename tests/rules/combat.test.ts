@@ -38,7 +38,7 @@ describe('DMG01–07 · shield overflow, armor and real damage statistics', () =
     expect(state.stats.shieldDamageByCharacter.C01).toBe(initialShield);
     expect(state.stats.damageByCharacter.C01).toBe(initialHp);
     expect(state.xp).toBe(40);
-    expect(state.choicesEarned).toBe(0);
+    expect(state.choicesEarned).toBe(1);
     hitEnemy(state, enemy, packet(10000));
     expect(state.xp).toBe(40);
     const summoned = createEnemy(state, 'E01', 200, 200, 0);

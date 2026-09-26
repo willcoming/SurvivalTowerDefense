@@ -14,6 +14,9 @@ body { min-width:320px; background:#081923; color-scheme:dark; }
 .commander-profile small { display:block; font-size:8px; letter-spacing:.12em; color:var(--muted); }
 .commander-profile strong { display:block; font-size:16px; max-width:250px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; }
 .commander-profile > b { font:600 12px ui-monospace,monospace; color:var(--gold); white-space:nowrap; }
+.commander-profile > .hud-commander-progress { flex:none; text-align:right; }
+#app .hud-commander-progress small { font-size:12px; letter-spacing:0; line-height:1.5; }
+#app .hud-commander-progress .has-points { color:var(--teal); }
 .hud-controls { display:flex; align-items:center; gap:4px; }
 #app .hud-controls .icon-button { width:44px; height:44px; min-width:44px; color:var(--gold); }
 .hud-resources { grid-column:1/-1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-top:1px solid #60757835; }

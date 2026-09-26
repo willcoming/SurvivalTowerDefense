@@ -25,7 +25,7 @@ import { usesRangeRules } from './range';
 import type { CharacterId, Command, RunConfig, RunState } from './types';
 import { applyUpgrade, castTactical, stepWeapons } from './weapons';
 export { getLegalNodeIds, getReadyEvolutions } from './draft';
-export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, compatibility:{operationVersion?:2|3;legacyOperations?:boolean;legacyCommonSkills?:boolean;legacyBalance?:boolean;balanceVersion?:1|2|3|4|5}={}):RunState{
+export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, compatibility:{experienceVersion?:1|2|null;operationVersion?:2|3;legacyOperations?:boolean;legacyCommonSkills?:boolean;legacyBalance?:boolean;balanceVersion?:1|2|3|4|5}={}):RunState{
   if(config.mode!==undefined&&(config.mode!=='hundred'||config.stageId!=='S03'||config.difficulty!=='easy'||config.challengeId||(!usesTacticalSkills({contentVersion})&&contentVersion!==LINEAR_SKILL_VERSION&&contentVersion!==NETWORK_CONTENT_VERSION)||compatibility.legacyOperations||compatibility.legacyBalance||compatibility.operationVersion===2||compatibility.balanceVersion===1))throw new Error('百波挑戰設定不相容');
   if(compatibility.operationVersion!==undefined&&![2,3].includes(compatibility.operationVersion))throw new Error('Unknown operation version');
   if(compatibility.operationVersion===3&&compatibility.legacyBalance)throw new Error('New operations require authored balance');
@@ -48,6 +48,8 @@ export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, comp
   if(usesFreeSkills(s)&&(usesTacticalSkills({contentVersion})||contentVersion===NETWORK_CONTENT_VERSION||contentVersion===PRE_REWORK_VERSION||contentVersion===LINEAR_SKILL_VERSION)&&!compatibility.legacyCommonSkills){s.commanderSkillVersion=1;s.config.commanderNodes=[...(config.commanderNodes??[])];validateCommanderSkills(s.config.commanderNodes);const health=s.config.commanderNodes.reduce((n,id)=>n+(DEEP_NODE_MAP[id].mods.wallHealth??0),0);s.wallMaxHp+=health;s.wallHp+=health;}
   if(s.operationVersion!==undefined&&!compatibility.legacyBalance)s.balanceVersion=compatibility.balanceVersion??(contentVersion===CONTENT_VERSION?CURRENT_BALANCE_VERSION:contentVersion===TIMED_TACTICAL_VERSION?4:usesTacticalSkills(s)?3:2);
   if(s.balanceVersion===5){if(s.operationVersion!==3||!usesTacticalSkills(s))throw new Error('波末配點設定不相容');s.waveFlow={version:1,wave:1,startedAt:0,phase:'combat'};}
+  if(compatibility.experienceVersion!==undefined&&compatibility.experienceVersion!==null&&(![1,2].includes(compatibility.experienceVersion)||!s.waveFlow))throw new Error('戰鬥經驗版本不相容');
+  if(s.waveFlow&&compatibility.experienceVersion!==null)s.experienceVersion=compatibility.experienceVersion??2;
   s.spawnPlan=makeSpawnPlan(s);prepareOperation(s);while(s.spawnCursor<s.spawnPlan.length&&spawnDue(s,s.spawnPlan[s.spawnCursor])){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,p.y??20,p.xp,p.wave);}return s;
 }
 export function getPhase(s:RunState):RunState['phase']{return s.outcome?'ended':s.pauseReasons.includes('upgrade')?'choosing':s.pauseReasons.length?'paused':'running';}
@@ -158,7 +160,7 @@ export function restoreRun(raw:unknown):RunState{
   if(s.operationVersion!==undefined&&s.operationVersion!==2&&s.operationVersion!==3)throw new Error('波次版本損壞');
   if(s.operationVersion===3&&s.balanceVersion===undefined)throw new Error('關卡平衡版本遺失');
   if(s.balanceVersion!==undefined&&(![1,2,3,4,5].includes(s.balanceVersion)||s.operationVersion===undefined))throw new Error('關卡平衡版本損壞');
-  const template=createRun(s.config,s.contentVersion,{operationVersion:s.operationVersion,legacyOperations:s.operationVersion===undefined,legacyCommonSkills:s.commanderSkillVersion!==1,legacyBalance:s.balanceVersion===undefined,balanceVersion:s.balanceVersion});
+  const template=createRun(s.config,s.contentVersion,{experienceVersion:s.experienceVersion??null,operationVersion:s.operationVersion,legacyOperations:s.operationVersion===undefined,legacyCommonSkills:s.commanderSkillVersion!==1,legacyBalance:s.balanceVersion===undefined,balanceVersion:s.balanceVersion});
   const finite=(v:unknown):boolean=>typeof v==='number'?Number.isFinite(v):Array.isArray(v)?v.every(finite):v&&typeof v==='object'?Object.values(v).every(finite):true;
   if(!finite(s)||!Number.isSafeInteger(s.tick)||s.tick<0||(!operationProfile(s).unlimited&&s.tick>ticks(operationProfile(s).deadline))||!Array.isArray(s.enemies)||!Array.isArray(s.projectiles)||!Array.isArray(s.fields)||!Array.isArray(s.spawnPlan)||!Array.isArray(s.pauseReasons)||!Array.isArray(s.actions)||!s.rng||!s.stats||s.wallHp<0||s.wallHp>s.wallMaxHp||s.choicesSpent>s.choicesEarned||s.evolvedCount>s.evolutionLimit||s.weapons.length!==s.config.squadIds.length)throw new Error('戰局快照損壞');
   if(!!s.bossIntro!==s.pauseReasons.includes('boss-intro')||s.bossIntro&&(!usesRangeRules(s)||!s.bossSpawned||!Number.isSafeInteger(s.bossIntro.enemyId)||!Number.isFinite(s.bossIntro.remainingMs)||s.bossIntro.remainingMs<0||s.bossIntro.remainingMs>BOSS_INTRO_MS||!s.enemies.some(e=>e.id===s.bossIntro!.enemyId&&e.defId===STAGE_MAP[s.config.stageId].bossId)))throw new Error('首領登場紀錄損壞');

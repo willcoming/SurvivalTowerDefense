@@ -4,12 +4,17 @@ for(const viewport of [{width:320,height:500},{width:768,height:1024},{width:102
  test(`commander settings at ${viewport.width}: entry, points, prerequisites and free reset`,async({page},info)=>{
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   await page.setViewportSize(viewport);await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);
+  await expect(page.locator('[data-hud="commander-level"]')).toHaveText('Lv.1');
+  await expect(page.locator('[data-hud="commander-points"]')).toHaveText('可用 0 點');
+  await expect(page.locator('[data-hud="commander-points"]')).toBeVisible();
   await page.getByRole('button',{name:'指揮官成長與共用技能',exact:true}).click();
   await expect(page.locator('#app')).toHaveAttribute('data-page','commander');await expect(page.getByRole('heading',{name:'指揮官成長',exact:true})).toBeVisible();
   await expect(page.locator('.commander-level strong')).toHaveText('Lv.1');await expect(page.locator('[data-action="commander-upgrade"]')).toHaveCount(12);
   await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/0"]')).toBeDisabled();
   await page.evaluate(async()=>{window.__game.getSave().profile.commander!.xp=240;await window.__game.save();window.__game.route('commander');});
   await expect(page.locator('.commander-points strong')).toHaveText('2');
+  await expect(page.locator('[data-hud="commander-level"]')).toHaveText('Lv.3');
+  await expect(page.locator('[data-hud="commander-points"]')).toHaveText('可用 2 點');
   await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/1"]')).toBeDisabled();
   if(viewport.width<=800)await page.locator('.commander-route li:has([data-id="TEAM/0"]) > .mobile-commander-node').click();
   await page.locator('[data-action="commander-upgrade"][data-id="TEAM/0"]').click();
@@ -20,6 +25,7 @@ for(const viewport of [{width:320,height:500},{width:768,height:1024},{width:102
   await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/1"]')).toBeDisabled();
   if(viewport.width<=800)await page.keyboard.press('Escape');
   await expect(page.locator('.commander-points strong')).toHaveText('0');
+  await expect(page.locator('[data-hud="commander-points"]')).toHaveText('可用 0 點');
   await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/4"]')).toBeDisabled();
   await page.screenshot({path:info.outputPath(`commander-${viewport.width}.png`),fullPage:true});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
@@ -28,6 +34,8 @@ for(const viewport of [{width:320,height:500},{width:768,height:1024},{width:102
   if(viewport.width<=800){await page.getByRole('button',{name:'離線與版本',exact:true}).click();await page.getByRole('button',{name:'共用技能資訊',exact:true}).click();}
   await page.getByRole('button',{name:'設定共用技能 →',exact:true}).click();await expect(page.locator('.commander-points strong')).toHaveText('0');
   await page.locator('[data-action="commander-reset"]').click();await expect(page.locator('.commander-points strong')).toHaveText('2');
+  await page.getByRole('button',{name:'返回作戰中心',exact:true}).click();
+  await expect(page.locator('[data-hud="commander-points"]')).toHaveText('可用 2 點');
   expect(await page.evaluate(()=>window.__game.getSave().profile.commander!.skillIds)).toEqual([]);expect(errors).toEqual([]);
 });
 });

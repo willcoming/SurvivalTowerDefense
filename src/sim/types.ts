@@ -114,6 +114,7 @@ export interface RunState {
   rerollsRemaining: number; evolvedCount: number; evolutionLimit: number; tacticalReadyAt: number;
   treeNodes?: string[];
   skillCostVersion?:2;
+  experienceVersion?:1|2;
   operationVersion?:2|3;
   /** Authored encounters and combat tuning; absent keeps historical rules. */
   balanceVersion?:1|2|3|4|5;

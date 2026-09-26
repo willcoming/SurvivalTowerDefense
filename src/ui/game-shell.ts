@@ -17,10 +17,11 @@ export function gameHud(save: GameSave, status: string, page: Page) {
   const battle = page === 'battle';
   const run = battle ? save.activeRun : null;
   const captain = run?.config.captainId ?? save.preferences.captainId;
+  const progress = commanderProgress(commanderState(save));
   return `<header class="masthead game-hud" aria-label="指揮官與資源">
     <button class="commander-profile" data-action="${battle ? 'battle-settings' : 'commander'}" aria-label="${battle?'編輯指揮官資料':'指揮官成長與共用技能'}">
       ${portrait(captain)}<span><small>${battle?`${run?.config.mode==='hundred'?'百波挑戰':difficultyName(run?.config.difficulty)} / 作戰中`:"STARFALL / 指揮官"}</small><strong>${esc(save.preferences.commanderName ?? '指揮官')}</strong></span>
-      <b title="每升一級獲得 1 點共用技能點">Lv.${commanderProgress(commanderState(save)).level}</b>
+      <b class="hud-commander-progress" title="每升一級獲得 1 點共用技能點"><span data-hud="commander-level">Lv.${progress.level}</span>${battle?'':`<small data-hud="commander-points" class="${progress.available>0?'has-points':''}">可用 ${progress.available} 點</small>`}</b>
     </button>
     <div class="hud-controls"><button class="icon-button" data-action="${battle ? 'battle-settings' : 'settings'}" aria-label="設定">⚙</button></div>
     ${page==='recruitment'?`<div class="hud-resources" aria-label="持有資源">

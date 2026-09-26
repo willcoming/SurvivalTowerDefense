@@ -37,7 +37,11 @@ for(const width of [320,768,1024,1440])test(`wave-end allocation supports partia
   const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
   await page.setViewportSize({width,height:width===320?640:900});await boot(page);
   await expect(page.locator('#wave-text')).toHaveText('WAVE 1 / 10');
+  await expect(page.locator('#xp-text')).toContainText('Lv.1');
+  await expect(page.locator('#xp-text')).toContainText('/ 30');
   const first=await clearToAllocation(page);
+  await expect(page.locator('#xp-text')).toContainText(`Lv.${first.earned+1}`);
+  await expect(page.locator('#xp-text')).toContainText(`待配 ${first.earned} 點`);
   await expect(page.getByRole('heading',{name:new RegExp(`第 ${first.wave} 波完成`)})).toBeVisible();
   const confirm=page.locator('[data-action="buy-node"]'),bank=page.getByRole('button',{name:'保留全部點數並繼續',exact:true});
   await expect(confirm).toBeDisabled();await expect(bank).toBeInViewport();
@@ -61,9 +65,19 @@ for(const width of [320,768,1024,1440])test(`wave-end allocation supports partia
   expect(errors).toEqual([]);
 });
 
+test('experience HUD measures progress within the current rising level cost',async({page})=>{
+  await boot(page);
+  await page.evaluate(()=>{
+    window.__game.command({type:'pause',reason:'user'});
+    const s=window.__game.state()!;s.xp=74;s.choicesEarned=2;window.__game.ticks(0);
+  });
+  await expect(page.locator('#xp-text')).toContainText('Lv.3 · 9 / 40');
+  expect(await page.locator('#xp-bar').evaluate(el=>(el as HTMLElement).style.width)).toBe('22.5%');
+});
+
 test('one wave allocation enforces the ultimate limit across pending characters',async({page})=>{
   await boot(page,'two-evolutions');
-  await page.evaluate(()=>{const s=window.__game.state()!;s.xp=540;s.choicesEarned=18;});
+  await page.evaluate(async()=>{const path='/src/data/battle-experience.ts';const {battleXpAt}=await import(path);const s=window.__game.state()!;s.xp=battleXpAt(19);s.choicesEarned=18;});
   await clearToAllocation(page);
   let blocked='';
   for(const owner of ['C01','C02','C03'] as const){

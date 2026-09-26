@@ -1,3 +1,4 @@
+import { battleXpAt } from '../../src/data/battle-experience';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { STAGES } from '../../src/data/content';
 import * as progression from '../../src/data/progression';
@@ -44,11 +45,11 @@ describe('wave allocation version 1', () => {
       expect(p.waves).toHaveLength(Math.max(10, before.waves.length));
       expect(p.enemies).toBe(Math.round(before.enemies * ratio));
       expect(p.points).toBe(2 * Math.round(before.points * ratio / 2));
-      expect(p.escortCount).toBe(before.escortCount); expect(p.escortXp).toBe(before.escortXp);
+      expect(p.escortCount).toBe(before.escortCount); expect(p.escortXp).toBeGreaterThanOrEqual(before.escortXp!);
       expect(pressure(s)).toEqual(pressure(old));
-      expect(p.waveXp.reduce((a,b) => a+b, 0) + p.escortXp!).toBe(p.points * 30);
+      expect(p.waveXp.reduce((a,b) => a+b, 0) + p.escortXp!).toBe(battleXpAt(p.points+1));
       expect(s.spawnPlan).toHaveLength(p.enemies + p.escortCount!);
-      expect(s.spawnPlan.reduce((n,e) => n+e.xp, 0)).toBe(p.points * 30);
+      expect(s.spawnPlan.reduce((n,e) => n+e.xp, 0)).toBe(battleXpAt(p.points+1));
       p.waves.forEach((wave, i) => {
         const count = wave.split(' ').reduce((n,t) => n+Number(t.slice(1)), 0);
         const entries = s.spawnPlan.filter(e => e.wave === i+1);
@@ -63,7 +64,7 @@ describe('wave allocation version 1', () => {
   }
 
   it('accumulates multiple upgrades during a wave without interrupting or spawning the next wave', () => {
-    const s = createRun(config); s.xp = 180; s.choicesEarned = 6; s.wallHp = s.wallMaxHp = 1e9;
+    const s = createRun(config); s.xp = battleXpAt(7); s.choicesEarned = 6; s.wallHp = s.wallMaxHp = 1e9;
     // Keep the current wave alive past the old global boss schedule.
     s.enemies[0].hp = s.enemies[0].maxHp = 1e12;
     for (const w of s.weapons) w.nextAttack = 1e9;
@@ -77,7 +78,10 @@ describe('wave allocation version 1', () => {
   });
 
   it('commits a partial batch once and carries banked points into the next allocation', () => {
-    const s = allocation(), earned = s.choicesEarned, wave = s.waveFlow!.wave, tick = s.tick, offerId = s.draft!.id;
+    const s = allocation();
+    // Bank the first single point so the next allocation can be partially spent.
+    command(s,{type:'confirm-node',offerId:s.draft!.id,nodeIds:[]}); clearWave(s);
+    const earned = s.choicesEarned, wave = s.waveFlow!.wave, tick = s.tick, offerId = s.draft!.id;
     expect(earned).toBeGreaterThanOrEqual(2);
     const nodeId = deepLegalNodes(s)[0];
     expect(command(s,{type:'confirm-node',offerId,nodeIds:[nodeId]})).toBe(true);
@@ -116,7 +120,7 @@ describe('wave allocation version 1', () => {
     s.spawnCursor = end; defeatAll(s);
     const summon = createEnemy(s,'E01',195,20,0,1); for (const w of s.weapons) w.nextAttack = 1e9;
     stepRun(s); expect(s.draft).toBeNull(); expect(s.waveFlow!.wave).toBe(1);
-    summon.hp = 0; s.xp = 120; s.choicesEarned = 4;
+    summon.hp = 0; s.xp = battleXpAt(5); s.choicesEarned = 4;
     s.scheduled.push({at:s.tick+3,packet:null,x:195,y:450,radius:0,enemyDamage:1,enemySource:'E05'});
     s.projectiles.push({id:s.nextEntityId++,x:195,y:20,tx:195,ty:450,vx:0,vy:0,expires:s.tick+5,hitIds:[],remaining:1,falloff:[1],radius:1,blastRadius:0,packet:null,enemyDamage:1,enemySource:'E05',impactAt:0});
     stepRun(s,4); expect(s.draft).toBeNull(); expect(s.waveFlow!.wave).toBe(1);

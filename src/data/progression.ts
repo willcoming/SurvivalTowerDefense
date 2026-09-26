@@ -1,4 +1,5 @@
 import { minimumWaveOperation } from './wave-progression';
+import { progressiveExperienceProfile } from './battle-experience';
 import { assaultOperation } from './assault-balance';
 import { tacticalOperation, type FormationGroup } from './tactical-encounters';
 import { HUNDRED_PROFILE, isHundred } from './hundred';
@@ -77,7 +78,11 @@ export function stageProfile(id:StageId,difficulty:NonNullable<RunConfig['diffic
   expandedProfiles.set(key,profile);return profile;
 }
 /** Existing snapshots retain their authored schedule and balance rules. */
-export function operationProfile(s:Pick<RunState,'config'|'operationVersion'|'balanceVersion'>):OperationProfile {
+export function operationProfile(s:Pick<RunState,'config'|'operationVersion'|'balanceVersion'|'experienceVersion'>):OperationProfile {
+  const profile=authoredOperationProfile(s);
+  return s.experienceVersion===2?progressiveExperienceProfile(profile):profile;
+}
+function authoredOperationProfile(s:Pick<RunState,'config'|'operationVersion'|'balanceVersion'>):OperationProfile {
   if(s.balanceVersion===4||s.balanceVersion===5){if(!isHundred(s))return stageProfile(s.config.stageId,s.config.difficulty,{balanceVersion:s.balanceVersion,challengeId:s.config.challengeId});const key='assault:hundred';let profile=expandedProfiles.get(key);if(!profile){profile=assaultOperation(tacticalOperation(HUNDRED_PROFILE,s.config.stageId,s.config,Object.keys(ENEMY_CODE),true),true);expandedProfiles.set(key,profile);}return profile;}
   if(s.balanceVersion===3){const key=`tactical:${s.config.mode??'campaign'}:${s.config.stageId}:${s.config.difficulty}:${s.config.challengeId??'none'}`;let next=expandedProfiles.get(key);if(!next){const base=isHundred(s)?HUNDRED_PROFILE:stageProfile(s.config.stageId,s.config.difficulty,{balanceVersion:2,challengeId:s.config.challengeId});const allowed=Object.entries(ENEMY_CODE).filter(([,id])=>isHundred(s)||STAGE_MAP[s.config.stageId].enemyIds.includes(id)).map(([code])=>code);next=tacticalOperation(base,s.config.stageId,s.config,allowed);expandedProfiles.set(key,next);}return next;}
   if(isHundred(s))return HUNDRED_PROFILE;
