@@ -1,7 +1,7 @@
 import { operationProfile } from '../../src/data/progression';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { CHARACTER_IDS, LEGACY_CONTENT_VERSION, BOSS_INTRO_MS, STAGE_MAP } from '../../src/data/content';
+import { CHARACTER_IDS, LEGACY_CONTENT_VERSION, BOSS_INTRO_MS, STAGE_MAP, ticks } from '../../src/data/content';
 import { advanceBossIntro, command, createRun, restoreRun, stepRun } from '../../src/sim/engine';
 import { createEnemy } from '../../src/sim/combat';
 import { inWeaponRange, WEAPON_RANGE } from '../../src/sim/range';
@@ -10,7 +10,7 @@ import type { CharacterId, RunState, StageId } from '../../src/sim/types';
 import { replayDigest, type RunReport } from '../simulation/runner';
 
 function fixture(id: CharacterId = 'C02', stageId: StageId = 'S01') {
-  const s = createRun({ stageId, squadIds: [id], captainId: id, seed: 101 });
+  const s = createRun({ stageId, squadIds: [id], captainId: id, seed: 101 }, '0.6.0-dev.2');
   s.enemies = []; s.spawnCursor = s.spawnPlan.length;
   return s;
 }
@@ -19,7 +19,7 @@ function durable(s: RunState, y: number, x = 195) {
   return e;
 }
 function entrance(stage: StageId = 'S01') {
-  const s = fixture('C02', stage); s.tick = operationProfile(s).bossAt*30-1; s.tacticalReadyAt = 12000;
+  const s = fixture('C02', stage); s.tick = ticks(operationProfile(s).bossAt)-1; s.tacticalReadyAt = 12000;
   stepRun(s); return s;
 }
 
@@ -68,12 +68,12 @@ describe('Primary weapon ranges', () => {
 
 describe('Boss entrance wall-clock and recovery', () => {
   for (const stage of ['S01', 'S02', 'S03'] as const) it(`${stage}: freezes the entire combat state for 1500 ms and resumes once`, () => {
-    const s = entrance(stage); expect(s.bossIntro?.remainingMs).toBe(BOSS_INTRO_MS); expect(s.tick).toBe(operationProfile(s).bossAt*30);
+    const s = entrance(stage); expect(s.bossIntro?.remainingMs).toBe(BOSS_INTRO_MS); expect(s.tick).toBe(ticks(operationProfile(s).bossAt));
     const frozen = structuredClone(s); stepRun(s, 100); expect(s).toEqual(frozen);
-    for (let i = 0; i < 14; i++) { expect(advanceBossIntro(s, 100)).toBe(false); expect(s.tick).toBe(operationProfile(s).bossAt*30); }
+    for (let i = 0; i < 14; i++) { expect(advanceBossIntro(s, 100)).toBe(false); expect(s.tick).toBe(ticks(operationProfile(s).bossAt)); }
     expect(s.tacticalReadyAt).toBe(12000); expect(s.enemies[0].hp).toBe(s.enemies[0].maxHp);
     expect(advanceBossIntro(s, 100)).toBe(true); expect(s.bossIntro).toBeUndefined(); expect(s.phase).toBe('running');
-    expect(advanceBossIntro(s, 100)).toBe(false); stepRun(s); expect(s.tick).toBe(operationProfile(s).bossAt*30+1);
+    expect(advanceBossIntro(s, 100)).toBe(false); stepRun(s); expect(s.tick).toBe(ticks(operationProfile(s).bossAt)+1);
     expect(s.actions.filter(a => a.command.type === 'finish-boss-intro')).toHaveLength(1);
   });
   it('pause, hidden, upgrade and suspension gaps never consume entrance time; reload keeps the remainder', () => {

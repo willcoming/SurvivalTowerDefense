@@ -1,3 +1,4 @@
+import { currentWave } from '../sim/wave-flow';
 import { mountSkillMaps } from './skill-map-controls';
 import { hundredCleared } from '../data/hundred';
 import './hundred.css';
@@ -5,10 +6,9 @@ import { hundredPage } from './hundred';
 import { bindOfflineUi, refreshOfflineUi } from './offline';
 import {commanderPage,commanderState} from './commander';
 import {upgradeCommander} from '../data/commander';
-import { operationProfile } from '../data/progression';
 import { personnelSkills } from './personnel-skills';
 import { DEEP_NODE_MAP, DEEP_TREE_MAP, deepTreesFor, usesFreeSkills, type SkillOwner } from '../data/deep-trees';
-import { deepLock, deepNodeCost, deepPointCost } from '../sim/deep-tree';
+import { previewDeepNodes, deepLock, deepNodeCost, deepPointCost } from '../sim/deep-tree';
 import { deepTreePanel } from './deep-tree';
 import { NODE_MAP, TREE_MAP, treesFor, usesSkillTrees } from '../data/skill-trees';
 import { treePanel } from './skill-tree';
@@ -33,6 +33,7 @@ import { stageUnlocked, CHALLENGES } from '../data/campaign';
 import { FORMS, FORM_MAP, formPortrait, formBackdrop, equippedForm, originalForm } from '../data/forms';
 import { ownedForm, isPlayable, validateRoster, type CollectionAction } from '../storage/collection';
 import type { FormId } from '../sim/types';
+import { PortraitGuard } from './portrait-guard';
 import { MobileControls } from './mobile-controls';
 import { enhanceMobile, mobileQuery } from './mobile';
 import { enhanceMobileCombat } from './mobile-combat';
@@ -62,6 +63,7 @@ export class GameApp {
   private selectedRange: CharacterId | null = null;
   private collecting = false;
   private mobile = new MobileControls();
+  private portraitGuard = new PortraitGuard();
   private clickedControl: HTMLElement | null = null;
   private rosterFocusId: string | null = null;
   private formationDraft: FormationDraft | null = null;
@@ -81,6 +83,10 @@ export class GameApp {
     document.addEventListener('keydown', event => this.key(event));
     document.addEventListener('visibilitychange', () => this.visibility());
     window.addEventListener('resize', () => this.orientation());
+    for (const query of ['(max-height: 650px)', '(max-height: 740px)']) matchMedia(query).addEventListener('change', () => {
+      // A keyboard/toolbar resize must not replace an input with uncommitted text.
+      if (this.ready && this.vm.page !== 'battle' && innerWidth <= innerHeight && !(document.activeElement instanceof HTMLInputElement)) this.render();
+    });
     matchMedia(mobileQuery).addEventListener('change', () => { if (this.ready) this.render(); });
     window.addEventListener('pagehide', () => { if (this.ready) { this.pauseFor('hidden'); void this.persist(); } });
     requestAnimationFrame(time => this.frame(time));
@@ -134,6 +140,7 @@ export class GameApp {
     this.root.classList.toggle('reduced-effects', this.save.preferences.reducedEffects);
     this.prepareImages(this.root);
     this.mobile.finish(this.root);
+    this.orientation();
     if (this.vm.rosterPanel && rosterView === this.vm.rosterPanel.view) {
       const panel = this.root.querySelector<HTMLElement>('.roster-dialog');
       const replacement = focused?.dataset.action ? [...panel?.querySelectorAll<HTMLElement>('[data-action]') ?? []].find(element =>
@@ -259,7 +266,9 @@ export class GameApp {
     command(this.save.activeRun, { type: 'pause', reason }); this.overlay();
   }
   private orientation() {
-    if (!this.ready || !this.save.activeRun || this.vm.page !== 'battle') return;
+    if (!this.ready) return;
+    this.portraitGuard.update();
+    if (!this.save.activeRun || this.vm.page !== 'battle') return;
     const mobileLandscape = matchMedia('(pointer: coarse)').matches && window.innerWidth > window.innerHeight;
     if (mobileLandscape) this.pauseFor('orientation');
     else if (this.save.activeRun.pauseReasons.includes('orientation')) { command(this.save.activeRun, { type: 'pause', reason: 'user' }); command(this.save.activeRun, { type: 'resume', reason: 'orientation' }); this.overlay(); }
@@ -295,7 +304,7 @@ export class GameApp {
     let discovered = false;
     for (const id of run.stats.encountered) if (!this.save.profile.seenEnemies.includes(id)) { this.save.profile.seenEnemies.push(id); discovered = true; }
     if (discovered) void this.persist();
-    const boundary = `${Math.floor(run.tick / (operationProfile(run).interval*30))}:${run.draft?.id ?? '-'}:${run.bossSpawned}:${run.config.mode==='hundred'?hundredCleared(run):''}`;
+    const boundary = `${currentWave(run)}:${run.draft?.id ?? '-'}:${run.bossSpawned}:${run.config.mode==='hundred'?hundredCleared(run):''}`;
     if (boundary !== this.saveBoundary) { this.saveBoundary = boundary; void this.persist(); }
     this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     if (run.phase === 'ended') { void this.finish(); return; }
@@ -343,8 +352,13 @@ export class GameApp {
       }
       this.vm.commandPanel=undefined;
       if(action==='hundred')this.vm.challengeId=null;
+      if (action === 'settings' && id === 'offline') this.mobile.selectTab('settings-sections', 2);
       this.go(action as Page);
-      if (action === 'settings' && id === 'offline') this.root.querySelector<HTMLElement>('.offline-settings')?.scrollIntoView({ block: 'start' });
+      if (action === 'settings' && id === 'offline') {
+        const trigger = this.root.querySelector<HTMLButtonElement>('.mobile-settings-offline > .mobile-detail-trigger');
+        if (trigger) trigger.click();
+        else this.root.querySelector<HTMLElement>('.offline-settings')?.scrollIntoView({ block: 'start' });
+      }
       return;
     }
     switch (action) {
@@ -401,8 +415,8 @@ export class GameApp {
         finally { this.collecting = false; this.render(); }
         break;
       }
-      case 'recruit-preview': if(this.vm.page==='recruitment'&&id&&FORM_MAP[id as FormId]){this.vm.recruitPreview=id as FormId;this.overlay();}break;
-      case 'recruit-preview-close': this.vm.recruitPreview=undefined;this.overlay();break;
+      case 'recruit-preview': if(this.vm.page==='recruitment'&&id&&FORM_MAP[id as FormId]){this.mobile.suspendDetails(this.clickedControl);this.vm.recruitPreview=id as FormId;this.overlay();}break;
+      case 'recruit-preview-close': this.vm.recruitPreview=undefined;this.overlay();this.mobile.resumeDetails();break;
       case 'recruit-tab': if(['draw','exchange'].includes(id??'')){this.vm.recruitView=id as import('./recruitment').RecruitView;this.vm.recruitPreview=undefined;this.render();}break;
       case 'draw': await this.collect({type:'draw'});break;
       case 'exchange': await this.collect({type:'exchange',formId:id as FormId});break;
@@ -496,10 +510,10 @@ export class GameApp {
         if(run.draft){
           const pending=run.draft.pendingNodeIds??[];
           const index=pending.indexOf(id!);
-          if(index>=0) {pending.splice(index,1);for(let i=0;i<pending.length;){const shadow={...run,treeNodes:[...(run.treeNodes??[]),...pending.slice(0,i)]};if(deepLock(shadow,pending[i]))pending.splice(i,1);else i++;}}
+          if(index>=0) {pending.splice(index,1);for(let i=0;i<pending.length;){const shadow=previewDeepNodes(run,pending.slice(0,i));if(deepLock(shadow,pending[i]))pending.splice(i,1);else i++;}}
           else {
             const remaining=(run.draft.pointTarget??run.choicesSpent)-run.choicesSpent;
-            const shadow={...run,treeNodes:[...(run.treeNodes??[]),...pending]};
+            const shadow=previewDeepNodes(run,pending);
             if(deepPointCost(pending,run)+deepNodeCost(id!,run)<=remaining&&!deepLock(shadow,id!))pending.push(id!);
           }
           run.draft.pendingNodeIds=pending;
@@ -514,6 +528,11 @@ export class GameApp {
           if(usesFreeSkills(run))this.execute({type:'confirm-node',offerId:run.draft.id,nodeIds:[...(run.draft.pendingNodeIds??[])]});
           else if(this.vm.treePanel.nodeId)this.execute({type:'buy-node',offerId:run.draft.id,nodeId:this.vm.treePanel.nodeId});
         }
+        break;
+      }
+      case 'bank-wave-points': {
+        const run=this.save.activeRun;
+        if(run?.waveFlow&&run.draft)this.execute({type:'confirm-node',offerId:run.draft.id,nodeIds:[]});
         break;
       }
       case 'tree-save-home': this.go('home'); break;
@@ -587,7 +606,7 @@ export class GameApp {
       let focus: string;
       if (action.type === 'equip') {
         focus = this.vm.rosterPanel ? `[data-action="roster-preview"][data-id="${action.formId}"]` : `#form-${FORM_MAP[action.formId].ownerId}`;
-      } else if (this.save.collection.sequence > previousSequence) focus = '.recruitment-receipt';
+      } else if (this.save.collection.sequence > previousSequence) focus = this.root.querySelector('.mobile-recruit-receipt') ? '.mobile-recruit-receipt > button' : '.recruitment-receipt';
       else focus = action.type === 'draw' ? '[data-action="draw"]' : `[data-action="exchange"][data-id="${action.formId}"]`;
       this.root.querySelector<HTMLElement>(focus)?.focus({ preventScroll: true });
     }
@@ -622,6 +641,7 @@ export class GameApp {
     this.audio.volumes(this.save.preferences.musicVolume, this.save.preferences.sfxVolume); void this.audio.unlock(); void this.persist();
   }
   private key(event: KeyboardEvent) {
+    if (this.portraitGuard.active) return;
     if (this.mobile.handleKey(event)) return;
     if(this.vm.personnelSkills&&(event.target as HTMLElement).matches('[data-action="personnel-skill-tab"]')&&['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){
       event.preventDefault();const trees=deepTreesFor(this.vm.personnelSkills.ownerId),index=trees.findIndex(t=>t.id===this.vm.personnelSkills!.treeId);

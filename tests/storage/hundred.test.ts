@@ -9,7 +9,7 @@ it('stores better runs, ranks by waves then kills then HP, preserves campaign re
  try{
   const collection=structuredClone(save.collection),profile=structuredClone(save.profile);
   const score=(waves:number,kills:number,hp:number)=>{
-   const s=run();s.spawnCursor=s.spawnPlan.findIndex(e=>e.wave===waves+1);s.enemies=[];s.stats.kills=kills;s.wallHp=hp;
+   const s=run();s.waveFlow!.wave=waves+1;s.spawnCursor=s.spawnPlan.findIndex(e=>e.wave===waves+1);s.enemies=[];s.stats.kills=kills;s.wallHp=hp;
    command(s,{type:'abandon'});save.activeRun=s;completeRun(save,s);completeRun(save,s);return s;
   };
   const first=score(12,50,800);expect(save.profile.hundredBest?.runId).toBe(first.runId);
@@ -36,7 +36,7 @@ it('victory records all 100 waves without awarding or unlocking the underlying c
 it('saves in-progress records independently of the disposable active battle and validates score data',async()=>{
  const repo=new GameRepository('hundred-progress');
  try{
-  const save=await repo.load(),s=run();s.spawnCursor=s.spawnPlan.findIndex(e=>e.wave===3);s.enemies=[];
+  const save=await repo.load(),s=run();s.waveFlow!.wave=3;s.spawnCursor=s.spawnPlan.findIndex(e=>e.wave===3);s.enemies=[];
   recordHundred(save,s);await repo.save(save);
   expect((await repo.load({discardActiveRun:true})).profile.hundredBest?.waves).toBe(2);
   expect((await repo.load()).activeRun).toBeNull();

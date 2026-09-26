@@ -269,3 +269,14 @@
 }
 
 #app .network-gesture-hint { position:absolute; top:8px; right:10px; z-index:3; padding:3px 6px; border-radius:3px; color:#a2afb6; background:#0b1721cc; font-size:10px; pointer-events:none; }
+
+/* Wave-end confirmation and banking share a stable action column. */
+#app .tactical-tree.wave-allocation .node-preview > .wave-bank { background:transparent; color:#c7c2a7; border-color:#697979; box-shadow:none; }
+#app .wave-allocation .points-left { display:flex; flex-direction:column; align-items:flex-end; }
+#app .wave-allocation .deep-footer-note { flex-wrap:wrap; gap:4px; }
+@media(min-width:801px) {
+  #app .tactical-tree.wave-allocation .skill-selection { grid-column:1; grid-row:1 / span 2; }
+  #app .tactical-tree.wave-allocation .node-preview > [data-action="buy-node"] { grid-column:2; grid-row:1; }
+  #app .tactical-tree.wave-allocation .node-preview > .wave-bank { grid-column:2; grid-row:2; margin-top:6px; }
+}
+@media(max-width:360px) { #app .tactical-tree.wave-allocation .tree-header h2 { font-size:17px; } }

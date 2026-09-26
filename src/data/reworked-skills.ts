@@ -1,11 +1,11 @@
-import { buildTacticalSkills, specializeNode, TACTICAL_CONTENT_VERSION } from './tactical-skills';
+import { buildTacticalSkills, specializeNode, TACTICAL_CONTENT_VERSION, usesTacticalSkills } from './tactical-skills';
 import { buildSkillNetworks, NETWORK_CONTENT_VERSION } from './skill-network';
 import type { DeepMods, DeepNode, DeepTree } from './deep-trees';
 import type { CharacterId, FormId, RunState } from '../sim/types';
 
 export const LINEAR_SKILL_VERSION = '0.5.0-dev.1';
 export const SKILL_REWORK_VERSION = TACTICAL_CONTENT_VERSION;
-export const usesReworkedSkills = (s: Pick<RunState, 'contentVersion'>) => s.contentVersion === SKILL_REWORK_VERSION || s.contentVersion === LINEAR_SKILL_VERSION || s.contentVersion === NETWORK_CONTENT_VERSION;
+export const usesReworkedSkills = (s: Pick<RunState, 'contentVersion'>) => usesTacticalSkills(s) || s.contentVersion === LINEAR_SKILL_VERSION || s.contentVersion === NETWORK_CONTENT_VERSION;
 export const CAPTAIN_BONUSES: Record<CharacterId, {name:string;description:string}> = {
   C01:{name:'弱點集火',description:'全隊對曝露中的敵人直擊傷害 +10%。'},
   C02:{name:'破盾協奏',description:'全隊對仍有護盾的敵人，護盾傷害倍率 +0.25。'},

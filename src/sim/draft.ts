@@ -60,6 +60,7 @@ export function rebuildDraft(s:RunState, randomize=false):void{
   d.cards=cards;
 }
 export function openDraft(s:RunState):void{
+  if(s.waveFlow&&s.waveFlow.phase!=='allocation')return;
   if(s.draft||s.choicesSpent>=s.choicesEarned||s.outcome)return;
   if(usesFreeSkills(s)&&!getLegalNodeIds(s).length)return;
   if(usesFreeSkills(s)){
@@ -67,9 +68,9 @@ export function openDraft(s:RunState):void{
     if(usesSkillNetwork(s)&&!canSpendDeepPoints(s,deepPointTarget(s)-s.choicesSpent))return;
     // Let a visible wind-up finish, with a bounded delay so overlapping attacks cannot starve upgrades.
     s.upgradePendingAt??=s.tick;
-    if(s.tick-s.upgradePendingAt<60&&s.enemies.some(e=>e.hp>0&&e.chargeKind&&!e.chargeCancelled&&e.chargeUntil>s.tick))return;
+    if(!s.waveFlow&&s.tick-s.upgradePendingAt<60&&s.enemies.some(e=>e.hp>0&&e.chargeKind&&!e.chargeCancelled&&e.chargeUntil>s.tick))return;
     delete s.upgradePendingAt;
-    s.draft={id:s.nextOfferId++,choice:Math.floor(s.choicesSpent/2)+1,cards:[],focusId:s.config.captainId,selectedEvolution:null,pointTarget:deepPointTarget(s),pendingNodeIds:[]};
+    s.draft={id:s.nextOfferId++,choice:s.waveFlow?.wave??Math.floor(s.choicesSpent/2)+1,cards:[],focusId:s.config.captainId,selectedEvolution:null,pointTarget:deepPointTarget(s),pendingNodeIds:[]};
     if(!s.pauseReasons.includes('upgrade'))s.pauseReasons.push('upgrade');s.phase='choosing';return;
   }
   const focusId=[...s.actions].reverse().find(a=>a.command.type==='focus')?.command;

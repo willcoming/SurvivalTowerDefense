@@ -1,3 +1,4 @@
+import { waveAttackDamage } from '../../src/sim/operations';
 import { pressure } from '../../src/sim/difficulty';
 import { describe, expect, it } from 'vitest';
 import { ENEMIES, ENEMY_MAP } from '../../src/data/content';
@@ -7,7 +8,7 @@ import { stepEnemies } from '../../src/sim/enemies';
 import { advanceEnemyMotion, createEnemyMotion } from '../../src/game/enemy-motion';
 import type { EnemyId } from '../../src/sim/types';
 
-const state = () => createRun({ stageId: 'S03', squadIds: ['C06'], captainId: 'C06', seed: 101 });
+const state = () => createRun({ stageId: 'S03', squadIds: ['C06'], captainId: 'C06', seed: 101 }, '0.6.0-dev.2');
 describe('enemy movement presentation', () => {
   it.each(ENEMIES.map(e => e.id))('%s has six moving poses, idle, charge and a timed strike at 1× and 3×', id => {
     for (const speed of [1, 3]) {
@@ -49,7 +50,7 @@ describe('enemy movement presentation', () => {
     const s = state(); s.enemies = []; s.tick = 100;
     const melee = createEnemy(s, 'E03', 100, 450); melee.attackAt = 101;
     stepEnemies(s); expect(melee.lastAction).toBeUndefined(); expect(s.wallHp).toBe(1000);
-    s.tick = 101; stepEnemies(s); expect(melee.lastAction).toEqual({ tick: 101, kind: 'melee' }); expect(s.wallHp).toBe(1000 - ENEMY_MAP.E03.damage);
+    s.tick = 101; stepEnemies(s); expect(melee.lastAction).toEqual({ tick: 101, kind: 'melee' }); expect(s.wallHp).toBe(1000 - waveAttackDamage(s,melee.wave,ENEMY_MAP.E03.damage));
     s.enemies = []; const cannon = createEnemy(s, 'E05', 100, 250); cannon.chargeKind = 'shot'; cannon.chargeUntil = 103;
     s.tick = 102; stepEnemies(s); expect(cannon.lastAction).toBeUndefined();
     s.tick = 103; stepEnemies(s); expect(cannon.lastAction).toEqual({ tick: 103, kind: 'shot' }); expect(s.projectiles.at(-1)?.enemySource).toBe('E05');
@@ -70,7 +71,7 @@ describe('enemy movement presentation', () => {
     const drone = createEnemy(s, 'E06', 110, 100); drone.abilityAt = 100;
     stepEnemies(s); expect(drone.lastAction).toBeUndefined();
     e.hp -= 50; const before = e.hp; drone.abilityAt = 101; s.tick = 101;
-    stepEnemies(s); expect(drone.lastAction).toEqual({ tick: 101, kind: 'repair' }); expect(e.hp).toBe(before + e.maxHp * .05);
+    stepEnemies(s); expect(drone.lastAction).toEqual({ tick: 101, kind: 'repair' }); expect(e.hp).toBe(Math.min(e.maxHp, before + e.maxHp * .05));
   });
   it('accepts old snapshots and consumes saved visual cues without replaying an attack', () => {
     const s = state(); s.enemies = [];

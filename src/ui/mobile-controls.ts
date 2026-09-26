@@ -1,16 +1,33 @@
 /** Presentation state only: collection, combat and persistence stay in GameApp. */
 export class MobileControls {
   private selections = new Map<string, number>();
+  private selectedItems = new Map<string, string>();
   private openDetail: string | null = null;
   private page = '';
+  private suspended = false;
+  private detailFocus: HTMLElement | null = null;
+  selectTab(key: string, index: number) { this.selections.set(key, index); }
+  suspendDetails(trigger: HTMLElement | null = null) {
+    this.suspended = !!document.querySelector('dialog.mobile-detail[open]');
+    this.detailFocus = this.suspended ? trigger ?? document.activeElement as HTMLElement : null;
+    document.querySelectorAll<HTMLDialogElement>('dialog.mobile-detail[open]').forEach(dialog => dialog.close());
+  }
+  resumeDetails() {
+    if (!this.suspended) return;
+    this.suspended = false;
+    const dialog = [...document.querySelectorAll<HTMLDialogElement>('dialog.mobile-detail')].find(d => d.dataset.detail === this.openDetail);
+    dialog?.showModal();
+    if (this.detailFocus?.isConnected) this.detailFocus.focus({ preventScroll: true });
+    this.detailFocus = null;
+  }
 
   begin(page: string) {
-    if (page !== this.page) this.openDetail = null;
+    if (page !== this.page) { this.openDetail = null; this.suspended = false; }
     this.page = page;
   }
 
   finish(root: HTMLElement) {
-    if (!root.querySelector('dialog.mobile-detail[open]')) this.openDetail = null;
+    if (!this.suspended && !root.querySelector('dialog.mobile-detail[open]')) this.openDetail = null;
   }
 
   dismissDetails() {
@@ -18,7 +35,7 @@ export class MobileControls {
     document.querySelectorAll<HTMLDialogElement>('dialog.mobile-detail[open]').forEach(dialog => dialog.close());
   }
 
-  detail(key: string, label: string, nodes: HTMLElement[], mount: HTMLElement): HTMLButtonElement {
+  detail(key: string, label: string, nodes: HTMLElement[], mount: HTMLElement, actions: HTMLElement[] = []): HTMLButtonElement {
     const trigger = document.createElement('button');
     trigger.type = 'button';
     trigger.className = 'button secondary mobile-detail-trigger';
@@ -44,6 +61,12 @@ export class MobileControls {
     body.className = 'mobile-detail-body';
     body.append(...nodes);
     dialog.append(header, body);
+    if (actions.length) {
+      const footer = document.createElement('footer');
+      footer.className = 'mobile-detail-actions';
+      footer.append(...actions);
+      dialog.append(footer);
+    }
     mount.append(trigger, dialog);
     const dismiss = () => {
       if (this.openDetail === key) this.openDetail = null;
@@ -53,18 +76,23 @@ export class MobileControls {
     close.addEventListener('click', dismiss);
     dialog.addEventListener('cancel', event => { event.preventDefault(); dismiss(); });
     trigger.addEventListener('click', () => { this.openDetail = key; dialog.showModal(); });
-    if (this.openDetail === key) dialog.showModal();
+    if (this.openDetail === key && !this.suspended) dialog.showModal();
     return trigger;
   }
 
-  pager(key: string, items: HTMLElement[], labels: string[], mount: HTMLElement, initialIndex = 0): HTMLSelectElement {
+  pager(key: string, items: HTMLElement[], labels: string[], mount: HTMLElement, initialIndex = 0, pageSize = 1): HTMLSelectElement {
     const label = document.createElement('div');
     label.className = 'mobile-pager';
     const caption = document.createElement('span');
     caption.textContent = mount.dataset.label ?? '切換內容';
     const select = document.createElement('select');
     select.setAttribute('aria-label', caption.textContent);
-    labels.forEach((text, i) => select.add(new Option(text, String(i))));
+    const pages = Math.ceil(items.length / pageSize);
+    const identity = (i: number) => items[i]?.dataset.mobileKey ?? items[i]?.dataset.id ?? labels[i];
+    for (let page = 0; page < pages; page++) {
+      const start = page * pageSize;
+      select.add(new Option(pageSize === 1 ? labels[start] : `${page + 1} / ${pages} · ${labels[start]}${labels[start + pageSize - 1] ? ` — ${labels[start + pageSize - 1]}` : ''}`, String(page)));
+    }
     const previous = document.createElement('button');
     const next = document.createElement('button');
     for (const button of [previous, next]) { button.type = 'button'; button.className = 'mobile-pager-step'; }
@@ -72,16 +100,17 @@ export class MobileControls {
     previous.setAttribute('aria-label', `上一個${caption.textContent}`);
     next.setAttribute('aria-label', `下一個${caption.textContent}`);
     const show = (index: number) => {
-      items.forEach((item, i) => { item.hidden = i !== index; });
+      items.forEach((item, i) => { item.hidden = Math.floor(i / pageSize) !== index; });
       select.value = String(index);
-      this.selections.set(key, index);
+      this.selectedItems.set(key, identity(index * pageSize));
       previous.disabled = index === 0;
-      next.disabled = index === items.length - 1;
+      next.disabled = index === pages - 1;
     };
-    show(Math.max(0, Math.min(items.length - 1, this.selections.get(key) ?? initialIndex)));
+    const remembered = items.findIndex((_, i) => identity(i) === this.selectedItems.get(key));
+    show(Math.max(0, Math.min(pages - 1, Math.floor((remembered >= 0 ? remembered : initialIndex) / pageSize))));
     select.addEventListener('change', () => show(Number(select.value)));
     previous.addEventListener('click', () => show(Math.max(0, Number(select.value) - 1)));
-    next.addEventListener('click', () => show(Math.min(items.length - 1, Number(select.value) + 1)));
+    next.addEventListener('click', () => show(Math.min(pages - 1, Number(select.value) + 1)));
     label.append(caption, previous, select, next);
     mount.append(label);
     return select;

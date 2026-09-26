@@ -3,7 +3,7 @@ import { resolveSkillTree } from '../data/reworked-skills';
 import type { FormId } from '../sim/types';
 import { CHARACTER_MAP } from '../data/content';
 import { DEEP_NODE_MAP, deepTreesFor, type DeepNode, type DeepTree } from '../data/deep-trees';
-import { deepHas, deepLock, deepNodeCost, deepPointCost } from '../sim/deep-tree';
+import { previewDeepNodes, deepHas, deepLock, deepNodeCost, deepPointCost } from '../sim/deep-tree';
 import type { RunState } from '../sim/types';
 import { esc } from './format';
 
@@ -30,7 +30,7 @@ export function skillEmblem(node: DeepNode) {
 
 export function constellationGraph(tree: DeepTree, run?: RunState, selected?: string | null, action = run ? 'deep-node' : 'codex-node', form?: FormId) {
   const trees = deepTreesFor(tree.ownerId,run).map(t=>resolveSkillTree(t,tree.ownerId==='common'?undefined:run?.config.forms?.[tree.ownerId]??form)), pending = run?.draft?.pendingNodeIds ?? [];
-  const shadow = run ? { ...run, treeNodes: [...(run.treeNodes ?? []), ...pending], evolvedCount: run.evolvedCount + pending.filter(id => DEEP_NODE_MAP[id]?.kind === 'ultimate').length } : undefined;
+  const shadow = run ? previewDeepNodes(run,pending) : undefined;
   if(trees.some(t=>t.nodes.some(n=>n.atlas)))return networkGraph(trees,tree.id,run,selected,action,shadow);
   const ancestors = new Set<string>();
   const trace = (id: string) => { if (ancestors.has(id)) return; ancestors.add(id); DEEP_NODE_MAP[id]?.parents.forEach(trace); };

@@ -1,3 +1,4 @@
+import { PREVIOUS_TACTICAL_VERSION, TIMED_TACTICAL_VERSION } from './tactical-skills';
 import { NETWORK_CONTENT_VERSION } from './skill-network';
 import { LINEAR_SKILL_VERSION } from './reworked-skills';
 import { FREE_CONTENT_VERSION } from './deep-trees';
@@ -10,7 +11,7 @@ export const PREVIOUS_TREE_VERSION = '0.2.0-dev.1';
 export const RANGE_CONTENT_VERSION = '0.1.0-dev.3';
 export const LEGACY_CONTENT_VERSION = '0.1.0-dev.2';
 export const BOSS_INTRO_MS = 1500;
-export const supportedContent = (version: string) => version === CONTENT_VERSION || version === NETWORK_CONTENT_VERSION || version === LINEAR_SKILL_VERSION || version === PRE_REWORK_VERSION || version === PREVIOUS_COLLECTION_VERSION || version === FREE_CONTENT_VERSION || version === PREVIOUS_TREE_VERSION || version === RANGE_CONTENT_VERSION || version === LEGACY_CONTENT_VERSION;
+export const supportedContent = (version: string) => version === CONTENT_VERSION || version === PREVIOUS_TACTICAL_VERSION || version === TIMED_TACTICAL_VERSION || version === NETWORK_CONTENT_VERSION || version === LINEAR_SKILL_VERSION || version === PRE_REWORK_VERSION || version === PREVIOUS_COLLECTION_VERSION || version === FREE_CONTENT_VERSION || version === PREVIOUS_TREE_VERSION || version === RANGE_CONTENT_VERSION || version === LEGACY_CONTENT_VERSION;
 export const SCHEMA_VERSION = 1;
 export const TICKS_PER_SECOND = 30;
 export const ticks = (seconds: number) => Math.ceil(seconds * TICKS_PER_SECOND);

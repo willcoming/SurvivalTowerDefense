@@ -1,3 +1,4 @@
+import { ASSAULT_TUNING } from '../data/assault-balance';
 import { ENCOUNTER_PATTERNS } from '../data/encounters-v1';
 import { encounterPattern } from '../data/encounters';
 import { operationProfile } from '../data/progression';
@@ -38,13 +39,16 @@ export function prepareOperation(s:RunState) {
     for(const entry of candidates.slice(0,2))if(types.length&&nextRandom(s.rng,'spawn')<.6)entry.defId=types[Math.floor(nextRandom(s.rng,'spawn')*types.length)];
   }
 }
+export const assaultWave = (s:RunState,wave:number) => (s.balanceVersion===4||s.balanceVersion===5) && wave<=operationProfile(s).waves.length;
+export const waveAttackDamage = (s:RunState,wave:number,damage:number) => damage*(assaultWave(s,wave)?ASSAULT_TUNING.damage:1);
 export function waveStats(s:RunState,id:EnemyId,wave:number){
   const d=ENEMY_MAP[id],boss=id.startsWith('B'),tuning=pressure(s),ramped=wave>=7;
   const band=Math.min(9,Math.floor((wave-1)/10));
   const factor=s.config.mode==='hundred'&&!boss?(.85+band*.35):boss?tuning.bossHealth*operationProfile(s).bossScale:STAGE_MAP[s.config.stageId].hpMultiplier*(s.balanceVersion!==undefined||ramped?tuning.health:1);
   const brief=usesFreeSkills(s)&&!boss?s.wavePlan?.find(w=>w.wave===wave):undefined;
-  const hp=d.hp*factor*difficultyTuning(s).health*(s.balanceVersion===3&&!boss&&wave>2?1.08:1)*(brief?.variant==='fast'?.9:brief?.variant==='shielded'?.92:1);
-  return {hp,shield:d.shield*factor+hp*((brief?.variant==='shielded'?.15:0)+(brief?.event==='ion'?.1:0)),armor:Math.min(.7,d.armor+(brief?.variant==='armored'?.08:0)+(brief?.event==='heat'?.05:0)),speed:d.speed*(s.config.mode==='hundred'&&!boss?1+band*.025:1)*(s.balanceVersion!==undefined||ramped?tuning.speed:1)*(brief?.variant==='fast'?1.15:brief?.variant==='armored'?.9:1)*(brief?.event==='gravity'?1.1:1)};
+  const durability=!boss&&assaultWave(s,wave)?ASSAULT_TUNING.health:1;
+  const hp=d.hp*factor*durability*difficultyTuning(s).health*((s.balanceVersion===3||s.balanceVersion===4||s.balanceVersion===5)&&!boss&&wave>2?1.08:1)*(brief?.variant==='fast'?.9:brief?.variant==='shielded'?.92:1);
+  return {hp,shield:d.shield*factor*durability+hp*((brief?.variant==='shielded'?.15:0)+(brief?.event==='ion'?.1:0)),armor:Math.min(.7,d.armor+(brief?.variant==='armored'?.08:0)+(brief?.event==='heat'?.05:0)),speed:d.speed*(s.config.mode==='hundred'&&!boss?1+band*.025:1)*(s.balanceVersion!==undefined||ramped?tuning.speed:1)*(brief?.variant==='fast'?1.15:brief?.variant==='armored'?.9:1)*(brief?.event==='gravity'?1.1:1)};
 }
 export function eventMultiplier(s:RunState,wave:number,type:string){
   const event=s.wavePlan?.find(w=>w.wave===wave)?.event;

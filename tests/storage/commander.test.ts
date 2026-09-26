@@ -51,7 +51,7 @@ describe('commander experience and permanent common skills',()=>{
     const repository=new GameRepository(`commander-validation-${crypto.randomUUID()}`);try{const save=await repository.load();save.profile.commander!.skillIds=['TEAM/0'];await expect(repository.save(save)).rejects.toThrow('指揮官');}finally{repository.close();}
   });
   it('snapshots permanent skills on deployment and never charges or offers them in battle',()=>{
-    const ids=['TEAM/0','TEAM/1','TEAM/2','TEAM/3'],s=createRun({...run().config,commanderNodes:ids});
+    const ids=['TEAM/0','TEAM/1','TEAM/2','TEAM/3'],s=createRun({...run().config,commanderNodes:ids},'0.6.0-dev.2');
     ids.splice(0);expect(s.config.commanderNodes).toHaveLength(4);expect(s.wallHp).toBe(1100);expect(s.wallMaxHp).toBe(1100);
     expect(deepMods(s,'common')).toMatchObject({periodicRepair:12,pulseShield:35});expect(s.choicesSpent).toBe(0);expect(s.treeNodes).toEqual([]);
     expect(deepLegalNodes(s).some(n=>n.startsWith('TEAM/'))).toBe(false);

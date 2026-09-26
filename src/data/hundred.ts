@@ -22,6 +22,7 @@ export const HUNDRED_PROFILE: OperationProfile = {
 };
 /** Count fully deployed, resolved waves, never the wave number on the clock. */
 export function hundredCleared(s: RunState): number {
+  if(s.waveFlow)return s.outcome==='victory'?100:Math.min(99,s.waveFlow.wave-(s.waveFlow.phase==='allocation'?0:1));
   let cleared=s.spawnPlan[s.spawnCursor]?.wave ? s.spawnPlan[s.spawnCursor].wave-1 : 100;
   for(const e of s.enemies)if(e.hp>0)cleared=Math.min(cleared,e.wave-1);
   if(!s.bossKilled)cleared=Math.min(cleared,99);

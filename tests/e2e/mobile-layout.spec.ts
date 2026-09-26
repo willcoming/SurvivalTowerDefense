@@ -1,317 +1,114 @@
-import { expect, test, type Locator, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { phoneSizes, ready, fitsScreen, reachable, finishWave, startBattle } from '../helpers/mobile-ui';
 
-const phoneSizes = [
-  // Available page height after Safari's browser controls consume screen space.
-  { width: 320, height: 500 },
-  { width: 375, height: 548 },
-  { width: 320, height: 640 },
-  { width: 375, height: 667 },
-  { width: 390, height: 844 },
-  { width: 430, height: 932 },
-];
-
-async function ready(page: Page) {
-  await page.routeWebSocket('**/*', socket => socket.close());
-  await page.goto('/');
-  await page.waitForFunction(() => !!window.__game);
-}
-
-async function noDocumentScroll(page: Page) {
-  await expect.poll(() => page.evaluate(() => {
-    const root = document.documentElement;
-    return {
-      horizontal: root.scrollWidth > innerWidth + 1,
-      vertical: root.scrollHeight > innerHeight + 1,
-      x: Math.abs(scrollX) > 1,
-      y: Math.abs(scrollY) > 1,
-    };
-  })).toEqual({ horizontal: false, vertical: false, x: false, y: false });
-}
-
-/** A clipped button can satisfy toBeVisible/toBeInViewport; require its whole hit area. */
-async function fullyVisible(control: Locator) {
-  await expect(control).toBeVisible();
-  const geometry = await control.evaluate(element => {
-    const bounds = element.getBoundingClientRect();
-    return { left: bounds.left, top: bounds.top, right: bounds.right, bottom: bounds.bottom,
-      width: bounds.width, height: bounds.height, viewportWidth: innerWidth, viewportHeight: innerHeight };
-  });
-  expect(geometry.left).toBeGreaterThanOrEqual(-1);
-  expect(geometry.top).toBeGreaterThanOrEqual(-1);
-  expect(geometry.right).toBeLessThanOrEqual(geometry.viewportWidth + 1);
-  expect(geometry.bottom).toBeLessThanOrEqual(geometry.viewportHeight + 1);
-  expect(geometry.width).toBeGreaterThanOrEqual(44);
-  expect(geometry.height).toBeGreaterThanOrEqual(44);
-  // A bottom game dock must not cover controls that are technically in the viewport.
-  const covered = await control.evaluate(element => {
-    const bounds = element.getBoundingClientRect();
-    return [bounds.top + 2, bounds.top + bounds.height / 2, bounds.bottom - 2].flatMap(y => {
-      const target = document.elementFromPoint(bounds.left + bounds.width / 2, y);
-      return target && element.contains(target) ? [] : [target?.tagName + '.' + target?.className];
-    });
-  });
-  expect(covered).toEqual([]);
-}
-
-async function nav(page: Page, action: string) {
-  await page.locator(`.main-nav [data-action="${action}"]`).click();
-  await expect(page.locator('#app')).toHaveAttribute('data-page', action);
-}
-
-for (const size of phoneSizes) {
-  test(`MOBILE: ${size.width}×${size.height} menus keep primary actions on one screen`, async ({ page }) => {
-    const errors: string[] = [];
-    page.on('pageerror', error => errors.push(error.message));
-    await page.setViewportSize(size);
-    await ready(page);
-    await noDocumentScroll(page);
-    await fullyVisible(page.locator('[data-action="intel"]'));
-
-    const chapter = page.getByRole('combobox', { name: '選擇章節', exact: true });
-    await fullyVisible(chapter);
-    await chapter.selectOption({ index: 1 });
-    await expect(page.locator('.chapter-group:visible')).toHaveCount(1);
-    await expect(page.locator('.chapter-group:visible [data-action="stage"]')).not.toHaveCount(0);
-    await chapter.selectOption({ index: 0 });
-    await expect(page.locator('[data-action="stage"][data-id="S01"]')).toBeVisible();
-    await page.locator('[data-action="intel"]').click();
-    await noDocumentScroll(page);
-    await fullyVisible(page.locator('.action-bar .primary'));
-    await page.locator('.action-bar [data-action="roster"]').click();
-
-    const tiles = page.locator('.roster-tile');
-    await expect(tiles).toHaveCount(8);
-    await expect(page.locator('.roster-summary')).toContainText('已招募 6 / 8');
-    await expect(page.locator('.roster-summary')).toContainText('出戰 5 / 5');
-    for (const tile of await tiles.all()) await fullyVisible(tile);
-    await fullyVisible(page.locator('[data-action="start"]'));
-    await page.locator('.roster-tile[data-id="C02"]').click();
-    const panel = page.locator('[data-roster-view="character"]');
-    const toggle = panel.locator('[data-action="toggle-character"][data-id="C02"]');
-    await fullyVisible(toggle);
-    // Squad mutations keep the same character panel open, including on Safari.
-    await toggle.click();
-    await expect(panel).toBeVisible();
-    expect(await page.evaluate(() => window.__game.getSave().preferences.squadIds.includes('C02'))).toBe(false);
-    await toggle.click();
-    await expect(panel).toBeVisible();
-    expect(await page.evaluate(() => window.__game.getSave().preferences.squadIds.includes('C02'))).toBe(true);
-    await panel.locator('[data-action="captain"][data-id="C02"]').click();
-    await expect(panel.locator('[data-action="captain"][data-id="C02"]')).toHaveClass(/selected/);
-    await panel.locator('[data-action="roster-close"]').click();
-    await expect(tiles).toHaveCount(8);
-    await fullyVisible(page.locator('[data-action="start"]'));
-    await noDocumentScroll(page);
-
-    await nav(page, 'recruitment');
-    await noDocumentScroll(page);
-    await fullyVisible(page.locator('[data-action="draw"]'));
-    await nav(page, 'codex');
-    await page.locator('.character-tabs [data-id="C06"]').click();
-    await expect(page.locator('.character-tabs [data-id="C06"]')).toHaveClass(/selected/);
-    await fullyVisible(page.getByRole('button', { name: '角色與武器詳情', exact: true }));
-    await fullyVisible(page.getByRole('button', { name: '技能樹與節點', exact: true }));
-    await noDocumentScroll(page);
-    await nav(page, 'stories');
-    await noDocumentScroll(page);
-    await fullyVisible(page.locator('.mobile-pager select').first());
-    await page.getByRole('button', { name: '設定', exact: true }).click();
-    await noDocumentScroll(page);
-    await page.getByRole('button', { name: '存檔管理', exact: true }).click();
-    await fullyVisible(page.locator('[data-action="save-retry"]'));
-    await fullyVisible(page.locator('.settings-screen [data-action="home"]'));
-    expect(errors).toEqual([]);
-  });
-}
-
-test('MOBILE: detail panels contain keyboard focus and restore the trigger on Escape', async ({ page }) => {
-  await ready(page);
-  await nav(page, 'codex');
-  const trigger = page.getByRole('button', { name: '技能樹與節點', exact: true });
-  await trigger.focus();
-  await page.keyboard.press('Enter');
-  const dialog = page.locator('dialog.mobile-detail[open]');
-  await expect(dialog).toBeVisible();
-  const close = dialog.getByRole('button', { name: '關閉詳細資訊', exact: true });
-  await fullyVisible(close);
-  await close.focus();
-  await page.keyboard.press('Shift+Tab');
-  expect(await page.evaluate(() => !!document.activeElement?.closest('dialog.mobile-detail[open]'))).toBe(true);
-  await page.keyboard.press('Tab');
-  expect(await page.evaluate(() => !!document.activeElement?.closest('dialog.mobile-detail[open]'))).toBe(true);
-  await noDocumentScroll(page);
-  await page.keyboard.press('Escape');
-  await expect(dialog).toHaveCount(0);
-  await expect(trigger).toBeFocused();
-  await noDocumentScroll(page);
+for (const size of phoneSizes) test(`MOBILE: ${size.width}×${size.height} current entry points and paged screens fit`, async ({page},info) => {
+  await page.setViewportSize(size); await ready(page);
+  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+  await fitsScreen(page);await reachable(page.locator('[data-action=start]'));await reachable(page.locator('.offline-summary'));
+  await page.getByRole('button',{name:'作戰功能與說明'}).click();
+  for(const name of ['情報','波次','敵情']){
+    await page.getByRole('tab',{name,exact:true}).click();await fitsScreen(page);
+    const trigger=page.getByRole('button',{name:`閱讀完整${name}`});await reachable(trigger);await trigger.click();
+    await reachable(page.getByRole('button',{name:'關閉詳細資訊',exact:true}));await page.keyboard.press('Escape');await expect(trigger).toBeFocused();
+  }
+  await page.locator('.game-dock [data-action=roster]').click();await fitsScreen(page);await page.locator('[data-action=roster-edit]').click();
+  const picker=page.getByRole('combobox',{name:'隊員',exact:true});const count=await picker.locator('option').count();
+  for(let i=0;i<count;i++){await picker.selectOption(String(i));await fitsScreen(page);for(const tile of await page.locator('.roster-tile:visible').all())await reachable(tile);}
+  await reachable(page.locator('[data-action=roster-commit]'));await page.locator('[data-action=roster-commit]').click();
+  await page.locator('.game-dock [data-action=recruitment]').click();await fitsScreen(page);await reachable(page.locator('[data-action=draw]'));
+  const pool=page.getByRole('combobox',{name:'獎池項目',exact:true});await pool.selectOption({index:2});
+  const chosen=await pool.inputValue();const ability=page.getByRole('button',{name:'能力詳情',exact:true}).first();await reachable(ability);await ability.click();await page.keyboard.press('Escape');await expect(ability).toBeFocused();await expect(pool).toHaveValue(chosen);
+  await page.locator('[data-action=recruit-tab][data-id=exchange]').click();await fitsScreen(page);await expect(pool).toHaveValue(chosen);
+  for(const button of await page.locator('.recruit-item:not([hidden]) [data-action=exchange]').all())await reachable(button);
+  await page.getByRole('button',{name:'設定',exact:true}).click();
+  for(const tab of ['一般','存檔管理','離線與版本']){await page.getByRole('button',{name:tab,exact:true}).click();await fitsScreen(page);await reachable(page.locator('.settings-screen > [data-action=home]'));}
+  await page.locator('.game-hud [data-action=commander]').click();await fitsScreen(page);
+  for(const button of await page.locator('.mobile-commander-tabs button').all()){
+    await button.click();await fitsScreen(page);for(const node of await page.locator('.commander-route:not([hidden]) .mobile-commander-node').all())await reachable(node);
+  }
+  await page.locator('[data-action=home]:visible').first().click();await page.locator('.hundred-entry').click();await fitsScreen(page);
+  for(const action of ['start-hundred','roster','home'])await reachable(page.locator(`.hundred-screen [data-action=${action}]`));
+  await page.screenshot({path:info.outputPath('hundred-entry.png')});expect(errors).toEqual([]);
 });
 
-test('MOBILE: reset confirmation traps focus despite closed detail panels and Escape preserves progress', async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 500 });
-  await ready(page);
-  const before = await page.evaluate(async () => {
-    const save = window.__game.getSave();
-    save.preferences.sfxVolume = 0.35;
-    await window.__game.save();
-    return structuredClone({ preferences: save.preferences, collection: save.collection, profile: save.profile });
-  });
-  await page.getByRole('button', { name: '設定', exact: true }).click();
-  await page.getByRole('button', { name: '存檔管理', exact: true }).click();
-  expect(await page.locator('dialog.mobile-detail:not([open])').count()).toBeGreaterThan(0);
-  const trigger = page.locator('[data-action="reset-confirm"]');
-  await trigger.click();
-  const dialog = page.getByRole('alertdialog');
-  await expect(dialog).toBeVisible();
-  const cancel = dialog.locator('[data-action="cancel-confirm"]');
-  const reset = dialog.locator('[data-action="reset"]');
-  await fullyVisible(cancel);
-  await fullyVisible(reset);
-  await cancel.focus();
-  await page.keyboard.press('Shift+Tab');
-  await expect(reset).toBeFocused();
-  await page.keyboard.press('Tab');
-  await expect(cancel).toBeFocused();
-  await page.keyboard.press('Escape');
-  await expect(dialog).toHaveCount(0);
-  await expect(trigger).toBeFocused();
-  expect(await page.evaluate(() => {
-    const save = window.__game.getSave();
-    return { preferences: save.preferences, collection: save.collection, profile: save.profile };
-  })).toEqual(before);
-  await noDocumentScroll(page);
+test('MOBILE: native details retain selection and restore focus across rotation and commander upgrade',async({page})=>{
+  await page.setViewportSize({width:320,height:500});await ready(page);
+  await page.evaluate(()=>{window.__game.getSave().profile.commander!.xp=240;});
+  await page.locator('.game-hud [data-action=commander]').click();
+  const trigger=page.locator('.commander-route:not([hidden]) .mobile-commander-node').first();await trigger.click();
+  const dialog=page.locator('dialog.mobile-detail[open]');await reachable(dialog.locator('[data-action=commander-upgrade]'));
+  await page.setViewportSize({width:844,height:390});await expect(page.locator('.portrait-guard')).toBeVisible();
+  await page.keyboard.press('Escape');await expect(page.locator('.portrait-guard')).toBeVisible();
+  await page.setViewportSize({width:320,height:500});await expect(page.locator('.portrait-guard')).not.toBeVisible();await expect(dialog).toBeVisible();
+  await dialog.locator('[data-action=commander-upgrade]').click();await expect(dialog).toBeVisible();await expect(dialog.locator('[data-action=commander-upgrade]')).toBeDisabled();
+  await page.keyboard.press('Escape');await expect(trigger).toBeFocused();await fitsScreen(page);
 });
 
-test('MOBILE: a storage error keeps the primary action visible at Safari toolbar height', async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 500 });
+test('MOBILE: reset confirmation and storage recovery preserve progress',async({page})=>{
+  await page.setViewportSize({width:320,height:500});await ready(page);
+  await page.getByRole('button',{name:'設定',exact:true}).click();await page.getByRole('button',{name:'存檔管理',exact:true}).click();
+  const trigger=page.locator('[data-action=reset-confirm]');await trigger.click();const cancel=page.locator('[data-action=cancel-confirm]'),reset=page.locator('[data-action=reset]');
+  await reachable(cancel);await reachable(reset);await cancel.focus();await page.keyboard.press('Shift+Tab');await expect(reset).toBeFocused();await page.keyboard.press('Escape');await expect(trigger).toBeFocused();
+  await page.locator('.game-dock [data-action=home]').click();
+  await page.evaluate(async()=>{const tx=IDBDatabase.prototype.transaction;try{IDBDatabase.prototype.transaction=()=>{throw new DOMException('test','QuotaExceededError')};await window.__game.save();}finally{IDBDatabase.prototype.transaction=tx;}});
+  await reachable(page.locator('[data-action=start]'));await reachable(page.locator('.offline-summary'));await fitsScreen(page);
+  await page.getByRole('button',{name:'存檔需要處理',exact:true}).click();await page.locator('dialog[open] [data-action=save-retry]').click();await expect(page.locator('.system-notice')).toHaveCount(0);
+});
+
+test('MOBILE: result, resources and recruitment details remain reachable',async({page})=>{
+  await page.setViewportSize({width:320,height:500});await ready(page);await page.locator('.game-dock [data-action=recruitment]').click();await expect(page.locator('[data-action=draw]')).toBeDisabled();
+  await page.evaluate(async()=>{window.__game.getSave().collection.tickets=2;await window.__game.save();window.__game.route('recruitment');});
+  await page.locator('[data-action=draw]').click();await expect(page.getByRole('button',{name:'招募結果',exact:true})).toBeVisible();
+  for(const size of phoneSizes){await page.setViewportSize(size);await fitsScreen(page);await reachable(page.locator('[data-action=draw]'));await reachable(page.getByRole('button',{name:'招募結果',exact:true}));}
+  await page.getByRole('button',{name:'招募結果',exact:true}).click();await expect(page.locator('dialog[open] .recruitment-receipt')).toBeVisible();await page.keyboard.press('Escape');
+});
+
+test('MOBILE: battle allocation toolbars and defeat actions fit all sizes; rotation preserves pending points',async({page},info)=>{
+  await ready(page);await startBattle(page);
+  for(const size of phoneSizes){
+    await page.setViewportSize(size);await reachable(page.locator('#speed-button'));await reachable(page.locator('[data-action=pause]'));await reachable(page.locator('.range-toolbar [data-action=command-panel]'));
+    for(const selector of ['#wall-text','#wave-text','.battle-intel > summary','.ultimate-strip small'])await expect(page.locator(selector).first()).toHaveCSS('font-size','14px');
+  }
+  await finishWave(page);
+  const id=await page.evaluate(()=>window.__game.state()!.draft!.focusId);
+  await page.locator(`[data-action=deep-owner][data-id=${id}]`).click();const node=page.locator('.deep-node.available').first();await node.focus();await node.press('Enter');
+  const pending=await page.evaluate(()=>({tick:window.__game.state()!.tick,nodes:window.__game.state()!.draft!.pendingNodeIds}));
+  for(const size of phoneSizes){await page.setViewportSize(size);for(const selector of ['[data-map-control=out]','[data-map-control=root]','[data-action=buy-node]'])await reachable(page.locator(selector));await page.screenshot({path:info.outputPath(`allocation-${size.width}x${size.height}.png`)});}
+  await page.setViewportSize({width:844,height:390});await expect(page.locator('.portrait-guard')).toBeVisible();await page.setViewportSize({width:320,height:500});await expect(page.locator('.portrait-guard')).not.toBeVisible();
+  expect(await page.evaluate(()=>({tick:window.__game.state()!.tick,nodes:window.__game.state()!.draft!.pendingNodeIds}))).toEqual(pending);
+  expect(await page.evaluate(()=>window.__game.state()!.pauseReasons)).toEqual(expect.arrayContaining(['user','upgrade']));
+  await page.locator('[data-action=buy-node]').click();await expect(page.locator('[data-action=resume]')).toBeVisible();await page.locator('[data-action=resume]').click();
+  await page.evaluate(()=>{window.__game.state()!.wallHp=0;window.__game.ticks(1);});await expect(page.locator('.result-screen')).toBeVisible();
+  for(const size of phoneSizes){await page.setViewportSize(size);await fitsScreen(page);await reachable(page.locator('.result-actions [data-action=retry]'));await reachable(page.locator('.result-actions [data-action=home]'));}
+  await page.getByRole('button',{name:'戰鬥報告與行動後記',exact:true}).click();await expect(page.locator('dialog[open] [data-action=adjust]')).toBeVisible();
+});
+
+test('MOBILE: safe areas protect home controls at short and tall heights',async({page})=>{
   await ready(page);
-  await page.evaluate(async () => {
-    const transaction = IDBDatabase.prototype.transaction;
-    try {
-      IDBDatabase.prototype.transaction = () => { throw new DOMException('mobile layout storage fixture', 'QuotaExceededError'); };
-      await window.__game.save();
-    } finally {
-      IDBDatabase.prototype.transaction = transaction;
+  await page.evaluate(()=>{document.querySelectorAll('style[data-vite-dev-id]').forEach(s=>{s.textContent=s.textContent!.replaceAll('env(safe-area-inset-top)','34px').replaceAll('env(safe-area-inset-bottom)','34px');});});
+  for(const size of [phoneSizes[0],phoneSizes[4]]){
+    await page.setViewportSize(size);await fitsScreen(page);await reachable(page.locator('[data-action=start]'));await reachable(page.locator('.offline-summary'));
+    await expect.poll(()=>page.locator('.game-hud').evaluate(e=>parseFloat(getComputedStyle(e).paddingTop))).toBeGreaterThanOrEqual(34);
+    await expect.poll(()=>page.locator('.game-dock button').first().evaluate(e=>e.getBoundingClientRect().bottom)).toBeLessThanOrEqual(size.height-34);
+  }
+});
+
+test('MOBILE: keyboard-height resize retains unfinished name and input focus',async({page})=>{
+  await ready(page);await page.getByRole('button',{name:'設定',exact:true}).click();
+  const input=page.locator('#commander-name');const name='二十字以內的長名稱測試';await input.fill(name);
+  await page.setViewportSize({width:390,height:400});await expect(input).toBeFocused();await expect(input).toHaveValue(name);await reachable(input);
+  await expect(input).toHaveCSS('font-size','16px');await fitsScreen(page);
+  await page.setViewportSize({width:390,height:844});await expect(input).toBeFocused();await input.press('Tab');
+  await expect.poll(()=>page.evaluate(()=>window.__game.getSave().preferences.commanderName)).toBe(name);
+});
+
+test.describe('desktop preservation',()=>{
+  test.use({isMobile:false,hasTouch:false});
+  test('MOBILE: transitions preserve editing state and desktop pages use original layout',async({page})=>{
+    await page.setViewportSize({width:390,height:844});await ready(page);await page.locator('.game-dock [data-action=roster]').click();await page.locator('[data-action=roster-edit]').click();await page.locator('.roster-tile[data-id=C02]').click();
+    for(const width of [768,1024,1440]){
+      await page.setViewportSize({width,height:1024});await expect(page.locator('[data-roster-view=character]')).toBeVisible();await expect(page.locator('[data-action=captain]')).toHaveAttribute('data-id','C02');
+      if(width>800){await expect(page.locator('.roster-tile:visible')).toHaveCount(8);await expect(page.locator('.portrait-guard')).not.toBeVisible();}
     }
   });
-  await expect(page.locator('.local-status')).toContainText('尚未儲存');
-  await expect(page.locator('.system-notice')).toContainText('儲存未完成');
-  await fullyVisible(page.locator('[data-action="intel"]'));
-  await noDocumentScroll(page);
-  await page.getByRole('button', { name: '存檔需要處理', exact: true }).click();
-  const retry = page.locator('.system-notice dialog[open] [data-action="save-retry"]');
-  await fullyVisible(retry);
-  await retry.click();
-  await expect(page.locator('.local-status')).toContainText('已儲存在本機');
-  await expect(page.locator('.system-notice')).toHaveCount(0);
-  await fullyVisible(page.locator('[data-action="intel"]'));
-  await noDocumentScroll(page);
-});
-
-test('MOBILE: recruitment result keeps the next draw accessible without scrolling', async ({ page }) => {
-  await ready(page);
-  await page.evaluate(async () => {
-    window.__game.getSave().profile.cleared = ['S01', 'S02', 'S03'];
-    await window.__game.save();
-  });
-  await page.reload();
-  await page.waitForFunction(() => !!window.__game);
-  await nav(page, 'recruitment');
-  await page.locator('[data-action="draw"]').click();
-  await expect(page.locator('.recruitment-receipt')).toBeVisible();
-  expect(await page.evaluate(() => window.__game.getSave().collection.sequence)).toBe(1);
-  for (const size of phoneSizes) {
-    await page.setViewportSize(size);
-    await fullyVisible(page.locator('[data-action="draw"]'));
-    await noDocumentScroll(page);
-  }
-});
-
-test('MOBILE: tutorial, skill allocation, pause and result controls fit every phone size', async ({ page }) => {
-  const errors: string[] = [];
-  page.on('pageerror', error => errors.push(error.message));
-  await ready(page);
-  await page.locator('[data-action="intel"]').click();
-  await page.locator('.action-bar [data-action="roster"]').click();
-  await page.locator('[data-action="start"]').click();
-  await page.locator('#battle-loading').waitFor({ state: 'detached' });
-  for (const size of phoneSizes) {
-    await page.setViewportSize(size);
-    await fullyVisible(page.locator('.tutorial-dialog .primary'));
-    await noDocumentScroll(page);
-  }
-  await page.locator('.tutorial-dialog .primary').click();
-  await page.locator('[data-action="pause"]').click();
-  for (const size of phoneSizes) {
-    await page.setViewportSize(size);
-    for (const action of ['resume', 'save-home', 'abandon-confirm']) {
-      await fullyVisible(page.locator(`.pause-dialog [data-action="${action}"]`));
-    }
-    await noDocumentScroll(page);
-  }
-  await page.locator('[data-action="resume"]').click();
-  // A deterministic two-point fixture isolates layout from battle duration/balance.
-  await page.evaluate(() => {
-    const state = window.__game.state()!;
-    state.xp = 60;
-    state.choicesEarned = 2;
-    window.__game.ticks(1);
-  });
-  await expect(page.locator('.deep-panel')).toBeVisible();
-  await page.locator('[data-action="deep-owner"][data-id="common"]').click();
-  await page.locator('[data-action="deep-node"][data-id="TEAM/0"]').click();
-  for (const size of phoneSizes) {
-    await page.setViewportSize(size);
-    await fullyVisible(page.locator('[data-action="buy-node"]'));
-    await fullyVisible(page.locator('[data-action="tree-save-home"]'));
-    await noDocumentScroll(page);
-  }
-  await page.locator('[data-action="buy-node"]').click();
-  await page.locator('[data-action="deep-node"][data-id="TEAM/4"]').click();
-  await page.locator('[data-action="buy-node"]').click();
-  await expect(page.locator('.deep-panel')).toHaveCount(0);
-  for (const size of phoneSizes) {
-    await page.setViewportSize(size);
-    await fullyVisible(page.locator('#tactical-button'));
-    await fullyVisible(page.locator('#speed-button'));
-    await fullyVisible(page.locator('[data-action="pause"]'));
-    await noDocumentScroll(page);
-  }
-  await page.locator('[data-action="pause"]').click();
-  await page.locator('[data-action="abandon-confirm"]').click();
-  await page.locator('[data-action="abandon"]').click();
-  await expect(page.locator('.result-screen')).toBeVisible();
-  for (const size of phoneSizes) {
-    await page.setViewportSize(size);
-    await fullyVisible(page.locator('.result-actions [data-action="retry"]'));
-    await fullyVisible(page.locator('.result-actions [data-action="adjust"]'));
-    await fullyVisible(page.locator('.result-actions [data-action="home"]'));
-    await noDocumentScroll(page);
-  }
-  expect(errors).toEqual([]);
-});
-
-test('MOBILE: crossing the desktop breakpoint preserves the full roster and selected character panel', async ({ page }) => {
-  await ready(page);
-  await nav(page, 'roster');
-  await page.locator('.roster-tile[data-id="C05"]').click();
-  const panel = page.locator('[data-roster-view="character"]');
-  await expect(panel.locator('[data-action="toggle-character"]')).toHaveAttribute('data-id', 'C05');
-  for (const width of [768, 1024, 1440]) {
-    await page.setViewportSize({ width, height: 1024 });
-    await expect(page.locator('.roster-tile:visible')).toHaveCount(8);
-    await expect(panel).toBeVisible();
-    await expect(panel.locator('[data-action="toggle-character"]')).toHaveAttribute('data-id', 'C05');
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
-    await panel.locator('[data-action="roster-close"]').click();
-    await page.locator('[data-action="start"]').scrollIntoViewIfNeeded();
-    await expect(page.locator('[data-action="start"]')).toBeEnabled();
-    await page.setViewportSize({ width: 390, height: 844 });
-    await expect(page.locator('#app.mobile-app')).toBeVisible();
-    await expect(page.locator('[data-action="start"]')).toBeVisible();
-    await expect(page.locator('.roster-tile:visible')).toHaveCount(8);
-    await fullyVisible(page.locator('[data-action="start"]'));
-    await noDocumentScroll(page);
-    await page.locator('.roster-tile[data-id="C05"]').click();
-  }
-  await panel.locator('[data-action="roster-close"]').click();
 });

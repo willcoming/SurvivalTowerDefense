@@ -1,8 +1,10 @@
 import type { DeepMods, DeepNode, DeepTree } from './deep-trees';
 import type { CharacterId } from '../sim/types';
 
-export const TACTICAL_CONTENT_VERSION = '0.6.0-dev.1';
-export const usesTacticalSkills = (s:{contentVersion:string}) => s.contentVersion === TACTICAL_CONTENT_VERSION;
+export const PREVIOUS_TACTICAL_VERSION = '0.6.0-dev.1';
+export const TIMED_TACTICAL_VERSION = '0.6.0-dev.2';
+export const TACTICAL_CONTENT_VERSION = '0.6.0-dev.3';
+export const usesTacticalSkills = (s:{contentVersion:string}) => s.contentVersion === TACTICAL_CONTENT_VERSION || s.contentVersion === PREVIOUS_TACTICAL_VERSION || s.contentVersion === TIMED_TACTICAL_VERSION;
 export const ULTIMATE_ENTRIES:Record<CharacterId,readonly string[]> = {
  C01:['A','B'],C02:['A','B'],C03:['B','C'],C04:['A','B'],
  C05:['A','B'],C06:['B','C'],C07:['A','B'],C08:['A','C'],

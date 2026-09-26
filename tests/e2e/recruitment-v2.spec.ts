@@ -1,18 +1,30 @@
 import {test,expect,type Page} from '@playwright/test';
 async function ready(page:Page){await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);}
+async function showReceipt(page:Page){
+  const button=page.getByRole('button',{name:'招募結果',exact:true});
+  if((page.viewportSize()?.width??0)<=800 && !await page.locator('dialog[data-detail=recruit-receipt][open]').count())await button.click();
+  await expect(page.locator('.recruitment-receipt')).toBeVisible();
+}
+async function closeReceipt(page:Page){if(await page.locator('dialog[data-detail=recruit-receipt][open]').count())await page.keyboard.press('Escape');}
+async function choosePage(page:Page,id:string){
+  const select=page.getByRole('combobox',{name:'獎池項目',exact:true});if(!await select.count())return;
+  const ids=await page.locator('.recruit-item .recruit-image-button').evaluateAll(buttons=>buttons.map(b=>(b as HTMLElement).dataset.id));
+  const size=Math.ceil(ids.length/await select.locator('option').count());await select.selectOption(String(Math.floor(ids.indexOf(id)/size)));
+}
 async function visit(page:Page){await page.locator('.game-dock [data-action="recruitment"]').click();}
 
-for(const viewport of [{width:320,height:500},{width:390,height:844},{width:1440,height:900}]){
+for(const viewport of [{width:320,height:500},{width:390,height:844},{width:1440,height:900}])test.describe(`recruitment ${viewport.width}`,()=>{
+ test.use({isMobile:viewport.width<=800,hasTouch:viewport.width<=800});
   test(`draw button and receipt stay above navigation at ${viewport.width}`,async({page})=>{
     await page.setViewportSize(viewport);await ready(page);
     await page.evaluate(async()=>{window.__game.getSave().collection.tickets=1;await window.__game.save();});await visit(page);
     for(const afterDraw of [false,true]){
-      if(afterDraw){await page.locator('[data-action="draw"]').click();await expect(page.locator('.recruitment-receipt')).toBeVisible();}
+      if(afterDraw){await page.locator('[data-action="draw"]').click();await showReceipt(page);await closeReceipt(page);}
       const action=await page.locator('[data-action="draw"]').boundingBox(),dock=await page.locator('.game-dock').boundingBox();
       expect(action!.y+action!.height).toBeLessThanOrEqual(dock!.y);
       const catalog=await page.locator('.recruit-v2-catalog').boundingBox();
       expect(catalog!.height).toBeGreaterThan(90);
-      if(afterDraw)await expect(page.locator('.recruitment-receipt')).toBeInViewport({ratio:1});
+      if(afterDraw){await showReceipt(page);await expect(page.locator('.recruitment-receipt')).toBeInViewport({ratio:1});await closeReceipt(page);}
       expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBe(viewport.width);
       expect(await page.evaluate(()=>document.documentElement.scrollHeight)).toBeLessThanOrEqual(viewport.height);
     }
@@ -26,6 +38,7 @@ for(const viewport of [{width:320,height:500},{width:390,height:844},{width:1440
       await page.locator(`[data-action="recruit-tab"][data-id="${view}"]`).click();
       const trigger=page.locator('.recruit-card-grid [data-action="recruit-preview"]').last();
       const name=(await trigger.locator('img').getAttribute('alt'))!;
+      await choosePage(page,(await trigger.getAttribute('data-id'))!);
       await trigger.scrollIntoViewIfNeeded();
       const scroll=await page.locator('.recruit-v2-catalog').evaluate(e=>e.scrollTop);
       await trigger.focus();await page.keyboard.press('Enter');
@@ -47,13 +60,14 @@ for(const viewport of [{width:320,height:500},{width:390,height:844},{width:1440
     await page.locator('[data-action="recruit-tab"][data-id="draw"]').click();
     await page.evaluate(async()=>{window.__game.getSave().collection.tickets=1;await window.__game.save();window.__game.route('recruitment');});
     await page.locator('[data-action="draw"]').click();
+    await showReceipt(page);
     const receipt=page.locator('.recruitment-receipt [data-action="recruit-preview"]');
     await expect(receipt).toBeVisible();await receipt.click();
     await expect(page.locator('.recruit-art-viewer')).toBeVisible();
     await page.getByRole('button',{name:'關閉大圖'}).click();
     await expect(receipt).toBeFocused();
   });
-}
+});
 
 test('pool rates, content, rules and exchange tab match the redesigned pool',async({page})=>{
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
@@ -75,19 +89,20 @@ test('pool rates, content, rules and exchange tab match the redesigned pool',asy
 test('double click draws once, commits the new guarantee state and survives reload',async({page})=>{
   await ready(page);await page.evaluate(async()=>{window.__game.getSave().collection.tickets=2;await window.__game.save();});await visit(page);
   await page.locator('[data-action="draw"]').evaluate(b=>{(b as HTMLButtonElement).click();(b as HTMLButtonElement).click();});
-  await expect(page.locator('.recruitment-receipt')).toBeVisible();
+  await showReceipt(page);
   const saved=await page.evaluate(()=>structuredClone(window.__game.getSave().collection));
   expect(saved.tickets).toBe(1);expect(saved.sequence).toBe(1);expect(saved.drawsSinceNew).toBe(0);
   await page.reload();await page.waitForFunction(()=>!!window.__game);await visit(page);
   expect(await page.evaluate(()=>window.__game.getSave().collection)).toEqual(saved);
-  await expect(page.locator('.recruitment-receipt')).toBeVisible();
+  await showReceipt(page);
 });
 
 test('exchange preserves guarantee count, reveals receipt, and unlocks only the selected form',async({page})=>{
   await ready(page);await page.evaluate(async()=>{const c=window.__game.getSave().collection;c.points=100;c.drawsSinceNew=8;await window.__game.save();});await visit(page);
   await page.locator('[data-action="recruit-tab"][data-id="exchange"]').click();
+  await choosePage(page,'C07-summer');
   await page.locator('[data-action="exchange"][data-id="C07-summer"]').click();
-  await expect(page.locator('.recruitment-receipt')).toContainText('兌換成功');
+  await showReceipt(page);await expect(page.locator('.recruitment-receipt')).toContainText('兌換成功');await closeReceipt(page);
   await expect(page.locator('.recruit-guarantee')).toContainText('再 2 抽');
   const c=await page.evaluate(()=>window.__game.getSave().collection);
   expect(c.points).toBe(0);expect(c.owned).toContain('C07-summer');expect(c.owned).not.toContain('C07-original');
@@ -96,7 +111,7 @@ test('exchange preserves guarantee count, reveals receipt, and unlocks only the 
 test('guaranteed draw is unowned and full collection cannot consume resources',async({page})=>{
   await ready(page);await page.evaluate(async()=>{const c=window.__game.getSave().collection;c.owned.push('C01-summer');c.tickets=2;c.drawsSinceNew=9;await window.__game.save();});await visit(page);
   await expect(page.locator('.recruit-guarantee')).toContainText('本次必得');await page.locator('[data-action="draw"]').click();
-  await expect(page.locator('.recruitment-receipt')).toContainText('保底招募');
+  await showReceipt(page);await expect(page.locator('.recruitment-receipt')).toContainText('保底招募');await closeReceipt(page);
   expect((await page.evaluate(()=>window.__game.getSave().collection.lastReceipt))?.duplicate).toBe(false);
   await page.evaluate(async()=>{const s=window.__game.getSave(),path='/src/data/forms.ts';const {POOL}=await import(path);s.collection.owned=[...new Set([...s.collection.owned,...POOL.map((f:{id:string})=>f.id)])] as typeof s.collection.owned;await window.__game.save();window.__game.route('recruitment');});
   await expect(page.locator('[data-action="draw"]')).toBeDisabled();
@@ -112,11 +127,11 @@ test('legacy points and fragments migrate once and fund both draw and exchange',
   await page.reload();await page.waitForFunction(()=>!!window.__game);await visit(page);
   await expect(page.locator('.hud-resources')).toContainText('共鳴點數');
   expect(await page.evaluate(()=>window.__game.getSave().collection.points)).toBe(200);
-  await page.locator('[data-action="draw"]').click();await expect(page.locator('.recruitment-receipt')).toBeVisible();
+  await page.locator('[data-action="draw"]').click();await showReceipt(page);
   expect(await page.evaluate(()=>window.__game.getSave().collection.points)).toBe(100);
   expect(await page.evaluate(()=>window.__game.getSave().collection.lastReceipt!.spent)).toBe('points');
-  await page.locator('[data-action="recruit-tab"][data-id="exchange"]').click();await page.locator('[data-action="exchange"]:enabled').first().click();
-  await expect(page.locator('.recruitment-receipt')).toContainText('兌換成功');
+  await closeReceipt(page);await page.locator('[data-action="recruit-tab"][data-id="exchange"]').click();const exchange=page.locator('[data-action="exchange"]:enabled').first();await choosePage(page,(await exchange.getAttribute('data-id'))!);await exchange.click();
+  await showReceipt(page);await expect(page.locator('.recruitment-receipt')).toContainText('兌換成功');await closeReceipt(page);
   const after=await page.evaluate(()=>structuredClone(window.__game.getSave().collection));expect(after.points).toBe(0);expect(after.version).toBe(2);expect(after).not.toHaveProperty('fragments');
   await page.reload();await page.waitForFunction(()=>!!window.__game);
   expect(await page.evaluate(()=>window.__game.getSave().collection)).toEqual(after);

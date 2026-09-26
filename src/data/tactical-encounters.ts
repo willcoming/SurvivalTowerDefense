@@ -14,10 +14,11 @@ export function distribute(total:number,weights:number[]){
  for(let i=0,left=total-result.reduce((a,b)=>a+b,0);i<left;i++)result[sorted[i].i]++;
  return result;
 }
-export function tacticalOperation(base:OperationProfile,stage:StageId,config:Pick<RunConfig,'difficulty'|'challengeId'|'mode'>,allowed:string[]):OperationProfile {
- const hundred=config.mode==='hundred',early=!hundred&&!stage.startsWith('X')&&Number(stage.slice(1))<=3&&config.difficulty!=='hard'&&!config.challengeId;
+export function tacticalOperation(base:OperationProfile,stage:StageId,config:Pick<RunConfig,'difficulty'|'challengeId'|'mode'>,allowed:string[],assault=false):OperationProfile {
+ const hundred=config.mode==='hundred',early=!assault&&!hundred&&!stage.startsWith('X')&&Number(stage.slice(1))<=3&&config.difficulty!=='hard'&&!config.challengeId;
  const authored=STAGE_ENCOUNTERS[stage].plan.filter(k=>k!=='respite'),count=base.waves.length;
  const kinds:EncounterKind[]=Array.from({length:count},(_,i)=>{
+  if(assault&&stage==='S01'&&!hundred&&i===0)return 'mixed';
   if(early&&i<2)return STAGE_ENCOUNTERS[stage].plan[i];
   if(hundred)return (['advance','shield','respite','rush','armor','respite','repair','artillery','respite','elite'] as EncounterKind[])[i%10];
   if(i%4===3)return 'respite';
@@ -30,7 +31,11 @@ export function tacticalOperation(base:OperationProfile,stage:StageId,config:Pic
  kinds.forEach((kind,i)=>{
   if(early&&i<2){waves.push(base.waves[i]);formations.push(null);names.push(base.waveNames![i]);hints.push(base.waveHints![i]);return;}
   const p=ENCOUNTER_PATTERNS[kind];
-  const weights=Object.entries(p.weights).filter(([code])=>allowed.includes(code)&&(!(i<3||hundred&&i<10)||!['H','D'].includes(code)));
+  // The first elite chapter must leave room to earn a counter-build before
+  // stacked armor reaches the wall. Reweight bodies; never remove XP or waves.
+  const weights=Object.entries(p.weights).filter(([code])=>allowed.includes(code)&&(!(i<3||hundred&&i<10)||!['H','D'].includes(code)))
+   .map(([code,weight]):[string,number]=>[code,weight*(assault&&!hundred&&stage==='S03'&&config.difficulty!=='hard'&&!config.challengeId
+    ? code==='P'?.4:code==='H'?.2:code==='D'?.4:1 :1)]);
   // Limits are balanced independently: a reduced team must not inherit hard-mode specialist density.
   const strength=config.challengeId==='four'?.92:config.challengeId==='no-skill'?.95:config.challengeId==='two-evolutions'?1.04:config.difficulty==='hard'?1.15:1.05;
   const amounts=distribute(totals[i],weights.map(([code,w])=>code==='C'?w:w*strength));

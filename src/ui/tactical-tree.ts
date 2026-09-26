@@ -28,6 +28,15 @@ export function enhanceTacticalTree(panel: HTMLElement, ui: MobileControls) {
   viewport.append(graph);
 
   const footer = panel.querySelector<HTMLElement>('.node-preview')!;
+  if (matchMedia('(max-width:800px)').matches && panel.classList.contains('wave-allocation')) {
+    const confirm = footer.querySelector<HTMLElement>('[data-action=buy-node]')!;
+    const points = confirm.textContent?.match(/· (\d+) 點/)?.[1] ?? '0';
+    confirm.textContent = `確認 ${points} 點`;
+    confirm.setAttribute('aria-label', `確認配置並繼續，${points} 點`);
+    const bank = footer.querySelector<HTMLElement>('[data-action=bank-wave-points]')!;
+    bank.textContent = '保留全部點數';
+    bank.setAttribute('aria-label', '保留全部點數並繼續');
+  }
   const description = footer.querySelector<HTMLElement>(':scope > div')!;
   const summary = document.createElement('div');
   summary.className = 'skill-selection';
@@ -38,5 +47,6 @@ export function enhanceTacticalTree(panel: HTMLElement, ui: MobileControls) {
   if (graph.querySelector('.inspecting.locked') && reason) copy.append(reason.cloneNode(true));
   summary.append(copy);
   footer.prepend(summary);
-  ui.detail(`combat-node:${key}`, '效果／前置', [description], summary);
+  const note = matchMedia('(max-width:800px)').matches ? footer.querySelector<HTMLElement>('.deep-footer-note > small') : null;
+  ui.detail(`combat-node:${key}`, '效果／前置', note ? [description, note] : [description], summary);
 }

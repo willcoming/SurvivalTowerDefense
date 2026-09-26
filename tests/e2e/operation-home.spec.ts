@@ -81,7 +81,8 @@ test('tactical page separates wave composition from enemy details',async({page})
   await load(page);await page.getByRole('button',{name:'作戰功能與說明'}).click();
   await expect(page.locator('#app')).toHaveAttribute('data-page','command');
   await page.getByRole('tab',{name:'波次',exact:true}).click();
-  await expect(page.locator('.tactical-wave-list article')).toHaveCount(4);
+  const waves=await page.evaluate(async()=>{const path='/src/data/progression.ts',balance='/src/data/assault-balance.ts';const {stageProfile}=await import(path),{CURRENT_BALANCE_VERSION}=await import(balance);return stageProfile('S01','easy',{balanceVersion:CURRENT_BALANCE_VERSION}).waves.length;});
+  await expect(page.locator('.tactical-wave-list article')).toHaveCount(waves);
   await expect(page.locator('.tactical-enemy-list')).toHaveCount(0);
   await page.getByRole('tab',{name:'敵情',exact:true}).click();
   await expect(page.locator('.tactical-enemy-list article')).not.toHaveCount(0);

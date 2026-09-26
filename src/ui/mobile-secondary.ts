@@ -81,7 +81,24 @@ function compactSettings(screen: HTMLElement, ui: MobileControls) {
   const storageHelp = block('mobile-secondary-links');
   storage.append(storageHelp);
   detail(ui, 'settings-save-information', '本機存檔說明', [find(save ?? screen, '.save-information > p')], storageHelp);
-  ui.tabs('settings-sections', [preferences, storage], ['音效與顯示', '存檔管理'], nav);
+  if (matchMedia('(max-width:800px), (pointer:coarse) and (max-height:800px)').matches) {
+    const helpBody = find(preferencesHelp, '.mobile-detail-body');
+    const volumeRows = all(preferences, '.setting-row:has(input[type=range])');
+    if (helpBody) helpBody.prepend(...volumeRows);
+    const storageBody = find(storageHelp, '.mobile-detail-body');
+    const warning = find(storage, '.danger-zone > span');
+    if (storageBody && warning) storageBody.append(warning);
+    const helpButton = find(preferencesHelp, 'button');
+    if (helpButton) helpButton.textContent = '音量與設定說明';
+    const offline = block('mobile-settings-offline', 'section');
+    storage.after(offline);
+    const offlineContent = find(screen, '.offline-settings');
+    if (offlineContent) detail(ui, 'settings-offline', '離線下載、版本與更新', [offlineContent], offline);
+    const commander = find(screen, '.commander-settings-link');
+    if (commander) detail(ui, 'settings-commander', '共用技能資訊', [commander], offline);
+    ui.tabs('settings-sections', [preferences, storage, offline], ['一般', '存檔管理', '離線與版本'], nav);
+    screen.classList.add('mobile-paged-screen');
+  } else ui.tabs('settings-sections', [preferences, storage], ['音效與顯示', '存檔管理'], nav);
   screen.classList.add('mobile-settings');
 }
 
@@ -96,6 +113,28 @@ function compactResult(screen: HTMLElement, ui: MobileControls) {
     find(screen, '.result-story'), find(screen, '.result-insight'),
     find(screen, '.result-columns'), runDetails,
   ], information);
+  if (matchMedia('(max-width:800px), (pointer:coarse) and (max-height:800px)').matches) {
+    const report = find(information, '.mobile-detail-body')!;
+    const summary = block('mobile-result-summary');
+    for (const section of all(screen, ':scope > .commander-result, :scope > .result-rewards, :scope > .hundred-record')) {
+      const title = find(section, 'h2');
+      if (title && !section.hasAttribute('aria-label')) summary.append(title.cloneNode(true));
+      else if (title && section.classList.contains('commander-result')) summary.append(title.cloneNode(true));
+      else if (title && section.classList.contains('result-rewards')) summary.append(title.cloneNode(true));
+      report.append(section);
+    }
+    information.before(summary);
+    const extraActions = block('mobile-result-extra-actions');
+    const next = find(actions!, '[data-action=next-stage]');
+    if (next) {
+      find(actions!, '[data-action=retry]')?.classList.replace('primary', 'secondary');
+      next.classList.replace('secondary', 'primary');
+      actions!.prepend(next);
+    }
+    all(actions!, 'button:not(.primary):not([data-action=home])').forEach(button => extraActions.append(button));
+    report.prepend(extraActions);
+    screen.classList.add('mobile-paged-screen');
+  }
   screen.classList.add('mobile-result');
 }
 

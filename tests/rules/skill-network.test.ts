@@ -8,7 +8,7 @@ import {openDraft} from '../../src/sim/draft';
 import {deepLock,deepLegalNodes,deepNodeCost,deepPointCost} from '../../src/sim/deep-tree';
 import type {CharacterId,RunState} from '../../src/sim/types';
 const routes=(n:DeepNode):string[][]=>n.parents.length?n.parents.flatMap(p=>routes(DEEP_NODE_MAP[p]).map(path=>[...path,n.id])):[[n.id]];
-function funded(owner:CharacterId,points=6,version?:string){const s=createRun({stageId:'S12',squadIds:[owner],captainId:owner,seed:307},version);s.xp=points*30;s.choicesEarned=points;openDraft(s);return s;}
+function funded(owner:CharacterId,points=6,version?:string){const s=createRun({stageId:'S12',squadIds:[owner],captainId:owner,seed:307},version??'0.6.0-dev.2');s.xp=points*30;s.choicesEarned=points;openDraft(s);return s;}
 function buy(s:RunState,id:string){expect(command(s,{type:'buy-node',offerId:s.draft!.id,nodeId:id}),id).toBe(true);}
 function bankLastPoint(){const s=funded('C01',24);while(s.choicesSpent<22)buy(s,deepLegalNodes(s).find(id=>DEEP_NODE_MAP[id].kind!=='ultimate')!);const last=deepLegalNodes(s).find(id=>DEEP_NODE_MAP[id].kind!=='ultimate')!;expect(command(s,{type:'confirm-node',offerId:s.draft!.id,nodeIds:[last]})).toBe(true);return s;}
 describe('branching skill network',()=>{

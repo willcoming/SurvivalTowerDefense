@@ -13,7 +13,7 @@ export function makeSpawnPlan(s:RunState):SpawnEntry[]{
     const ids:EnemyId[]=[];for(const token of wave.split(' ')){for(let j=0;j<Number(token.slice(1));j++)ids.push(ENEMY_CODE[token[0]]);}
     const formation=profile.formations?.[wi];
     if(formation){let index=0;for(const group of formation)for(let j=0;j<group.count;j++){
-      plan.push({at:ticks(wi*profile.interval+group.offset+Math.floor(j/3)*.7),defId:ENEMY_CODE[group.code],x:[45,120,195,270,345][group.lane===2?[0,2,4][j%3]:group.lane]+nextRandom(s.rng,'spawn')*12-6,xp:Math.floor(profile.waveXp[wi]/ids.length)+(index<profile.waveXp[wi]%ids.length?1:0),wave:wi+1});index++;
+      plan.push({at:ticks(wi*profile.interval+group.offset+Math.floor(j/3)*(profile.formationStep??.7)),defId:ENEMY_CODE[group.code],x:[45,120,195,270,345][group.lane===2?[0,2,4][j%3]:group.lane]+nextRandom(s.rng,'spawn')*12-6,xp:Math.floor(profile.waveXp[wi]/ids.length)+(index<profile.waveXp[wi]%ids.length?1:0),wave:wi+1});index++;
     }return;}
     for(let j=ids.length-1;j>0;j--){const k=Math.floor(nextRandom(s.rng,'spawn')*(j+1));[ids[j],ids[k]]=[ids[k],ids[j]];}
     const groupSizes=Array.from({length:8},(_,i)=>Math.floor(ids.length/8)+(i<ids.length%8?1:0));const group4=groupSizes.slice(0,4).reduce((a,b)=>a+b,0);let eliteIndex=0;
@@ -27,10 +27,14 @@ export function makeSpawnPlan(s:RunState):SpawnEntry[]{
     const extra=s.operationVersion!==undefined||wi<6?0:Math.ceil(ids.filter(id=>id==='E01').length*(pressure(s).numbers-1));
     for(let i=0;i<extra;i++)plan.push({at:ticks(wi*profile.interval+25),defId:'E01',x:[45,120,195,270,345][(wi+i)%5],xp:0,wave:wi+1});
   });
-  if(s.balanceVersion===3){
+  if((s.balanceVersion===3||s.balanceVersion===4||s.balanceVersion===5)){
     const count=profile.escortCount??0,xp=profile.escortXp??0,specialists=highPressure(s.config.stageId,pressureMode(s.config)).escortSpecialists;
     const types=['E03','E04','E05','E02','E06','E03','E05','E02','E04','E03','E05','E06'] as const;
     for(let i=0;i<count;i++){const candidate=i<specialists?types[i%types.length]:'E01';plan.push({at:ticks(profile.bossAt+(i<Math.ceil(count/2)?1:9)),defId:STAGE_MAP[s.config.stageId].enemyIds.includes(candidate)?candidate:'E01',x:24+(i%8)*48,y:20+Math.floor(i/8)*20,xp:Math.floor(xp/count)+(i<xp%count?1:0),wave:profile.waves.length+1});}
+  }
+  if(s.waveFlow){
+    for(const entry of plan)entry.at-=ticks(entry.wave>profile.waves.length?profile.bossAt:(entry.wave-1)*profile.interval);
+    return plan.sort((a,b)=>a.wave-b.wave||a.at-b.at);
   }
   return plan.sort((a,b)=>a.at-b.at);
 }

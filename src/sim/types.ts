@@ -116,8 +116,10 @@ export interface RunState {
   skillCostVersion?:2;
   operationVersion?:2|3;
   /** Authored encounters and combat tuning; absent keeps historical rules. */
-  balanceVersion?:1|2|3;
+  balanceVersion?:1|2|3|4|5;
   commanderSkillVersion?:1;
+  /** Version 1 uses wave-local spawn times and one allocation between waves. */
+  waveFlow?: { version: 1; wave: number; startedAt: number; phase: 'combat' | 'allocation' };
   wavePlan?: WaveBrief[]; support?: SupportState; upgradePendingAt?: number;
   weapons: WeaponState[]; commonRanks: Record<string, number>; preferredBranches: Record<CharacterId, Branch>;
   enemies: Enemy[]; projectiles: Projectile[]; fields: Field[]; scheduled: ScheduledHit[];

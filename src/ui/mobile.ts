@@ -1,9 +1,10 @@
 import type { Page } from './model';
 import { MobileControls } from './mobile-controls';
 import { enhanceSecondary } from './mobile-secondary';
+import { enhanceMobilePages } from './mobile-pages';
 import { enhanceBattleFocus } from './battle-focus';
 
-export const mobileQuery = '(max-width: 800px)';
+export const mobileQuery = '(max-width: 800px), (pointer: coarse) and (max-height: 800px)';
 
 function mount(parent: HTMLElement, className: string, label?: string, before?: Element | null) {
   const element = document.createElement('div');
@@ -69,4 +70,5 @@ export function enhanceMobile(root: HTMLElement, page: Page, ui: MobileControls)
   if (page === 'roster') compactRoster(root, ui);
   else if (page === 'codex') compactCodex(root, ui);
   else enhanceSecondary(root, page, ui);
+  if (matchMedia(mobileQuery).matches) enhanceMobilePages(root, page, ui);
 }

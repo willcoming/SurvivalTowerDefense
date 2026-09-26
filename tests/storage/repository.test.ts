@@ -9,7 +9,7 @@ let counter = 0;
 const repos: GameRepository[] = [];
 function repo(name = `test-starfall-${++counter}`) { const result = new GameRepository(name); repos.push(result); return result; }
 afterEach(() => { for (const repository of repos.splice(0)) repository.close(); });
-function run() { return createRun({ stageId: 'S01', squadIds: ['C01', 'C02', 'C04', 'C05', 'C06'], captainId: 'C02', seed: 101 }); }
+function run() { return createRun({ stageId: 'S01', squadIds: ['C01', 'C02', 'C04', 'C05', 'C06'], captainId: 'C02', seed: 101 }, undefined, {balanceVersion:4}); }
 async function raw(name: string, value?: unknown): Promise<unknown> {
   return new Promise((resolve, reject) => {
     const open = indexedDB.open(name, 1);

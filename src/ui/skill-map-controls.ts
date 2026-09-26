@@ -65,7 +65,9 @@ export function mountSkillMaps(holder:HTMLElement){
   const click=(e:MouseEvent)=>{if(suppressClick){e.preventDefault();e.stopImmediatePropagation();}};
   const wheel=(e:WheelEvent)=>{e.preventDefault();zoom(Math.exp(-e.deltaY*.002),e.clientX,e.clientY);};
   const keydown=(e:KeyboardEvent)=>{if(e.target!==viewport)return;if(['+','=','-','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','0'].includes(e.key)){e.preventDefault();e.stopPropagation();if(e.key==='+'||e.key==='=')zoom(1.2);else if(e.key==='-')zoom(1/1.2);else if(e.key==='0')fit();else if(e.key==='Home')root();else{camera.x+=e.key==='ArrowLeft'?60:e.key==='ArrowRight'?-60:0;camera.y+=e.key==='ArrowUp'?60:e.key==='ArrowDown'?-60:0;render();}}};
-  const focusin=(e:FocusEvent)=>{const node=(e.target as HTMLElement).closest<HTMLElement>('.deep-node');if(node&&!pointers.size){reveal(node);highlightPath(node.dataset.id!);}};
+  // Chromium focuses a tapped node after pointerup but before click. Moving the
+  // canvas there makes the tap miss; only keyboard focus needs an early reveal.
+  const focusin=(e:FocusEvent)=>{const node=(e.target as HTMLElement).closest<HTMLElement>('.deep-node');if(node&&!pointers.size){if(node.matches(':focus-visible'))reveal(node);highlightPath(node.dataset.id!);}};
   const hover=(e:PointerEvent)=>{if(e.pointerType==='touch'||pointers.size)return;const node=(e.target as Element).closest<HTMLElement>('.deep-node');highlightPath(node?.dataset.id??selected);};
   const leave=()=>highlightPath(selected);
   map.addEventListener('pointerover',hover);map.addEventListener('pointerleave',leave);

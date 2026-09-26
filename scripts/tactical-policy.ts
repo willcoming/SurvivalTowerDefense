@@ -20,11 +20,21 @@ export function choose(s:RunState,policy:Policy){
  };
  return legal.sort((a,b)=>score(b)-score(a)||a.localeCompare(b))[0];
 }
-export function play(config:RunConfig,content:string,balanceVersion:2|3,policy:Policy,checkRestore=false){
+export function play(config:RunConfig,content:string,balanceVersion:2|3|4|5,policy:Policy,checkRestore=false){
  let s=createRun(config,content,{balanceVersion}),restored=false,peak=0,stall=0;
- const limit=Math.round((operationProfile(s).bossAt+300)*30);
+ const limit=s.waveFlow?(operationProfile(s).waves.length+1)*600*30:Math.round((operationProfile(s).bossAt+300)*30);
  for(let guard=0;guard<limit*2&&!s.outcome&&s.tick<limit;guard++){
   if(s.bossIntro){command(s,{type:'finish-boss-intro'});continue;}
+  if(s.waveFlow&&s.tick-s.waveFlow.startedAt>600*30)break;
+  if(s.draft&&s.waveFlow){
+   const shadow={...s,treeNodes:[...s.treeNodes!]},ids:string[]=[];
+   for(let id=choose(shadow,policy);id;id=choose(shadow,policy)){
+    ids.push(id);shadow.treeNodes=[...shadow.treeNodes,id];shadow.choicesSpent+=deepNodeCost(id,shadow);
+    if(DEEP_NODE_MAP[id].kind==='ultimate')shadow.evolvedCount++;
+   }
+   if(!command(s,{type:'confirm-node',offerId:s.draft.id,nodeIds:ids}))throw Error('Rejected wave allocation');
+   continue;
+  }
   if(s.draft){const id=choose(s,policy);if(!id||!command(s,{type:'buy-node',offerId:s.draft.id,nodeId:id}))throw Error(`Rejected choice ${id}`);continue;}
   if(checkRestore&&!restored&&s.choicesSpent>=6){s=restoreRun(s);restored=true;}
   const before=s.tick;stepRun(s);if(s.tick===before&&++stall>5)throw Error(`Paused ${s.pauseReasons}`);else if(s.tick!==before)stall=0;
@@ -32,5 +42,5 @@ export function play(config:RunConfig,content:string,balanceVersion:2|3,policy:P
   // Visual event history is consumed by the renderer in normal play and never affects the simulation.
   if(s.tick%300===0)s.events=[];
  }
- return {outcome:s.outcome??'timeout',hp:Math.round(s.wallHp),seconds:s.tick/30,shield:Math.round(s.stats.shieldAbsorbed),damage:s.stats.damageByCharacter,control:s.stats.controlTicks,casts:s.stats.casts.length,spent:s.choicesSpent,peak,restored,plan:s.treeNodes};
+ return {outcome:s.outcome??'timeout',hp:Math.round(s.wallHp),seconds:s.tick/30,shield:Math.round(s.stats.shieldAbsorbed),damage:s.stats.damageByCharacter,control:s.stats.controlTicks,casts:s.stats.casts.length,earned:s.choicesEarned,spent:s.choicesSpent,wave:s.waveFlow?.wave,allocations:[...new Set(s.stats.choices.map(c=>c.tick))].length,peak,restored,plan:s.treeNodes};
 }

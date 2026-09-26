@@ -25,6 +25,9 @@ export function teamMod(s:RunState,key:keyof DeepMods){
 }
 export const deepNodeCost=(id:string,s?:Pick<RunState,'skillCostVersion'>)=>DEEP_NODE_MAP[id]?.kind==='ultimate'&&(!s||s.skillCostVersion===2)?2:1;
 export const deepPointCost=(ids:readonly string[],s?:Pick<RunState,'skillCostVersion'>)=>ids.reduce((total,id)=>total+deepNodeCost(id,s),0);
+export function previewDeepNodes(s:RunState,ids:readonly string[]){
+  return {...s,treeNodes:[...(s.treeNodes??[]),...ids],evolvedCount:s.evolvedCount+ids.filter(id=>DEEP_NODE_MAP[id]?.kind==='ultimate').length};
+}
 export const deepHas = (s:RunState,id:string) => (s.treeNodes??[]).includes(id);
 export const deepUltimate = (s:RunState,owner:CharacterId) => (s.treeNodes??[]).find(id=>DEEP_NODE_MAP[id]?.ownerId===owner&&DEEP_NODE_MAP[id].kind==='ultimate');
 export function deepLock(s:RunState,id:string):string|null {
@@ -47,6 +50,7 @@ export function deepLock(s:RunState,id:string):string|null {
 export const deepLegalNodes=(s:RunState)=>DEEP_NODES.filter(n=>!deepLock(s,n.id)).map(n=>n.id);
 export const canSpendDeepPoints=(s:RunState,points=s.choicesEarned-s.choicesSpent)=>deepLegalNodes(s).some(id=>deepNodeCost(id,s)<=points);
 export function deepPointTarget(s:RunState){
+ if(s.waveFlow)return s.choicesEarned;
  const boundary=(Math.floor(s.choicesSpent/2)+1)*2;
  const minimum=usesSkillNetwork(s)?Math.min(...deepLegalNodes(s).map(id=>deepNodeCost(id,s))):0;
  return Math.min(s.choicesEarned,Math.max(boundary,s.choicesSpent+(Number.isFinite(minimum)?minimum:0)));
@@ -65,7 +69,7 @@ export function validateDeepTree(s:RunState){
   if(shadow.evolvedCount!==s.evolvedCount||deepPointCost(s.treeNodes,s)!==s.choicesSpent||s.evolutionLimit!==(s.config.challengeId==='two-evolutions'?2:usesReworkedSkills(s)?s.config.squadIds.length:3)||s.choicesEarned!==Math.min(operationProfile(s).points,2*Math.floor(s.xp/60))||s.rerollsRemaining!==0)throw new Error('技能點計數損壞');
   if(s.stats.choices.length!==s.treeNodes.length||s.stats.choices.some((c,i)=>c.nodeId!==s.treeNodes![i]))throw new Error('技能選擇歷史損壞');
   const pending=s.draft?.pendingNodeIds??[];
-  if(s.draft&&(!Number.isInteger(s.draft.id)||s.draft.id<1||!s.config.squadIds.includes(s.draft.focusId)||s.draft.selectedEvolution!==null||s.draft.customNodeId!==undefined||s.draft.cards.length||s.draft.choice!==Math.floor(s.choicesSpent/2)+1||s.draft.pointTarget!==deepPointTarget(s)||!s.pauseReasons.includes('upgrade')||s.choicesSpent>=s.choicesEarned||s.draft.pendingNodeIds!==undefined&&!Array.isArray(s.draft.pendingNodeIds)||deepPointCost(pending,s)>(s.draft.pointTarget-s.choicesSpent)||new Set(pending).size!==pending.length))throw new Error('選點里程碑紀錄損壞');
+  if(s.draft&&(!Number.isInteger(s.draft.id)||s.draft.id<1||!s.config.squadIds.includes(s.draft.focusId)||s.draft.selectedEvolution!==null||s.draft.customNodeId!==undefined||s.draft.cards.length||s.draft.choice!==(s.waveFlow?.wave??Math.floor(s.choicesSpent/2)+1)||s.draft.pointTarget!==deepPointTarget(s)||!s.pauseReasons.includes('upgrade')||s.choicesSpent>=s.choicesEarned||s.draft.pendingNodeIds!==undefined&&!Array.isArray(s.draft.pendingNodeIds)||deepPointCost(pending,s)>(s.draft.pointTarget-s.choicesSpent)||new Set(pending).size!==pending.length))throw new Error('選點里程碑紀錄損壞');
   if(pending.length){const pendingShadow={...s,treeNodes:[...s.treeNodes]};for(const id of pending){if(deepLock(pendingShadow,id))throw new Error('待確認技能前置損壞');pendingShadow.treeNodes.push(id);if(DEEP_NODE_MAP[id].kind==='ultimate')pendingShadow.evolvedCount++;}}
   if(!s.draft&&s.pauseReasons.includes('upgrade'))throw new Error('缺少技能選點紀錄');
   if(!s.support||Object.values(s.support).some(n=>!Number.isFinite(n)||n<0)||!Array.isArray(s.wavePlan)||s.wavePlan.length!==operationProfile(s).waves.length)throw new Error('戰場事件或共用技能紀錄損壞');

@@ -5,7 +5,7 @@ export const difficultyTuning = (s: Pick<RunState, 'config'|'balanceVersion'>) =
   ? {health:s.balanceVersion===1?1.4:1.5,damage:1.25} : {health:1,damage:1};
 
 /** Versioned so deterministic historical simulations keep their original rules. */
-export const usesPressureRules = (s: Pick<RunState, 'contentVersion'>) => ['0.6.0-dev.1','0.4.0-dev.2','0.5.0-dev.1','0.5.0-dev.2'].includes(s.contentVersion);
+export const usesPressureRules = (s: Pick<RunState, 'contentVersion'>) => ['0.6.0-dev.3','0.6.0-dev.2','0.6.0-dev.1','0.4.0-dev.2','0.5.0-dev.1','0.5.0-dev.2'].includes(s.contentVersion);
 export function pressure(s: Pick<RunState, 'contentVersion' | 'config' | 'balanceVersion'>) {
   if (!usesPressureRules(s)) return { health:1, speed:1, numbers:1, bossHealth:1, bossDamage:1, bossInterval:1 };
   const number = Number(s.config.stageId.slice(1));

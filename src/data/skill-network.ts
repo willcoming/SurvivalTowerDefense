@@ -1,9 +1,9 @@
-import { TACTICAL_CONTENT_VERSION } from './tactical-skills';
+import { usesTacticalSkills } from './tactical-skills';
 import type { CharacterId } from '../sim/types';
 import type { DeepMods, DeepTree } from './deep-trees';
 
 export const NETWORK_CONTENT_VERSION = '0.5.0-dev.2';
-export const usesSkillNetwork = (s:{contentVersion:string}) => s.contentVersion === NETWORK_CONTENT_VERSION || s.contentVersion === TACTICAL_CONTENT_VERSION;
+export const usesSkillNetwork = (s:{contentVersion:string}) => s.contentVersion === NETWORK_CONTENT_VERSION || usesTacticalSkills(s);
 export const NETWORK_WIDTH=1240, NETWORK_HEIGHT=620;
 type Input=[string,string,DeepMods];
 /** Three side-route skills per discipline. They expand choices, not the point budget. */

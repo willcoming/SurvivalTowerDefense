@@ -19,6 +19,7 @@ import './ui/readability.css';
 import './ui/personnel-skills.css';
 import './ui/offline.css';
 import './ui/skill-constellation.css';
+import './ui/mobile-layout.css';
 import { offlineGame } from './offline';
 import { GameApp } from './ui/app';
 

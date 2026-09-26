@@ -1,5 +1,7 @@
 import {expect,test} from '@playwright/test';
-for(const viewport of [{width:320,height:500},{width:768,height:1024},{width:1024,height:768},{width:1440,height:900}])test(`commander settings at ${viewport.width}: entry, points, prerequisites and free reset`,async({page},info)=>{
+for(const viewport of [{width:320,height:500},{width:768,height:1024},{width:1024,height:768},{width:1440,height:900}])test.describe(`commander ${viewport.width}`,()=>{
+ test.use({isMobile:viewport.width<=800,hasTouch:viewport.width<=800});
+ test(`commander settings at ${viewport.width}: entry, points, prerequisites and free reset`,async({page},info)=>{
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   await page.setViewportSize(viewport);await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);
   await page.getByRole('button',{name:'指揮官成長與共用技能',exact:true}).click();
@@ -9,18 +11,25 @@ for(const viewport of [{width:320,height:500},{width:768,height:1024},{width:102
   await page.evaluate(async()=>{window.__game.getSave().profile.commander!.xp=240;await window.__game.save();window.__game.route('commander');});
   await expect(page.locator('.commander-points strong')).toHaveText('2');
   await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/1"]')).toBeDisabled();
+  if(viewport.width<=800)await page.locator('.commander-route li:has([data-id="TEAM/0"]) > .mobile-commander-node').click();
   await page.locator('[data-action="commander-upgrade"][data-id="TEAM/0"]').click();
+  if(viewport.width<=800)await page.keyboard.press('Escape');
   await expect(page.locator('.commander-points strong')).toHaveText('1');await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/1"]')).toBeEnabled();
+  if(viewport.width<=800)await page.locator('.commander-route li:has([data-id="TEAM/1"]) > .mobile-commander-node').click();
   await page.locator('[data-action="commander-upgrade"][data-id="TEAM/1"]').focus();await page.keyboard.press('Enter');
+  await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/1"]')).toBeDisabled();
+  if(viewport.width<=800)await page.keyboard.press('Escape');
   await expect(page.locator('.commander-points strong')).toHaveText('0');
   await expect(page.locator('[data-action="commander-upgrade"][data-id="TEAM/4"]')).toBeDisabled();
   await page.screenshot({path:info.outputPath(`commander-${viewport.width}.png`),fullPage:true});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
-  for(const box of await page.locator('.commander-route button').all())expect((await box.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+  for(const box of await page.locator('.commander-route button:visible').all())expect((await box.boundingBox())!.height).toBeGreaterThanOrEqual(44);
   await page.reload();await page.waitForFunction(()=>!!window.__game);await page.getByRole('button',{name:'設定',exact:true}).click();
+  if(viewport.width<=800){await page.getByRole('button',{name:'離線與版本',exact:true}).click();await page.getByRole('button',{name:'共用技能資訊',exact:true}).click();}
   await page.getByRole('button',{name:'設定共用技能 →',exact:true}).click();await expect(page.locator('.commander-points strong')).toHaveText('0');
   await page.locator('[data-action="commander-reset"]').click();await expect(page.locator('.commander-points strong')).toHaveText('2');
   expect(await page.evaluate(()=>window.__game.getSave().profile.commander!.skillIds)).toEqual([]);expect(errors).toEqual([]);
+});
 });
 test('permanent skill applies on deployment and combat has no shared-skill selection',async({page})=>{
   await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);

@@ -3,13 +3,14 @@ import {CHARACTER_IDS,STAGES} from '../../src/data/content';
 import {deepTreesFor,DEEP_NODE_MAP} from '../../src/data/deep-trees';
 import {resolveSkillTree} from '../../src/data/reworked-skills';
 import {ULTIMATE_ENTRIES,isUnconditionalNode} from '../../src/data/tactical-skills';
-import {createRun,command,restoreRun,stepRun} from '../../src/sim/engine';
+import {createRun as versionedRun,command,restoreRun,stepRun} from '../../src/sim/engine';
 import {openDraft} from '../../src/sim/draft';
 import {deepLock,deepNodeCost} from '../../src/sim/deep-tree';
 import {operationProfile,stageProfile} from '../../src/data/progression';
 import {createEnemy,hitEnemy,addShield} from '../../src/sim/combat';
 import {deepWeaponStats} from '../../src/sim/deep-weapons';
 import type {CharacterId,RunConfig,DamagePacket} from '../../src/sim/types';
+const createRun=(...args:Parameters<typeof versionedRun>)=>versionedRun(args[0],args[1]??'0.6.0-dev.1',args[2]);
 const config=(owner:CharacterId='C01'):RunConfig=>({stageId:'S12',squadIds:[owner],captainId:owner,seed:101});
 const funded=(owner:CharacterId)=>{const s=createRun(config(owner));s.xp=180;s.choicesEarned=6;openDraft(s);return s;};
 describe('tactical skill and encounter v3',()=>{

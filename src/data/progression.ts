@@ -1,10 +1,12 @@
+import { minimumWaveOperation } from './wave-progression';
+import { assaultOperation } from './assault-balance';
 import { tacticalOperation, type FormationGroup } from './tactical-encounters';
 import { HUNDRED_PROFILE, isHundred } from './hundred';
 import { encounterPattern, encounterWeights, type EncounterContext } from './encounters';
 import { STAGE_MAP, ENEMY_CODE } from './content';
 import type { RunConfig, RunState, StageId } from '../sim/types';
 
-export interface OperationProfile { formations?:(FormationGroup[]|null)[]; waveKinds?:import('./encounters-v1').EncounterKind[]; unlimited?:boolean; escortCount?:number; escortXp?:number; waves:readonly string[]; points:number; interval:number; groupInterval:number; bossAt:number; deadline:number; bossScale:number; waveXp:readonly number[]; enemies:number; waveNames?:readonly string[]; waveHints?:readonly string[]; groupIntervals?:readonly number[] }
+export interface OperationProfile { formationStep?:number; formations?:(FormationGroup[]|null)[]; waveKinds?:import('./encounters-v1').EncounterKind[]; unlimited?:boolean; escortCount?:number; escortXp?:number; waves:readonly string[]; points:number; interval:number; groupInterval:number; bossAt:number; deadline:number; bossScale:number; waveXp:readonly number[]; enemies:number; waveNames?:readonly string[]; waveHints?:readonly string[]; groupIntervals?:readonly number[] }
 const profiles=new Map<StageId,OperationProfile>();
 const sum=(wave:string)=>wave.split(' ').reduce((n,t)=>n+Number(t.slice(1)),0);
 /** Main chapters grow from four to fifteen waves; the side story has its own curve. */
@@ -46,6 +48,8 @@ export function previousStageProfile(id:StageId,difficulty:NonNullable<RunConfig
 const expandedProfiles=new Map<string,OperationProfile>();
 /** New operations spread 30% more enemies across 30% more waves. */
 export function stageProfile(id:StageId,difficulty:NonNullable<RunConfig['difficulty']>='easy',options:Omit<EncounterContext,'difficulty'>={}):OperationProfile {
+  if(options.balanceVersion===5){const key=`v5:${id}:${difficulty}:${options.challengeId??'none'}`;let profile=expandedProfiles.get(key);if(!profile){const base=minimumWaveOperation(stageProfile(id,difficulty,{...options,balanceVersion:2}));profile=assaultOperation(tacticalOperation(base,id,{difficulty,challengeId:options.challengeId},Object.entries(ENEMY_CODE).filter(([,enemy])=>STAGE_MAP[id].enemyIds.includes(enemy)).map(([code])=>code),true));expandedProfiles.set(key,profile);}return profile;}
+  if(options.balanceVersion===4){const key=`v4:${id}:${difficulty}:${options.challengeId??'none'}`;let profile=expandedProfiles.get(key);if(!profile){profile=assaultOperation(tacticalOperation(stageProfile(id,difficulty,{...options,balanceVersion:2}),id,{difficulty,challengeId:options.challengeId},Object.entries(ENEMY_CODE).filter(([,enemy])=>STAGE_MAP[id].enemyIds.includes(enemy)).map(([code])=>code),true));expandedProfiles.set(key,profile);}return profile;}
   if(options.balanceVersion===3){const key=`v3:${id}:${difficulty}:${options.challengeId??'none'}`;let profile=expandedProfiles.get(key);if(!profile){profile=tacticalOperation(stageProfile(id,difficulty,{...options,balanceVersion:2}),id,{difficulty,challengeId:options.challengeId},Object.entries(ENEMY_CODE).filter(([,enemy])=>STAGE_MAP[id].enemyIds.includes(enemy)).map(([code])=>code));expandedProfiles.set(key,profile);}return profile;}
   const key=`${id}:${difficulty}:${options.balanceVersion??2}:${options.challengeId??'none'}`,cached=expandedProfiles.get(key);if(cached)return cached;
   const old=previousStageProfile(id,difficulty,options),count=Math.round(old.waves.length*1.3);
@@ -74,6 +78,7 @@ export function stageProfile(id:StageId,difficulty:NonNullable<RunConfig['diffic
 }
 /** Existing snapshots retain their authored schedule and balance rules. */
 export function operationProfile(s:Pick<RunState,'config'|'operationVersion'|'balanceVersion'>):OperationProfile {
+  if(s.balanceVersion===4||s.balanceVersion===5){if(!isHundred(s))return stageProfile(s.config.stageId,s.config.difficulty,{balanceVersion:s.balanceVersion,challengeId:s.config.challengeId});const key='assault:hundred';let profile=expandedProfiles.get(key);if(!profile){profile=assaultOperation(tacticalOperation(HUNDRED_PROFILE,s.config.stageId,s.config,Object.keys(ENEMY_CODE),true),true);expandedProfiles.set(key,profile);}return profile;}
   if(s.balanceVersion===3){const key=`tactical:${s.config.mode??'campaign'}:${s.config.stageId}:${s.config.difficulty}:${s.config.challengeId??'none'}`;let next=expandedProfiles.get(key);if(!next){const base=isHundred(s)?HUNDRED_PROFILE:stageProfile(s.config.stageId,s.config.difficulty,{balanceVersion:2,challengeId:s.config.challengeId});const allowed=Object.entries(ENEMY_CODE).filter(([,id])=>isHundred(s)||STAGE_MAP[s.config.stageId].enemyIds.includes(id)).map(([code])=>code);next=tacticalOperation(base,s.config.stageId,s.config,allowed);expandedProfiles.set(key,next);}return next;}
   if(isHundred(s))return HUNDRED_PROFILE;
   if(s.operationVersion===3)return stageProfile(s.config.stageId,s.config.difficulty,{balanceVersion:s.balanceVersion,challengeId:s.config.challengeId});
