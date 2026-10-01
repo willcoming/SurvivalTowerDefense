@@ -1,3 +1,4 @@
+import { mountSkillNavigation } from './skill-map-navigation';
 interface Camera {x:number;y:number;scale:number;width:number;height:number;tree:string;selected:string;}
 const cameras=new Map<string,Camera>();
 const clamp=(n:number,min:number,max:number)=>Math.max(min,Math.min(max,n));
@@ -9,7 +10,12 @@ export function mountSkillMaps(holder:HTMLElement){
   let viewport=map.closest<HTMLElement>('.skill-map-viewport');
   if(!viewport){viewport=document.createElement('div');viewport.className='skill-map-viewport';map.before(viewport);viewport.append(map);}
   viewport.classList.add('network-viewport');viewport.tabIndex=0;viewport.setAttribute('role','region');viewport.setAttribute('aria-label','技能樹畫布，可拖曳、雙指縮放，或使用方向鍵與加減鍵');
-  const controls=document.createElement('div');controls.className='network-controls';controls.innerHTML='<button type="button" data-map-control="out" aria-label="縮小技能樹">−</button><output aria-label="技能樹縮放比例"></output><button type="button" data-map-control="in" aria-label="放大技能樹">＋</button><button type="button" data-map-control="ultimate" aria-label="定位終極技">終極</button><button type="button" data-map-control="fit">全覽</button><button type="button" data-map-control="root">起點</button>';
+  const controls=document.createElement('div');controls.className='network-controls';controls.innerHTML='<button type="button" data-map-control="out" aria-label="縮小技能樹">−</button><output aria-label="技能樹縮放比例"></output><button type="button" data-map-control="in" aria-label="放大技能樹">＋</button><button type="button" data-map-control="ultimate" aria-label="定位終極技">終極</button><button type="button" data-map-control="fit">全覽</button><button type="button" data-map-control="root" aria-label="起點">回起點</button>';
+  if(panel.classList.contains('skill-configuration')&&matchMedia('(max-width:800px)').matches){
+    controls.querySelector('[data-map-control=ultimate]')?.remove();
+    const context=panel.querySelector<HTMLButtonElement>('.skill-map-toolbar .mobile-detail-trigger');
+    if(context){context.textContent='敵情';context.setAttribute('aria-label','敵情／構築');controls.append(context);}
+  }
   viewport.after(controls);
   const hint=document.createElement('span');hint.className='network-gesture-hint';hint.textContent='虛線：跨分支前置 · 拖曳／縮放';viewport.append(hint);
   const key=map.dataset.mapKey!,worldW=Number(map.dataset.worldWidth),worldH=Number(map.dataset.worldHeight),tree=map.dataset.activeTree!,selected=map.dataset.selected??'';
@@ -40,13 +46,25 @@ export function mountSkillMaps(holder:HTMLElement){
   };
   const focusPoint=(x:number,y:number)=>{const {width,height}=measure();camera.x=width/2-x*camera.scale;camera.y=height/2-y*camera.scale;render();};
   const fit=()=>{const {width,height}=measure();camera.scale=clamp(Math.min((width-24)/worldW,(height-20)/worldH),.1,1.2);camera.x=(width-worldW*camera.scale)/2;camera.y=(height-worldH*camera.scale)/2;render();};
-  const root=()=>{const {width,height}=measure();camera.scale=width<800?.85:Math.max(.6,Math.min((width-30)/worldW,(height-20)/worldH));camera.x=width/2-620*camera.scale;camera.y=height-42-(worldH-35)*camera.scale;render();};
+  const root=()=>{const {width,height}=measure(),live=panel.classList.contains('skill-configuration');camera.scale=live?(width<360?.75:.85):width<800?.85:Math.max(.6,Math.min((width-30)/worldW,(height-20)/worldH));camera.x=width/2-(live&&width<800?470:620)*camera.scale;camera.y=live&&height<200?height/2-835*camera.scale:height-42-(worldH-35)*camera.scale;render();};
   const zoom=(factor:number,clientX?:number,clientY?:number)=>{const rect=viewport!.getBoundingClientRect(),x=(clientX??rect.x+rect.width/2)-rect.x,y=(clientY??rect.y+rect.height/2)-rect.y,next=clamp(camera.scale*factor,.1,2);camera.x=x-(x-camera.x)*next/camera.scale;camera.y=y-(y-camera.y)*next/camera.scale;camera.scale=next;render();};
   const reveal=(node:HTMLElement)=>{
    const x=Number(node.dataset.x),y=Number(node.dataset.y),{width,height}=measure(),px=x*camera.scale+camera.x,py=y*camera.scale+camera.y;
-   if(px<55||px>width-55||py<55||py>height-70)focusPoint(x,y);
+   if(panel.classList.contains('skill-configuration')){
+    const margin=Math.min((node.offsetWidth/2+(node.classList.contains('ultimate')?48:8))*camera.scale,width/2,height/2);
+    if(px<margin||px>width-margin)camera.x=width/2-x*camera.scale;
+    if(py<margin||py>height-margin-20)camera.y=(height<160?height/2:py<margin?Math.max(55,margin):height-75)-y*camera.scale;
+    render();
+   }else if(px<55||px>width-55||py<55||py>height-70)focusPoint(x,y);
   };
-  if(!previous){if(measure().width<800)root();else fit();}
+  const focusBranch=(route:string)=>{
+   const nodes=skillNodes.filter(n=>n.dataset.tree===route);if(!nodes.length){fit();return;}
+   const xs=nodes.map(n=>Number(n.dataset.x)),ys=nodes.map(n=>Number(n.dataset.y)),size=measure();
+   camera.scale=clamp(Math.min(1,(size.width-24)/(Math.max(...xs)-Math.min(...xs)+150),(size.height-24)/(Math.max(...ys)-Math.min(...ys)+160)),.3,1);
+   focusPoint((Math.min(...xs)+Math.max(...xs))/2,(Math.min(...ys)+Math.max(...ys))/2);
+  };
+  const navigation=mountSkillNavigation(map,viewport,focusBranch);
+  if(!previous){if(panel.classList.contains('skill-configuration')||measure().width<800)root();else fit();}
   else {const {width,height}=measure();camera.x+=(width-camera.width)/2;camera.y+=(height-camera.height)/2;render();}
   if(selected&&previous?.selected!==selected){const node=[...map.querySelectorAll<HTMLElement>('.deep-node')].find(n=>n.dataset.id===selected);if(node)reveal(node);}
   else if(previous&&previous.tree!==tree&&!selected){const nodes=[...map.querySelectorAll<HTMLElement>('.deep-node')].filter(n=>n.dataset.tree===tree);focusPoint(nodes.reduce((sum,n)=>sum+Number(n.dataset.x),0)/nodes.length,nodes.reduce((sum,n)=>sum+Number(n.dataset.y),0)/nodes.length);}
@@ -75,7 +93,7 @@ export function mountSkillMaps(holder:HTMLElement){
   controls.addEventListener('click',e=>{const kind=(e.target as HTMLElement).closest<HTMLElement>('[data-map-control]')?.dataset.mapControl;if(kind==='ultimate'){const node=skillNodes.find(n=>n.classList.contains('ultimate'));if(node){const parents=edgePaths.filter(edge=>edge.dataset.child===node.dataset.id).map(edge=>skillNodes.find(n=>n.dataset.id===edge.dataset.parent)!).filter(Boolean);const related=[node,...parents],xs=related.map(n=>Number(n.dataset.x)),ys=related.map(n=>Number(n.dataset.y)),minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys),size=measure();camera.scale=clamp(Math.min(1,(size.width-20)/(maxX-minX+160),(size.height-24)/(maxY-minY+170)),.25,1);focusPoint((minX+maxX)/2,(minY+maxY)/2);node.focus({preventScroll:true});highlightPath(node.dataset.id!);}}else if(kind==='fit')fit();else if(kind==='root')root();else if(kind)zoom(kind==='in'?1.2:1/1.2);});
   viewport.addEventListener('pointerdown',down);viewport.addEventListener('pointermove',move);viewport.addEventListener('pointerup',up);viewport.addEventListener('pointercancel',up);viewport.addEventListener('click',click,true);viewport.addEventListener('wheel',wheel,{passive:false});viewport.addEventListener('keydown',keydown);viewport.addEventListener('focusin',focusin);
   const observer=new ResizeObserver(()=>{const {width,height}=measure();if(camera.width===width&&camera.height===height)return;camera.x+=(width-camera.width)/2;camera.y+=(height-camera.height)/2;render();});observer.observe(viewport);
-  disposers.push(()=>{remember();observer.disconnect();});
+  disposers.push(()=>{navigation.remember();remember();observer.disconnect();});
  }
  return ()=>disposers.forEach(dispose=>dispose());
 }

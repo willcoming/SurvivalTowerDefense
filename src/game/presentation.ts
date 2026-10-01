@@ -49,3 +49,13 @@ export function capEffects(effects: ActiveEffect[], detail: Detail): ActiveEffec
   return [...normal, ...primary, ...critical];
 }
 export function weaponForm(id: CharacterId, rank: number, branch: string | null) { return rank === 3 ? `${id}-${branch}` : `${id}-base`; }
+
+/** Place labels below the warning band, leaving space for their 20px rise. */
+export function damageLabelAnchor(x:number,y:number,occupied:readonly {x:number;y:number}[]) {
+  const initial={x:Math.max(42,Math.min(348,x)),y:Math.max(110,Math.min(410,y-24))};
+  for(let row=0;row<7;row++)for(const offset of [0,80,-80,160,-160]){
+    const candidate={x:Math.max(42,Math.min(348,initial.x+offset)),y:110+(initial.y-110+row*48)%336};
+    if(!occupied.some(p=>Math.abs(p.x-candidate.x)<76&&Math.abs(p.y-candidate.y)<46))return candidate;
+  }
+  return initial;
+}

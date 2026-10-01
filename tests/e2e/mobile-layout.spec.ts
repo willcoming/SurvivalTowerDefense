@@ -4,7 +4,7 @@ import { phoneSizes, ready, fitsScreen, reachable, finishWave, startBattle } fro
 for (const size of phoneSizes) test(`MOBILE: ${size.width}×${size.height} current entry points and paged screens fit`, async ({page},info) => {
   await page.setViewportSize(size); await ready(page);
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
-  await fitsScreen(page);await reachable(page.locator('[data-action=start]'));await reachable(page.locator('.offline-summary'));
+  await fitsScreen(page);await reachable(page.locator('[data-action=start]'));await expect(page.locator('.offline-summary')).toBeHidden();
   await page.getByRole('button',{name:'作戰功能與說明'}).click();
   for(const name of ['情報','波次','敵情']){
     await page.getByRole('tab',{name,exact:true}).click();await fitsScreen(page);
@@ -24,7 +24,7 @@ for (const size of phoneSizes) test(`MOBILE: ${size.width}×${size.height} curre
   for(const tab of ['一般','存檔管理','離線與版本']){await page.getByRole('button',{name:tab,exact:true}).click();await fitsScreen(page);await reachable(page.locator('.settings-screen > [data-action=home]'));}
   await page.locator('.game-hud [data-action=commander]').click();await fitsScreen(page);
   for(const button of await page.locator('.mobile-commander-tabs button').all()){
-    await button.click();await fitsScreen(page);for(const node of await page.locator('.commander-route:not([hidden]) .mobile-commander-node').all())await reachable(node);
+    await button.click();await fitsScreen(page);for(const node of await page.locator('.commander-route:not([hidden]) .mobile-commander-node').all()){await node.scrollIntoViewIfNeeded();expect(await node.evaluate(el=>{const r=el.getBoundingClientRect(),clip=el.closest('ol')!.getBoundingClientRect(),top=Math.max(r.top,clip.top),bottom=Math.min(r.bottom,clip.bottom);return bottom-top>=44&&el.contains(document.elementFromPoint(r.left+r.width/2,(top+bottom)/2));})).toBe(true);}
   }
   await page.locator('[data-action=home]:visible').first().click();await page.locator('.hundred-entry').click();await fitsScreen(page);
   for(const action of ['start-hundred','roster','home'])await reachable(page.locator(`.hundred-screen [data-action=${action}]`));
@@ -51,7 +51,7 @@ test('MOBILE: reset confirmation and storage recovery preserve progress',async({
   await reachable(cancel);await reachable(reset);await cancel.focus();await page.keyboard.press('Shift+Tab');await expect(reset).toBeFocused();await page.keyboard.press('Escape');await expect(trigger).toBeFocused();
   await page.locator('.game-dock [data-action=home]').click();
   await page.evaluate(async()=>{const tx=IDBDatabase.prototype.transaction;try{IDBDatabase.prototype.transaction=()=>{throw new DOMException('test','QuotaExceededError')};await window.__game.save();}finally{IDBDatabase.prototype.transaction=tx;}});
-  await reachable(page.locator('[data-action=start]'));await reachable(page.locator('.offline-summary'));await fitsScreen(page);
+  await reachable(page.locator('[data-action=start]'));await expect(page.locator('.offline-summary')).toBeHidden();await fitsScreen(page);
   await page.getByRole('button',{name:'存檔需要處理',exact:true}).click();await page.locator('dialog[open] [data-action=save-retry]').click();await expect(page.locator('.system-notice')).toHaveCount(0);
 });
 
@@ -73,23 +73,24 @@ test('MOBILE: battle allocation toolbars and defeat actions fit all sizes; rotat
   const id=await page.evaluate(()=>window.__game.state()!.draft!.focusId);
   await page.locator(`[data-action=deep-owner][data-id=${id}]`).click();const node=page.locator('.deep-node.available').first();await node.focus();await node.press('Enter');
   const pending=await page.evaluate(()=>({tick:window.__game.state()!.tick,nodes:window.__game.state()!.draft!.pendingNodeIds}));
-  for(const size of phoneSizes){await page.setViewportSize(size);for(const selector of ['[data-map-control=out]','[data-map-control=root]','[data-action=buy-node]'])await reachable(page.locator(selector));await page.screenshot({path:info.outputPath(`allocation-${size.width}x${size.height}.png`)});}
+  for(const size of phoneSizes){await page.setViewportSize(size);for(const selector of ['[data-action=buy-node]','[data-action=tree-detail-close]'])await reachable(page.locator(selector));await page.screenshot({path:info.outputPath(`allocation-${size.width}x${size.height}.png`)});}
   await page.setViewportSize({width:844,height:390});await expect(page.locator('.portrait-guard')).toBeVisible();await page.setViewportSize({width:320,height:500});await expect(page.locator('.portrait-guard')).not.toBeVisible();
   expect(await page.evaluate(()=>({tick:window.__game.state()!.tick,nodes:window.__game.state()!.draft!.pendingNodeIds}))).toEqual(pending);
   expect(await page.evaluate(()=>window.__game.state()!.pauseReasons)).toEqual(expect.arrayContaining(['user','upgrade']));
-  await page.locator('[data-action=buy-node]').click();await expect(page.locator('[data-action=resume]')).toBeVisible();await page.locator('[data-action=resume]').click();
+  await page.locator('[data-action=buy-node]').click();await page.locator('[data-action=bank-wave-points]').click();await expect(page.locator('[data-action=resume]')).toBeVisible();await page.locator('[data-action=resume]').click();
   await page.evaluate(()=>{window.__game.state()!.wallHp=0;window.__game.ticks(1);});await expect(page.locator('.result-screen')).toBeVisible();
   for(const size of phoneSizes){await page.setViewportSize(size);await fitsScreen(page);await reachable(page.locator('.result-actions [data-action=retry]'));await reachable(page.locator('.result-actions [data-action=home]'));}
   await page.getByRole('button',{name:'戰鬥報告與行動後記',exact:true}).click();await expect(page.locator('dialog[open] [data-action=adjust]')).toBeVisible();
 });
 
-test('MOBILE: safe areas protect home controls at short and tall heights',async({page})=>{
+test('MOBILE: safe areas protect home controls at short and tall heights',async({page},info)=>{
   await ready(page);
   await page.evaluate(()=>{document.querySelectorAll('style[data-vite-dev-id]').forEach(s=>{s.textContent=s.textContent!.replaceAll('env(safe-area-inset-top)','34px').replaceAll('env(safe-area-inset-bottom)','34px');});});
   for(const size of [phoneSizes[0],phoneSizes[4]]){
-    await page.setViewportSize(size);await fitsScreen(page);await reachable(page.locator('[data-action=start]'));await reachable(page.locator('.offline-summary'));
+    await page.setViewportSize(size);await fitsScreen(page);await reachable(page.locator('[data-action=start]'));await expect(page.locator('.offline-summary')).toBeHidden();
     await expect.poll(()=>page.locator('.game-hud').evaluate(e=>parseFloat(getComputedStyle(e).paddingTop))).toBeGreaterThanOrEqual(34);
     await expect.poll(()=>page.locator('.game-dock button').first().evaluate(e=>e.getBoundingClientRect().bottom)).toBeLessThanOrEqual(size.height-34);
+    await page.screenshot({path:info.outputPath(`home-safe-${size.width}x${size.height}.png`)});
   }
 });
 

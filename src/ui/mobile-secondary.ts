@@ -106,11 +106,12 @@ function compactResult(screen: HTMLElement, ui: MobileControls) {
   const information = block('mobile-secondary-links mobile-result-information');
   const actions = find(screen, '.result-actions');
   actions?.before(information);
+  const failure=find(screen,'.defeat-insight');if(failure&&actions)actions.before(failure);
   const runDetails = find(screen, '.run-details');
   if (runDetails instanceof HTMLDetailsElement) runDetails.open = true;
   detail(ui, 'result-report', '戰鬥報告與行動後記', [
     ...all(screen, '.result-rewards > .eyebrow, .result-rewards > p'),
-    find(screen, '.result-story'), find(screen, '.result-insight'),
+    find(screen, '.result-story'), find(screen, '.result-insight:not(.defeat-insight)'),
     find(screen, '.result-columns'), runDetails,
   ], information);
   if (matchMedia('(max-width:800px), (pointer:coarse) and (max-height:800px)').matches) {
@@ -118,12 +119,12 @@ function compactResult(screen: HTMLElement, ui: MobileControls) {
     const summary = block('mobile-result-summary');
     for (const section of all(screen, ':scope > .commander-result, :scope > .result-rewards, :scope > .hundred-record')) {
       const title = find(section, 'h2');
-      if (title && !section.hasAttribute('aria-label')) summary.append(title.cloneNode(true));
-      else if (title && section.classList.contains('commander-result')) summary.append(title.cloneNode(true));
-      else if (title && section.classList.contains('result-rewards')) summary.append(title.cloneNode(true));
+      if (title && !failure && !section.hasAttribute('aria-label')) summary.append(title.cloneNode(true));
+      else if (title && !failure && section.classList.contains('commander-result')) summary.append(title.cloneNode(true));
+      else if (title && !failure && section.classList.contains('result-rewards')) summary.append(title.cloneNode(true));
       report.append(section);
     }
-    information.before(summary);
+    if(summary.childNodes.length)information.before(summary);
     const extraActions = block('mobile-result-extra-actions');
     const next = find(actions!, '[data-action=next-stage]');
     if (next) {
@@ -133,6 +134,7 @@ function compactResult(screen: HTMLElement, ui: MobileControls) {
     }
     all(actions!, 'button:not(.primary):not([data-action=home])').forEach(button => extraActions.append(button));
     report.prepend(extraActions);
+    if(failure&&actions)actions.append(information);
     screen.classList.add('mobile-paged-screen');
   }
   screen.classList.add('mobile-result');

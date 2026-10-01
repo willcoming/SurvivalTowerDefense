@@ -64,10 +64,14 @@ function commander(main: HTMLElement, ui: MobileControls) {
       const upgrade = copy.querySelector<HTMLButtonElement>('button')!;
       const name = copy.querySelector('h4')!.textContent!;
       const key = `commander-node:${upgrade.dataset.id}`;
+      const effect=document.createElement('span');effect.className='commander-node-effect';effect.textContent=copy.querySelector('.commander-node-effect')!.textContent;
+      const requirement=document.createElement('span');requirement.className='commander-node-requirement';requirement.textContent=copy.querySelector('.commander-node-requirement')!.textContent;
       const trigger = ui.detail(key, name, [copy], node, [upgrade]);
+      trigger.closest('li')!.querySelector('dialog')!.classList.add('commander-node-dialog');
+      trigger.append(effect,requirement);
       trigger.classList.add('mobile-commander-node');
       const state = document.createElement('small');
-      state.textContent = node.classList.contains('owned') ? '已升級' : '查看效果與條件';
+      state.textContent = node.classList.contains('owned') ? '已升級 · 查看詳情' : upgrade.disabled ? upgrade.textContent!+' · 查看詳情' : '可配置 · 查看詳情';
       trigger.append(state);
     }
   });

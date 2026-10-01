@@ -2,7 +2,7 @@ import type Phaser from 'phaser';
 import { ELEMENTS, usesCollection } from '../data/forms';
 import type { Effect, RunState, VisualEvent } from '../sim/types';
 import type { Detail } from './presentation';
-import { priorityEnemy } from './presentation';
+import { damageLabelAnchor, priorityEnemy } from './presentation';
 import { enemySize } from './actors';
 
 type Status = Effect['kind'];
@@ -95,11 +95,11 @@ export class StatusEffects {
     for (const event of fresh) if (event.kind === 'hit' && event.skill === 'burn' && (event.value ?? 0) > 0) {
       const key = `${event.damageType??'thermal'}:`+(detail === 'compact' ? `${Math.floor(event.x / 65)}:${Math.floor(event.y / 50)}` : String(event.targetId));
       let label = this.labels.slice(0, limit).find(l => l.key === key && now - l.born < 700);
-      if (!label) { label = this.labels.slice(0, limit).find(l => now - l.born >= 700); if (!label) continue; label.key = key; label.value = 0; label.born = now; label.x = event.x; label.y = event.y - 24; }
+      if (!label) { label = this.labels.slice(0, limit).find(l => now - l.born >= 700); if (!label) continue; label.key = key; label.value = 0; label.born = now; const anchor=damageLabelAnchor(event.x,event.y,this.labels.slice(0,limit).filter(other=>other!==label&&now-other.born<700));label.x=anchor.x;label.y=anchor.y; }
       label.value += event.value!;label.prefix=event.damageType?ELEMENTS[event.damageType].dot:'燃';label.color=event.damageType?ELEMENTS[event.damageType].color:'#ffcf78';
     }
     // Upload each merged label at most once per frame, rather than once per damage event.
     this.labels.forEach((label, i) => { const t = (now - label.born) / 700, visible = i < limit && t >= 0 && t < 1; label.text.setScale(1,this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY).setVisible(visible); if (visible) label.text.setText(`${label.prefix} ${Number(label.value.toFixed(1))}`).setColor(label.color).setPosition(label.x, label.y - t * 20).setAlpha(t < .6 ? 1 : (1 - t) / .4); });
   }
-  diagnostics() { return { statuses: this.visible, burnNumbers: this.labels.filter(l => l.text.visible).map(l => ({ value: l.value, text: l.text.text, born: l.born })) }; }
+  diagnostics() { return { statuses: this.visible, burnNumbers: this.labels.filter(l => l.text.visible).map(l => ({ value: l.value, text: l.text.text, born: l.born,x:l.text.x,y:l.text.y })) }; }
 }

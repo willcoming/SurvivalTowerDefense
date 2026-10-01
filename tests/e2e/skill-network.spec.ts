@@ -1,5 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
-async function node(page:Page,id:string){const target=page.locator(`[data-action="deep-node"][data-id="${id}"]`);await target.focus();await target.click();}
+import {ready,startBattle,finishWave} from '../helpers/mobile-ui';
+async function node(page:Page,id:string){if(await page.locator('.skill-description-dialog[open]').count())await page.getByRole('button',{name:'關閉',exact:true}).click();const target=page.locator(`[data-action="deep-node"][data-id="${id}"]`);await page.keyboard.press('Tab');await target.focus();await target.click();}
 async function preview(page:Page){await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);await page.evaluate(()=>window.__game.route('codex'));await page.getByRole('button',{name:'技能樹與節點',exact:true}).click();}
 for(const viewport of [{width:320,height:500},{width:390,height:844}])test(`complete mobile tree pans, zooms and retains camera at ${viewport.width}`,async({page},info)=>{
  await page.setViewportSize(viewport);await preview(page);const map=page.locator('.network-viewport');
@@ -25,20 +26,25 @@ test('two-finger pinch scales the whole map without selecting a skill',async({pa
  await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
  expect(Number(await map.getAttribute('data-scale'))).toBeGreaterThan(scale*1.5);await expect(page.locator('.personnel-skill-detail')).toContainText('點選節點');await session.detach();
 });
-test('a pending merge keeps its other prerequisite and cross-route unlocks work in battle',async({page})=>{
- await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);await page.locator('[data-action="start"]').click();await page.locator('#battle-loading').waitFor({state:'detached'});await page.locator('[data-action="tutorial-done"]').first().click();
- await page.evaluate(()=>{const s=window.__game.state()!;s.xp=180;s.choicesEarned=6;window.__game.ticks(1);for(const nodeId of ['C01-A4/0','C01-A4/1'])window.__game.command({type:'buy-node',offerId:s.draft!.id,nodeId});});
- await page.locator('[data-action="deep-owner"][data-id="C01"]').click();await node(page,'C01-A4/5');await node(page,'C01-A4/2');await node(page,'C01-A4/5');
- expect(await page.evaluate(()=>window.__game.state()!.draft!.pendingNodeIds)).toEqual(['C01-A4/2']);
+test('cross-route skills unlock only after their prerequisites are individually confirmed',async({page})=>{
+ await ready(page);await startBattle(page);await finishWave(page);
+ await page.evaluate(async()=>{const path='/src/data/battle-experience.ts';const {battleXpAt}=await import(path);const s=window.__game.state()!;s.xp=battleXpAt(7);s.choicesEarned=6;s.draft!.pointTarget=6;window.__game.ticks(0);});
+ await page.locator('[data-action="deep-owner"][data-id="C01"]').click();
+ await node(page,'C01-A4/0');await node(page,'C01-A4/1');await expect(page.locator('[data-action=buy-node]')).toBeDisabled();
+ for(const id of ['C01-A4/0','C01-A4/1','C01-A4/2']){await node(page,id);await page.locator('[data-action=buy-node]').click();}
+ expect(await page.evaluate(()=>window.__game.state()!.draft!.pendingNodeIds)).toEqual([]);
  await node(page,'C01-B4/6');await expect(page.locator('[data-action="buy-node"]')).toBeEnabled();await page.locator('[data-action="buy-node"]').click();
  expect(await page.evaluate(()=>window.__game.state()!.treeNodes)).toEqual(['C01-A4/0','C01-A4/1','C01-A4/2','C01-B4/6']);
- await node(page,'C01-B4/3');await node(page,'C01-B4/7');await page.locator('[data-action="buy-node"]').click();
+ await expect(page.locator('.wave-allocation')).toBeVisible();await expect(page.locator('.points-left')).toContainText('可用 2 點');
+ for(const id of ['C01-B4/3','C01-B4/7']){await node(page,id);await page.locator('[data-action="buy-node"]').click();}
  await expect(page.locator('.tactical-tree')).toHaveCount(0);expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(6);
 });
-for(const viewport of [{width:1440,height:1000},{width:390,height:844}])test(`routes stay readable and emphasize a selected cross-branch prerequisite at ${viewport.width}`,async({page},info)=>{
+for(const viewport of [{width:1440,height:1000},{width:390,height:844}])test.describe(`route emphasis ${viewport.width}`,()=>{
+ test.use({isMobile:viewport.width<=800,hasTouch:viewport.width<=800});
+ test(`routes stay readable and emphasize a selected cross-branch prerequisite at ${viewport.width}`,async({page},info)=>{
  await page.setViewportSize(viewport);await preview(page);
  await page.getByRole('button',{name:'關閉技能樹',exact:true}).click();
- await page.locator('.character-tabs [data-id="C02"]').click();
+ if(viewport.width<=800)await page.getByRole('combobox',{name:'圖鑑角色',exact:true}).selectOption('C02');else await page.locator('.character-tabs [data-id="C02"]').click();
  await page.getByRole('button',{name:'技能樹與節點',exact:true}).click();
  await page.getByRole('button',{name:'全覽',exact:true}).click();
  const graph=page.locator('.skill-network');
@@ -49,8 +55,9 @@ for(const viewport of [{width:1440,height:1000},{width:390,height:844}])test(`ro
  await expect(graph).toHaveAttribute('data-path-focus','C02-A4/6');
  expect(await graph.locator('.network-edges .focus-direct').evaluateAll(es=>es.map(e=>(e as SVGElement).dataset.parent).sort())).toEqual(['C02-A4/1','C02-A4/5','C02-B4/1']);
  await expect(graph.locator('.cross-route.focus-direct')).toHaveCount(1);
- await expect(graph.locator('[data-parent="C02-C4/0"][data-child="C02-C4/1"]')).toHaveCSS('opacity','0.15');
+ await expect(graph.locator('[data-parent="C02-C4/0"][data-child="C02-C4/1"]')).toHaveCSS('opacity','0.45');
  await expect(page.locator('.personnel-skill-detail')).toContainText('或');
  await expect(graph.locator('.path-parent')).toHaveCount(3);
  await page.screenshot({path:info.outputPath(`readable-selected-${viewport.width}.png`)});
+});
 });

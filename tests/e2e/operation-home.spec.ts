@@ -1,5 +1,21 @@
 import { expect, test, type Page } from '@playwright/test';
 import type { StageId } from '../../src/sim/types';
+import { fitsScreen, reachable } from '../helpers/mobile-ui';
+
+for(const viewport of [{width:320,height:500},{width:390,height:844},{width:768,height:1024},{width:1024,height:768},{width:1440,height:900}]) {
+  test.describe(`home viewport ${viewport.width}`,()=>{
+    test.use({isMobile:viewport.width<=800,hasTouch:viewport.width<=800});
+    test('home keeps the model and every action reachable',async({page},info)=>{
+      await page.setViewportSize(viewport);await load(page);await fitsScreen(page);
+      for(const selector of ['.commander-profile','.hud-controls button','.mission-intel','.difficulty-options button:not(:disabled)',
+        '.durability-reward','.mission-start','.hundred-entry','.offline-summary:not([hidden])','.game-dock button']) {
+        for(const control of await page.locator(selector).all())await reachable(control);
+      }
+      await expect(page.locator('.mission-diorama')).toBeInViewport();
+      await page.screenshot({path:info.outputPath(`home-${viewport.width}.png`)});
+    });
+  });
+}
 
 async function load(page:Page) {
   await page.routeWebSocket('**/*',socket=>socket.close());
@@ -62,9 +78,9 @@ test('difficulty is selectable, persisted and carried into battle; reward rules 
   await expect(page.locator('.difficulty-options button')).toHaveCount(3);
   await expect(page.locator('[data-action="difficulty"][data-id="easy"]')).toHaveAttribute('aria-pressed','true');
   await expect(page.locator('.durability-reward strong')).toHaveText(['耐久 1%','耐久 50%','耐久 100%']);
-  await expect(page.locator('.durability-reward small,.durability-status,.difficulty-reward-note,.mission-squad-link')).toHaveCount(0);
+  await expect(page.locator('.durability-status,.difficulty-reward-note,.mission-squad-link')).toHaveCount(0);
   await page.locator('[data-action="difficulty"][data-id="hard"]').click();
-  await expect(page.locator('[data-action="preview-reward"][data-id="3"]')).toHaveAttribute('aria-label','耐久 100%，招募券 3 張');
+  await expect(page.locator('[data-action="preview-reward"][data-id="3"]')).toHaveAttribute('aria-label','耐久 100%，招募券 3 張，未達成，通關結算自動發放');
   await page.evaluate(()=>window.__game.save());await page.reload();await page.waitForFunction(()=>!!window.__game);
   await expect(page.locator('[data-action="difficulty"][data-id="hard"]')).toHaveAttribute('aria-pressed','true');
   await page.locator('[data-action="preview-reward"][data-id="3"]').click();

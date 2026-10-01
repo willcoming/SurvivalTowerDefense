@@ -14,6 +14,10 @@
 
 目前本地新局為 **0.6.0-dev.3 波末配點更新**。[線上遊玩](https://willcoming.github.io/SurvivalTowerDefense/) · [公開原始碼](https://github.com/willcoming/SurvivalTowerDefense)。玩法、執行狀態與驗證結果見 [文件總覽](docs/README.md)。
 
+## 專案上線技能
+
+在 Codex 說「上線」或使用 `$deploy-starfall`，依 [專案部署技能](.agents/skills/deploy-starfall/SKILL.md) 整理發布來源、執行測試、發布 GitHub Pages 並驗證公開版本。
+
 ## 本機啟動
 
 需求：Node.js 22.12 以上（實測 22.22.3）及 npm。從本專案資料夾執行：

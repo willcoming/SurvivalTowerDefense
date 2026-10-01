@@ -111,10 +111,10 @@ export class BattleScene extends Phaser.Scene {
       if (run.bossIntro?.enemyId === enemy.id) continue;
       const boss = enemy.defId.startsWith('B'), size = enemySize(enemy.defId);
       const w = boss ? 84 : 26; const hpY = enemy.y - size / 2 - 4;
-      if ((enemy.hp < enemy.maxHp || boss) && (run.enemies.length<24 || priorityEnemy(enemy))) { g.fillStyle(0x091e25, .9).fillRect(enemy.x - w / 2, hpY, w, boss ? 5 : 3); g.fillStyle(boss ? 0xff8666 : 0xf2dab8).fillRect(enemy.x - w / 2, hpY, w * Math.max(0, enemy.hp / enemy.maxHp), boss ? 5 : 3); }
+      if (!boss && enemy.hp < enemy.maxHp && (run.enemies.length<24 || priorityEnemy(enemy))) { g.fillStyle(0x091e25, .9).fillRect(enemy.x - w / 2, hpY, w, boss ? 5 : 3); g.fillStyle(boss ? 0xff8666 : 0xf2dab8).fillRect(enemy.x - w / 2, hpY, w * Math.max(0, enemy.hp / enemy.maxHp), boss ? 5 : 3); }
       if (enemy.shield > 0) { g.fillStyle(0x7eebff, .8).fillRoundedRect(enemy.x - 5, hpY - 5, 10, 3, 1.5); }
     }
-    const charging = run.enemies.find(e => e.defId.startsWith('B') && e.chargeKind && !e.chargeCancelled) ?? run.enemies.find(e => e.chargeKind && !e.chargeCancelled);
+    const charging = run.enemies.find(e => e.hp>0&&e.defId.startsWith('B') && e.chargeKind && !e.chargeCancelled&&e.chargeUntil>run.tick) ?? run.enemies.find(e => e.hp>0&&e.chargeKind && !e.chargeCancelled&&e.chargeUntil>run.tick);
     for (const e of run.enemies) {
       if (e.chargeKind && !e.chargeCancelled && !this.previousCharges.has(e.id)) this.audio.feedback('alert');
       if (e.shield <= 0 && (this.previousShields.get(e.id) ?? 0) > 0) this.audio.feedback('shield-break');

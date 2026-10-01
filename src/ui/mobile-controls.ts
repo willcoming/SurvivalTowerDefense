@@ -35,6 +35,15 @@ export class MobileControls {
     document.querySelectorAll<HTMLDialogElement>('dialog.mobile-detail[open]').forEach(dialog => dialog.close());
   }
 
+  skillDetail(dialog: HTMLDialogElement) {
+    this.openDetail = dialog.dataset.detail!;
+    dialog.addEventListener('cancel', event => {
+      event.preventDefault();
+      dialog.querySelector<HTMLButtonElement>('[data-action="tree-detail-close"]')?.click();
+    });
+    if (!this.suspended) dialog.showModal();
+  }
+
   detail(key: string, label: string, nodes: HTMLElement[], mount: HTMLElement, actions: HTMLElement[] = []): HTMLButtonElement {
     const trigger = document.createElement('button');
     trigger.type = 'button';

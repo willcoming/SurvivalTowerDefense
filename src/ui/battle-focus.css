@@ -53,3 +53,16 @@
 .battle-focused .time-hud > span { font-size:11px; }
 .battle-focused .xp-track { grid-row:3; }
 #boss-countdown:empty { display:none; }
+
+.boss-health { flex:none; padding:6px 10px; color:#ffdfc0; background:#241f24; border-bottom:1px solid #8d5b4f; }
+.boss-health[hidden] { display:none; }
+.boss-health > div { display:flex; justify-content:space-between; gap:8px; font-size:13px; }
+.boss-health progress { display:block; width:100%; height:7px; margin-top:5px; appearance:none; border:0; background:#473137; }
+.boss-health progress::-webkit-progress-bar { background:#473137; }
+.boss-health progress::-webkit-progress-value { background:#ff9476; }
+.boss-health progress::-moz-progress-bar { background:#ff9476; }
+#app .defeat-insight { padding:12px; margin:10px 0 0; border:1px solid #9d7462; background:#182b34; color:#e8e3d2; }
+#app .defeat-insight h2 { font-size:18px; margin:0 0 6px; color:#efd6a6; }
+#app .defeat-insight p { font-size:14px; line-height:1.6; margin:6px 0; }
+#app .defeat-insight small { display:block; font-size:12px; line-height:1.5; color:#c1ccca; }
+@media(max-width:800px) { #app .mobile-result .defeat-insight { flex:none; } #app .mobile-result:has(.defeat-insight) { overflow-y:auto; } #app .mobile-result:has(.defeat-insight) > .result-actions { margin-top:10px; } }

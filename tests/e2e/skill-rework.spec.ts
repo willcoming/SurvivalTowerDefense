@@ -1,26 +1,28 @@
 import {test,expect} from '@playwright/test';
+import {finishWave} from '../helpers/mobile-ui';
 test('summer preview replaces skills without changing the equipped collection',async({page},info)=>{
  await page.goto('/');await page.waitForFunction(()=>!!window.__game);await page.evaluate(()=>window.__game.route('codex'));
  const before=await page.evaluate(()=>structuredClone(window.__game.getSave().collection));
  await page.getByRole('button',{name:'技能樹與節點',exact:true}).click();
  await expect(page.locator('.personnel-skills-dialog .ultimate')).toHaveCount(1);
  await page.locator('[data-action="personnel-skill-form"][data-id="C01-summer"]').click();
- await page.locator('[data-action="personnel-skill-node"][data-id="C01-A4/2"]').focus();await page.locator('[data-action="personnel-skill-node"][data-id="C01-A4/2"]').click();
+ await page.keyboard.press('Tab');await page.locator('[data-action="personnel-skill-node"][data-id="C01-A4/2"]').focus();await page.locator('[data-action="personnel-skill-node"][data-id="C01-A4/2"]').click();
  await expect(page.locator('.personnel-skill-detail')).toContainText('餘熱彈道');
- await page.locator('[data-action="personnel-skill-node"][data-id="C01-A4/4"]').focus();await page.locator('[data-action="personnel-skill-node"][data-id="C01-A4/4"]').click();
+ await page.keyboard.press('Tab');await page.locator('[data-action="personnel-skill-node"][data-id="C01-A4/4"]').focus();await page.locator('[data-action="personnel-skill-node"][data-id="C01-A4/4"]').click();
  await expect(page.locator('.personnel-skill-detail')).toContainText('熔浪覆蓋');
  await page.screenshot({path:info.outputPath('summer-skill-tree.png')});
  expect(await page.evaluate(()=>window.__game.getSave().collection)).toEqual(before);
 });
-test('battle exposes individual automatic cooldowns and prunes dependent pending nodes',async({page},info)=>{
+test('battle exposes individual automatic cooldowns and requires confirmed prerequisites',async({page},info)=>{
  await page.goto('/');await page.waitForFunction(()=>!!window.__game);await page.locator('[data-action="start"]').click();await page.locator('#battle-loading').waitFor({state:'detached'});await page.locator('[data-action="tutorial-done"]').first().click();
  await expect(page.locator('[data-action="cast"],[data-action="auto-tactical"]')).toHaveCount(0);
  await expect(page.locator('.ultimate-strip')).toBeVisible();
  await page.evaluate(()=>{const s=window.__game.state()!;s.xp=60;s.choicesEarned=2;window.__game.ticks(1);});
+ await finishWave(page);
  await page.locator('[data-action="deep-owner"][data-id="C01"]').click();
- for(const id of ['C01-A4/0','C01-A4/1','C01-A4/0']){await page.locator(`[data-action="deep-node"][data-id="${id}"]`).focus();await page.locator(`[data-action="deep-node"][data-id="${id}"]`).click();}
+ for(const id of ['C01-A4/0','C01-A4/1']){await page.locator(`[data-action="deep-node"][data-id="${id}"]`).focus();await page.locator(`[data-action="deep-node"][data-id="${id}"]`).click();if(id==='C01-A4/1')await expect(page.locator('[data-action=buy-node]')).toBeDisabled();await page.getByRole('button',{name:'關閉',exact:true}).click();}
  expect(await page.evaluate(()=>window.__game.state()!.draft!.pendingNodeIds)).toEqual([]);
- await page.evaluate(()=>{const s=window.__game.state()!;s.xp=180;s.choicesEarned=6;for(const nodeId of ['C01-A4/0','C01-A4/1','C01-A4/2','C01-A4/3','C01-A4/4'])window.__game.command({type:'buy-node',offerId:s.draft!.id,nodeId});});
+ await page.evaluate(async()=>{const path='/src/data/battle-experience.ts';const {battleXpAt}=await import(path);const s=window.__game.state()!;s.xp=battleXpAt(7);s.choicesEarned=6;s.draft!.pointTarget=6;window.__game.command({type:'confirm-node',offerId:s.draft!.id,nodeIds:['C01-A4/0','C01-A4/1','C01-A4/2','C01-A4/3','C01-A4/4']});});
  await expect(page.locator('.tactical-tree')).toHaveCount(0);await expect(page.locator('#ultimate-C01')).toHaveText(/\d+s/);await expect(page.locator('#ultimate-C02')).toHaveText('未取得');
  await page.screenshot({path:info.outputPath('automatic-ultimates.png')});
 });
@@ -29,7 +31,9 @@ test('all character details show passive captain bonuses and the current skill n
  await page.locator('.game-dock [data-action="roster"]').click();
  await page.locator('[data-action="roster-edit"]').click();
  for(const id of ['C01','C02','C03','C04','C05','C06','C07','C08']){
-  await page.locator(`[data-action="roster-open"][data-id="${id}"]`).first().click();
+  const tile=page.locator(`.roster-tile[data-id="${id}"]`),picker=page.getByRole('combobox',{name:'隊員',exact:true});
+  for(const option of await picker.locator('option').all()){await picker.selectOption((await option.getAttribute('value'))!);if(await tile.isVisible())break;}
+  await tile.click();
   const details=page.getByRole('dialog');
   await expect(details).toContainText('隊長加成');
   await expect(details).toContainText('開場生效 · 不消耗技能點');
@@ -39,7 +43,7 @@ test('all character details show passive captain bonuses and the current skill n
  }
  await page.evaluate(()=>window.__game.route('codex'));
  for(const id of ['C01','C02','C03','C04','C05','C06','C07','C08']){
-  await page.locator(`.character-tabs [data-id="${id}"]`).click();
+  const picker=page.getByRole('combobox',{name:'圖鑑角色',exact:true});if(await picker.count())await picker.selectOption(id);else await page.locator(`.character-tabs [data-id="${id}"]`).click();
   await expect(page.locator('.skill-definitions')).toContainText('隊長加成');
   await expect(page.locator('.skill-definitions')).not.toContainText('隊長技能');
  }

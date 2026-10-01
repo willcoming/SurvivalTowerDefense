@@ -11,8 +11,8 @@ export class GameAudio {
   private enabled = true;
   private voices = new Set<{ oscillator: OscillatorNode; gain: GainNode; priority: number }>();
   private lastSound = new Map<string, number>();
-  musicVolume = .22;
-  sfxVolume = .45;
+  musicVolume = 0;
+  sfxVolume = 0;
   async unlock() {
     if (!this.context) {
       this.context = new AudioContext();

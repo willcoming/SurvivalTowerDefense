@@ -65,7 +65,8 @@ export function command(s:RunState,cmd:Command):boolean{
   }
   if(cmd.type==='buy-node'&&usesFreeSkills(s)&&s.draft?.id===cmd.offerId&&s.pauseReasons.includes('upgrade')&&!s.pauseReasons.some(r=>['error','hidden','orientation','tutorial'].includes(r))&&s.choicesSpent+deepNodeCost(cmd.nodeId,s)<=s.draft.pointTarget!&&getLegalNodeIds(s).includes(cmd.nodeId)){
     applyUpgrade(s,cmd.nodeId);s.stats.choices.push({tick:s.tick,nodeId:cmd.nodeId});s.choicesSpent+=deepNodeCost(cmd.nodeId,s);
-    if(s.choicesSpent===s.draft.pointTarget||!getLegalNodeIds(s).length||usesSkillNetwork(s)&&!canSpendDeepPoints(s,s.draft.pointTarget!-s.choicesSpent)){if(s.waveFlow)startNextWave(s);else{s.draft=null;s.pauseReasons=s.pauseReasons.filter(r=>r!=='upgrade'&&r!=='tree');openDraft(s);}}
+    s.draft.pendingNodeIds=[];
+    if(!s.waveFlow&&(s.choicesSpent===s.draft.pointTarget||!getLegalNodeIds(s).length||usesSkillNetwork(s)&&!canSpendDeepPoints(s,s.draft.pointTarget!-s.choicesSpent))){s.draft=null;s.pauseReasons=s.pauseReasons.filter(r=>r!=='upgrade'&&r!=='tree');openDraft(s);}
     if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!alive(s).length&&(s.choicesSpent>=s.choicesEarned||!getLegalNodeIds(s).length||usesSkillNetwork(s)&&!canSpendDeepPoints(s)))s.outcome='victory';accepted=true;
   }
   if(cmd.type==='confirm-node'&&usesFreeSkills(s)&&s.draft?.id===cmd.offerId&&s.pauseReasons.includes('upgrade')&&!s.pauseReasons.some(r=>['error','hidden','orientation','tutorial'].includes(r))){
@@ -73,7 +74,7 @@ export function command(s:RunState,cmd:Command):boolean{
     const ids=cmd.nodeIds;
     const pending=s.draft.pendingNodeIds??[];
     const remaining=target-s.choicesSpent;
-    if(remaining>0&&(ids.length>0||!!s.waveFlow)&&deepPointCost(ids,s)<=remaining&&new Set(ids).size===ids.length&&(!pending.length||s.waveFlow&&ids.length===0||pending.length===ids.length&&pending.every((id,i)=>id===ids[i]))){
+    if((remaining>0||!!s.waveFlow&&remaining===0&&ids.length===0)&&(ids.length>0||!!s.waveFlow)&&deepPointCost(ids,s)<=remaining&&new Set(ids).size===ids.length&&(!pending.length||s.waveFlow&&ids.length===0||pending.length===ids.length&&pending.every((id,i)=>id===ids[i]))){
       const shadow={...s,treeNodes:[...(s.treeNodes??[])]};
       const legal=ids.every(id=>getLegalNodeIds(shadow).includes(id)&&((shadow.treeNodes??[]).push(id),DEEP_NODE_MAP[id].kind==='ultimate'&&shadow.evolvedCount++,true));
       if(legal&&(!!s.waveFlow||deepPointCost(ids,s)===remaining||s.commanderSkillVersion===1&&!getLegalNodeIds(shadow).length||usesSkillNetwork(s)&&!canSpendDeepPoints(shadow,remaining-deepPointCost(ids,s)))){
