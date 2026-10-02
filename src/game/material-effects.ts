@@ -35,6 +35,10 @@ export class MaterialEffects {
     this.counts[key] = (this.counts[key] ?? 0) + 1;
   }
   private impact(type: DamageType, phase: number, x: number, y: number, size: number, alpha = 1) {
+    if(type==='gravity'){
+      this.draw('combat-props',6,x,y,size*.9,alpha,phase*35,size*.9,LAYERS.effects+.5,0x76e9d2);
+      this.draw('combat-fx',12,x,y,size*.55,alpha*.7);return;
+    }
     this.draw(type === 'kinetic' ? 'combat-props' : 'combat-fx', type === 'kinetic' ? 12 + phase : rows[type] * 4 + phase, x, y, size, alpha);
   }
 
@@ -54,8 +58,8 @@ export class MaterialEffects {
         for (let i = 0; i < count; i++) this.draw('combat-props', 0, droneX(p.x, count, i), p.y + Math.sin(now / 380 + i) * 3, 27, 1, 0, 27, LAYERS.allies + 1);
       }
       if(weapon.id==='C08'&&(weapon.ultimateBuffUntil??0)>run.tick){
-        const row=attackType(run,weapon.id)==='arc'?8:4,pulse=.5+.5*Math.sin(now/130);
-        this.draw('combat-fx',row,p.x,p.y-12,27+pulse*5,.28+pulse*.12,now/35,30,LAYERS.allies-.5);
+        const pulse=.5+.5*Math.sin(now/130);
+        this.draw('combat-props',7,p.x,p.y-15,16,.28+pulse*.12,-90,34,LAYERS.allies-.5,attackType(run,weapon.id)==='arc'?undefined:0xffbd70);
       }
       if (weapon.id === 'C08' && weapon.cooling && detail === 'full') this.draw('combat-props', 5, p.x, p.y - 15 - now % 550 / 35, 29, .4, 0);
     }
@@ -126,5 +130,5 @@ export class MaterialEffects {
     for (let i = this.used; i < this.sprites.length; i++) this.sprites[i].setVisible(false);
     this.peak = Math.max(this.peak, this.used);
   }
-  diagnostics() { return { materialEffects: { active: this.used, allocated: this.sprites.length, peak: this.peak, textures: this.counts, limit: this.limit, drones: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===0).map(s=>({x:s.x,y:s.y,width:s.displayWidth})), shieldCores: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===8).map(s=>({x:s.x,y:s.y,width:s.displayWidth,height:s.displayHeight})), ammunition: this.sprites.slice(0, this.used).filter(s => s.texture.key === 'combat-ammo').map(s => ({ frame: Number(s.frame.name), x: s.x, y: s.y, width: s.displayWidth })) } }; }
+  diagnostics() { return { materialEffects: { active: this.used, vortexSprites:this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-fx'&&Number(s.frame.name)>=13).length, allocated: this.sprites.length, peak: this.peak, textures: this.counts, limit: this.limit, drones: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===0).map(s=>({x:s.x,y:s.y,width:s.displayWidth})), shieldCores: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===8).map(s=>({x:s.x,y:s.y,width:s.displayWidth,height:s.displayHeight})), ammunition: this.sprites.slice(0, this.used).filter(s => s.texture.key === 'combat-ammo').map(s => ({ frame: Number(s.frame.name), x: s.x, y: s.y, width: s.displayWidth })) } }; }
 }

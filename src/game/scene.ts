@@ -8,7 +8,7 @@ import { MaterialEffects, MATERIAL_ATLAS, PROP_ATLAS, EFFECT_FRAME_SIZE } from '
 import { ProjectileVisuals, AMMO_ATLAS, AMMO_FRAME_SIZE } from './projectile-visuals';
 import { TacticalTimeline } from './tactical-timeline';
 import { enemyFrameSize, enemyTexture } from './enemy-motion';
-import { drawInterrupt, drawField } from './effects';
+import { drawInterrupt } from './effects';
 import { capEffects, effectDetail, effectLifetime, LAYERS, priorityEnemy, type ActiveEffect, type Detail } from './presentation';
 import { BossAssault } from './boss-assault';
 import { StatusEffects } from './status-effects';
@@ -109,7 +109,6 @@ export class BattleScene extends Phaser.Scene {
   }
   private drawWorld(run: RunState) {
     const g = this.worldGraphics; g.clear();
-    run.fields.forEach(f => drawField(g, f, run.tick, this.detail, run));
     for (const enemy of run.enemies) {
       if (run.bossIntro?.enemyId === enemy.id) continue;
       const boss = enemy.defId.startsWith('B'), size = enemySize(enemy.defId);
@@ -131,7 +130,7 @@ export class BattleScene extends Phaser.Scene {
     if (shield > 0) { g.fillStyle(0x69eedc, .08).fillRect(0, 432, 390, 18); }
     this.drawWarnings(run);
     // Rasterize unchanged geometry once. The same 390×520 detail is retained;
-    // WebGL no longer re-tessellates hundreds of identical circles every frame.
+    // World overlays do not need to be tessellated again every frame.
     this.worldTexture.clear().draw(this.worldGraphics);
   }
   private drawWarnings(run: RunState) {
@@ -194,7 +193,7 @@ export class BattleScene extends Phaser.Scene {
       range: selected ? { id: selected, radius: weaponRange(run, selected), insideIds: run.enemies.filter(e => inWeaponRange(run, selected, e)).map(e => e.id) } : null, detail: this.detail, activeEffects: this.flashes.length, peakEffects: this.peakEffects,
       warnings: { visible: this.warning.visible, text: this.warning.text, top: bounds.top, bottom: bounds.bottom, depth: this.warning.depth, geometryDepth: this.warnings.depth },
       textureFrames: Object.fromEntries(this.read().config.squadIds.map(id => [id, this.textures.get(`motion-${id}`).frameTotal - 1])),
-      effectsDepth: this.graphics.depth, alliesDepth: LAYERS.allies,
+      warningCommands: this.warnings.commandBuffer.length, effectsDepth: this.graphics.depth, alliesDepth: LAYERS.allies,
       visibleEffects: this.flashes.map(f => ({ seq: f.event.seq, kind: f.event.kind, source: f.event.source, age: this.actors.clock - f.born, duration: f.duration })),
       enemyTextureFrames: Object.fromEntries([...this.spriteKeys].map(([id, key]) => [id, this.textures.get(key).frameTotal - 1])),
     };

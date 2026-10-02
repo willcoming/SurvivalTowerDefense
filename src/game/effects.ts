@@ -1,8 +1,7 @@
-import { attackType, ELEMENTS, usesCollection } from '../data/forms';
 import type Phaser from 'phaser';
 import { CHARACTER_MAP } from '../data/content';
-import type { CharacterId, Field, RunState } from '../sim/types';
-import type { ActiveEffect, Detail } from './presentation';
+import type { CharacterId } from '../sim/types';
+import type { ActiveEffect } from './presentation';
 
 type Graphics = Phaser.GameObjects.Graphics;
 type Point = { x: number; y: number };
@@ -49,18 +48,11 @@ export function bolt(g: Graphics, from: Point, to: Point, color: number, alpha: 
   line(g, points, color, 11, alpha * .16); line(g, points, color, 4.5, alpha); line(g, points, 0xf8f0ff, 1.6, alpha);
 }
 
-export function drawField(g: Graphics, field: Field, tick: number, detail: Detail, run?:RunState) {
-  const { x, y, radius: r } = field;
-  const c=run&&usesCollection(run)?parseInt(ELEMENTS[attackType(run,field.source)].color.slice(1),16):field.kind==='gravity'?0x65f4da:0xff8a3a;
-  // A quiet footprint communicates area; the material atlas supplies the effect itself.
-  g.fillStyle(c, detail==='compact'?.025:.045).fillCircle(x,y,r);
-  if(detail==='full')for(let i=0;i<3;i++){
-    const a=tick/50+field.id+i*TAU/3;
-    g.fillStyle(c,.3).fillCircle(x+Math.cos(a)*r*.6,y+Math.sin(a)*r*.6,1.5);
-  }
-}
-
 export function drawInterrupt(g: Graphics, fx: ActiveEffect, now: number) {
   const t = Math.max(0, Math.min(1, (now - fx.born) / fx.duration));
-  reticle(g, fx.event.x, fx.event.y, 12 + t * 20, 0xc4ffcf, 1 - t);
+  const {x,y}=fx.event;
+  for(let i=0;i<4;i++){
+    const a=i*Math.PI/2+.35,reach=8+t*16,px=x+Math.cos(a)*reach,py=y+Math.sin(a)*reach;
+    g.fillStyle(0xc4ffcf,1-t).fillTriangle(px-3,py+3,px+3,py+3,px,py-5);
+  }
 }
