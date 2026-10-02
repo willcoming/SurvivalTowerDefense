@@ -98,7 +98,7 @@ export function command(s:RunState,cmd:Command):boolean{
 }
 function stepProjectiles(s:RunState){
   for(const p of s.projectiles){
-    if(p.impactAt){if(s.tick<p.impactAt)continue;const targets=area(s,p.tx,p.ty,p.blastRadius);for(const e of targets)if(p.packet)hitEnemy(s,e,p.packet);emit(s,{affectedIds:targets.map(e=>e.id),kind:'explosion',x:p.tx,y:p.ty,radius:p.blastRadius,source:p.packet?.source});
+    if(p.impactAt){if(s.tick<p.impactAt)continue;const targets=area(s,p.tx,p.ty,p.blastRadius);for(const e of targets)if(p.packet)hitEnemy(s,e,p.packet);emit(s,{affectedIds:targets.map(e=>e.id),kind:'explosion',x:p.tx,y:p.ty,radius:p.blastRadius,source:p.packet?.source,...(s.contentVersion===CONTENT_VERSION?{skill:p.packet?.skill}:{})});
       if(p.echo&&p.packet)for(let i=0;i<p.echo.count;i++)s.scheduled.push({at:s.tick+ticks(.2*(i+1)),x:p.tx+(i%2?18:-18),y:p.ty-i*12,radius:p.echo.radius,packet:{...p.packet,raw:p.echo.damage,skill:'cluster-burst',secondary:true,burn:undefined},enemyDamage:0,enemySource:null});
       if(p.fire&&p.packet){const own=s.fields.filter(f=>f.source===p.packet!.source&&f.kind==='fire').sort((a,b)=>a.id-b.id);if(own.length>=2)s.fields=s.fields.filter(f=>f.id!==own[0].id);s.fields.push({id:s.nextEntityId++,source:p.packet.source,kind:'fire',x:p.tx,y:p.ty,radius:p.fire.radius,expires:s.tick+p.fire.duration,nextTick:s.tick,dps:p.fire.dps,damageType:'thermal',slow:0,slowDuration:0,pull:0,burnDuration:p.fire.burnDuration,armorIgnore:p.fire.armorIgnore});}p.remaining=0;continue;
     }
@@ -136,7 +136,7 @@ export function stepRun(s:RunState,count=1):void{
     s.shields=s.shields.filter(x=>x.value>0&&x.expires>s.tick);
     stepEffects(s);stepUltimates(s);stepWeapons(s);stepProjectiles(s);stepFields(s);
     for(const h of s.scheduled.filter(h=>h.at<=s.tick)){
-      if(h.packet){const targets=area(s,h.x,h.y,h.radius);for(const e of targets)hitEnemy(s,e,h.packet);if(usesFreeSkills(s)&&(h.packet.skill==='cluster-burst'||h.packet.skill==='ultimate'))emit(s,{kind:'explosion',x:h.x,y:h.y,radius:h.radius,affectedIds:targets.map(t=>t.id),source:h.packet.source,skill:h.packet.skill});}
+      if(h.packet){const targets=area(s,h.x,h.y,h.radius);for(const e of targets)hitEnemy(s,e,h.packet);if(s.contentVersion===CONTENT_VERSION&&h.radius>0||usesFreeSkills(s)&&(h.packet.skill==='cluster-burst'||h.packet.skill==='ultimate'))emit(s,{kind:'explosion',x:h.x,y:h.y,radius:h.radius,affectedIds:targets.map(t=>t.id),source:h.packet.source,skill:h.packet.skill});}
       else if(h.enemySource)hitWall(s,h.enemyDamage,h.enemySource);
     }s.scheduled=s.scheduled.filter(h=>h.at>s.tick);
     if(usesFreeSkills(s))stepSupport(s);

@@ -1,4 +1,4 @@
-import { ticks } from '../data/content';
+import { CONTENT_VERSION, ticks } from '../data/content';
 import { attackType, equippedForm, isSummer } from '../data/forms';
 import { ultimateForForm, usesReworkedSkills } from '../data/reworked-skills';
 import { deepHas, deepMods, teamMod } from './deep-tree';
@@ -43,7 +43,7 @@ export function stepUltimates(s:RunState){
    const packet:DamagePacket={...p,...(w.id==='C02'?summer?{exposure:{value:.15,duration:ticks(u.duration)}}:{stun:ticks(u.duration)}:{}),...(w.id==='C05'&&!summer?{burn:{dps:26*bonus*(1+(m.burn??0)),duration:ticks(u.duration),armorIgnore:.5,key:'ultimate'}}:{})};
    for(let i=0;i<u.pulses;i++){
     const x=w.id==='C05'&&summer?Math.max(20,Math.min(370,target.x+[0,-55,55][i])):target.x;
-    if(i===0)for(const t of area(s,x,target.y,u.radius))hitEnemy(s,t,packet);
+    if(i===0){const hitTargets=area(s,x,target.y,u.radius);for(const t of hitTargets)hitEnemy(s,t,packet);if(s.contentVersion===CONTENT_VERSION)emit(s,{kind:'explosion',source:w.id,x,y:target.y,radius:u.radius,skill:'ultimate',affectedIds:hitTargets.map(t=>t.id)});}
     else s.scheduled.push({at:s.tick+ticks(i*.3),x,y:target.y,radius:u.radius,packet,enemyDamage:0,enemySource:null});
    }
    if(w.id==='C01'&&summer)s.fields.push({id:s.nextEntityId++,source:w.id,kind:'fire',ultimate:true,x:target.x,y:target.y,radius:u.radius,expires:s.tick+ticks(u.duration),nextTick:s.tick+15,dps:36*bonus*(1+(m.burn??0)),damageType:p.damageType,slow:0,slowDuration:0,pull:0,burnDuration:20,armorIgnore:0});

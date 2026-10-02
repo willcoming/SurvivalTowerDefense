@@ -95,6 +95,8 @@ export interface VisualEvent {
   seq: number; tick: number; kind: 'shot' | 'beam' | 'arc' | 'explosion' | 'hit' | 'death' | 'shield' | 'evolution' | 'tactical' | 'wall-hit' | 'spawn' | 'interrupt';
   x: number; y: number; x2?: number; y2?: number; radius?: number; value?: number; source?: CharacterId; color?: string;
   affectedIds?: number[];
+  /** Actual attack footprint; absent for single-target/buff cues. */
+  areaShape?: 'circle' | 'line' | 'world' | 'wall-band';
   weaponTree?: string; targetId?: number; enemyDefId?: EnemyId; skill?: string; weaponRank?: number; weaponBranch?: Branch | null;
   damageType?: DamageType; weakness?: boolean;
 }

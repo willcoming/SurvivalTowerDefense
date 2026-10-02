@@ -19,6 +19,7 @@ import type { BattleSpeed } from '../storage/repository';
 import { stageArt } from '../data/campaign';
 import { equippedForm, formMotion } from '../data/forms';
 import { ALLY_MOTION } from '../data/character-motion';
+import { AreaEffects } from './area-effects';
 import { WeaknessMarkers } from './weakness-markers';
 
 interface SceneLoading { ready: () => void; failed: (paths: string[]) => void; progress: (ratio: number) => void }
@@ -33,6 +34,7 @@ export class BattleScene extends Phaser.Scene {
   private worldKey = '';
   private actors!: CombatActors;
   private materials!: MaterialEffects;
+  private areas!: AreaEffects;
   private statuses!: StatusEffects;
   private weaknesses!: WeaknessMarkers;
   private bossAssault!: BossAssault;
@@ -87,6 +89,7 @@ export class BattleScene extends Phaser.Scene {
     this.warnings = this.add.graphics().setDepth(LAYERS.warnings);
     this.actors = new CombatActors(this, this.read, this.speed, this.spriteKeys, this.timeline);
     this.materials = new MaterialEffects(this);
+    this.areas = new AreaEffects(this);
     this.projectiles = new ProjectileVisuals(this);
     this.statuses = new StatusEffects(this);
     this.weaknesses = new WeaknessMarkers(this);
@@ -155,6 +158,7 @@ export class BattleScene extends Phaser.Scene {
     const key = `${run.tick}:${run.actionSeq}:${run.eventSeq}:${run.phase}:${run.enemies.length}:${run.projectiles.length}:${run.fields.length}:${run.shields.length}:${this.detail}`;
     if (run !== this.worldRun || key !== this.worldKey) { this.worldRun = run; this.worldKey = key; this.drawWorld(run); }
     const now = this.actors.clock;
+    this.areas.update(run, fresh, now, this.detail);
     this.statuses.update(run, now, fresh, this.detail);
     this.weaknesses.update(run);
     this.bossAssault.update(run,now,fresh,this.low());
@@ -185,7 +189,7 @@ export class BattleScene extends Phaser.Scene {
   }
   diagnostics() {
     const bounds = this.warning.getBounds(), selected = this.selectedRange(), run = this.read();
-    return { ...this.actors.diagnostics(), ...this.materials.diagnostics(), ...this.projectiles.diagnostics(), ...this.statuses.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(),
+    return { ...this.areas.diagnostics(), ...this.actors.diagnostics(), ...this.materials.diagnostics(), ...this.projectiles.diagnostics(), ...this.statuses.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(),
       bossIntro: run.bossIntro ? { ...run.bossIntro, type: run.enemies.find(e => e.id === run.bossIntro?.enemyId)?.defId, visible: true, depth: 30 } : null,
       range: selected ? { id: selected, radius: weaponRange(run, selected), insideIds: run.enemies.filter(e => inWeaponRange(run, selected, e)).map(e => e.id) } : null, detail: this.detail, activeEffects: this.flashes.length, peakEffects: this.peakEffects,
       warnings: { visible: this.warning.visible, text: this.warning.text, top: bounds.top, bottom: bounds.bottom, depth: this.warning.depth, geometryDepth: this.warnings.depth },

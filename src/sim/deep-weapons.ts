@@ -1,7 +1,7 @@
 import { usesTacticalSkills } from '../data/tactical-skills';
 import { usesReworkedSkills } from '../data/reworked-skills';
 import { captainHaste } from './captain-bonuses';
-import { CHARACTER_MAP, ticks, WORLD } from '../data/content';
+import { CHARACTER_MAP, CONTENT_VERSION, ticks, WORLD } from '../data/content';
 import { deepMods, teamMod } from './deep-tree';
 import { equippedForm, isSummer, usesCollection, attackType } from '../data/forms';
 import { coolWeapon, deployMine, heatShot, stepMines } from './special-weapons';
@@ -60,7 +60,7 @@ function attack(s:RunState,w:WeaponState){
   }
   if(w.id==='C03'){
     target=all.sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];const targets=lineTargets(s,target,2+(m.pierce??0),w.id),end=targets.at(-1)??target;
-    emit(s,{kind:'beam',x:195,y:490,x2:end.x,y2:end.y,source:w.id});
+    emit(s,{kind:'beam',x:195,y:490,x2:end.x,y2:end.y,source:w.id,...(s.contentVersion===CONTENT_VERSION?{areaShape:'line' as const,radius:7,affectedIds:targets.map(t=>t.id)}:{})});
     for(const [i,t] of targets.entries())hitEnemy(s,t,{...p,raw:p.raw*Math.min(1,Math.max(.5,1-.15*i)+(i?m.linePower??0:0))*(t.id===target.id?1+(m.mainDamage??0):1)*(['E07','E08','B01','B02','B03'].includes(t.defId)?1+(m.eliteDamage??0):1)});
     if(m.lineShock)blast(s,end.x,end.y,40,{...p,skill:'overpenetration',raw:p.raw*m.lineShock,secondary:true});
   }
