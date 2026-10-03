@@ -62,6 +62,8 @@ export function rebuildDraft(s:RunState, randomize=false):void{
 export function openDraft(s:RunState):void{
   if(s.waveFlow&&s.waveFlow.phase!=='allocation')return;
   if(s.draft||s.outcome||!s.waveFlow&&s.choicesSpent>=s.choicesEarned)return;
+  // A cleared wave needs a break only when at least one legal skill is affordable.
+  if(s.waveFlow&&usesFreeSkills(s)&&!canSpendDeepPoints(s,s.choicesEarned-s.choicesSpent))return;
   if(!s.waveFlow&&usesFreeSkills(s)&&!getLegalNodeIds(s).length)return;
   if(usesFreeSkills(s)){
     if(s.bossIntro)return;

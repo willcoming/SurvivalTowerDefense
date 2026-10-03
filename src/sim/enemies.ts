@@ -18,7 +18,7 @@ export function spawnBossEscort(s: RunState, leader: Enemy) {
     const authored = i < specialists ? escortTypes[i%escortTypes.length] : 'E01';
     const type = s.balanceVersion !== undefined ? STAGE_MAP[s.config.stageId].enemyIds.includes(authored) ? authored : 'E01' : leader.defId === 'B01' || i % 4 !== 3 ? 'E01' : specialist;
     createEnemy(s, type,
-      24 + column * 48 + (row % 2) * 6, 20 + row * 20, Math.floor(xp/count)+(i<xp%count?1:0), profile.waves.length+1);
+      24 + column * 48 + (row % 2) * 6, 20 + row * 20, Math.floor(xp/count)+(i<xp%count?1:0), profile.waves.length+1,true);
   }
 }
 function acted(s:RunState,e:Enemy,kind:NonNullable<Enemy['lastAction']>['kind']){e.lastAction={tick:s.tick,kind};}
@@ -29,7 +29,7 @@ function wallShot(s:RunState,e:Enemy,damage:number){
 function summon(s:RunState,e:Enemy){
   acted(s,e,'summon');
   const def=e.defId==='B01'?'E01':e.summonCount%2===0?'E02':'E03';const count=e.defId==='B01'?6:def==='E02'?4:2;
-  for(let i=0;i<count;i++)createEnemy(s,def,Math.max(20,Math.min(370,e.x+(i-(count-1)/2)*35)),Math.min(320,e.y+50),0,s.config.mode==='hundred'||(s.balanceVersion===4||s.balanceVersion===5)?e.wave:9);
+  for(let i=0;i<count;i++)createEnemy(s,def,Math.max(20,Math.min(370,e.x+(i-(count-1)/2)*35)),Math.min(320,e.y+50),0,s.config.mode==='hundred'||(s.balanceVersion===4||s.balanceVersion===5)?e.wave:9,true);
   e.summonCount++;e.summonAt+=ticks(e.defId==='B01'?18:24);
 }
 export function stepEnemies(s:RunState){

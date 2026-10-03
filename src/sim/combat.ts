@@ -143,8 +143,20 @@ export function stepEffects(s:RunState){
     for(const source of new Set(e.effects.filter(f=>f.kind==='slow'||f.kind==='stun').map(f=>f.source)))if(source!=='boss')s.stats.controlTicks[source]++;
   }
 }
-export function createEnemy(s:RunState,defId:EnemyId,x:number,y:number,xp=0,wave=0):Enemy{
-  const d=ENEMY_MAP[defId];const isBoss=defId.startsWith('B');const multiplier=isBoss?1:STAGE_MAP[s.config.stageId].hpMultiplier;
+export function createEnemy(s:RunState,defId:EnemyId,x:number,y:number,xp=0,wave=0,spread=false):Enemy{
+  const d=ENEMY_MAP[defId];const isBoss=defId.startsWith('B');
+  if(spread&&s.waveFlow&&!isBoss){
+    // Resolve crowded entrances deterministically without consuming RNG or changing the spawn plan.
+    // Fill the nearest free position on the entrance row, then queue behind it, never closer to the wall.
+    const occupied=alive(s),left=d.radius+4,right=WORLD.width-d.radius-4;
+    const origin=Math.max(left,Math.min(right,x)),xs=[origin];
+    for(let offset=4;offset<WORLD.width;offset+=4){if(origin-offset>=left)xs.push(origin-offset);if(origin+offset<=right)xs.push(origin+offset);}
+    placement:for(let row=0;row<=occupied.length;row++){
+      const cy=y-row*(3*d.radius+4);
+      for(const cx of xs)if(occupied.every(other=>distance(other,{x:cx,y:cy})>=(other.radius+d.radius)*1.5+4)){x=cx;y=cy;break placement;}
+    }
+  }
+  const multiplier=isBoss?1:STAGE_MAP[s.config.stageId].hpMultiplier;
   const e:Enemy={id:s.nextEntityId++,defId,x,y,hp:d.hp*multiplier,maxHp:d.hp*multiplier,shield:d.shield*multiplier,armor:d.armor,speed:d.speed,radius:d.radius,xp,wave,spawnedAt:s.tick,effects:[],attackAt:0,abilityAt:s.tick+ticks(defId==='B03'?5:isBoss?d.interval:8),summonAt:s.tick+ticks(defId==='B01'?18:defId==='B02'?20:24),chargeUntil:0,chargeKind:null,chargeCancelled:false,phaseTriggered:false,rushUntil:0,stunImmuneUntil:0,moveImmuneUntil:0,exposureUntil:0,summonCount:0,arcCharges:0};
   if(usesFreeSkills(s)){const values=waveStats(s,defId,wave);e.hp=e.maxHp=values.hp;e.shield=values.shield;e.armor=values.armor;e.speed=values.speed;}
   if(isBoss && usesPressureRules(s))e.abilityAt=s.tick+ticks(5);

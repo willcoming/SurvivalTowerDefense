@@ -50,7 +50,7 @@ export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, comp
   if(s.balanceVersion===5){if(s.operationVersion!==3||!usesTacticalSkills(s))throw new Error('波末配點設定不相容');s.waveFlow={version:1,wave:1,startedAt:0,phase:'combat'};}
   if(compatibility.experienceVersion!==undefined&&compatibility.experienceVersion!==null&&(![1,2,3].includes(compatibility.experienceVersion)||!s.waveFlow))throw new Error('戰鬥經驗版本不相容');
   if(s.waveFlow&&compatibility.experienceVersion!==null)s.experienceVersion=compatibility.experienceVersion??(contentVersion===CONTENT_VERSION?3:2);
-  s.spawnPlan=makeSpawnPlan(s);prepareOperation(s);while(s.spawnCursor<s.spawnPlan.length&&spawnDue(s,s.spawnPlan[s.spawnCursor])){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,p.y??20,p.xp,p.wave);}return s;
+  s.spawnPlan=makeSpawnPlan(s);prepareOperation(s);while(s.spawnCursor<s.spawnPlan.length&&spawnDue(s,s.spawnPlan[s.spawnCursor])){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,p.y??20,p.xp,p.wave,true);}return s;
 }
 export function getPhase(s:RunState):RunState['phase']{return s.outcome?'ended':s.pauseReasons.includes('upgrade')?'choosing':s.pauseReasons.length?'paused':'running';}
 export function command(s:RunState,cmd:Command):boolean{
@@ -131,7 +131,7 @@ export function stepRun(s:RunState,count=1):void{
   for(let i=0;i<count;i++){
     if(getPhase(s)!=='running')break;
     s.tick++;
-    while(s.spawnCursor<s.spawnPlan.length&&spawnDue(s,s.spawnPlan[s.spawnCursor])){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,p.y??20,p.xp,p.wave);}
+    while(s.spawnCursor<s.spawnPlan.length&&spawnDue(s,s.spawnPlan[s.spawnCursor])){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,p.y??20,p.xp,p.wave,true);}
     if(!usesRangeRules(s)&&!s.bossSpawned&&bossDue(s)){s.bossSpawned=true;createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,s.config.mode==='hundred'?100:operationProfile(s).waves.length+1);}
     s.shields=s.shields.filter(x=>x.value>0&&x.expires>s.tick);
     stepEffects(s);stepUltimates(s);stepWeapons(s);stepProjectiles(s);stepFields(s);
