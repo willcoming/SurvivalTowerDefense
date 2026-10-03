@@ -116,7 +116,7 @@
  #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-v2-heading { min-height:52px; }
  #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy > p { grid-row:2; grid-column:1; font-size:14px; }
  #app[data-page=recruitment] .mobile-paged-screen .recruit-item-element { grid-row:2; grid-column:2; justify-self:end; font-size:13px; }
- #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-item[data-theme=summer] .recruit-item-art img { object-fit:cover; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-item[data-theme=summer] .recruit-item-art img { object-fit:contain; }
  #app[data-page=recruitment] .mobile-paged-screen .recruit-guarantee { padding:2px 4px; }
  #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy { padding-top:5px; padding-bottom:7px; }
 }
