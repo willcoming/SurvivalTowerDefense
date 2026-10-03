@@ -22,6 +22,8 @@ import './ui/skill-constellation.css';
 import './ui/mobile-layout.css';
 import './ui/skill-configuration.css';
 import './ui/game-layout-refinement.css';
+import './ui/recruitment-pass.css';
+import './ui/hundred-squad.css';
 import { offlineGame } from './offline';
 import { GameApp } from './ui/app';
 

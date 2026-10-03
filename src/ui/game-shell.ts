@@ -35,9 +35,9 @@ export function gameHud(save: GameSave, status: string, page: Page) {
 
 export function gameNav(save: GameSave, page: Page) {
   const canRecruit = missingForms(save.collection).length > 0 && (save.collection.tickets > 0 || save.collection.points >= 100);
-  const active = ['hundred','battle', 'intel', 'result', 'command'].includes(page) ? 'home' : page;
+  const active = ['battle', 'intel', 'result', 'command'].includes(page) ? 'home' : page;
   return `<nav class="main-nav game-dock" aria-label="主選單">${[
-    ['home', '⌖', '作戰中心'], ['roster', '◈', '小隊編成'], ['recruitment', '✦', '星際招募'],
+    ['home', '⌖', '作戰中心'], ['hundred', '⚑', '百波挑戰'], ['roster', '◈', '小隊編成'], ['recruitment', '✦', '星際招募'],
   ].map(([id, icon, label]) => `<button data-action="${id}" aria-label="${label}" ${active === id ? 'aria-current="page" class="active"' : ''}><span class="game-nav-icon" aria-hidden="true">${icon}</span><span class="game-nav-label">${destinationNames[id]}</span>${id === 'recruitment' && canRecruit ? '<span class="nav-notification" aria-label="可招募或兌換"></span>' : ''}</button>`).join('')}</nav>`;
 }
 
@@ -53,6 +53,6 @@ export const commandItems = [
 export function commandButtons(battle: boolean, side?: 'left' | 'right') {
   return commandItems.filter(item => !side || item.side === side).map(item => `<button data-action="command-panel" data-id="${item.id}" aria-label="${item.label}" aria-haspopup="dialog" ${item.id === 'pause' && !battle ? 'disabled' : ''}><span aria-hidden="true">${item.icon}</span><b>${item.label}</b></button>`).join('');
 }
-export function gameSurround(stageId: StageId, battle: boolean) {
-  return `<div class="game-world" style="background-image:url('${stageArt(stageId)}')" aria-hidden="true"></div><div class="world-wordmark" aria-hidden="true"><span>STARFALL</span><strong>星骸防線</strong><small>DAWN COUNTERATTACK</small></div>${(['left', 'right'] as const).map(side => `<aside class="command-rail command-rail-${side}" aria-label="${side === 'left' ? '戰術' : '裝備'}快捷功能">${commandButtons(battle, side)}</aside>`).join('')}`;
+export function gameSurround(stageId: StageId, battle: boolean, backdrop?: string) {
+  return `<div class="game-world" style="background-image:url('${backdrop??stageArt(stageId)}')" aria-hidden="true"></div><div class="world-wordmark" aria-hidden="true"><span>STARFALL</span><strong>星骸防線</strong><small>DAWN COUNTERATTACK</small></div>${(['left', 'right'] as const).map(side => `<aside class="command-rail command-rail-${side}" aria-label="${side === 'left' ? '戰術' : '裝備'}快捷功能">${commandButtons(battle, side)}</aside>`).join('')}`;
 }

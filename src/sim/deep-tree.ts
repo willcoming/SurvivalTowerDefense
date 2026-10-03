@@ -61,7 +61,7 @@ export function syncDeepWeapon(s:RunState,id:CharacterId){
   w.rank=ult?3:Math.min(2,own.length);w.branch=own.length?DEEP_TREE_MAP[DEEP_NODE_MAP[ult??own[0]].treeId].visualBranch:null;
 }
 export function validateDeepTree(s:RunState){
-  if(s.experienceVersion!==undefined&&(![1,2].includes(s.experienceVersion)||!s.waveFlow))throw new Error('戰鬥經驗版本損壞');
+  if(s.experienceVersion!==undefined&&(![1,2,3].includes(s.experienceVersion)||!s.waveFlow))throw new Error('戰鬥經驗版本損壞');
   if(s.commanderSkillVersion!==undefined&&s.commanderSkillVersion!==1)throw new Error('指揮官技能版本損壞');
   if(s.commanderSkillVersion===1)validateCommanderSkills(s.config.commanderNodes);
   if(s.skillCostVersion!==undefined&&s.skillCostVersion!==2)throw new Error('技能消耗版本損壞');

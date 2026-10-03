@@ -8,7 +8,7 @@ for(const viewport of [{width:320,height:500},{width:390,height:844},{width:768,
     test('home keeps the model and every action reachable',async({page},info)=>{
       await page.setViewportSize(viewport);await load(page);await fitsScreen(page);
       for(const selector of ['.commander-profile','.hud-controls button','.mission-intel','.difficulty-options button:not(:disabled)',
-        '.durability-reward','.mission-start','.hundred-entry','.offline-summary:not([hidden])','.game-dock button']) {
+        '.durability-reward','.mission-start','.offline-summary:not([hidden])','.game-dock button']) {
         for(const control of await page.locator(selector).all())await reachable(control);
       }
       await expect(page.locator('.mission-diorama')).toBeInViewport();

@@ -28,7 +28,7 @@ import { BattleScene, createBattleCanvas } from '../game/scene';
 import { TacticalTimeline } from '../game/tactical-timeline';
 import { keyInterfaceImage } from '../game/chroma';
 import { shouldAutoCast } from './auto-tactical';
-import { recruitment, recruitmentPreview } from './recruitment';
+import { recruitment, recruitmentPreview, RECRUITMENT_BACKDROP, recruitmentBackdrop } from './recruitment';
 import { stageUnlocked, CHALLENGES } from '../data/campaign';
 import { FORMS, FORM_MAP, formPortrait, formBackdrop, equippedForm, originalForm } from '../data/forms';
 import { ownedForm, isPlayable, validateRoster, type CollectionAction } from '../storage/collection';
@@ -131,7 +131,7 @@ export class GameApp {
       updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
       const screens = { hundred:()=>hundredPage(this.save), commander:()=>commanderPage(this.save),command:()=>tacticalCommand(this.save,this.vm),recruitment:()=>recruitment(this.save,this.collecting,this.vm.recruitView),home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.rosterSave(), this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.rewards,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.commanderReward,this.save.profile.hundredBest) : home(this.save, this.vm), battle: () => '' };
-      this.root.innerHTML = `${gameSurround(this.vm.stageId, false)}${gameHud(this.save, this.vm.saveStatus, page)}${this.notice()}${screens[page]()}${gameNav(this.save, page)}<div id="global-overlay"></div>`;
+      this.root.innerHTML = `${gameSurround(this.vm.stageId, false, page==='recruitment'?RECRUITMENT_BACKDROP:undefined)}${gameHud(this.save, this.vm.saveStatus, page)}${this.notice()}${screens[page]()}${gameNav(this.save, page)}<div id="global-overlay"></div>`;
       enhanceMobile(this.root, page, this.mobile);
       enhanceMobileNotice(this.root, this.mobile);
       this.audio.setMode('lobby'); this.overlay();
@@ -224,7 +224,13 @@ export class GameApp {
         img.src=formPortrait(f);img.alt=`${CHARACTER_MAP[owner].name}・${FORM_MAP[f].name}`;
       }
       const form=FORMS.find(f=>formPortrait(f.id)===img.getAttribute('src'));
-      const backdrop=form?formBackdrop(form.id):null;
+      const backdrop=form?(img.closest('.recruitment-v2,.recruit-art-viewer')?recruitmentBackdrop(form.id):formBackdrop(form.id)):null;
+      // A keyed data URL is still the same prepared illustration.
+      if(form || !img.src.startsWith('data:image/')) {
+        delete img.dataset.portraitBackdrop;
+        delete img.dataset.portraitTheme;
+        img.style.removeProperty('--portrait-background');
+      }
       if(backdrop){
         img.dataset.portraitBackdrop=form!.id;
         img.dataset.portraitTheme=form!.theme;

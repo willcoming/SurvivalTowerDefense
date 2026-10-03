@@ -7,10 +7,10 @@ describe('UI mechanics correspondence',()=>{
   expect(n.name).toBe('獨擊增幅');expect(n.mods).toEqual({isolatedDamage:.24});expect(n.description).toContain('沒有其他敵人');
   const summer=resolveSkillNode(n,'C05-summer');expect(summer.name).not.toContain('反甲');expect(summer.description).not.toContain('忽略');
  });
- it('keeps twelve nearby damage labels apart and outside the warning band',()=>{
+ it('keeps crowded damage labels close to their actual target instead of unrelated empty lanes',()=>{
   const anchors:{x:number;y:number}[]=[];
-  for(let i=0;i<12;i++)anchors.push(damageLabelAnchor(195,35,anchors));
-  for(const a of anchors){expect(a.x).toBeGreaterThanOrEqual(42);expect(a.x).toBeLessThanOrEqual(348);expect(a.y-20).toBeGreaterThanOrEqual(90);}
-  for(let i=0;i<anchors.length;i++)for(let j=0;j<i;j++)expect(Math.abs(anchors[i].x-anchors[j].x)>=76||Math.abs(anchors[i].y-anchors[j].y)>=46).toBe(true);
+  for(let i=0;i<12;i++)anchors.push(damageLabelAnchor(195,150,anchors));
+  for(const a of anchors){expect(Math.abs(a.x-195)).toBeLessThanOrEqual(24);expect(Math.abs(a.y-126)).toBeLessThanOrEqual(12);}
+  const upper=damageLabelAnchor(100,35,[]);expect(Math.abs(upper.y-35)).toBeLessThanOrEqual(24);
  });
 });

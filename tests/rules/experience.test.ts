@@ -32,7 +32,8 @@ describe('one point per battle level', () => {
   for(const stage of STAGES)it(`${stage.id}: keeps the full authored point budget`, () => {
     const s=createRun({...config,stageId:stage.id,squadIds:['C01']}),p=operationProfile(s);
     const xp=s.spawnPlan.reduce((sum,e)=>sum+e.xp,0);
-    earn(s,xp-1); expect(s.choicesEarned).toBe(p.points-1);
+    expect(xp).toBeGreaterThanOrEqual(battleXpAt(p.points+1));
+    earn(s,battleXpAt(p.points+1)-1); expect(s.choicesEarned).toBe(p.points-1);
     earn(s,1); expect(s.choicesEarned).toBe(p.points);
     expect(battleExperience(s)).toMatchObject({level:p.points+1,capped:true});
     earn(s,999); expect(s.choicesEarned).toBe(p.points);
@@ -58,11 +59,11 @@ describe('one point per battle level', () => {
   });
 
   it('checks every level boundary through the hundred-wave cap', () => {
-    const s=createRun({...config,stageId:'S03',mode:'hundred',difficulty:'easy',squadIds:['C01']});
-    expect(s.spawnPlan.reduce((sum,e)=>sum+e.xp,0)).toBe(battleXpAt(61));
+    const s=createRun({...config,stageId:'S03',mode:'hundred',difficulty:'easy',squadIds:['C01','C02','C03','C04','C05']});
+    expect(s.spawnPlan.reduce((sum,e)=>sum+e.xp,0)).toBe(battleXpAt(61,'hundred'));
     for(let level=1;level<=60;level++){
-      expect(battleXpAt(level+1)-battleXpAt(level)).toBe(battleLevelCost(level));
-      s.xp=battleXpAt(level+1)-1;expect(battleExperience(s)).toMatchObject({level,current:battleLevelCost(level)-1});
+      expect(battleXpAt(level+1,'hundred')-battleXpAt(level,'hundred')).toBe(battleLevelCost(level,'hundred'));
+      s.xp=battleXpAt(level+1,'hundred')-1;expect(battleExperience(s)).toMatchObject({level,current:battleLevelCost(level,'hundred')-1});
       s.xp++;expect(battleExperience(s)).toMatchObject({level:level+1,earned:level});
     }
   });
@@ -71,7 +72,7 @@ describe('one point per battle level', () => {
     const s=run();earn(s,30);s.choicesEarned=2;
     expect(()=>restoreRun(s)).toThrow('技能點計數');
     s.choicesEarned=1;
-    (s as unknown as {experienceVersion:number}).experienceVersion=3;
+    (s as unknown as {experienceVersion:number}).experienceVersion=4;
     expect(()=>restoreRun(s)).toThrow('戰鬥經驗版本');
   });
 });

@@ -7,12 +7,13 @@ import type { RunState } from './types';
 export function battleExperience(s: RunState) {
   const free = usesFreeSkills(s);
   const maximum = free ? operationProfile(s).points : 18;
-  if (s.experienceVersion === 2) {
+  if (s.experienceVersion === 2 || s.experienceVersion === 3) {
+    const mode=s.experienceVersion===3&&s.config.mode==='hundred'?'hundred':'campaign';
     let earned = 0;
-    while (earned < maximum && s.xp >= battleXpAt(earned + 2)) earned++;
-    const level = earned + 1, required = battleLevelCost(level), capped = earned >= maximum;
+    while (earned < maximum && s.xp >= battleXpAt(earned + 2,mode)) earned++;
+    const level = earned + 1, required = battleLevelCost(level,mode), capped = earned >= maximum;
     return { earned, maximum, pointsPerLevel: 1, required, capped, level,
-      current: capped ? required : s.xp - battleXpAt(level) };
+      current: capped ? required : s.xp - battleXpAt(level,mode) };
   }
   const pointsPerLevel = free && s.experienceVersion !== 1 ? 2 : 1;
   const required = free ? 30 * pointsPerLevel : 40;

@@ -47,9 +47,9 @@ describe('wave allocation version 1', () => {
       expect(p.points).toBe(2 * Math.round(before.points * ratio / 2));
       expect(p.escortCount).toBe(before.escortCount); expect(p.escortXp).toBeGreaterThanOrEqual(before.escortXp!);
       expect(pressure(s)).toEqual(pressure(old));
-      expect(p.waveXp.reduce((a,b) => a+b, 0) + p.escortXp!).toBe(battleXpAt(p.points+1));
+      expect(p.waveXp.reduce((a,b) => a+b, 0)).toBe(battleXpAt(p.points+1));
       expect(s.spawnPlan).toHaveLength(p.enemies + p.escortCount!);
-      expect(s.spawnPlan.reduce((n,e) => n+e.xp, 0)).toBe(battleXpAt(p.points+1));
+      expect(s.spawnPlan.reduce((n,e) => n+e.xp, 0)).toBe(battleXpAt(p.points+1)+p.escortXp!);
       p.waves.forEach((wave, i) => {
         const count = wave.split(' ').reduce((n,t) => n+Number(t.slice(1)), 0);
         const entries = s.spawnPlan.filter(e => e.wave === i+1);

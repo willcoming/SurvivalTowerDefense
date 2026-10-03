@@ -9,7 +9,7 @@ type Status = Effect['kind'];
 const statuses: Status[] = ['burn', 'slow', 'stun', 'exposure'];
 export class StatusEffects {
   private sprites = new Map<number, Map<Status, Phaser.GameObjects.Image>>();
-  private labels: { text: Phaser.GameObjects.Text; born: number; value: number; x: number; y: number; key: string; prefix:string; color:string }[] = [];
+  private labels: { text: Phaser.GameObjects.Text; born: number; value: number; x: number; y: number; key: string; targetId?:number; hitX?:number; hitY?:number; prefix:string; color:string }[] = [];
   private visible: { id: number; states: Status[] }[] = [];
   constructor(private scene: Phaser.Scene) {
     const g = scene.make.graphics({ x: 0, y: 0 });
@@ -57,12 +57,10 @@ export class StatusEffects {
       const active = new Set(enemy.effects.filter(f => f.expires > run.tick).map(f => f.kind));
       if (enemy.exposureUntil > run.tick) active.add('exposure');
       if (run.enemies.length>=24 && !priorityEnemy(enemy)) {
-        // Body tint still communicates burning; reserve large overlays for urgent control cues.
-        active.delete('burn'); active.delete('slow');
+        // Keep burn visibly attached to every affected body; reduce other status clutter.
+        active.delete('slow');
       }
-      // Dense battles already show burn through body tint and merged damage labels.
-      // Keep the large flame only on bosses; it otherwise hides a crowd's actual poses.
-      if (detail === 'compact' && !enemy.defId.startsWith('B')) active.delete('burn');
+        // Keep a visible, smaller body flame in compact mode too.
       if (enemy.hp <= 0 || run.bossIntro?.enemyId === enemy.id) active.clear();
       let sprites = this.sprites.get(enemy.id);
       if (!sprites && active.size) { sprites = new Map(); this.sprites.set(enemy.id, sprites); }
@@ -76,11 +74,11 @@ export class StatusEffects {
           }
           const element = enemy.effects.find(f => f.kind === 'burn')?.damageType ?? 'thermal';
           const row = { plasma: 0, thermal: 1, arc: 2, gravity: 3, kinetic: 0 }[element];
-          if (status === 'burn') sprite.setTexture('combat-fx', row * 4 + 1 + frame % 2);
+          if (status === 'burn') sprite.setTexture(element==='gravity'?'combat-props':'combat-fx',element==='gravity'?6:row*4+1+frame%2);
           else if (sprite.texture.key !== 'status-atlas' || sprite.frame.name !== key) sprite.setTexture('status-atlas', key);
           if(status==='burn'){const effect=enemy.effects.find(f=>f.kind==='burn'),element=effect?.damageType;if(usesCollection(run)&&element)sprite.setTint(parseInt(ELEMENTS[element].color.slice(1),16));else sprite.clearTint();}
           const controlStates=statuses.filter(state=>state!=='burn'&&active.has(state));
-          const width=status==='burn'?size*(detail==='compact'?.32:.46):enemy.defId.startsWith('B')?18:14;
+          const width=status==='burn'?size*(detail==='compact'?.5:.65):enemy.defId.startsWith('B')?18:14;
           sprite.setDisplaySize(width,width*this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY);
           const slot=controlStates.indexOf(status);
           sprite.setVisible(true).setPosition(
@@ -93,13 +91,24 @@ export class StatusEffects {
     }
     const limit = run.enemies.length>=24 ? 4 : detail === 'compact' ? 6 : 12;
     for (const event of fresh) if (event.kind === 'hit' && event.skill === 'burn' && (event.value ?? 0) > 0) {
-      const key = `${event.damageType??'thermal'}:`+(detail === 'compact' ? `${Math.floor(event.x / 65)}:${Math.floor(event.y / 50)}` : String(event.targetId));
+      const key = `${event.damageType??'thermal'}:${event.targetId??`${event.x}:${event.y}`}`;
       let label = this.labels.slice(0, limit).find(l => l.key === key && now - l.born < 700);
       if (!label) { label = this.labels.slice(0, limit).find(l => now - l.born >= 700); if (!label) continue; label.key = key; label.value = 0; label.born = now; const anchor=damageLabelAnchor(event.x,event.y,this.labels.slice(0,limit).filter(other=>other!==label&&now-other.born<700));label.x=anchor.x;label.y=anchor.y; }
+      label.targetId=event.targetId;label.hitX=event.x;label.hitY=event.y;
       label.value += event.value!;label.prefix=event.damageType?ELEMENTS[event.damageType].dot:'燃';label.color=event.damageType?ELEMENTS[event.damageType].color:'#ffcf78';
     }
     // Upload each merged label at most once per frame, rather than once per damage event.
-    this.labels.forEach((label, i) => { const t = (now - label.born) / 700, visible = i < limit && t >= 0 && t < 1; label.text.setScale(1,this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY).setVisible(visible); if (visible) label.text.setText(`${label.prefix} ${Number(label.value.toFixed(1))}`).setColor(label.color).setPosition(label.x, label.y - t * 20).setAlpha(t < .6 ? 1 : (1 - t) / .4); });
+    const placed:{x:number;y:number}[]=[];
+    this.labels.forEach((label, i) => {
+      const t=(now-label.born)/700,visible=i<limit&&t>=0&&t<1;
+      label.text.setScale(1,this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY).setVisible(visible);
+      if(!visible)return;
+      const target=run.enemies.find(e=>e.id===label.targetId&&e.hp>0);
+      const death=fresh.find(e=>e.kind==='death'&&e.targetId===label.targetId);
+      if(target){label.hitX=target.x;label.hitY=target.y;}else if(death){label.hitX=death.x;label.hitY=death.y;}
+      const anchor=damageLabelAnchor(label.hitX??label.x,label.hitY??label.y,placed);label.x=anchor.x;label.y=anchor.y;placed.push(anchor);
+      label.text.setText(`${label.prefix} ${Number(label.value.toFixed(1))}`).setColor(label.color).setPosition(label.x,label.y-t*12).setAlpha(t<.6?1:(1-t)/.4);
+    });
   }
-  diagnostics() { return { statuses: this.visible, burnNumbers: this.labels.filter(l => l.text.visible).map(l => ({ value: l.value, text: l.text.text, born: l.born,x:l.text.x,y:l.text.y })) }; }
+  diagnostics() { return { statuses: this.visible, burnNumbers: this.labels.filter(l => l.text.visible).map(l => ({ value: l.value, text: l.text.text, born: l.born,targetId:l.targetId,hitX:l.hitX,hitY:l.hitY,x:l.text.x,y:l.text.y })) }; }
 }

@@ -32,6 +32,8 @@
 #app .skill-configuration .character-avatar { position:relative; display:block; width:64px; height:64px; flex:none; overflow:hidden; border:1px solid #607383; border-radius:50%; }
 #app .skill-configuration .tree-characters .active .character-avatar { border:2px solid var(--skill-gold); box-shadow:0 0 0 3px #dec7771f; }
 #app .skill-configuration .tree-characters .character-avatar img { display:block; position:absolute; width:300%; max-width:none; height:auto; left:-100%; top:-8%; border:0; border-radius:0; box-shadow:none; filter:none; }
+/* This original portrait's face is lower in its full-body composition. */
+#app .skill-configuration .character-avatar img[data-owner="C05"]:not([data-portrait-theme="summer"]) { top:-40%; }
 #app .skill-configuration .tree-characters button > span:not(.character-avatar) { font-size:inherit; white-space:nowrap; }
 #app .skill-configuration .tree-scroll { padding:0 24px; gap:0; flex:1 1 0; min-height:0; }
 #app .skill-configuration .skill-map-toolbar { min-height:44px; padding:0; }

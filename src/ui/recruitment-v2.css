@@ -55,3 +55,77 @@
 .recruit-rules table { width:100%; border-collapse:collapse; font-size:13px; }
 .recruit-rules td,.recruit-rules th { text-align:left; padding:10px 6px; border-bottom:1px solid #749e8a66; }
 @media(max-height:600px) { #app.game-app > .recruitment-v2 { gap:4px; padding:8px 12px; } .recruit-v2-heading h1 { font-size:22px; } .recruit-v2-heading small { display:none; } #app .recruit-v2-action > button { min-height:54px; } }
+
+/* Local seaside event: retain the actual pool's character and outfit illustrations. */
+#app.game-app > .recruitment-v2 { background-image:linear-gradient(#09232bd9,#09232bc9),var(--recruitment-beach); background-size:cover; background-position:center; }
+#app .recruitment-v2 .recruit-item-art { height:220px; }
+#app .recruitment-v2 .recruit-item-art img { object-fit:contain; object-position:center bottom; }
+#app .recruitment-v2 .recruit-item { background:#102934ed; }
+#app .recruitment-v2 .recruit-purchase-panel { background:#0b2633e8; padding:8px; border-radius:6px; }
+#app .recruit-art-stage:has([data-portrait-backdrop]) { background:linear-gradient(#07252d22,#07252d22),var(--portrait-background); background-size:cover; background-position:center; }
+@media(max-width:800px) and (orientation:portrait) {
+ #app .recruitment-v2.mobile-paged-screen .recruit-item { grid-template-columns:42% minmax(0,1fr); }
+ #app .recruitment-v2.mobile-paged-screen .recruit-item-art { height:auto; }
+ #app .recruitment-v2.mobile-paged-screen .recruit-item-art img { object-fit:contain; object-position:center bottom; }
+}
+
+/* Bright seaside palette is scoped to the event page and its own dialogs. */
+#app.game-app[data-page=recruitment] { --ink:#173f4b; --muted:#42646a; --paper:#fffaf0; --line:#94bcc1; --gold:#8c611c; --teal:#12686e; --coral:#963e29; color-scheme:light; background:#e5f4f4; color:var(--ink); border-color:#a6cbcc; }
+#app[data-page=recruitment] .game-world::after { background:linear-gradient(90deg,#effbfa55,#effbfa22,#effbfa55); }
+#app[data-page=recruitment] .world-wordmark { color:#174c61; text-shadow:0 1px 6px #ffffffa0; }
+#app[data-page=recruitment] .world-wordmark small { color:#315d68; }
+#app.game-app[data-page=recruitment] > .game-hud { background:#f4fbf8; border-color:#a6cacc; }
+#app[data-page=recruitment] :is(.hud-controls .icon-button,.recruit-help) { color:#14596a; background:#e3f2f2; border-color:#87b4bd; }
+#app[data-page=recruitment] .hud-commander-progress { color:#27616c; }
+#app[data-page=recruitment] .hud-resources { border-color:#bdd6d6; }
+#app[data-page=recruitment] .hud-resources button { color:#345d66; background:transparent; }
+#app[data-page=recruitment] .hud-resources b { color:#104f64; }
+#app.game-app[data-page=recruitment] > .game-dock { background:#fff9ec; border-color:#94bbc0; }
+#app[data-page=recruitment] .game-dock button { color:#3a626b; background:transparent; }
+#app[data-page=recruitment] .game-dock button.active { color:#07566b; background:#ccebef; box-shadow:inset 0 3px #167789; }
+#app[data-page=recruitment] .command-rail button { color:#1f5866; background:#effaf4ed; border-color:#83aeb7; }
+#app.game-app[data-page=recruitment] > .recruitment-v2 { background-color:#eef8f4; background-image:linear-gradient(#e8f8f3d9,#fff8eac9),var(--recruitment-beach); }
+#app[data-page=recruitment] .recruit-v2-heading h1 { color:#123f53; }
+#app[data-page=recruitment] .recruit-v2-heading small { color:#416068; }
+#app[data-page=recruitment] .recruit-v2-tabs { border-color:#96bcc0; }
+#app[data-page=recruitment] .recruit-v2-tabs button { color:#42616a; }
+#app[data-page=recruitment] .recruit-v2-tabs [aria-current] { color:#07586c; border-color:#0d7387; }
+#app[data-page=recruitment] .recruit-item { background:#fffaf0; border-color:#90b8c0; box-shadow:0 2px 7px #32687918; }
+#app[data-page=recruitment] .recruit-item-art { background:#d2edf0; }
+#app[data-page=recruitment] .recruit-item-copy h2 { color:#163f4d; }
+#app[data-page=recruitment] .recruit-item-copy > p { color:#355d63; }
+#app[data-page=recruitment] :is(.recruit-item-rate,.recruit-catalog-meta b) { color:#075c70; }
+#app[data-page=recruitment] .recruit-item-element { color:#8a3d16 !important; }
+#app[data-page=recruitment] [data-element=arc] { color:#a03131 !important; }
+#app[data-page=recruitment] [data-element=gravity] { color:#116b71 !important; }
+#app[data-page=recruitment] [data-element=plasma] { color:#55408c !important; }
+#app[data-page=recruitment] [data-element=kinetic] { color:#245b3c !important; }
+#app[data-page=recruitment] .recruit-item-kind { color:#174e5b; background:#fffaf0ed; border-color:#88b4bc; }
+#app[data-page=recruitment] .recruit-item-art > b { color:#fff; background:#166e60; }
+#app[data-page=recruitment] :is(.recruit-item-copy details,.recruit-catalog-meta,.recruit-guarantee) { color:#355c65; border-color:#a8c7cb; }
+#app[data-page=recruitment] .recruit-purchase-panel { background:#fff8e8; border-color:#a8c7cb; }
+#app[data-page=recruitment] .recruit-guarantee i { background:#b3cdcf; }
+#app[data-page=recruitment] .recruit-guarantee i.filled { background:#0e7382; box-shadow:none; }
+#app[data-page=recruitment] :is(.mobile-detail-trigger,.mobile-pager-step,.recruit-help,.mobile-pager select,.recruit-art-viewer .icon-button,.command-dialog button,.mobile-detail .icon-button) { color:#175767; background:#e4f3f3; border:1px solid #8dbbc1; }
+#app[data-page=recruitment] :is(.recruit-v2-action > button,.recruit-item-copy > button) { color:#fff; background:linear-gradient(110deg,#0c7283,#09576a); border-color:#07576a; }
+#app[data-page=recruitment] :is(.recruit-v2-action > button,.recruit-item-copy > button,.mobile-pager-step):disabled { opacity:1; filter:none; color:#496166; background:#dce8e5; border-color:#a8bfc0; box-shadow:none; }
+#app[data-page=recruitment] .recruit-v2-action img { background:#d7eceb; }
+#app[data-page=recruitment] .recruit-blocked { color:#864126; }
+#app[data-page=recruitment] .recruit-v2-receipt { background:#e3f5ee; border-color:#87b6ae; }
+#app[data-page=recruitment] .recruit-v2-receipt small { color:#226754; }
+#app[data-page=recruitment] .recruit-v2-receipt strong { color:#143f4d; }
+#app[data-page=recruitment] .recruit-v2-receipt span { color:#355f62; }
+#app[data-page=recruitment] :is(.command-dialog,.mobile-detail,.recruit-art-viewer) { color:#173f4b; background:#fffaf0; border-color:#91bec2; }
+#app[data-page=recruitment] :is(.command-dialog,.mobile-detail,.recruit-art-viewer) :is(header,.mobile-detail-header) { background:#e1f1f1; border-color:#a8c8cb; }
+#app[data-page=recruitment] :is(.command-dialog,.mobile-detail,.recruit-art-viewer) :is(p,small,h2,h3,h4,table,span,strong,summary,label) { color:#234f5b; }
+#app[data-page=recruitment] :is(.mobile-detail-body,.command-panel-body) { background:#fffaf0; }
+#app[data-page=recruitment] .modal-backdrop { background:#32687666; }
+#app[data-page=recruitment] dialog.mobile-detail::backdrop { background:#32687666; }
+#app[data-page=recruitment] .recruit-rules :is(td,th) { border-color:#a6c8c9; }
+#app[data-page=recruitment] .recruit-art-stage:has([data-portrait-backdrop]) { background:var(--portrait-background) center/cover; }
+#app[data-page=recruitment] :is(button,select):focus-visible { outline:3px solid #056579; outline-offset:2px; }
+#app[data-page=recruitment] :is(.hud-resources small,.hud-commander-progress small,.hud-resources i) { color:#42616b; }
+#app[data-page=recruitment] :is(.mobile-detail-trigger,.mobile-pager-step,.recruit-help,.mobile-pager select,.recruit-art-viewer .icon-button,.command-dialog button,.mobile-detail .icon-button) { box-shadow:none; }
+#app[data-page=recruitment] .commander-profile small { color:#42616b; }
+#app.game-app[data-page=recruitment] .recruit-v2-action > button.button.primary { color:#fff; background:linear-gradient(110deg,#0c7283,#09576a); border-color:#07576a; box-shadow:inset 0 1px #ffffff40; }
+#app.game-app[data-page=recruitment] .recruit-v2-action > button.button.primary:disabled { color:#496166; background:#dce8e5; border-color:#a8bfc0; box-shadow:none; opacity:1; }

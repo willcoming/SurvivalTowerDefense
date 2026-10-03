@@ -19,6 +19,11 @@ for(const viewport of [{width:320,height:500},{width:390,height:844},{width:1440
   await page.waitForFunction(()=>(window.__game.presentation() as any).areaEffects?.active.some((e:any)=>e.skill==='qa-area'));
   const effects=await page.evaluate(()=>(window.__game.presentation() as any).areaEffects);
   expect(effects.geometryCommands).toBe(0);expect(effects.depth).toBeLessThan(3);expect(effects.volumeDepth).toBeLessThan(3);expect(effects.volume.active).toBeGreaterThan(0);expect(effects.volume.active).toBeLessThanOrEqual(effects.volume.limit);expect(effects.volume.bodies.find((b:any)=>b.seq===expected.blast.seq).parts).toBeGreaterThanOrEqual(3);expect(effects.volume.fields.every((f:any)=>f.parts>=2)).toBe(true);expect(effects.active.find((e:any)=>e.skill==='qa-area')).toMatchObject({x:130,y:270,radius:48,affectedIds:expected.blast.affectedIds});expect(expected.blast.affectedIds).toEqual(expected.ids.slice(0,2));expect(effects.active.some((e:any)=>e.shape==='line'&&e.radius===7)).toBe(true);expect(effects.fields).toEqual(expected.fields);
+  for(const field of expected.fields){
+   const body=effects.volume.sprites.find((sprite:any)=>Math.abs(sprite.x-field.x)<.01&&Math.abs(sprite.y-field.y)<.01&&sprite.width>=field.radius*1.9&&sprite.height>=field.radius*1.9);
+   expect(body,`field ${field.id} covers its damage footprint`).toBeDefined();
+  }
+  expect(effects.volume.sprites.some((sprite:any)=>Math.abs(sprite.x-expected.blast.x)<.01&&Math.abs(sprite.y-expected.blast.y)<.01&&sprite.width>=48*1.9&&sprite.height>=48*1.9)).toBe(true);
   await expect(page.locator('#battle-overlay')).toBeEmpty();
   await page.screenshot({path:info.outputPath(`actual-area-${viewport.width}-${reduced?'compact':'full'}.png`)});
   await page.evaluate(()=>{const s=window.__game.state()!;s.fields.forEach(f=>f.expires=s.tick);s.pauseReasons=[];s.phase='running';window.__game.ticks(1);});

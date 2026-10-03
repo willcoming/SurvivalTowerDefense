@@ -1,0 +1,126 @@
+/* Selected 海岸通行證. Presentation only; existing actions and pool remain intact. */
+#app.game-app[data-page=recruitment] { --ink:#173f4b; --muted:#345e68; --paper:#fffaf0; --coral:#c84d31; background:#fffaf0; }
+#app.game-app[data-page=recruitment] > .recruitment-v2 { padding:16px 20px 12px; gap:8px; background:var(--recruitment-beach) center/cover; }
+#app[data-page=recruitment] .recruit-v2-heading { min-height:76px; align-items:flex-start; position:relative; }
+#app[data-page=recruitment] .recruit-v2-heading h1 { font-size:42px; font-weight:900; font-style:italic; letter-spacing:-.06em; color:#fff; text-shadow:0 2px 6px #15485b; margin:0; line-height:1.2; }
+#app[data-page=recruitment] .recruit-v2-heading small { display:block; position:absolute; top:40px; left:24px; font:italic 30px Georgia,serif; letter-spacing:0; color:#ffae7b; text-shadow:0 1px 2px #18465c; }
+#app[data-page=recruitment] .recruit-help { border-radius:4px; background:#fffaf0ed; }
+#app[data-page=recruitment] .recruit-v2-tabs { gap:0; border-color:#fff9; }
+#app[data-page=recruitment] .recruit-v2-tabs button { font-size:18px; color:#173f4b; background:#fffaf0b8; min-height:44px; }
+#app[data-page=recruitment] .recruit-v2-tabs [aria-current] { border-color:#097d99; background:#e7f6f3f2; }
+#app[data-page=recruitment] .recruit-v2-catalog { padding:0; }
+#app[data-page=recruitment] .recruit-catalog-meta { color:#173f4b; background:#fffaf0ed; padding:6px 10px; }
+#app[data-page=recruitment] .recruit-card-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0; background:transparent; }
+#app[data-page=recruitment] .recruit-item { display:flex; flex-direction:column; background:transparent; border:0; box-shadow:none; }
+#app[data-page=recruitment] .recruit-item-art { height:360px; background:transparent; }
+#app[data-page=recruitment] .recruit-item-art img { object-fit:contain; object-position:center bottom; }
+#app[data-page=recruitment] .recruit-item[data-theme=summer] .recruit-item-art img { background:transparent; }
+#app[data-page=recruitment] .recruit-item-kind { top:6px; left:6px; font-size:11px; border:0; }
+#app[data-page=recruitment] .recruit-item-copy { padding:8px 12px 12px; background:#fffaf0e8; }
+#app[data-page=recruitment] .recruit-item-copy h2 { font-size:24px; font-weight:800; }
+#app[data-page=recruitment] .recruit-item-copy > p { font-size:14px; }
+#app[data-page=recruitment] .recruit-item-rate { font-size:16px; color:#ae3c22; }
+#app[data-page=recruitment] .recruit-item-copy details { border:0; font-size:14px; }
+#app[data-page=recruitment] .recruit-item-copy summary { min-height:44px; padding:10px 8px; background:#fffaf0; border:1px solid #9ababd; border-radius:5px; }
+#app[data-page=recruitment] .recruit-purchase-panel { padding:8px 0 0; background:transparent; border:0; }
+#app[data-page=recruitment] .recruit-guarantee { font-size:14px; background:#fffaf0f5; border:1px solid #abc1be; border-radius:7px; padding:5px 8px; }
+#app[data-page=recruitment] .recruit-guarantee > div { display:none; }
+#app.game-app[data-page=recruitment] .recruit-v2-action > button.button.primary { position:relative; min-height:66px; background:#c84d31; color:white; border:1px solid #fff; border-radius:9px; box-shadow:0 0 0 1px #ba674c; padding:7px 44px 7px 18px; gap:12px; font-size:24px; }
+#app[data-page=recruitment] .recruit-v2-action > button::after { content:'›'; position:absolute; right:0; top:0; bottom:0; width:34px; border-left:1px dashed #fff9; display:grid; place-items:center; font-size:27px; }
+#app[data-page=recruitment] .recruit-v2-action img { width:46px; height:38px; background:transparent; border-radius:0; }
+#app[data-page=recruitment] .recruit-v2-action small { font-size:14px; color:inherit; }
+#app.game-app[data-page=recruitment] .recruit-v2-action > button.button.primary:disabled { background:#e8dfd6; color:#665349; border-color:#b5a79c; box-shadow:none; }
+#app[data-page=recruitment] .recruit-v2-action > button:disabled::after { border-color:#8a776b; }
+#app[data-page=recruitment] .recruit-blocked { display:block; background:#fffaf0; padding:4px; }
+#app[data-page=recruitment] .mobile-pager { gap:0; }
+#app[data-page=recruitment] .mobile-pager :is(select,.mobile-pager-step) { background:#fffaf0ed; border-color:#a7c7c5; color:#173f4b; border-radius:4px; }
+#app[data-page=recruitment] .mobile-recruit-ability > button { width:100%; background:#fffaf0; border:1px solid #9ababd; border-radius:5px; color:#173f4b; min-height:44px; }
+#app[data-page=recruitment] .recruit-art-stage { background-color:#081c29; background-image:var(--portrait-background); background-size:cover; background-position:center; }
+#app[data-page=recruitment] .recruit-art-stage img[data-portrait-backdrop] { background:transparent; }
+#app[data-page=recruitment] .recruit-v2-receipt { background:#fffaf0; }
+@media(max-width:800px) {
+ #app.game-app[data-page=recruitment] > .recruitment-v2.mobile-paged-screen { padding:10px 12px 8px; gap:6px; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-v2-heading { min-height:76px; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-v2-heading h1 { font-size:42px; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-v2-heading small { display:block; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-v2-catalog { gap:6px; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-card-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:minmax(0,1fr); gap:0; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-item { display:flex; min-height:0; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-item-art { flex:1; height:auto; min-height:44px; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy { flex:none; padding:7px 6px 9px; gap:3px; align-content:start; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy h2 { font-size:24px; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-rate { font-size:15px; align-self:center; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy > p { font-size:14px; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-purchase-panel { padding:4px 0 0; gap:6px; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-guarantee { padding:4px; }
+ #app[data-page=recruitment] .mobile-recruit-receipt { top:52px; right:12px; }
+}
+@media(max-width:800px) and (max-height:740px) {
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-card-grid { grid-template-columns:1fr; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-v2-heading { min-height:44px; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-v2-heading h1 { font-size:28px; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-v2-heading small { display:none; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy { grid-template-columns:1fr auto; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy h2 { font-size:20px; }
+ #app.game-app[data-page=recruitment] .recruit-v2-action > button.button.primary { min-height:54px; font-size:21px; }
+}
+/* Reserve enough room for the art at the selected viewport, and page the desktop gallery. */
+#app.game-app[data-page=recruitment] > .game-hud { padding-top:4px; gap:0 8px; }
+#app[data-page=recruitment] .hud-resources button { min-height:44px; padding:4px 2px; }
+#app[data-page=recruitment] .hud-resources small { font-size:12px; }
+#app[data-page=recruitment] .hud-resources b { font-size:18px; }
+#app[data-page=recruitment] .recruit-v2-catalog { display:flex; flex-direction:column; gap:6px; overflow:visible; }
+#app[data-page=recruitment] .recruit-card-grid { flex:1; min-height:0; grid-template-rows:minmax(0,1fr); }
+#app[data-page=recruitment] .recruit-item { min-height:0; }
+#app[data-page=recruitment] .recruit-item-art { flex:1; height:auto; min-height:44px; }
+#app[data-page=recruitment] .recruit-item-copy { flex:none; display:grid; grid-template-columns:1fr auto; gap:3px; padding:7px 8px 9px; }
+#app[data-page=recruitment] .recruit-item-copy h2 { line-height:1.2; margin:0; }
+#app[data-page=recruitment] .recruit-item-copy > p { grid-column:1/-1; line-height:1.3; margin:0; }
+#app[data-page=recruitment] .recruit-item-rate { grid-row:1; grid-column:2; margin:0; }
+#app[data-page=recruitment] .recruit-item-element { font-size:14px; line-height:1.3; }
+#app[data-page=recruitment] .mobile-recruit-ability,#app[data-page=recruitment] .recruit-item-copy > button { grid-column:1/-1; margin:0; }
+#app[data-page=recruitment] .recruit-v2-action img { mix-blend-mode:screen; }
+#app[data-page=recruitment] .mobile-page-picker { flex:none; }
+@media(min-width:801px) {
+ #app.game-app[data-page=recruitment] { width:min(100%,800px); }
+ #app[data-page=recruitment] .recruit-v2-heading { min-height:64px; }
+ #app[data-page=recruitment] .recruit-item-copy { padding:10px 20px; }
+ #app[data-page=recruitment] .mobile-pager select { font-size:16px; }
+ #app[data-page=recruitment] .recruit-item-copy .mobile-recruit-ability { max-width:240px; }
+}
+@media(max-width:800px) and (min-height:741px) {
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-v2-heading { min-height:60px; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-v2-heading small { top:34px; font-size:25px; }
+ #app.game-app[data-page=recruitment] > .recruitment-v2.mobile-paged-screen { gap:4px; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy > p { line-height:1.3; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy h2 { line-height:1.2; }
+}
+@media(max-width:800px) and (max-height:740px) {
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-item { display:grid; grid-template-columns:42% minmax(0,1fr); }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy { align-content:center; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-item-art { height:100%; }
+ #app[data-page=recruitment] .mobile-recruit-receipt { top:4px; right:60px; }
+}
+@media(min-width:801px) {
+ #app[data-page=recruitment] .command-rail-left { right:calc(50% + 426px); }
+ #app[data-page=recruitment] .command-rail-right { left:calc(50% + 426px); }
+ #app[data-page=recruitment] .world-wordmark { right:calc(50% + 440px); }
+}
+#app[data-page=recruitment] .recruit-v2-action img { mix-blend-mode:normal; }
+#app[data-page=recruitment] .recruit-v2-action > button.button.primary { min-height:60px; }
+#app[data-page=recruitment] .recruit-guarantee { padding:3px 8px; }
+#app[data-page=recruitment] dialog[data-detail=recruit-receipt] { height:auto; min-height:0; max-height:70dvh; }
+#app[data-page=recruitment] dialog[data-detail=recruit-receipt] .mobile-detail-body { flex:0 1 auto; }
+#app[data-page=recruitment] .recruit-v2-receipt > .recruit-image-button { width:88px; height:110px; }
+@media(max-width:800px) and (min-height:741px) {
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-v2-heading { min-height:52px; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy > p { grid-row:2; grid-column:1; font-size:14px; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-element { grid-row:2; grid-column:2; justify-self:end; font-size:13px; }
+ #app[data-page=recruitment] .recruitment-v2.mobile-paged-screen .recruit-item[data-theme=summer] .recruit-item-art img { object-fit:cover; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-guarantee { padding:2px 4px; }
+ #app[data-page=recruitment] .mobile-paged-screen .recruit-item-copy { padding-top:5px; padding-bottom:7px; }
+}
+#app[data-page=recruitment] .recruit-v2-action > button > span { line-height:1.1; }
+#app[data-page=recruitment] .recruit-v2-action small { line-height:1.35; }
+#app[data-page=recruitment] dialog[data-detail=recruit-receipt] { height:244px; max-height:calc(100dvh - 24px); }
+#app[data-page=recruitment] dialog[data-detail=recruit-receipt] .mobile-detail-body { height:auto; min-height:0; flex:1; }

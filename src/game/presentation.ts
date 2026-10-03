@@ -50,12 +50,12 @@ export function capEffects(effects: ActiveEffect[], detail: Detail): ActiveEffec
 }
 export function weaponForm(id: CharacterId, rank: number, branch: string | null) { return rank === 3 ? `${id}-${branch}` : `${id}-base`; }
 
-/** Place labels below the warning band, leaving space for their 20px rise. */
+/** Keep damage attached to its target; collision offsets must stay local. */
 export function damageLabelAnchor(x:number,y:number,occupied:readonly {x:number;y:number}[]) {
-  const initial={x:Math.max(42,Math.min(348,x)),y:Math.max(110,Math.min(410,y-24))};
-  for(let row=0;row<7;row++)for(const offset of [0,80,-80,160,-160]){
-    const candidate={x:Math.max(42,Math.min(348,initial.x+offset)),y:110+(initial.y-110+row*48)%336};
-    if(!occupied.some(p=>Math.abs(p.x-candidate.x)<76&&Math.abs(p.y-candidate.y)<46))return candidate;
+  const initial={x:Math.max(28,Math.min(362,x)),y:Math.max(24,Math.min(430,y<80?y+24:y-24))};
+  for(const dy of [0,12,-12])for(const dx of [0,16,-16,24,-24]){
+    const candidate={x:Math.max(28,Math.min(362,initial.x+dx)),y:Math.max(24,Math.min(430,initial.y+dy))};
+    if(!occupied.some(p=>Math.abs(p.x-candidate.x)<40&&Math.abs(p.y-candidate.y)<12))return candidate;
   }
   return initial;
 }
