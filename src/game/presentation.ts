@@ -49,3 +49,13 @@ export function capEffects(effects: ActiveEffect[], detail: Detail): ActiveEffec
   return [...normal, ...primary, ...critical];
 }
 export function weaponForm(id: CharacterId, rank: number, branch: string | null) { return rank === 3 ? `${id}-${branch}` : `${id}-base`; }
+
+/** Keep damage attached to its target; collision offsets must stay local. */
+export function damageLabelAnchor(x:number,y:number,occupied:readonly {x:number;y:number}[]) {
+  const initial={x:Math.max(28,Math.min(362,x)),y:Math.max(24,Math.min(430,y<80?y+24:y-24))};
+  for(const dy of [0,12,-12])for(const dx of [0,16,-16,24,-24]){
+    const candidate={x:Math.max(28,Math.min(362,initial.x+dx)),y:Math.max(24,Math.min(430,initial.y+dy))};
+    if(!occupied.some(p=>Math.abs(p.x-candidate.x)<40&&Math.abs(p.y-candidate.y)<12))return candidate;
+  }
+  return initial;
+}

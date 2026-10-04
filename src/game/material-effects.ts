@@ -25,15 +25,20 @@ export class MaterialEffects {
   private limit = 144;
   constructor(private scene: Phaser.Scene) {}
 
-  private draw(key: string, frame: number, x: number, y: number, size: number, alpha = 1, angle = 0, width = size, depth = LAYERS.effects + .5) {
+  private draw(key: string, frame: number, x: number, y: number, size: number, alpha = 1, angle = 0, width = size, depth = LAYERS.effects + .5, tint?:number) {
     if (this.used >= this.limit) return;
     let sprite = this.sprites[this.used++];
     if (!sprite) { sprite = this.scene.add.image(x, y, key, frame); this.sprites.push(sprite); }
     if (sprite.texture.key !== key || Number(sprite.frame.name) !== frame) sprite.setTexture(key, frame);
     sprite.setVisible(true).setPosition(x, y).setDisplaySize(width, size * this.aspect).setAlpha(alpha).setAngle(angle).setDepth(depth);
+    if(tint===undefined)sprite.clearTint();else sprite.setTint(tint);
     this.counts[key] = (this.counts[key] ?? 0) + 1;
   }
   private impact(type: DamageType, phase: number, x: number, y: number, size: number, alpha = 1) {
+    if(type==='gravity'){
+      this.draw('combat-props',6,x,y,size*.9,alpha,phase*35,size*.9,LAYERS.effects+.5,0x76e9d2);
+      this.draw('combat-fx',12,x,y,size*.55,alpha*.7);return;
+    }
     this.draw(type === 'kinetic' ? 'combat-props' : 'combat-fx', type === 'kinetic' ? 12 + phase : rows[type] * 4 + phase, x, y, size, alpha);
   }
 
@@ -52,6 +57,10 @@ export class MaterialEffects {
         droneCount = count;
         for (let i = 0; i < count; i++) this.draw('combat-props', 0, droneX(p.x, count, i), p.y + Math.sin(now / 380 + i) * 3, 27, 1, 0, 27, LAYERS.allies + 1);
       }
+      if(weapon.id==='C08'&&(weapon.ultimateBuffUntil??0)>run.tick){
+        const pulse=.5+.5*Math.sin(now/130);
+        this.draw('combat-props',7,p.x,p.y-15,16,.28+pulse*.12,-90,34,LAYERS.allies-.5,attackType(run,weapon.id)==='arc'?undefined:0xffbd70);
+      }
       if (weapon.id === 'C08' && weapon.cooling && detail === 'full') this.draw('combat-props', 5, p.x, p.y - 15 - now % 550 / 35, 29, .4, 0);
     }
     const ordered = [...effects].sort((a, b) => visualPriority(b.event) - visualPriority(a.event));
@@ -64,8 +73,14 @@ export class MaterialEffects {
       if (e.kind === 'explosion' || e.kind === 'tactical') {
         if (e.kind === 'tactical' && e.source === 'C06') {
           this.draw('combat-props', 8, 195, 420, 42, alpha * .85);
+        } else if(e.kind==='tactical'&&e.source==='C08'){
+          const p=origin(e.source);this.impact(type,phase,p.x,p.y-12,40,alpha*.45);
+        } else if(e.kind==='explosion'&&(e.radius??0)>0){
+          // AreaEffects owns the layered footprint body, before cosmetic event caps.
+        } else if(e.kind==='tactical'&&e.skill==='ultimate'&&['C01','C02','C04','C05','C07'].includes(e.source??'')){
+          // Damage/field events already own the visible animation; don't replay a fake blast.
         } else {
-          this.impact(type, phase, e.x, e.y, Math.min(220, (e.radius ?? 55) * 2), alpha);
+          this.impact(type,phase,e.x,e.y,e.source==='C03'?68:48,alpha*.72);
         }
       } else if (e.kind === 'shot') {
         const p = origin(e.source, e.x2), to = { x: e.x2 ?? e.x, y: e.y2 ?? e.y };
@@ -85,9 +100,18 @@ export class MaterialEffects {
         const p = e.y === 490 ? { x: muzzleX, y: base.y } : e;
         const to = { x: e.x2 ?? e.x, y: e.y2 ?? e.y };
         const progress = Math.min(1, t / .55), angle = Math.atan2(to.y - p.y, to.x - p.x) * 180 / Math.PI;
+        // Textured energy segments give chains body; the geometry remains auxiliary.
+        if(e.kind==='arc'||e.source==='C02'){
+          const length=Math.hypot(to.x-p.x,to.y-p.y),count=detail==='compact'?2:4;
+          for(let i=0;i<count;i++){
+            const q=(i+.5)/count;
+            this.draw('combat-props',7,p.x+(to.x-p.x)*q,p.y+(to.y-p.y)*q,
+              18+Math.sin(t*Math.PI)*8,alpha*.6,angle,Math.min(80,length/count*1.2),LAYERS.effects+.25,type==='plasma'?0xffa8dd:undefined);
+          }
+        }
         // Hitscan damage is unchanged; its short flight cue is a finite illustrated object.
-        if (progress < 1) this.draw('combat-ammo', e.kind === 'arc' || e.source === 'C02' ? 8 + phase : AMMO_FRAMES[e.source ?? 'C03'], p.x + (to.x - p.x) * progress, p.y + (to.y - p.y) * progress, (e.source === 'C02' ? 38 : e.source === 'C03' ? 32 : 23) * size, 1, angle);
-        this.impact(type, phase, to.x, to.y, (e.source === 'C03' ? 48 : 34) * size, alpha);
+        if (progress < 1) this.draw('combat-ammo', e.kind === 'arc' || e.source === 'C02' ? 8 + phase : AMMO_FRAMES[e.source ?? 'C03'], p.x + (to.x - p.x) * progress, p.y + (to.y - p.y) * progress, (e.source === 'C02' ? 38 : e.source === 'C03' ? e.skill==='ultimate'?48:32 : 23) * size, 1, angle);
+        this.impact(type, phase, to.x, to.y, (e.source === 'C03' ? e.skill==='ultimate'?66:48 : 34) * size, alpha);
       } else if (e.kind === 'hit' && e.skill !== 'burn') {
         if (detail === 'compact' && smallImpacts++ >= 8) continue;
         this.impact(type, phase, e.x, e.y, (e.source === 'C03' ? 43 : 28) * size, alpha * .9);
@@ -102,11 +126,9 @@ export class MaterialEffects {
         this.impact('thermal', phase, Math.max(35, Math.min(355, e.x)), 445, e.enemyDefId?.startsWith('B') ? 110 : 37, alpha);
       }
     }
-    for (const field of run.fields) {
-      this.impact(field.damageType, 1 + Math.floor(now / 190 + field.id) % 2, field.x, field.y, field.radius * (detail === 'compact' ? 1.1 : 1.65), detail === 'compact' ? .22 : .42);
-    }
+    // Persistent atlas bodies are rendered below enemies by AreaEffects.
     for (let i = this.used; i < this.sprites.length; i++) this.sprites[i].setVisible(false);
     this.peak = Math.max(this.peak, this.used);
   }
-  diagnostics() { return { materialEffects: { active: this.used, allocated: this.sprites.length, peak: this.peak, textures: this.counts, limit: this.limit, drones: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===0).map(s=>({x:s.x,y:s.y,width:s.displayWidth})), shieldCores: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===8).map(s=>({x:s.x,y:s.y,width:s.displayWidth,height:s.displayHeight})), ammunition: this.sprites.slice(0, this.used).filter(s => s.texture.key === 'combat-ammo').map(s => ({ frame: Number(s.frame.name), x: s.x, y: s.y, width: s.displayWidth })) } }; }
+  diagnostics() { return { materialEffects: { active: this.used, vortexSprites:this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-fx'&&Number(s.frame.name)>=13).length, allocated: this.sprites.length, peak: this.peak, textures: this.counts, limit: this.limit, drones: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===0).map(s=>({x:s.x,y:s.y,width:s.displayWidth})), shieldCores: this.sprites.slice(0,this.used).filter(s=>s.texture.key==='combat-props'&&Number(s.frame.name)===8).map(s=>({x:s.x,y:s.y,width:s.displayWidth,height:s.displayHeight})), ammunition: this.sprites.slice(0, this.used).filter(s => s.texture.key === 'combat-ammo').map(s => ({ frame: Number(s.frame.name), x: s.x, y: s.y, width: s.displayWidth })) } }; }
 }

@@ -15,7 +15,7 @@ import type { GameSave } from '../storage/repository';
 import type { ViewModel } from './model';
 import { operationObjectives, challengeChoices } from './operation-home';
 import { recruitmentRules } from './recruitment';
-import { difficultyName, rewardMode, rewardName, rewardAmount, selectedDifficulty } from '../storage/mission-rewards';
+import { difficultyName, rewardMode, rewardName, rewardAmount, selectedDifficulty, claimedTier } from '../storage/mission-rewards';
 
 export type CommandPanel = 'shortcuts' | 'intel' | 'waves' | 'auto' | 'squad' | 'weapons' | 'enemies' | 'objectives' | 'reward' | 'recruit-rules' | 'challenges';
 const titles: Record<CommandPanel, string> = { challenges:'挑戰作戰', shortcuts: '戰術指揮台', intel: '戰場情報', waves: '波次與敵情', auto: '自動戰鬥', squad: '編隊配置', weapons: '武器選擇', enemies: '敵人圖鑑', objectives: '作戰目標與獎勵', reward:'獎勵一覽', 'recruit-rules':'獎池機率與規則' };
@@ -24,9 +24,9 @@ export function commandPanel(save: GameSave, vm: ViewModel, selectedRange: strin
   const kind = vm.commandPanel!;
   if(kind==='reward'&&vm.rewardPreview){
     const preview=vm.rewardPreview,difficulty=selectedDifficulty(save,vm.stageId);
-    const mode=rewardMode(difficulty,vm.challengeId),amount=rewardAmount(mode,preview.tier);
+    const mode=rewardMode(difficulty,vm.challengeId),amount=rewardAmount(mode,preview.tier),claimed=claimedTier(save.collection,vm.stageId,difficulty,vm.challengeId)>=preview.tier;
     const left=Math.max(12,Math.min(innerWidth-244,preview.x-116)),top=Math.max(12,Math.min(innerHeight-216,preview.y+6));
-    return `<div class="modal-backdrop reward-preview-backdrop"><section class="dialog reward-preview-dialog" role="dialog" aria-modal="true" aria-labelledby="reward-preview-title" style="left:${left}px;top:${top}px"><header><h2 id="reward-preview-title">獎勵一覽</h2><button data-action="command-close" aria-label="關閉獎勵一覽">×</button></header><p class="reward-preview-condition">${mode==='challenge'?'挑戰':difficultyName(difficulty)} · 耐久 ${[1,50,100][preview.tier-1]}%</p><div class="reward-preview-item"><span class="reward-ticket-icon ${mode==='easy'?'reward-points-icon':''}">${mode==='easy'?'<i aria-hidden="true">✦</i>':`<img src="${assetUrl('rewards/recruit-ticket-v2.webp')}" alt="招募券">`}<b>${amount}</b></span><strong>${rewardName(mode)}</strong></div></section></div>`;
+    return `<div class="modal-backdrop reward-preview-backdrop"><section class="dialog reward-preview-dialog" role="dialog" aria-modal="true" aria-labelledby="reward-preview-title" style="left:${left}px;top:${top}px"><header><h2 id="reward-preview-title">獎勵一覽</h2><button data-action="command-close" aria-label="關閉獎勵一覽">×</button></header><p class="reward-preview-condition">${mode==='challenge'?'挑戰':difficultyName(difficulty)} · 耐久 ${[1,50,100][preview.tier-1]}%</p><div class="reward-preview-item"><span class="reward-ticket-icon ${mode==='easy'?'reward-points-icon':''}">${mode==='easy'?'<i aria-hidden="true">✦</i>':`<img src="${assetUrl('rewards/recruit-ticket-v2.webp')}" alt="招募券">`}<b>${amount}</b></span><strong>${rewardName(mode)}</strong></div><p class="reward-preview-state">${claimed?"✓ 已領取 · 已自動發放":"未達成 · 通關且達到此耐久門檻後自動發放"}</p><p class="reward-preview-note">無需手動領取；一次達成多格會一併發放尚未領過的獎勵，每格只發一次。</p></section></div>`;
   }
   const run = vm.page === 'battle' ? save.activeRun : null;
   const hundred=run?isHundred(run):vm.page==='hundred';

@@ -19,3 +19,8 @@ playwright-report/
 # Required evidence for the free-skill release verifier and delivery documentation.
 !artifacts/validation/free-skills/rules-final.log
 artifacts/**/browser-results/test-output/
+
+# Validation outputs are regenerated locally; keep them out of git (already-tracked files stay tracked).
+artifacts/validation/**
+!artifacts/validation/**/
+!artifacts/validation/free-skills/rules-final.log

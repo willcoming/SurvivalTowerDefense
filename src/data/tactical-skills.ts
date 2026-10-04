@@ -20,6 +20,7 @@ const CONDITIONS:Record<ConditionalKey,string> = {
  markedHaste:'射程內有曝露目標時，自身武器攻速',
  pressureHaste:'有敵人進入防線前 100 距離時，自身武器攻速',
 };
+export const CONDITIONAL_NAMES:Record<ConditionalKey,string>={crowdDamage:'群襲增幅',isolatedDamage:'獨擊增幅',guardDamage:'破防增幅',freshDamage:'先制增幅',markedHaste:'曝露加速',pressureHaste:'近線加速'};
 const THEMES:Record<CharacterId,ConditionalKey[]> = {
  C01:['crowdDamage','guardDamage','markedHaste'],C02:['crowdDamage','guardDamage','pressureHaste'],
  C03:['crowdDamage','isolatedDamage','freshDamage'],C04:['crowdDamage','pressureHaste','markedHaste'],
@@ -51,7 +52,7 @@ export function specializeNode(n:DeepNode,summer=false):DeepNode {
  const value=key.endsWith('Haste')?.16:.24;
  // Keep a small amount of essential range on former range nodes; the primary benefit requires a tactical condition.
  const mods:DeepMods={[key]:summer?value/2:value,...(summer?{[ordinary]:ordinary.endsWith('Haste')?.08:.12}:{}),...(n.mods.range?{range:Math.min(15,n.mods.range)}:{})};
- return {...n,description:`${CONDITIONS[key]} +${Math.round((summer?value/2:value)*100)}%。${summer?`${CONDITIONS[ordinary]} +${ordinary.endsWith('Haste')?8:12}%。`:''}${mods.range?`射程 +${mods.range}。`:''}`,mods};
+ return {...n,name:CONDITIONAL_NAMES[key]+(summer?'・複合':mods.range?'・延伸':''),description:`${CONDITIONS[key]} +${Math.round((summer?value/2:value)*100)}%。${summer?`${CONDITIONS[ordinary]} +${ordinary.endsWith('Haste')?8:12}%。`:''}${mods.range?`射程 +${mods.range}。`:''}`,mods};
 }
 type Signature=[string,string,DeepMods];
 const SIGNATURES:Record<CharacterId,Signature[]>={

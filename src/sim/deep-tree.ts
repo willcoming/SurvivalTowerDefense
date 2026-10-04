@@ -61,7 +61,7 @@ export function syncDeepWeapon(s:RunState,id:CharacterId){
   w.rank=ult?3:Math.min(2,own.length);w.branch=own.length?DEEP_TREE_MAP[DEEP_NODE_MAP[ult??own[0]].treeId].visualBranch:null;
 }
 export function validateDeepTree(s:RunState){
-  if(s.experienceVersion!==undefined&&(![1,2].includes(s.experienceVersion)||!s.waveFlow))throw new Error('戰鬥經驗版本損壞');
+  if(s.experienceVersion!==undefined&&(![1,2,3].includes(s.experienceVersion)||!s.waveFlow))throw new Error('戰鬥經驗版本損壞');
   if(s.commanderSkillVersion!==undefined&&s.commanderSkillVersion!==1)throw new Error('指揮官技能版本損壞');
   if(s.commanderSkillVersion===1)validateCommanderSkills(s.config.commanderNodes);
   if(s.skillCostVersion!==undefined&&s.skillCostVersion!==2)throw new Error('技能消耗版本損壞');
@@ -71,7 +71,7 @@ export function validateDeepTree(s:RunState){
   if(shadow.evolvedCount!==s.evolvedCount||deepPointCost(s.treeNodes,s)!==s.choicesSpent||s.evolutionLimit!==(s.config.challengeId==='two-evolutions'?2:usesReworkedSkills(s)?s.config.squadIds.length:3)||s.choicesEarned!==battleExperience(s).earned||s.rerollsRemaining!==0)throw new Error('技能點計數損壞');
   if(s.stats.choices.length!==s.treeNodes.length||s.stats.choices.some((c,i)=>c.nodeId!==s.treeNodes![i]))throw new Error('技能選擇歷史損壞');
   const pending=s.draft?.pendingNodeIds??[];
-  if(s.draft&&(!Number.isInteger(s.draft.id)||s.draft.id<1||!s.config.squadIds.includes(s.draft.focusId)||s.draft.selectedEvolution!==null||s.draft.customNodeId!==undefined||s.draft.cards.length||s.draft.choice!==(s.waveFlow?.wave??Math.floor(s.choicesSpent/2)+1)||s.draft.pointTarget!==deepPointTarget(s)||!s.pauseReasons.includes('upgrade')||s.choicesSpent>=s.choicesEarned||s.draft.pendingNodeIds!==undefined&&!Array.isArray(s.draft.pendingNodeIds)||deepPointCost(pending,s)>(s.draft.pointTarget-s.choicesSpent)||new Set(pending).size!==pending.length))throw new Error('選點里程碑紀錄損壞');
+  if(s.draft&&(!Number.isInteger(s.draft.id)||s.draft.id<1||!s.config.squadIds.includes(s.draft.focusId)||s.draft.selectedEvolution!==null||s.draft.customNodeId!==undefined||s.draft.cards.length||s.draft.choice!==(s.waveFlow?.wave??Math.floor(s.choicesSpent/2)+1)||s.draft.pointTarget!==deepPointTarget(s)||!s.pauseReasons.includes('upgrade')||(s.waveFlow?s.choicesSpent>s.choicesEarned:s.choicesSpent>=s.choicesEarned)||s.draft.pendingNodeIds!==undefined&&!Array.isArray(s.draft.pendingNodeIds)||deepPointCost(pending,s)>(s.draft.pointTarget-s.choicesSpent)||new Set(pending).size!==pending.length))throw new Error('選點里程碑紀錄損壞');
   if(pending.length){const pendingShadow={...s,treeNodes:[...s.treeNodes]};for(const id of pending){if(deepLock(pendingShadow,id))throw new Error('待確認技能前置損壞');pendingShadow.treeNodes.push(id);if(DEEP_NODE_MAP[id].kind==='ultimate')pendingShadow.evolvedCount++;}}
   if(!s.draft&&s.pauseReasons.includes('upgrade'))throw new Error('缺少技能選點紀錄');
   if(!s.support||Object.values(s.support).some(n=>!Number.isFinite(n)||n<0)||!Array.isArray(s.wavePlan)||s.wavePlan.length!==operationProfile(s).waves.length)throw new Error('戰場事件或共用技能紀錄損壞');

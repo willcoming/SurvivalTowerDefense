@@ -32,7 +32,7 @@ function recruitment(main: HTMLElement, ui: MobileControls) {
   const catalog = main.querySelector<HTMLElement>('.recruit-v2-catalog')!;
   const grid = catalog.querySelector<HTMLElement>('.recruit-card-grid')!;
   const receipt = catalog.querySelector<HTMLElement>('.recruitment-receipt');
-  if (receipt) {
+  if (receipt && innerWidth <= 800) {
     const links = mount(main.querySelector('.recruit-purchase-panel') ?? catalog, 'mobile-recruit-receipt');
     const result = disclose(ui, 'recruit-receipt', '招募結果', receipt, links);
     result.setAttribute('aria-label', '招募結果');
@@ -51,7 +51,7 @@ function recruitment(main: HTMLElement, ui: MobileControls) {
   const status = catalog.querySelector<HTMLElement>('.recruit-catalog-meta')!;
   const collection = status.querySelector('span')!.textContent!;
   status.classList.add('sr-only');
-  ui.pager('recruit-items', items, items.map(n => `${collection} · ${n.querySelector('h2')!.textContent}・${n.querySelector('.recruit-item-copy > p')!.textContent}`), picker, 0, innerHeight <= 740 ? 1 : 2);
+  ui.pager('recruit-items', items, items.map(n => `${collection} · ${n.querySelector('h2')!.textContent}・${n.querySelector('.recruit-item-copy > p')!.textContent}`), picker, 0, innerWidth <= 800 && innerHeight <= 740 ? 1 : 2);
 }
 
 function commander(main: HTMLElement, ui: MobileControls) {
@@ -64,10 +64,14 @@ function commander(main: HTMLElement, ui: MobileControls) {
       const upgrade = copy.querySelector<HTMLButtonElement>('button')!;
       const name = copy.querySelector('h4')!.textContent!;
       const key = `commander-node:${upgrade.dataset.id}`;
+      const effect=document.createElement('span');effect.className='commander-node-effect';effect.textContent=copy.querySelector('.commander-node-effect')!.textContent;
+      const requirement=document.createElement('span');requirement.className='commander-node-requirement';requirement.textContent=copy.querySelector('.commander-node-requirement')!.textContent;
       const trigger = ui.detail(key, name, [copy], node, [upgrade]);
+      trigger.closest('li')!.querySelector('dialog')!.classList.add('commander-node-dialog');
+      trigger.append(effect,requirement);
       trigger.classList.add('mobile-commander-node');
       const state = document.createElement('small');
-      state.textContent = node.classList.contains('owned') ? '已升級' : '查看效果與條件';
+      state.textContent = node.classList.contains('owned') ? '已升級 · 查看詳情' : upgrade.disabled ? upgrade.textContent!+' · 查看詳情' : '可配置 · 查看詳情';
       trigger.append(state);
     }
   });

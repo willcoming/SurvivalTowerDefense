@@ -29,7 +29,7 @@ function copy(state: OfflineState) {
   const progress = state.progress;
   const percent = progress?.total ? Math.floor(progress.completed / progress.total * 100) : 0;
   let title = '正在確認離線下載', detail = '完整遊戲會在背景下載，期間可以繼續遊玩。';
-  if (state.phase === 'development') { title = '開發模式'; detail = '離線下載在正式版本啟用。'; }
+  if (state.phase === 'development') { title = '線上遊玩'; detail = '離線下載在正式版本啟用。'; }
   if (state.phase === 'unsupported') { title = '目前只能線上遊玩'; detail = '此瀏覽器或連線方式不支援離線儲存，請使用支援的瀏覽器開啟正式 HTTPS 網址。'; }
   if (state.phase === 'downloading') { title = '正在下載完整遊戲'; detail = '包含所有角色、造型、動畫與關卡；完成前請保持連線。'; }
   if (state.phase === 'downloaded') { title = '完整遊戲已下載'; detail = '請關閉此遊戲視窗，再從原網址或主畫面重新開啟，確認顯示「可離線遊玩」後再斷網。'; }
@@ -59,6 +59,7 @@ export function refreshOfflineUi(root: HTMLElement) {
   for (const holder of root.querySelectorAll<HTMLElement>('[data-offline]')) {
     holder.dataset.offlineState = state.phase; holder.dataset.offlineUpdate = state.update;
     if (holder.dataset.offline === 'summary') holder.setAttribute('aria-label', `${text.summary}，查看離線下載與安裝設定`);
+    if (holder.dataset.offline === 'summary') holder.hidden = state.phase === 'development';
     setText(holder, 'summary', text.summary);
     setText(holder, 'announcement', text.title);
     const indicator = holder.querySelector('.offline-indicator');
@@ -84,7 +85,7 @@ export function refreshOfflineUi(root: HTMLElement) {
       force.textContent = state.forceBusy ? '正在更新…' : '強制更新';
     }
     const forceMessage = holder.querySelector<HTMLElement>('[data-offline-field="force-message"]');
-    const forceText = state.forceMessage || (state.phase === 'development' ? '本地開發模式；強制更新於正式版本啟用。' : '');
+    const forceText = state.forceMessage || (state.phase === 'development' ? '此預覽不提供離線下載與強制更新。' : '');
     if (forceMessage) forceMessage.hidden = !forceText;
     setText(holder, 'force-message', forceText);
   }

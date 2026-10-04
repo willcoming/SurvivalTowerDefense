@@ -8,7 +8,7 @@ import { MaterialEffects, MATERIAL_ATLAS, PROP_ATLAS, EFFECT_FRAME_SIZE } from '
 import { ProjectileVisuals, AMMO_ATLAS, AMMO_FRAME_SIZE } from './projectile-visuals';
 import { TacticalTimeline } from './tactical-timeline';
 import { enemyFrameSize, enemyTexture } from './enemy-motion';
-import { drawInterrupt, drawField } from './effects';
+import { drawInterrupt } from './effects';
 import { capEffects, effectDetail, effectLifetime, LAYERS, priorityEnemy, type ActiveEffect, type Detail } from './presentation';
 import { BossAssault } from './boss-assault';
 import { StatusEffects } from './status-effects';
@@ -19,6 +19,7 @@ import type { BattleSpeed } from '../storage/repository';
 import { stageArt } from '../data/campaign';
 import { equippedForm, formMotion } from '../data/forms';
 import { ALLY_MOTION } from '../data/character-motion';
+import { AreaEffects } from './area-effects';
 import { WeaknessMarkers } from './weakness-markers';
 
 interface SceneLoading { ready: () => void; failed: (paths: string[]) => void; progress: (ratio: number) => void }
@@ -33,6 +34,7 @@ export class BattleScene extends Phaser.Scene {
   private worldKey = '';
   private actors!: CombatActors;
   private materials!: MaterialEffects;
+  private areas!: AreaEffects;
   private statuses!: StatusEffects;
   private weaknesses!: WeaknessMarkers;
   private bossAssault!: BossAssault;
@@ -87,6 +89,7 @@ export class BattleScene extends Phaser.Scene {
     this.warnings = this.add.graphics().setDepth(LAYERS.warnings);
     this.actors = new CombatActors(this, this.read, this.speed, this.spriteKeys, this.timeline);
     this.materials = new MaterialEffects(this);
+    this.areas = new AreaEffects(this);
     this.projectiles = new ProjectileVisuals(this);
     this.statuses = new StatusEffects(this);
     this.weaknesses = new WeaknessMarkers(this);
@@ -106,15 +109,14 @@ export class BattleScene extends Phaser.Scene {
   }
   private drawWorld(run: RunState) {
     const g = this.worldGraphics; g.clear();
-    run.fields.forEach(f => drawField(g, f, run.tick, this.detail, run));
     for (const enemy of run.enemies) {
       if (run.bossIntro?.enemyId === enemy.id) continue;
       const boss = enemy.defId.startsWith('B'), size = enemySize(enemy.defId);
       const w = boss ? 84 : 26; const hpY = enemy.y - size / 2 - 4;
-      if ((enemy.hp < enemy.maxHp || boss) && (run.enemies.length<24 || priorityEnemy(enemy))) { g.fillStyle(0x091e25, .9).fillRect(enemy.x - w / 2, hpY, w, boss ? 5 : 3); g.fillStyle(boss ? 0xff8666 : 0xf2dab8).fillRect(enemy.x - w / 2, hpY, w * Math.max(0, enemy.hp / enemy.maxHp), boss ? 5 : 3); }
+      if (!boss && enemy.hp < enemy.maxHp && (run.enemies.length<24 || priorityEnemy(enemy))) { g.fillStyle(0x091e25, .9).fillRect(enemy.x - w / 2, hpY, w, boss ? 5 : 3); g.fillStyle(boss ? 0xff8666 : 0xf2dab8).fillRect(enemy.x - w / 2, hpY, w * Math.max(0, enemy.hp / enemy.maxHp), boss ? 5 : 3); }
       if (enemy.shield > 0) { g.fillStyle(0x7eebff, .8).fillRoundedRect(enemy.x - 5, hpY - 5, 10, 3, 1.5); }
     }
-    const charging = run.enemies.find(e => e.defId.startsWith('B') && e.chargeKind && !e.chargeCancelled) ?? run.enemies.find(e => e.chargeKind && !e.chargeCancelled);
+    const charging = run.enemies.find(e => e.hp>0&&e.defId.startsWith('B') && e.chargeKind && !e.chargeCancelled&&e.chargeUntil>run.tick) ?? run.enemies.find(e => e.hp>0&&e.chargeKind && !e.chargeCancelled&&e.chargeUntil>run.tick);
     for (const e of run.enemies) {
       if (e.chargeKind && !e.chargeCancelled && !this.previousCharges.has(e.id)) this.audio.feedback('alert');
       if (e.shield <= 0 && (this.previousShields.get(e.id) ?? 0) > 0) this.audio.feedback('shield-break');
@@ -128,7 +130,7 @@ export class BattleScene extends Phaser.Scene {
     if (shield > 0) { g.fillStyle(0x69eedc, .08).fillRect(0, 432, 390, 18); }
     this.drawWarnings(run);
     // Rasterize unchanged geometry once. The same 390×520 detail is retained;
-    // WebGL no longer re-tessellates hundreds of identical circles every frame.
+    // World overlays do not need to be tessellated again every frame.
     this.worldTexture.clear().draw(this.worldGraphics);
   }
   private drawWarnings(run: RunState) {
@@ -155,6 +157,7 @@ export class BattleScene extends Phaser.Scene {
     const key = `${run.tick}:${run.actionSeq}:${run.eventSeq}:${run.phase}:${run.enemies.length}:${run.projectiles.length}:${run.fields.length}:${run.shields.length}:${this.detail}`;
     if (run !== this.worldRun || key !== this.worldKey) { this.worldRun = run; this.worldKey = key; this.drawWorld(run); }
     const now = this.actors.clock;
+    this.areas.update(run, fresh, now, this.detail);
     this.statuses.update(run, now, fresh, this.detail);
     this.weaknesses.update(run);
     this.bossAssault.update(run,now,fresh,this.low());
@@ -185,12 +188,12 @@ export class BattleScene extends Phaser.Scene {
   }
   diagnostics() {
     const bounds = this.warning.getBounds(), selected = this.selectedRange(), run = this.read();
-    return { ...this.actors.diagnostics(), ...this.materials.diagnostics(), ...this.projectiles.diagnostics(), ...this.statuses.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(),
+    return { ...this.areas.diagnostics(), ...this.actors.diagnostics(), ...this.materials.diagnostics(), ...this.projectiles.diagnostics(), ...this.statuses.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(),
       bossIntro: run.bossIntro ? { ...run.bossIntro, type: run.enemies.find(e => e.id === run.bossIntro?.enemyId)?.defId, visible: true, depth: 30 } : null,
       range: selected ? { id: selected, radius: weaponRange(run, selected), insideIds: run.enemies.filter(e => inWeaponRange(run, selected, e)).map(e => e.id) } : null, detail: this.detail, activeEffects: this.flashes.length, peakEffects: this.peakEffects,
       warnings: { visible: this.warning.visible, text: this.warning.text, top: bounds.top, bottom: bounds.bottom, depth: this.warning.depth, geometryDepth: this.warnings.depth },
       textureFrames: Object.fromEntries(this.read().config.squadIds.map(id => [id, this.textures.get(`motion-${id}`).frameTotal - 1])),
-      effectsDepth: this.graphics.depth, alliesDepth: LAYERS.allies,
+      warningCommands: this.warnings.commandBuffer.length, effectsDepth: this.graphics.depth, alliesDepth: LAYERS.allies,
       visibleEffects: this.flashes.map(f => ({ seq: f.event.seq, kind: f.event.kind, source: f.event.source, age: this.actors.clock - f.born, duration: f.duration })),
       enemyTextureFrames: Object.fromEntries([...this.spriteKeys].map(([id, key]) => [id, this.textures.get(key).frameTotal - 1])),
     };

@@ -61,11 +61,13 @@ export function rebuildDraft(s:RunState, randomize=false):void{
 }
 export function openDraft(s:RunState):void{
   if(s.waveFlow&&s.waveFlow.phase!=='allocation')return;
-  if(s.draft||s.choicesSpent>=s.choicesEarned||s.outcome)return;
-  if(usesFreeSkills(s)&&!getLegalNodeIds(s).length)return;
+  if(s.draft||s.outcome||!s.waveFlow&&s.choicesSpent>=s.choicesEarned)return;
+  // A cleared wave needs a break only when at least one legal skill is affordable.
+  if(s.waveFlow&&usesFreeSkills(s)&&!canSpendDeepPoints(s,s.choicesEarned-s.choicesSpent))return;
+  if(!s.waveFlow&&usesFreeSkills(s)&&!getLegalNodeIds(s).length)return;
   if(usesFreeSkills(s)){
     if(s.bossIntro)return;
-    if(usesSkillNetwork(s)&&!canSpendDeepPoints(s,deepPointTarget(s)-s.choicesSpent))return;
+    if(!s.waveFlow&&usesSkillNetwork(s)&&!canSpendDeepPoints(s,deepPointTarget(s)-s.choicesSpent))return;
     // Let a visible wind-up finish, with a bounded delay so overlapping attacks cannot starve upgrades.
     s.upgradePendingAt??=s.tick;
     if(!s.waveFlow&&s.tick-s.upgradePendingAt<60&&s.enemies.some(e=>e.hp>0&&e.chargeKind&&!e.chargeCancelled&&e.chargeUntil>s.tick))return;

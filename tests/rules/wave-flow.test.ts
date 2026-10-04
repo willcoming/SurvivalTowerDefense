@@ -47,9 +47,9 @@ describe('wave allocation version 1', () => {
       expect(p.points).toBe(2 * Math.round(before.points * ratio / 2));
       expect(p.escortCount).toBe(before.escortCount); expect(p.escortXp).toBeGreaterThanOrEqual(before.escortXp!);
       expect(pressure(s)).toEqual(pressure(old));
-      expect(p.waveXp.reduce((a,b) => a+b, 0) + p.escortXp!).toBe(battleXpAt(p.points+1));
+      expect(p.waveXp.reduce((a,b) => a+b, 0)).toBe(battleXpAt(p.points+1));
       expect(s.spawnPlan).toHaveLength(p.enemies + p.escortCount!);
-      expect(s.spawnPlan.reduce((n,e) => n+e.xp, 0)).toBe(battleXpAt(p.points+1));
+      expect(s.spawnPlan.reduce((n,e) => n+e.xp, 0)).toBe(battleXpAt(p.points+1)+p.escortXp!);
       p.waves.forEach((wave, i) => {
         const count = wave.split(' ').reduce((n,t) => n+Number(t.slice(1)), 0);
         const entries = s.spawnPlan.filter(e => e.wave === i+1);
@@ -77,6 +77,29 @@ describe('wave allocation version 1', () => {
     expect(s.draft!.pointTarget).toBeGreaterThanOrEqual(6);
   });
 
+  it('confirms a dependent node chain in one batch (prerequisite unlocked inside the same confirm)', () => {
+    const s = allocation();
+    command(s,{type:'confirm-node',offerId:s.draft!.id,nodeIds:[]}); clearWave(s);
+    expect(s.choicesEarned-s.choicesSpent).toBeGreaterThanOrEqual(2);
+    const before = new Set(deepLegalNodes(s));
+    // Find a (first, dependent) pair where dependent becomes legal only after first is owned.
+    let pair: [string,string] | undefined;
+    for (const first of before) {
+      const probe = { ...s, treeNodes: [...(s.treeNodes ?? []), first] } as RunState;
+      deepLegalNodes(probe); // warm identity-keyed caches like the engine does
+      const dependent = deepLegalNodes(probe).find(id => !before.has(id) && !id.endsWith('/9'));
+      if (dependent) { pair = [first, dependent]; break; }
+    }
+    expect(pair).toBeDefined();
+    const [first, dependent] = pair!;
+    const spent = s.choicesSpent, wave = s.waveFlow!.wave;
+    expect(command(s,{type:'confirm-node',offerId:s.draft!.id,nodeIds:[first,dependent]})).toBe(true);
+    expect(s.treeNodes).toEqual(expect.arrayContaining([first,dependent]));
+    expect(s.choicesSpent).toBeGreaterThan(spent+1);
+    expect(s.waveFlow!.wave).toBe(wave+1);
+    expect(restoreRun(s)).toEqual(s);
+  });
+
   it('commits a partial batch once and carries banked points into the next allocation', () => {
     const s = allocation();
     // Bank the first single point so the next allocation can be partially spent.
@@ -91,6 +114,43 @@ describe('wave allocation version 1', () => {
     expect(restoreRun(s)).toEqual(s);
     clearWave(s);
     expect(s.draft!.pointTarget).toBe(s.choicesEarned); expect(s.choicesSpent).toBe(1);
+    expect(restoreRun(s)).toEqual(s);
+  });
+
+  it('purchases only the current skill, charges its cost and keeps unspent points in the same allocation', () => {
+    const s=createRun(config);s.xp=battleXpAt(9);s.choicesEarned=8;allocation(s);
+    const offerId=s.draft!.id,wave=s.waveFlow!.wave,tick=s.tick,earned=s.choicesEarned;
+    // Old saved batches must never be applied by an individual purchase.
+    s.draft!.pendingNodeIds=['C01-A4/0','C02-A4/0'];
+    expect(command(s,{type:'buy-node',offerId,nodeId:'C02-A4/0'})).toBe(true);
+    expect(s.treeNodes).toEqual(['C02-A4/0']);expect(s.choicesSpent).toBe(1);
+    expect(s.draft!.pendingNodeIds).toEqual([]);expect(s.draft!.id).toBe(offerId);
+    expect(s.tick).toBe(tick);expect(s.waveFlow!.wave).toBe(wave);expect(s.phase).toBe('choosing');
+    expect(restoreRun(s)).toEqual(s);
+    const before=structuredClone(s);
+    expect(command(s,{type:'buy-node',offerId,nodeId:'C02-A4/0'})).toBe(false);expect(s).toEqual(before);
+    for(const nodeId of ['C02-A4/1','C02-A4/2','C02-A4/3'])expect(command(s,{type:'buy-node',offerId,nodeId})).toBe(true);
+    s.draft!.pendingNodeIds=['C02-B4/4'];
+    expect(command(s,{type:'buy-node',offerId,nodeId:'C02-B4/4'})).toBe(true);
+    expect(s.choicesSpent).toBe(6);expect(s.choicesEarned-s.choicesSpent).toBe(earned-6);
+    expect(s.evolvedCount).toBe(1);expect(s.treeNodes).toHaveLength(5);expect(restoreRun(s)).toEqual(s);
+    expect(s.waveFlow!.wave).toBe(wave);expect(s.draft!.id).toBe(offerId);
+    expect(command(s,{type:'confirm-node',offerId,nodeIds:[]})).toBe(true);
+    expect(s.choicesEarned-s.choicesSpent).toBe(earned-6);expect(s.waveFlow!.wave).toBe(wave+1);
+  });
+
+  it('waits at zero points until the next wave is explicitly confirmed, including restore and stale clicks', () => {
+    const s=allocation(),wave=s.waveFlow!.wave,tick=s.tick,offerId=s.draft!.id;
+    while(s.choicesSpent<s.choicesEarned){
+      const nodeId=deepLegalNodes(s).find(id=>!id.endsWith('/4'))!;
+      expect(command(s,{type:'buy-node',offerId,nodeId})).toBe(true);
+    }
+    expect(s.draft!.id).toBe(offerId);expect(s.waveFlow!.wave).toBe(wave);
+    expect(s.phase).toBe('choosing');stepRun(s,90);expect(s.tick).toBe(tick);
+    expect(restoreRun(s)).toEqual(s);
+    expect(command(s,{type:'confirm-node',offerId,nodeIds:[]})).toBe(true);
+    expect(s.waveFlow!.wave).toBe(wave+1);expect(s.draft).toBeNull();
+    expect(command(s,{type:'confirm-node',offerId,nodeIds:[]})).toBe(false);
     expect(restoreRun(s)).toEqual(s);
   });
 
@@ -139,7 +199,7 @@ describe('wave allocation version 1', () => {
     command(s,{type:'resume',reason:'user'}); stepRun(s); expect(s.tick).toBe(tick+1);
   });
 
-  it('skips a break without spendable points and ends after the boss despite banked points', () => {
+  it('requires explicit wave confirmation and ends after the boss despite banked points', () => {
     const s = createRun(config);
     for (let guard=0; guard<30 && !s.outcome; guard++) {
       clearWave(s);

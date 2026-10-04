@@ -70,5 +70,5 @@ export function enhanceMobile(root: HTMLElement, page: Page, ui: MobileControls)
   if (page === 'roster') compactRoster(root, ui);
   else if (page === 'codex') compactCodex(root, ui);
   else enhanceSecondary(root, page, ui);
-  if (matchMedia(mobileQuery).matches) enhanceMobilePages(root, page, ui);
+  if (page === 'recruitment' || matchMedia(mobileQuery).matches) enhanceMobilePages(root, page, ui);
 }

@@ -43,8 +43,8 @@ for(const width of [320,768,1024,1440])test(`wave-end allocation supports partia
   await expect(page.locator('#xp-text')).toContainText(`Lv.${first.earned+1}`);
   await expect(page.locator('#xp-text')).toContainText(`待配 ${first.earned} 點`);
   await expect(page.getByRole('heading',{name:new RegExp(`第 ${first.wave} 波完成`)})).toBeVisible();
-  const confirm=page.locator('[data-action="buy-node"]'),bank=page.getByRole('button',{name:'保留全部點數並繼續',exact:true});
-  await expect(confirm).toBeDisabled();await expect(bank).toBeInViewport();
+  const confirm=page.locator('[data-action="buy-node"]'),bank=page.getByRole('button',{name:/^開始下一波/});
+  await expect(confirm).toHaveCount(0);await expect(bank).toBeInViewport();
   await page.locator('[data-action="deep-owner"][data-id="C01"]').click();
   const entry=page.locator('[data-action="deep-node"][data-id="C01-A4/0"]');
   await entry.focus();await entry.press('Enter');
@@ -53,6 +53,8 @@ for(const width of [320,768,1024,1440])test(`wave-end allocation supports partia
   await page.screenshot({path:info.outputPath(`wave-allocation-${width}.png`)});
   expect(await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth+1,spent:window.__game.state()!.choicesSpent}))).toEqual({overflow:false,spent:0});
   await confirm.focus();await confirm.press('Space');
+  await expect(page.locator('.skill-description-dialog[open]')).toHaveCount(0);
+  await expect(page.locator('.wave-allocation')).toBeVisible();await bank.click();
   await expect(page.locator('.wave-allocation')).toHaveCount(0);
   expect(await page.evaluate(()=>({spent:window.__game.state()!.choicesSpent,wave:window.__game.state()!.waveFlow!.wave}))).toEqual({spent:1,wave:first.wave+1});
   const second=await clearToAllocation(page);
@@ -60,7 +62,7 @@ for(const width of [320,768,1024,1440])test(`wave-end allocation supports partia
   expect(await page.evaluate(()=>({spent:window.__game.state()!.choicesSpent,wave:window.__game.state()!.waveFlow!.wave}))).toEqual({spent:1,wave:second.wave+1});
   await expect(page.locator('.wave-allocation')).toHaveCount(0);
   await page.locator('[data-action="view-build"]').first().click();
-  await expect(page.locator('.deep-panel')).toBeVisible();await expect(confirm).toBeDisabled();
+  await expect(page.locator('.deep-panel')).toBeVisible();await expect(confirm).toHaveCount(0);
   await page.keyboard.press('Escape');await expect(page.locator('.deep-panel')).toHaveCount(0);
   expect(errors).toEqual([]);
 });
@@ -75,27 +77,31 @@ test('experience HUD measures progress within the current rising level cost',asy
   expect(await page.locator('#xp-bar').evaluate(el=>(el as HTMLElement).style.width)).toBe('22.5%');
 });
 
-test('one wave allocation enforces the ultimate limit across pending characters',async({page})=>{
+test('one wave allocation enforces the ultimate limit across individual confirmations',async({page})=>{
   await boot(page,'two-evolutions');
   await page.evaluate(async()=>{const path='/src/data/battle-experience.ts';const {battleXpAt}=await import(path);const s=window.__game.state()!;s.xp=battleXpAt(19);s.choicesEarned=18;});
   await clearToAllocation(page);
   let blocked='';
   for(const owner of ['C01','C02','C03'] as const){
+    if(await page.locator('.skill-description-dialog[open]').count())await page.getByRole('button',{name:'關閉',exact:true}).click();
     await page.locator(`[data-action="deep-owner"][data-id="${owner}"]`).click();
     const ultimate=deepTreesFor(owner).flatMap(t=>t.nodes).find(n=>n.kind==='ultimate')!;
     const path=pathsTo(ultimate.id).find(path=>path.length===5)!;
     for(const id of path){
+      if(await page.locator('.skill-description-dialog[open]').count())await page.getByRole('button',{name:'關閉',exact:true}).click();
       const node=page.locator(`[data-action="deep-node"][data-id="${id}"]`);
       await node.focus();await node.press('Enter');
+      if(owner!=='C03'||id!==ultimate.id){await expect(page.locator('[data-action=buy-node]')).toBeEnabled();await page.locator('[data-action=buy-node]').click();}
     }
     if(owner==='C03')blocked=ultimate.id;
   }
   const pending=await page.evaluate(()=>window.__game.state()!.draft!.pendingNodeIds!);
   expect(pending).not.toContain(blocked);
-  expect(pending.filter(id=>DEEP_NODE_MAP[id].kind==='ultimate')).toHaveLength(2);
-  await expect(page.locator('.skill-selection')).toContainText('全隊終極名額已滿');
-  await page.locator('[data-action="buy-node"]').click();
+  expect((await page.evaluate(()=>window.__game.state()!.treeNodes!)).filter(id=>DEEP_NODE_MAP[id].kind==='ultimate')).toHaveLength(2);
+  await expect(page.locator('.skill-description-dialog')).toContainText('全隊終極名額已滿');
+  await expect(page.locator('[data-action="buy-node"]')).toBeDisabled();await page.getByRole('button',{name:'關閉',exact:true}).click();
   expect(await page.evaluate(()=>window.__game.state()!.evolvedCount)).toBe(2);
+  await page.getByRole('button',{name:/^開始下一波/}).click();
   await expect(page.locator('.wave-allocation')).toHaveCount(0);
 });
 
@@ -119,7 +125,7 @@ test('allocation freezes 1×/2×/3× and survives hidden/user pause without adva
     });
     expect(after).toEqual(frozen);
     await page.evaluate(()=>window.__game.command({type:'pause',reason:'user'}));
-    await page.getByRole('button',{name:'保留全部點數並繼續',exact:true}).click();
+    await page.getByRole('button',{name:/^開始下一波/}).click();
     await expect(page.locator('.pause-dialog')).toBeVisible();
     await page.locator('[data-action="resume"]').click();
     await expect(page.locator('.wave-allocation')).toHaveCount(0);
@@ -136,7 +142,7 @@ test.describe('touch controls',()=>{
     await page.locator('[data-action="buy-node"]').tap();
     expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(1);
     await clearToAllocation(page);
-    await page.getByRole('button',{name:'保留全部點數並繼續',exact:true}).tap();
+    await page.getByRole('button',{name:/^開始下一波/}).tap();
     await expect(page.locator('.wave-allocation')).toHaveCount(0);
   });
 });

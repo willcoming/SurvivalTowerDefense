@@ -72,3 +72,13 @@
   .commander-progress { padding:14px; gap:14px; }
   .commander-heading { margin-bottom:18px; }
 }
+
+#app .commander-node-requirement { min-height:0; font-size:13px; line-height:1.6; color:#e3ce9e; }
+#app .commander-node-effect { min-height:0; }
+#app .mobile-commander-node { text-align:left; height:auto; padding:12px; }
+#app .mobile-commander-node .commander-node-effect { font-size:14px; line-height:1.6; margin:6px 0; color:#e7eee8; }
+#app .mobile-commander-node .commander-node-requirement { font-size:13px; margin:6px 0; }
+#app .mobile-commander-node small { margin-top:6px; }
+#app dialog.commander-node-dialog { height:auto; min-height:0; max-height:calc(100dvh - 24px); }
+#app .commander-node-dialog .mobile-detail-body { flex:0 1 auto; min-height:0; }
+#app .commander-node-dialog .mobile-detail-body h4 { font-size:18px; margin:0 0 8px; }

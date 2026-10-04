@@ -20,7 +20,7 @@ export interface GameSave {
 export class SaveConflictError extends Error {constructor(){super('另一個分頁已更新存檔，請重新讀取最新進度');this.name='SaveConflictError';}}
 export class SaveValidationError extends Error {constructor(message='本機紀錄格式損壞，原始資料已保留'){super(message);this.name='SaveValidationError';}}
 export class IncompatibleRunError extends SaveValidationError {preservedSave:GameSave;constructor(save:GameSave){super('本局內容版本不相容；可保留解鎖進度並放棄舊局');this.name='IncompatibleRunError';this.preservedSave=structuredClone(save);}}
-export function createDefaultSave():GameSave{return{revision:0,collection:createCollection(),profile:{commander:createCommander(),schemaVersion:1,cleared:[],hardCleared:[],seenEnemies:[],best:{},challengeClears:[],recentRuns:[]},preferences:{squadIds:['C01','C02','C04','C05','C06'],captainId:'C02',branches:Object.fromEntries(CHARACTER_IDS.map(id=>[id,'A'])) as Record<CharacterId,Branch>,musicVolume:.35,sfxVolume:.65,reducedEffects:false,tutorialSeen:false,battleSpeed:1,autoTactical:false},activeRun:null};}
+export function createDefaultSave():GameSave{return{revision:0,collection:createCollection(),profile:{commander:createCommander(),schemaVersion:1,cleared:[],hardCleared:[],seenEnemies:[],best:{},challengeClears:[],recentRuns:[]},preferences:{squadIds:['C01','C02','C04','C05','C06'],captainId:'C02',branches:Object.fromEntries(CHARACTER_IDS.map(id=>[id,'A'])) as Record<CharacterId,Branch>,musicVolume:0,sfxVolume:0,reducedEffects:false,tutorialSeen:false,battleSpeed:1,autoTactical:false},activeRun:null};}
 export function summarizeRun(run:RunState):RunSummary{return structuredClone({... (isHundred(run)?{mode:run.config.mode,hundredScore:hundredScore(run)}:{}),difficulty:run.config.difficulty,rating:ratingTier(run),runId:run.runId,stageId:run.config.stageId,seed:run.config.seed,squadIds:run.config.squadIds,captainId:run.config.captainId,outcome:run.outcome,tick:run.tick,wallHp:run.wallHp,stats:run.stats,challengeId:run.config.challengeId??null});}
 export function recordHundred(save:GameSave,run:RunState){
  if(!isHundred(run))return;
@@ -92,9 +92,9 @@ export class GameRepository {
    if(typeof indexedDB==='undefined'){reject(new Error('目前瀏覽器無法儲存進度'));return;}
    const request=indexedDB.open(this.name,1);
    request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains(STORE_NAME))request.result.createObjectStore(STORE_NAME);};
-   request.onsuccess=()=>{request.result.onversionchange=()=>request.result.close();resolve(request.result);};
+   request.onsuccess=()=>{const db=request.result;db.onversionchange=()=>{db.close();this.dbPromise=null;};db.onclose=()=>{this.dbPromise=null;};resolve(db);};
    request.onerror=()=>{this.dbPromise=null;reject(request.error??new Error('無法開啟本機儲存'));};
-   request.onblocked=()=>reject(new Error('請先關閉其他遊戲分頁再重試'));
+   request.onblocked=()=>{this.dbPromise=null;reject(new Error('請先關閉其他遊戲分頁再重試'));};
   });return this.dbPromise;
  }
  async load(options:{discardActiveRun?:boolean}={}):Promise<GameSave>{

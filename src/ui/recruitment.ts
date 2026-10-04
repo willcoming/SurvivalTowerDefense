@@ -1,12 +1,14 @@
 import { assetUrl } from '../assets';
 import { CHARACTER_MAP } from '../data/content';
-import { POOL, FORM_MAP, formPortrait, ELEMENTS } from '../data/forms';
+import { POOL, FORM_MAP, formPortrait, formBackdrop, ELEMENTS } from '../data/forms';
 import { RECRUIT_RULES, recruitmentRate } from '../data/recruitment';
 import { missingForms } from '../storage/collection';
 import type { GameSave } from '../storage/repository';
 import type { FormId } from '../sim/types';
 import { esc } from './format';
 
+export const RECRUITMENT_BACKDROP=assetUrl('portrait-backgrounds/recruit-beach-v1.webp');
+export const recruitmentBackdrop=(id:FormId)=>FORM_MAP[id].theme==='summer'?RECRUITMENT_BACKDROP:formBackdrop(id);
 export type RecruitView='draw'|'exchange';
 function recruitImage(id:FormId,className='',lazy=false){
   const form=FORM_MAP[id],name=`${CHARACTER_MAP[form.ownerId].name}・${form.name}`;
@@ -14,24 +16,24 @@ function recruitImage(id:FormId,className='',lazy=false){
 }
 export function recruitmentPreview(id:FormId){
   const form=FORM_MAP[id],name=`${CHARACTER_MAP[form.ownerId].name}・${form.name}`;
-  return `<section class="recruit-art-viewer" role="dialog" aria-modal="true" aria-labelledby="recruit-art-title"><header><h2 id="recruit-art-title">${esc(name)}</h2><button type="button" class="icon-button" data-action="recruit-preview-close" aria-label="關閉大圖">×</button></header><div class="recruit-art-stage"><img src="${formPortrait(id)}" alt="${esc(name)}完整立繪"></div></section>`;
+  return `<section class="recruit-art-viewer" role="dialog" aria-modal="true" aria-labelledby="recruit-art-title"><header><h2 id="recruit-art-title">${esc(name)}</h2><button type="button" class="icon-button" data-action="recruit-preview-close" aria-label="關閉大圖">×</button></header><div class="recruit-art-stage" style="${recruitmentBackdrop(id)?`--portrait-background:url('${recruitmentBackdrop(id)}')`:''}"><img src="${formPortrait(id)}" alt="${esc(name)}完整立繪"></div></section>`;
 }
 export function recruitment(save:GameSave,busy=false,view:RecruitView='draw'){
   const c=save.collection,missing=missingForms(c),disabled=busy||!!save.activeRun;
   const receipt=c.lastReceipt,form=receipt?FORM_MAP[receipt.formId]:null;
   const untilNew=RECRUIT_RULES.guaranteeAt-(c.drawsSinceNew??0);
-  const ticket=assetUrl('rewards/recruit-ticket-v2.webp');
-  return `<main class="content-screen recruitment-screen recruitment-v2">
-    <header class="recruit-v2-heading"><div><small>STARFALL / RECRUITMENT</small><h1>星際徵召</h1></div><button class="recruit-help" data-action="command-panel" data-id="recruit-rules" aria-label="獎池機率與規則">?</button></header>
+  const ticket=assetUrl('rewards/recruit-ticket-cutout-v1.webp');
+  return `<main class="content-screen recruitment-screen recruitment-v2" style="--recruitment-beach:url('${RECRUITMENT_BACKDROP}')">
+    <header class="recruit-v2-heading"><div><small>Recruit</small><h1>星際徵召</h1></div><button class="recruit-help" data-action="command-panel" data-id="recruit-rules" aria-label="獎池機率與規則">?</button></header>
     <nav class="recruit-v2-tabs" aria-label="招募分類">${([['draw','招募'],['exchange','兌換']] as const).map(([id,label])=>`<button data-action="recruit-tab" data-id="${id}" ${view===id?'aria-current="page"':''}>${label}</button>`).join('')}</nav>
     <section class="recruit-v2-catalog" aria-label="${view==='draw'?'獎池內容':'指定兌換'}">
       ${view==='draw'&&receipt&&form?`<section class="recruitment-receipt recruit-v2-receipt" role="status" tabindex="-1" aria-live="polite">${recruitImage(form.id,'recruit-receipt-image')}<div><small>${receipt.kind==='exchange'?'兌換成功':receipt.guaranteed?'保底招募':receipt.duplicate?'重複轉換':'NEW / 新收藏'}</small><strong>${esc(CHARACTER_MAP[form.ownerId].name)} · ${esc(form.name)}</strong><span>${receipt.duplicate?`共鳴點數 +${receipt.pointsGained??10}`:'已加入收藏'}</span></div></section>`:''}
       <div class="recruit-catalog-meta"><span>收藏 <b>${POOL.length-missing.length} / ${POOL.length}</b></span><span>${view==='draw'?'角色 30% · 造型 70%':`共鳴點數 ${c.points}`}</span></div>
       <div class="recruit-card-grid">${POOL.map(f=>{
         const owned=c.owned.includes(f.id),element=ELEMENTS[f.damageType];
-        return `<article class="recruit-item ${owned?'is-owned':''}">
+        return `<article data-theme="${f.theme}" class="recruit-item ${owned?'is-owned':''}">
           <div class="recruit-item-art">${recruitImage(f.id,'',true)}<span class="recruit-item-kind">${f.theme==='original'?'角色':'造型'}</span>${owned?'<b aria-label="已收藏">✓</b>':''}</div>
-          <div class="recruit-item-copy"><h2>${esc(CHARACTER_MAP[f.ownerId].name)}</h2><p>${esc(f.name)}</p><span class="recruit-item-element" style="color:${element.color}">${element.icon} ${element.name}</span>
+          <div class="recruit-item-copy"><h2>${esc(CHARACTER_MAP[f.ownerId].name)}</h2><p>${esc(f.name)}</p><span class="recruit-item-element" data-element="${f.damageType}" style="color:${element.color}">${element.icon} ${element.name}</span>
             ${view==='draw'?`<strong class="recruit-item-rate">${recruitmentRate(f)}%</strong>`:`<button data-action="exchange" data-id="${f.id}" ${disabled||owned||c.points<RECRUIT_RULES.exchangeCost?'disabled':''}>${owned?'已收藏':`${RECRUIT_RULES.exchangeCost} 點兌換`}</button>`}
             <details><summary>能力</summary><p>${esc(f.passive)}</p></details>
           </div>

@@ -151,3 +151,8 @@
 
 .reward-points-icon { display:grid; place-items:center; background:radial-gradient(ellipse,#455051,#081923); }
 .reward-points-icon i { font-size:52px; line-height:1; font-style:normal; color:#efcf87; text-shadow:0 0 18px #d2c18688; }
+
+#app .durability-reward .reward-state { display:block; font-size:12px; line-height:1.4; color:#b7cbd0; }
+#app .durability-reward.is-claimed .reward-state { color:#efdaa5; }
+#app .reward-preview-state { color:#efd59d; font-size:14px; line-height:1.6; }
+#app .reward-preview-note { font-size:13px; line-height:1.6; color:#b7cbd0; }

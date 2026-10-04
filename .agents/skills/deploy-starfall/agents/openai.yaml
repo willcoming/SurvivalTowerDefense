@@ -1,0 +1,4 @@
+interface:
+  display_name: "星骸防線上線"
+  short_description: "發布本專案至 GitHub Pages，完成測試、離線更新與線上版本驗證"
+  default_prompt: "使用 $deploy-starfall 將目前專案修改上線，完成部署與線上驗證。"

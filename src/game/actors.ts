@@ -124,7 +124,7 @@ export class CombatActors {
       const size = enemySize(enemy.defId);
       creature.image.setDisplaySize(size, size*this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY);
       creature.image.setPosition(enemy.x + (hurt ? Math.sin(age / 16) * (1 - age / 180) * (enemy.defId.startsWith('B') ? 1.5 : 3) : 0), enemy.y - kick * (enemy.defId.startsWith('B') ? 2 : 6));
-      if (hurt && age < 65) creature.image.setTintFill(0xe9fff3);
+      if (hurt && age < 65) creature.image.setTint(0xe9fff3);
       else if (enemy.effects.some(e => e.kind === 'stun' && e.expires > run.tick)) creature.image.setTint(0x7cffff);
       else if (enemy.effects.some(e => e.kind === 'burn' && e.expires > run.tick)) {const burn=enemy.effects.find(e=>e.kind==='burn'&&e.expires>run.tick)!;creature.image.setTint(parseInt(ELEMENTS[burn.damageType??'thermal'].color.slice(1),16));}
       else creature.image.clearTint();

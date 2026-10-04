@@ -8,7 +8,7 @@ import {commanderPage,commanderState} from './commander';
 import {upgradeCommander} from '../data/commander';
 import { personnelSkills } from './personnel-skills';
 import { DEEP_NODE_MAP, DEEP_TREE_MAP, deepTreesFor, usesFreeSkills, type SkillOwner } from '../data/deep-trees';
-import { previewDeepNodes, deepLock, deepNodeCost, deepPointCost } from '../sim/deep-tree';
+import { deepLock, deepNodeCost } from '../sim/deep-tree';
 import { deepTreePanel } from './deep-tree';
 import { NODE_MAP, TREE_MAP, treesFor, usesSkillTrees } from '../data/skill-trees';
 import { treePanel } from './skill-tree';
@@ -28,7 +28,7 @@ import { BattleScene, createBattleCanvas } from '../game/scene';
 import { TacticalTimeline } from '../game/tactical-timeline';
 import { keyInterfaceImage } from '../game/chroma';
 import { shouldAutoCast } from './auto-tactical';
-import { recruitment, recruitmentPreview } from './recruitment';
+import { recruitment, recruitmentPreview, RECRUITMENT_BACKDROP, recruitmentBackdrop } from './recruitment';
 import { stageUnlocked, CHALLENGES } from '../data/campaign';
 import { FORMS, FORM_MAP, formPortrait, formBackdrop, equippedForm, originalForm } from '../data/forms';
 import { ownedForm, isPlayable, validateRoster, type CollectionAction } from '../storage/collection';
@@ -131,7 +131,7 @@ export class GameApp {
       updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
       const screens = { hundred:()=>hundredPage(this.save), commander:()=>commanderPage(this.save),command:()=>tacticalCommand(this.save,this.vm),recruitment:()=>recruitment(this.save,this.collecting,this.vm.recruitView),home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.rosterSave(), this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.rewards,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.commanderReward,this.save.profile.hundredBest) : home(this.save, this.vm), battle: () => '' };
-      this.root.innerHTML = `${gameSurround(this.vm.stageId, false)}${gameHud(this.save, this.vm.saveStatus, page)}${this.notice()}${screens[page]()}${gameNav(this.save, page)}<div id="global-overlay"></div>`;
+      this.root.innerHTML = `${gameSurround(this.vm.stageId, false, page==='recruitment'?RECRUITMENT_BACKDROP:undefined)}${gameHud(this.save, this.vm.saveStatus, page)}${this.notice()}${screens[page]()}${gameNav(this.save, page)}<div id="global-overlay"></div>`;
       enhanceMobile(this.root, page, this.mobile);
       enhanceMobileNotice(this.root, this.mobile);
       this.audio.setMode('lobby'); this.overlay();
@@ -160,7 +160,7 @@ export class GameApp {
   private overlay() {
     const holder = document.getElementById(this.vm.page === 'battle' ? 'battle-overlay' : 'global-overlay'); if (!holder) return;
     const run = this.save.activeRun;
-    if(run&&this.vm.page==='battle'&&usesFreeSkills(run)&&run.draft&&!this.vm.treePanel){const ownerId=run.draft.focusId;this.vm.treePanel={ownerId,treeId:deepTreesFor(ownerId,run)[0].id,nodeId:null,mode:'choose'};}
+    if(run&&this.vm.page==='battle'&&usesFreeSkills(run)&&run.draft&&!this.vm.treePanel){const ownerId=run.config.squadIds[0];this.vm.treePanel={ownerId,treeId:deepTreesFor(ownerId,run)[0].id,nodeId:null,mode:'choose'};}
     const key = `${JSON.stringify(this.vm.personnelSkills)}:${this.vm.recruitPreview}:${this.vm.commandPanel}:${this.vm.navigationTarget}:${JSON.stringify(this.vm.treePanel)}:${JSON.stringify(this.vm.rosterPanel)}:${this.collecting}:${this.save.revision}:${this.vm.message}:${this.vm.page}:${this.vm.modal}:${this.vm.selectedCard}:${this.vm.showBuild}:${this.vm.saveStatus}:${run?.runId}:${run?.tick}:${run?.actionSeq}:${run?.draft?.id}:${JSON.stringify(run?.draft?.pendingNodeIds)}:${run?.pauseReasons.join(',')}:${this.save.preferences.musicVolume}:${this.save.preferences.sfxVolume}:${this.save.preferences.reducedEffects}:${this.save.preferences.autoTactical}`;
     if (key === this.overlayKey) return;
     this.overlayKey = key;
@@ -207,12 +207,12 @@ export class GameApp {
     const nextRosterBody = holder.querySelector('.roster-panel-body');
     if (nextRosterBody && rosterView === this.vm.rosterPanel?.view) nextRosterBody.scrollTop = rosterScroll;
     const nextPersonnel=holder.querySelector('.personnel-skill-scroll');if(nextPersonnel&&previousPersonnelTree===this.vm.personnelSkills?.treeId)nextPersonnel.scrollTop=personnelScroll;
-    const modal = holder.querySelector<HTMLElement>('[role="dialog"], [role="alertdialog"]');
+    const modal = holder.querySelector<HTMLElement>('dialog[open]') ?? holder.querySelector<HTMLElement>('[role="dialog"], [role="alertdialog"]');
     this.prepareImages(holder);
     if (modal) {
       if (!wasOpen) this.lastFocused = focus;
       const replacement = focusId ? holder.querySelector<HTMLElement>(`#${focusId}`) : focusAction ? [...holder.querySelectorAll<HTMLElement>('[data-action]')].find(el => el.dataset.action === focusAction && el.dataset.id === focusItem) : null;
-      (replacement && !replacement.matches(':disabled') ? replacement : modal.querySelector<HTMLElement>('button:not(:disabled),select:not(:disabled),input:not(:disabled)'))?.focus({ preventScroll: true });
+      (replacement && modal.contains(replacement) && !replacement.matches(':disabled') ? replacement : modal.querySelector<HTMLElement>('button:not(:disabled),select:not(:disabled),input:not(:disabled)'))?.focus({ preventScroll: true });
     } else if (wasOpen && this.lastFocused?.isConnected) this.lastFocused.focus({ preventScroll: true });
   }
   private prepareImages(root: HTMLElement) {
@@ -224,7 +224,13 @@ export class GameApp {
         img.src=formPortrait(f);img.alt=`${CHARACTER_MAP[owner].name}・${FORM_MAP[f].name}`;
       }
       const form=FORMS.find(f=>formPortrait(f.id)===img.getAttribute('src'));
-      const backdrop=form?formBackdrop(form.id):null;
+      const backdrop=form?(img.closest('.recruitment-v2,.recruit-art-viewer')?recruitmentBackdrop(form.id):formBackdrop(form.id)):null;
+      // A keyed data URL is still the same prepared illustration.
+      if(form || !img.src.startsWith('data:image/')) {
+        delete img.dataset.portraitBackdrop;
+        delete img.dataset.portraitTheme;
+        img.style.removeProperty('--portrait-background');
+      }
       if(backdrop){
         img.dataset.portraitBackdrop=form!.id;
         img.dataset.portraitTheme=form!.theme;
@@ -258,7 +264,7 @@ export class GameApp {
       this.tacticalTimeline.play(run);
       this.accumulator = 0;
     }
-    if (accepted) { if (cmd.type === 'choose' || cmd.type === 'buy-node' || cmd.type === 'confirm-node') { this.vm.selectedCard = null; if((cmd.type==='buy-node'||cmd.type==='confirm-node')&&!run.draft)this.vm.treePanel=undefined; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); }
+    if (accepted) { if (cmd.type === 'choose' || cmd.type === 'buy-node' || cmd.type === 'confirm-node') { this.vm.selectedCard = null; if((cmd.type==='buy-node'||cmd.type==='confirm-node')&&!run.draft)this.vm.treePanel=undefined; else if(cmd.type==='buy-node'&&this.vm.treePanel)this.vm.treePanel.detailOpen=false; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); }
     return accepted;
   }
   private pauseFor(reason: 'hidden' | 'orientation') {
@@ -459,7 +465,15 @@ export class GameApp {
         if (!prefs.squadIds.includes(prefs.captainId) && prefs.squadIds[0]) prefs.captainId = prefs.squadIds[0];
         this.render(); break;
       }
-      case 'captain': if (this.vm.rosterEditing && this.formationDraft?.squadIds.includes(id as CharacterId)) { this.formationDraft.captainId = id as CharacterId; this.render(); } break;
+      case 'captain': {
+        const owner=id as CharacterId;if(this.vm.page!=='roster')break;
+        if(this.vm.rosterEditing&&this.formationDraft?.squadIds.includes(owner)) {
+          this.formationDraft.captainId=owner;this.render();
+        } else if(!this.vm.rosterEditing&&this.save.preferences.squadIds.includes(owner)&&owner!==this.save.preferences.captainId) {
+          this.save.preferences.captainId=owner;this.vm.rosterSelectedId=owner;this.render();void this.persist();
+        }
+        break;
+      }
       case 'build': {
         if (!this.vm.rosterEditing || !this.formationDraft) break;
         const build = BUILDS.find(b => b.id === id); if (!build) break;
@@ -500,33 +514,36 @@ export class GameApp {
         this.selectedRange = this.selectedRange === id ? null : id as CharacterId;
         updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); break;
       }
-      case 'deep-owner': if(this.vm.treePanel&&this.save.activeRun?.config.squadIds.includes(id as CharacterId)){const ownerId=id as SkillOwner;this.vm.treePanel={...this.vm.treePanel,ownerId,treeId:deepTreesFor(ownerId,this.save.activeRun!)[0].id,nodeId:null};this.overlay();}break;
-      case 'deep-tab': if(this.vm.treePanel&&DEEP_TREE_MAP[id!]?.ownerId===this.vm.treePanel.ownerId){this.vm.treePanel.treeId=id!;this.vm.treePanel.nodeId=null;this.overlay();}break;
+      case 'deep-owner': if(this.vm.treePanel&&this.save.activeRun?.config.squadIds.includes(id as CharacterId)){const ownerId=id as SkillOwner;this.vm.treePanel={...this.vm.treePanel,ownerId,treeId:deepTreesFor(ownerId,this.save.activeRun!)[0].id,nodeId:null,detailOpen:false};if(this.save.activeRun.draft)this.save.activeRun.draft.pendingNodeIds=[];this.overlay();void this.persist();}break;
+      case 'deep-tab': if(this.vm.treePanel&&DEEP_TREE_MAP[id!]?.ownerId===this.vm.treePanel.ownerId){this.vm.treePanel.treeId=id!;this.vm.treePanel.nodeId=null;this.vm.treePanel.detailOpen=false;if(this.save.activeRun?.draft)this.save.activeRun.draft.pendingNodeIds=[];this.overlay();void this.persist();}break;
       case 'deep-node': {
         const run=this.save.activeRun, panel=this.vm.treePanel, node=DEEP_NODE_MAP[id!];
         if(!run||!panel||!node||node.ownerId!==panel.ownerId)break;
         panel.treeId=node.treeId;
         panel.nodeId=id!;
+        panel.detailOpen=true;
         if(run.draft){
-          const pending=run.draft.pendingNodeIds??[];
-          const index=pending.indexOf(id!);
-          if(index>=0) {pending.splice(index,1);for(let i=0;i<pending.length;){const shadow=previewDeepNodes(run,pending.slice(0,i));if(deepLock(shadow,pending[i]))pending.splice(i,1);else i++;}}
-          else {
-            const remaining=(run.draft.pointTarget??run.choicesSpent)-run.choicesSpent;
-            const shadow=previewDeepNodes(run,pending);
-            if(deepPointCost(pending,run)+deepNodeCost(id!,run)<=remaining&&!deepLock(shadow,id!))pending.push(id!);
-          }
-          run.draft.pendingNodeIds=pending;
+          const remaining=(run.draft.pointTarget??run.choicesSpent)-run.choicesSpent;
+          run.draft.pendingNodeIds=deepNodeCost(id!,run)<=remaining&&!deepLock(run,id!)?[id!]:[];
         }
         this.overlay();
         void this.persist();
         break;
       }
+      case 'tree-detail-close': {
+        const panel=this.vm.treePanel;if(!panel)break;
+        if(this.save.activeRun?.draft)this.save.activeRun.draft.pendingNodeIds=[];
+        panel.detailOpen=false;this.overlay();
+        [...this.root.querySelectorAll<HTMLElement>('[data-action=deep-node],.skill-list-node')].find(node=>node.dataset.id===panel.nodeId&&node.getClientRects().length&&getComputedStyle(node).visibility!=='hidden')?.focus({preventScroll:true});
+        void this.persist();
+        break;
+      }
       case 'buy-node': {
         const run=this.save.activeRun;
-        if(run?.draft&&this.vm.treePanel){
-          if(usesFreeSkills(run))this.execute({type:'confirm-node',offerId:run.draft.id,nodeIds:[...(run.draft.pendingNodeIds??[])]});
-          else if(this.vm.treePanel.nodeId)this.execute({type:'buy-node',offerId:run.draft.id,nodeId:this.vm.treePanel.nodeId});
+        const nodeId=this.vm.treePanel?.nodeId;
+        if(run?.draft&&nodeId){
+          if(this.execute({type:'buy-node',offerId:run.draft.id,nodeId})&&run.draft)
+            [...this.root.querySelectorAll<HTMLElement>('[data-action=deep-node],.skill-list-node')].find(node=>node.dataset.id===nodeId&&node.getClientRects().length&&getComputedStyle(node).visibility!=='hidden')?.focus({preventScroll:true});
         }
         break;
       }
@@ -535,6 +552,8 @@ export class GameApp {
         if(run?.waveFlow&&run.draft)this.execute({type:'confirm-node',offerId:run.draft.id,nodeIds:[]});
         break;
       }
+      case 'tree-exit':
+        this.vm.navigationTarget='home';this.navigationOwnsPause=false;this.overlay();break;
       case 'tree-save-home': this.go('home'); break;
       case 'personnel-skills': {
         const ownerId=this.vm.rosterPanel?.ownerId??this.vm.characterId;
@@ -584,8 +603,8 @@ export class GameApp {
   }
   private openTree(mode: 'choose'|'view', nodeId?: string) {
     const run=this.save.activeRun;if(!run||!usesSkillTrees(run))return;
-    if(usesFreeSkills(run)){const chosen=DEEP_NODE_MAP[nodeId??''],ownerId=chosen?.ownerId??run.config.captainId;this.vm.treePanel={ownerId,treeId:chosen?.treeId??deepTreesFor(ownerId,run)[0].id,nodeId:chosen?.id??null,mode:run.draft?'choose':'view'};command(run,{type:'pause',reason:'tree'});this.overlay();void this.persist();return;}
-    const chosen=NODE_MAP[nodeId??run.draft?.customNodeId??''];const ownerId=chosen?.ownerId??run.config.captainId;
+    if(usesFreeSkills(run)){const chosen=DEEP_NODE_MAP[nodeId??''],ownerId=chosen?.ownerId??run.config.squadIds[0];this.vm.treePanel={ownerId,treeId:chosen?.treeId??deepTreesFor(ownerId,run)[0].id,nodeId:chosen?.id??null,detailOpen:!!chosen,mode:run.draft?'choose':'view'};command(run,{type:'pause',reason:'tree'});this.overlay();void this.persist();return;}
+    const chosen=NODE_MAP[nodeId??run.draft?.customNodeId??''];const ownerId=chosen?.ownerId??run.config.squadIds[0];
     this.vm.treePanel={ownerId,treeId:chosen?.treeId??treesFor(ownerId)[0].id,nodeId:chosen?.id??null,mode:run.draft?mode:'view'};
     command(run,{type:'pause',reason:'tree'});this.overlay();void this.persist();
   }
@@ -628,6 +647,7 @@ export class GameApp {
   private change(input: HTMLInputElement | HTMLSelectElement) {
     if(this.collecting)return;
     const action = input.dataset.change; const run = this.save.activeRun;
+    if(action==='formation-captain'){void this.action('captain',input.value);return;}
     if(action==='commander-name') {this.save.preferences.commanderName=input.value.trim().slice(0,20)||'指揮官';void this.persist();const name=this.root.querySelector('.commander-profile strong');if(name)name.textContent=this.save.preferences.commanderName;return;}
     if(action==='form'){void this.collect({type:'equip',formId:input.value as FormId});return;}
     if (action === 'branch') this.save.preferences.branches[input.dataset.id as CharacterId] = input.value as Branch;

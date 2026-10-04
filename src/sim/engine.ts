@@ -25,7 +25,7 @@ import { usesRangeRules } from './range';
 import type { CharacterId, Command, RunConfig, RunState } from './types';
 import { applyUpgrade, castTactical, stepWeapons } from './weapons';
 export { getLegalNodeIds, getReadyEvolutions } from './draft';
-export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, compatibility:{experienceVersion?:1|2|null;operationVersion?:2|3;legacyOperations?:boolean;legacyCommonSkills?:boolean;legacyBalance?:boolean;balanceVersion?:1|2|3|4|5}={}):RunState{
+export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, compatibility:{experienceVersion?:1|2|3|null;operationVersion?:2|3;legacyOperations?:boolean;legacyCommonSkills?:boolean;legacyBalance?:boolean;balanceVersion?:1|2|3|4|5}={}):RunState{
   if(config.mode!==undefined&&(config.mode!=='hundred'||config.stageId!=='S03'||config.difficulty!=='easy'||config.challengeId||(!usesTacticalSkills({contentVersion})&&contentVersion!==LINEAR_SKILL_VERSION&&contentVersion!==NETWORK_CONTENT_VERSION)||compatibility.legacyOperations||compatibility.legacyBalance||compatibility.operationVersion===2||compatibility.balanceVersion===1))throw new Error('百波挑戰設定不相容');
   if(compatibility.operationVersion!==undefined&&![2,3].includes(compatibility.operationVersion))throw new Error('Unknown operation version');
   if(compatibility.operationVersion===3&&compatibility.legacyBalance)throw new Error('New operations require authored balance');
@@ -48,9 +48,9 @@ export function createRun(config:RunConfig, contentVersion=CONTENT_VERSION, comp
   if(usesFreeSkills(s)&&(usesTacticalSkills({contentVersion})||contentVersion===NETWORK_CONTENT_VERSION||contentVersion===PRE_REWORK_VERSION||contentVersion===LINEAR_SKILL_VERSION)&&!compatibility.legacyCommonSkills){s.commanderSkillVersion=1;s.config.commanderNodes=[...(config.commanderNodes??[])];validateCommanderSkills(s.config.commanderNodes);const health=s.config.commanderNodes.reduce((n,id)=>n+(DEEP_NODE_MAP[id].mods.wallHealth??0),0);s.wallMaxHp+=health;s.wallHp+=health;}
   if(s.operationVersion!==undefined&&!compatibility.legacyBalance)s.balanceVersion=compatibility.balanceVersion??(contentVersion===CONTENT_VERSION?CURRENT_BALANCE_VERSION:contentVersion===TIMED_TACTICAL_VERSION?4:usesTacticalSkills(s)?3:2);
   if(s.balanceVersion===5){if(s.operationVersion!==3||!usesTacticalSkills(s))throw new Error('波末配點設定不相容');s.waveFlow={version:1,wave:1,startedAt:0,phase:'combat'};}
-  if(compatibility.experienceVersion!==undefined&&compatibility.experienceVersion!==null&&(![1,2].includes(compatibility.experienceVersion)||!s.waveFlow))throw new Error('戰鬥經驗版本不相容');
-  if(s.waveFlow&&compatibility.experienceVersion!==null)s.experienceVersion=compatibility.experienceVersion??2;
-  s.spawnPlan=makeSpawnPlan(s);prepareOperation(s);while(s.spawnCursor<s.spawnPlan.length&&spawnDue(s,s.spawnPlan[s.spawnCursor])){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,p.y??20,p.xp,p.wave);}return s;
+  if(compatibility.experienceVersion!==undefined&&compatibility.experienceVersion!==null&&(![1,2,3].includes(compatibility.experienceVersion)||!s.waveFlow))throw new Error('戰鬥經驗版本不相容');
+  if(s.waveFlow&&compatibility.experienceVersion!==null)s.experienceVersion=compatibility.experienceVersion??(contentVersion===CONTENT_VERSION?3:2);
+  s.spawnPlan=makeSpawnPlan(s);prepareOperation(s);while(s.spawnCursor<s.spawnPlan.length&&spawnDue(s,s.spawnPlan[s.spawnCursor])){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,p.y??20,p.xp,p.wave,true);}return s;
 }
 export function getPhase(s:RunState):RunState['phase']{return s.outcome?'ended':s.pauseReasons.includes('upgrade')?'choosing':s.pauseReasons.length?'paused':'running';}
 export function command(s:RunState,cmd:Command):boolean{
@@ -65,7 +65,8 @@ export function command(s:RunState,cmd:Command):boolean{
   }
   if(cmd.type==='buy-node'&&usesFreeSkills(s)&&s.draft?.id===cmd.offerId&&s.pauseReasons.includes('upgrade')&&!s.pauseReasons.some(r=>['error','hidden','orientation','tutorial'].includes(r))&&s.choicesSpent+deepNodeCost(cmd.nodeId,s)<=s.draft.pointTarget!&&getLegalNodeIds(s).includes(cmd.nodeId)){
     applyUpgrade(s,cmd.nodeId);s.stats.choices.push({tick:s.tick,nodeId:cmd.nodeId});s.choicesSpent+=deepNodeCost(cmd.nodeId,s);
-    if(s.choicesSpent===s.draft.pointTarget||!getLegalNodeIds(s).length||usesSkillNetwork(s)&&!canSpendDeepPoints(s,s.draft.pointTarget!-s.choicesSpent)){if(s.waveFlow)startNextWave(s);else{s.draft=null;s.pauseReasons=s.pauseReasons.filter(r=>r!=='upgrade'&&r!=='tree');openDraft(s);}}
+    s.draft.pendingNodeIds=[];
+    if(!s.waveFlow&&(s.choicesSpent===s.draft.pointTarget||!getLegalNodeIds(s).length||usesSkillNetwork(s)&&!canSpendDeepPoints(s,s.draft.pointTarget!-s.choicesSpent))){s.draft=null;s.pauseReasons=s.pauseReasons.filter(r=>r!=='upgrade'&&r!=='tree');openDraft(s);}
     if(s.bossKilled&&s.spawnCursor===s.spawnPlan.length&&!alive(s).length&&(s.choicesSpent>=s.choicesEarned||!getLegalNodeIds(s).length||usesSkillNetwork(s)&&!canSpendDeepPoints(s)))s.outcome='victory';accepted=true;
   }
   if(cmd.type==='confirm-node'&&usesFreeSkills(s)&&s.draft?.id===cmd.offerId&&s.pauseReasons.includes('upgrade')&&!s.pauseReasons.some(r=>['error','hidden','orientation','tutorial'].includes(r))){
@@ -73,9 +74,9 @@ export function command(s:RunState,cmd:Command):boolean{
     const ids=cmd.nodeIds;
     const pending=s.draft.pendingNodeIds??[];
     const remaining=target-s.choicesSpent;
-    if(remaining>0&&(ids.length>0||!!s.waveFlow)&&deepPointCost(ids,s)<=remaining&&new Set(ids).size===ids.length&&(!pending.length||s.waveFlow&&ids.length===0||pending.length===ids.length&&pending.every((id,i)=>id===ids[i]))){
+    if((remaining>0||!!s.waveFlow&&remaining===0&&ids.length===0)&&(ids.length>0||!!s.waveFlow)&&deepPointCost(ids,s)<=remaining&&new Set(ids).size===ids.length&&(!pending.length||s.waveFlow&&ids.length===0||pending.length===ids.length&&pending.every((id,i)=>id===ids[i]))){
       const shadow={...s,treeNodes:[...(s.treeNodes??[])]};
-      const legal=ids.every(id=>getLegalNodeIds(shadow).includes(id)&&((shadow.treeNodes??[]).push(id),DEEP_NODE_MAP[id].kind==='ultimate'&&shadow.evolvedCount++,true));
+      const legal=ids.every(id=>getLegalNodeIds(shadow).includes(id)&&(shadow.treeNodes=[...(shadow.treeNodes??[]),id],DEEP_NODE_MAP[id].kind==='ultimate'&&shadow.evolvedCount++,true));
       if(legal&&(!!s.waveFlow||deepPointCost(ids,s)===remaining||s.commanderSkillVersion===1&&!getLegalNodeIds(shadow).length||usesSkillNetwork(s)&&!canSpendDeepPoints(shadow,remaining-deepPointCost(ids,s)))){
         for(const id of ids){applyUpgrade(s,id);s.stats.choices.push({tick:s.tick,nodeId:id});s.choicesSpent+=deepNodeCost(id,s);}
         if(s.waveFlow)startNextWave(s);else{s.draft=null;s.pauseReasons=s.pauseReasons.filter(r=>r!=='upgrade'&&r!=='tree');openDraft(s);}
@@ -97,7 +98,7 @@ export function command(s:RunState,cmd:Command):boolean{
 }
 function stepProjectiles(s:RunState){
   for(const p of s.projectiles){
-    if(p.impactAt){if(s.tick<p.impactAt)continue;const targets=area(s,p.tx,p.ty,p.blastRadius);for(const e of targets)if(p.packet)hitEnemy(s,e,p.packet);emit(s,{affectedIds:targets.map(e=>e.id),kind:'explosion',x:p.tx,y:p.ty,radius:p.blastRadius,source:p.packet?.source});
+    if(p.impactAt){if(s.tick<p.impactAt)continue;const targets=area(s,p.tx,p.ty,p.blastRadius);for(const e of targets)if(p.packet)hitEnemy(s,e,p.packet);emit(s,{affectedIds:targets.map(e=>e.id),kind:'explosion',x:p.tx,y:p.ty,radius:p.blastRadius,source:p.packet?.source,...(s.contentVersion===CONTENT_VERSION?{skill:p.packet?.skill}:{})});
       if(p.echo&&p.packet)for(let i=0;i<p.echo.count;i++)s.scheduled.push({at:s.tick+ticks(.2*(i+1)),x:p.tx+(i%2?18:-18),y:p.ty-i*12,radius:p.echo.radius,packet:{...p.packet,raw:p.echo.damage,skill:'cluster-burst',secondary:true,burn:undefined},enemyDamage:0,enemySource:null});
       if(p.fire&&p.packet){const own=s.fields.filter(f=>f.source===p.packet!.source&&f.kind==='fire').sort((a,b)=>a.id-b.id);if(own.length>=2)s.fields=s.fields.filter(f=>f.id!==own[0].id);s.fields.push({id:s.nextEntityId++,source:p.packet.source,kind:'fire',x:p.tx,y:p.ty,radius:p.fire.radius,expires:s.tick+p.fire.duration,nextTick:s.tick,dps:p.fire.dps,damageType:'thermal',slow:0,slowDuration:0,pull:0,burnDuration:p.fire.burnDuration,armorIgnore:p.fire.armorIgnore});}p.remaining=0;continue;
     }
@@ -130,12 +131,12 @@ export function stepRun(s:RunState,count=1):void{
   for(let i=0;i<count;i++){
     if(getPhase(s)!=='running')break;
     s.tick++;
-    while(s.spawnCursor<s.spawnPlan.length&&spawnDue(s,s.spawnPlan[s.spawnCursor])){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,p.y??20,p.xp,p.wave);}
+    while(s.spawnCursor<s.spawnPlan.length&&spawnDue(s,s.spawnPlan[s.spawnCursor])){const p=s.spawnPlan[s.spawnCursor++];createEnemy(s,p.defId,p.x,p.y??20,p.xp,p.wave,true);}
     if(!usesRangeRules(s)&&!s.bossSpawned&&bossDue(s)){s.bossSpawned=true;createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,s.config.mode==='hundred'?100:operationProfile(s).waves.length+1);}
     s.shields=s.shields.filter(x=>x.value>0&&x.expires>s.tick);
     stepEffects(s);stepUltimates(s);stepWeapons(s);stepProjectiles(s);stepFields(s);
     for(const h of s.scheduled.filter(h=>h.at<=s.tick)){
-      if(h.packet){const targets=area(s,h.x,h.y,h.radius);for(const e of targets)hitEnemy(s,e,h.packet);if(usesFreeSkills(s)&&(h.packet.skill==='cluster-burst'||h.packet.skill==='ultimate'))emit(s,{kind:'explosion',x:h.x,y:h.y,radius:h.radius,affectedIds:targets.map(t=>t.id),source:h.packet.source,skill:h.packet.skill});}
+      if(h.packet){const targets=area(s,h.x,h.y,h.radius);for(const e of targets)hitEnemy(s,e,h.packet);if(s.contentVersion===CONTENT_VERSION&&h.radius>0||usesFreeSkills(s)&&(h.packet.skill==='cluster-burst'||h.packet.skill==='ultimate'))emit(s,{kind:'explosion',x:h.x,y:h.y,radius:h.radius,affectedIds:targets.map(t=>t.id),source:h.packet.source,skill:h.packet.skill});}
       else if(h.enemySource)hitWall(s,h.enemyDamage,h.enemySource);
     }s.scheduled=s.scheduled.filter(h=>h.at>s.tick);
     if(usesFreeSkills(s))stepSupport(s);

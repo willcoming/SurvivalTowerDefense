@@ -1,5 +1,5 @@
 import { minimumWaveOperation } from './wave-progression';
-import { progressiveExperienceProfile } from './battle-experience';
+import { progressiveExperienceProfile, pacedExperienceProfile, battlePointCapacity } from './battle-experience';
 import { assaultOperation } from './assault-balance';
 import { tacticalOperation, type FormationGroup } from './tactical-encounters';
 import { HUNDRED_PROFILE, isHundred } from './hundred';
@@ -80,6 +80,7 @@ export function stageProfile(id:StageId,difficulty:NonNullable<RunConfig['diffic
 /** Existing snapshots retain their authored schedule and balance rules. */
 export function operationProfile(s:Pick<RunState,'config'|'operationVersion'|'balanceVersion'|'experienceVersion'>):OperationProfile {
   const profile=authoredOperationProfile(s);
+  if(s.experienceVersion===3)return pacedExperienceProfile(profile,isHundred(s)?'hundred':'campaign',battlePointCapacity(s.config));
   return s.experienceVersion===2?progressiveExperienceProfile(profile):profile;
 }
 function authoredOperationProfile(s:Pick<RunState,'config'|'operationVersion'|'balanceVersion'>):OperationProfile {

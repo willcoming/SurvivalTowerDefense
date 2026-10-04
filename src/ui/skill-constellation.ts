@@ -3,7 +3,7 @@ import { resolveSkillTree } from '../data/reworked-skills';
 import type { FormId } from '../sim/types';
 import { CHARACTER_MAP } from '../data/content';
 import { DEEP_NODE_MAP, deepTreesFor, type DeepNode, type DeepTree } from '../data/deep-trees';
-import { previewDeepNodes, deepHas, deepLock, deepNodeCost, deepPointCost } from '../sim/deep-tree';
+import { deepHas, deepLock, deepNodeCost } from '../sim/deep-tree';
 import type { RunState } from '../sim/types';
 import { esc } from './format';
 
@@ -30,8 +30,7 @@ export function skillEmblem(node: DeepNode) {
 
 export function constellationGraph(tree: DeepTree, run?: RunState, selected?: string | null, action = run ? 'deep-node' : 'codex-node', form?: FormId) {
   const trees = deepTreesFor(tree.ownerId,run).map(t=>resolveSkillTree(t,tree.ownerId==='common'?undefined:run?.config.forms?.[tree.ownerId]??form)), pending = run?.draft?.pendingNodeIds ?? [];
-  const shadow = run ? previewDeepNodes(run,pending) : undefined;
-  if(trees.some(t=>t.nodes.some(n=>n.atlas)))return networkGraph(trees,tree.id,run,selected,action,shadow);
+  if(trees.some(t=>t.nodes.some(n=>n.atlas)))return networkGraph(trees,tree.id,run,selected,action);
   const ancestors = new Set<string>();
   const trace = (id: string) => { if (ancestors.has(id)) return; ancestors.add(id); DEEP_NODE_MAP[id]?.parents.forEach(trace); };
   if (selected) trace(selected);
@@ -57,7 +56,7 @@ export function constellationGraph(tree: DeepTree, run?: RunState, selected?: st
     ${trees.map((t, index) => `<div class="constellation-branch ${t.id === tree.id ? 'active' : ''}" style="--branch-x:${trees.length === 1 ? 50 : trees.length === 2 ? 20 + index * 60 : 16 + index * 34}%"><small>0${index + 1} / ${t.nodes.length} NODES</small><strong>${esc(t.name)}</strong></div>`).join('')}
     ${trees.flatMap(t => t.nodes.map(node => {
       const p = point(node), mp = mobilePoint(node), owned = !!run && deepHas(run, node.id), queued = pending.includes(node.id), cost = deepNodeCost(node.id, run);
-      const reason = run && !owned && !queued ? deepLock(shadow!, node.id) ?? (run.draft && cost > (run.draft.pointTarget ?? 0) - run.choicesSpent - deepPointCost(pending, run) ? `需要 ${cost} 點，剩餘點數不足` : null) : null;
+      const reason = run && !owned && !queued ? deepLock(run, node.id) ?? (run.draft && cost > (run.draft.pointTarget ?? 0) - run.choicesSpent ? `需要 ${cost} 點，剩餘點數不足` : null) : null;
       const state = owned ? 'owned' : queued ? 'pending' : reason ? 'locked' : run ? 'available' : 'preview';
       const status = owned ? '已取得' : queued ? '待確認' : reason ?? (run ? `${cost} 點可取得` : `預覽 · ${cost} 點`);
       return `<button class="deep-node constellation-node ${state} ${node.kind} ${selected === node.id ? 'inspecting' : ''} ${t.id === tree.id ? 'active-branch' : ''}" style="--node-x:${p.x / 12}%;--node-y:${p.y / 6.6}%;--mobile-x:${mp.x / 3.6}%;--mobile-y:${mp.y}px" data-action="${action}" data-id="${node.id}" data-state="${state}" data-cost="${cost}" data-layer="${node.layer}" aria-pressed="${selected === node.id}" aria-label="${esc(node.name)}，${esc(status)}"><span class="node-symbol">${skillEmblem(node)}</span><strong>${esc(node.name)}</strong><small>${owned ? '✓' : queued ? '●' : node.kind === 'ultimate' ? `${cost} 點` : ''}</small></button>`;
@@ -67,9 +66,9 @@ export function constellationGraph(tree: DeepTree, run?: RunState, selected?: st
 }
 
 /** One world coordinate system for the map, connectors and all input methods. */
-function networkGraph(trees:DeepTree[],activeTree:string,run:RunState|undefined,selected:string|null|undefined,action:string,shadow:RunState|undefined){
+function networkGraph(trees:DeepTree[],activeTree:string,run:RunState|undefined,selected:string|null|undefined,action:string){
  const nodes=trees.flatMap(t=>t.nodes),owner=trees[0].ownerId,name=owner==='common'?'全隊共用':CHARACTER_MAP[owner].name,pending=run?.draft?.pendingNodeIds??[];
- const layout=skillNetworkLayout(nodes);
+ const layout=skillNetworkLayout(nodes,!!run);
  const edge=(route:typeof layout.edges[number])=>{
   const owned=!!run&&deepHas(run,route.child)&&(route.parent==='core'||deepHas(run,route.parent));
   const queued=pending.includes(route.child)&&(route.parent==='core'||pending.includes(route.parent)||!!run&&deepHas(run,route.parent));
@@ -80,14 +79,13 @@ function networkGraph(trees:DeepTree[],activeTree:string,run:RunState|undefined,
  <defs><mask id="network-labels-${owner}" maskUnits="userSpaceOnUse" x="0" y="0" width="${SKILL_MAP_WIDTH}" height="${SKILL_MAP_HEIGHT}"><rect width="100%" height="100%" fill="white"/>${nodes.map(n=>{const p=layout.positions.get(n.id)!;return `<rect x="${p.x-72}" y="${p.y+(n.kind==='ultimate'?44:38)}" width="144" height="30" rx="4" fill="black"/>`;}).join('')}</mask></defs>
  <g mask="url(#network-labels-${owner})">${layout.edges.filter(e=>e.cross).map(edge).join('')}${layout.edges.filter(e=>!e.cross).map(edge).join('')}</g></svg>
  <div class="network-core" style="left:${SKILL_MAP_CORE.x}px;top:${SKILL_MAP_CORE.y}px" aria-hidden="true"><span>✧</span><b>${esc(name)}</b></div>
- ${trees.map((t,i)=>`<div class="network-discipline" style="left:${[260,620,985][i]}px"><small>0${i+1}</small><strong>${esc(t.name)}</strong></div>`).join('')}
  ${nodes.sort((a,b)=>a.layer-b.layer||a.atlas!.x-b.atlas!.x).map(node=>{
   const position=layout.positions.get(node.id)!;
   const owned=!!run&&deepHas(run,node.id),queued=pending.includes(node.id),cost=deepNodeCost(node.id,run);
-  const reason=run&&!owned&&!queued?deepLock(shadow!,node.id)??(run.draft&&cost>(run.draft.pointTarget??0)-run.choicesSpent-deepPointCost(pending,run)?`需要 ${cost} 點，剩餘點數不足`:null):null;
+  const reason=run&&!owned&&!queued?deepLock(run,node.id)??(run.draft&&cost>(run.draft.pointTarget??0)-run.choicesSpent?`需要 ${cost} 點，剩餘點數不足`:null):null;
   const state=owned?'owned':queued?'pending':reason?'locked':run?'available':'preview',status=owned?'已取得':queued?'待確認':reason??`${cost} 點${run?'可取得':'預覽'}`;
   const capstone=!nodes.some(n=>n.parents.includes(node.id))&&node.kind!=='ultimate';
-  return `<button class="deep-node constellation-node ${state} ${node.kind} ${capstone?'capstone':''} ${selected===node.id?'inspecting':''} ${node.treeId===activeTree?'active-branch':''}" style="--node-x:${position.x}px;--node-y:${position.y}px" data-action="${action}" data-id="${node.id}" data-tree="${node.treeId}" data-state="${state}" data-cost="${cost}" data-layer="${node.layer}" data-x="${position.x}" data-y="${position.y}" aria-pressed="${selected===node.id}" aria-label="${esc(node.name)}，${esc(status)}${node.parents.length>1?'，任一前置即可':''}"><span class="node-symbol">${skillEmblem(node)}</span><strong>${esc(node.name)}</strong><small>${owned?'✓':queued?'●':node.kind==='ultimate'?'終極 · 2':capstone?'封頂':node.parents.length>1?'匯合':''}</small></button>`;
+  return `<button class="deep-node constellation-node ${state} ${node.kind} ${capstone?'capstone':''} ${selected===node.id?'inspecting':''} ${node.treeId===activeTree?'active-branch':''}" style="--node-x:${position.x}px;--node-y:${position.y}px" data-action="${action}" data-id="${node.id}" data-tree="${node.treeId}" data-route-name="${esc(trees.find(t=>t.id===node.treeId)!.name)}" data-description="${esc(node.description)}" data-prerequisites="${esc(node.parents.map(id=>trees.flatMap(t=>t.nodes).find(n=>n.id===id)?.name??DEEP_NODE_MAP[id].name).join(node.requires==='any'?' 或 ':'＋')||'入口，無前置')}" data-state="${state}" data-cost="${cost}" data-layer="${node.layer}" data-x="${position.x}" data-y="${position.y}" aria-pressed="${selected===node.id}" aria-label="${esc(node.name)}，${esc(status)}${node.parents.length>1?'，任一前置即可':''}"><span class="node-symbol">${skillEmblem(node)}</span><strong>${esc(node.name)}</strong><small>${owned?'✓':queued?run?'待確認':'●':node.kind==='ultimate'?'終極 · 2':run&&reason?'':capstone?'封頂':node.parents.length>1?'匯合':''}</small></button>`;
  }).join('')}
  </div>`;
 }
