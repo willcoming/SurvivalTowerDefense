@@ -529,7 +529,14 @@ async function updateSafety(snapshot: Snapshot, forced = false, engine: BrowserT
     await context.setOffline(false);
     await Promise.all([second.waitForEvent('load'), second.locator('[data-offline-action="force-update"]').click()]);
     await ready(second);
-    cases.push({ name: currentCase, passed: true, otherBattleRetainedOldAssets: beforeReloadAssets.verifiedEntries, newAssets: newAssets.verifiedEntries, savedProgressPreserved: true, offlineFailurePreservedPage: true, currentVersionReload: true, keyboardActivation: true });
+    assert.ok(await second.evaluate(async name => (await caches.keys()).includes(name), `${snapshot.cachePrefix}${snapshot.buildId}`), 'Live old battle still needs its snapshot');
+    await first.close();
+    await second.reload();
+    await ready(second);
+    await expect.poll(() => second.evaluate(async prefix => (await caches.keys()).filter(name => name.startsWith(prefix)), snapshot.cachePrefix))
+      .toEqual([`${newer.cachePrefix}${newer.buildId}`]);
+    assert.equal(await second.evaluate(async () => (await (await caches.open('offline-verifier-unrelated')).match('/unrelated-test-resource'))?.text()), 'keep');
+    cases.push({ name: currentCase, passed: true, otherBattleRetainedOldAssets: beforeReloadAssets.verifiedEntries, newAssets: newAssets.verifiedEntries, savedProgressPreserved: true, offlineFailurePreservedPage: true, currentVersionReload: true, keyboardActivation: true, closedBattleSnapshotCollected: true });
     await closeContext(context); return;
   }
   await first.close();

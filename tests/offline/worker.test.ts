@@ -53,6 +53,8 @@ function runtime(base = '/', buildId = 'build-one', storage = new Map<string, Me
   const listeners = new Map<string, (event: TestEvent) => void>();
   const claim = vi.fn(async () => {});
   const skipWaiting = vi.fn();
+  let clients = [{ id: 'old-tab', url: scope, postMessage(message: Status) { messages.push(message); } },
+    { id: 'outside-tab', url: 'https://outside.example/', postMessage(message: Status) { outsideMessages.push(message); } }];
   let online = true;
   let beforeFetch: (() => Promise<void>) | undefined;
   const fetch = vi.fn(async (url: string, _options?: RequestInit) => {
@@ -77,10 +79,7 @@ function runtime(base = '/', buildId = 'build-one', storage = new Map<string, Me
       clients: {
         claim,
         async matchAll() {
-          return [
-            { id: 'old-tab', url: scope, postMessage(message: Status) { messages.push(message); } },
-            { url: 'https://outside.example/', postMessage(message: Status) { outsideMessages.push(message); } },
-          ];
+          return clients;
         },
       },
     },
@@ -112,6 +111,7 @@ function runtime(base = '/', buildId = 'build-one', storage = new Map<string, Me
     files, snapshot, storage, cacheName, markerUrl, messages, outsideMessages, claim, skipWaiting, fetch, caches,
     dispatch, message, request,
     setOnline(value: boolean) { online = value; },
+    setClients(ids: string[]) { clients = ids.map(id => ({ id, url: scope, postMessage(message: Status) { messages.push(message); } })); },
     setBeforeFetch(callback: () => Promise<void>) { beforeFetch = callback; },
   };
 }
@@ -149,6 +149,52 @@ describe('offline build inventory', () => {
 });
 
 describe('complete offline worker', () => {
+  async function forceActivate(worker: ReturnType<typeof runtime>, previousBuildId: string) {
+    await worker.dispatch('message', {
+      source: { url: 'https://game.example/', postMessage() {} }, data: { type: 'OFFLINE_ACTIVATE', previousBuildId },
+    });
+    await worker.dispatch('activate');
+  }
+
+  it('collects closed/reloaded documents across repeated force updates while retaining live older tabs', async () => {
+    const old = runtime('/', 'old'); await old.dispatch('install'); await old.dispatch('activate');
+    const next = runtime('/', 'next', old.storage); await next.dispatch('install');
+    await forceActivate(next, 'old');
+    next.setClients(['old-tab', 'next-tab']);
+    const latest = runtime('/', 'latest', old.storage); latest.setClients(['old-tab', 'next-tab']);
+    await latest.dispatch('install'); await forceActivate(latest, 'next');
+    expect([...old.storage.keys()]).toHaveLength(3);
+    latest.setClients(['old-tab', 'latest-tab']);
+    await latest.message();
+    expect(old.storage.has(old.cacheName)).toBe(true);
+    expect(old.storage.has(next.cacheName)).toBe(false);
+    const restarted = runtime('/', 'latest', old.storage); restarted.setClients(['latest-tab']);
+    await restarted.request('/', 'navigate');
+    expect([...old.storage.keys()]).toEqual([latest.cacheName]);
+    const pins = await (await latest.caches.open(latest.cacheName)).match('https://game.example/__offline_clients__');
+    expect(await pins!.json()).toEqual({});
+  });
+
+  it('does not collect a newer installing/waiting snapshot during active-worker maintenance', async () => {
+    const active = runtime('/', 'active'); await active.dispatch('install'); await active.dispatch('activate');
+    const candidate = runtime('/', 'candidate', active.storage); await candidate.dispatch('install');
+    await Promise.all([active.message(), candidate.message()]);
+    expect([...active.storage.keys()].sort()).toEqual([active.cacheName, candidate.cacheName].sort());
+    await active.request('/', 'navigate');
+    expect(active.storage.has(candidate.cacheName)).toBe(true);
+  });
+
+  it('defers old-snapshot collection while the active snapshot is incomplete, then collects after repair', async () => {
+    const old = runtime('/', 'old'); await old.dispatch('install'); await old.dispatch('activate');
+    const active = runtime('/', 'active', old.storage); await active.dispatch('install'); await forceActivate(active, 'old');
+    active.setClients(['new-tab']);
+    await (await active.caches.open(active.cacheName)).delete('https://game.example/assets/game.js');
+    await active.message();
+    expect(active.storage.has(old.cacheName)).toBe(true);
+    await active.message('OFFLINE_REPAIR');
+    expect([...active.storage.keys()]).toEqual([active.cacheName]);
+  });
+
   it('only force-activates complete snapshots and preserves other tabs across worker restarts', async () => {
     const old = runtime('/', 'old'); await old.dispatch('install'); await old.dispatch('activate');
     const next = runtime('/', 'next', old.storage);

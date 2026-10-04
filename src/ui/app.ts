@@ -87,7 +87,15 @@ export class GameApp {
       // A keyboard/toolbar resize must not replace an input with uncommitted text.
       if (this.ready && this.vm.page !== 'battle' && innerWidth <= innerHeight && !(document.activeElement instanceof HTMLInputElement)) this.render();
     });
-    matchMedia(mobileQuery).addEventListener('change', () => { if (this.ready) this.render(); });
+    matchMedia(mobileQuery).addEventListener('change', () => {
+      if (!this.ready) return;
+      if (this.vm.page === 'battle') {
+        // Phaser's RESIZE scale mode updates the existing canvas and camera.
+        // Only dialogs need rebuilding for their mobile/desktop controls.
+        this.overlayKey = ''; this.renderedOverlay = '';
+        this.overlay(); this.orientation();
+      } else this.render();
+    });
     window.addEventListener('pagehide', () => { if (this.ready) { this.pauseFor('hidden'); void this.persist(); } });
     requestAnimationFrame(time => this.frame(time));
   }

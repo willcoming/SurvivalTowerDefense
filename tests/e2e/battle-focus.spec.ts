@@ -6,6 +6,31 @@ async function boot(page:Page) {
   await page.locator('#battle-loading').waitFor({state:'detached'});
   await page.locator('[data-action="tutorial-done"]').first().click();
 }
+test('battle keeps its canvas and textures across layout breakpoints and rotation', async ({ page }) => {
+  await boot(page);
+  await page.evaluate(() => window.__game.command({ type: 'pause', reason: 'user' }));
+  const canvas = await page.locator('#battle-canvas canvas').elementHandle();
+  const before = await page.evaluate(() => ({ runId: window.__game.state()!.runId, tick: window.__game.state()!.tick }));
+  const images: string[] = [];
+  page.on('request', request => { if (request.resourceType() === 'image') images.push(request.url()); });
+  for (const size of [{ width: 1024, height: 900 }, { width: 844, height: 390 }, { width: 390, height: 844 }, { width: 320, height: 500 }]) {
+    await page.setViewportSize(size);
+    await expect.poll(() => page.evaluate(original => {
+      const current = document.querySelector<HTMLCanvasElement>('#battle-canvas canvas');
+      const bounds = document.getElementById('battle-canvas')!.getBoundingClientRect();
+      // Canvas dimensions truncate fractional CSS pixels; clientHeight rounds.
+      return { sameCanvas: current === original, widthDifference: (current?.width ?? 0) - Math.floor(bounds.width), heightDifference: (current?.height ?? 0) - Math.floor(bounds.height) };
+    }, canvas)).toEqual({ sameCanvas: true, widthDifference: 0, heightDifference: 0 });
+    await expect(page.locator('#battle-loading')).toHaveCount(0);
+    expect(await page.evaluate(() => ({ runId: window.__game.state()!.runId, tick: window.__game.state()!.tick }))).toEqual(before);
+  }
+  expect(images).toEqual([]);
+  await page.locator('.pause-dialog [data-action="resume"]').click();
+  await expect.poll(() => page.evaluate(() => window.__game.state()!.tick)).toBeGreaterThan(before.tick);
+  await page.evaluate(() => window.__game.route('home'));
+  await expect.poll(() => canvas!.evaluate(node => node.isConnected)).toBe(false);
+  await canvas!.dispose();
+});
 for (const size of [{width:320,height:500},{width:390,height:844},{width:430,height:932}]) test(`focused battle fills ${size.width}×${size.height}`,async({page})=>{
   await page.setViewportSize(size); await boot(page);
   const canvas=await page.locator('canvas').boundingBox();
@@ -25,7 +50,7 @@ for (const size of [{width:320,height:500},{width:390,height:844},{width:430,hei
   await page.keyboard.press('Escape');
   await expect(page.locator('#weapon-strip')).not.toBeVisible();
   expect(await page.evaluate(()=>window.__game.state()!.phase)).toBe('running');
-  for(const selector of ['#speed-button','[data-action="pause"]','#auto-tactical-button','.battle-intel summary']) {
+  for(const selector of ['#speed-button','[data-action="pause"]','.range-toolbar [data-action="command-panel"]','.battle-intel summary']) {
     const box=await page.locator(selector).boundingBox();expect(box!.height).toBeGreaterThanOrEqual(44);expect(box!.width).toBeGreaterThanOrEqual(44);
   }
   await page.locator('.battle-header-controls [data-action="pause"]').click();

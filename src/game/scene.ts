@@ -204,5 +204,17 @@ export class BattleScene extends Phaser.Scene {
 export function createBattleCanvas(parent: HTMLElement, read: () => RunState, audio: GameAudio, low: () => boolean, loading: SceneLoading, speed: () => BattleSpeed = () => 1, selectedRange: () => CharacterId | null = () => null, timeline = new TacticalTimeline()) {
   // Keep linear filtering for the illustrated sprites. The 2D canvas does not need
   // a multisampled WebGL backbuffer, whose resolves dominate dense mobile rendering.
-  return new Phaser.Game({ type: Phaser.AUTO, width: parent.clientWidth, height: parent.clientHeight, parent, backgroundColor: '#102c35', antialias: true, audio: { noAudio: true }, scene: new BattleScene(read, audio, low, loading, speed, selectedRange, timeline), scale: { mode: Phaser.Scale.RESIZE }, render: { roundPixels: false, antialiasGL: false }, fps: { target: 60 } });
+  const game = new Phaser.Game({ type: Phaser.AUTO, width: parent.clientWidth, height: parent.clientHeight, parent, backgroundColor: '#102c35', antialias: true, audio: { noAudio: true }, scene: new BattleScene(read, audio, low, loading, speed, selectedRange, timeline), scale: { mode: Phaser.Scale.RESIZE }, render: { roundPixels: false, antialiasGL: false }, fps: { target: 60 } });
+  // Flex layout and browser chrome can resize the host independently of the
+  // window, including while Phaser's loop is suspended in the background.
+  const observer = new ResizeObserver(() => {
+    const { width, height } = parent.getBoundingClientRect();
+    if (game.canvas && width > 0 && height > 0 && (game.scale.width !== width || game.scale.height !== height)) {
+      game.scale.getParentBounds();
+      game.scale.refresh();
+    }
+  });
+  observer.observe(parent);
+  game.events.once(Phaser.Core.Events.DESTROY, () => observer.disconnect());
+  return game;
 }
