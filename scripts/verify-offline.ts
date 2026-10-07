@@ -81,7 +81,8 @@ async function serve(directory: string, base: string): Promise<FixtureServer> {
 }
 async function launch(engine: BrowserType, profile: string, blockWorkers = false): Promise<BrowserContext> {
   const context = await engine.launchPersistentContext(profile, {
-    viewport: { width: 390, height: 844 }, hasTouch: true, serviceWorkers: blockWorkers ? 'block' : 'allow',
+    // Width sweeps include desktop landscape. Touch rotation is covered by mobile-layout.spec.ts.
+    viewport: { width: 390, height: 844 }, hasTouch: false, serviceWorkers: blockWorkers ? 'block' : 'allow',
   });
   context.setDefaultTimeout(15000);
   context.setDefaultNavigationTimeout(30000);
@@ -123,6 +124,8 @@ async function offlineDetails(page: Page) {
   await settingsCategory(page, '離線與版本');
   const details = page.getByRole('button', { name: '離線下載、版本與更新', exact: true });
   if (await details.isVisible()) await details.click();
+  const version = page.locator('.build-information');
+  if (await version.isVisible() && await version.getAttribute('open') === null) await version.locator(':scope > summary').click();
 }
 async function revealCard(page: Page, card: ReturnType<Page['locator']>, label: string) {
   const pager = page.getByRole('combobox', { name: label, exact: true });
@@ -195,6 +198,7 @@ async function setViewportAndSettle(page: Page, viewport: { width: number; heigh
 async function layout(page: Page, name: string) {
   for (const width of [320, 768, 1024, 1440]) {
     await setViewportAndSettle(page, { width, height: width === 320 ? 568 : 1000 });
+    await expect(page.locator('.portrait-guard')).not.toBeVisible();
     const sizes = await page.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth, height: innerHeight, scrollHeight: document.documentElement.scrollHeight }));
     assert.ok(sizes.scrollWidth <= sizes.width + 1, `${name} overflows horizontally at ${width}: ${JSON.stringify(sizes)}`);
     assert.ok(sizes.scrollHeight <= sizes.height + 1, `${name} overflows the game stage at ${width}: ${JSON.stringify(sizes)}`);
@@ -272,8 +276,9 @@ async function coreSmoke(engine: BrowserType, name: string, url: URL, snapshot: 
   const assets = await allAssetsOffline(page, snapshot);
   await page.reload();
   await ready(page);
-  await state(page).focus();
+  await page.getByRole('button', { name: '設定', exact: true }).focus();
   await page.keyboard.press('Enter');
+  await offlineDetails(page);
   await ready(page, 'settings');
   await verifyVersion(page, url);
   await layout(page, `${name}-settings-ready`);
@@ -394,8 +399,9 @@ async function webkitLiveCompatibility(url: URL, snapshot: Snapshot) {
   const commit = await page.locator('meta[name="build-revision"]').getAttribute('content');
   if (process.env.EXPECTED_COMMIT) assert.equal(commit, process.env.EXPECTED_COMMIT);
   const cachedAssets = await allAssetsOffline(page, snapshot, true);
-  await state(page).focus();
+  await page.getByRole('button', { name: '設定', exact: true }).focus();
   await page.keyboard.press('Enter');
+  await offlineDetails(page);
   await ready(page, 'settings');
   await verifyVersion(page, url);
   await layout(page, 'webkit-live-settings');
@@ -417,7 +423,8 @@ async function retryAndRepair(snapshot: Snapshot) {
   await page.goto(fixture.url.href);
   await expect(state(page)).toHaveAttribute('data-offline-state', 'error', { timeout: 90000 });
   assert.equal(await page.evaluate(() => !!navigator.serviceWorker.controller), false, 'Partial first download must never take control');
-  await state(page).click();
+  await page.getByRole('button', { name: '設定', exact: true }).click();
+  await offlineDetails(page);
   await expect(state(page, 'settings')).toHaveAttribute('data-offline-state', 'error');
   await layout(page, 'chromium-initial-download-error');
   fixture.failedPath = null;
@@ -439,7 +446,8 @@ async function retryAndRepair(snapshot: Snapshot) {
   assert.ok(removed > 0, 'Cache corruption fixture must remove a real installed asset');
   await page.reload();
   await expect(state(page)).toHaveAttribute('data-offline-state', 'error', { timeout: 90000 });
-  await state(page).click();
+  await page.getByRole('button', { name: '設定', exact: true }).click();
+  await offlineDetails(page);
   await page.screenshot({ path: join(output, 'chromium-incomplete-cache.png') });
   await context.setOffline(false);
   await page.locator('[data-offline-action="retry"]').click();
@@ -498,7 +506,8 @@ async function updateSafety(snapshot: Snapshot, forced = false, engine: BrowserT
     fixture.unavailable = false;
     await second.evaluate(async () => { await (await navigator.serviceWorker.getRegistration())!.update(); });
   } else await context.setOffline(false);
-  await state(second).click();
+  await second.getByRole('button', { name: '設定', exact: true }).click();
+  await offlineDetails(second);
   // Reconnecting automatically retries a failed update; the earlier scenario verifies the manual button.
   await expect(state(second, 'settings')).toHaveAttribute('data-offline-update', 'waiting', { timeout: 90000 });
   await ready(second, 'settings');
@@ -509,6 +518,7 @@ async function updateSafety(snapshot: Snapshot, forced = false, engine: BrowserT
   if (forced) {
     await expect(first.locator('[data-offline-action="force-update"]')).toBeDisabled();
     await second.locator('[data-offline-action="force-update"]').focus();
+    second.once('dialog', dialog => dialog.accept());
     await Promise.all([second.waitForEvent('load'), second.keyboard.press('Enter')]);
     await ready(second);
     await expect.poll(() => second.evaluate(() => document.documentElement.dataset.offlineFixture)).toBe('candidate-b');
@@ -520,16 +530,26 @@ async function updateSafety(snapshot: Snapshot, forced = false, engine: BrowserT
     assert.deepEqual(after.collection, before.collection);
     assert.deepEqual(after.preferences, before.preferences);
     assert.deepEqual(after.profile, before.profile);
-    await state(second).click();
+    await second.getByRole('button', { name: '設定', exact: true }).click();
+    await offlineDetails(second);
     const token = await second.evaluate(() => performance.timeOrigin);
     await context.setOffline(true);
+    second.once('dialog', dialog => dialog.accept());
     await second.locator('[data-offline-action="force-update"]').click();
     await expect(second.locator('[data-offline-field="force-message"]')).toContainText('沒有網路');
     assert.equal(await second.evaluate(() => performance.timeOrigin), token);
     await context.setOffline(false);
+    second.once('dialog', dialog => dialog.accept());
     await Promise.all([second.waitForEvent('load'), second.locator('[data-offline-action="force-update"]').click()]);
     await ready(second);
-    cases.push({ name: currentCase, passed: true, otherBattleRetainedOldAssets: beforeReloadAssets.verifiedEntries, newAssets: newAssets.verifiedEntries, savedProgressPreserved: true, offlineFailurePreservedPage: true, currentVersionReload: true, keyboardActivation: true });
+    assert.ok(await second.evaluate(async name => (await caches.keys()).includes(name), `${snapshot.cachePrefix}${snapshot.buildId}`), 'Live old battle still needs its snapshot');
+    await first.close();
+    await second.reload();
+    await ready(second);
+    await expect.poll(() => second.evaluate(async prefix => (await caches.keys()).filter(name => name.startsWith(prefix)), snapshot.cachePrefix))
+      .toEqual([`${newer.cachePrefix}${newer.buildId}`]);
+    assert.equal(await second.evaluate(async () => (await (await caches.open('offline-verifier-unrelated')).match('/unrelated-test-resource'))?.text()), 'keep');
+    cases.push({ name: currentCase, passed: true, otherBattleRetainedOldAssets: beforeReloadAssets.verifiedEntries, newAssets: newAssets.verifiedEntries, savedProgressPreserved: true, offlineFailurePreservedPage: true, currentVersionReload: true, keyboardActivation: true, closedBattleSnapshotCollected: true });
     await closeContext(context); return;
   }
   await first.close();

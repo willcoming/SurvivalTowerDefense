@@ -1,0 +1,24 @@
+{
+  "date": "2026-09-30",
+  "method": "built-in image_gen",
+  "proposal_count": 1,
+  "logical_viewport": [
+    390,
+    844
+  ],
+  "raster_dimensions": [
+    853,
+    1844
+  ],
+  "image": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/design/skill-tree-20260930/skill-tree-fixed-detail-v1.png",
+  "source": "/Users/willcoming/.codex/generated_images/01a0f2c2-1794-7ec1-adee-f27b00ded61a/exec-81cf553a-b69e-4559-8992-8c59b0d54f97.png",
+  "prompt": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/design/skill-tree-20260930/PROMPT.txt",
+  "verified": {
+    "traditional_chinese_copy": true,
+    "pending_skill_cost": 1,
+    "available_points": 4,
+    "retained_points": 3,
+    "copy_matches_generated_output": true
+  },
+  "scope": "static UI concept; no game implementation"
+}

@@ -69,6 +69,7 @@ export class GameApp {
   private formationDraft: FormationDraft | null = null;
   private commandOwnsPause = false;
   private navigationOwnsPause = false;
+  private formationDirty() { return !!this.formationDraft && JSON.stringify(this.formationDraft) !== JSON.stringify(createFormationDraft(this.save)); }
   private rosterSave() { return this.vm.rosterEditing && this.formationDraft ? formationView(this.save, this.formationDraft) : this.save; }
   constructor(root: HTMLElement) {
     this.root = root;
@@ -87,7 +88,15 @@ export class GameApp {
       // A keyboard/toolbar resize must not replace an input with uncommitted text.
       if (this.ready && this.vm.page !== 'battle' && innerWidth <= innerHeight && !(document.activeElement instanceof HTMLInputElement)) this.render();
     });
-    matchMedia(mobileQuery).addEventListener('change', () => { if (this.ready) this.render(); });
+    matchMedia(mobileQuery).addEventListener('change', () => {
+      if (!this.ready) return;
+      if (this.vm.page === 'battle') {
+        // Phaser's RESIZE scale mode updates the existing canvas and camera.
+        // Only dialogs need rebuilding for their mobile/desktop controls.
+        this.overlayKey = ''; this.renderedOverlay = '';
+        this.overlay(); this.orientation();
+      } else this.render();
+    });
     window.addEventListener('pagehide', () => { if (this.ready) { this.pauseFor('hidden'); void this.persist(); } });
     requestAnimationFrame(time => this.frame(time));
   }
@@ -114,6 +123,7 @@ export class GameApp {
     const samePage = this.root.dataset.page === this.vm.page;
     const rosterView = this.root.querySelector<HTMLElement>('[data-roster-view]')?.dataset.rosterView;
     const rosterScroll = this.root.querySelector('.roster-panel-body')?.scrollTop ?? 0;
+    const formationScroll = this.root.querySelector('.formation-content')?.scrollTop ?? 0;
     this.canvas?.destroy(true); this.canvas = null; this.renderedOverlay = ''; this.overlayKey = '';
     const page = this.vm.page; const run = this.save.activeRun ?? this.lastRun;
     this.mobile.begin(page);
@@ -130,7 +140,7 @@ export class GameApp {
       }, () => this.save.preferences.battleSpeed, () => this.selectedRange, this.tacticalTimeline);
       updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); this.overlay(); this.audio.setMode(run.bossSpawned ? 'boss' : 'battle');
     } else {
-      const screens = { hundred:()=>hundredPage(this.save), commander:()=>commanderPage(this.save),command:()=>tacticalCommand(this.save,this.vm),recruitment:()=>recruitment(this.save,this.collecting,this.vm.recruitView),home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.rosterSave(), this.vm), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.rewards,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.commanderReward,this.save.profile.hundredBest) : home(this.save, this.vm), battle: () => '' };
+      const screens = { hundred:()=>hundredPage(this.save), commander:()=>commanderPage(this.save),command:()=>tacticalCommand(this.save,this.vm),recruitment:()=>recruitment(this.save,this.collecting,this.vm.recruitView),home: () => home(this.save, this.vm), intel: () => intel(this.save, this.vm), roster: () => roster(this.rosterSave(), this.vm, this.formationDirty(), this.collecting, this.temporary), codex: () => codex(this.save, this.vm), stories: () => stories(this.save), settings: () => settings(this.save, this.vm.saveStatus), result: () => run ? result(run,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.rewards,this.save.profile.recentRuns.find(r=>r.runId===run.runId)?.commanderReward,this.save.profile.hundredBest) : home(this.save, this.vm), battle: () => '' };
       this.root.innerHTML = `${gameSurround(this.vm.stageId, false, page==='recruitment'?RECRUITMENT_BACKDROP:undefined)}${gameHud(this.save, this.vm.saveStatus, page)}${this.notice()}${screens[page]()}${gameNav(this.save, page)}<div id="global-overlay"></div>`;
       enhanceMobile(this.root, page, this.mobile);
       enhanceMobileNotice(this.root, this.mobile);
@@ -141,6 +151,8 @@ export class GameApp {
     this.prepareImages(this.root);
     this.mobile.finish(this.root);
     this.orientation();
+    const formationContent = this.root.querySelector('.formation-content');
+    if (samePage && formationContent) formationContent.scrollTop = formationScroll;
     if (this.vm.rosterPanel && rosterView === this.vm.rosterPanel.view) {
       const panel = this.root.querySelector<HTMLElement>('.roster-dialog');
       const replacement = focused?.dataset.action ? [...panel?.querySelectorAll<HTMLElement>('[data-action]') ?? []].find(element =>
@@ -166,7 +178,7 @@ export class GameApp {
     this.overlayKey = key;
     let html = '';
     if(this.vm.navigationTarget) {
-      html = `<div class="modal-backdrop"><section class="dialog confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="leave-title"><span class="eyebrow">返回基地</span><h2 id="leave-title">結束本局，前往${destinationNames[this.vm.navigationTarget]}？</h2><p>離開會結束目前戰鬥與本局技能配置。已解鎖的角色與關卡會保留。</p><div class="result-actions"><button class="button secondary" data-action="navigation-cancel">繼續本局</button><button class="button primary" data-action="navigation-confirm">結束並前往${destinationNames[this.vm.navigationTarget]}</button></div></section></div>`;
+      html = `<div class="modal-backdrop"><section class="dialog confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="leave-title"><span class="eyebrow">返回基地</span><h2 id="leave-title">結束本局，前往${destinationNames[this.vm.navigationTarget]}？</h2><p>離開會結束目前戰鬥與本局技能配置。已解鎖的角色與關卡會保留。</p><div class="result-actions"><button class="button secondary" data-action="navigation-cancel">繼續本局</button><button class="button danger" data-action="navigation-confirm">結束並前往${destinationNames[this.vm.navigationTarget]}</button></div></section></div>`;
     } else if (this.vm.modal === 'reset' || this.vm.modal === 'abandon') {
       const reset = this.vm.modal === 'reset';
       html = `<div class="modal-backdrop"><section class="dialog confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"><span class="eyebrow">${reset ? 'RESET LOCAL DATA' : 'ABANDON OPERATION'}</span><h2 id="confirm-title">${reset ? '重置這個瀏覽器的進度？' : '確定放棄本次行動？'}</h2><p>${reset ? '關卡紀錄、招募收藏、招募券、共鳴點數、偏好設定與進行中的行動將被刪除。初始六位角色原裝仍免費開放。' : '本局改造將結束。妳可以立即重新出擊，不會失去任何戰力資源。'}</p><div class="result-actions"><button class="button secondary" data-action="cancel-confirm">保留紀錄</button><button class="button danger" data-action="${reset ? 'reset' : 'abandon'}">${reset ? '確認重置' : '確認放棄'}</button></div></section></div>`;
@@ -241,7 +253,7 @@ export class GameApp {
       img.addEventListener('error', () => { img.classList.add('asset-error'); img.alt = `${img.alt || '圖片'}：素材載入失敗`; }, { once: true });
     });
   }
-  private go(page: Page) { if(this.vm.page === 'battle' && page !== 'battle' && this.save.activeRun) { command(this.save.activeRun, { type: 'abandon' }); completeRun(this.save, this.save.activeRun); void this.persist(); } if(page !== 'roster') this.vm.rosterEditing = false; this.vm.page = page; this.vm.personnelSkills=undefined; this.vm.recruitPreview=undefined; this.vm.commandPanel=undefined; this.vm.navigationTarget=undefined; this.commandOwnsPause=false; this.navigationOwnsPause=false; this.vm.modal = null; this.vm.showBuild = false; this.vm.treePanel=undefined; this.vm.rosterPanel=undefined; this.rosterFocusId=null; this.render(); window.scrollTo(0, 0); const title = this.root.querySelector('h1'); if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); } }
+  private go(page: Page) { if(this.vm.page === 'battle' && page !== 'battle' && this.save.activeRun) { command(this.save.activeRun, { type: 'abandon' }); completeRun(this.save, this.save.activeRun); void this.persist(); } if(this.vm.page === 'roster' && page !== 'roster' && !this.formationDirty()) this.formationDraft = null; if(page === 'roster') { this.formationDraft ??= createFormationDraft(this.save); this.vm.rosterEditing = true; } else this.vm.rosterEditing = false; this.vm.page = page; this.vm.personnelSkills=undefined; this.vm.recruitPreview=undefined; this.vm.commandPanel=undefined; this.vm.navigationTarget=undefined; this.commandOwnsPause=false; this.navigationOwnsPause=false; this.vm.modal = null; this.vm.showBuild = false; this.vm.treePanel=undefined; this.vm.rosterPanel=undefined; this.rosterFocusId=null; this.render(); window.scrollTo(0, 0); const title = this.root.querySelector('h1'); if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); } }
   private seed() { const data = new Uint32Array(1); crypto.getRandomValues(data); return data[0] || 101; }
   private async start(config?: RunConfig, contentVersion=CONTENT_VERSION) {
     if(config?.challengeId)config={...config,difficulty:'hard'};
@@ -350,7 +362,6 @@ export class GameApp {
     if(this.collecting)return;
     if (['hundred','home', 'intel', 'roster', 'codex', 'stories', 'settings','recruitment','command','commander'].includes(action)) {
       if(this.vm.page==='battle' && this.save.activeRun) {
-        if(action==='home') return;
         this.vm.navigationTarget=action as Page;
         this.navigationOwnsPause=!this.save.activeRun.pauseReasons.includes('tree');
         command(this.save.activeRun,{type:'pause',reason:'tree'});
@@ -406,17 +417,18 @@ export class GameApp {
         const target=this.vm.navigationTarget;this.vm.navigationTarget=undefined;this.vm.commandPanel=undefined;
         this.navigationOwnsPause=false;this.commandOwnsPause=false;if(target)this.go(target);break;
       }
-      case 'roster-select': if (this.save.preferences.squadIds.includes(id as CharacterId)) { this.vm.rosterSelectedId = id as CharacterId; this.render(); } break;
+      case 'roster-select': if (CHARACTER_MAP[id as CharacterId]) { this.vm.rosterSelectedId = id as CharacterId; this.render(); } break;
+      case 'roster-reset': this.formationDraft = createFormationDraft(this.save); this.vm.message = ''; this.render(); break;
       case 'roster-edit': this.formationDraft ??= createFormationDraft(this.save); this.vm.rosterEditing = true; this.vm.rosterPanel = undefined; this.render(); break;
       case 'roster-commit': {
         if (!this.formationDraft || !this.vm.rosterEditing) break;
-        this.collecting = true;
+        this.collecting = true; this.render();
         try {
           await this.saveQueue;
           const candidate = confirmFormation(this.save, this.formationDraft, this.vm.challengeId === 'four' ? 4 : 5);
           candidate.activeRun = null;
           if (!this.temporary) candidate.revision = await this.repository.save(candidate);
-          this.save = candidate; this.formationDraft = null; this.vm.rosterEditing = false; this.vm.rosterPanel = undefined; this.vm.message = ''; this.vm.saveStatus = this.temporary ? '暫時試玩' : '已儲存在本機';
+          this.save = candidate; this.formationDraft = createFormationDraft(candidate); this.vm.rosterEditing = true; this.vm.rosterPanel = undefined; this.vm.message = ''; this.vm.saveStatus = this.temporary ? '暫時試玩' : '已儲存在本機';
         } catch (error) { this.vm.message = `編隊尚未套用：${error instanceof Error ? error.message : String(error)}`; }
         finally { this.collecting = false; this.render(); }
         break;
@@ -554,7 +566,7 @@ export class GameApp {
       }
       case 'tree-exit':
         this.vm.navigationTarget='home';this.navigationOwnsPause=false;this.overlay();break;
-      case 'tree-save-home': this.go('home'); break;
+      case 'tree-save-home': await this.action('home'); break;
       case 'personnel-skills': {
         const ownerId=this.vm.rosterPanel?.ownerId??this.vm.characterId;
         if(!['roster','codex'].includes(this.vm.page)||id!==ownerId)break;
@@ -574,7 +586,7 @@ export class GameApp {
       case 'tree-candidate': if(this.vm.treePanel?.mode==='choose'&&this.vm.treePanel.nodeId&&this.execute({type:'custom-node',nodeId:this.vm.treePanel.nodeId})){this.vm.selectedCard=this.vm.treePanel.nodeId;this.closeTree();}break;
       case 'view-build': if(this.save.activeRun&&usesSkillTrees(this.save.activeRun)){this.openTree(this.save.activeRun.draft?'choose':'view');break;} this.vm.showBuild = !this.vm.showBuild; if (!this.save.activeRun?.draft) this.execute({ type: 'pause', reason: 'user' }); this.overlay(); break;
       case 'tutorial-done': this.save.preferences.tutorialSeen = true; this.execute({ type: 'resume', reason: 'tutorial' }); break;
-      case 'save-home': this.go('home'); break;
+      case 'save-home': await this.action('home'); break;
       case 'abandon-confirm': this.vm.modal = 'abandon'; this.overlay(); break;
       case 'abandon': this.vm.modal = null; if (this.execute({ type: 'abandon' })) await this.finish(); break;
       case 'cancel-confirm': this.vm.modal = null; this.overlay(); break;
@@ -647,6 +659,11 @@ export class GameApp {
   private change(input: HTMLInputElement | HTMLSelectElement) {
     if(this.collecting)return;
     const action = input.dataset.change; const run = this.save.activeRun;
+    if(action==='formation-form') {
+      const form = FORM_MAP[input.value as FormId];
+      if(this.vm.page !== 'roster' || !this.formationDraft || !form || form.ownerId !== input.dataset.id || !this.save.collection.owned.includes(form.id) || this.temporary || this.save.activeRun) return;
+      this.formationDraft.equipped[form.ownerId] = form.id; this.render(); return;
+    }
     if(action==='formation-captain'){void this.action('captain',input.value);return;}
     if(action==='commander-name') {this.save.preferences.commanderName=input.value.trim().slice(0,20)||'指揮官';void this.persist();const name=this.root.querySelector('.commander-profile strong');if(name)name.textContent=this.save.preferences.commanderName;return;}
     if(action==='form'){void this.collect({type:'equip',formId:input.value as FormId});return;}

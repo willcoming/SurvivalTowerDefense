@@ -52,7 +52,7 @@ function attack(s:RunState,w:WeaponState){
     }
   }
   if(w.id==='C03'){
-    target=all.sort((x,y)=>y.maxHp-x.maxHp||x.id-y.id)[0];const targets=e&&!a?[target]:lineTargets(s,target,e&&a?6:2,w.id);const falloff=e&&a?[1,.9,.8,.7,.6,.5]:[1,.7];
+    target=all.find(e=>e.id===s.focusTargetId)??all.sort((x,y)=>y.maxHp-x.maxHp||x.id-y.id)[0];const targets=e&&!a?[target]:lineTargets(s,target,e&&a?6:2,w.id);const falloff=e&&a?[1,.9,.8,.7,.6,.5]:[1,.7];
     const end=usesRangeRules(s)&&targets.length?targets.reduce((far,t)=>distance(t,WORLD_ORIGIN)>distance(far,WORLD_ORIGIN)?t:far,target):target;
     emit(s,{kind:'beam',x:195,y:490,x2:end.x,y2:end.y,source:w.id});
     targets.forEach((t,i)=>hitEnemy(s,t,scaled(p,(falloff[i]??1)*(!a&&w.rank>=1&&['E07','E08','B01','B02','B03'].includes(t.defId)?(1+n.bonus+.2)/(1+n.bonus):1))));
@@ -91,7 +91,7 @@ export function castTactical(s:RunState):boolean{
   const p:DamagePacket={source:id,skill:'tactical',raw:0,damageType:attackType(s,id),armorIgnore:0,shieldMultiplier:id==='C02'?1.25:1};
   if(id==='C01'){for(const t of area(s,target.x,target.y,90*radius))hitEnemy(s,t,{...p,raw:35*bonus});for(let i=1;i<4;i++)s.scheduled.push({at:s.tick+i*ticks(.2),packet:{...p,raw:35*bonus},x:target.x,y:target.y,radius:90*radius,enemyDamage:0,enemySource:null});}
   if(id==='C02')for(const t of alive(s))hitEnemy(s,t,{...p,raw:60*bonus,stun:ticks(1.5*duration)});
-  if(id==='C03'){const t=alive(s).sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];visualTarget=t;hitEnemy(s,t,{...p,raw:420*bonus,armorIgnore:1});emit(s,{kind:'beam',x:195,y:490,x2:t.x,y2:t.y,source:id,skill:'tactical'});}
+  if(id==='C03'){const t=alive(s).find(e=>e.id===s.focusTargetId)??alive(s).sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];visualTarget=t;hitEnemy(s,t,{...p,raw:420*bonus,armorIgnore:1});emit(s,{kind:'beam',x:195,y:490,x2:t.x,y2:t.y,source:id,skill:'tactical'});}
   if(id==='C04')for(const t of alive(s))hitEnemy(s,t,{...p,raw:0,slow:{value:.5,duration:ticks(5*duration)},knockback:60});
   if(id==='C05')for(const t of area(s,target.x,target.y,100*radius))hitEnemy(s,t,{...p,raw:160*bonus,burn:{dps:12*bonus,duration:ticks(5*duration),armorIgnore:.5,key:'tactical'}});
   if(id==='C06')addShield(s,'tactical:C06',220+(m.skillShield??0),ticks(8*duration));

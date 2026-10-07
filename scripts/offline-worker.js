@@ -6,6 +6,7 @@ const SCOPE = new URL(self.registration.scope);
 const CACHE_NAME = `${SNAPSHOT.cachePrefix}${SNAPSHOT.buildId}`;
 const MARKER_URL = new URL('__offline_complete__', SCOPE).href;
 const CLIENTS_URL = new URL('__offline_clients__', SCOPE).href;
+const OBSOLETE_URL = new URL('__offline_obsolete__', SCOPE).href;
 const ENTRIES = new Map(SNAPSHOT.entries.map((entry) => [new URL(entry.url, SCOPE).pathname, entry]));
 const INDEX = ENTRIES.get(`${SNAPSHOT.base}index.html`);
 let pending = null;
@@ -13,11 +14,15 @@ let completed = 0;
 let bytesLoaded = 0;
 let lastError;
 let clientSnapshots;
+let cleanup;
+let lastCleanup = 0;
 
 async function pinnedClients() {
   if (!clientSnapshots) {
-    const saved = await (await caches.open(CACHE_NAME)).match(CLIENTS_URL);
-    clientSnapshots = saved ? await saved.json() : {};
+    clientSnapshots = (async () => {
+      const saved = await (await caches.open(CACHE_NAME)).match(CLIENTS_URL);
+      return saved ? saved.json() : {};
+    })();
   }
   return clientSnapshots;
 }
@@ -33,6 +38,31 @@ async function pinExistingClients(previousBuildId) {
     if (client.id && inScope(new URL(client.url))) pins[client.id] = olderPins[client.id] || previousName;
   }
   await (await caches.open(CACHE_NAME)).put(CLIENTS_URL, new Response(JSON.stringify(pins)));
+}
+
+function cleanupSnapshots() {
+  if (cleanup) return cleanup;
+  cleanup = (async () => {
+    const cache = await caches.open(CACHE_NAME);
+    // Only activation records deletion candidates. A waiting worker must never
+    // collect the active build; an active worker must never collect a newer one.
+    const saved = await cache.match(OBSOLETE_URL);
+    if (!saved) return;
+    const obsolete = await saved.json();
+    if (!obsolete.length || !(await inspectSnapshot()).ready) return;
+    const live = new Set((await self.clients.matchAll({ type: 'window', includeUncontrolled: true }))
+      .filter((client) => inScope(new URL(client.url))).map((client) => client.id));
+    const pins = await pinnedClients();
+    for (const id of Object.keys(pins)) if (!live.has(id)) delete pins[id];
+    await cache.put(CLIENTS_URL, new Response(JSON.stringify(pins)));
+    const retained = new Set(Object.values(pins));
+    await Promise.all(obsolete.filter((name) => name.startsWith(SNAPSHOT.cachePrefix) && name !== CACHE_NAME && !retained.has(name))
+      .map((name) => caches.delete(name)));
+    await cache.put(OBSOLETE_URL, new Response(JSON.stringify(obsolete.filter((name) => retained.has(name)))));
+  })().catch(() => {
+    // Cache maintenance must not interrupt gameplay or a successful update.
+  }).finally(() => { cleanup = null; lastCleanup = Date.now(); });
+  return cleanup;
 }
 
 function status(ready = false) {
@@ -189,8 +219,10 @@ self.addEventListener('activate', (event) => {
     }
     await self.clients.claim();
     const names = await caches.keys();
-    const retained = new Set(Object.values(await pinnedClients()));
-    await Promise.all(names.filter((name) => name.startsWith(SNAPSHOT.cachePrefix) && name !== CACHE_NAME && !retained.has(name)).map((name) => caches.delete(name)));
+    await (await caches.open(CACHE_NAME)).put(OBSOLETE_URL, new Response(JSON.stringify(
+      names.filter((name) => name.startsWith(SNAPSHOT.cachePrefix) && name !== CACHE_NAME),
+    )));
+    await cleanupSnapshots();
     await broadcast(result);
   })());
 });
@@ -208,6 +240,7 @@ self.addEventListener('message', (event) => {
       await pinExistingClients(event.data.previousBuildId);
       await self.skipWaiting();
     }
+    if (result.ready) await cleanupSnapshots();
     const port = event.ports?.[0];
     if (port) { port.postMessage(result); port.close(); }
     else event.source.postMessage(result);
@@ -243,6 +276,9 @@ self.addEventListener('fetch', (event) => {
   // URL queries (including deployment revision links) share the verified asset.
   const entry = request.mode === 'navigate' ? INDEX : ENTRIES.get(url.pathname);
   if (!entry && !event.clientId) return;
+  // Client IDs belong to documents: reloading releases the old pin once that
+  // document disappears. Keep it during navigation so in-flight old assets work.
+  if (request.mode === 'navigate' || Date.now() - lastCleanup > 60_000) event.waitUntil(cleanupSnapshots());
   event.respondWith((async () => {
     // Navigation begins a new document on the latest version. Existing tabs
     // keep exact old public assets as well as old bundles until they reload.

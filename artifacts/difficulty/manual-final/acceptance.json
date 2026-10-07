@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "integrity": true,
+  "checks": [
+    {
+      "stage": "S03",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S05",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S10",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S12",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 2,
+      "passed": true
+    }
+  ]
+}

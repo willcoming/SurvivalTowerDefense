@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星骸防線：Codex 視覺與機制重構原型展示</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @keyframes pulse-ring { 0% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1.15); opacity: 0.3; } 100% { transform: scale(0.95); opacity: 0.8; } }
+    @keyframes shake-anim { 0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-3px, 2px); } 40% { transform: translate(3px, -2px); } 60% { transform: translate(-2px, -2px); } 80% { transform: translate(2px, 2px); } }
+    .laser-line { stroke-dasharray: 6; animation: dash 1s linear infinite; }
+    @keyframes dash { to { stroke-dashoffset: -24; } }
+    .screen-shake { animation: shake-anim 0.2s cubic-bezier(.36,.07,.19,.97) both; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans p-4 md:p-8 min-h-screen">
+  <div class="max-w-6xl mx-auto space-y-6">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950 border border-cyan-700/60 text-cyan-300 text-xs font-semibold mb-2">
+          <span>CODEX HANDOFF INTERACTIVE PROTOTYPE</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-black text-white tracking-tight">
+          《星骸防線》體驗重構互動原型展示
+        </h1>
+        <p class="text-slate-400 text-sm mt-1">
+          本原型專為 Codex 修改所建立。點擊下方可直觀驗收「手動集火、暴擊震屏、指揮官戰術、流派卡片化」設計。
+        </p>
+      </div>
+      <div class="flex gap-2">
+        <a href="../01-MASTER_PLAN.md" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-bold text-slate-200 transition-all">
+          📄 主計畫書
+        </a>
+        <a href="../02-PHASE1_VISUAL_AND_FOCUS.md" class="px-3 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg text-xs font-bold text-white transition-all shadow">
+          🚀 第一階段規格
+        </a>
+      </div>
+    </header>
+
+    <!-- Nav Tabs -->
+    <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+      <button onclick="tab('battle')" id="t-battle" class="tab-btn px-4 py-2 rounded-lg text-sm font-bold bg-cyan-600 text-white shadow">
+        ⚔️ 戰鬥互動模擬（點擊集火 / 戰術技能 / 震屏）
+      </button>
+      <button onclick="tab('cards')" id="t-cards" class="tab-btn px-4 py-2 rounded-lg text-sm font-bold text-slate-400 hover:text-white">
+        ✨ 波末配點：三色流派卡片展示
+      </button>
+      <button onclick="tab('combos')" id="t-combos" class="tab-btn px-4 py-2 rounded-lg text-sm font-bold text-slate-400 hover:text-white">
+        🔥 雙元素連鎖反應矩陣
+      </button>
+    </div>
+
+    <!-- TAB 1: BATTLE SIMULATOR -->
+    <section id="panel-battle" class="space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Interactive Screen -->
+        <div id="battle-container" class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col justify-between h-[640px] relative overflow-hidden">
+
+          <!-- Threat Warning Vignette (Hidden by default) -->
+          <div id="vignette" class="absolute inset-0 pointer-events-none transition-all duration-300 opacity-0 z-30" style="box-shadow: inset 0 0 60px rgba(239, 68, 68, 0.65);"></div>
+
+          <!-- Top HUD -->
+          <div class="bg-slate-950/90 border border-slate-800 p-2.5 rounded-xl flex justify-between items-center z-10 text-xs">
+            <div>
+              <span class="text-cyan-400 font-bold">防線 HP: </span>
+              <span id="hp-val" class="font-mono font-bold text-white">1000 / 1000</span>
+              <div class="w-36 bg-slate-800 h-2 rounded-full overflow-hidden mt-1">
+                <div id="hp-bar" class="bg-cyan-400 h-full w-full transition-all duration-300"></div>
+              </div>
+            </div>
+            <div class="px-2.5 py-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300 font-black">
+              WAVE 1/10
+            </div>
+            <button onclick="resetSim()" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[11px]">
+              重置模擬
+            </button>
+          </div>
+
+          <!-- Battlefield -->
+          <div class="relative flex-1 my-2 bg-gradient-to-b from-slate-950 to-slate-900 rounded-xl border border-slate-800/80 overflow-hidden flex flex-col justify-between p-3">
+
+            <!-- Monster Spawning Area -->
+            <div class="flex justify-around items-center pt-4 z-10">
+              <!-- Monster A -->
+              <div onclick="focusEnemy(1)" id="enemy-1" class="enemy-box cursor-pointer p-2 rounded-xl bg-slate-900 border border-slate-700 flex flex-col items-center hover:scale-105 transition-all">
+                <span class="text-2xl">👾</span>
+                <span class="text-[10px] text-slate-400 mt-1">普通感染蛛</span>
+                <div class="w-12 bg-slate-800 h-1 rounded mt-1 overflow-hidden"><div class="bg-red-500 h-full w-full"></div></div>
+              </div>
+
+              <!-- Monster B (Elite) -->
+              <div onclick="focusEnemy(2)" id="enemy-2" class="enemy-box cursor-pointer p-2 rounded-xl bg-red-950/30 border border-red-700/80 flex flex-col items-center hover:scale-105 transition-all relative">
+                <div id="focus-reticle" class="absolute -inset-2 border-2 border-dashed border-red-500 rounded-2xl hidden animate-spin" style="animation-duration: 6s;"></div>
+                <div id="focus-badge" class="absolute -top-3 text-[9px] bg-red-600 text-white font-bold px-1.5 py-0.5 rounded shadow hidden">集火鎖定</div>
+                <span class="text-3xl">👹</span>
+                <span class="text-[10px] text-amber-300 font-bold mt-1">蓄力重甲獸</span>
+                <div class="w-16 bg-slate-800 h-1.5 rounded mt-1 overflow-hidden"><div id="e2-hp" class="bg-amber-500 h-full w-full transition-all"></div></div>
+              </div>
+
+              <!-- Monster C -->
+              <div onclick="focusEnemy(3)" id="enemy-3" class="enemy-box cursor-pointer p-2 rounded-xl bg-slate-900 border border-slate-700 flex flex-col items-center hover:scale-105 transition-all">
+                <span class="text-2xl">👾</span>
+                <span class="text-[10px] text-slate-400 mt-1">刺針掠食者</span>
+                <div class="w-12 bg-slate-800 h-1 rounded mt-1 overflow-hidden"><div class="bg-red-500 h-full w-full"></div></div>
+              </div>
+            </div>
+
+            <!-- Threat Danger Line -->
+            <div class="w-full border-b border-red-500/50 flex justify-between items-center text-[10px] text-red-400 px-2 py-0.5 my-2">
+              <span>⚠ 突破警戒線 (Threat Line)</span>
+              <span>進入該線觸發警報</span>
+            </div>
+
+            <!-- Dynamic Damage Popup Overlay -->
+            <div id="popup-area" class="h-16 flex items-center justify-center font-black text-xl text-amber-400 font-mono pointer-events-none"></div>
+
+            <!-- Energy Defense Line -->
+            <div id="defense-wall" class="w-full h-3 bg-cyan-500/20 border border-cyan-400 rounded flex items-center justify-center text-[9px] text-cyan-300 font-bold shadow">
+              🛡️ 高能防禦立場
+            </div>
+
+            <!-- Laser Beams SVG Overlay -->
+            <svg id="laser-svg" class="absolute inset-0 w-full h-full pointer-events-none hidden">
+              <line x1="80" y1="460" x2="240" y2="70" stroke="#ef4444" stroke-width="2" class="laser-line" />
+              <line x1="160" y1="460" x2="240" y2="70" stroke="#f59e0b" stroke-width="2" class="laser-line" />
+              <line x1="240" y1="460" x2="240" y2="70" stroke="#38bdf8" stroke-width="2" class="laser-line" />
+            </svg>
+          </div>
+
+          <!-- Bottom Squad -->
+          <div class="bg-slate-950/90 border border-slate-800 p-2 rounded-xl flex justify-around items-center text-center text-xs">
+            <div><span class="text-xl">👧</span><div class="text-[10px] text-cyan-400">璃音</div></div>
+            <div><span class="text-xl">👩</span><div class="text-[10px] text-amber-400 font-bold">★雷娜</div></div>
+            <div><span class="text-xl">👱‍♀️</span><div class="text-[10px] text-slate-400">米菈</div></div>
+            <div><span class="text-xl">👩‍🦰</span><div class="text-[10px] text-slate-400">芙蕾</div></div>
+            <div><span class="text-xl">👱</span><div class="text-[10px] text-slate-400">希雅</div></div>
+          </div>
+
+          <!-- Commander Tactical Toolbar -->
+          <div class="mt-2 bg-slate-950 border border-cyan-900/60 p-2 rounded-xl flex items-center justify-between gap-2">
+            <span class="text-[11px] text-cyan-300 font-bold shrink-0">⚡ 指揮官戰術：</span>
+            <div class="flex gap-2">
+              <button onclick="triggerBarrier()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white rounded text-xs font-bold transition-all shadow">
+                🛡️ 磁暴力場 (定身)
+              </button>
+              <button onclick="triggerOrbital()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 active:scale-95 text-white rounded text-xs font-bold transition-all shadow">
+                🚀 軌道轟炸 (全屏)
+              </button>
+              <button onclick="triggerHurt()" class="px-2 py-1.5 bg-rose-900 hover:bg-rose-800 text-rose-200 rounded text-[11px] transition-all">
+                模擬受創
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Controls & Specification Explanations -->
+        <div class="space-y-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <span>🎮 互動體驗說明</span>
+            </h3>
+            <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">
+              <li><strong class="text-cyan-400">點擊怪物進行「手動集火」：</strong>點擊中間的【蓄力重甲獸】，會拉出紅色旋轉鎖定準星與全隊雷射導引線，並觸發持續暴擊跳字與擊殺！</li>
+              <li><strong class="text-amber-400">點擊【軌道轟炸】：</strong>觸發相機 0.2 秒輕微震屏（Screen Shake）與全屏爆炸跳字，體驗高爽快度打擊感！</li>
+              <li><strong class="text-blue-400">點擊【磁暴力場】：</strong>戰場出現藍色能量壁壘，怪物受到短暫時滯控制。</li>
+              <li><strong class="text-rose-400">點擊【模擬受創】：</strong>扣減防線 HP；當低於 30% 時自動觸發全屏心跳呼吸紅光警報；跌破 20% 自動觸發 EMP 破盾防禦脈衝！</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
+            <h3 class="text-base font-bold text-white">📁 對應 Codex 修改模組索引</h3>
+            <div class="space-y-2 text-xs font-mono">
+              <div class="p-2 bg-slate-950 rounded border border-slate-800 flex justify-between">
+                <span class="text-cyan-300">src/game/status-effects.ts</span>
+                <span class="text-slate-400">移除頭頂燃燒中文</span>
+              </div>
+              <div class="p-2 bg-slate-950 rounded border border-slate-800 flex justify-between">
+                <span class="text-cyan-300">src/sim/combat.ts</span>
+                <span class="text-slate-400">focusTargetId 索敵優先級</span>
+              </div>
+              <div class="p-2 bg-slate-950 rounded border border-slate-800 flex justify-between">
+                <span class="text-cyan-300">src/game/scene.ts</span>
+                <span class="text-slate-400">集火準星、雷射與震屏</span>
+              </div>
+              <div class="p-2 bg-slate-950 rounded border border-slate-800 flex justify-between">
+                <span class="text-cyan-300">src/ui/battle.ts</span>
+                <span class="text-slate-400">危機心跳光暈與戰術工具欄</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 2: SKILL CARDS -->
+    <section id="panel-cards" class="hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <h2 class="text-xl font-bold text-white">波末技能配點：三色流派導向卡片視覺規格</h2>
+        <p class="text-xs text-slate-400">
+          解決手機 390px 直向螢幕上 24 個小黑圈難以閱讀的問題。默認展示三張大卡片，亦可一鍵展開完整專家星圖。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
+          <!-- Card 1 -->
+          <div class="p-5 rounded-xl bg-gradient-to-b from-cyan-950/60 to-slate-950 border-2 border-cyan-500/80 space-y-3 shadow-lg">
+            <div class="flex justify-between items-center text-xs">
+              <span class="px-2 py-0.5 rounded bg-cyan-900 text-cyan-200 font-bold">流派 A · 掃蕩群攻</span>
+              <span class="text-cyan-400 font-bold">推薦度 5★</span>
+            </div>
+            <h3 class="text-lg font-black text-white">【連鎖電弧・散彈漫天】</h3>
+            <p class="text-xs text-slate-300">特化清怪範圍與速度，攻擊附帶多重跳躍電弧。</p>
+            <div class="p-3 bg-slate-900/80 rounded border border-slate-800 text-xs space-y-1">
+              <div>✓ 分流槍機 (+1 側翼彈道)</div>
+              <div>✓ 急速供彈 (+20% 射速)</div>
+              <div class="text-amber-300 font-bold">★ 終極：【超導電磁風暴】</div>
+            </div>
+            <button class="w-full py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs font-bold shadow">
+              一鍵選配此分支 (2 點)
+            </button>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="p-5 rounded-xl bg-gradient-to-b from-amber-950/60 to-slate-950 border-2 border-amber-500/80 space-y-3 shadow-lg">
+            <div class="flex justify-between items-center text-xs">
+              <span class="px-2 py-0.5 rounded bg-amber-900 text-amber-200 font-bold">流派 B · 單體核爆</span>
+              <span class="text-amber-400 font-bold">首領專克</span>
+            </div>
+            <h3 class="text-lg font-black text-white">【破盾穿透・弱點暴擊】</h3>
+            <p class="text-xs text-slate-300">單體傷害提升 150%，完全撕裂護盾防護。</p>
+            <div class="p-3 bg-slate-900/80 rounded border border-slate-800 text-xs space-y-1">
+              <div>✓ 裝甲裂解 (無視護甲)</div>
+              <div>✓ 穿透彈頭 (貫穿直線敵人)</div>
+              <div class="text-amber-300 font-bold">★ 終極：【天基滅殺狙擊】</div>
+            </div>
+            <button class="w-full py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-bold shadow">
+              一鍵選配此分支 (2 點)
+            </button>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="p-5 rounded-xl bg-gradient-to-b from-purple-950/60 to-slate-950 border-2 border-purple-500/80 space-y-3 shadow-lg">
+            <div class="flex justify-between items-center text-xs">
+              <span class="px-2 py-0.5 rounded bg-purple-900 text-purple-200 font-bold">流派 C · 牽引時滯</span>
+              <span class="text-purple-400 font-bold">防崩必備</span>
+            </div>
+            <h3 class="text-lg font-black text-white">【重力漩渦・極度時滯】</h3>
+            <p class="text-xs text-slate-300">減速周圍敵人 60%，聚怪連攜打斷蓄力。</p>
+            <div class="p-3 bg-slate-900/80 rounded border border-slate-800 text-xs space-y-1">
+              <div>✓ 時滯立場 (全場減速 30%)</div>
+              <div>✓ 聚變引力 (強制拉扯怪物)</div>
+              <div class="text-amber-300 font-bold">★ 終極：【奇點塌縮黑洞】</div>
+            </div>
+            <button class="w-full py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold shadow">
+              一鍵選配此分支 (2 點)
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: ELEMENTAL COMBOS -->
+    <section id="panel-combos" class="hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <h2 class="text-xl font-bold text-white">雙元素連鎖反應矩陣 (Elemental Reaction Engine)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+            <div class="text-amber-400 font-bold text-sm">🔥 熱能 + 🌀 重力 = 【烈焰黑洞】</div>
+            <p class="text-slate-300">將範圍敵人吸入中心，並將目標身上所有燃燒層數與傷害立即擴散至漩渦內所有敵人。</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+            <div class="text-cyan-400 font-bold text-sm">⚡ 電漿 + 🎯 物理 = 【超導貫穿】</div>
+            <p class="text-slate-300">該發物理子彈 100% 暴擊，無視 100% 護甲，並分裂出 3 道電弧跳躍至鄰近目標。</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+            <div class="text-purple-400 font-bold text-sm">🌀 重力 + ⚡ 電漿 = 【電磁引爆】</div>
+            <p class="text-slate-300">瞬間引爆剩餘減速時間，造成目標最大生命值 12% 真實傷害，強制打斷蓄力。</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+            <div class="text-emerald-400 font-bold text-sm">🔥 熱能 + ⚡ 電漿 = 【等離子過載】</div>
+            <p class="text-slate-300">引發範圍 80px 爆炸，對護盾造成 300% 破壞傷害。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    let curHp = 1000;
+    let focused = false;
+
+    function tab(name) {
+      document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('bg-cyan-600', 'text-white', 'shadow');
+        b.classList.add('text-slate-400');
+      });
+      document.getElementById('panel-' + name).classList.remove('hidden');
+      const active = document.getElementById('t-' + name);
+      active.classList.remove('text-slate-400');
+      active.classList.add('bg-cyan-600', 'text-white', 'shadow');
+    }
+
+    function focusEnemy(id) {
+      if (id === 2) {
+        focused = !focused;
+        document.getElementById('focus-reticle').classList.toggle('hidden', !focused);
+        document.getElementById('focus-badge').classList.toggle('hidden', !focused);
+        document.getElementById('laser-svg').classList.toggle('hidden', !focused);
+
+        if (focused) {
+          triggerCrit();
+        }
+      }
+    }
+
+    function triggerCrit() {
+      const popup = document.getElementById('popup-area');
+      popup.innerHTML = `<span class="animate-bounce text-amber-400 drop-shadow">CRIT 1,480! ✦</span>`;
+      const eHp = document.getElementById('e2-hp');
+      eHp.style.width = '30%';
+      setTimeout(() => { popup.innerHTML = ''; }, 900);
+    }
+
+    function triggerOrbital() {
+      const container = document.getElementById('battle-container');
+      container.classList.add('screen-shake');
+      const popup = document.getElementById('popup-area');
+      popup.innerHTML = `<span class="text-red-500 font-black text-2xl drop-shadow">🚀 軌道轟炸 3,200!</span>`;
+      setTimeout(() => {
+        container.classList.remove('screen-shake');
+        popup.innerHTML = '';
+      }, 700);
+    }
+
+    function triggerBarrier() {
+      const wall = document.getElementById('defense-wall');
+      wall.classList.add('ring-4', 'ring-blue-400');
+      alert('🛡️ 磁暴力場已展開！敵人全體時滯 3 秒！');
+      setTimeout(() => { wall.classList.remove('ring-4', 'ring-blue-400'); }, 1500);
+    }
+
+    function triggerHurt() {
+      curHp = Math.max(0, curHp - 250);
+      document.getElementById('hp-val').innerText = curHp + ' / 1000';
+      const pct = (curHp / 1000) * 100;
+      document.getElementById('hp-bar').style.width = pct + '%';
+
+      const vig = document.getElementById('vignette');
+      if (curHp <= 300) {
+        vig.style.opacity = '1';
+      }
+      if (curHp <= 200) {
+        alert('⚡ 防線瀕死！觸發緊急保底 EMP 衝擊波！貼臉敵人已全體擊退 200px！');
+      }
+    }
+
+    function resetSim() {
+      curHp = 1000;
+      focused = false;
+      document.getElementById('hp-val').innerText = '1000 / 1000';
+      document.getElementById('hp-bar').style.width = '100%';
+      document.getElementById('vignette').style.opacity = '0';
+      document.getElementById('focus-reticle').classList.add('hidden');
+      document.getElementById('focus-badge').classList.add('hidden');
+      document.getElementById('laser-svg').classList.add('hidden');
+      document.getElementById('e2-hp').style.width = '100%';
+    }
+  </script>
+</body>
+</html>

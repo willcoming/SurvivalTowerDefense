@@ -1,15 +1,14 @@
 import type Phaser from 'phaser';
 import { ELEMENTS, usesCollection } from '../data/forms';
-import type { Effect, RunState, VisualEvent } from '../sim/types';
+import type { Effect, RunState } from '../sim/types';
 import type { Detail } from './presentation';
-import { damageLabelAnchor, priorityEnemy } from './presentation';
+import { priorityEnemy } from './presentation';
 import { enemySize } from './actors';
 
 type Status = Effect['kind'];
 const statuses: Status[] = ['burn', 'slow', 'stun', 'exposure'];
 export class StatusEffects {
   private sprites = new Map<number, Map<Status, Phaser.GameObjects.Image>>();
-  private labels: { text: Phaser.GameObjects.Text; born: number; value: number; x: number; y: number; key: string; targetId?:number; hitX?:number; hitY?:number; prefix:string; color:string }[] = [];
   private visible: { id: number; states: Status[] }[] = [];
   constructor(private scene: Phaser.Scene) {
     const g = scene.make.graphics({ x: 0, y: 0 });
@@ -46,9 +45,8 @@ export class StatusEffects {
       scene.textures.remove(key);
     });
     atlas.refresh();
-    for (let i = 0; i < 12; i++) this.labels.push({ text: scene.add.text(0, 0, '', { fontSize: '13px', fontStyle: 'bold', fontFamily: 'sans-serif', color: '#ffcf78', stroke: '#28120b', strokeThickness: 3 }).setOrigin(.5).setDepth(12).setVisible(false), born: -Infinity, value: 0, x: 0, y: 0, key: '',prefix:'燃',color:'#ffcf78' });
   }
-  update(run: RunState, now: number, fresh: VisualEvent[], detail: Detail) {
+  update(run: RunState, now: number, detail: Detail) {
     const ids = new Set(run.enemies.map(e => e.id));
     for (const [id, sprites] of this.sprites) if (!ids.has(id)) { sprites.forEach(s => s.destroy()); this.sprites.delete(id); }
     this.visible = [];
@@ -83,32 +81,12 @@ export class StatusEffects {
           const slot=controlStates.indexOf(status);
           sprite.setVisible(true).setPosition(
             status==='burn'?enemy.x:enemy.x+size*.45+8,
-            status==='burn'?enemy.y+size*.2:enemy.y-size*.35+slot*16
+            status==='burn'?enemy.y-size*.2:enemy.y-size*.35+slot*16
           );
         } else sprite?.setVisible(false);
       }
       if (active.size) this.visible.push({ id: enemy.id, states: [...active] });
     }
-    const limit = run.enemies.length>=24 ? 4 : detail === 'compact' ? 6 : 12;
-    for (const event of fresh) if (event.kind === 'hit' && event.skill === 'burn' && (event.value ?? 0) > 0) {
-      const key = `${event.damageType??'thermal'}:${event.targetId??`${event.x}:${event.y}`}`;
-      let label = this.labels.slice(0, limit).find(l => l.key === key && now - l.born < 700);
-      if (!label) { label = this.labels.slice(0, limit).find(l => now - l.born >= 700); if (!label) continue; label.key = key; label.value = 0; label.born = now; const anchor=damageLabelAnchor(event.x,event.y,this.labels.slice(0,limit).filter(other=>other!==label&&now-other.born<700));label.x=anchor.x;label.y=anchor.y; }
-      label.targetId=event.targetId;label.hitX=event.x;label.hitY=event.y;
-      label.value += event.value!;label.prefix=event.damageType?ELEMENTS[event.damageType].dot:'燃';label.color=event.damageType?ELEMENTS[event.damageType].color:'#ffcf78';
-    }
-    // Upload each merged label at most once per frame, rather than once per damage event.
-    const placed:{x:number;y:number}[]=[];
-    this.labels.forEach((label, i) => {
-      const t=(now-label.born)/700,visible=i<limit&&t>=0&&t<1;
-      label.text.setScale(1,this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY).setVisible(visible);
-      if(!visible)return;
-      const target=run.enemies.find(e=>e.id===label.targetId&&e.hp>0);
-      const death=fresh.find(e=>e.kind==='death'&&e.targetId===label.targetId);
-      if(target){label.hitX=target.x;label.hitY=target.y;}else if(death){label.hitX=death.x;label.hitY=death.y;}
-      const anchor=damageLabelAnchor(label.hitX??label.x,label.hitY??label.y,placed);label.x=anchor.x;label.y=anchor.y;placed.push(anchor);
-      label.text.setText(`${label.prefix} ${Number(label.value.toFixed(1))}`).setColor(label.color).setPosition(label.x,label.y-t*12).setAlpha(t<.6?1:(1-t)/.4);
-    });
   }
-  diagnostics() { return { statuses: this.visible, burnNumbers: this.labels.filter(l => l.text.visible).map(l => ({ value: l.value, text: l.text.text, born: l.born,targetId:l.targetId,hitX:l.hitX,hitY:l.hitY,x:l.text.x,y:l.text.y })) }; }
+  diagnostics() { return { statuses: this.visible }; }
 }

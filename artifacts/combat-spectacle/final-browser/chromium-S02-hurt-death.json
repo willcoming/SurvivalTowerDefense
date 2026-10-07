@@ -1,0 +1,21 @@
+{
+  "evidence": "Synthetic durable enemies; actual hitEnemy damage and normal RAF drive hurt and death, never a forced sprite frame.",
+  "ids": [
+    4
+  ],
+  "frames": {
+    "1": [
+      14,
+      15
+    ],
+    "2": [
+      14,
+      15
+    ],
+    "4": [
+      13,
+      14,
+      15
+    ]
+  }
+}

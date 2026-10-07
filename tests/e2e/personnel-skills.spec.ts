@@ -9,17 +9,18 @@ for(const viewport of [{width:320,height:500},{width:390,height:844},{width:768,
     const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
     await page.setViewportSize(viewport);await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);
     await page.locator('.game-dock [data-action="roster"]').click();
-    await page.locator('[data-action="roster-edit"]').click();
+
     const before=await page.evaluate(()=>structuredClone(window.__game.getSave()));
     for(const owner of ['C06','C08'] as const){
       const picker=page.getByRole('combobox',{name:'隊員',exact:true});
       if(await picker.count()) {
         for(const option of await picker.locator('option').all()) {
           await picker.selectOption((await option.getAttribute('value'))!);
-          if(await page.locator(`.roster-tile[data-id="${owner}"]`).isVisible()) break;
+          if(await page.locator(`.formation-member[data-id="${owner}"]`).isVisible()) break;
         }
       }
-      await page.locator(`[data-action="roster-open"][data-id="${owner}"]:visible`).first().click();
+      await page.locator(`.formation-member[data-id="${owner}"]`).click();
+      await page.locator(`[data-action="roster-open"][data-id="${owner}"]`).click();
       const details=page.getByRole('dialog',{name:`${CHARACTER_MAP[owner].name}・隊員詳情`,exact:true});
       const b=(await details.boundingBox())!;
       expect(b.x).toBeGreaterThanOrEqual(0);expect(b.y).toBeGreaterThanOrEqual(0);
@@ -30,7 +31,7 @@ for(const viewport of [{width:320,height:500},{width:390,height:844},{width:768,
       await trigger.focus();await page.keyboard.press('Enter');
       const modal=page.getByRole('dialog',{name:`${CHARACTER_MAP[owner].name}・技能樹`,exact:true});await expect(modal).toBeVisible();
       await expect(page.locator('#app')).toHaveAttribute('data-page','roster');
-      await expect(page.getByRole('dialog')).toHaveCount(1);await expect(modal.locator('select,.tree-characters,.common-codex')).toHaveCount(0);
+      await expect(page.getByRole('dialog')).toHaveCount(1);await expect(modal.locator('.tree-characters,.common-codex')).toHaveCount(0);
       await expect(modal.getByRole('tab')).toHaveCount(0);
       for(const tree of deepTreesFor(owner)){
         await expect(modal.locator('[data-action="personnel-skill-node"]')).toHaveCount(deepTreesFor(owner).flatMap(t=>t.nodes).length);

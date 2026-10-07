@@ -30,7 +30,7 @@ export function emit(s:RunState,e:Omit<VisualEvent,'seq'|'tick'>){
   }
 }
 export function threat(s:RunState):Enemy[]{
-  const rank=(e:Enemy)=>(e.chargeKind&&e.chargeUntil>s.tick)?(boss(e)?4:e.defId==='E05'?3:0):(e.y>=WORLD.wallY?2:0);
+  const rank=(e:Enemy)=>e.id===s.focusTargetId?10:(e.chargeKind&&e.chargeUntil>s.tick)?(boss(e)?4:e.defId==='E05'?3:0):(e.y>=WORLD.wallY?2:0);
   return alive(s).sort((a,b)=>rank(b)-rank(a)||b.y-a.y||a.id-b.id);
 }
 export function area(s:RunState,x:number,y:number,radius:number){return alive(s).filter(e=>distance(e,{x,y})<=radius+e.radius).sort((a,b)=>distance(a,{x,y})-distance(b,{x,y})||a.id-b.id).slice(0,20);}
@@ -106,9 +106,10 @@ export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
   const result=computeDamage(raw,e.shield,e.armor,p.armorIgnore,exposure,p.shieldMultiplier,armorBreak);
   const previousShield=e.shield;e.shield-=result.shieldDamage;const damage=Math.min(e.hp,result.hpDamage);e.hp-=damage;
   s.stats.damageByCharacter[p.source]+=damage;s.stats.shieldDamageByCharacter[p.source]+=result.shieldDamage;
-  emit(s,{kind:'hit',x:e.x,y:e.y,value:damage+result.shieldDamage,source:p.source,color:CHARACTER_MAP[p.source].color,targetId:e.id,enemyDefId:e.defId,skill:p.skill,...(usesCollection(s)?{weakness,damageType:p.damageType}:{})});
+  emit(s,{kind:'hit',x:e.x,y:e.y,value:damage+result.shieldDamage,source:p.source,color:CHARACTER_MAP[p.source].color,targetId:e.id,enemyDefId:e.defId,skill:p.skill,...(p.critical?{critical:true}:{}),...(previousShield>0&&e.shield<=0?{shieldBroken:true}:{}),...(usesCollection(s)?{weakness,damageType:p.damageType}:{})});
   if(previousShield>0&&e.shield<=0&&e.defId==='B02'){interrupt(s,e);e.exposureUntil=s.tick+ticks(6);}
   if(e.hp<=0){
+    if(s.focusTargetId===e.id)s.focusTargetId=null;
     s.stats.kills++;s.xp+=e.xp;s.choicesEarned=battleExperience(s).earned;
     if(boss(e))s.bossKilled=true;emit(s,{kind:'death',x:e.x,y:e.y,source:p.source,targetId:e.id,enemyDefId:e.defId});
     if(free){

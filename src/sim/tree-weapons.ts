@@ -54,7 +54,7 @@ function attack(s: RunState,w: WeaponState) {
     }
   }
   if(w.id==='C03') {
-    target=all.sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];
+    target=all.find(e=>e.id===s.focusTargetId)??all.sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];
     const targets=targetsInLine(s,target,2+(m.pierce??0),w.id);
     // A core shot must reach its selected heavy target even if incidental enemies use all line slots.
     if(!targets.some(e=>e.id===target.id))targets[targets.length-1]=target;

@@ -1,0 +1,1588 @@
+{
+  "passed": true,
+  "forms": [
+    {
+      "id": "C01-original",
+      "path": "public/assets/animations/C01-original-motion-v2.webp",
+      "bytes": 167586,
+      "action": "carbine",
+      "bounds": [
+        {
+          "pixels": 13839,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 14715,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15086,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15603,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15464,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 14314,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15586,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16537,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15753,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16994,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16399,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 13686,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C01-summer",
+      "path": "public/assets/animations/C01-summer-motion-v2.webp",
+      "bytes": 182568,
+      "action": "carbine",
+      "bounds": [
+        {
+          "pixels": 14324,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 14498,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15578,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15695,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15696,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 14109,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15222,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 14365,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15877,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16396,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16855,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 13678,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C02-original",
+      "path": "public/assets/animations/C02-original-motion-v2.webp",
+      "bytes": 209862,
+      "action": "arc-emitter",
+      "bounds": [
+        {
+          "pixels": 23764,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 24199,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 25216,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 25336,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 26457,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 25077,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 25430,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 26449,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 27964,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 29123,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 27845,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 25573,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C02-summer",
+      "path": "public/assets/animations/C02-summer-motion-v2.webp",
+      "bytes": 261862,
+      "action": "arc-emitter",
+      "bounds": [
+        {
+          "pixels": 19811,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20253,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20791,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22206,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 23388,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21464,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22677,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21623,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 23515,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 25066,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 24217,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22472,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C03-original",
+      "path": "public/assets/animations/C03-original-motion-v2.webp",
+      "bytes": 231454,
+      "action": "sniper",
+      "bounds": [
+        {
+          "pixels": 20884,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20699,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22326,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 23190,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 23896,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21390,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20080,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22707,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20432,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22907,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 22581,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21988,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C03-summer",
+      "path": "public/assets/animations/C03-summer-motion-v2.webp",
+      "bytes": 210480,
+      "action": "sniper",
+      "bounds": [
+        {
+          "pixels": 18882,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19205,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18792,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21365,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21766,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18097,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19944,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19731,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19003,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20499,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21566,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17954,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C04-original",
+      "path": "public/assets/animations/C04-original-motion-v2.webp",
+      "bytes": 260668,
+      "action": "gravity-projector",
+      "bounds": [
+        {
+          "pixels": 17788,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17953,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17717,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19392,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18657,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17245,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19323,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19827,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19975,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20110,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20460,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17943,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C04-summer",
+      "path": "public/assets/animations/C04-summer-motion-v2.webp",
+      "bytes": 241844,
+      "action": "gravity-projector",
+      "bounds": [
+        {
+          "pixels": 20264,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20459,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19632,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20314,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21472,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20028,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19936,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21334,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20515,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19474,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20288,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19889,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C05-original",
+      "path": "public/assets/animations/C05-original-motion-v2.webp",
+      "bytes": 228894,
+      "action": "mortar",
+      "bounds": [
+        {
+          "pixels": 17488,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17769,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18150,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19620,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17934,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16852,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18630,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18948,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18905,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20406,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19789,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17835,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C05-summer",
+      "path": "public/assets/animations/C05-summer-motion-v2.webp",
+      "bytes": 227196,
+      "action": "mortar",
+      "bounds": [
+        {
+          "pixels": 17769,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17456,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18983,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19390,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19048,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17543,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17947,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19203,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19034,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20579,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20790,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17603,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C06-original",
+      "path": "public/assets/animations/C06-original-motion-v2.webp",
+      "bytes": 188740,
+      "action": "drone-command",
+      "bounds": [
+        {
+          "pixels": 14010,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 13430,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15323,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15240,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 14615,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 14200,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15811,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17385,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15132,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16520,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15444,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 13616,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C06-summer",
+      "path": "public/assets/animations/C06-summer-motion-v2.webp",
+      "bytes": 198896,
+      "action": "drone-command",
+      "bounds": [
+        {
+          "pixels": 15830,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16903,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17901,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18517,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17064,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15935,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16481,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19649,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 15986,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19422,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18736,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 16670,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C07-original",
+      "path": "public/assets/animations/C07-original-motion-v2.webp",
+      "bytes": 191010,
+      "action": "mine-launcher",
+      "bounds": [
+        {
+          "pixels": 17649,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18305,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18859,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19265,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20279,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19466,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18812,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18602,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17794,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17776,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17668,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 17812,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C07-summer",
+      "path": "public/assets/animations/C07-summer-motion-v2.webp",
+      "bytes": 208288,
+      "action": "mine-launcher",
+      "bounds": [
+        {
+          "pixels": 18985,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19125,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19764,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19423,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19797,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19288,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19874,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19792,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19312,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20256,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20028,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 18920,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C08-original",
+      "path": "public/assets/animations/C08-original-motion-v2.webp",
+      "bytes": 211762,
+      "action": "rotary-cannon",
+      "bounds": [
+        {
+          "pixels": 18587,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19627,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19640,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20097,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20411,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19322,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19414,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19770,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19154,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20140,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20367,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19347,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    },
+    {
+      "id": "C08-summer",
+      "path": "public/assets/animations/C08-summer-motion-v2.webp",
+      "bytes": 233208,
+      "action": "rotary-cannon",
+      "bounds": [
+        {
+          "pixels": 19790,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20393,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20254,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20944,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20722,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19437,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21726,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21873,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20191,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 20987,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 21546,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        },
+        {
+          "pixels": 19371,
+          "bottom": 299,
+          "edge": 0,
+          "magenta": 0
+        }
+      ]
+    }
+  ],
+  "otherAtlases": [
+    {
+      "id": "E01",
+      "path": "/assets/enemy-animations/E01-motion-v2.webp",
+      "frames": 16,
+      "poseOrder": [
+        "idle-a",
+        "idle-b",
+        "move-1",
+        "move-2",
+        "move-3",
+        "move-4",
+        "move-5",
+        "move-6",
+        "anticipate",
+        "strike",
+        "charge-a",
+        "charge-b",
+        "hurt",
+        "death-start",
+        "collapse",
+        "wreckage"
+      ]
+    },
+    {
+      "id": "E02",
+      "path": "/assets/enemy-animations/E02-motion-v2.webp",
+      "frames": 16,
+      "poseOrder": [
+        "idle-a",
+        "idle-b",
+        "move-1",
+        "move-2",
+        "move-3",
+        "move-4",
+        "move-5",
+        "move-6",
+        "anticipate",
+        "strike",
+        "charge-a",
+        "charge-b",
+        "hurt",
+        "death-start",
+        "collapse",
+        "wreckage"
+      ]
+    },
+    {
+      "id": "E03",
+      "path": "/assets/enemy-animations/E03-motion-v2.webp",
+      "frames": 16,
+      "poseOrder": [
+        "idle-a",
+        "idle-b",
+        "move-1",
+        "move-2",
+        "move-3",
+        "move-4",
+        "move-5",
+        "move-6",
+        "anticipate",
+        "strike",
+        "charge-a",
+        "charge-b",
+        "hurt",
+        "death-start",
+        "collapse",
+        "wreckage"
+      ]
+    },
+    {
+      "id": "E04",
+      "path": "/assets/enemy-animations/E04-motion-v2.webp",
+      "frames": 16,
+      "poseOrder": [
+        "idle-a",
+        "idle-b",
+        "move-1",
+        "move-2",
+        "move-3",
+        "move-4",
+        "move-5",
+        "move-6",
+        "anticipate",
+        "strike",
+        "charge-a",
+        "charge-b",
+        "hurt",
+        "death-start",
+        "collapse",
+        "wreckage"
+      ]
+    },
+    {
+      "id": "E05",
+      "path": "/assets/enemy-animations/E05-motion-v2.webp",
+      "frames": 16,
+      "poseOrder": [
+        "idle-a",
+        "idle-b",
+        "move-1",
+        "move-2",
+        "move-3",
+        "move-4",
+        "move-5",
+        "move-6",
+        "anticipate",
+        "strike",
+        "charge-a",
+        "charge-b",
+        "hurt",
+        "death-start",
+        "collapse",
+        "wreckage"
+      ]
+    },
+    {
+      "id": "E06",
+      "path": "/assets/enemy-animations/E06-motion-v2.webp",
+      "frames": 16,
+      "poseOrder": [
+        "idle-a",
+        "idle-b",
+        "move-1",
+        "move-2",
+        "move-3",
+        "move-4",
+        "move-5",
+        "move-6",
+        "anticipate",
+        "strike",
+        "charge-a",
+        "charge-b",
+        "hurt",
+        "death-start",
+        "collapse",
+        "wreckage"
+      ]
+    },
+    {
+      "id": "E07",
+      "path": "/assets/enemy-animations/E07-motion-v2.webp",
+      "frames": 16,
+      "poseOrder": [
+        "idle-a",
+        "idle-b",
+        "move-1",
+        "move-2",
+        "move-3",
+        "move-4",
+        "move-5",
+        "move-6",
+        "anticipate",
+        "strike",
+        "charge-a",
+        "charge-b",
+        "hurt",
+        "death-start",
+        "collapse",
+        "wreckage"
+      ]
+    },
+    {
+      "id": "E08",
+      "path": "/assets/enemy-animations/E08-motion-v2.webp",
+      "frames": 16,
+      "poseOrder": [
+        "idle-a",
+        "idle-b",
+        "move-1",
+        "move-2",
+        "move-3",
+        "move-4",
+        "move-5",
+        "move-6",
+        "anticipate",
+        "strike",
+        "charge-a",
+        "charge-b",
+        "hurt",
+        "death-start",
+        "collapse",
+        "wreckage"
+      ]
+    },
+    {
+      "id": "B01",
+      "path": "/assets/enemy-animations/B01-motion-v2.webp",
+      "frames": 16,
+      "poseOrder": [
+        "idle-a",
+        "idle-b",
+        "move-1",
+        "move-2",
+        "move-3",
+        "move-4",
+        "move-5",
+        "move-6",
+        "anticipate",
+        "strike",
+        "charge-a",
+        "charge-b",
+        "hurt",
+        "death-start",
+        "collapse",
+        "wreckage"
+      ]
+    },
+    {
+      "id": "B02",
+      "path": "/assets/enemy-animations/B02-motion-v2.webp",
+      "frames": 16,
+      "poseOrder": [
+        "idle-a",
+        "idle-b",
+        "move-1",
+        "move-2",
+        "move-3",
+        "move-4",
+        "move-5",
+        "move-6",
+        "anticipate",
+        "strike",
+        "charge-a",
+        "charge-b",
+        "hurt",
+        "death-start",
+        "collapse",
+        "wreckage"
+      ]
+    },
+    {
+      "id": "B03",
+      "path": "/assets/enemy-animations/B03-motion-v2.webp",
+      "frames": 16,
+      "poseOrder": [
+        "idle-a",
+        "idle-b",
+        "move-1",
+        "move-2",
+        "move-3",
+        "move-4",
+        "move-5",
+        "move-6",
+        "anticipate",
+        "strike",
+        "charge-a",
+        "charge-b",
+        "hurt",
+        "death-start",
+        "collapse",
+        "wreckage"
+      ]
+    },
+    {
+      "id": "combat-fx",
+      "path": "/assets/vfx/combat-fx-v2.webp",
+      "frames": 16
+    },
+    {
+      "id": "combat-props",
+      "path": "/assets/vfx/combat-props-v2.webp",
+      "frames": 16
+    },
+    {
+      "id": "combat-ammo",
+      "path": "/assets/vfx/combat-ammo-v2.webp",
+      "frames": 16
+    }
+  ],
+  "errors": [],
+  "contactSheetOrder": [
+    "C01-original",
+    "C01-summer",
+    "C02-original",
+    "C02-summer",
+    "C03-original",
+    "C03-summer",
+    "C04-original",
+    "C04-summer",
+    "C05-original",
+    "C05-summer",
+    "C06-original",
+    "C06-summer",
+    "C07-original",
+    "C07-summer",
+    "C08-original",
+    "C08-summer"
+  ],
+  "poseOrder": [
+    "idle",
+    "ready",
+    "aim",
+    "fire",
+    "recoil",
+    "recover",
+    "skill-windup",
+    "skill-charge",
+    "skill-aim",
+    "skill-release",
+    "skill-followthrough",
+    "skill-recover"
+  ]
+}

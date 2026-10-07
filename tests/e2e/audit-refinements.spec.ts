@@ -6,10 +6,10 @@ for(const viewport of [{width:320,height:500},{width:390,height:844},{width:768,
  test(`readable skills and explicit zero-point continuation ${viewport.width}`,async({page},info)=>{
   await page.setViewportSize(viewport);await ready(page);
   if(viewport.width<=800){
-   await page.evaluate(()=>window.__game.route('roster'));await page.locator('[data-action=roster-edit]').click();
-   const card=page.locator('.roster-tile').first();
+   await page.evaluate(()=>window.__game.route('roster'));
+   const card=page.locator('.formation-member').first();
    await expect(card).toBeVisible();
-   const ratio=await card.evaluate(el=>el.querySelector('.roster-tile-art')!.getBoundingClientRect().width/el.getBoundingClientRect().width);
+   const ratio=await card.evaluate(el=>el.querySelector('.formation-member-art')!.getBoundingClientRect().width/el.getBoundingClientRect().width);
    expect(ratio).toBeGreaterThan(.3);
    await page.screenshot({path:info.outputPath(`roster-${viewport.width}.png`)});
    await page.evaluate(()=>window.__game.route('home'));

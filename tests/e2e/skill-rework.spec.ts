@@ -29,11 +29,11 @@ test('battle exposes individual automatic cooldowns and requires confirmed prere
 test('all character details show passive captain bonuses and the current skill network',async({page})=>{
  await page.goto('/');await page.waitForFunction(()=>!!window.__game);
  await page.locator('.game-dock [data-action="roster"]').click();
- await page.locator('[data-action="roster-edit"]').click();
+
  for(const id of ['C01','C02','C03','C04','C05','C06','C07','C08']){
-  const tile=page.locator(`.roster-tile[data-id="${id}"]`),picker=page.getByRole('combobox',{name:'隊員',exact:true});
+  const tile=page.locator(`.formation-member[data-id="${id}"]`),picker=page.getByRole('combobox',{name:'隊員',exact:true});
   for(const option of await picker.locator('option').all()){await picker.selectOption((await option.getAttribute('value'))!);if(await tile.isVisible())break;}
-  await tile.click();
+  await tile.click();await page.locator(`[data-action="roster-open"][data-id="${id}"]`).click();
   const details=page.getByRole('dialog');
   await expect(details).toContainText('隊長加成');
   await expect(details).toContainText('開場生效 · 不消耗技能點');

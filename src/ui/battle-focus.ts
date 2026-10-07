@@ -7,11 +7,13 @@ export function enhanceBattleFocus(root: HTMLElement) {
   const details = document.createElement('details');
   details.className = 'battle-intel';
   const trigger = document.createElement('summary');
-  trigger.textContent = '隊伍／情報';
+  trigger.textContent = 'ⓘ';
+  trigger.setAttribute('aria-label', '隊伍／情報');
+  trigger.title = '隊伍／情報';
   const body = document.createElement('div');
   body.className = 'battle-intel-body';
   body.setAttribute('aria-label', '隊伍與戰況資訊');
-  for (const selector of ['.xp-caption', '#evolution-text', '#operation-event', '#weapon-strip', '#mechanic-readout', '#range-info']) {
+  for (const selector of ['.xp-caption', '#evolution-text', '#operation-event', '#weapon-strip', '#mechanic-readout', '#range-info', '.ultimate-strip']) {
     const node = layout.querySelector<HTMLElement>(selector);
     if (node) body.append(node);
   }
@@ -23,7 +25,14 @@ export function enhanceBattleFocus(root: HTMLElement) {
   commands.dataset.id = 'shortcuts';
   commands.setAttribute('aria-label', '開啟快捷選單');
   commands.setAttribute('aria-haspopup', 'dialog');
-  commands.textContent = '指揮選單';
+  commands.textContent = '☰';
+  commands.title = '指揮選單';
+  const build = toolbar.querySelector<HTMLButtonElement>('[data-action="view-build"]');
+  if (build) { build.textContent = '✦'; build.title = '查看本局構築'; }
+  const legend = document.createElement('p');
+  legend.className = 'battle-legend';
+  legend.textContent = '點敵人集火，再點取消；紅色虛線亮起表示敵人逼近。敵人頭上圖示＝屬性弱點；角色下方細條＝終極技冷卻，填滿後自動觸發。灰色表示尚未取得。';
+  body.append(legend);
   toolbar.append(commands);
   toolbar.addEventListener('click', event => {
     if ((event.target as HTMLElement).closest('[data-action="view-build"],[data-action="command-panel"]')) details.open = false;

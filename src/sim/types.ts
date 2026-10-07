@@ -61,6 +61,8 @@ export interface Enemy {
   lastAction?: { tick: number; kind: 'melee' | 'shot' | 'blast' | 'burst' | 'rush' | 'summon' | 'repair' | 'shield' };
 }
 export interface DamagePacket {
+  /** Presentation cue for an already-applied periodic critical multiplier. */
+  critical?: boolean;
   tacticalWeapon?:boolean;
   source: CharacterId; skill: string; raw: number; damageType: DamageType;
   armorIgnore: number; shieldMultiplier: number; exposureBonus?: number; exposure?: { value: number; duration: number };
@@ -98,7 +100,7 @@ export interface VisualEvent {
   /** Actual attack footprint; absent for single-target/buff cues. */
   areaShape?: 'circle' | 'line' | 'world' | 'wall-band';
   weaponTree?: string; targetId?: number; enemyDefId?: EnemyId; skill?: string; weaponRank?: number; weaponBranch?: Branch | null;
-  damageType?: DamageType; weakness?: boolean;
+  damageType?: DamageType; weakness?: boolean; shieldBroken?: boolean; critical?: boolean;
 }
 export interface ActionRecord { tick: number; seq: number; command: Command }
 export interface RunStats {
@@ -114,6 +116,8 @@ export interface RunState {
   tick: number; phase: 'running' | 'choosing' | 'paused' | 'ended'; pauseReasons: PauseReason[];
   wallHp: number; wallMaxHp: number; shields: Shield[]; xp: number; choicesEarned: number; choicesSpent: number;
   rerollsRemaining: number; evolvedCount: number; evolutionLimit: number; tacticalReadyAt: number;
+  /** Optional for historical saves; null means automatic targeting. */
+  focusTargetId?: number | null;
   treeNodes?: string[];
   skillCostVersion?:2;
   experienceVersion?:1|2|3;
@@ -136,6 +140,7 @@ export interface RunState {
 }
 export type Command =
   | { type: 'cast' }
+  | { type: 'focus-target'; targetId: number | null }
   | { type: 'buy-node'; offerId: number; nodeId: string }
   | { type: 'confirm-node'; offerId: number; nodeIds: string[] }
   | { type: 'finish-boss-intro' }

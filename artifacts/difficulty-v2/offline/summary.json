@@ -1,0 +1,135 @@
+{
+  "passed": true,
+  "selectedScenario": "core",
+  "selectedBrowser": "all",
+  "checkedAt": "2026-09-14T02:38:30.753Z",
+  "url": "http://127.0.0.1:56140/",
+  "base": "/",
+  "output": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/difficulty-v2/offline",
+  "cases": [
+    {
+      "name": "chromium-offline-core",
+      "passed": true,
+      "commit": "2959640d1218adc76683bfa0b27d220328af1e54",
+      "buildId": "fa879f001ce6a3714877863eb0e560f1cfb6856d2e97bd786a4a3318a483c57d",
+      "failures": [],
+      "verifiedBytes": 17260729,
+      "verifiedEntries": 126,
+      "widths": [
+        320,
+        768,
+        1024,
+        1440
+      ],
+      "persistentBrowserRestart": true,
+      "productionDebugApiAbsent": true,
+      "offlineVerified": true,
+      "hardReloadTruthfulState": true,
+      "blockedSocketRequests": 0,
+      "offlineMethod": "Browser network offline emulation",
+      "recruitment": {
+        "realOfflineDraw": true,
+        "isolatedFixtureTickets": 1,
+        "receipt": {
+          "id": 1,
+          "kind": "draw",
+          "formId": "C07-original",
+          "duplicate": false,
+          "spent": "ticket",
+          "guaranteed": false,
+          "pointsGained": 0
+        }
+      },
+      "savedPreferences": {
+        "squadIds": [
+          "C01",
+          "C02",
+          "C04",
+          "C06"
+        ],
+        "captainId": "C02",
+        "branches": {
+          "C01": "A",
+          "C02": "A",
+          "C03": "A",
+          "C04": "A",
+          "C05": "A",
+          "C06": "A",
+          "C07": "A",
+          "C08": "A"
+        },
+        "musicVolume": 0.35,
+        "sfxVolume": 0.65,
+        "reducedEffects": true,
+        "tutorialSeen": true,
+        "battleSpeed": 3,
+        "autoTactical": false,
+        "commanderName": "離線驗證"
+      }
+    },
+    {
+      "name": "webkit-offline-core",
+      "passed": true,
+      "commit": "2959640d1218adc76683bfa0b27d220328af1e54",
+      "buildId": "fa879f001ce6a3714877863eb0e560f1cfb6856d2e97bd786a4a3318a483c57d",
+      "failures": [],
+      "verifiedBytes": 17260729,
+      "verifiedEntries": 126,
+      "widths": [
+        320,
+        768,
+        1024,
+        1440
+      ],
+      "persistentBrowserRestart": true,
+      "productionDebugApiAbsent": true,
+      "offlineVerified": true,
+      "hardReloadTruthfulState": false,
+      "blockedSocketRequests": 15,
+      "offlineMethod": "Every fixture server socket destroyed; navigator remains online",
+      "recruitment": {
+        "realOfflineDraw": true,
+        "isolatedFixtureTickets": 1,
+        "receipt": {
+          "id": 1,
+          "kind": "draw",
+          "formId": "C07-summer",
+          "duplicate": false,
+          "spent": "ticket",
+          "guaranteed": false,
+          "pointsGained": 0
+        }
+      },
+      "savedPreferences": {
+        "squadIds": [
+          "C01",
+          "C02",
+          "C04",
+          "C06"
+        ],
+        "captainId": "C02",
+        "branches": {
+          "C01": "A",
+          "C02": "A",
+          "C03": "A",
+          "C04": "A",
+          "C05": "A",
+          "C06": "A",
+          "C07": "A",
+          "C08": "A"
+        },
+        "musicVolume": 0.35,
+        "sfxVolume": 0.65,
+        "reducedEffects": true,
+        "tutorialSeen": true,
+        "battleSpeed": 3,
+        "autoTactical": false,
+        "commanderName": "離線驗證"
+      }
+    }
+  ],
+  "limitations": [
+    "Desktop browser automation; iPhone/iPad and Android home-screen installation require real-device acceptance.",
+    "Recruitment draw uses one ticket seeded in an isolated test profile while all game writers are closed; it does not claim the ticket was earned by gameplay."
+  ]
+}

@@ -1,0 +1,297 @@
+{
+  "passed": false,
+  "integrity": true,
+  "checks": [
+    {
+      "stage": "S01",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S01",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S02",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S02",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S03",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S03",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S04",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S04",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S05",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S05",
+      "mode": "hard",
+      "reliable": [],
+      "required": 2,
+      "passed": false
+    },
+    {
+      "stage": "S06",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S06",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S07",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S07",
+      "mode": "hard",
+      "reliable": [],
+      "required": 2,
+      "passed": false
+    },
+    {
+      "stage": "S08",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S08",
+      "mode": "hard",
+      "reliable": [
+        "control"
+      ],
+      "required": 2,
+      "passed": false
+    },
+    {
+      "stage": "S09",
+      "mode": "easy",
+      "reliable": [
+        "control"
+      ],
+      "required": 2,
+      "passed": false
+    },
+    {
+      "stage": "S09",
+      "mode": "hard",
+      "reliable": [],
+      "required": 2,
+      "passed": false
+    },
+    {
+      "stage": "S10",
+      "mode": "easy",
+      "reliable": [
+        "control"
+      ],
+      "required": 2,
+      "passed": false
+    },
+    {
+      "stage": "S10",
+      "mode": "hard",
+      "reliable": [],
+      "required": 2,
+      "passed": false
+    },
+    {
+      "stage": "S11",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S11",
+      "mode": "hard",
+      "reliable": [],
+      "required": 2,
+      "passed": false
+    },
+    {
+      "stage": "S12",
+      "mode": "easy",
+      "reliable": [
+        "control"
+      ],
+      "required": 2,
+      "passed": false
+    },
+    {
+      "stage": "S12",
+      "mode": "hard",
+      "reliable": [],
+      "required": 2,
+      "passed": false
+    },
+    {
+      "stage": "X01",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "X01",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "X02",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "X02",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "X03",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "X03",
+      "mode": "hard",
+      "reliable": [],
+      "required": 2,
+      "passed": false
+    }
+  ]
+}

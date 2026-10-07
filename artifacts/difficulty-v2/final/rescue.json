@@ -1,0 +1,84 @@
+[
+  {
+    "stage": "S05",
+    "mode": "no-skill",
+    "seed": 521,
+    "policy": "counter-control",
+    "sourceDigest": "498c2c936061e1c6aabcd550ee1d99b40dd149ab0299b13e7dc60e5e6ba619ae",
+    "terminals": [
+      "C04-A/11",
+      "C05-A/8",
+      "C03-A/7"
+    ],
+    "manual": false,
+    "squad": [
+      "C01",
+      "C02",
+      "C03",
+      "C04",
+      "C05"
+    ],
+    "captain": "C04",
+    "outcome": "victory",
+    "hp": 319.5531249999994,
+    "hpRatio": 0.29050284090909034,
+    "minimumHpRatio": 0.29050284090909034,
+    "seconds": 363.8333333333333,
+    "bossSeconds": 68.83333333333333,
+    "bossEntryHpRatio": 1,
+    "waveHealth": [
+      1,
+      1,
+      1,
+      0.9626136363636364,
+      0.9757045454545455,
+      1,
+      1,
+      1
+    ],
+    "peakEnemies": 33,
+    "peakProjectiles": 2,
+    "points": 16,
+    "expectedPoints": 16,
+    "damage": {
+      "C01": 8432.08753911163,
+      "C02": 7281.222662791853,
+      "C03": 18218.83849073031,
+      "C04": 21523.245419773797,
+      "C05": 36693.05522230604,
+      "C06": 0,
+      "C07": 0,
+      "C08": 0
+    },
+    "damageTaken": {
+      "E05": 41.125,
+      "B02": 823.6468750000003
+    },
+    "casts": 0,
+    "restored": true,
+    "commanderNodes": [
+      "TEAM/0",
+      "TEAM/1",
+      "TEAM/2",
+      "TEAM/3"
+    ],
+    "chosenNodes": [
+      "C04-A/0",
+      "C04-A/2",
+      "C04-A/5",
+      "C04-A/8",
+      "C04-A/11",
+      "C05-A/0",
+      "C05-A/1",
+      "C05-A/4",
+      "C05-A/6",
+      "C05-A/8",
+      "C03-A/0",
+      "C03-A/1",
+      "C03-A/3",
+      "C03-A/5"
+    ],
+    "operationVersion": 2,
+    "balanceVersion": 2
+  }
+]

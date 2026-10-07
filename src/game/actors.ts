@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import { command } from '../sim/engine';
+import { threat } from '../sim/combat';
 import { inWeaponRange } from '../sim/range';
 import { ELEMENTS, equippedForm } from '../data/forms';
 import { ALLY_MOTION, ALLY_ATTACKS, ALLY_BODY_HEIGHT, SUMMER_MOUNTS } from '../data/character-motion';
@@ -10,7 +12,7 @@ import { TacticalTimeline } from './tactical-timeline';
 import { advanceEnemyMotion, createEnemyMotion, ENEMY_POSES, type EnemyMotion, type EnemyMotionMode } from './enemy-motion';
 
 const ENEMY_SIZE: Record<string, number> = { E01: 44, E02: 39, E03: 59, E04: 48, E05: 55, E06: 42, E07: 71, E08: 44, B01: 123, B02: 136, B03: 128 };
-export const enemySize = (id: string) => ENEMY_SIZE[id] ?? 44;
+export const enemySize = (id: string) => (ENEMY_SIZE[id] ?? 44) * (id.startsWith('B') ? 1 : 1.15);
 interface Ally { image: Phaser.GameObjects.Sprite; attacks: number; firedAt: number; frame: number; frames: Set<number>; facing: number }
 interface Creature { image: Phaser.GameObjects.Image; defId: EnemyId; hitAt: number; hitPower: number; motion: EnemyMotion }
 interface Corpse { image: Phaser.GameObjects.Image; born: number; duration: number; size: number; id: number; x: number; y: number; boss: boolean }
@@ -81,15 +83,16 @@ export class CombatActors {
         const ally = this.allies.get(event.source); if (ally) ally.firedAt = this.clock;
       }
     }
+    const ordered = threat(run);
     for (const w of run.weapons) {
-      const eligible = run.enemies.filter(e => inWeaponRange(run, w.id, e));
-      const target = eligible.sort((a, b) => b.y - a.y)[0];
+      const eligible = ordered.filter(e => inWeaponRange(run, w.id, e));
+      const target = eligible[0];
       const ally = this.allies.get(w.id)!;
       ally.image.setDisplaySize(ALLY_MOTION.displaySize,ALLY_MOTION.displaySize*this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY);
       if (w.attacks !== ally.attacks) { ally.attacks = w.attacks; ally.firedAt = this.clock; this.forms.add(weaponForm(w.id, w.rank, w.branch)); }
       const frame = allyPose(w.id, this.clock, ally.firedAt, w.nextAttack - run.tick, this.speed(), !!target, run.config.squadIds.indexOf(w.id) * 90, !!w.cooling);
       if (frame === 2 && target) {
-        const aim = w.id === 'C03' ? eligible.reduce((a, b) => a.maxHp >= b.maxHp ? a : b) : target;
+        const aim = eligible.find(e => e.id === run.focusTargetId) ?? (w.id === 'C03' ? eligible.reduce((a, b) => a.maxHp >= b.maxHp ? a : b) : target);
         ally.facing = aim.x < this.center(w.id) ? -1 : 1;
       }
       if (frame !== ally.frame) { ally.frame = frame; ally.image.setFrame(frame); }
@@ -107,6 +110,12 @@ export class CombatActors {
         const key = this.keys.get(enemy.defId) ?? enemy.defId;
         if (!this.scene.textures.exists(key)) continue;
         const image = this.scene.add.image(enemy.x, enemy.y, key, 0).setDisplaySize(enemySize(enemy.defId), enemySize(enemy.defId)).setDepth(LAYERS.actors);
+        image.setInteractive({ useHandCursor: true });
+        image.on('pointerdown', () => {
+          const current = this.read();
+          if (this.timeline.active(current)) return;
+          command(current, { type: 'focus-target', targetId: current.focusTargetId === enemy.id ? null : enemy.id });
+        });
         const motion = createEnemyMotion(enemy);
         if (enemy.lastAction && enemy.lastAction.tick > this.initialTick) motion.cue = '';
         creature = { image, defId: enemy.defId, motion, hitPower: .5, hitAt: fresh.some(e => e.kind === 'hit' && e.targetId === enemy.id || e.kind === 'explosion' && e.affectedIds?.includes(enemy.id)) ? this.clock : -Infinity }; this.creatures.set(enemy.id, creature);
@@ -123,6 +132,13 @@ export class CombatActors {
       const kick = hurt ? Math.sin(Math.min(1, age / 180) * Math.PI) * creature.hitPower : 0;
       const size = enemySize(enemy.defId);
       creature.image.setDisplaySize(size, size*this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY);
+      // Hit regions use texture coordinates; preserve at least 44 CSS pixels after camera scaling.
+      const hitArea = creature.image.input?.hitArea as Phaser.Geom.Rectangle | undefined;
+      if (hitArea) {
+        const width = Math.max(creature.image.width, 44 / (creature.image.scaleX * this.scene.cameras.main.zoomX));
+        const height = Math.max(creature.image.height, 44 / (creature.image.scaleY * this.scene.cameras.main.zoomY));
+        hitArea.setTo((creature.image.width - width) / 2, (creature.image.height - height) / 2, width, height);
+      }
       creature.image.setPosition(enemy.x + (hurt ? Math.sin(age / 16) * (1 - age / 180) * (enemy.defId.startsWith('B') ? 1.5 : 3) : 0), enemy.y - kick * (enemy.defId.startsWith('B') ? 2 : 6));
       if (hurt && age < 65) creature.image.setTint(0xe9fff3);
       else if (enemy.effects.some(e => e.kind === 'stun' && e.expires > run.tick)) creature.image.setTint(0x7cffff);

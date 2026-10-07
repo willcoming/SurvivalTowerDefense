@@ -1,0 +1,450 @@
+{
+  "passed": true,
+  "integrity": true,
+  "checks": [
+    {
+      "stage": "S01",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S01",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S01",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S02",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S02",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S02",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S03",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S03",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S03",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S04",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S04",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S04",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S05",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S05",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S05",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S06",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S06",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S06",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S07",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S07",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S07",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S08",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S08",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S08",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S09",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S09",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S09",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S10",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S10",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S10",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S11",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S11",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S11",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S12",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S12",
+      "mode": "four",
+      "threshold": 0.5,
+      "reliable": [
+        "chain"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S12",
+      "mode": "two-evolutions",
+      "threshold": 0.5,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "X01",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "X02",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "X03",
+      "mode": "hard",
+      "threshold": 0.6,
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 2,
+      "passed": true
+    }
+  ]
+}

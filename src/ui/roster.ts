@@ -22,43 +22,38 @@ const statusLabel = (save: GameSave, id: CharacterId) => save.preferences.squadI
 const formImage = (id: FormId, className = '') => `<img class="${className}" src="${formPortrait(id)}" alt="${esc(CHARACTER_MAP[FORM_MAP[id].ownerId].name)}・${esc(FORM_MAP[id].name)}">`;
 const formEffect = (id: FormId) => FORM_MAP[id].theme === 'original' ? CHARACTER_MAP[FORM_MAP[id].ownerId].passive : FORM_MAP[id].passive;
 
-export function roster(save: GameSave, vm: ViewModel): string {
-  if (!vm.rosterEditing) return squadOverview(save, vm);
+export function roster(save: GameSave, vm: ViewModel, dirty = false, busy = false, temporary = false): string {
   const prefs = save.preferences;
   const max = vm.challengeId === 'four' ? 4 : 5;
-  const recruited = CHARACTERS.filter(character => isPlayable(save.collection, character.id)).length;
+  const selectedId = vm.rosterSelectedId ?? prefs.captainId;
+  const character = CHARACTER_MAP[selectedId];
+  const currentId = ownedForm(save.collection, selectedId);
+  const chosen = prefs.squadIds.includes(selectedId);
+  const captain = chosen && prefs.captainId === selectedId;
+  const full = prefs.squadIds.length >= max;
   const tags = [...new Set(prefs.squadIds.flatMap(id => roleTags[id]))];
-  return `<main class="content-screen roster-screen roster-command">
-    <div class="page-intro roster-heading"><div><span class="eyebrow">SQUAD FORMATION</span><h1>小隊編成</h1></div></div>
-    <div class="roster-summary" aria-label="隊員與出戰人數"><span>已招募 <b>${recruited} / ${CHARACTERS.length}</b></span><span>出戰 <b>${prefs.squadIds.length} / ${max}</b></span><label class="formation-captain-picker">隊長<select data-change="formation-captain" aria-label="設定編隊隊長">${prefs.squadIds.map(id=>`<option value="${id}" ${id===prefs.captainId?'selected':''}>${esc(CHARACTER_MAP[id].name)}</option>`).join('')}</select></label></div>
-    <section class="roster-lineup" aria-label="目前出戰隊伍"><div class="formation-slots">${Array.from({ length: max }, (_, index) => {
-      const id = prefs.squadIds[index];
-      return id ? `<button id="roster-slot-${id}" data-action="roster-open" data-id="${id}" class="filled-slot" aria-label="查看出戰隊員${esc(CHARACTER_MAP[id].name)}${prefs.captainId === id ? '，隊長' : ''}">${portrait(id)}<span>${prefs.captainId === id ? '★ ' : ''}${esc(CHARACTER_MAP[id].name)}</span></button>` : `<span class="empty-slot" aria-label="空出戰位置 ${index + 1}"><span>${String(index + 1).padStart(2, '0')}</span><small>空位</small></span>`;
-    }).join('')}</div></section>
-    <section class="roster-overview" aria-label="全員總覽">${CHARACTERS.map(character => {
-      const count = ownedCount(save, character.id);
-      const selected = prefs.squadIds.includes(character.id);
-      const label = statusLabel(save, character.id);
-      return `<button id="roster-card-${character.id}" class="roster-tile ${selected ? 'in-squad' : ''} ${count === 0 ? 'unrecruited' : ''} ${count > 1 ? 'can-change' : ''}" data-action="roster-open" data-id="${character.id}" style="--character:${character.color}" aria-label="查看${esc(character.name)}，${label}，已擁有 ${count} 套造型${count > 1 ? '，可換裝' : ''}"><span class="roster-tile-art">${portrait(character.id)}${prefs.captainId === character.id && selected ? '<span class="roster-captain-mark" aria-hidden="true">★</span>' : ''}${count > 1 ? '<span class="roster-change-mark">可換裝</span>' : ''}</span><strong>${esc(character.name)}</strong><span class="roster-tile-state">${label}</span><span class="roster-tile-forms">造型 ${count} / ${characterForms(character.id).length}</span></button>`;
-    }).join('')}</section>
-    <details class="roster-help"><summary>編隊說明與推薦</summary><div class="roster-help-copy"><p>點選隊員查看能力、調整出戰或換裝。選擇 1–${max} 人，並任命一位隊長；★ 為目前隊長。每人各有技能樹，戰鬥中可自由搭配。</p><p>造型數量代表已擁有／全部造型；擁有 2 套以上會顯示「可換裝」。造型先預覽，按下「裝備」才會套用。</p><div class="formation-capabilities"><b>目前能力覆蓋</b>${['清群', '對甲', '對盾', '控場', '支援'].map(tag => `<span class="${tags.includes(tag) ? 'present' : 'absent'}">${tags.includes(tag) ? '✓' : '—'} ${tag}</span>`).join('')}</div><div class="recommendations"><span>搭配靈感</span>${BUILDS.map(build => `<button data-action="build" data-id="${build.id}">${esc(build.name)} ↗</button>`).join('')}</div></div></details>
-    <div class="action-bar sticky-action roster-deploy"><span><b>${prefs.squadIds.length} / ${max}</b> 位隊員<small>編輯草稿 · 確認後一起套用</small></span><button class="button primary" data-action="roster-commit" ${prefs.squadIds.length < 1 || prefs.squadIds.length > max ? 'disabled' : ''}>確認編隊</button></div>
-  </main>`;
-}
-
-function squadOverview(save: GameSave, vm: ViewModel): string {
-  const { squadIds, captainId } = save.preferences;
-  const selected = squadIds.includes(vm.rosterSelectedId!) ? vm.rosterSelectedId! : captainId;
-  const character = CHARACTER_MAP[selected];
-  return `<main class="squad-lobby" aria-label="目前小隊總覽">
-    <h1 class="sr-only">小隊編成</h1>
-    <section class="squad-portraits" aria-label="目前出戰隊伍">${Array.from({length:5}, (_, index) => {
-      const id = squadIds[index];
-      return id ? `<button class="squad-strip ${id === selected ? 'selected' : ''} ${id === captainId ? 'is-captain' : ''}" data-action="roster-select" data-id="${id}" aria-label="查看${esc(CHARACTER_MAP[id].name)}${id === captainId ? '，隊長' : ''}" aria-pressed="${id === selected}">${portrait(id)}<span>${id === captainId ? '<small>隊長</small>' : ''}${esc(CHARACTER_MAP[id].name)}</span></button>` : '<div class="squad-strip empty"><span>空位</span></div>';
-    }).join('')}</section>
-    <div class="squad-status"><span>目前小隊 <b>${squadIds.length} / 5</b></span><span>隊長 <b>${esc(CHARACTER_MAP[captainId].name)}</b></span><button class="button secondary" data-action="roster-edit">編隊</button></div>
-    <section class="squad-hero" aria-label="${esc(character.name)}角色展示">${portrait(selected, 'squad-hero-art')}<div class="squad-hero-copy"><h2>${esc(character.name)}</h2><span>${selected === captainId ? '隊長' : '出戰隊員'}</span><div class="squad-captain-bonus"><small>隊長加成 · ${esc(CAPTAIN_BONUSES[selected].name)}</small><p>${esc(CAPTAIN_BONUSES[selected].description)}</p></div><button class="button secondary" data-action="roster-open" data-id="${selected}">角色詳情 ↗</button></div></section>
-    <div class="squad-edit-action"><button class="button primary" data-action="captain" data-id="${selected}" ${selected===captainId?'disabled':''}>${selected===captainId?'目前隊長':'設定隊長'}</button></div>
+  return `<main class="content-screen roster-screen roster-command formation-workspace" aria-label="一頁式編隊">
+    <header class="formation-heading"><div><span class="eyebrow">SQUAD / FORMATION</span><h1>小隊編成</h1></div><span class="formation-count"><b>${prefs.squadIds.length}</b> / ${max} 出戰</span></header>
+    <div class="formation-content">
+      <section class="formation-lineup" aria-label="目前出戰隊伍" style="--slot-count:${Math.max(max, prefs.squadIds.length)}">${Array.from({ length: Math.max(max, prefs.squadIds.length) }, (_, index) => {
+        const id = prefs.squadIds[index];
+        return id ? `<button data-action="roster-select" data-id="${id}" aria-label="查看出戰隊員${esc(CHARACTER_MAP[id].name)}" aria-pressed="${id === selectedId}" class="${id === prefs.captainId ? 'is-captain' : ''}">${portrait(id)}<span>${id === prefs.captainId ? '★ ' : ''}${esc(CHARACTER_MAP[id].name)}</span></button>` : `<span class="formation-vacancy"><b>＋</b><small>空位 ${index + 1}</small></span>`;
+      }).join('')}</section>
+      <div class="formation-catalog-heading"><h2>選擇隊員</h2><span>已招募 ${CHARACTERS.filter(c => isPlayable(save.collection, c.id)).length} / ${CHARACTERS.length}</span></div>
+      <section class="formation-catalog" aria-label="全員總覽">${CHARACTERS.map(c => {
+        const active = prefs.squadIds.includes(c.id);
+        return `<button id="roster-card-${c.id}" class="formation-member ${active ? 'in-squad' : ''} ${!isPlayable(save.collection, c.id) ? 'unrecruited' : ''}" data-action="roster-select" data-id="${c.id}" aria-label="查看${esc(c.name)}，${statusLabel(save, c.id)}" aria-pressed="${c.id === selectedId}" style="--character:${c.color}"><span class="formation-member-art">${portrait(c.id)}<small>${active ? prefs.captainId === c.id ? '★ 隊長' : '✓ 出戰' : statusLabel(save, c.id)}</small></span><strong>${esc(c.name)}</strong><span>${roleTags[c.id].join(' · ')}</span></button>`;
+      }).join('')}</section>
+      <section class="formation-inspector" aria-label="隊員配置" style="--character:${character.color}">
+        <div class="formation-member-heading"><div><h2>${esc(character.name)}<span>${esc(character.role)}</span></h2><span>${esc(character.weaponName)} · ${esc(RANGE_LABEL[selectedId])}</span></div><button class="formation-detail-button" data-action="roster-open" data-id="${selectedId}">能力詳情 ↗</button></div>
+        <div class="formation-controls"><button class="button ${chosen ? 'secondary' : 'primary'}" data-action="toggle-character" data-id="${selectedId}" ${busy || !currentId || !chosen && full ? 'disabled' : ''}>${chosen ? '移至待命' : currentId ? '加入出戰' : '尚未招募'}</button><button class="button secondary" data-action="captain" data-id="${selectedId}" aria-pressed="${captain}" ${busy || !chosen || captain ? 'disabled' : ''}>${captain ? '★ 目前隊長' : '設定隊長'}</button><label class="formation-outfit">造型<select id="formation-outfit" data-change="formation-form" data-id="${selectedId}" aria-label="${esc(character.name)}的造型" ${busy || !currentId || temporary || save.activeRun ? 'disabled' : ''}>${characterForms(selectedId).map(form => `<option value="${form.id}" ${form.id === (currentId ?? originalForm(selectedId)) ? 'selected' : ''} ${save.collection.owned.includes(form.id) ? '' : 'disabled'}>${esc(form.name)}${save.collection.owned.includes(form.id) ? '' : ' · 未取得'}</option>`).join('')}</select></label></div>
+        ${!currentId ? '<p class="formation-hint">尚未招募此隊員，可在能力詳情查看造型與取得方式。</p>' : !chosen && full ? `<p class="formation-hint">出戰已滿 ${max} 人，先將一位隊員移至待命即可換人。</p>` : ''}
+        <div class="formation-bonus"><span>隊長加成 · ${esc(CAPTAIN_BONUSES[selectedId].name)}</span><p>${esc(CAPTAIN_BONUSES[selectedId].description)}</p></div>
+        ${currentId ? `<details class="formation-ability"><summary>造型效果 · ${esc(FORM_MAP[currentId].name)}</summary><p>${esc(formEffect(currentId))}</p></details>` : ''}
+      </section>
+      <details class="formation-extras"><summary>隊伍分工與推薦</summary><div class="formation-capabilities">${['清群', '對甲', '對盾', '控場', '支援'].map(tag => `<span class="${tags.includes(tag) ? 'present' : 'absent'}">${tags.includes(tag) ? '✓' : '—'} ${tag}</span>`).join('')}</div><div class="recommendations">${BUILDS.map(build => `<button data-action="build" data-id="${build.id}" ${build.squadIds.slice(0, max).every(id => isPlayable(save.collection, id)) ? '' : 'disabled'}>${esc(build.name)} ↗</button>`).join('')}</div></details>
+    </div>
+    <footer class="formation-footer"><span role="status">${busy ? '正在儲存…' : dirty ? '有未確認的變更' : temporary ? '暫時試玩 · 未儲存' : '編隊已儲存'}<small>${prefs.squadIds.length > max ? `此挑戰最多 ${max} 人` : prefs.squadIds.length ? '隊員、隊長與造型一起套用' : '至少選擇 1 位出戰隊員'}</small></span><button class="formation-reset" data-action="roster-reset" ${!dirty || busy ? 'disabled' : ''}>還原</button><button class="button primary" data-action="roster-commit" ${!dirty || busy || !prefs.squadIds.length || prefs.squadIds.length > max ? 'disabled' : ''}>確認編隊</button></footer>
   </main>`;
 }
 

@@ -1,0 +1,4 @@
+{"stage":"S10","challenge":"four","terminals":["C04-A/11","C05-A/8","C03-B/8"],"wins":3,"hp":[0,0,40,40,40]}
+{"stage":"S10","challenge":"four","terminals":["C04-A/10","C05-B/7","C03-A/7"],"wins":4,"hp":[48,48,48,48,0]}
+{"stage":"S10","challenge":"four","terminals":["C04-A/10","C03-A/7","C05-A/8"],"wins":4,"hp":[48,61,61,61,0]}
+{"stage":"S10","challenge":"four","terminals":["C04-A/11","C03-A/7","C05-A/8"],"wins":3,"hp":[0,0,47,47,47]}

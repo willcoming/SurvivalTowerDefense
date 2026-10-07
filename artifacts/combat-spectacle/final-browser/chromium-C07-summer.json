@@ -1,0 +1,223 @@
+{
+  "evidence": "Synthetic durable target fixture; actual app command, 3× RAF and render path.",
+  "start": {
+    "tick": 10,
+    "hp": 1000,
+    "cooldown": 1350,
+    "projectiles": "[]",
+    "casts": 1
+  },
+  "during": {
+    "tick": 10,
+    "hp": 1000,
+    "cooldown": 1350,
+    "projectiles": "[]",
+    "casts": 1,
+    "view": {
+      "clock": 279.9000000000001,
+      "poses": {
+        "C07": {
+          "frame": 3,
+          "renderedFrame": 3,
+          "seen": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "texture": "motion-C07",
+          "action": "mine-launcher",
+          "origin": {
+            "x": 0.5,
+            "y": 0.9375
+          },
+          "width": 105,
+          "bodyHeight": 66.28125
+        }
+      },
+      "forms": [
+        "C07-base"
+      ],
+      "skills": [
+        "C07"
+      ],
+      "hitTypes": [
+        "E03"
+      ],
+      "deathTypes": [
+        "E01"
+      ],
+      "activeCorpses": 2,
+      "corpseIds": [
+        1,
+        2
+      ],
+      "corpseFrames": [
+        {
+          "id": 1,
+          "frame": 15
+        },
+        {
+          "id": 2,
+          "frame": 15
+        }
+      ],
+      "hurtIds": [
+        3
+      ],
+      "maxCorpses": 2,
+      "aliveImages": 3,
+      "enemyMotions": [
+        {
+          "id": 3,
+          "type": "E03",
+          "mode": "idle",
+          "frame": 12,
+          "pose": "hurt",
+          "fps": 2.2,
+          "clock": 390.9000000000001,
+          "releases": 0,
+          "texture": "enemy-motion-E03"
+        },
+        {
+          "id": 4,
+          "type": "E03",
+          "mode": "idle",
+          "frame": 0,
+          "pose": "idle-a",
+          "fps": 2.2,
+          "clock": 427.9000000000001,
+          "releases": 0,
+          "texture": "enemy-motion-E03"
+        },
+        {
+          "id": 5,
+          "type": "E03",
+          "mode": "idle",
+          "frame": 1,
+          "pose": "idle-b",
+          "fps": 2.2,
+          "clock": 464.9000000000001,
+          "releases": 0,
+          "texture": "enemy-motion-E03"
+        }
+      ],
+      "enemyHistory": {
+        "E01": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0
+          ],
+          "releases": 0
+        },
+        "E03": {
+          "modes": [
+            "idle"
+          ],
+          "frames": [
+            0,
+            1
+          ],
+          "releases": 0
+        }
+      },
+      "cutin": {
+        "visible": true,
+        "id": "C07",
+        "age": 691.2,
+        "duration": 1400,
+        "top": 77,
+        "bottom": 520,
+        "depth": 20,
+        "frame": 9,
+        "frames": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "fullScreen": true,
+        "frozen": true,
+        "texture": "motion-C07"
+      },
+      "materialEffects": {
+        "active": 3,
+        "allocated": 3,
+        "peak": 3,
+        "textures": {
+          "combat-fx": 3
+        },
+        "limit": 144
+      },
+      "statuses": [],
+      "burnNumbers": [],
+      "weaknessMarkers": [
+        3,
+        4,
+        5
+      ],
+      "bossAssault": {
+        "releases": 0,
+        "active": [],
+        "impactVisible": false,
+        "impactText": ""
+      },
+      "bossIntro": null,
+      "range": null,
+      "detail": "full",
+      "activeEffects": 3,
+      "peakEffects": 3,
+      "warnings": {
+        "visible": false,
+        "text": "",
+        "top": 24.28984142485119,
+        "bottom": 45.71015857514881,
+        "depth": 100,
+        "geometryDepth": 90
+      },
+      "textureFrames": {
+        "C07": 12
+      },
+      "effectsDepth": 9,
+      "alliesDepth": 7,
+      "visibleEffects": [
+        {
+          "seq": 7,
+          "kind": "hit",
+          "source": "C07",
+          "age": 0,
+          "duration": 260
+        },
+        {
+          "seq": 8,
+          "kind": "explosion",
+          "source": "C07",
+          "age": 0,
+          "duration": 380
+        },
+        {
+          "seq": 9,
+          "kind": "tactical",
+          "source": "C07",
+          "age": 0,
+          "duration": 1500
+        }
+      ],
+      "hostileProjectileImages": 0,
+      "enemyTextureFrames": {
+        "E01": 16,
+        "E02": 16,
+        "E03": 16,
+        "E04": 16,
+        "E05": 16,
+        "E06": 16,
+        "E07": 16,
+        "E08": 16,
+        "B03": 16
+      }
+    }
+  },
+  "errors": []
+}

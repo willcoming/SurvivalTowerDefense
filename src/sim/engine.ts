@@ -58,6 +58,7 @@ export function command(s:RunState,cmd:Command):boolean{
   if(cmd.type==='pause'&&!s.pauseReasons.includes(cmd.reason)&&cmd.reason!=='upgrade'&&cmd.reason!=='boss-intro'){s.pauseReasons.push(cmd.reason);accepted=true;}
   if(cmd.type==='resume'&&cmd.reason!=='upgrade'&&cmd.reason!=='boss-intro'&&s.pauseReasons.includes(cmd.reason)){s.pauseReasons=s.pauseReasons.filter(r=>r!==cmd.reason);accepted=true;}
   if(cmd.type==='finish-boss-intro'&&s.bossIntro&&s.pauseReasons.every(r=>r==='boss-intro')){delete s.bossIntro;s.pauseReasons=s.pauseReasons.filter(r=>r!=='boss-intro');accepted=true;}
+  if(cmd.type==='focus-target'&&getPhase(s)==='running'&&(cmd.targetId===null||Number.isSafeInteger(cmd.targetId)&&s.enemies.some(e=>e.id===cmd.targetId&&e.hp>0))){s.focusTargetId=cmd.targetId;accepted=true;}
   if(cmd.type==='cast'&&getPhase(s)==='running')accepted=castTactical(s);
   if(cmd.type==='abandon'){s.outcome='abandoned';accepted=true;}
   if(cmd.type==='choose'&&!usesFreeSkills(s)&&s.draft?.id===cmd.offerId&&s.draft.cards.some(c=>c.nodeId===cmd.nodeId)&&(cmd.nodeId==='EMPTY'||getLegalNodeIds(s).includes(cmd.nodeId))){
@@ -141,6 +142,7 @@ export function stepRun(s:RunState,count=1):void{
     }s.scheduled=s.scheduled.filter(h=>h.at>s.tick);
     if(usesFreeSkills(s))stepSupport(s);
     stepEnemies(s);s.enemies=s.enemies.filter(e=>e.hp>0);
+    if(s.focusTargetId!=null&&!s.enemies.some(e=>e.id===s.focusTargetId))s.focusTargetId=null;
     if(usesRangeRules(s)&&!s.bossSpawned&&bossDue(s)&&s.wallHp>0){s.bossSpawned=true;const entering=createEnemy(s,STAGE_MAP[s.config.stageId].bossId,195,150,0,s.config.mode==='hundred'?100:operationProfile(s).waves.length+1);if(usesCollection(s))spawnBossEscort(s,entering);s.bossIntro={enemyId:entering.id,remainingMs:BOSS_INTRO_MS};s.pauseReasons.push('boss-intro');}
     if(s.wallHp<=0)s.outcome='wall';
     else if(s.waveFlow&&s.waveFlow.wave===finalWave(s)&&waveResolved(s))s.outcome='victory';
@@ -167,6 +169,7 @@ export function restoreRun(raw:unknown):RunState{
   if(!!s.bossIntro!==s.pauseReasons.includes('boss-intro')||s.bossIntro&&(!usesRangeRules(s)||!s.bossSpawned||!Number.isSafeInteger(s.bossIntro.enemyId)||!Number.isFinite(s.bossIntro.remainingMs)||s.bossIntro.remainingMs<0||s.bossIntro.remainingMs>BOSS_INTRO_MS||!s.enemies.some(e=>e.id===s.bossIntro!.enemyId&&e.defId===STAGE_MAP[s.config.stageId].bossId)))throw new Error('首領登場紀錄損壞');
   if(s.projectiles.some(p=>p.travelRemaining!==undefined&&(!Number.isFinite(p.travelRemaining)||p.travelRemaining<0)))throw new Error('彈體射程紀錄損壞');
   const validInteger=(n:unknown,min=0,max=Number.MAX_SAFE_INTEGER)=>typeof n==='number'&&Number.isSafeInteger(n)&&n>=min&&n<=max;
+  if(s.focusTargetId!=null&&(!Number.isSafeInteger(s.focusTargetId)||!s.enemies.some(e=>e.id===s.focusTargetId&&e.hp>0)))s.focusTargetId=null;
   const required=['weapons','shields','scheduled','events','actions','spawnPlan'] as const;
   if(required.some(key=>!Array.isArray(s[key]))||s.enemies.length>2000||s.projectiles.length>2000||s.fields.length>20||!s.runId||!['running','choosing','paused','ended'].includes(s.phase)||s.pauseReasons.some(p=>!['user','upgrade','hidden','orientation','tutorial','error','boss-intro','tree'].includes(p))||new Set(s.pauseReasons).size!==s.pauseReasons.length||s.phase!==getPhase(s))throw new Error('戰局狀態損壞');
   if(!validInteger(s.choicesSpent,0,usesFreeSkills(s)?operationProfile(s).points:18)||!validInteger(s.choicesEarned,0,usesFreeSkills(s)?operationProfile(s).points:18)||!validInteger(s.rerollsRemaining,0,3)||!validInteger(s.spawnCursor,0,s.spawnPlan.length)||!validInteger(s.nextEntityId,1)||!Object.values(s.rng).every(n=>validInteger(n,1,0xffffffff)))throw new Error('戰局計數損壞');

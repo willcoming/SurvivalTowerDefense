@@ -1,0 +1,1632 @@
+{
+  "config": {
+    "argv": [
+      "/Users/willcoming/.hermes/node/bin/node",
+      "/Users/willcoming/code/SurvivalTowerDefense/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/combat-spectacle.spec.ts",
+      "tests/e2e/form-motion.spec.ts"
+    ],
+    "configFile": "/Users/willcoming/code/SurvivalTowerDefense/playwright.config.ts",
+    "rootDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "artifacts/combat-spectacle/browser/browser-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev -- --host 0.0.0.0 --port 5174 --strictPort",
+      "url": "http://127.0.0.1:5174",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "combat-spectacle.spec.ts",
+      "file": "combat-spectacle.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "spectacle C01 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3772,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:06:50.177Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-453ca5b01defec43f18e",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C02 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2952,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:06:54.228Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-fd150866203fc3c630d6",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C03 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2981,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:06:57.184Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-de67eabea19d77125765",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C04 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2972,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:00.169Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-8dbfff9c4c9be05cadbc",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C05 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2863,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:03.146Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-577159fe006e6f7171f4",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C06 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2864,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:06.013Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-9e0aa3d5133c90a2df1e",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C07 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2954,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:08.882Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-d4e17516ef869d60ab83",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C08 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2880,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:11.840Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-5931bc3da0a98d927ba0",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C01 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2891,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:14.727Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-f81958fc59ca93c77fdf",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C02 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2943,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:17.625Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-2e64b19efae02ce7a323",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C03 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2953,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:20.573Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-db961179a3d929ee5a13",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C04 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2897,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:23.534Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-655514ab3753353e5c7d",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C05 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2874,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:26.437Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-07371561c668e0d5f6ed",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C06 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2947,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:29.318Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-7eed0e25d81089003069",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C07 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2925,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:32.271Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-0c2aadf430e450738364",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C08 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2945,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:35.202Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-30875794bfe5e0165579",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle pause/resume and canvas rebuild retain the unplayed portion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3636,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:38.153Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-6cad8b25e936adcdfd73",
+          "file": "combat-spectacle.spec.ts",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "spectacle C01 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3202,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:23.156Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-25aaa1b95ec5f94511f8",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C02 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2513,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:27.110Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-cbf253917c5791ea59ce",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C03 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2489,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:29.628Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-bbe23c127cb593fadcac",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C04 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2463,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:32.120Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-0dbea085984bb8ba0c4b",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C05 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2483,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:34.588Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-877ed041be53923aefa5",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C06 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2499,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:37.078Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-1edd3453e036bd9e928d",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C07 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2461,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:39.582Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-18c51527ea5d56d3f68c",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C08 original: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2535,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:42.047Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-d67939765bcbe01be8bf",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C01 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2523,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:44.588Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-b51aa245a48ee14867de",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C02 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2477,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:47.117Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-82e2356373ae8246e3f5",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C03 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2448,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:49.604Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-fc3d228929f4b66c37e5",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C04 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2498,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:52.056Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-a3836b90b97fa2537d23",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C05 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2504,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:54.560Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-10deff1733bdd68aa445",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C06 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2534,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:57.072Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-e5acbf7e3100cc11ff20",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C07 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2532,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:59.610Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-110c5b4410564715961a",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle C08 summer: real cast freezes battle, plays six Q poses and resumes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2560,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:09:02.148Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-f17a7de144eb022d45ed",
+          "file": "combat-spectacle.spec.ts",
+          "line": 10,
+          "column": 87
+        },
+        {
+          "title": "spectacle pause/resume and canvas rebuild retain the unplayed portion",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1851,
+                  "error": {
+                    "message": "Error: page.evaluate: TypeError: undefined is not an object (evaluating 'this.warning.getBounds')",
+                    "stack": "Error: page.evaluate: TypeError: undefined is not an object (evaluating 'this.warning.getBounds')\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/combat-spectacle.spec.ts:75:21",
+                    "location": {
+                      "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/combat-spectacle.spec.ts",
+                      "column": 21,
+                      "line": 75
+                    },
+                    "snippet": "  73 |   await page.setViewportSize({ width: 1280, height: 900 });\n  74 |   await page.locator('#battle-loading').waitFor({ state: 'detached' });\n> 75 |   expect(await page.evaluate(() => window.__game.presentation().cutin.age)).toBe(before.age);\n     |                     ^\n  76 |   // Touch emulation treats the landscape viewport as phone rotation.\n  77 |   await expect(page.locator('[data-action=\"resume\"]')).toBeDisabled();\n  78 |   await page.setViewportSize({ width: 390, height: 844 });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/combat-spectacle.spec.ts",
+                        "column": 21,
+                        "line": 75
+                      },
+                      "message": "Error: page.evaluate: TypeError: undefined is not an object (evaluating 'this.warning.getBounds')\n\n  73 |   await page.setViewportSize({ width: 1280, height: 900 });\n  74 |   await page.locator('#battle-loading').waitFor({ state: 'detached' });\n> 75 |   expect(await page.evaluate(() => window.__game.presentation().cutin.age)).toBe(before.age);\n     |                     ^\n  76 |   // Touch emulation treats the landscape viewport as phone rotation.\n  77 |   await expect(page.locator('[data-action=\"resume\"]')).toBeDisabled();\n  78 |   await page.setViewportSize({ width: 390, height: 844 });\n    at /Users/willcoming/code/SurvivalTowerDefense/tests/e2e/combat-spectacle.spec.ts:75:21"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:09:04.716Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output/combat-spectacle-spectacle-97f61-retain-the-unplayed-portion-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output/combat-spectacle-spectacle-97f61-retain-the-unplayed-portion-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output/combat-spectacle-spectacle-97f61-retain-the-unplayed-portion-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/willcoming/code/SurvivalTowerDefense/tests/e2e/combat-spectacle.spec.ts",
+                    "column": 21,
+                    "line": 75
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "09d93726f6d0e6909246-df839c0c550fe0bf1df2",
+          "file": "combat-spectacle.spec.ts",
+          "line": 58,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "form-motion.spec.ts",
+      "file": "form-motion.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "original: C01,C05,C06,C07,C08 use Q sprites and actual attacks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10527,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:42.085Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output/form-motion-original-C01-C-ad59f--sprites-and-actual-attacks-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b79eaafc6a74ae1c825d-3504de3a9c30c7d5e2af",
+          "file": "form-motion.spec.ts",
+          "line": 12,
+          "column": 23
+        },
+        {
+          "title": "original: C02,C03,C04 use Q sprites and actual attacks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9988,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:07:52.693Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output/form-motion-original-C02-C-aaedc--sprites-and-actual-attacks-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b79eaafc6a74ae1c825d-54f1a7727eddcb71c459",
+          "file": "form-motion.spec.ts",
+          "line": 12,
+          "column": 23
+        },
+        {
+          "title": "summer: C01,C05,C06,C07,C08 use Q sprites and actual attacks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10118,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:02.687Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output/form-motion-summer-C01-C05-c7325--sprites-and-actual-attacks-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b79eaafc6a74ae1c825d-fd63c75790e8a4a25de5",
+          "file": "form-motion.spec.ts",
+          "line": 12,
+          "column": 23
+        },
+        {
+          "title": "summer: C02,C03,C04 use Q sprites and actual attacks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10107,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:08:12.810Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output/form-motion-summer-C02-C03-67c5d--sprites-and-actual-attacks-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b79eaafc6a74ae1c825d-ab44f9fffa0067c6a159",
+          "file": "form-motion.spec.ts",
+          "line": 12,
+          "column": 23
+        },
+        {
+          "title": "original: C01,C05,C06,C07,C08 use Q sprites and actual attacks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9764,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:09:06.944Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output/form-motion-original-C01-C-ad59f--sprites-and-actual-attacks-webkit/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b79eaafc6a74ae1c825d-62af6815efc84e7d70c4",
+          "file": "form-motion.spec.ts",
+          "line": 12,
+          "column": 23
+        },
+        {
+          "title": "original: C02,C03,C04 use Q sprites and actual attacks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9624,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:09:16.859Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output/form-motion-original-C02-C-aaedc--sprites-and-actual-attacks-webkit/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b79eaafc6a74ae1c825d-368cdeba9c385c6c8eda",
+          "file": "form-motion.spec.ts",
+          "line": 12,
+          "column": 23
+        },
+        {
+          "title": "summer: C01,C05,C06,C07,C08 use Q sprites and actual attacks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9649,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:09:26.493Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output/form-motion-summer-C01-C05-c7325--sprites-and-actual-attacks-webkit/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b79eaafc6a74ae1c825d-adc205cb32eb90c341ff",
+          "file": "form-motion.spec.ts",
+          "line": 12,
+          "column": 23
+        },
+        {
+          "title": "summer: C02,C03,C04 use Q sprites and actual attacks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9614,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-13T03:09:36.149Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/Users/willcoming/code/SurvivalTowerDefense/artifacts/combat-spectacle/browser/browser-results/test-output/form-motion-summer-C02-C03-67c5d--sprites-and-actual-attacks-webkit/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b79eaafc6a74ae1c825d-2e473de5360d1c274955",
+          "file": "form-motion.spec.ts",
+          "line": 12,
+          "column": 23
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-13T03:06:49.510Z",
+    "duration": 176333.198,
+    "expected": 41,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

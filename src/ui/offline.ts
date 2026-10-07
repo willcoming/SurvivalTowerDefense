@@ -11,10 +11,10 @@ export function offlineSummary() {
 export function offlineSettings(embedded = false) {
   const heading = embedded ? 'h3' : 'h2';
   return `<section class="offline-settings" data-offline="settings" data-offline-state="checking" aria-label="離線遊玩與安裝">
-    <div class="build-information"><${heading}>遊戲版本與更新</${heading}><p class="build-version">${esc(versionLabel())}</p><p>建置時間 <time datetime="${esc(buildVersion.builtAt)}">${esc(versionTime())}</time></p>
+    <details class="build-information"><summary>遊戲版本與更新</summary><${heading}>遊戲版本與更新</${heading}><p class="build-version">${esc(versionLabel())}</p><p>建置時間 <time datetime="${esc(buildVersion.builtAt)}">${esc(versionTime())}</time></p>
     <div class="offline-actions"><button type="button" class="button secondary" data-offline-action="force-update" data-battle="${embedded}" ${embedded ? 'disabled' : ''}>強制更新</button></div>
     <p>${embedded ? '請先結束戰局並返回作戰中心，再進行強制更新。' : '重新檢查並下載最新版本後重開遊戲，保留收藏、編隊與通關進度。'}</p>
-    <p data-offline-field="force-message" role="status" aria-live="polite" hidden></p></div>
+    <p data-offline-field="force-message" role="status" aria-live="polite" hidden></p></details>
     <${heading}>離線遊玩與安裝</${heading}>
     <p class="offline-title" data-offline-field="title" role="status" aria-live="polite">正在確認離線下載</p>
     <p data-offline-field="detail"></p>
@@ -59,7 +59,16 @@ export function refreshOfflineUi(root: HTMLElement) {
   for (const holder of root.querySelectorAll<HTMLElement>('[data-offline]')) {
     holder.dataset.offlineState = state.phase; holder.dataset.offlineUpdate = state.update;
     if (holder.dataset.offline === 'summary') holder.setAttribute('aria-label', `${text.summary}，查看離線下載與安裝設定`);
-    if (holder.dataset.offline === 'summary') holder.hidden = state.phase === 'development';
+    if (holder.dataset.offline === 'summary') {
+      const quiet = state.phase === 'ready' && state.update === 'none';
+      if (quiet && !holder.dataset.readyNotice) {
+        try {
+          holder.dataset.readyNotice = localStorage.getItem('starfall-offline-notice-seen') ? 'seen' : 'show';
+          localStorage.setItem('starfall-offline-notice-seen', '1');
+        } catch { holder.dataset.readyNotice = 'show'; }
+      }
+      holder.hidden = state.phase === 'development' || quiet && holder.dataset.readyNotice === 'seen';
+    }
     setText(holder, 'summary', text.summary);
     setText(holder, 'announcement', text.title);
     const indicator = holder.querySelector('.offline-indicator');
@@ -97,6 +106,6 @@ export function bindOfflineUi(root: HTMLElement, beforeReload: () => Promise<voi
     if (!control || control.disabled) return;
     if (control.dataset.offlineAction === 'retry') void offlineGame.retry();
     if (control.dataset.offlineAction === 'install') void offlineGame.install();
-    if (control.dataset.offlineAction === 'force-update') void offlineGame.forceUpdate(beforeReload);
+    if (control.dataset.offlineAction === 'force-update' && window.confirm('下載最新版本並重新開啟遊戲？\n收藏、編隊與通關進度會保留。')) void offlineGame.forceUpdate(beforeReload);
   });
 }

@@ -1,0 +1,354 @@
+[
+  {
+    "assetId": "spectacle-combat-ammo",
+    "path": "/assets/vfx/combat-ammo-v2.webp",
+    "width": 512,
+    "height": 512,
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frameCount": 16,
+    "origin": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "hasAlpha": true,
+    "bytes": 84064,
+    "sha256": "616fed7dd28d31251fb5f3dc8724837f69d562d4d2cc5f51d617b09ed5c1f91a",
+    "source": "artifacts/combat-spectacle/sources/combat-ammo.png",
+    "sourceSha256": "6db95b10a60b1b6a0e3c509206cbb027967bd0a291fed29c2b30b79ce890d929",
+    "prompt": "Use case: stylized-concept. Production game sprite atlas for premium hand-painted chibi sci-fi tower defense, 4 columns x 4 rows, exactly 16 isolated illustrated ammunition objects. Square 2048x2048. Each cell 512 square, each object centered with wide 70px completely empty margins, no object crosses cell boundaries. All objects travel RIGHT, side view, no perspective tilt. Background flat pure magenta #ff00ff for clean chroma removal, no checkerboard, no grid, no labels, no ground or cast shadows.\nRow 1: four distinct physical ammunition sprites: orange ceramic plasma cartridge with steel jacket and tiny fins; violet crystalline conductive dart in metal cage; silver long armor piercing sniper sabot with blue steel fins; turquoise irregular crystalline gravity shard with dark metal collar.\nRow 2: four sprites: bulky orange mortar shell with rounded nose, banded body, sturdy tail fins; compact white-and-teal guided micro missile with visible rivets and four fins; brass and gunmetal rotary-cannon bullet with pointed steel nose; hostile dark red chitinous barbed spine with ivory sharp tip, organic ridges.\nRow 3: four painted irregular electrical discharges, purple/lavender, each short broad branching torn ribbon of electricity pointing right; high-detail ink and painted edges, solid variegated texture, varied silhouettes. These are compact discrete fragments, NOT straight laser bars, no rings, no ambient glow, no blurry aura; leave huge gaps between cells.\nRow 4: four discrete muzzle ignition sprites orange, violet, pale blue, teal, each small irregular painted flame tongue bursting right, opaque textured center and torn edges, no circular flash or halo, no smoke cloud or long trail.\nStyle: detailed readable miniature weapons, crisp dark contour, painterly material shading, metal panels and engraving and rough ceramic, dramatic form, rich color but restrained luminosity. Everything is an illustrated object, never a flat geometric symbol. No lines used as bullets, no circles, rings, polygons, light halos, bloom, glare, speed lines, motion blur, long trails, text, symbols. Weapons themselves and characters must NOT be included.",
+    "tool": "imagegen built-in",
+    "backgroundMode": "generated-alpha",
+    "scale": 0.3898916967509025,
+    "gridCuts": {
+      "xs": [
+        [
+          0,
+          314,
+          627,
+          941,
+          1254
+        ],
+        [
+          0,
+          314,
+          627,
+          941,
+          1254
+        ],
+        [
+          0,
+          314,
+          627,
+          941,
+          1254
+        ],
+        [
+          0,
+          314,
+          627,
+          941,
+          1254
+        ]
+      ],
+      "ys": [
+        0,
+        314,
+        627,
+        941,
+        1254
+      ]
+    },
+    "frames": [
+      {
+        "index": 0,
+        "name": "material-0",
+        "sha256": "0416598e321f6a94499cadeaa2d44adb4a22c63398cd31b984b821a174d515f9",
+        "sourceBounds": {
+          "left": 34,
+          "top": 118,
+          "right": 283,
+          "bottom": 244,
+          "center": 101.5
+        },
+        "outputBounds": {
+          "left": 12,
+          "top": 38,
+          "width": 104,
+          "height": 53
+        }
+      },
+      {
+        "index": 1,
+        "name": "material-1",
+        "sha256": "9f28520f46347d7c77cc7be84ad5affd01e7f879013d451f9a816b31dcda672e",
+        "sourceBounds": {
+          "left": 345,
+          "top": 119,
+          "right": 599,
+          "bottom": 237,
+          "center": 436
+        },
+        "outputBounds": {
+          "left": 12,
+          "top": 40,
+          "width": 104,
+          "height": 49
+        }
+      },
+      {
+        "index": 2,
+        "name": "material-2",
+        "sha256": "ed57a35fd0df5a69f50cf290b970ad066c9a9c5358cd66a3419852e1d388bdb9",
+        "sourceBounds": {
+          "left": 657,
+          "top": 114,
+          "right": 919,
+          "bottom": 242,
+          "center": 699
+        },
+        "outputBounds": {
+          "left": 12,
+          "top": 39,
+          "width": 104,
+          "height": 51
+        }
+      },
+      {
+        "index": 3,
+        "name": "material-3",
+        "sha256": "9b6849935bde93d468b35b4878c1472c51ae6c731f82f4b14a6466b7af078745",
+        "sourceBounds": {
+          "left": 972,
+          "top": 114,
+          "right": 1225,
+          "bottom": 248,
+          "center": 1043.5
+        },
+        "outputBounds": {
+          "left": 12,
+          "top": 37,
+          "width": 104,
+          "height": 55
+        }
+      },
+      {
+        "index": 4,
+        "name": "material-4",
+        "sha256": "6f87b7be12875e022ac9c8ddaf91d6b5877a97f951385b6c9999baa489630ce7",
+        "sourceBounds": {
+          "left": 30,
+          "top": 398,
+          "right": 283,
+          "bottom": 545,
+          "center": 66
+        },
+        "outputBounds": {
+          "left": 12,
+          "top": 34,
+          "width": 104,
+          "height": 61
+        }
+      },
+      {
+        "index": 5,
+        "name": "material-5",
+        "sha256": "2f921d70a5428c2d11ae1c49a791359ac74286779bea25b2bc24050a6ab62b81",
+        "sourceBounds": {
+          "left": 345,
+          "top": 399,
+          "right": 598,
+          "bottom": 548,
+          "center": 400.5
+        },
+        "outputBounds": {
+          "left": 12,
+          "top": 34,
+          "width": 104,
+          "height": 61
+        }
+      },
+      {
+        "index": 6,
+        "name": "material-6",
+        "sha256": "d9d784fb417ac8ed4805b967fc495e9334ae0dd6cd43044a8ea4c8694c2a5917",
+        "sourceBounds": {
+          "left": 655,
+          "top": 430,
+          "right": 918,
+          "bottom": 509,
+          "center": 765
+        },
+        "outputBounds": {
+          "left": 12,
+          "top": 48,
+          "width": 104,
+          "height": 32
+        }
+      },
+      {
+        "index": 7,
+        "name": "material-7",
+        "sha256": "678eee2d207cccb0415f103afb152a779168963d30d92c13e6c8f252624cda0d",
+        "sourceBounds": {
+          "left": 972,
+          "top": 392,
+          "right": 1227,
+          "bottom": 542,
+          "center": 1031.5
+        },
+        "outputBounds": {
+          "left": 12,
+          "top": 34,
+          "width": 104,
+          "height": 61
+        }
+      },
+      {
+        "index": 8,
+        "name": "material-8",
+        "sha256": "174fc06a2b6d33a98a92f33fc3c7b361c6421f382288affebbc7b13af4c2e698",
+        "sourceBounds": {
+          "left": 28,
+          "top": 679,
+          "right": 284,
+          "bottom": 876,
+          "center": 80.5
+        },
+        "outputBounds": {
+          "left": 16,
+          "top": 27,
+          "width": 96,
+          "height": 74
+        }
+      },
+      {
+        "index": 9,
+        "name": "material-9",
+        "sha256": "618812556034b8932d982541d9a400c62159ebb65b230ada3c30222d47a11a8e",
+        "sourceBounds": {
+          "left": 328,
+          "top": 665,
+          "right": 604,
+          "bottom": 886,
+          "center": 403.5
+        },
+        "outputBounds": {
+          "left": 12,
+          "top": 23,
+          "width": 104,
+          "height": 83
+        }
+      },
+      {
+        "index": 10,
+        "name": "material-10",
+        "sha256": "158258f9cfcb3664692c71c935766926f6c314de542fa7c43a88176f2ca282c9",
+        "sourceBounds": {
+          "left": 651,
+          "top": 662,
+          "right": 918,
+          "bottom": 894,
+          "center": 671
+        },
+        "outputBounds": {
+          "left": 14,
+          "top": 21,
+          "width": 101,
+          "height": 87
+        }
+      },
+      {
+        "index": 11,
+        "name": "material-11",
+        "sha256": "5ee0c456f34b0c1980ef72e6356a1d46cbaa4d3b15fae4b88e4b0f67182696e7",
+        "sourceBounds": {
+          "left": 978,
+          "top": 691,
+          "right": 1227,
+          "bottom": 881,
+          "center": 1056
+        },
+        "outputBounds": {
+          "left": 17,
+          "top": 28,
+          "width": 94,
+          "height": 72
+        }
+      },
+      {
+        "index": 12,
+        "name": "material-12",
+        "sha256": "72b4c2b7e7c7d3cb0d28e03b130f3425b0534437f9d1f46d086cf9a53b5c3cfb",
+        "sourceBounds": {
+          "left": 32,
+          "top": 1004,
+          "right": 284,
+          "bottom": 1167,
+          "center": 95
+        },
+        "outputBounds": {
+          "left": 13,
+          "top": 31,
+          "width": 103,
+          "height": 67
+        }
+      },
+      {
+        "index": 13,
+        "name": "material-13",
+        "sha256": "34fa367f4b5b01a9243359a58527a1bad104b574670223598c046d6241729dc0",
+        "sourceBounds": {
+          "left": 343,
+          "top": 999,
+          "right": 595,
+          "bottom": 1170,
+          "center": 409
+        },
+        "outputBounds": {
+          "left": 13,
+          "top": 29,
+          "width": 103,
+          "height": 70
+        }
+      },
+      {
+        "index": 14,
+        "name": "material-14",
+        "sha256": "3bea2aca8cd5f0c92abbedb978a73ece6ee756ef1954dc0cd35c77ffe5926279",
+        "sourceBounds": {
+          "left": 655,
+          "top": 1005,
+          "right": 910,
+          "bottom": 1167,
+          "center": 741
+        },
+        "outputBounds": {
+          "left": 12,
+          "top": 31,
+          "width": 104,
+          "height": 66
+        }
+      },
+      {
+        "index": 15,
+        "name": "material-15",
+        "sha256": "9f1746b3c8081b0ff28524226aabee83bbb160ecba7ee19acc3a209102ab5523",
+        "sourceBounds": {
+          "left": 973,
+          "top": 999,
+          "right": 1226,
+          "bottom": 1171,
+          "center": 1060.5
+        },
+        "outputBounds": {
+          "left": 13,
+          "top": 29,
+          "width": 103,
+          "height": 70
+        }
+      }
+    ],
+    "loadGroup": "battle-vfx"
+  }
+]

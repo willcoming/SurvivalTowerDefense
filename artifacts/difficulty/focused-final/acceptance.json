@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "integrity": true,
+  "checks": [
+    {
+      "stage": "S09",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S09",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S09",
+      "mode": "four",
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S09",
+      "mode": "no-skill",
+      "reliable": [
+        "balanced",
+        "chain"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S09",
+      "mode": "two-evolutions",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S10",
+      "mode": "easy",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S10",
+      "mode": "hard",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 2,
+      "passed": true
+    },
+    {
+      "stage": "S10",
+      "mode": "four",
+      "reliable": [
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S10",
+      "mode": "no-skill",
+      "reliable": [
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    },
+    {
+      "stage": "S10",
+      "mode": "two-evolutions",
+      "reliable": [
+        "balanced",
+        "chain",
+        "control"
+      ],
+      "required": 1,
+      "passed": true
+    }
+  ]
+}
