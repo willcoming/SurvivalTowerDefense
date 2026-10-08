@@ -8,15 +8,15 @@ import { usesPressureRules, difficultyTuning } from './difficulty';
 import { emergencySupport, repairWall, reflectShield } from './deep-support';
 import { usesSkillTrees } from '../data/skill-trees';
 import { ultimateFor } from './skill-tree';
-import { CHARACTER_MAP, ENEMY_MAP, STAGE_MAP, ticks, WORLD } from '../data/content';
+import { CHARACTER_MAP, ENEMY_MAP, STAGE_MAP, CONTENT_VERSION, ticks, WORLD } from '../data/content';
 import { usesCollection, attackType, equippedForm, isSummer, ELEMENTS, WEAKNESSES } from '../data/forms';
-import type { CharacterId, DamagePacket, Effect, Enemy, EnemyId, RunState, VisualEvent } from './types';
+import type { CharacterId, DamagePacket, Effect, ElementalCombo, Enemy, EnemyId, RunState, VisualEvent } from './types';
 import { visualPriority } from './visual';
 export const boss=(e:Enemy)=>e.defId.startsWith('B');
 export const alive=(s:RunState)=>s.enemies.filter(e=>e.hp>0);
 export const distance=(a:{x:number,y:number},b:{x:number,y:number})=>Math.hypot(a.x-b.x,a.y-b.y);
 export function emit(s:RunState,e:Omit<VisualEvent,'seq'|'tick'>){
-  if(e.source&&usesCollection(s)){const damageType=attackType(s,e.source);e={...e,damageType,color:ELEMENTS[damageType].color};}
+  if(e.source&&usesCollection(s)&&e.skill!=='orbital'&&e.skill!=='combo-burn'&&e.skill!=='combo-arc'){const damageType=attackType(s,e.source);e={...e,damageType,color:ELEMENTS[damageType].color};}
   const weapon=e.source?s.weapons.find(w=>w.id===e.source):undefined;
   s.events.push({...e,...(weapon&&usesSkillTrees(s)?{weaponTree:ultimateFor(s,weapon.id)?.split(/[:/]/)[0]}:{}),...(weapon?{weaponRank:weapon.rank,weaponBranch:weapon.branch}:{}),seq:++s.eventSeq,tick:s.tick});
   // Shed old decoration before primary attacks, and primary attacks before skill cues.
@@ -40,9 +40,9 @@ export function computeDamage(raw:number,shield:number,armor:number,ignore=0,exp
   return {shieldDamage,hpDamage};
 }
 export function interrupt(s:RunState,e:Enemy){if(e.chargeKind&&!e.chargeCancelled&&e.chargeUntil>s.tick){e.chargeCancelled=true;emit(s,{kind:'interrupt',x:e.x,y:e.y});}}
-export function applyEffect(s:RunState,e:Enemy,effect:Effect){
+export function applyEffect(s:RunState,e:Enemy,effect:Effect,emergency=false){
   if(e.hp<=0)return;
-  if(effect.kind==='stun'&&boss(e)){
+  if(effect.kind==='stun'&&boss(e)&&!emergency){
     if(e.stunImmuneUntil>s.tick)return;
     effect={...effect,expires:Math.min(effect.expires,s.tick+ticks(.25))};e.stunImmuneUntil=s.tick+ticks(6);
   }
@@ -52,9 +52,9 @@ export function applyEffect(s:RunState,e:Enemy,effect:Effect){
   if(same){const cadence=effect.kind==='burn'?Math.min(same.nextTick,effect.nextTick):effect.nextTick;Object.assign(same,effect);same.nextTick=cadence;}else e.effects.push({...effect});
   if(effect.kind==='stun')interrupt(s,e);
 }
-export function knockback(s:RunState,e:Enemy,amount:number){
-  if(boss(e)){if(e.moveImmuneUntil>s.tick)return;e.moveImmuneUntil=s.tick+ticks(6);amount*=.25;}
-  if(usesFreeSkills(s))amount*=eventMultiplier(s,e.wave,'displacement');
+export function knockback(s:RunState,e:Enemy,amount:number,emergency=false){
+  if(boss(e)&&!emergency){if(e.moveImmuneUntil>s.tick)return;e.moveImmuneUntil=s.tick+ticks(6);amount*=.25;}
+  if(usesFreeSkills(s)&&!emergency)amount*=eventMultiplier(s,e.wave,'displacement');
   e.y=Math.max(WORLD.spawnY,e.y-amount);e.attackAt=0;interrupt(s,e);
 }
 export function addShield(s:RunState,source:string,value:number,duration:number){
@@ -73,12 +73,54 @@ export function hitWall(s:RunState,value:number,source:EnemyId){
   s.shields=s.shields.filter(x=>x.expires>s.tick&&x.value>0).sort((a,b)=>a.expires-b.expires||a.source.localeCompare(b.source));
   for(const shield of s.shields){const v=Math.min(remaining,shield.value);shield.value-=v;remaining-=v;s.stats.shieldAbsorbed+=v;absorbed+=v;}
   const damage=Math.min(s.wallHp,remaining);s.wallHp-=damage;s.stats.wallDamageByEnemy[source]=(s.stats.wallDamageByEnemy[source]??0)+damage;
+  if(s.contentVersion===CONTENT_VERSION&&damage>0&&!s.emergencyPulseUsed&&s.wallHp>0&&s.wallHp<s.wallMaxHp*.2){
+    s.emergencyPulseUsed=true;
+    for(const e of alive(s))if(e.y>=WORLD.wallY-180){
+      knockback(s,e,200,true);e.rushUntil=0;
+      applyEffect(s,e,{id:'emp-stun',kind:'stun',source:s.config.captainId,value:1,expires:s.tick+ticks(2),armorIgnore:0,nextTick:0},true);
+    }
+    emit(s,{kind:'emp_wave',x:WORLD.width/2,y:WORLD.wallY,value:200});
+  }
   emit(s,{kind:'wall-hit',x:195,y:450,value:damage,...(usesCollection(s)?{enemyDefId:source}:{})});
   if(free&&s.support){const repair=teamMod(s,'emergencyRepair');if(repair)s.support.damageTaken+=damage;if(repair&&s.support.damageTaken>=100){const count=Math.floor(s.support.damageTaken/100);s.support.damageTaken%=100;repairWall(s,repair*count);}reflectShield(s,absorbed);emergencySupport(s);}
 }
+/** Resolve reaction bonuses before damage; reserve cooldowns before applying any spread. */
+function elementalCombo(s:RunState,e:Enemy,p:DamagePacket) {
+  const result:{packet:DamagePacket;emp:number;vortex?:Effect;events:ElementalCombo[]}={packet:p,emp:0,events:[]};
+  if(s.contentVersion!==CONTENT_VERSION||p.raw<=0||p.skill==='burn'||p.skill==='combo-burn'||p.skill==='combo-arc')return result;
+  const ready=(id:ElementalCombo)=>(e.comboCooldowns?.[id]??0)<=s.tick;
+  const take=(id:ElementalCombo)=>{(e.comboCooldowns??={})[id]=s.tick+ticks(.5);result.events.push(id);};
+  const element=(effect:Effect)=>effect.damageType??(effect.source==='boss'?undefined:attackType(s,effect.source));
+  const burning=e.effects.filter(f=>f.kind==='burn'&&f.expires>s.tick&&element(f)==='thermal').sort((a,b)=>(b.comboBaseDps??b.value)-(a.comboBaseDps??a.value))[0];
+  const charged=p.damageType==='plasma'||p.damageType==='arc';
+  const gravityControl=e.effects.some(f=>(f.kind==='slow'||f.kind==='stun')&&f.expires>s.tick&&f.value>0&&f.id!=='emp-stun'&&element(f)==='gravity');
+  if(burning&&p.damageType==='gravity'&&ready('vortex')){take('vortex');result.vortex={...burning};}
+  if(p.damageType==='kinetic'&&(e.ionizedUntil??0)>s.tick&&ready('superconduct')){
+    take('superconduct');
+    result.packet={...result.packet,critical:true,armorIgnore:1,raw:p.raw*(p.critical?1:1+(deepMods(s,p.source).critPower??.5))};
+  }
+  if(gravityControl&&charged&&ready('emp')){take('emp');result.emp=Math.min(boss(e)?1500:Infinity,e.maxHp*.12);interrupt(s,e);}
+  if(burning&&p.damageType==='plasma'&&e.shield>0&&ready('overload')){take('overload');result.packet={...result.packet,shieldMultiplier:result.packet.shieldMultiplier*2.5};}
+  if(charged)e.ionizedUntil=s.tick+ticks(3);
+  return result;
+}
+function spreadVortex(s:RunState,center:Enemy,burn:Effect){
+  const original=burn.comboBaseDps??burn.value;
+  for(const enemy of alive(s).filter(other=>distance(other,center)<=140+other.radius)){
+    const d=distance(enemy,center);
+    if(d>0&&(!boss(enemy)||enemy.moveImmuneUntil<=s.tick)){
+      const amount=Math.min(d,35*(boss(enemy)?.25:1));
+      enemy.x+=(center.x-enemy.x)/d*amount;enemy.y+=(center.y-enemy.y)/d*amount;
+      if(enemy.y<WORLD.wallY)enemy.attackAt=0;
+      if(boss(enemy))enemy.moveImmuneUntil=s.tick+ticks(6);
+      interrupt(s,enemy);
+    }
+    applyEffect(s,enemy,{id:'combo-flame',kind:'burn',source:burn.source,value:original*2,comboBaseDps:original,damageType:'thermal',expires:s.tick+ticks(3),nextTick:s.tick+15,armorIgnore:burn.armorIgnore});
+  }
+}
 export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
   if(e.hp<=0)return;
-  if(usesCollection(s)){
+  if(usesCollection(s)&&p.skill!=='orbital'&&p.skill!=='combo-burn'&&p.skill!=='combo-arc'){
     const form=equippedForm(s,p.source),dot=p.skill==='burn'||p.skill==='gravity-field';
     let factor=dot?1:form.direct;
     if(p.source==='C06'&&(p.skill==='tactical'||p.skill==='shield-reflect'))factor=1;
@@ -87,10 +129,11 @@ export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
     if(p.source==='C01'&&isSummer(s,'C01')&&!dot&&p.skill!=='tactical'&&p.skill!=='ultimate'&&p.raw>0)p.burn={dps:8*(1+(deepMods(s,p.source).burn??0)),duration:ticks(2),armorIgnore:0,key:'summer'};
   }
   const exposure=Math.max(e.exposureUntil>s.tick?.25:0,...e.effects.filter(f=>f.kind==='exposure'&&f.expires>s.tick).map(f=>f.value),0);
-  const free=usesFreeSkills(s),direct=p.skill!=='burn'&&p.skill!=='gravity-field';
+  const free=usesFreeSkills(s),direct=p.skill!=='burn'&&p.skill!=='combo-burn'&&p.skill!=='combo-arc'&&p.skill!=='gravity-field';
   const controlled=e.effects.some(f=>(f.kind==='slow'||f.kind==='stun')&&f.expires>s.tick);
   const conditional=free&&direct?(exposure>0?teamMod(s,'teamExposeDamage'):0)+(controlled?(p.controlledBonus??0)+teamMod(s,'teamControlDamage'):0)+(e.hp/e.maxHp<=(p.executeThreshold??0)?p.executeDamage??0:0):0;
   if(usesReworkedSkills(s)&&s.config.captainId==='C02'&&e.shield>0)p={...p,shieldMultiplier:p.shieldMultiplier+.25};
+  const combo=elementalCombo(s,e,p);p=combo.packet;
   const weakness=usesCollection(s)&&WEAKNESSES[e.defId]===p.damageType;
   let tacticalBonus=0;
   if(p.tacticalWeapon&&direct){
@@ -104,10 +147,22 @@ export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
   const raw=p.raw*(1+tacticalBonus+(exposure>0?(p.exposureBonus??0):0)+conditional+captainDamageBonus(s,e,direct,exposure,controlled))*(free?eventMultiplier(s,e.wave,p.damageType):1)*(weakness?1.5:1);
   const armorBreak=free&&e.armorBroken&&e.armorBroken.expires>s.tick?e.armorBroken.value:0;
   const result=computeDamage(raw,e.shield,e.armor,p.armorIgnore,exposure,p.shieldMultiplier,armorBreak);
-  const previousShield=e.shield;e.shield-=result.shieldDamage;const damage=Math.min(e.hp,result.hpDamage);e.hp-=damage;
+  const previousShield=e.shield;e.shield-=result.shieldDamage;const trueDamage=Math.min(Math.max(0,e.hp-result.hpDamage),combo.emp);const damage=Math.min(e.hp,result.hpDamage+trueDamage);e.hp-=damage;
+  if(combo.vortex)spreadVortex(s,e,combo.vortex);
+  for(const reaction of combo.events)emit(s,{kind:`combo_${reaction}`,x:e.x,y:e.y,targetId:e.id,value:reaction==='emp'?trueDamage:undefined});
   s.stats.damageByCharacter[p.source]+=damage;s.stats.shieldDamageByCharacter[p.source]+=result.shieldDamage;
   emit(s,{kind:'hit',x:e.x,y:e.y,value:damage+result.shieldDamage,source:p.source,color:CHARACTER_MAP[p.source].color,targetId:e.id,enemyDefId:e.defId,skill:p.skill,...(p.critical?{critical:true}:{}),...(previousShield>0&&e.shield<=0?{shieldBroken:true}:{}),...(usesCollection(s)?{weakness,damageType:p.damageType}:{})});
   if(previousShield>0&&e.shield<=0&&e.defId==='B02'){interrupt(s,e);e.exposureUntil=s.tick+ticks(6);}
+  if(combo.events.includes('superconduct')) {
+    // Two secondary arcs, 120px reach, 30% of the triggering critical packet.
+    // Keep ownership for damage/XP, but never re-enter the reaction engine.
+    const targets=alive(s).filter(other=>other.id!==e.id&&distance(other,e)<=120+other.radius)
+      .sort((a,b)=>distance(a,e)-distance(b,e)||a.id-b.id).slice(0,2);
+    for(const target of targets){
+      emit(s,{kind:'arc',x:e.x,y:e.y,x2:target.x,y2:target.y,source:p.source,skill:'combo-arc',damageType:'arc',color:'#d7f7ff',targetId:target.id});
+      hitEnemy(s,target,{source:p.source,skill:'combo-arc',raw:p.raw*.3,damageType:'arc',armorIgnore:0,shieldMultiplier:1});
+    }
+  }
   if(e.hp<=0){
     if(s.focusTargetId===e.id)s.focusTargetId=null;
     s.stats.kills++;s.xp+=e.xp;s.choicesEarned=battleExperience(s).earned;
@@ -124,8 +179,8 @@ export function hitEnemy(s:RunState,e:Enemy,p:DamagePacket){
   if(free&&p.armorBreak)e.armorBroken={value:Math.max(e.armorBroken&&e.armorBroken.expires>s.tick?e.armorBroken.value:0,p.armorBreak),expires:s.tick+ticks(4)};
   if(p.exposure)applyEffect(s,e,{id:`exposure:${p.source}`,kind:'exposure',source:p.source,value:p.exposure.value,expires:s.tick+p.exposure.duration,armorIgnore:0,nextTick:0});
   if(p.burn)applyEffect(s,e,{id:`burn:${p.source}:${p.burn.key}`,kind:'burn',source:p.source,value:p.burn.dps,expires:s.tick+p.burn.duration,nextTick:s.tick+15,armorIgnore:p.burn.armorIgnore,...(usesCollection(s)?{damageType:p.damageType}:{})});
-  if(p.slow)applyEffect(s,e,{id:`slow:${p.source}:${p.skill}`,kind:'slow',source:p.source,value:p.slow.value,expires:s.tick+p.slow.duration,nextTick:0,armorIgnore:0});
-  if(p.stun)applyEffect(s,e,{id:`stun:${p.source}:${p.skill}`,kind:'stun',source:p.source,value:1,expires:s.tick+p.stun,nextTick:0,armorIgnore:0});
+  if(p.slow)applyEffect(s,e,{id:`slow:${p.source}:${p.skill}`,kind:'slow',source:p.source,value:p.slow.value,expires:s.tick+p.slow.duration,nextTick:0,armorIgnore:0,...(s.contentVersion===CONTENT_VERSION?{damageType:p.damageType}:{})});
+  if(p.stun)applyEffect(s,e,{id:`stun:${p.source}:${p.skill}`,kind:'stun',source:p.source,value:1,expires:s.tick+p.stun,nextTick:0,armorIgnore:0,...(s.contentVersion===CONTENT_VERSION?{damageType:p.damageType}:{})});
   if(p.knockback)knockback(s,e,p.knockback);
   if(!e.phaseTriggered&&e.hp<=e.maxHp/2){
     if(e.defId==='E07'){e.phaseTriggered=true;e.shield+=300;}
@@ -138,7 +193,7 @@ export function stepEffects(s:RunState){
     const burns=e.effects.filter(f=>f.kind==='burn'&&f.expires>=s.tick);
     for(const source of new Set(burns.map(f=>f.source))){
       const own=burns.filter(f=>f.source===source);const best=own.sort((a,b)=>b.value-a.value||b.armorIgnore-a.armorIgnore)[0];
-      if(best&&best.nextTick<=s.tick){hitEnemy(s,e,{source:source as CharacterId,skill:'burn',raw:best.value*.5,damageType:usesCollection(s)?attackType(s,source as CharacterId):'thermal',armorIgnore:best.armorIgnore,shieldMultiplier:1});for(const f of own)f.nextTick=s.tick+15;}
+      if(best&&best.nextTick<=s.tick){hitEnemy(s,e,{source:source as CharacterId,skill:best.comboBaseDps!==undefined?'combo-burn':'burn',raw:best.value*.5,damageType:best.comboBaseDps!==undefined?'thermal':usesCollection(s)?attackType(s,source as CharacterId):'thermal',armorIgnore:best.armorIgnore,shieldMultiplier:1});for(const f of own)f.nextTick=s.tick+15;}
     }
     e.effects=e.effects.filter(f=>f.expires>s.tick);
     for(const source of new Set(e.effects.filter(f=>f.kind==='slow'||f.kind==='stun').map(f=>f.source)))if(source!=='boss')s.stats.controlTicks[source]++;

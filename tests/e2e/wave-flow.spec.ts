@@ -20,7 +20,7 @@ async function boot(page:Page,challengeId?:RunConfig['challengeId']) {
 }
 
 async function clearToAllocation(page:Page) {
-  return page.evaluate(async () => {
+  const result = await page.evaluate(async () => {
     const combatPath='/src/sim/combat.ts',enginePath='/src/sim/engine.ts';
     const {hitEnemy}=await import(combatPath),{stepRun}=await import(enginePath);
     const s=window.__game.state()!;
@@ -31,6 +31,7 @@ async function clearToAllocation(page:Page) {
     window.__game.ticks(0);
     return {wave:s.waveFlow!.wave,earned:s.choicesEarned,spent:s.choicesSpent,tick:s.tick};
   });
+  return result;
 }
 
 for(const width of [320,768,1024,1440])test(`wave-end allocation supports partial spending and banking at ${width}px`,async({page},info)=>{

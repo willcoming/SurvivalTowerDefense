@@ -23,13 +23,15 @@ export function waveResolved(s: RunState): boolean {
     && (!s.spawnPlan[s.spawnCursor] || s.spawnPlan[s.spawnCursor].wave > flow.wave)
     && !s.enemies.some(e => e.hp > 0)
     && !s.projectiles.some(p => p.enemySource && p.remaining > 0 && p.expires > s.tick)
-    && !s.scheduled.some(hit => hit.enemySource)
+    && !s.scheduled.some(hit => hit.enemySource || hit.packet?.skill === 'orbital')
     && (flow.wave < finalWave(s) || s.bossKilled);
 }
 
 /** Called once, after confirming or automatically skipping an allocation. */
 export function startNextWave(s: RunState): void {
   if (!s.waveFlow || s.waveFlow.phase !== 'allocation') return;
+  if(s.commanderTactical)s.commanderTactical.barrierUsedInWave=false;
+  if(s.barrierUntil!==undefined)s.barrierUntil=0;
   s.draft = null;
   s.pauseReasons = s.pauseReasons.filter(reason => reason !== 'upgrade' && reason !== 'tree');
   s.waveFlow = { version: 1, wave: s.waveFlow.wave + 1, startedAt: s.tick, phase: 'combat' };

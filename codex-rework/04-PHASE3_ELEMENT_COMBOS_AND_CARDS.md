@@ -1,73 +1,147 @@
 # 04. 第三階段實施規格：雙元素連鎖與流派卡片化 (Phase 3)
 
-> **目標**：大幅深化策略動腦維度，使角色搭配產生化學反應；重構手機端配點介面，降低認知負擔。
+> **目標**：深化策略動腦（讓角色組合產生化學反應）與重構手機配點介面（一秒看懂流派走向）。
+> **前置依賴**：Phase 1 與 Phase 2 已順利完成並全數測試通過。
 
 ---
 
-## 任務 1：雙元素連鎖反應系統 (Elemental Reaction Engine)
+## 🎯 Phase 3 核心交付物清單
 
-### 1.1 系統目標：從「單純剋制 1.5 倍」進化為「隊友化學反應」
-目前各角色武器具有固有屬性（熱能、電漿、重力、物理）。
-在 `src/sim/combat.ts` 的 `hitEnemy()` 中，偵測目標身上已存在的元素狀態與新攻擊屬性的交集：
+1. **雙元素連鎖反應引擎（Elemental Reaction Engine）**：
+   * 4 組角色元素跨界化學反應（烈焰黑洞、超導貫穿、電磁引爆、等離子過載）。
+   * 連鎖特效粒子與專屬浮空文字標籤。
+   * 首領真傷上限與防刷 CD 保護（同一敵人 0.5s 內不重複觸發同連鎖）。
+2. **手機端波末配點「三色流派導向卡片」介面**：
+   * 波末配點彈窗在手機尺寸（< 768px）預設呈現三張大卡片：
+     * **卡片 A【群攻掃蕩流】**（連鎖電弧・範圍覆蓋）
+     * **卡片 B【弱點斬首流】**（穿透破盾・致命暴擊）
+     * **卡片 C【控場時滯流】**（引力牽引・打斷蓄力）
+   * 提供「一鍵依流派選配」按鈕，自動沿著最優前置節點分配可用點數。
+   * 保留「切換至 24 節點專家星圖」按鈕，高階玩家隨時可無縫切回自由星圖畫布。
+3. **專屬驗證測試**：
+   * `tests/rules/phase3-combos.test.ts`（元素連鎖規則、傷害結算、邊界防護測試）
+   * `tests/e2e/phase3-cards.spec.ts`（卡片式配點點擊、切換星圖、連鎖畫面回饋 E2E）
 
-### 1.2 連鎖反應規則表
+---
 
-| 元素 A（目標已有） | 元素 B（新命中） | 觸發連鎖名稱 | 數值與機制規格 |
-|:---|:---|:---|:---|
-| **熱能（燃燒）** | **重力（牽引）** | **【烈焰黑洞】** | 產生半徑 140px 吸力漩渦將周圍怪吸入，並將目標身上所有燃燒層數與傷害立即擴散至漩渦內所有敵人。 |
-| **電漿（感電）** | **物理（子彈）** | **【超導貫穿】** | 該發物理子彈 100% 暴擊，無視 100% 護甲，並分裂出 3 道電弧跳躍至鄰近目標。 |
-| **重力（減速）** | **電漿（雷擊）** | **【電磁引爆】** | 瞬間引爆剩餘減速時間，造成目標最大生命值 12% 的真實傷害，並強制打斷正在進行的蓄力動作。 |
-| **熱能（燃燒）** | **電漿（感電）** | **【等離子過載】** | 引發範圍 80px 爆炸，對護盾造成 300% 破壞傷害。 |
+## 🛠️ 詳細代碼修改規格與落點
 
-### 1.3 代碼落點：`src/sim/combat.ts`
+### 任務 1：雙元素連鎖反應系統 (`src/sim/combat.ts`)
+
+#### 1.1 資料結構 (`src/sim/types.ts`)
+在 `Enemy` 增加連鎖冷卻紀錄：
 ```ts
-function checkElementalCombo(s: RunState, e: Enemy, incomingType: DamageType, rawDamage: number) {
-  const hasBurn = e.effects.some(f => f.kind === 'burn' && f.expires > s.tick);
-  const hasSlow = e.effects.some(f => f.kind === 'slow' && f.expires > s.tick);
+export interface Enemy {
+  // ...既有欄位
+  comboCooldowns?: Partial<Record<'vortex' | 'superconduct' | 'emp' | 'overload', number>>;
+}
+```
 
-  if (hasBurn && incomingType === 'gravity') {
-    // 觸發烈焰黑洞
-    emit(s, { kind: 'combo_flame_vortex', x: e.x, y: e.y });
+#### 1.2 連鎖觸發公式 (`src/sim/combat.ts`)
+在 `hitEnemy(s: RunState, e: Enemy, p: DamagePacket)` 命中結算處：
+```ts
+// 檢查雙元素連鎖反應
+function triggerElementalCombo(s: RunState, e: Enemy, p: DamagePacket, damageDealt: number) {
+  if (e.hp <= 0) return;
+  e.comboCooldowns = e.comboCooldowns ?? {};
+
+  const hasBurn = e.effects.some(f => f.kind === 'burn' && f.expires > s.tick);
+  const hasSlowOrStun = e.effects.some(f => (f.kind === 'slow' || f.kind === 'stun') && f.expires > s.tick);
+  const isKinetic = p.damageType === 'kinetic';
+  const isPlasmaOrArc = p.damageType === 'plasma' || p.damageType === 'arc';
+  const isGravity = p.damageType === 'gravity';
+
+  // 1. 【烈焰黑洞】 (熱能燃燒 + 重力吸引)
+  if (hasBurn && isGravity && (e.comboCooldowns.vortex ?? 0) <= s.tick) {
+    e.comboCooldowns.vortex = s.tick + 15; // 0.5s CD
+    emit(s, { kind: 'combo_vortex', x: e.x, y: e.y });
     for (const nearby of area(s, e.x, e.y, 140)) {
-      applyEffect(s, nearby, { id: 'combo_burn', kind: 'burn', value: rawDamage * 0.4, expires: s.tick + ticks(3) });
-      knockback(s, nearby, -30); // 向中心聚攏
+      knockback(s, nearby, -35); // 向中心聚攏
+      applyEffect(s, nearby, { id: 'combo-flame', kind: 'burn', value: damageDealt * 0.35, expires: s.tick + ticks(3) });
     }
-  } else if (hasSlow && incomingType === 'plasma') {
-    // 觸發電磁引爆
+  }
+
+  // 2. 【超導貫穿】 (電漿/電弧 + 物理動能)
+  if (isPlasmaOrArc && (e.exposureUntil > s.tick || e.effects.some(f => f.kind === 'exposure')) && isKinetic) {
+    p.critical = true;
+    p.armorIgnore = 1; // 100% 破甲
+    emit(s, { kind: 'combo_superconduct', x: e.x, y: e.y });
+  }
+
+  // 3. 【電磁引爆】 (重力減速/暈眩 + 電漿/電弧)
+  if (hasSlowOrStun && isPlasmaOrArc && (e.comboCooldowns.emp ?? 0) <= s.tick) {
+    e.comboCooldowns.emp = s.tick + 15;
     interrupt(s, e);
-    hitEnemy(s, e, { source: 'combo', raw: e.maxHp * 0.12, damageType: 'plasma', armorIgnore: 1 });
+    const trueDamage = Math.min(boss(e) ? 1500 : 99999, e.maxHp * 0.12);
+    e.hp = Math.max(0, e.hp - trueDamage);
+    emit(s, { kind: 'combo_emp', x: e.x, y: e.y, value: trueDamage });
+  }
+
+  // 4. 【等離子過載】 (熱能燃燒 + 電漿直擊)
+  if (hasBurn && isPlasmaOrArc && e.shield > 0 && (e.comboCooldowns.overload ?? 0) <= s.tick) {
+    e.comboCooldowns.overload = s.tick + 15;
+    p.shieldMultiplier = (p.shieldMultiplier ?? 1) * 2.5;
+    emit(s, { kind: 'combo_overload', x: e.x, y: e.y });
   }
 }
 ```
 
 ---
 
-## 任務 2：手機端波末配點「三色流派推薦卡片」介面
+### 任務 2：Phaser 連鎖反應畫面反饋 (`src/game/scene.ts` & `src/game/effects.ts`)
 
-### 2.1 修改目標檔案：`src/ui/skill-constellation.ts` & `src/ui/battle.ts`
-* **痛點**：手機 390px 畫面上 24 個密集小黑圈讓一般玩家迷失且無法閱讀。
-* **改進架構**：
-  在波末配點對話框中，採用雙層呈現模式：
-  1. **預設模式（流派引導卡片）**：
-     * 展示當前出戰隊伍推薦的「三大核心流派」：
-       * **卡片 A：【超導電弧・群攻狂潮】**（一鍵依最優路徑解鎖急速供彈、連鎖導引）
-       * **卡片 B：【天基滅殺・破盾狙擊】**（一鍵解鎖穿透彈頭、重型彈腔）
-       * **卡片 C：【奇點塌縮・時滯黑洞】**（一鍵解鎖重力波紋、聚變引力）
-     * 點擊卡片直接預覽並配置該路線所需的點數。
-  2. **高階模式（24 節點全景星圖）**：
-     * 右上角提供「切換為完整星圖」按鈕。
-     * 點擊後無縫切換至原有的完整星圖與拖曳縮放畫布，滿足重度玩家自由混搭需求。
+1. **連鎖文字標籤**：
+   收到連鎖事件時，在目標頭頂彈出專屬亮色標籤（持續 500ms 向上淡出）：
+   * 🌀 **烈焰黑洞**：紫橙色漸層字體
+   * ⚡ **超導貫穿**：藍白電光字體
+   * 💥 **電磁引爆**：青藍色震盪字體
+   * 🛡️ **過載破盾**：金黃色碎裂字體
+2. **視覺動效**：
+   * `combo_vortex`：繪製向內收縮的紫色螺旋粒子環。
+   * `combo_emp`：目標周圍迸發球形藍色電火花。
 
 ---
 
-## 任務 3：全量驗證與交付
+### 任務 3：手機端波末配點「三色流派導向卡片」介面 (`src/ui/battle.ts`)
 
-Codex 完成修改後，必須執行以下驗證套件：
-```bash
-npm run typecheck
-npm run test:rules
-npm run test:simulation
-npx playwright test tests/e2e/ui-review.spec.ts
-npm run build
+#### 3.1 UI 呈現原則
+* 手機直向視窗（< 768px）進入波末配點時，預設顯示 `.build-cards-view`。
+* 桌面端（≥ 768px）或玩家點擊「展開完整星圖」時，顯示原有的 `.network-view`。
+* 兩者使用完全相同的 `command(s, { type: 'buy-node' })`，保證存檔與底層規則 100% 一致。
+
+#### 3.2 卡片佈局架構
+```html
+<section class="build-cards-view" aria-label="推薦戰術流派">
+  <div class="build-card build-card-aoe">
+    <div class="card-tag">流派 A · 清群掃蕩</div>
+    <h3>【連鎖電弧・散彈漫天】</h3>
+    <p>特化清怪覆蓋率與電弧跳躍</p>
+    <div class="card-progress">核心：分流槍機 ➔ 急速供彈</div>
+    <button data-action="quick-build" data-route="A" class="build-card-btn">一鍵選配 (2 點)</button>
+  </div>
+  <!-- 卡片 B 破盾狙殺、卡片 C 引力控場 同理 -->
+  <button data-action="toggle-expert-constellation" class="toggle-expert-btn">
+    🔍 切換為 24 節點專家星圖
+  </button>
+</section>
 ```
-確認所有既有測試皆 Passed，並確認畫面沒有文字重疊與佈局錯誤。
+
+---
+
+## 🧪 驗證與驗收標準
+
+Codex 必須建立並通過以下測試：
+1. `tests/rules/phase3-combos.test.ts`：
+   * 燃燒+重力 100% 觸發黑洞聚怪與擴散燃燒。
+   * 減速+電漿 100% 觸發電磁引爆真傷與蓄力打斷，首領上限不超過 1500。
+   * 防刷冷卻生效（0.5s 內同一目標不重複引爆）。
+2. `tests/e2e/phase3-cards.spec.ts`：
+   * 390px 尺寸下波末配點預設展示三張流派卡片。
+   * 點擊「一鍵選配」成功扣點並解鎖合法前置技能。
+   * 點擊「切換為 24 節點星圖」可無縫切換畫布。
+3. 全量測試通過：
+   ```bash
+   npm run typecheck
+   npm run test:rules
+   npm run build
+   ```

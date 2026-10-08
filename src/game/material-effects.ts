@@ -100,15 +100,7 @@ export class MaterialEffects {
         const p = e.y === 490 ? { x: muzzleX, y: base.y } : e;
         const to = { x: e.x2 ?? e.x, y: e.y2 ?? e.y };
         const progress = Math.min(1, t / .55), angle = Math.atan2(to.y - p.y, to.x - p.x) * 180 / Math.PI;
-        // Textured energy segments give chains body; the geometry remains auxiliary.
-        if(e.kind==='arc'||e.source==='C02'){
-          const length=Math.hypot(to.x-p.x,to.y-p.y),count=detail==='compact'?2:4;
-          for(let i=0;i<count;i++){
-            const q=(i+.5)/count;
-            this.draw('combat-props',7,p.x+(to.x-p.x)*q,p.y+(to.y-p.y)*q,
-              18+Math.sin(t*Math.PI)*8,alpha*.6,angle,Math.min(80,length/count*1.2),LAYERS.effects+.25,type==='plasma'?0xffa8dd:undefined);
-          }
-        }
+        // Keep a short travelling discharge, never a chain of stretched beam strips.
         // Hitscan damage is unchanged; its short flight cue is a finite illustrated object.
         if (progress < 1) this.draw('combat-ammo', e.kind === 'arc' || e.source === 'C02' ? 8 + phase : AMMO_FRAMES[e.source ?? 'C03'], p.x + (to.x - p.x) * progress, p.y + (to.y - p.y) * progress, (e.source === 'C02' ? 38 : e.source === 'C03' ? e.skill==='ultimate'?48:32 : 23) * size, 1, angle);
         this.impact(type, phase, to.x, to.y, (e.source === 'C03' ? e.skill==='ultimate'?66:48 : 34) * size, alpha);

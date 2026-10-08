@@ -66,3 +66,13 @@
 #app .defeat-insight p { font-size:14px; line-height:1.6; margin:6px 0; }
 #app .defeat-insight small { display:block; font-size:12px; line-height:1.5; color:#c1ccca; }
 @media(max-width:800px) { #app .mobile-result .defeat-insight { flex:none; } #app .mobile-result:has(.defeat-insight) { overflow-y:auto; } #app .mobile-result:has(.defeat-insight) > .result-actions { margin-top:10px; } }
+
+/* Crisis glow stays above the canvas without intercepting battlefield input. */
+.battle-phone { position:relative; isolation:isolate; }
+.battle-phone::after { content:''; position:absolute; inset:0; pointer-events:none; z-index:15; opacity:0; }
+@keyframes threat-heartbeat {
+  0%,100% { box-shadow:inset 0 0 20px rgba(239,68,68,.35); }
+  50% { box-shadow:inset 0 0 50px rgba(239,68,68,.7); }
+}
+.battle-phone.threat-critical::after { opacity:1; animation:threat-heartbeat 1.2s infinite ease-in-out; }
+@media(prefers-reduced-motion:reduce) { .battle-phone.threat-critical::after { animation:none; box-shadow:inset 0 0 24px rgba(239,68,68,.5); } }

@@ -37,7 +37,11 @@ test('cross-route skills unlock only after their prerequisites are individually 
  expect(await page.evaluate(()=>window.__game.state()!.treeNodes)).toEqual(['C01-A4/0','C01-A4/1','C01-A4/2','C01-B4/6']);
  await expect(page.locator('.wave-allocation')).toBeVisible();await expect(page.locator('.points-left')).toContainText('可用 2 點');
  for(const id of ['C01-B4/3','C01-B4/7']){await node(page,id);await page.locator('[data-action="buy-node"]').click();}
- await expect(page.locator('.tactical-tree')).toHaveCount(0);expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(6);
+ expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(6);
+ await expect(page.locator('.wave-allocation')).toBeVisible();await expect(page.locator('.points-left')).toContainText('可用 0 點');
+ await page.getByRole('button',{name:/^開始下一波/}).click();
+ await expect(page.locator('.tactical-tree')).toHaveCount(0);
+ expect(await page.evaluate(()=>window.__game.state()!.waveFlow!.phase)).toBe('combat');
 });
 for(const viewport of [{width:1440,height:1000},{width:390,height:844}])test.describe(`route emphasis ${viewport.width}`,()=>{
  test.use({isMobile:viewport.width<=800,hasTouch:viewport.width<=800});

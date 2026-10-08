@@ -14,8 +14,10 @@ codex-rework/
 ├── README.md                           # 本指南：專案背景、目標與執行順序
 ├── 01-MASTER_PLAN.md                   # 完整重構總計畫（系統架構、數值公式、技術約束）
 ├── 02-PHASE1_VISUAL_AND_FOCUS.md       # 第一階段規格：畫面降噪 + 手動集火 + 震屏反饋
-├── 03-PHASE2_CRISIS_AND_COMMANDER.md   # 第二階段規格：防線心跳警報 + EMP 擊退 + 指揮官戰術
-├── 04-PHASE3_ELEMENT_COMBOS_AND_CARDS.md # 第三階段規格：雙元素連鎖共鳴 + 流派卡片化
+├── 03-PHASE2_CRISIS_AND_COMMANDER.md   # 第二階段規格：防線心跳警報 + EMP 擊退
+├── 04-PHASE3_COMBAT_SKILLS_AND_RESTORE.md # 第三階段規格：回歸星圖點選 + 純自動戰鬥 + 角色技能連鎖特效
+├── 05-PHASE3_VISUAL_REFINEMENT_NO_LINES.md # 畫面精煉規格：去線條化 + 粒子光暈升級
+├── 06-ULTIMATE_ENERGY_AND_VFX.md        # 終極技能量累積與施放特效規格
 └── mockups/
     ├── battle-redesign-mockup.svg      # 戰鬥畫面前後對比高解析度向量圖
     ├── skill-cards-mockup.svg          # 波末流派卡片視覺向量圖
@@ -30,17 +32,17 @@ codex-rework/
    * 移除怪物頭頂的「燃燒 20.3」等中文與雜亂標記堆疊，改為體表粒子微光與顏色狀態。
    * 傷害跳字改為 300ms 視窗合流（暴擊金色大字彈跳、普通傷害輕量化）。
    * 戰場劃出「威脅警戒線（Threat Line）」，善用空曠道路空間。
-   * 手機波末配點提供「流派標籤卡片導向」，新手一眼看懂，保留底層 24 節點專家星圖。
+   * 波末配點回歸清晰直觀的 24 節點專家星圖單項點選彈窗（點擊開啟簡介、單項扣點確認、支援拖曳縮放）。
 
 2. **戰鬥緊湊刺激（Tactical Excitement & Hit Impact）**：
    * **打破純觀戰**：實裝「點擊手動集火（Focus Fire）」，點選怪物全隊拉出雷射優先斬首！
    * **感官刺激升級**：暴擊與擊殺加入 3~5 幀頓挫（Hit-stop）與相機輕微震動（Screen Shake）。
-   * **防線心流**：防線 HP < 30% 全屏心跳紅光警告，破盾觸發緊急 EMP 擊退衝擊波。
+   * **防線心流**：防線 HP < 30% 全屏心跳紅光警告，破盾觸發緊急被動 EMP 擊退衝擊波（全自動無手動按鈕負擔）。
 
 3. **策略深度動腦（Strategic Brain Burn）**：
-   * **雙元素連鎖化學反應**：熱能+重力=烈焰黑洞（聚怪擴散燃燒），電漿+物理=超導貫穿（100%暴擊+電弧）。
-   * **指揮官主動戰術槽**：每場可用手動主動技能（全息磁暴牆、軌道轟炸）。
-   * **特化怪物戰術拆解**：重盾怪正面減傷需引力背刺、自爆怪需警戒線外手動集火。
+   * **角色技能化學反應**：四大雙元素連鎖反應（烈焰黑洞、超導貫穿、電磁引爆、等離子過載）。
+   * **全自動角色技能演出**：由角色普通攻擊、終極技與屬性碰撞在戰場上打出震撼粒子光效與連鎖字樣標籤。
+   * **隊伍編成策略**：玩家策略重心回歸出戰隊伍的屬性搭配（熱能 + 重力、電漿 + 動能等）。
 
 ---
 
@@ -50,9 +52,10 @@ codex-rework/
 
 1. **閱讀 `01-MASTER_PLAN.md`**：了解專案全貌與核心架構邊界。
 2. **按照 Phase 階段執行**：
-   * **第一階段**：執行 `02-PHASE1_VISUAL_AND_FOCUS.md`（優先級最高，立即見效且改動安全）。
+   * **第一階段**：執行 `02-PHASE1_VISUAL_AND_FOCUS.md`。
    * **第二階段**：執行 `03-PHASE2_CRISIS_AND_COMMANDER.md`。
-   * **第三階段**：執行 `04-PHASE3_ELEMENT_COMBOS_AND_CARDS.md`。
+   * **第三階段**：執行 `04-PHASE3_COMBAT_SKILLS_AND_RESTORE.md`。
+   * **畫面精煉**：執行 `05-PHASE3_VISUAL_REFINEMENT_NO_LINES.md`。
 3. **驗證指令**：
    * 靜態類型檢查：`npm run typecheck`
    * 核心規則驗證：`npm run test:rules`

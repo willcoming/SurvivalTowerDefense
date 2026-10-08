@@ -82,6 +82,8 @@ export class GameAudio {
     if (event.kind === 'shield') this.tone(600, .20, .10, 'sine', this.effects, 900, 2);
     if (event.kind === 'wall-hit') this.tone(70, .22, .2, 'square', this.effects, 30, 3);
     if (event.kind === 'interrupt') this.tone(1100, .08, .17, 'triangle', this.effects, 1600, 3);
+    if (event.kind === 'emp_wave' || event.kind === 'barrier-spawn') this.tone(500, .3, .12, 'sine', this.effects, 1200, 3);
+    if (event.kind === 'orbital-blast') this.tone(180, .35, .16, 'sawtooth', this.effects, 30, 3);
     if (event.kind === 'evolution') this.feedback('evolution');
     if (event.kind === 'tactical') this.feedback('cast');
   }

@@ -1,7 +1,7 @@
 import type Phaser from 'phaser';
 import { WORLD } from '../data/content';
 import type { RunState } from '../sim/types';
-import { line, polygon, type Origin } from './effects';
+import type { Origin } from './effects';
 
 type Target = { id: number; x: number; y: number; radius: number };
 export class FocusOverlay {
@@ -15,24 +15,32 @@ export class FocusOverlay {
     this.guide = scene.add.graphics().setDepth(2.5);
     this.sight = scene.add.graphics().setDepth(11);
   }
-  update(run: RunState, now: number, origin: Origin, reduced: boolean) {
+  update(run: RunState, now: number, _origin: Origin, reduced: boolean) {
     this.guide.clear(); this.sight.clear();
     const y = WORLD.wallY - 220;
     this.threatened = run.enemies.some(e => e.hp > 0 && e.y >= y);
     this.threatAlpha = this.threatened ? (reduced ? .85 : .7 + .15 * Math.sin(now / 240)) : .25;
-    this.guide.fillStyle(0xff595e, this.threatAlpha * .08).fillRect(0, y - 5, WORLD.width, 10);
-    for (let x = 0; x < WORLD.width; x += 20) line(this.guide, [{ x, y }, { x: Math.min(WORLD.width, x + 12), y }], 0xff595e, 1.5, this.threatAlpha);
+    // Keep the diagnostic intensity envelope, but render only a faint ground glow.
+    if (this.threatened) for (let band = 0; band < 5; band++) {
+      this.guide.fillStyle(0xff595e, this.threatAlpha * .009).fillRect(0, y - 10 + band, WORLD.width, 20 - band * 2);
+    }
     const enemy = run.enemies.find(e => e.id === run.focusTargetId && e.hp > 0 && e.id !== run.bossIntro?.enemyId);
     if (this.target && this.target.id !== enemy?.id) this.fading = { ...this.target, born: now };
     this.target = enemy ? { id: enemy.id, x: enemy.x, y: enemy.y, radius: enemy.radius + 12 } : null;
-    if (this.target) {
-      for (const id of run.config.squadIds) line(this.guide, [origin(id, enemy!.x), this.target], 0xff595e, 1.5, .5);
-      polygon(this.sight, this.target.x, this.target.y, this.target.radius, 4, 0xff595e, .95, reduced ? 0 : now / 850, 2);
-    }
+    if (this.target) this.mark(this.target, .65);
     if (this.fading) {
       const t = (now - this.fading.born) / 240;
       if (t >= 1) this.fading = null;
-      else polygon(this.sight, this.fading.x, this.fading.y, this.fading.radius + (reduced ? 0 : t * 18), 4, 0xff595e, (1 - t) * .8, reduced ? 0 : now / 850, 2);
+      else this.mark(this.fading, (1 - t) * .5);
+    }
+  }
+  private mark(target: Target, alpha: number) {
+    const r = Math.min(20, Math.max(13, target.radius * .6)), size = 4, thickness = 1;
+    this.sight.fillStyle(0xffc5ab, alpha);
+    for (const dx of [-1, 1]) for (const dy of [-1, 1]) {
+      const x = target.x + dx * r, y = target.y + dy * r;
+      this.sight.fillRect(x - (dx > 0 ? size : 0), y, size, thickness);
+      this.sight.fillRect(x - (dx > 0 ? thickness : 0), y - (dy > 0 ? size - thickness : 0), thickness, size);
     }
   }
   diagnostics() {

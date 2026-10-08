@@ -192,7 +192,7 @@ export class GameApp {
       html = rosterDialog(this.rosterSave(), this.vm.rosterPanel, this.collecting, this.temporary, this.vm.challengeId === 'four' ? 4 : 5, this.vm.message, !!this.vm.rosterEditing);
     } else if (this.vm.page === 'battle' && run) {
       if (run.pauseReasons.includes('tutorial')) html = tutorialDialog(run);
-      else if (this.vm.treePanel && !run.pauseReasons.some(r=>['error','orientation','hidden'].includes(r))) html = usesFreeSkills(run)?deepTreePanel(run,this.vm):treePanel(run,this.vm);
+      else if (this.vm.treePanel && !run.pauseReasons.some(r=>['error','orientation','hidden'].includes(r))) html = usesFreeSkills(run) ? deepTreePanel(run, this.vm) : treePanel(run, this.vm);
       else if (run.pauseReasons.some(r => r !== 'upgrade' && r !== 'boss-intro')) html = pauseDialog(run, this.save, this.vm);
       else if (run.draft) html = upgradeDialog(run, this.vm);
     }
@@ -270,7 +270,7 @@ export class GameApp {
   }
   private execute(cmd: Command) {
     const run = this.save.activeRun; if (!run) return false;
-    if (cmd.type === 'cast' && this.tacticalTimeline.active(run)) return false;
+    if ((cmd.type === 'cast' || cmd.type === 'commander-skill') && this.tacticalTimeline.active(run)) return false;
     const accepted = command(run, cmd);
     if (accepted && cmd.type === 'cast') {
       this.tacticalTimeline.play(run);

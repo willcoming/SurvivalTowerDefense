@@ -110,7 +110,7 @@ test('new players start muted and their chosen volume survives reload', async ({
   await ready(page);
   expect(await page.evaluate(()=>(window.__game as typeof window.__game & {audio():{musicVolume:number;sfxVolume:number}}).audio())).toMatchObject({musicVolume:0,sfxVolume:0});
   await page.getByRole('button',{name:'設定',exact:true}).click();
-  await page.getByRole('button',{name:'音量與設定說明',exact:true}).click();
+  await expect(page.getByRole('slider',{name:'音樂音量',exact:true})).toBeVisible();
   await page.getByRole('slider',{name:'音樂音量',exact:true}).press('ArrowRight');
   expect(await page.evaluate(()=>(window.__game as typeof window.__game & {audio():{musicVolume:number;sfxVolume:number}}).audio())).toMatchObject({musicVolume:0.05,sfxVolume:0});
   await page.evaluate(()=>window.__game.save());await page.reload();await page.waitForFunction(()=>!!window.__game);

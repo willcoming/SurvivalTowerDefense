@@ -104,7 +104,11 @@ class OfflineGame {
       event.preventDefault(); this.promptEvent = event as InstallPrompt; this.installMessage = ''; this.emit();
     });
     window.addEventListener('appinstalled', () => { this.installed = true; this.promptEvent = null; this.emit(); });
-    if (!import.meta.env.PROD) { this.emit(); return; }
+    if (!import.meta.env.PROD) {
+      const { retireDevelopmentWorker } = await import('./dev-offline');
+      await retireDevelopmentWorker();
+      this.emit(); return;
+    }
     window.addEventListener('online', () => { this.online = true; this.emit(); void this.retry(); });
     window.addEventListener('offline', () => { this.online = false; this.emit(); });
     if (!window.isSecureContext || !('serviceWorker' in navigator) || !('caches' in window)) {

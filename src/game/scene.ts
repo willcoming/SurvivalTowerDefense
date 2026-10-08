@@ -1,3 +1,7 @@
+import { NaturalEffects } from './natural-effects';
+import { ComboEffects } from './combo-effects';
+import { CrisisEffects } from './crisis-effects';
+import { UltimateEnergyEffects } from './ultimate-energy-effects';
 import { hasUltimate } from '../sim/ultimates';
 import { ultimateForForm, usesReworkedSkills } from '../data/reworked-skills';
 import { assetUrl } from '../assets';
@@ -42,6 +46,9 @@ export class BattleScene extends Phaser.Scene {
   private areas!: AreaEffects;
   private statuses!: StatusEffects;
   private damageNumbers!: DamageNumbers;
+  private combos!: ComboEffects;
+  private crisis!: CrisisEffects;
+  private ultimateEnergy!: UltimateEnergyEffects;
   private focusOverlay!: FocusOverlay;
   private lastImpactAt = -Infinity;
   private impactCount = 0;
@@ -52,6 +59,7 @@ export class BattleScene extends Phaser.Scene {
   private rangeGraphics!: Phaser.GameObjects.Graphics;
   private rangeKey = "";
   private warnings!: Phaser.GameObjects.Graphics;
+  private warningGlow!: NaturalEffects;
   private worldLabels: Phaser.GameObjects.Text[] = [];
   private detail: Detail = 'full'; private slowFrames = 0; private peakEffects = 0;
   private warning!: Phaser.GameObjects.Text;
@@ -93,11 +101,14 @@ export class BattleScene extends Phaser.Scene {
     const shade = this.add.graphics(); shade.fillStyle(0x062732, .16).fillRect(0, 0, 390, 520);
     // The source scenery contains decorative empty slots; cover that unused strip.
     shade.fillStyle(0x102630, 1).fillRect(0, 425, 390, 95);
-    shade.lineStyle(1, 0x72ead8, .35).beginPath().moveTo(0, 450).lineTo(390, 450).strokePath();
     this.worldGraphics = this.add.graphics().setVisible(false);
     this.worldTexture = this.add.renderTexture(0, 0, 390, 520).setOrigin(0).setDepth(5);
     this.graphics = this.add.graphics().setDepth(LAYERS.effects);
     this.warnings = this.add.graphics().setDepth(LAYERS.warnings);
+    this.warningGlow = new NaturalEffects(this,LAYERS.warnings-1,12);
+    this.combos = new ComboEffects(this);
+    this.crisis = new CrisisEffects(this);
+    this.ultimateEnergy = new UltimateEnergyEffects(this);
     this.actors = new CombatActors(this, this.read, this.speed, this.spriteKeys, this.timeline);
     this.materials = new MaterialEffects(this);
     this.areas = new AreaEffects(this);
@@ -112,6 +123,7 @@ export class BattleScene extends Phaser.Scene {
     canvas.tabIndex = 0;
     canvas.setAttribute('aria-label', '戰場集火：點選敵人鎖定，再點一次取消。鍵盤方向鍵選擇目標，Enter 鎖定或取消。');
     const focusKey = (event: KeyboardEvent) => {
+      if (event.defaultPrevented) return;
       if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) return;
       event.preventDefault();
       const run = this.read();
@@ -178,18 +190,15 @@ export class BattleScene extends Phaser.Scene {
     this.worldTexture.clear().draw(this.worldGraphics);
   }
   private drawWarnings(run: RunState) {
-    const g = this.warnings; g.clear();
-    for (const e of run.enemies) if (e.chargeKind && !e.chargeCancelled) {
-      const r = enemySize(e.defId) * .65;
-      g.fillStyle(0xff674e, .10).fillTriangle(e.x, e.y + r, e.x - 27, 450, e.x + 27, 450);
-      g.lineStyle(2.5, 0xffa06e, 1).strokeCircle(e.x, e.y, r);
-      if(e.defId.startsWith('B')) {
-        const duration=(e.defId==='B03'?3:2)*30,progress=Math.max(0,Math.min(1,1-(e.chargeUntil-run.tick)/duration));
-        g.lineStyle(5,0xffd58c,.9).beginPath().arc(e.x,e.y,r+5,-Math.PI/2,-Math.PI/2+progress*Math.PI*2,false).strokePath();
-        g.lineStyle(3,0xff9b73,.85).strokeEllipse(e.x,448,70+progress*45,14);
-      }
-      g.fillStyle(0xffa06e,.8).fillTriangle(e.x-4,444,e.x+4,444,e.x,450);
+    const g = this.warnings; g.clear();this.warningGlow.begin();
+    for (const e of run.enemies) if (e.hp>0&&e.chargeKind&&!e.chargeCancelled&&e.chargeUntil>run.tick) {
+      const r=enemySize(e.defId)*.5;
+      const duration=(e.defId==='B03'?3:2)*30,progress=Math.max(0,Math.min(1,1-(e.chargeUntil-run.tick)/duration));
+      this.warningGlow.glow(e.x,e.y,r*1.7,0xff9360,.12+progress*.13);
+      // A small local cue accompanies the existing, readable charge countdown.
+      g.fillStyle(0xffbc83,.8).fillTriangle(e.x-3,e.y-r-10,e.x+3,e.y-r-10,e.x,e.y-r-5);
     }
+    this.warningGlow.end();
   }
   update() {
     const run = this.read(); if (!this.graphics || !this.actors) return;
@@ -208,11 +217,14 @@ export class BattleScene extends Phaser.Scene {
     this.focusOverlay.update(run, now, this.actors.origin, reduced);
     this.weaknesses.update(run);
     this.bossAssault.update(run,now,fresh,reduced);
-    const impact = fresh.some(e => isCriticalHit(e) || e.kind === 'hit' && !isDot(e) && e.enemyDefId?.startsWith('B') && (e.value ?? 0) > 0 || e.kind === 'tactical' && e.skill === 'ultimate');
+    const impact = fresh.some(e => e.kind === 'combo_emp' || isCriticalHit(e) || e.kind === 'hit' && !isDot(e) && e.enemyDefId?.startsWith('B') && (e.value ?? 0) > 0 || e.kind === 'tactical' && e.skill === 'ultimate');
     if (!reduced && run.phase === 'running' && impact && now - this.lastImpactAt >= 350) {
       this.cameras.main.shake(100, .005);
       this.lastImpactAt = now; this.impactCount++;
     }
+    this.combos.update(run, fresh, now, reduced);
+    this.crisis.update(fresh, now, reduced);
+    this.ultimateEnergy.update(run, fresh, now, reduced);
     this.entrance.update(run, this.detail);
     const rangeKey = `${key}:${this.selectedRange()}`;
     if (rangeKey !== this.rangeKey) { this.rangeKey = rangeKey; drawRange(this.rangeGraphics, run, this.selectedRange()); }
@@ -240,7 +252,7 @@ export class BattleScene extends Phaser.Scene {
   }
   diagnostics() {
     const bounds = this.warning.getBounds(), selected = this.selectedRange(), run = this.read();
-    return { ...this.areas.diagnostics(), ...this.actors.diagnostics(), ...this.materials.diagnostics(), ...this.projectiles.diagnostics(), ...this.statuses.diagnostics(), ...this.damageNumbers.diagnostics(), ...this.focusOverlay.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(), impactCount: this.impactCount,
+    return { ...this.combos.diagnostics(), ...this.crisis.diagnostics(), ...this.ultimateEnergy.diagnostics(), ...this.areas.diagnostics(), ...this.actors.diagnostics(), ...this.materials.diagnostics(), ...this.projectiles.diagnostics(), ...this.statuses.diagnostics(), ...this.damageNumbers.diagnostics(), ...this.focusOverlay.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(), impactCount: this.impactCount,
       bossIntro: run.bossIntro ? { ...run.bossIntro, type: run.enemies.find(e => e.id === run.bossIntro?.enemyId)?.defId, visible: true, depth: 30 } : null,
       range: selected ? { id: selected, radius: weaponRange(run, selected), insideIds: run.enemies.filter(e => inWeaponRange(run, selected, e)).map(e => e.id) } : null, detail: this.detail, activeEffects: this.flashes.length, peakEffects: this.peakEffects,
       warnings: { visible: this.warning.visible, text: this.warning.text, top: bounds.top, bottom: bounds.bottom, depth: this.warning.depth, geometryDepth: this.warnings.depth },

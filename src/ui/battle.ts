@@ -63,6 +63,7 @@ export function updateHud(run: RunState, speed: BattleSpeed = 1, autoTactical = 
   width('wall-bar', `${Math.max(0, run.wallHp / run.wallMaxHp * 100)}%`);
   const critical = run.wallHp / run.wallMaxHp < .3;
   if (changed('wall:critical', String(critical))) node('wall-bar')?.classList.toggle('critical', critical);
+  root.closest('.battle-phone')?.classList.toggle('threat-critical', critical);
   set('wave-text', run.waveFlow&&run.waveFlow.wave>operationProfile(run).waves.length?'首領戰':!operationProfile(run).unlimited && run.tick >= operationProfile(run).bossAt * 30 ? '首領降臨' : `WAVE ${Math.min(operationProfile(run).waves.length, currentWave(run))} / ${operationProfile(run).waves.length}`);
   set('time-text', operationProfile(run).unlimited ? `已戰鬥 ${clock(run.tick)}` : clock(operationProfile(run).deadline * 30 - run.tick));
   set('boss-countdown', operationProfile(run).unlimited ? (run.bossKilled ? '清除殘敵' : run.bossSpawned ? '首領降臨' : run.waveFlow?(currentWave(run)>=operationProfile(run).waves.length?'本波結束後首領登場':currentWave(run)===operationProfile(run).waves.length-1?'距首領還有 1 波':''):`首領倒數 ${clock(Math.max(0,operationProfile(run).bossAt*30-run.tick))}`) : ''); set('evolution-text', `${isHundred(run)?`已完成 ${hundredCleared(run)} 波 · `:''}${usesFreeSkills(run)?'終極':'進化'} ${run.evolvedCount}/${run.evolutionLimit}`);
