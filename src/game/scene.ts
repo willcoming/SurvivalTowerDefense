@@ -2,8 +2,7 @@ import { NaturalEffects } from './natural-effects';
 import { ComboEffects } from './combo-effects';
 import { CrisisEffects } from './crisis-effects';
 import { UltimateEnergyEffects } from './ultimate-energy-effects';
-import { hasUltimate } from '../sim/ultimates';
-import { ultimateForForm, usesReworkedSkills } from '../data/reworked-skills';
+import { UltimateBattlefieldEffects } from './ultimate-battlefield-effects';
 import { assetUrl } from '../assets';
 import Phaser from 'phaser';
 import { CHARACTER_MAP, ENEMY_MAP, STAGE_MAP } from '../data/content';
@@ -49,6 +48,7 @@ export class BattleScene extends Phaser.Scene {
   private combos!: ComboEffects;
   private crisis!: CrisisEffects;
   private ultimateEnergy!: UltimateEnergyEffects;
+  private ultimateBattlefield!: UltimateBattlefieldEffects;
   private focusOverlay!: FocusOverlay;
   private lastImpactAt = -Infinity;
   private impactCount = 0;
@@ -109,6 +109,7 @@ export class BattleScene extends Phaser.Scene {
     this.combos = new ComboEffects(this);
     this.crisis = new CrisisEffects(this);
     this.ultimateEnergy = new UltimateEnergyEffects(this);
+    this.ultimateBattlefield = new UltimateBattlefieldEffects(this);
     this.actors = new CombatActors(this, this.read, this.speed, this.spriteKeys, this.timeline);
     this.materials = new MaterialEffects(this);
     this.areas = new AreaEffects(this);
@@ -175,15 +176,6 @@ export class BattleScene extends Phaser.Scene {
     if (charging) { const stun = Math.max(0, Math.ceil((charging.stunImmuneUntil - run.tick) / 30)), move = Math.max(0, Math.ceil((charging.moveImmuneUntil - run.tick) / 30)); const immunity = [stun ? `免暈 ${stun}s` : '', move ? `免位移 ${move}s` : ''].filter(Boolean).join(' / '); this.warning.setText(`⚠ ${ENEMY_MAP[charging.defId].name} · ${Math.max(0,(charging.chargeUntil-run.tick)/30).toFixed(1)}s\n${immunity || '蓄力中 · 可用控場打斷'}`); }
     const shield = run.shields.reduce((sum, s) => sum + s.value, 0);
     if (shield > 0) { g.fillStyle(0x69eedc, .08).fillRect(0, 432, 390, 18); }
-    if (usesReworkedSkills(run)) run.config.squadIds.forEach((id, i) => {
-      const x = 195 + (i - (run.config.squadIds.length - 1) / 2) * 70;
-      const weapon = run.weapons.find(w => w.id === id)!;
-      const acquired = hasUltimate(run, id);
-      const duration = ultimateForForm(id, run.config.forms?.[id]).cooldown * 30;
-      const progress = acquired ? Math.max(0, Math.min(1, 1 - ((weapon.ultimateReadyAt ?? 0) - run.tick) / duration)) : 0;
-      g.fillStyle(0x52636b, .8).fillRoundedRect(x - 23, 514, 46, 3, 1.5);
-      if (progress > 0) g.fillStyle(progress === 1 ? 0xefcf83 : 0x89d8be, 1).fillRoundedRect(x - 23, 514, 46 * progress, 3, 1.5);
-    });
     this.drawWarnings(run);
     // Rasterize unchanged geometry once. The same 390×520 detail is retained;
     // World overlays do not need to be tessellated again every frame.
@@ -224,7 +216,8 @@ export class BattleScene extends Phaser.Scene {
     }
     this.combos.update(run, fresh, now, reduced);
     this.crisis.update(fresh, now, reduced);
-    this.ultimateEnergy.update(run, fresh, now, reduced);
+    this.ultimateEnergy.update(run, fresh, now, reduced, this.actors.origin);
+    this.ultimateBattlefield.update(run, fresh, now, reduced, this.actors.origin);
     this.entrance.update(run, this.detail);
     const rangeKey = `${key}:${this.selectedRange()}`;
     if (rangeKey !== this.rangeKey) { this.rangeKey = rangeKey; drawRange(this.rangeGraphics, run, this.selectedRange()); }
@@ -252,7 +245,7 @@ export class BattleScene extends Phaser.Scene {
   }
   diagnostics() {
     const bounds = this.warning.getBounds(), selected = this.selectedRange(), run = this.read();
-    return { ...this.combos.diagnostics(), ...this.crisis.diagnostics(), ...this.ultimateEnergy.diagnostics(), ...this.areas.diagnostics(), ...this.actors.diagnostics(), ...this.materials.diagnostics(), ...this.projectiles.diagnostics(), ...this.statuses.diagnostics(), ...this.damageNumbers.diagnostics(), ...this.focusOverlay.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(), impactCount: this.impactCount,
+    return { ...this.combos.diagnostics(), ...this.crisis.diagnostics(), ...this.ultimateEnergy.diagnostics(), ...this.ultimateBattlefield.diagnostics(), ...this.areas.diagnostics(), ...this.actors.diagnostics(), ...this.materials.diagnostics(), ...this.projectiles.diagnostics(), ...this.statuses.diagnostics(), ...this.damageNumbers.diagnostics(), ...this.focusOverlay.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(), impactCount: this.impactCount,
       bossIntro: run.bossIntro ? { ...run.bossIntro, type: run.enemies.find(e => e.id === run.bossIntro?.enemyId)?.defId, visible: true, depth: 30 } : null,
       range: selected ? { id: selected, radius: weaponRange(run, selected), insideIds: run.enemies.filter(e => inWeaponRange(run, selected, e)).map(e => e.id) } : null, detail: this.detail, activeEffects: this.flashes.length, peakEffects: this.peakEffects,
       warnings: { visible: this.warning.visible, text: this.warning.text, top: bounds.top, bottom: bounds.bottom, depth: this.warning.depth, geometryDepth: this.warnings.depth },

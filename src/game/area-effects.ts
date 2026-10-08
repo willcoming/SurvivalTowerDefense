@@ -1,3 +1,5 @@
+import { impactMaterial } from './impact-material';
+import { ownsUltimateVfx } from './ultimate-battlefield-effects';
 import type Phaser from 'phaser';
 import type { DamageType,RunState,VisualEvent } from '../sim/types';
 import { attackType } from '../data/forms';
@@ -11,7 +13,8 @@ export class AreaEffects {
  private bodies:{seq:number;type:DamageType;parts:number}[]=[];
  private fieldBodies:{id:number;parts:number}[]=[];
  private aspect=1;
- private sprite(key:string,frame:number,x:number,y:number,size:number,alpha:number,angle=0,width=size,tint?:number,footprint=false){
+ private sprite(key:string,frame:number|undefined,x:number,y:number,size:number,alpha:number,angle=0,width=size,tint?:number,footprint=false){
+  if(key==='combat-fx'){const material=impactMaterial(frame??0);key=material.key;frame=material.frame;tint??=material.color;}
   if(alpha<=0)return;
   if(footprint)this.reserved=Math.max(0,this.reserved-1);
   if(this.used>=this.limit||!footprint&&this.used>=this.limit-this.reserved)return;
@@ -56,9 +59,9 @@ export class AreaEffects {
  constructor(scene:Phaser.Scene){this.g=scene.add.graphics().setDepth(2);}
  update(run:RunState,events:readonly VisualEvent[],now:number,detail:Detail){
   if(run!==this.run){this.run=run;this.store=new AreaCueStore();}
-  this.store.update(events,now);const g=this.g;g.clear();
+  this.store.update(events.filter(e=>!ownsUltimateVfx(e)),now);const g=this.g;g.clear();
   this.used=0;this.bodies=[];this.fieldBodies=[];
-  const activeFields=run.fields.filter(f=>f.expires>run.tick);
+  const activeFields=run.fields.filter(f=>f.expires>run.tick&&!(f.ultimate&&['C01','C04'].includes(f.source)));
   // Every real footprint has priority over smoke and fragments from earlier effects.
   this.reserved=activeFields.length+this.store.cues.reduce((count,c)=>count+(c.event.areaShape==='line'?0:c.event.areaShape==='world'||c.event.areaShape==='wall-band'?(detail==='compact'?3:6):1),0);
   this.limit=Math.max(detail==='compact'?88:160,this.reserved);

@@ -2,209 +2,109 @@ import type Phaser from 'phaser';
 import { NaturalEffects } from './natural-effects';
 import { hasUltimate } from '../sim/ultimates';
 import { ultimateForForm, usesReworkedSkills } from '../data/reworked-skills';
-import { attackType } from '../data/forms';
+import { attackType, ELEMENTS } from '../data/forms';
+import { CHARACTER_MAP } from '../data/content';
+import type { Origin } from './effects';
 import type { CharacterId, DamageType, RunState, VisualEvent } from '../sim/types';
 
-const ELEMENT_COLORS: Record<DamageType, number> = {
-  thermal: 0xff8c42,
-  plasma: 0x9b8fff,
-  arc: 0x70d8ff,
-  gravity: 0x5fe0bf,
-  kinetic: 0xffdf88,
+const COLORS: Record<DamageType, number> = { thermal:0xffad57, plasma:0xa7b8ff, arc:0x83dcff, gravity:0x68dfbf, kinetic:0xddeaff };
+const TITLES: Partial<Record<CharacterId, string>> = {
+  C01:'瑪音 · 【軌道聚焦炎爆】', C02:'雷娜 · 【廣域超導爆震】', C03:'凜月 · 【極限貫穿光矛】',
+  C04:'米菈 · 【引力塌縮黑洞】', C05:'芙蕾 · 【集束微型飛彈】',
 };
+interface Banner { source:CharacterId; title:string; element:string; color:number; born:number }
+interface EnergyBar { id:CharacterId; x:number; y:number; width:number; height:number; progress:number; ready:boolean; color:number }
 
-const ELEMENT_SPARK_COLORS: Record<DamageType, number> = {
-  thermal: 0xffbe6b,
-  plasma: 0xb8e3ff,
-  arc: 0x9eecff,
-  gravity: 0x8affdc,
-  kinetic: 0xfff3c4,
-};
-
-interface CastBurst {
-  x: number;
-  y: number;
-  born: number;
-  duration: number;
-  color: number;
-}
-
+/** Energy stays below portraits; this module owns the single cooldown track. */
 export class UltimateEnergyEffects {
-  private g: Phaser.GameObjects.Graphics;
-  private glow: NaturalEffects;
-  private bursts: CastBurst[] = [];
-  private chargedCount = 0;
-  private readyCount = 0;
-
-  constructor(scene: Phaser.Scene) {
-    this.g = scene.add.graphics().setDepth(8);
-    this.glow = new NaturalEffects(scene, 6, 64);
+  private bars: Phaser.GameObjects.Graphics;
+  private floor: NaturalEffects;
+  private glints: NaturalEffects;
+  private dim: Phaser.GameObjects.Rectangle;
+  private banner: Phaser.GameObjects.Container;
+  private plate: Phaser.GameObjects.Graphics;
+  private element: Phaser.GameObjects.Text;
+  private title: Phaser.GameObjects.Text;
+  private queue: Banner[] = [];
+  private current: Banner | null = null;
+  private lastCast = -Infinity;
+  private lastNow = 0;
+  private progress = new Map<CharacterId,number>();
+  private energyBars: EnergyBar[] = [];
+  private castCount = 0;
+  private recent: { source:CharacterId; born:number }[] = [];
+  constructor(private scene:Phaser.Scene) {
+    this.bars=scene.add.graphics().setDepth(8);
+    this.floor=new NaturalEffects(scene,6,24);
+    this.glints=new NaturalEffects(scene,8.1,24);
+    // Above scenery, below combatants and luminous attacks; never covers portraits.
+    this.dim=scene.add.rectangle(195,212.5,390,425,0x020b16,0).setDepth(1.8);
+    this.plate=scene.add.graphics();
+    this.element=scene.add.text(-164,0,'',{fontFamily:'sans-serif',fontSize:'10px',fontStyle:'bold',color:'#a7dfea'}).setOrigin(0,.5);
+    this.title=scene.add.text(-109,0,'',{fontFamily:'sans-serif',fontSize:'12px',fontStyle:'bold',color:'#fff0ce'}).setOrigin(0,.5);
+    this.banner=scene.add.container(195,435,[this.plate,this.element,this.title]).setDepth(19).setVisible(false);
   }
-
-  update(run: RunState, fresh: VisualEvent[], now: number, reduced: boolean) {
-    this.g.clear();
-    this.glow.begin();
-    this.chargedCount = 0;
-    this.readyCount = 0;
-
-    // Detect fresh ultimate casts from squad members
-    for (const e of fresh) {
-      if (e.kind === 'tactical' && e.skill === 'ultimate' && e.source) {
-        const ids = run.config.squadIds;
-        const i = ids.indexOf(e.source as CharacterId);
-        if (i >= 0) {
-          const x = 195 + (i - (ids.length - 1) / 2) * 70;
-          const type = attackType(run, e.source as CharacterId);
-          this.bursts.push({
-            x,
-            y: 480,
-            born: now,
-            duration: 480,
-            color: ELEMENT_COLORS[type] ?? 0xffdf6a,
-          });
+  update(run:RunState,fresh:VisualEvent[],now:number,reduced:boolean,origin:Origin) {
+    const elapsed=Math.max(0,Math.min(80,now-this.lastNow));this.lastNow=now;
+    for(const event of fresh)if(event.kind==='tactical'&&event.skill==='ultimate'&&event.source&&run.config.squadIds.includes(event.source)){
+      const source=event.source,type=attackType(run,source);
+      this.queue.push({source,title:TITLES[source]??`${CHARACTER_MAP[source].name} · 【${ultimateForForm(source,run.config.forms?.[source]).name}】`,element:ELEMENTS[type].name,color:COLORS[type],born:now});
+      this.recent.push({source,born:now});this.lastCast=now;this.castCount++;
+    }
+    this.queue=this.queue.slice(-8);this.recent=this.recent.filter(c=>now-c.born<650);
+    const age=now-this.lastCast;
+    this.dim.setAlpha(reduced?0:age<180?.2:Math.max(0,.2*(1-(age-180)/120)));
+    this.bars.clear();this.floor.begin();this.glints.begin();this.energyBars=[];
+    if(usesReworkedSkills(run))run.config.squadIds.forEach((id,i)=>{
+      const weapon=run.weapons.find(w=>w.id===id);if(!weapon||!hasUltimate(run,id))return;
+      const x=195+(i-(run.config.squadIds.length-1)/2)*70;
+      const duration=ultimateForForm(id,run.config.forms?.[id]).cooldown*30;
+      const value=Math.max(0,Math.min(1,1-((weapon.ultimateReadyAt??0)-run.tick)/duration));
+      const previous=this.progress.get(id)??value;
+      const progress=value<previous||value===1?value:previous+(value-previous)*Math.min(1,elapsed/90);
+      this.progress.set(id,progress);
+      const ready=value===1,color=ready?0xffd681:COLORS[attackType(run,id)];
+      const pulse=reduced?.5:.5+.5*Math.sin(now*Math.PI*2/(ready?400:2200));
+      const alpha=ready?.12+.06*pulse:.08+.08*progress+.02*pulse;
+      this.floor.wash(x,506,36+20*progress,12+5*progress,color,alpha);
+      if(ready)this.floor.ring(x,506,48,color,.08+.05*pulse,.3);
+      const g=this.bars;
+      g.fillStyle(0x263c49,.95).fillRoundedRect(x-23,513,46,5.5,1.5);
+      g.fillStyle(0x06131e,.95).fillRoundedRect(x-22,514,44,3.5,1.5);
+      const width=44*progress;
+      if(width>.1)g.fillStyle(color,.95).fillRoundedRect(x-22,514,width,3.5,Math.min(1.5,width/2));
+      // A clipped, low-contrast shimmer remains within the filled track.
+      if(!reduced&&width>3){
+        const sweep=((now/1900+i*.17)%1)*54-5;
+        for(let n=0;n<7;n++){
+          const px=sweep+n,left=Math.max(0,px),right=Math.min(width,px+1);
+          if(right>left)g.fillStyle(0xffffff,.16*Math.sin(n/6*Math.PI)).fillRect(x-22+left,514,right-left,3.5);
         }
       }
-    }
-
-    // Render ally ultimate cast bursts
-    this.bursts = this.bursts.filter(b => now - b.born < b.duration);
-    for (const b of this.bursts) {
-      const t = (now - b.born) / b.duration;
-      const alpha = 1 - t;
-      this.glow.glow(b.x, b.y, 24 + t * 80, b.color, alpha * (reduced ? 0.45 : 0.85));
-      this.glow.glow(b.x, b.y, 12 + t * 45, 0xffffff, alpha * (reduced ? 0.55 : 0.95));
-      // Ring particle flare
-      if (!reduced) {
-        const flareCount = 6;
-        for (let f = 0; f < flareCount; f++) {
-          const a = f * Math.PI * 2 / flareCount + t * 2;
-          const r = 16 + t * 48;
-          this.g.fillStyle(0xfff8d6, alpha * 0.85).fillCircle(b.x + Math.cos(a) * r, b.y + Math.sin(a) * r, 2.5);
-        }
+      if(ready)this.glints.wash(x,516,48,6,0xffd784,.14+.05*pulse);
+      if(progress>=.75){
+        const p=origin(id);
+        this.glints.glow(p.x,p.y,9,ready?0xffedbd:color,(ready?.2:.08)+.04*pulse);
       }
-    }
-
-    if (!usesReworkedSkills(run)) {
-      this.glow.end();
-      return;
-    }
-
-    const squadIds = run.config.squadIds;
-    squadIds.forEach((id, i) => {
-      const x = 195 + (i - (squadIds.length - 1) / 2) * 70;
-      const weapon = run.weapons.find(w => w.id === id);
-      if (!weapon) return;
-
-      const acquired = hasUltimate(run, id);
-      if (!acquired) return;
-
-      const duration = ultimateForForm(id, run.config.forms?.[id]).cooldown * 30;
-      const progress = Math.max(0, Math.min(1, 1 - ((weapon.ultimateReadyAt ?? 0) - run.tick) / duration));
-      const type = attackType(run, id);
-      const color = ELEMENT_COLORS[type] ?? 0xffdf6a;
-      const sparkColor = ELEMENT_SPARK_COLORS[type] ?? 0xffffff;
-
-      if (progress < 1) {
-        // CD Charging Phase: accumulating energy visual feedback
-        this.chargedCount++;
-
-        // 1. Floor energy pool (expands & brightens with progress)
-        const poolSize = 22 + 24 * progress;
-        const poolAlpha = (0.15 + 0.35 * progress) * (reduced ? 0.6 : 1);
-        this.glow.glow(x, 506, poolSize, color, poolAlpha);
-
-        // 2. Character body aura (subtle ambient glow building up)
-        if (progress > 0.25) {
-          const bodyGlowSize = 28 + 20 * progress;
-          const bodyGlowAlpha = (0.08 + 0.22 * progress) * (reduced ? 0.5 : 0.8);
-          this.glow.glow(x, 480, bodyGlowSize, color, bodyGlowAlpha);
-        }
-
-        // 3. Rising energy sparks (density and height increase with charge)
-        if (!reduced) {
-          const sparkCount = Math.floor(4 + 6 * progress);
-          for (let s = 0; s < sparkCount; s++) {
-            const seed = i * 13 + s * 19;
-            const cycleRate = 0.0011 + 0.0009 * progress;
-            const phase = (now * cycleRate + seed * 0.17) % 1;
-            const sway = Math.sin(phase * Math.PI * 3 + seed) * (10 + 4 * progress);
-            const sparkX = x + sway;
-            const sparkY = 506 - phase * (24 + 32 * progress);
-            const sparkAlpha = Math.sin(phase * Math.PI) * (0.45 + 0.55 * progress);
-            const sparkSize = 1.6 + 1.2 * progress;
-
-            // Outer soft glow for each spark
-            this.g.fillStyle(color, sparkAlpha * 0.35).fillCircle(sparkX, sparkY, sparkSize * 1.8);
-            // Core hot center
-            this.g.fillStyle(sparkColor, sparkAlpha).fillCircle(sparkX, sparkY, sparkSize);
-          }
-        }
-
-        // 4. Enhanced energy bar (48px wide, 5px high)
-        // Background track
-        this.g.fillStyle(0x0a161e, 0.9).fillRoundedRect(x - 24, 513, 48, 5, 2.5);
-        // Border highlight
-        this.g.fillStyle(0x1d3644, 0.6).fillRoundedRect(x - 24, 513, 48, 1, 0.5);
-
-        // Filled energy
-        const fillW = Math.max(4, Math.floor(48 * progress));
-        this.g.fillStyle(color, 0.95).fillRoundedRect(x - 24, 513, fillW, 5, 2.5);
-
-        // Dynamic shimmer wave running across the filled energy bar
-        if (!reduced && fillW > 8) {
-          const shimmerPos = ((now * 0.0018) % 1.2) * 48;
-          if (shimmerPos <= fillW) {
-            this.g.fillStyle(0xffffff, 0.65).fillRoundedRect(Math.max(x - 24, x - 24 + shimmerPos - 4), 513, 5, 5, 2);
-          }
-        }
-      } else {
-        // 100% Ready Phase: Primed golden energy pulse
-        this.readyCount++;
-        const pulse = 0.5 + 0.5 * Math.sin(now / 150);
-        const auraAlpha = (0.35 + 0.25 * pulse) * (reduced ? 0.65 : 1);
-
-        // Full body golden energy pulse
-        this.glow.glow(x, 480, 42 + 10 * pulse, 0xffde65, auraAlpha);
-        this.glow.glow(x, 506, 34 + 8 * pulse, 0xffea85, auraAlpha * 1.2);
-        this.glow.glow(x, 460, 24 + 6 * pulse, 0xfff6b8, auraAlpha * 0.9);
-
-        // Orbiting golden energy orbs
-        if (!reduced) {
-          for (let s = 0; s < 4; s++) {
-            const angle = now / 340 + s * (Math.PI / 2);
-            const orbX = x + Math.cos(angle) * 18;
-            const orbY = 480 + Math.sin(angle) * 14;
-            // Glow
-            this.g.fillStyle(0xffe87a, 0.4).fillCircle(orbX, orbY, 4);
-            // Core
-            this.g.fillStyle(0xfffff0, 0.95).fillCircle(orbX, orbY, 2.2);
-          }
-        }
-
-        // Ready badge / star cue above character head
-        const starY = 452 - pulse * 3;
-        this.g.fillStyle(0xffe570, 0.9 + 0.1 * pulse).fillCircle(x, starY, 3);
-        this.g.fillStyle(0xffffff, 1).fillCircle(x, starY, 1.5);
-        this.glow.glow(x, starY, 16 + 6 * pulse, 0xffeb8a, 0.5 + 0.3 * pulse);
-
-        // Golden primed energy bar
-        this.g.fillStyle(0x0a161e, 0.95).fillRoundedRect(x - 24, 513, 48, 5, 2.5);
-        this.g.fillStyle(0xffd545, 1).fillRoundedRect(x - 24, 513, 48, 5, 2.5);
-        // Golden glow below bar
-        this.glow.glow(x, 515, 30 + 8 * pulse, 0xffea7a, 0.45 + 0.25 * pulse);
-      }
+      this.energyBars.push({id,x,y:514,width:44,height:3.5,progress,ready,color});
     });
-
-    this.glow.end();
+    this.floor.end();this.glints.end();
+    if(this.current&&now-this.current.born>=590)this.current=null;
+    if(!this.current&&this.queue.length){this.current=this.queue.shift()!;this.current.born=now;}
+    this.banner.setVisible(!!this.current);
+    if(this.current){
+      const b=this.current,t=now-b.born,enter=Math.min(1,t/100),exit=Math.max(0,(t-450)/140);
+      const aspect=this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY;
+      this.banner.setScale(1,aspect).setPosition(195+(reduced?0:-((1-enter)**3)*90+exit*exit*75),435).setAlpha(Math.min(1,enter*2)*(1-exit));
+      const g=this.plate;g.clear();
+      g.fillStyle(0x071d2d,.94).fillPoints([{x:-177,y:-11},{x:166,y:-11},{x:177,y:0},{x:177,y:11},{x:-166,y:11},{x:-177,y:0}],true);
+      g.fillStyle(b.color,.5).fillRect(-165,-10,322,1);
+      g.fillStyle(0xffd88f,.16).fillRect(-156,10,320,1);
+      this.element.setText(`[${b.element}]`);
+      this.title.setText(b.title);
+    }
   }
-
-  diagnostics() {
-    return {
-      ultimateEnergy: {
-        chargedCount: this.chargedCount,
-        readyCount: this.readyCount,
-        activeBursts: this.bursts.length,
-      },
-    };
-  }
+  diagnostics(){return {ultimateEnergy:{chargedCount:this.energyBars.filter(b=>!b.ready).length,readyCount:this.energyBars.filter(b=>b.ready).length,activeBursts:this.recent.length,
+    bars:this.energyBars,castCount:this.castCount,dimAlpha:this.dim.alpha,banner:this.current?{source:this.current.source,title:this.current.title,y:435,height:22,visible:this.banner.visible,alpha:this.banner.alpha}:null,
+    queued:this.queue.length,allocated:this.floor.allocated+this.glints.allocated}};}
 }

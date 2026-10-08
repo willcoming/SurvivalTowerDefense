@@ -1,3 +1,5 @@
+import { impactMaterial } from './impact-material';
+import { ownsUltimateVfx } from './ultimate-battlefield-effects';
 import type Phaser from 'phaser';
 import { droneX } from './drone-formation';
 import { AMMO_FRAMES } from './projectile-visuals';
@@ -25,7 +27,8 @@ export class MaterialEffects {
   private limit = 144;
   constructor(private scene: Phaser.Scene) {}
 
-  private draw(key: string, frame: number, x: number, y: number, size: number, alpha = 1, angle = 0, width = size, depth = LAYERS.effects + .5, tint?:number) {
+  private draw(key: string, frame: number | undefined, x: number, y: number, size: number, alpha = 1, angle = 0, width = size, depth = LAYERS.effects + .5, tint?:number) {
+    if(key==='combat-fx'){const material=impactMaterial(frame??0);key=material.key;frame=material.frame;tint??=material.color;}
     if (this.used >= this.limit) return;
     let sprite = this.sprites[this.used++];
     if (!sprite) { sprite = this.scene.add.image(x, y, key, frame); this.sprites.push(sprite); }
@@ -66,7 +69,9 @@ export class MaterialEffects {
     const ordered = [...effects].sort((a, b) => visualPriority(b.event) - visualPriority(a.event));
     let smallImpacts = 0;
     for (const fx of ordered) {
-      const e = fx.event, t = Math.max(0, Math.min(1, (now - fx.born) / fx.duration));
+      const e = fx.event;
+      if (ownsUltimateVfx(e)) continue;
+      const t = Math.max(0, Math.min(1, (now - fx.born) / fx.duration));
       const phase = Math.min(3, Math.floor(t * 4)), alpha = t < .7 ? 1 : (1 - t) / .3;
       const type = e.damageType ?? (e.source ? attackType(run, e.source) : 'thermal');
       const evolved = e.weaponRank === 3, size = evolved ? 1.3 : 1;

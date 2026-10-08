@@ -1,3 +1,4 @@
+import { impactMaterial } from './impact-material';
 import type Phaser from 'phaser';
 import { ELEMENTS, usesCollection } from '../data/forms';
 import type { Effect, RunState } from '../sim/types';
@@ -72,7 +73,7 @@ export class StatusEffects {
           }
           const element = enemy.effects.find(f => f.kind === 'burn')?.damageType ?? 'thermal';
           const row = { plasma: 0, thermal: 1, arc: 2, gravity: 3, kinetic: 0 }[element];
-          if (status === 'burn') sprite.setTexture(element==='gravity'?'combat-props':'combat-fx',element==='gravity'?6:row*4+1+frame%2);
+          if (status === 'burn') { const material=impactMaterial(row*4+1+frame%2);sprite.setTexture(material.key,material.frame); }
           else if (sprite.texture.key !== 'status-atlas' || sprite.frame.name !== key) sprite.setTexture('status-atlas', key);
           if(status==='burn'){const effect=enemy.effects.find(f=>f.kind==='burn'),element=effect?.damageType;if(usesCollection(run)&&element)sprite.setTint(parseInt(ELEMENTS[element].color.slice(1),16));else sprite.clearTint();}
           const controlStates=statuses.filter(state=>state!=='burn'&&active.has(state));

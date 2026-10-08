@@ -1,3 +1,4 @@
+import { impactMaterial } from './impact-material';
 import type Phaser from 'phaser';
 import { CHARACTER_MAP } from '../data/content';
 import { ALLY_MOTION } from '../data/character-motion';
@@ -24,7 +25,7 @@ export class CaptainCutin {
   constructor(private scene: Phaser.Scene, private timeline: TacticalTimeline, private read: () => RunState) {
     this.plate = scene.add.graphics();
     this.hero = scene.add.sprite(142, 410, `motion-${read().config.captainId}`, 6).setOrigin(ALLY_MOTION.originX, ALLY_MOTION.originY);
-    this.effects = Array.from({ length: 5 }, () => scene.add.image(0, 0, 'combat-fx', 0));
+    this.effects = Array.from({ length: 5 }, () => scene.add.image(0, 0, 'vfx-soft-light'));
     this.props = Array.from({ length: 3 }, () => scene.add.image(0, 0, 'combat-props', 0));
     this.caption = scene.add.text(24, 88, '', { fontSize: '12px', fontFamily: 'sans-serif', color: '#c6dce5', letterSpacing: 3 });
     this.name = scene.add.text(23, 111, '', { fontSize: '34px', fontFamily: 'sans-serif', fontStyle: 'bold', color: '#fff8e8', stroke: '#08151f', strokeThickness: 5 });
@@ -72,7 +73,8 @@ export class CaptainCutin {
         .setDisplaySize(54, 54 * aspect).setAlpha(.65 + enter * .35));
     }
     if (!released) {
-      this.effects[0].setVisible(true).setTexture('combat-fx', row * 4).setPosition(204, 300)
+      const material=impactMaterial(row*4);
+      this.effects[0].setVisible(true).setTexture(material.key,material.frame).setTint(material.color).setPosition(204, 300)
         .setDisplaySize(32 + age / 18, (32 + age / 18) * aspect).setAlpha(.45 + age / 1200);
       return;
     }
@@ -82,7 +84,7 @@ export class CaptainCutin {
       const localPhase = Math.min(3, Math.max(0, Math.floor((release - i * 65) / 155)));
       if (id === 'C06') image.setTexture('combat-props', 8 + phase);
       else if (id === 'C03') image.setTexture('combat-props', 12 + localPhase);
-      else image.setTexture('combat-fx', row * 4 + localPhase);
+      else {const material=impactMaterial(row*4+localPhase);image.setTexture(material.key,material.frame).setTint(material.color);}
       const size = id === 'C01' ? 106 : id === 'C07' ? 118 : id === 'C06' ? 248 : i ? 115 : 206;
       image.setVisible(release >= i * 65).setPosition(id === 'C01' ? 130 + i * 61 : id === 'C07' ? 100 + i * 104 : 256 + (i ? -66 : 0), id === 'C01' ? 194 + i * 40 : id === 'C07' ? 208 + i % 2 * 78 : 244 + i * 59)
         .setDisplaySize(size, size * aspect).setAlpha((i ? .85 : 1) * (1 - exit));
