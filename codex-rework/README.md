@@ -17,7 +17,8 @@ codex-rework/
 ├── 03-PHASE2_CRISIS_AND_COMMANDER.md   # 第二階段規格：防線心跳警報 + EMP 擊退
 ├── 04-PHASE3_COMBAT_SKILLS_AND_RESTORE.md # 第三階段規格：回歸星圖點選 + 純自動戰鬥 + 角色技能連鎖特效
 ├── 05-PHASE3_VISUAL_REFINEMENT_NO_LINES.md # 畫面精煉規格：去線條化 + 粒子光暈升級
-├── 06-ULTIMATE_ENERGY_AND_VFX.md        # 終極技能量累積與施放特效規格
+├── 06-ULTIMATE_VFX_REWORK.md               # 終極技能視覺效果與能量累積徹底重構規格
+├── ULTIMATE_VFX_CODEX_PROMPT.md            # 提供給 Codex 的大招視覺重構一鍵複製指令
 └── mockups/
     ├── battle-redesign-mockup.svg      # 戰鬥畫面前後對比高解析度向量圖
     ├── skill-cards-mockup.svg          # 波末流派卡片視覺向量圖
