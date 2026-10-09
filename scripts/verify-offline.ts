@@ -291,13 +291,14 @@ async function coreSmoke(engine: BrowserType, name: string, url: URL, snapshot: 
   await page.locator('#reduced').check();
   await expect.poll(async () => (await readSave(page))?.preferences.reducedEffects).toBe(true);
   await page.locator('.game-dock [data-action="roster"]').click();
-  await page.locator('[data-action="roster-edit"]').first().click();
-  const member = page.locator('.roster-tile[data-id="C05"]');
-  await revealCard(page, member, '隊員');
-  await member.click();
-  await page.locator('[data-action="toggle-character"][data-id="C05"]').click();
-  await page.locator('[data-action="roster-close"]').click();
+  await expect(page.locator('.formation-workspace')).toBeVisible();
+  await expect(page.locator('.formation-member')).toHaveCount(8);
+  await page.locator('#roster-card-C05').click();
+  await page.locator('.formation-controls [data-action="toggle-character"][data-id="C05"]').click();
+  await expect(page.locator('.formation-footer')).toContainText('有未確認的變更');
+  assert.equal((await readSave(page))?.preferences.squadIds.includes('C05'), true, 'Editing the formation draft must not change the stored squad');
   await page.locator('[data-action="roster-commit"]').click();
+  await expect(page.locator('.formation-footer')).toContainText('編隊已儲存');
   await expect.poll(async () => (await readSave(page))?.preferences.squadIds.includes('C05')).toBe(false);
   await closeContext(context);
   // Seed only an isolated browser profile, with all game writers closed. The empty
