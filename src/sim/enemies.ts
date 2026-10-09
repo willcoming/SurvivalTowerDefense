@@ -1,3 +1,4 @@
+import { BARRIER_Y } from './commander';
 import { highPressure, pressureMode } from '../data/high-pressure';
 import { operationProfile } from '../data/progression';
 import { ENEMY_MAP, STAGE_MAP, ticks, WORLD } from '../data/content';
@@ -57,7 +58,7 @@ export function stepEnemies(s:RunState){
       const ally=alive(s).filter(t=>t.id!==e.id&&!boss(t)&&t.hp<t.maxHp&&distance(t,e)<=100).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id)[0];
       if(ally){acted(s,e,'repair');ally.hp=Math.min(ally.maxHp,ally.hp+ally.maxHp*.05);}e.abilityAt=s.tick+ticks(8);
     }
-    const stop=e.defId==='E05'?250:WORLD.wallY;
+    const stop=e.defId==='E05'?250:(s.barrierUntil??0)>s.tick&&e.y<=BARRIER_Y?BARRIER_Y:WORLD.wallY;
     if(!e.chargeKind)e.y=Math.min(stop,e.y+e.speed*(1-slow)*(e.rushUntil>s.tick?2:1)/30);
     if(e.defId==='E05'&&e.y>=250&&e.abilityAt<=s.tick&&!e.chargeKind){e.chargeKind='shot';e.chargeUntil=s.tick+ticks(1.5);e.chargeCancelled=false;e.abilityAt=s.tick+ticks(8);}
     if(e.y>=WORLD.wallY){if(!e.attackAt)e.attackAt=s.tick+ticks(.3);if(e.attackAt<=s.tick){acted(s,e,'melee');hitWall(s,waveAttackDamage(s,e.wave,ENEMY_MAP[e.defId].damage),e.defId);e.attackAt=s.tick+ticks(ENEMY_MAP[e.defId].interval);}}

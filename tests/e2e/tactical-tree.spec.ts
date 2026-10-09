@@ -11,8 +11,11 @@ for(const viewport of [{width:390,height:844},{width:320,height:500},{width:1440
   await expect(page.locator('.skill-map-viewport .deep-node')).toHaveCount(current.reduce((n:number,t:{nodes:unknown[]})=>n+t.nodes.length,0));
   const map=page.locator('.skill-map-viewport');expect(await map.evaluate(e=>e.clientHeight)).toBeGreaterThan(40);await expect(map).toHaveCSS('touch-action','none');
   const node=page.locator(`[data-action=deep-node][data-id="${current[0].nodes.at(-1).id}"]`);await node.focus();await node.press('Enter');
-  await expect(page.locator('.skill-description-dialog[open] .node-prerequisites')).toBeVisible();await expect(page.locator('.skill-description-dialog button')).toHaveText(['確認配置','關閉']);await expect(page.locator('[data-action=buy-node]')).toBeDisabled();await page.keyboard.press('Escape');await expect(node).toBeFocused();
-  for(const control of await page.locator('.network-controls button').all())await reachable(control);
+  const detail=page.locator('.skill-bottom-sheet[data-open=true]');
+  await expect(detail.locator('.node-prerequisites')).toBeVisible();await expect(detail.locator('.skill-detail-actions button')).toHaveCount(2);await expect(detail.locator('[data-action=buy-node]')).toHaveText('確認配置');await expect(detail.getByRole('button',{name:'關閉',exact:true})).toBeVisible();await expect(page.locator('[data-action=buy-node]')).toBeDisabled();await page.keyboard.press('Escape');await expect(node).toBeFocused();await expect(page.locator('.skill-bottom-sheet')).toHaveAttribute('data-open','false');
+  const ultimateControl=page.locator('[data-map-control=ultimate]');
+  if(viewport.width<1024)await expect(ultimateControl).toBeHidden();else await expect(ultimateControl).toBeVisible();
+  for(const control of await page.locator('.network-controls button:not([hidden])').all())await reachable(control);
   await reachable(page.locator('[data-action=tree-close]'));await reachable(page.locator('[data-action=tree-save-home]'));
 
   await page.screenshot({path:info.outputPath('skill-map.png')});await page.keyboard.press('Escape');await expect(page.locator('.tactical-tree')).toHaveCount(0);
@@ -28,6 +31,6 @@ test('confirming a skill only acquires the current character selection',async({p
  const before=await page.evaluate(()=>({tick:window.__game.state()!.tick,spent:window.__game.state()!.choicesSpent}));
  await expect(page.locator('.wave-allocation')).toBeVisible();expect(await page.evaluate(()=>window.__game.state()!.tick)).toBe(before.tick);
  expect(await page.evaluate(()=>window.__game.state()!.draft!.pendingNodeIds)).toEqual([chosen[1]]);
- await page.locator('[data-action=buy-node]').click();await expect(page.locator('.wave-allocation')).toBeVisible();await expect(page.locator('.skill-description-dialog[open]')).toHaveCount(0);
+ await page.locator('[data-action=buy-node]').click();await expect(page.locator('.wave-allocation')).toBeVisible();await expect(page.locator('.skill-bottom-sheet[data-open=true] .node-status')).toHaveText('已取得');await expect(page.locator('[data-action=buy-node]')).toBeDisabled();
  expect(await page.evaluate(()=>window.__game.state()!.treeNodes)).toEqual([chosen[1]]);expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(before.spent+1);
 });

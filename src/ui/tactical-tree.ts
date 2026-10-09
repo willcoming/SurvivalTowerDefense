@@ -27,6 +27,4 @@ export function enhanceTacticalTree(panel: HTMLElement, ui: MobileControls) {
   graph.before(viewport);
   viewport.append(graph);
 
-  const detail = panel.querySelector<HTMLDialogElement>('.skill-description-dialog');
-  if (detail) ui.skillDetail(detail);
 }

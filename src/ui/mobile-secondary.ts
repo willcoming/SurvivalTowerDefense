@@ -59,7 +59,9 @@ function compactSettings(screen: HTMLElement, ui: MobileControls) {
   const storage = block('mobile-settings-storage', 'section');
   find(screen, '.page-intro')?.after(nav, preferences, storage);
   const notes = block('mobile-settings-explanations');
-  all(screen, '.setting-row').forEach(row => {
+  const rows = all(screen, '.setting-row');
+  rows.sort((a, b) => Number(!a.querySelector('input[type=range]')) - Number(!b.querySelector('input[type=range]')));
+  rows.forEach(row => {
     const label = find(row, 'label');
     const note = find(row, 'small');
     if (label && note) {
@@ -81,15 +83,12 @@ function compactSettings(screen: HTMLElement, ui: MobileControls) {
   const storageHelp = block('mobile-secondary-links');
   storage.append(storageHelp);
   detail(ui, 'settings-save-information', '本機存檔說明', [find(save ?? screen, '.save-information > p')], storageHelp);
-  if (matchMedia('(max-width:800px), (pointer:coarse) and (max-height:800px)').matches) {
-    const helpBody = find(preferencesHelp, '.mobile-detail-body');
-    const volumeRows = all(preferences, '.setting-row:has(input[type=range])');
-    if (helpBody) helpBody.prepend(...volumeRows);
+  {
     const storageBody = find(storageHelp, '.mobile-detail-body');
     const warning = find(storage, '.danger-zone > span');
     if (storageBody && warning) storageBody.append(warning);
     const helpButton = find(preferencesHelp, 'button');
-    if (helpButton) helpButton.textContent = '音量與設定說明';
+    if (helpButton) helpButton.textContent = '設定說明';
     const offline = block('mobile-settings-offline', 'section');
     storage.after(offline);
     const offlineContent = find(screen, '.offline-settings');
@@ -98,7 +97,7 @@ function compactSettings(screen: HTMLElement, ui: MobileControls) {
     if (commander) detail(ui, 'settings-commander', '共用技能資訊', [commander], offline);
     ui.tabs('settings-sections', [preferences, storage, offline], ['一般', '存檔管理', '離線與版本'], nav);
     screen.classList.add('mobile-paged-screen');
-  } else ui.tabs('settings-sections', [preferences, storage], ['音效與顯示', '存檔管理'], nav);
+  }
   screen.classList.add('mobile-settings');
 }
 

@@ -31,17 +31,16 @@ for(const viewport of [{width:320,height:500},{width:390,height:844},{width:600,
       }
       await page.evaluate(()=>window.__game.route('codex'));
       await expect(page.locator('.codex-screen .dossier')).toHaveCSS('grid-template-columns',/^[\d.]+px$/);
-      await page.locator('.game-dock [data-action="roster"]').click();await page.locator('[data-action="roster-edit"]').click();
-      const cards=await page.locator('.roster-tile').evaluateAll(items=>items.map(item=>{const r=item.getBoundingClientRect(),art=item.querySelector('.roster-tile-art')!.getBoundingClientRect(),name=item.querySelector('strong')!.getBoundingClientRect(),forms=item.querySelector('.roster-tile-forms')!.getBoundingClientRect();return{top:r.top,bottom:r.bottom,left:r.left,right:r.right,height:r.height,artBottom:art.bottom,nameTop:name.top,formsBottom:forms.bottom};}));
-      expect(await page.locator('.roster-overview').evaluate(e=>getComputedStyle(e).gridTemplateColumns.split(' ').length)).toBe(columns);
+      await page.locator('.game-dock [data-action="roster"]').click();
+      const cards=await page.locator('.formation-member').evaluateAll(items=>items.map(item=>{const r=item.getBoundingClientRect(),art=item.querySelector('.formation-member-art')!.getBoundingClientRect(),name=item.querySelector('strong')!.getBoundingClientRect();return{top:r.top,bottom:r.bottom,left:r.left,right:r.right,height:r.height,artBottom:art.bottom,nameTop:name.top};}));
+      expect(await page.locator('.formation-catalog').evaluate(e=>getComputedStyle(e).gridTemplateColumns.split(' ').length)).toBe(4);
       for(const [i,card] of cards.entries()){
-        expect(card.height).toBeGreaterThanOrEqual(220);
+        expect(card.height).toBeGreaterThanOrEqual(100);
         expect(card.nameTop).toBeGreaterThanOrEqual(card.artBottom);
-        expect(card.formsBottom).toBeLessThanOrEqual(card.bottom);
-        if(i%columns){expect(Math.abs(card.top-cards[i-1].top)).toBeLessThan(1);expect(card.left-cards[i-1].right).toBeGreaterThanOrEqual(11);}
-        if(i>=columns)expect(card.top-cards[i-columns].bottom).toBeGreaterThanOrEqual(11);
+        if(i%4){expect(Math.abs(card.top-cards[i-1].top)).toBeLessThan(1);expect(card.left-cards[i-1].right).toBeGreaterThanOrEqual(5);}
+        if(i>=4)expect(card.top-cards[i-4].bottom).toBeGreaterThanOrEqual(5);
       }
-      await page.locator('#roster-card-C08').click();
+      await page.locator('#roster-card-C08').click();await page.locator('[data-action=roster-open]').click();
       await expect(page.locator('.roster-dialog')).toContainText('熾夏');
       await page.locator('[data-action="roster-close"]').click();
       await page.locator('.game-dock [data-action="recruitment"]').click();

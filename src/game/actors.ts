@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import { command } from '../sim/engine';
+import { threat } from '../sim/combat';
 import { inWeaponRange } from '../sim/range';
 import { ELEMENTS, equippedForm } from '../data/forms';
 import { ALLY_MOTION, ALLY_ATTACKS, ALLY_BODY_HEIGHT, SUMMER_MOUNTS } from '../data/character-motion';
@@ -10,8 +12,8 @@ import { TacticalTimeline } from './tactical-timeline';
 import { advanceEnemyMotion, createEnemyMotion, ENEMY_POSES, type EnemyMotion, type EnemyMotionMode } from './enemy-motion';
 
 const ENEMY_SIZE: Record<string, number> = { E01: 44, E02: 39, E03: 59, E04: 48, E05: 55, E06: 42, E07: 71, E08: 44, B01: 123, B02: 136, B03: 128 };
-export const enemySize = (id: string) => ENEMY_SIZE[id] ?? 44;
-interface Ally { image: Phaser.GameObjects.Sprite; attacks: number; firedAt: number; frame: number; frames: Set<number>; facing: number }
+export const enemySize = (id: string) => (ENEMY_SIZE[id] ?? 44) * (id.startsWith('B') ? 1 : 1.15);
+interface Ally { image: Phaser.GameObjects.Sprite; flash: Phaser.GameObjects.Image; castAt:number; attacks: number; firedAt: number; frame: number; frames: Set<number>; facing: number }
 interface Creature { image: Phaser.GameObjects.Image; defId: EnemyId; hitAt: number; hitPower: number; motion: EnemyMotion }
 interface Corpse { image: Phaser.GameObjects.Image; born: number; duration: number; size: number; id: number; x: number; y: number; boss: boolean }
 
@@ -28,13 +30,16 @@ export class CombatActors {
   private maxCorpses = 0;
   private initialTick: number;
   private enemyHistory = new Map<EnemyId, { modes: Set<EnemyMotionMode>; frames: Set<number>; releases: number }>();
+  private hitStops = new Map<number, number>();
+  private hitStopCount = 0;
   clock = 0;
 
   constructor(private scene: Phaser.Scene, private read: () => RunState, private speed: () => number, private keys: Map<string, string>, private timeline: TacticalTimeline) {
     this.initialTick = read().tick;
     for (const id of read().config.squadIds) {
       const image = scene.add.sprite(this.center(id), 510, `motion-${id}`, 0).setOrigin(ALLY_MOTION.originX, ALLY_MOTION.originY).setDisplaySize(ALLY_MOTION.displaySize, ALLY_MOTION.displaySize).setDepth(LAYERS.allies);
-      this.allies.set(id, { image, attacks: read().weapons.find(w => w.id === id)!.attacks, firedAt: -Infinity, frame: 0, frames: new Set(), facing: 1 });
+      const flash = scene.add.image(image.x,image.y,image.texture.key,0).setOrigin(image.originX,image.originY).setDepth(LAYERS.allies+.1).setTintFill(0xffffff).setVisible(false);
+      this.allies.set(id, { image, flash, castAt:-Infinity, attacks: read().weapons.find(w => w.id === id)!.attacks, firedAt: -Infinity, frame: 0, frames: new Set(), facing: 1 });
     }
     this.cutin = new CaptainCutin(scene, timeline, read);
   }
@@ -64,7 +69,11 @@ export class CombatActors {
     // belong to the app's suspension guard and must not fast-forward animations.
     const held = this.timeline.active(run);
     if (!held && (run.phase === 'running' || run.phase === 'ended') && delta <= 500) this.clock += Math.max(0, delta);
+    for (const [id, until] of this.hitStops) if (reduced || this.clock >= until || !run.enemies.some(e => e.id === id)) this.hitStops.delete(id);
     for (const event of fresh) {
+      if (!reduced && event.kind === 'combo_emp' && event.targetId !== undefined) {
+        this.hitStops.set(event.targetId, this.clock + 80); this.hitStopCount++;
+      }
       if (event.source && (event.kind === 'shot' || event.kind === 'beam' && event.y === 490 || event.source === 'C04' && event.kind === 'explosion')) {
         const ally = this.allies.get(event.source); if (ally) ally.facing = (event.x2 ?? event.x) < this.center(event.source) ? -1 : 1;
       }
@@ -78,22 +87,25 @@ export class CombatActors {
       if (event.kind === 'death') this.corpse(event, detail);
       if (event.kind === 'tactical' && event.source) {
         this.skills.add(event.source);
-        const ally = this.allies.get(event.source); if (ally) ally.firedAt = this.clock;
+        const ally = this.allies.get(event.source); if (ally) { ally.firedAt = this.clock; if(event.skill==='ultimate'&&!reduced){ally.castAt=this.clock;ally.firedAt+=50;} }
       }
     }
+    const ordered = threat(run);
     for (const w of run.weapons) {
-      const eligible = run.enemies.filter(e => inWeaponRange(run, w.id, e));
-      const target = eligible.sort((a, b) => b.y - a.y)[0];
+      const eligible = ordered.filter(e => inWeaponRange(run, w.id, e));
+      const target = eligible[0];
       const ally = this.allies.get(w.id)!;
       ally.image.setDisplaySize(ALLY_MOTION.displaySize,ALLY_MOTION.displaySize*this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY);
       if (w.attacks !== ally.attacks) { ally.attacks = w.attacks; ally.firedAt = this.clock; this.forms.add(weaponForm(w.id, w.rank, w.branch)); }
-      const frame = allyPose(w.id, this.clock, ally.firedAt, w.nextAttack - run.tick, this.speed(), !!target, run.config.squadIds.indexOf(w.id) * 90, !!w.cooling);
+      const castAge=this.clock-ally.castAt;
+      const frame = !reduced&&castAge<50?ally.frame:allyPose(w.id, this.clock, ally.firedAt, w.nextAttack - run.tick, this.speed(), !!target, run.config.squadIds.indexOf(w.id) * 90, !!w.cooling);
       if (frame === 2 && target) {
-        const aim = w.id === 'C03' ? eligible.reduce((a, b) => a.maxHp >= b.maxHp ? a : b) : target;
+        const aim = eligible.find(e => e.id === run.focusTargetId) ?? (w.id === 'C03' ? eligible.reduce((a, b) => a.maxHp >= b.maxHp ? a : b) : target);
         ally.facing = aim.x < this.center(w.id) ? -1 : 1;
       }
       if (frame !== ally.frame) { ally.frame = frame; ally.image.setFrame(frame); }
       ally.frames.add(frame); ally.image.setFlipX(ally.facing < 0);
+      ally.flash.setVisible(!reduced&&castAge<80).setTexture(ally.image.texture.key,frame).setPosition(ally.image.x,ally.image.y).setDisplaySize(ally.image.displayWidth,ally.image.displayHeight).setFlipX(ally.facing<0).setAlpha(Math.max(0,1-castAge/80)*.45);
     }
     const ids = new Set(run.enemies.map(e => e.id));
     for (const [id, creature] of this.creatures) if (!ids.has(id)) {
@@ -107,14 +119,21 @@ export class CombatActors {
         const key = this.keys.get(enemy.defId) ?? enemy.defId;
         if (!this.scene.textures.exists(key)) continue;
         const image = this.scene.add.image(enemy.x, enemy.y, key, 0).setDisplaySize(enemySize(enemy.defId), enemySize(enemy.defId)).setDepth(LAYERS.actors);
+        image.setInteractive({ useHandCursor: true });
+        image.on('pointerdown', () => {
+          const current = this.read();
+          if (this.timeline.active(current)) return;
+          command(current, { type: 'focus-target', targetId: current.focusTargetId === enemy.id ? null : enemy.id });
+        });
         const motion = createEnemyMotion(enemy);
         if (enemy.lastAction && enemy.lastAction.tick > this.initialTick) motion.cue = '';
         creature = { image, defId: enemy.defId, motion, hitPower: .5, hitAt: fresh.some(e => e.kind === 'hit' && e.targetId === enemy.id || e.kind === 'explosion' && e.affectedIds?.includes(enemy.id)) ? this.clock : -Infinity }; this.creatures.set(enemy.id, creature);
       }
       creature.image.setVisible(run.bossIntro?.enemyId !== enemy.id);
+      const hitStopped = this.hitStops.has(enemy.id);
       const releases = creature.motion.releases;
-      const motion = advanceEnemyMotion(creature.motion, enemy, run.tick, delta, this.speed(), run.phase === 'running' && !held);
-      const renderedFrame = this.clock - creature.hitAt < 110 && motion.mode !== 'charge' && motion.mode !== 'attack' ? 12 : motion.frame;
+      const motion = advanceEnemyMotion(creature.motion, enemy, run.tick, delta, this.speed(), run.phase === 'running' && !held && !hitStopped);
+      const renderedFrame = hitStopped ? 12 : this.clock - creature.hitAt < 110 && motion.mode !== 'charge' && motion.mode !== 'attack' ? 12 : motion.frame;
       if (Number(creature.image.frame.name) !== renderedFrame) creature.image.setFrame(renderedFrame);
       let history = this.enemyHistory.get(enemy.defId);
       if (!history) { history = { modes: new Set(), frames: new Set(), releases: 0 }; this.enemyHistory.set(enemy.defId, history); }
@@ -123,7 +142,14 @@ export class CombatActors {
       const kick = hurt ? Math.sin(Math.min(1, age / 180) * Math.PI) * creature.hitPower : 0;
       const size = enemySize(enemy.defId);
       creature.image.setDisplaySize(size, size*this.scene.cameras.main.zoomX/this.scene.cameras.main.zoomY);
-      creature.image.setPosition(enemy.x + (hurt ? Math.sin(age / 16) * (1 - age / 180) * (enemy.defId.startsWith('B') ? 1.5 : 3) : 0), enemy.y - kick * (enemy.defId.startsWith('B') ? 2 : 6));
+      // Hit regions use texture coordinates; preserve at least 44 CSS pixels after camera scaling.
+      const hitArea = creature.image.input?.hitArea as Phaser.Geom.Rectangle | undefined;
+      if (hitArea) {
+        const width = Math.max(creature.image.width, 44 / (creature.image.scaleX * this.scene.cameras.main.zoomX));
+        const height = Math.max(creature.image.height, 44 / (creature.image.scaleY * this.scene.cameras.main.zoomY));
+        hitArea.setTo((creature.image.width - width) / 2, (creature.image.height - height) / 2, width, height);
+      }
+      if (!hitStopped) creature.image.setPosition(enemy.x + (hurt ? Math.sin(age / 16) * (1 - age / 180) * (enemy.defId.startsWith('B') ? 1.5 : 3) : 0), enemy.y - kick * (enemy.defId.startsWith('B') ? 2 : 6));
       if (hurt && age < 65) creature.image.setTint(0xe9fff3);
       else if (enemy.effects.some(e => e.kind === 'stun' && e.expires > run.tick)) creature.image.setTint(0x7cffff);
       else if (enemy.effects.some(e => e.kind === 'burn' && e.expires > run.tick)) {const burn=enemy.effects.find(e=>e.kind==='burn'&&e.expires>run.tick)!;creature.image.setTint(parseInt(ELEMENTS[burn.damageType??'thermal'].color.slice(1),16));}
@@ -141,6 +167,8 @@ export class CombatActors {
   }
   diagnostics() {
     return {
+      casterFlashIds:[...this.allies].filter(([,a])=>a.flash.visible).map(([id])=>id), casterHitStopIds:[...this.allies].filter(([,a])=>a.flash.visible&&this.clock-a.castAt<50).map(([id])=>id),
+      hitStopCount: this.hitStopCount, hitStopIds: [...this.hitStops.keys()],
       clock: this.clock, poses: Object.fromEntries([...this.allies].map(([id, a]) => [id, { frame: a.frame, renderedFrame: Number(a.image.frame.name), seen: [...a.frames].sort(), texture: a.image.texture.key, action: ALLY_ATTACKS[id].action, origin: { x: a.image.originX, y: a.image.originY }, width: a.image.displayWidth, bodyHeight: ALLY_BODY_HEIGHT[id] * ALLY_MOTION.displaySize / ALLY_MOTION.frameHeight }])),
       forms: [...this.forms], skills: [...this.skills], hitTypes: [...this.hits], deathTypes: [...this.deaths],
       activeCorpses: this.corpses.length, corpseIds: this.corpses.map(c => c.id),

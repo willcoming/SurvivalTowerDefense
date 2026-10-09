@@ -16,7 +16,7 @@ function mount(parent: HTMLElement, className: string, label?: string, before?: 
 
 function compactRoster(root: HTMLElement, ui: MobileControls) {
   const main = root.querySelector<HTMLElement>('.roster-screen');
-  if (!main) return;
+  if (!main || main.classList.contains('formation-workspace')) return;
   const intro = main.querySelector<HTMLElement>('.page-intro')!;
   const help = mount(intro, 'mobile-inline-help');
   const notes = main.querySelector<HTMLElement>('.roster-help-copy')!;

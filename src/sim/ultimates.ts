@@ -16,7 +16,7 @@ export function stepUltimates(s:RunState){
   if(!hasUltimate(s,w.id)||(w.ultimateReadyAt??0)>s.tick)continue;
   const targets=threat(s).filter(e=>inWeaponRange(s,w.id,e));if(!targets.length)continue;
   const summer=isSummer(s,w.id),u=ultimateForForm(w.id,equippedForm(s,w.id).id),m=deepMods(s,w.id);
-  const target=w.id==='C03'?[...targets].sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0]:targets[0];
+  const target=targets.find(e=>e.id===s.focusTargetId)??(w.id==='C03'?[...targets].sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0]:targets[0]);
   const bonus=1+(m.damage??0),p:DamagePacket={source:w.id,skill:'ultimate',raw:u.damage*bonus,damageType:attackType(s,w.id),armorIgnore:0,shieldMultiplier:1};
   if(w.id==='C06'){
    const shield=s.shields.filter(x=>x.expires>s.tick).reduce((n,x)=>n+x.value,0),capacity=300+teamMod(s,'shieldCapacity');

@@ -32,11 +32,12 @@ function recruitment(main: HTMLElement, ui: MobileControls) {
   const catalog = main.querySelector<HTMLElement>('.recruit-v2-catalog')!;
   const grid = catalog.querySelector<HTMLElement>('.recruit-card-grid')!;
   const receipt = catalog.querySelector<HTMLElement>('.recruitment-receipt');
-  if (receipt && innerWidth <= 800) {
-    const links = mount(main.querySelector('.recruit-purchase-panel') ?? catalog, 'mobile-recruit-receipt');
+  if (receipt) {
+    const links = mount(main.querySelector('.recruit-v2-heading') ?? catalog, 'mobile-recruit-receipt');
     const result = disclose(ui, 'recruit-receipt', '招募結果', receipt, links);
     result.setAttribute('aria-label', '招募結果');
-    result.setAttribute('aria-live', 'polite');
+    result.title = '招募結果';
+    result.innerHTML = '<span aria-hidden="true">▤</span>';
   }
   const picker = mount(catalog, 'mobile-page-picker', '獎池項目');
   grid.before(picker);
@@ -49,9 +50,8 @@ function recruitment(main: HTMLElement, ui: MobileControls) {
     disclose(ui, `recruit-ability:${image.dataset.id}`, '能力詳情', ability, links);
   }
   const status = catalog.querySelector<HTMLElement>('.recruit-catalog-meta')!;
-  const collection = status.querySelector('span')!.textContent!;
   status.classList.add('sr-only');
-  ui.pager('recruit-items', items, items.map(n => `${collection} · ${n.querySelector('h2')!.textContent}・${n.querySelector('.recruit-item-copy > p')!.textContent}`), picker, 0, innerWidth <= 800 && innerHeight <= 740 ? 1 : 2);
+  ui.pager('recruit-items', items, items.map(n => `${n.querySelector('h2')!.textContent}・${n.dataset.theme === 'summer' ? '海灘' : '原裝'}`), picker, 0, innerWidth <= 800 && innerHeight <= 740 ? 1 : 2);
 }
 
 function commander(main: HTMLElement, ui: MobileControls) {
@@ -139,7 +139,7 @@ function codex(main: HTMLElement, _ui: MobileControls) {
 /** Mobile-only presentation. Original action buttons keep their existing handlers. */
 export function enhanceMobilePages(root: HTMLElement, page: Page, ui: MobileControls) {
   const main = root.querySelector<HTMLElement>('main');
-  if (!main) return;
+  if (!main || main.classList.contains('formation-workspace')) return;
   const enhance: Partial<Record<Page, (main: HTMLElement, ui: MobileControls) => void>> = {
     roster, recruitment, commander, hundred, command: tactical, codex, stories,
   };

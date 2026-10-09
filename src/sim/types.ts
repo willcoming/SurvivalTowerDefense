@@ -3,6 +3,7 @@ export type StageId = 'S01' | 'S02' | 'S03' | 'S04' | 'S05' | 'S06' | 'S07' | 'S
 export type FormId = `${CharacterId}-${'original' | 'summer'}`;
 export type EnemyId = 'E01' | 'E02' | 'E03' | 'E04' | 'E05' | 'E06' | 'E07' | 'E08' | 'B01' | 'B02' | 'B03';
 export type Branch = 'A' | 'B';
+export type ElementalCombo = 'vortex' | 'superconduct' | 'emp' | 'overload';
 export type DamageType = 'plasma' | 'arc' | 'kinetic' | 'gravity' | 'thermal';
 export type ChallengeId = 'four' | 'no-skill' | 'two-evolutions' | null;
 export type PauseReason = 'user' | 'upgrade' | 'hidden' | 'orientation' | 'tutorial' | 'error' | 'boss-intro' | 'tree';
@@ -48,6 +49,8 @@ export interface Effect {
   id: string; kind: 'slow' | 'stun' | 'exposure' | 'burn'; source: CharacterId | 'boss';
   expires: number; value: number; armorIgnore: number; nextTick: number;
   damageType?: DamageType;
+  /** Original burn DPS, retained when a reaction spreads it again. */
+  comboBaseDps?: number;
 }
 export interface Enemy {
   id: number; defId: EnemyId; x: number; y: number; hp: number; maxHp: number;
@@ -55,12 +58,16 @@ export interface Enemy {
   spawnedAt: number; effects: Effect[]; attackAt: number; abilityAt: number; summonAt: number;
   chargeUntil: number; chargeKind: 'shot' | 'rush' | 'boss' | null; chargeCancelled: boolean;
   phaseTriggered: boolean; rushUntil: number; stunImmuneUntil: number; moveImmuneUntil: number;
+  comboCooldowns?: Partial<Record<ElementalCombo, number>>;
+  ionizedUntil?: number;
   exposureUntil: number; summonCount: number; arcCharges: number;
   /** Optional presentation cue. Never used to calculate damage, movement or cooldowns. */
   armorBroken?: { value: number; expires: number };
   lastAction?: { tick: number; kind: 'melee' | 'shot' | 'blast' | 'burst' | 'rush' | 'summon' | 'repair' | 'shield' };
 }
 export interface DamagePacket {
+  /** Presentation cue for an already-applied periodic critical multiplier. */
+  critical?: boolean;
   tacticalWeapon?:boolean;
   source: CharacterId; skill: string; raw: number; damageType: DamageType;
   armorIgnore: number; shieldMultiplier: number; exposureBonus?: number; exposure?: { value: number; duration: number };
@@ -92,13 +99,13 @@ export interface Mine { id: number; source: CharacterId; x: number; y: number; p
 export interface SpawnEntry { y?:number; at: number; defId: EnemyId; x: number; xp: number; wave: number }
 export interface ScheduledHit { at: number; packet: DamagePacket | null; x: number; y: number; radius: number; enemyDamage: number; enemySource: EnemyId | null }
 export interface VisualEvent {
-  seq: number; tick: number; kind: 'shot' | 'beam' | 'arc' | 'explosion' | 'hit' | 'death' | 'shield' | 'evolution' | 'tactical' | 'wall-hit' | 'spawn' | 'interrupt';
+  seq: number; tick: number; kind: 'shot' | 'beam' | 'arc' | 'explosion' | 'hit' | 'death' | 'shield' | 'evolution' | 'tactical' | 'wall-hit' | 'spawn' | 'interrupt' | 'emp_wave' | 'barrier-spawn' | 'orbital-aim' | 'orbital-blast' | 'combo_vortex' | 'combo_superconduct' | 'combo_emp' | 'combo_overload';
   x: number; y: number; x2?: number; y2?: number; radius?: number; value?: number; source?: CharacterId; color?: string;
   affectedIds?: number[];
   /** Actual attack footprint; absent for single-target/buff cues. */
   areaShape?: 'circle' | 'line' | 'world' | 'wall-band';
   weaponTree?: string; targetId?: number; enemyDefId?: EnemyId; skill?: string; weaponRank?: number; weaponBranch?: Branch | null;
-  damageType?: DamageType; weakness?: boolean;
+  damageType?: DamageType; weakness?: boolean; shieldBroken?: boolean; critical?: boolean;
 }
 export interface ActionRecord { tick: number; seq: number; command: Command }
 export interface RunStats {
@@ -114,6 +121,11 @@ export interface RunState {
   tick: number; phase: 'running' | 'choosing' | 'paused' | 'ended'; pauseReasons: PauseReason[];
   wallHp: number; wallMaxHp: number; shields: Shield[]; xp: number; choicesEarned: number; choicesSpent: number;
   rerollsRemaining: number; evolvedCount: number; evolutionLimit: number; tacticalReadyAt: number;
+  /** Optional for historical saves; null means automatic targeting. */
+  focusTargetId?: number | null;
+  emergencyPulseUsed?: boolean;
+  commanderTactical?: { barrierUsedInWave?: boolean; orbitalReadyAt?: number };
+  barrierUntil?: number;
   treeNodes?: string[];
   skillCostVersion?:2;
   experienceVersion?:1|2|3;
@@ -136,6 +148,8 @@ export interface RunState {
 }
 export type Command =
   | { type: 'cast' }
+  | { type: 'commander-skill'; skill: 'barrier' | 'orbital'; x?: number; y?: number }
+  | { type: 'focus-target'; targetId: number | null }
   | { type: 'buy-node'; offerId: number; nodeId: string }
   | { type: 'confirm-node'; offerId: number; nodeIds: string[] }
   | { type: 'finish-boss-intro' }

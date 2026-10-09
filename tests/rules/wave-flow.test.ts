@@ -77,6 +77,29 @@ describe('wave allocation version 1', () => {
     expect(s.draft!.pointTarget).toBeGreaterThanOrEqual(6);
   });
 
+  it('confirms a dependent node chain in one batch (prerequisite unlocked inside the same confirm)', () => {
+    const s = allocation();
+    command(s,{type:'confirm-node',offerId:s.draft!.id,nodeIds:[]}); clearWave(s);
+    expect(s.choicesEarned-s.choicesSpent).toBeGreaterThanOrEqual(2);
+    const before = new Set(deepLegalNodes(s));
+    // Find a (first, dependent) pair where dependent becomes legal only after first is owned.
+    let pair: [string,string] | undefined;
+    for (const first of before) {
+      const probe = { ...s, treeNodes: [...(s.treeNodes ?? []), first] } as RunState;
+      deepLegalNodes(probe); // warm identity-keyed caches like the engine does
+      const dependent = deepLegalNodes(probe).find(id => !before.has(id) && !id.endsWith('/9'));
+      if (dependent) { pair = [first, dependent]; break; }
+    }
+    expect(pair).toBeDefined();
+    const [first, dependent] = pair!;
+    const spent = s.choicesSpent, wave = s.waveFlow!.wave;
+    expect(command(s,{type:'confirm-node',offerId:s.draft!.id,nodeIds:[first,dependent]})).toBe(true);
+    expect(s.treeNodes).toEqual(expect.arrayContaining([first,dependent]));
+    expect(s.choicesSpent).toBeGreaterThan(spent+1);
+    expect(s.waveFlow!.wave).toBe(wave+1);
+    expect(restoreRun(s)).toEqual(s);
+  });
+
   it('commits a partial batch once and carries banked points into the next allocation', () => {
     const s = allocation();
     // Bank the first single point so the next allocation can be partially spent.

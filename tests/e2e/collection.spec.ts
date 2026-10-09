@@ -3,9 +3,13 @@ async function ready(page:Page){await page.routeWebSocket('**/*',s=>s.close());a
 
 test('summer-first exchange recruits its owner and preserves the missing original form',async({page})=>{
   await ready(page);await page.evaluate(async()=>{window.__game.getSave().collection.points=100;await window.__game.save();window.__game.route('recruitment');});
-  await page.locator('[data-action="recruit-tab"][data-id="exchange"]').click();await page.locator('[data-action="exchange"][data-id="C07-summer"]').click();
-  await expect(page.locator('.recruitment-receipt')).toContainText('兌換成功');await page.locator('.game-dock [data-action="roster"]').click();
-  await page.locator('[data-action="roster-edit"]').click();await expect(page.locator('.roster-tile[data-id="C07"]')).toContainText('待命');await page.locator('.roster-tile[data-id="C07"]').click();
+  await page.locator('[data-action="recruit-tab"][data-id="exchange"]').click();
+  const picker=page.getByRole('combobox',{name:'獎池項目',exact:true});
+  for(const option of await picker.locator('option').all()){await picker.selectOption((await option.getAttribute('value'))!);if(await page.locator('[data-action="exchange"][data-id="C07-summer"]').isVisible())break;}
+  await page.locator('[data-action="exchange"][data-id="C07-summer"]').click();
+  await page.getByRole('button',{name:'招募結果',exact:true}).click();await expect(page.locator('.recruitment-receipt')).toContainText('兌換成功');await page.keyboard.press('Escape');await page.locator('.game-dock [data-action="roster"]').click();
+  await expect(page.locator('.formation-member[data-id="C07"]')).toContainText('待命');await page.locator('.formation-member[data-id="C07"]').click();
+  await page.locator('[data-action="roster-open"][data-id="C07"]').click();
   await page.locator('[data-action="roster-wardrobe"]').click();
   await page.locator('[data-action="roster-preview"][data-id="C07-original"]').click();await expect(page.locator('[data-action="roster-equip"]')).toBeDisabled();
   await page.locator('[data-action="roster-preview"][data-id="C07-summer"]').click();await expect(page.locator('[data-action="roster-equip"]')).toHaveText('已選用');
@@ -18,6 +22,8 @@ test('all original and summer collection artwork uses complete current images',a
   await ready(page);await page.locator('.game-dock [data-action="recruitment"]').click();
   await expect(page.locator('.recruit-item')).toHaveCount(10);await expect(page.locator('[data-action="draw"]')).toBeDisabled();
   for(const trigger of await page.locator('.recruit-card-grid [data-action="recruit-preview"]').all()){
+    const picker=page.getByRole('combobox',{name:'獎池項目',exact:true});
+    for(const option of await picker.locator('option').all()){await picker.selectOption((await option.getAttribute('value'))!);if(await trigger.isVisible())break;}
     await trigger.scrollIntoViewIfNeeded();await trigger.click();await expect(page.locator('.recruit-art-viewer img')).toHaveCSS('object-fit','contain');
     await expect.poll(()=>page.locator('.recruit-art-viewer img').evaluate((img:HTMLImageElement)=>img.naturalWidth)).toBeGreaterThan(0);
     await page.keyboard.press('Escape');

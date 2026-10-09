@@ -6,7 +6,7 @@ export type Page = 'hundred' | 'home' | 'intel' | 'roster' | 'codex' | 'stories'
 export interface ViewModel {
   page: Page; stageId: StageId; characterId: CharacterId; challengeId: ChallengeId;
   retrySeed: number | null; selectedCard: string | null; modal: 'pause' | 'tutorial' | 'abandon' | 'reset' | null;
-  treePanel?: { ownerId: SkillOwner; treeId: string; nodeId: string | null; mode: 'choose' | 'view'; detailOpen?: boolean };
+  treePanel?: { ownerId: SkillOwner; treeId: string; nodeId: string | null; mode: 'choose' | 'view'; detailOpen?: boolean; mapSession?: number };
   personnelSkills?: import('./personnel-skills').PersonnelSkills;
   rosterPanel?: RosterPanel;
   rosterEditing?: boolean;

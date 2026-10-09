@@ -83,3 +83,73 @@ final result: passed
 - [x] 所有 P1／P2 視覺發現已修正並重新擷取。
 - [x] 五項必要視覺表面已檢查。
 - [x] 目前無未解決的 P0／P1／P2 發現。
+
+
+---
+
+# 星際徵召／海岸通行證 QA
+
+Source visual truth: generated_images/exec-5d60914c-d37b-4cd0-a45c-208bf83862ab.png（所選第一張；Library libfile_3b9b9dc5536c81919cb46079ca4515a8）。
+
+Implementation: http://127.0.0.1:5175/，recruitment-pass/after/summer-390.png。390×844 CSS viewport、deviceScaleFactor=1；來源853×1844以390px自然比例展示（約843px高），未拉伸人物。Full-view comparison: recruitment-pass/comparison.png；focused action comparison: recruitment-pass/comparison-actions.png。兩張同時放入同一比較畫面，並已實際查看。
+
+State: 1招募券、0共鳴、未收藏、招募頁第一組。另查看不足貨幣、兌換禁用、能力、規則、抽取結果、原始/夏日大圖、手機320×500及桌面1440×900。測試使用隔離瀏覽器存檔。
+
+## Findings / comparison history
+
+- 初輪[P1]桌面側欄遮擋加寬展示區與結果。將招募頁側欄移至800px中央內容外；最終桌面截圖確認資訊與互動沒有遮擋。
+- 初輪[P2]桌面列表過長，首組資訊落在捲動區下方。桌面亦使用雙角色分頁，保留原有事件與焦點返回。最終截圖首屏能看見人物、姓名、機率、能力及主操作。
+- 初輪[P2]320px短螢幕直排導致人物過小、資訊被遮。短螢幕採單角色分頁、圖文橫排，44px操作保持可見；兩瀏覽器fitsScreen及互動驗證通過。
+- 初輪[P2]透明票券尚帶深色方形底、結果彈窗大片空白。以ImageGen對既有票券去背景，保留原造型，另存cutout資產；結果彈窗縮至244px並保留內容捲動與全圖預覽。最終票券/結果截圖確認修正。
+- 比較後[P2]角色展示比例偏小。縮短標題留白、資料行與操作區；手機夏日來源外圍空白以cover顯示，既有角色未改畫、臉與腳仍完整可見。最終同框比較確認展示較首輪增加。
+
+## Required fidelity surfaces
+
+- Typography: 延用既有Noto Sans TC / macOS系統字體，42px白色粗斜標題、Georgia斜體Recruit副標；姓名24px，內容14px，主操作24px。實作保留可讀與44px觸控尺寸；概念較細小控制未逐像素照搬。
+- Spacing/layout: 雙角色並排、共用海岸展示背景、下方合併資訊、保底與票券操作、四項原導覽。側距12px，分頁與能力至少44px。因使用原人物比例及真實觸控尺寸，人物占比仍低於生成概念，屬明列實作限制，未以生成變異人物替代。
+- Color: 米白／海藍底、珊瑚橘主操作、白字與虛線票根分隔。主色較概念深，以維持文字對比；禁用用灰米色，狀態不是僅以透明度表示。保留原屬性語意色。
+- Image quality: 角色與原始背景檔案未修改；列表、結果、大圖依recruitmentBackdrop(id)判斷。C07-original=shion-v1，C08-original=chika-v1；summer才用recruit-beach-v1。去背後data URL保留形態背景標記。沒有使用概念圖中重繪人物。
+- Copy/content: 以遊戲資料為準，原名、形態、機率8.75%/15%、單抽1券或100共鳴、保底10抽與兌換100點皆維持；生成圖中的姓名差異未抄入。沒有新增十連或付費操作。
+
+## Validation
+
+Typecheck passed。Chromium/WebKit招募回歸40/40；結果彈窗調整後再驗22/22。規則與存檔38檔763/763。列表與結果四種形態反覆切換、返回焦點、Escape、預覽、保底、兌換、雙擊扣款防重與reload皆驗證。Busy/active-run的招募禁用以渲染狀態fixture驗證。截圖流程pageerror=[]。
+
+## Follow-up polish
+
+P3：概念使用較小觸控元件與重新渲染人物；實作以原圖及44px可操作尺寸優先，非逐像素複製生成圖。副標英文字體不是生成圖的手寫字。主頁方向已保留，以上差異明列。
+
+final result: passed
+
+
+---
+
+# 百波隊伍姓名與隊長標記 QA
+
+Source visual truth: hundred-review/inputs/截圖 2026-10-02 晚上11.07.46.png，Library libfile_c766e20128b48191863db9a2dac0cbe6。來源657×348，隊伍區約598×282；已透過正式Library流程取得並實際查看。使用者已確認要套用姓名列與金框隊長樣式。
+
+Implementation: http://127.0.0.1:5175/。手機390×844、320×500；桌面1440×900、1024×768，deviceScaleFactor=1。after/reference-lineup-390.png、after/reference-lineup-1440.png、after/reference-lineup-1024.png已實際查看。對照狀態皆為雷娜、米菈、芙蕾、希雅、凜月，凜月為隊長。來源與實作隊伍區並列 comparison.png，已實際查看同框比較；它也是姓名/金框/裁切的focused comparison。
+
+## Findings and history
+
+- [P1]原百波隊伍只有圖片，沒有姓名與真正隊長標記。加入figure/figcaption，以CHARACTER_MAP取姓名，隊長條件嚴格使用id===preferences.captainId。原圖由既有portrait/prepareImages依持有與已裝備形態處理。
+- [P2]第一輪桌面把隊伍區加高，擠到下方操作。改為flex分配可用高度、縮短紀錄留白，隊伍區最高240px；最終四尺寸截圖確認返回與調整編隊完整可見。
+- [P2]桌面可用區過高使隊伍框內出現大片空白。限制最高240px，把餘裕移到區塊間，最終比較已確認修正。
+
+## Required fidelity surfaces
+
+- 字體：沿用原產品Noto Sans TC/系統字體；姓名15px粗體，短手機14px，隊長12px。所有姓名與標記不換行、不溢出。
+- 比例與間距：桌面五人並排、零卡片間距、細分隔線；姓名帶固定44px，金框2px。手機正常高度三欄兩排以保留臉部與姓名可讀，短手機五欄一排；此為適應手機尺寸的明列差異。
+- 色彩：沿用深藍角色底、淺色姓名、金色隊長文字與外框 #edcc87；金框跟隊長資料，不固定在第一格/末格。
+- 影像：沒有改任何角色資產、未生成或替換角色。object-fit:contain，臉與人物比例完整；因此較附件近景裁切的人物略小，這是避免統一放大裁斷臉的刻意取捨。夏日/原始形態沿用各自原背景，未套招募海邊背景到百波頁。
+- 文案：姓名取實際角色資料，只有實際隊長顯示「隊長」。不足五人顯示「空位」，零人出擊禁用；未新增隊伍或隊長規則。
+
+## Verification
+
+Typecheck passed。Chromium/WebKit：hundred-squad + lobby-refinement 22/22；最後高度調整後hundred-squad再驗12/12。實際點「調整編隊」、更換隊長、返回百波，驗證金框跟隨；三人混合夏日形態與兩空位、save/reload一致；0/1/3/5人姓名、空位、出擊禁用與頁面fit皆正常。額外1024×768實畫面無遮擋。pageerror=[]；diff --check通過。
+
+## Follow-up polish
+
+P3：完整原圖的構圖比來源近景略小，未為了放大而裁掉臉。此次核定姓名列與真實隊長金框已完成。未修改招募版面、點數、攻擊、存檔結構或部署。
+
+final result: passed

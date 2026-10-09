@@ -11,7 +11,7 @@ for(const width of [390,1440])for(const reduced of [false,true])test.describe(`e
    for(const x of [195,240,285]){const e=createEnemy(s,'E03',x,330,0);e.hp=e.maxHp=100000;e.armor=e.shield=e.speed=0;}
    const w=s.weapons[0];w.nextAttack=0;stepWeapons(s);w.nextAttack=1e9;window.__game.ticks(0);
   });
-  await page.waitForFunction(()=>((window.__game.presentation() as any).materialEffects.textures['combat-props']??0)>=2);
+  await page.waitForFunction(()=>((window.__game.presentation() as any).materialEffects.textures['vfx-soft-light']??0)>=2);
   expect(await page.evaluate(()=>window.__game.state()!.events.some(e=>e.kind==='arc'))).toBe(true);
   const active=await page.evaluate(()=>(window.__game.presentation() as any).materialEffects);expect(active.active).toBeLessThanOrEqual(active.limit);
   await page.waitForFunction(()=>(window.__game.presentation() as any).materialEffects.active===0);expect(errors).toEqual([]);

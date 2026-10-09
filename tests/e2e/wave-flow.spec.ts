@@ -20,7 +20,7 @@ async function boot(page:Page,challengeId?:RunConfig['challengeId']) {
 }
 
 async function clearToAllocation(page:Page) {
-  return page.evaluate(async () => {
+  const result = await page.evaluate(async () => {
     const combatPath='/src/sim/combat.ts',enginePath='/src/sim/engine.ts';
     const {hitEnemy}=await import(combatPath),{stepRun}=await import(enginePath);
     const s=window.__game.state()!;
@@ -31,6 +31,7 @@ async function clearToAllocation(page:Page) {
     window.__game.ticks(0);
     return {wave:s.waveFlow!.wave,earned:s.choicesEarned,spent:s.choicesSpent,tick:s.tick};
   });
+  return result;
 }
 
 for(const width of [320,768,1024,1440])test(`wave-end allocation supports partial spending and banking at ${width}px`,async({page},info)=>{
@@ -53,7 +54,7 @@ for(const width of [320,768,1024,1440])test(`wave-end allocation supports partia
   await page.screenshot({path:info.outputPath(`wave-allocation-${width}.png`)});
   expect(await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth+1,spent:window.__game.state()!.choicesSpent}))).toEqual({overflow:false,spent:0});
   await confirm.focus();await confirm.press('Space');
-  await expect(page.locator('.skill-description-dialog[open]')).toHaveCount(0);
+  await expect(page.locator('.skill-bottom-sheet[data-open=true] .node-status')).toHaveText('已取得');await expect(confirm).toBeDisabled();
   await expect(page.locator('.wave-allocation')).toBeVisible();await bank.click();
   await expect(page.locator('.wave-allocation')).toHaveCount(0);
   expect(await page.evaluate(()=>({spent:window.__game.state()!.choicesSpent,wave:window.__game.state()!.waveFlow!.wave}))).toEqual({spent:1,wave:first.wave+1});
@@ -83,12 +84,10 @@ test('one wave allocation enforces the ultimate limit across individual confirma
   await clearToAllocation(page);
   let blocked='';
   for(const owner of ['C01','C02','C03'] as const){
-    if(await page.locator('.skill-description-dialog[open]').count())await page.getByRole('button',{name:'關閉',exact:true}).click();
     await page.locator(`[data-action="deep-owner"][data-id="${owner}"]`).click();
     const ultimate=deepTreesFor(owner).flatMap(t=>t.nodes).find(n=>n.kind==='ultimate')!;
     const path=pathsTo(ultimate.id).find(path=>path.length===5)!;
     for(const id of path){
-      if(await page.locator('.skill-description-dialog[open]').count())await page.getByRole('button',{name:'關閉',exact:true}).click();
       const node=page.locator(`[data-action="deep-node"][data-id="${id}"]`);
       await node.focus();await node.press('Enter');
       if(owner!=='C03'||id!==ultimate.id){await expect(page.locator('[data-action=buy-node]')).toBeEnabled();await page.locator('[data-action=buy-node]').click();}
@@ -98,7 +97,7 @@ test('one wave allocation enforces the ultimate limit across individual confirma
   const pending=await page.evaluate(()=>window.__game.state()!.draft!.pendingNodeIds!);
   expect(pending).not.toContain(blocked);
   expect((await page.evaluate(()=>window.__game.state()!.treeNodes!)).filter(id=>DEEP_NODE_MAP[id].kind==='ultimate')).toHaveLength(2);
-  await expect(page.locator('.skill-description-dialog')).toContainText('全隊終極名額已滿');
+  await expect(page.locator('.skill-bottom-sheet[data-open=true]')).toContainText('全隊終極名額已滿');
   await expect(page.locator('[data-action="buy-node"]')).toBeDisabled();await page.getByRole('button',{name:'關閉',exact:true}).click();
   expect(await page.evaluate(()=>window.__game.state()!.evolvedCount)).toBe(2);
   await page.getByRole('button',{name:/^開始下一波/}).click();

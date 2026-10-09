@@ -1,3 +1,8 @@
+import { NaturalEffects } from './natural-effects';
+import { ComboEffects } from './combo-effects';
+import { CrisisEffects } from './crisis-effects';
+import { UltimateEnergyEffects } from './ultimate-energy-effects';
+import { UltimateBattlefieldEffects } from './ultimate-battlefield-effects';
 import { assetUrl } from '../assets';
 import Phaser from 'phaser';
 import { CHARACTER_MAP, ENEMY_MAP, STAGE_MAP } from '../data/content';
@@ -8,7 +13,10 @@ import { MaterialEffects, MATERIAL_ATLAS, PROP_ATLAS, EFFECT_FRAME_SIZE } from '
 import { ProjectileVisuals, AMMO_ATLAS, AMMO_FRAME_SIZE } from './projectile-visuals';
 import { TacticalTimeline } from './tactical-timeline';
 import { enemyFrameSize, enemyTexture } from './enemy-motion';
-import { drawInterrupt } from './effects';
+import { DamageNumbers, drawInterrupt, isCriticalHit, isDot } from './effects';
+import { FocusOverlay } from './focus-overlay';
+import { command } from '../sim/engine';
+import { threat } from '../sim/combat';
 import { capEffects, effectDetail, effectLifetime, LAYERS, priorityEnemy, type ActiveEffect, type Detail } from './presentation';
 import { BossAssault } from './boss-assault';
 import { StatusEffects } from './status-effects';
@@ -36,12 +44,22 @@ export class BattleScene extends Phaser.Scene {
   private materials!: MaterialEffects;
   private areas!: AreaEffects;
   private statuses!: StatusEffects;
+  private damageNumbers!: DamageNumbers;
+  private combos!: ComboEffects;
+  private crisis!: CrisisEffects;
+  private ultimateEnergy!: UltimateEnergyEffects;
+  private ultimateBattlefield!: UltimateBattlefieldEffects;
+  private focusOverlay!: FocusOverlay;
+  private lastImpactAt = -Infinity;
+  private impactCount = 0;
+  private reducedMotion = false;
   private weaknesses!: WeaknessMarkers;
   private bossAssault!: BossAssault;
   private entrance!: BossEntrance;
   private rangeGraphics!: Phaser.GameObjects.Graphics;
   private rangeKey = "";
   private warnings!: Phaser.GameObjects.Graphics;
+  private warningGlow!: NaturalEffects;
   private worldLabels: Phaser.GameObjects.Text[] = [];
   private detail: Detail = 'full'; private slowFrames = 0; private peakEffects = 0;
   private warning!: Phaser.GameObjects.Text;
@@ -70,7 +88,7 @@ export class BattleScene extends Phaser.Scene {
       const camera=this.cameras.main;
       camera.setZoom(this.scale.width/390,this.scale.height/520).centerOn(195,260);
       const aspect=camera.zoomX/camera.zoomY;
-      this.worldLabels.forEach(label=>label.setScale(1,aspect));
+      this.worldLabels.forEach(label=>label.setScale(1,aspect).setFontSize(`${Math.max(11,11/camera.zoomX)}px`));
       this.warning?.setScale(1,aspect);
     };
     resize(); this.scale.on('resize',resize);
@@ -81,17 +99,47 @@ export class BattleScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#132c38');
     if (this.textures.exists('stage')) { const bg = this.add.image(195, 260, 'stage'); bg.setDisplaySize(390, 520).setAlpha(.60); }
     const shade = this.add.graphics(); shade.fillStyle(0x062732, .16).fillRect(0, 0, 390, 520);
-    shade.fillStyle(0x102630, .84).fillRect(0, 450, 390, 70);
-    shade.lineStyle(1, 0x72ead8, .35).beginPath().moveTo(0, 450).lineTo(390, 450).strokePath();
+    // The source scenery contains decorative empty slots; cover that unused strip.
+    shade.fillStyle(0x102630, 1).fillRect(0, 425, 390, 95);
     this.worldGraphics = this.add.graphics().setVisible(false);
     this.worldTexture = this.add.renderTexture(0, 0, 390, 520).setOrigin(0).setDepth(5);
     this.graphics = this.add.graphics().setDepth(LAYERS.effects);
     this.warnings = this.add.graphics().setDepth(LAYERS.warnings);
+    this.warningGlow = new NaturalEffects(this,LAYERS.warnings-1,12);
+    this.combos = new ComboEffects(this);
+    this.crisis = new CrisisEffects(this);
+    this.ultimateEnergy = new UltimateEnergyEffects(this);
+    this.ultimateBattlefield = new UltimateBattlefieldEffects(this);
     this.actors = new CombatActors(this, this.read, this.speed, this.spriteKeys, this.timeline);
     this.materials = new MaterialEffects(this);
     this.areas = new AreaEffects(this);
     this.projectiles = new ProjectileVisuals(this);
     this.statuses = new StatusEffects(this);
+    this.damageNumbers = new DamageNumbers(this);
+    this.focusOverlay = new FocusOverlay(this);
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateMotion = () => { this.reducedMotion = media.matches; };
+    updateMotion(); media.addEventListener('change', updateMotion);
+    const canvas = this.game.canvas;
+    canvas.tabIndex = 0;
+    canvas.setAttribute('aria-label', '戰場集火：點選敵人鎖定，再點一次取消。鍵盤方向鍵選擇目標，Enter 鎖定或取消。');
+    const focusKey = (event: KeyboardEvent) => {
+      if (event.defaultPrevented) return;
+      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) return;
+      event.preventDefault();
+      const run = this.read();
+      if (run.phase !== 'running' || this.timeline.active(run) || event.repeat) return;
+      const targets = threat(run);
+      if (!targets.length) return;
+      const index = targets.findIndex(e => e.id === run.focusTargetId);
+      const delta = ['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 1;
+      const targetId = event.key === 'Enter' ? (index < 0 ? targets[0].id : null) : targets[index < 0 ? 0 : (index + delta + targets.length) % targets.length].id;
+      command(run, { type: 'focus-target', targetId });
+    };
+    canvas.addEventListener('keydown', focusKey);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      canvas.removeEventListener('keydown', focusKey); media.removeEventListener('change', updateMotion);
+    });
     this.weaknesses = new WeaknessMarkers(this);
     this.bossAssault = new BossAssault(this);
     this.entrance = new BossEntrance(this, enemyTexture(STAGE_MAP[this.read().config.stageId].bossId));
@@ -99,7 +147,7 @@ export class BattleScene extends Phaser.Scene {
     const ids = this.read().config.squadIds;
     ids.forEach((id, i) => {
       const x = 195 + (i - (ids.length - 1) / 2) * 70;
-      this.worldLabels.push(this.add.text(x, 518, `${this.read().config.captainId === id ? '★ ' : ''}${CHARACTER_MAP[id].name}`, { fontSize: '10px', fontFamily: 'sans-serif', color: '#fff7e7' }).setOrigin(.5, 1).setDepth(8));
+      this.worldLabels.push(this.add.text(x, 511, `${this.read().config.captainId === id ? '★ ' : ''}${CHARACTER_MAP[id].name}`, { fontSize: '11px', fontFamily: 'sans-serif', color: '#fff7e7', stroke: '#061720', strokeThickness: 3 }).setOrigin(.5, 1).setDepth(8));
     });
     this.warning = this.add.text(195, 35, '', { fontSize: '14px', fontFamily: 'sans-serif', color: '#fff7e7', backgroundColor: '#aa3933', padding: { x: 12, y: 6 }, wordWrap: { width: 340, useAdvancedWrap: true }, align: 'center' }).setOrigin(.5).setDepth(LAYERS.warningText).setVisible(false);
     resize();
@@ -134,18 +182,15 @@ export class BattleScene extends Phaser.Scene {
     this.worldTexture.clear().draw(this.worldGraphics);
   }
   private drawWarnings(run: RunState) {
-    const g = this.warnings; g.clear();
-    for (const e of run.enemies) if (e.chargeKind && !e.chargeCancelled) {
-      const r = enemySize(e.defId) * .65;
-      g.fillStyle(0xff674e, .10).fillTriangle(e.x, e.y + r, e.x - 27, 450, e.x + 27, 450);
-      g.lineStyle(2.5, 0xffa06e, 1).strokeCircle(e.x, e.y, r);
-      if(e.defId.startsWith('B')) {
-        const duration=(e.defId==='B03'?3:2)*30,progress=Math.max(0,Math.min(1,1-(e.chargeUntil-run.tick)/duration));
-        g.lineStyle(5,0xffd58c,.9).beginPath().arc(e.x,e.y,r+5,-Math.PI/2,-Math.PI/2+progress*Math.PI*2,false).strokePath();
-        g.lineStyle(3,0xff9b73,.85).strokeEllipse(e.x,448,70+progress*45,14);
-      }
-      g.fillStyle(0xffa06e,.8).fillTriangle(e.x-4,444,e.x+4,444,e.x,450);
+    const g = this.warnings; g.clear();this.warningGlow.begin();
+    for (const e of run.enemies) if (e.hp>0&&e.chargeKind&&!e.chargeCancelled&&e.chargeUntil>run.tick) {
+      const r=enemySize(e.defId)*.5;
+      const duration=(e.defId==='B03'?3:2)*30,progress=Math.max(0,Math.min(1,1-(e.chargeUntil-run.tick)/duration));
+      this.warningGlow.glow(e.x,e.y,r*1.7,0xff9360,.12+progress*.13);
+      // A small local cue accompanies the existing, readable charge countdown.
+      g.fillStyle(0xffbc83,.8).fillTriangle(e.x-3,e.y-r-10,e.x+3,e.y-r-10,e.x,e.y-r-5);
     }
+    this.warningGlow.end();
   }
   update() {
     const run = this.read(); if (!this.graphics || !this.actors) return;
@@ -153,14 +198,26 @@ export class BattleScene extends Phaser.Scene {
     this.slowFrames = elapsed > 20 ? Math.min(30, this.slowFrames + 1) : Math.max(0, this.slowFrames - .25);
     this.detail = effectDetail(this.low(), run.enemies.length, run.projectiles.length, this.slowFrames);
     const fresh = run.events.filter(e => e.seq > this.lastSeq); this.lastSeq = run.eventSeq;
-    this.actors.update(run, elapsed, fresh, this.detail, this.low());
+    this.actors.update(run, elapsed, fresh, this.detail, this.low() || this.reducedMotion);
     const key = `${run.tick}:${run.actionSeq}:${run.eventSeq}:${run.phase}:${run.enemies.length}:${run.projectiles.length}:${run.fields.length}:${run.shields.length}:${this.detail}`;
     if (run !== this.worldRun || key !== this.worldKey) { this.worldRun = run; this.worldKey = key; this.drawWorld(run); }
     const now = this.actors.clock;
     this.areas.update(run, fresh, now, this.detail);
-    this.statuses.update(run, now, fresh, this.detail);
+    const reduced = this.low() || this.reducedMotion;
+    this.statuses.update(run, now, this.detail);
+    this.damageNumbers.update(run, fresh, now, this.detail, reduced);
+    this.focusOverlay.update(run, now, this.actors.origin, reduced);
     this.weaknesses.update(run);
-    this.bossAssault.update(run,now,fresh,this.low());
+    this.bossAssault.update(run,now,fresh,reduced);
+    const impact = fresh.some(e => e.kind === 'combo_emp' || isCriticalHit(e) || e.kind === 'hit' && !isDot(e) && e.enemyDefId?.startsWith('B') && (e.value ?? 0) > 0 || e.kind === 'tactical' && e.skill === 'ultimate');
+    if (!reduced && run.phase === 'running' && impact && now - this.lastImpactAt >= 350) {
+      this.cameras.main.shake(100, .005);
+      this.lastImpactAt = now; this.impactCount++;
+    }
+    this.combos.update(run, fresh, now, reduced);
+    this.crisis.update(fresh, now, reduced);
+    this.ultimateEnergy.update(run, fresh, now, reduced, this.actors.origin);
+    this.ultimateBattlefield.update(run, fresh, now, reduced, this.actors.origin);
     this.entrance.update(run, this.detail);
     const rangeKey = `${key}:${this.selectedRange()}`;
     if (rangeKey !== this.rangeKey) { this.rangeKey = rangeKey; drawRange(this.rangeGraphics, run, this.selectedRange()); }
@@ -188,7 +245,7 @@ export class BattleScene extends Phaser.Scene {
   }
   diagnostics() {
     const bounds = this.warning.getBounds(), selected = this.selectedRange(), run = this.read();
-    return { ...this.areas.diagnostics(), ...this.actors.diagnostics(), ...this.materials.diagnostics(), ...this.projectiles.diagnostics(), ...this.statuses.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(),
+    return { ...this.combos.diagnostics(), ...this.crisis.diagnostics(), ...this.ultimateEnergy.diagnostics(), ...this.ultimateBattlefield.diagnostics(), ...this.areas.diagnostics(), ...this.actors.diagnostics(), ...this.materials.diagnostics(), ...this.projectiles.diagnostics(), ...this.statuses.diagnostics(), ...this.damageNumbers.diagnostics(), ...this.focusOverlay.diagnostics(), ...this.weaknesses.diagnostics(), ...this.bossAssault.diagnostics(), impactCount: this.impactCount,
       bossIntro: run.bossIntro ? { ...run.bossIntro, type: run.enemies.find(e => e.id === run.bossIntro?.enemyId)?.defId, visible: true, depth: 30 } : null,
       range: selected ? { id: selected, radius: weaponRange(run, selected), insideIds: run.enemies.filter(e => inWeaponRange(run, selected, e)).map(e => e.id) } : null, detail: this.detail, activeEffects: this.flashes.length, peakEffects: this.peakEffects,
       warnings: { visible: this.warning.visible, text: this.warning.text, top: bounds.top, bottom: bounds.bottom, depth: this.warning.depth, geometryDepth: this.warnings.depth },

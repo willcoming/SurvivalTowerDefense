@@ -1,0 +1,80 @@
+import { test, expect } from '@playwright/test';
+import { ready, startBattle, reachable } from '../helpers/mobile-ui';
+
+for (const viewport of [{width:320,height:568},{width:390,height:844},{width:768,height:1000},{width:1024,height:900},{width:1440,height:1000}]) test.describe(`review ${viewport.width}`, () => {
+  test.use({ viewport, hasTouch: viewport.width < 800, isMobile: viewport.width < 800 });
+  test('home, recruitment and settings keep their controls readable', async ({page}, info) => {
+    const errors:string[]=[];page.on('pageerror', e => errors.push(e.message));
+    await ready(page);
+    await expect(page.locator('.portrait-guard')).not.toBeVisible();
+    await reachable(page.locator('[data-action=start]'));
+    await expect(page.locator('.durability-reward strong')).toHaveText(['防線保留 ≥1%','防線保留 ≥50%','防線保留 ≥100%']);
+    await page.screenshot({path:info.outputPath(`home-${viewport.width}.png`)});
+    await page.evaluate(() => {const c=window.__game.getSave().collection;c.lastReceipt={id:++c.sequence,kind:'draw',formId:'C07-summer',duplicate:false,spent:'ticket'};window.__game.route('recruitment');});
+    const receipt=page.getByRole('button',{name:'招募結果',exact:true});
+    await reachable(receipt);await reachable(page.locator('[data-action=draw]'));
+    await expect(page.locator('.game-hud')).toHaveCSS('background-color','rgb(16, 38, 49)');
+    await page.screenshot({path:info.outputPath(`recruitment-${viewport.width}.png`)});
+    await receipt.click();await expect(page.locator('dialog[data-detail=recruit-receipt]')).toBeVisible();
+    await page.keyboard.press('Escape');await expect(receipt).toBeFocused();
+    await page.getByRole('button',{name:'設定',exact:true}).click();
+    await reachable(page.getByRole('slider',{name:'音樂音量'}));
+    await reachable(page.getByRole('slider',{name:'音效音量'}));
+    await page.screenshot({path:info.outputPath(`settings-${viewport.width}.png`)});
+    await page.getByRole('button',{name:'離線與版本',exact:true}).click();
+    await page.getByRole('button',{name:'離線下載、版本與更新',exact:true}).click();
+    await expect(page.locator('[data-offline-action=force-update]')).not.toBeVisible();
+    await page.locator('.build-information > summary').click();
+    await expect(page.locator('[data-offline-action=force-update]')).toBeVisible();
+    expect(errors).toEqual([]);
+  });
+});
+test('battle uses compact ultimate status and a reversible exit confirmation', async ({page},info) => {
+  await ready(page);await startBattle(page);
+  await expect(page.locator('.battle-phone > .ultimate-strip')).toHaveCount(0);
+  await expect(page.locator('.ultimate-cue')).not.toBeVisible();
+  await expect(page.locator('#boss-countdown')).not.toBeVisible();
+  const canvas=await page.locator('#battle-canvas').boundingBox();expect(canvas!.height/844).toBeGreaterThan(.8);
+  await page.screenshot({path:info.outputPath('battle.png')});
+  await page.locator('[data-action=pause]').click();
+  const runId=await page.evaluate(()=>window.__game.state()!.runId);
+  await expect(page.locator('.pause-dialog [data-action=abandon-confirm]')).toHaveCount(0);
+  await page.screenshot({path:info.outputPath('pause.png')});
+  await page.locator('[data-action=save-home]').click();
+  await expect(page.getByRole('alertdialog')).toContainText('離開會結束目前戰鬥');
+  await page.locator('[data-action=navigation-cancel]').click();
+  expect(await page.evaluate(()=>window.__game.state()!.runId)).toBe(runId);
+  await page.locator('[data-action=save-home]').click();
+  await page.locator('[data-action=navigation-confirm]').click();
+  await expect(page.locator('#app')).toHaveAttribute('data-page','home');
+  expect(await page.evaluate(()=>window.__game.getSave().activeRun)).toBeNull();
+});
+test('force update requires explicit confirmation', async ({page}) => {
+  await ready(page);await page.getByRole('button',{name:'設定',exact:true}).click();
+  await page.getByRole('button',{name:'離線與版本',exact:true}).click();
+  await page.getByRole('button',{name:'離線下載、版本與更新',exact:true}).click();
+  await page.locator('.build-information > summary').click();
+  await page.evaluate(async()=>{const path='/src/offline.ts';const {offlineGame}=await import(path);(window as any).forceCalls=0;offlineGame.forceUpdate=async()=>{(window as any).forceCalls++;};(document.querySelector('[data-offline-action=force-update]') as HTMLButtonElement).disabled=false;});
+  page.once('dialog',dialog=>dialog.dismiss());await page.locator('[data-offline-action=force-update]').click();
+  expect(await page.evaluate(()=>(window as any).forceCalls)).toBe(0);
+  page.once('dialog',dialog=>dialog.accept());await page.locator('[data-offline-action=force-update]').click();
+  expect(await page.evaluate(()=>(window as any).forceCalls)).toBe(1);
+});
+test('offline ready notice appears once while update problems remain visible', async ({page}) => {
+  await ready(page);
+  await page.evaluate(async()=>{
+    const client='/src/offline.ts',ui='/src/ui/offline.ts';
+    const {offlineGame}=await import(client);const {refreshOfflineUi}=await import(ui);
+    const state={...offlineGame.state,phase:'ready',update:'none'};
+    Object.defineProperty(offlineGame,'state',{get:()=>state});
+    (window as any).reviewOffline={state,refresh:()=>refreshOfflineUi(document.getElementById('app')!)};
+    refreshOfflineUi(document.getElementById('app')!);
+  });
+  await expect(page.locator('.offline-summary')).toBeVisible();
+  await page.getByRole('button',{name:'設定',exact:true}).click();
+  await page.locator('.game-dock [data-action=home]').click();
+  await expect(page.locator('.offline-summary')).toBeHidden();
+  await page.evaluate(()=>{const review=(window as any).reviewOffline;review.state.update='error';review.refresh();});
+  await expect(page.locator('.offline-summary')).toBeVisible();
+  await expect(page.locator('.offline-summary')).toContainText('更新未完成');
+});

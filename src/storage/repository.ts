@@ -92,9 +92,9 @@ export class GameRepository {
    if(typeof indexedDB==='undefined'){reject(new Error('目前瀏覽器無法儲存進度'));return;}
    const request=indexedDB.open(this.name,1);
    request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains(STORE_NAME))request.result.createObjectStore(STORE_NAME);};
-   request.onsuccess=()=>{request.result.onversionchange=()=>request.result.close();resolve(request.result);};
+   request.onsuccess=()=>{const db=request.result;db.onversionchange=()=>{db.close();this.dbPromise=null;};db.onclose=()=>{this.dbPromise=null;};resolve(db);};
    request.onerror=()=>{this.dbPromise=null;reject(request.error??new Error('無法開啟本機儲存'));};
-   request.onblocked=()=>reject(new Error('請先關閉其他遊戲分頁再重試'));
+   request.onblocked=()=>{this.dbPromise=null;reject(new Error('請先關閉其他遊戲分頁再重試'));};
   });return this.dbPromise;
  }
  async load(options:{discardActiveRun?:boolean}={}):Promise<GameSave>{

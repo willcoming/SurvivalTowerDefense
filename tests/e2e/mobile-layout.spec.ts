@@ -11,9 +11,11 @@ for (const size of phoneSizes) test(`MOBILE: ${size.width}×${size.height} curre
     const trigger=page.getByRole('button',{name:`閱讀完整${name}`});await reachable(trigger);await trigger.click();
     await reachable(page.getByRole('button',{name:'關閉詳細資訊',exact:true}));await page.keyboard.press('Escape');await expect(trigger).toBeFocused();
   }
-  await page.locator('.game-dock [data-action=roster]').click();await fitsScreen(page);await page.locator('[data-action=roster-edit]').click();
-  const picker=page.getByRole('combobox',{name:'隊員',exact:true});const count=await picker.locator('option').count();
-  for(let i=0;i<count;i++){await picker.selectOption(String(i));await fitsScreen(page);for(const tile of await page.locator('.roster-tile:visible').all())await reachable(tile);}
+  await page.locator('.game-dock [data-action=roster]').click();await fitsScreen(page);
+  await expect(page.locator('.formation-member')).toHaveCount(8);
+  await expect(page.getByRole('combobox',{name:'隊員',exact:true})).toHaveCount(0);
+  for(const tile of await page.locator('.formation-member').all()){await tile.scrollIntoViewIfNeeded();await reachable(tile);}
+  await page.locator('#roster-card-C01').click();await page.locator('.formation-controls [data-action=captain]').click();
   await reachable(page.locator('[data-action=roster-commit]'));await page.locator('[data-action=roster-commit]').click();
   await page.locator('.game-dock [data-action=recruitment]').click();await fitsScreen(page);await reachable(page.locator('[data-action=draw]'));
   const pool=page.getByRole('combobox',{name:'獎池項目',exact:true});await pool.selectOption({index:2});
@@ -26,7 +28,7 @@ for (const size of phoneSizes) test(`MOBILE: ${size.width}×${size.height} curre
   for(const button of await page.locator('.mobile-commander-tabs button').all()){
     await button.click();await fitsScreen(page);for(const node of await page.locator('.commander-route:not([hidden]) .mobile-commander-node').all()){await node.scrollIntoViewIfNeeded();expect(await node.evaluate(el=>{const r=el.getBoundingClientRect(),clip=el.closest('ol')!.getBoundingClientRect(),top=Math.max(r.top,clip.top),bottom=Math.min(r.bottom,clip.bottom);return bottom-top>=44&&el.contains(document.elementFromPoint(r.left+r.width/2,(top+bottom)/2));})).toBe(true);}
   }
-  await page.locator('[data-action=home]:visible').first().click();await page.locator('.hundred-entry').click();await fitsScreen(page);
+  await page.locator('[data-action=home]:visible').first().click();await page.locator('.game-dock [data-action=hundred]').click();await fitsScreen(page);
   for(const action of ['start-hundred','roster','home'])await reachable(page.locator(`.hundred-screen [data-action=${action}]`));
   await page.screenshot({path:info.outputPath('hundred-entry.png')});expect(errors).toEqual([]);
 });
@@ -67,7 +69,7 @@ test('MOBILE: battle allocation toolbars and defeat actions fit all sizes; rotat
   await ready(page);await startBattle(page);
   for(const size of phoneSizes){
     await page.setViewportSize(size);await reachable(page.locator('#speed-button'));await reachable(page.locator('[data-action=pause]'));await reachable(page.locator('.range-toolbar [data-action=command-panel]'));
-    for(const selector of ['#wall-text','#wave-text','.battle-intel > summary','.ultimate-strip small'])await expect(page.locator(selector).first()).toHaveCSS('font-size','14px');
+    for(const selector of ['#wall-text','#wave-text','.ultimate-strip small'])await expect(page.locator(selector).first()).toHaveCSS('font-size','14px');
   }
   await finishWave(page);
   const id=await page.evaluate(()=>window.__game.state()!.draft!.focusId);
@@ -106,10 +108,10 @@ test('MOBILE: keyboard-height resize retains unfinished name and input focus',as
 test.describe('desktop preservation',()=>{
   test.use({isMobile:false,hasTouch:false});
   test('MOBILE: transitions preserve editing state and desktop pages use original layout',async({page})=>{
-    await page.setViewportSize({width:390,height:844});await ready(page);await page.locator('.game-dock [data-action=roster]').click();await page.locator('[data-action=roster-edit]').click();await page.locator('.roster-tile[data-id=C02]').click();
+    await page.setViewportSize({width:390,height:844});await ready(page);await page.locator('.game-dock [data-action=roster]').click();await page.locator('.formation-member[data-id=C02]').click();
     for(const width of [768,1024,1440]){
-      await page.setViewportSize({width,height:1024});await expect(page.locator('[data-roster-view=character]')).toBeVisible();await expect(page.locator('[data-action=captain]')).toHaveAttribute('data-id','C02');
-      if(width>800){await expect(page.locator('.roster-tile:visible')).toHaveCount(8);await expect(page.locator('.portrait-guard')).not.toBeVisible();}
+      await page.setViewportSize({width,height:1024});await expect(page.locator('.formation-inspector')).toBeVisible();await expect(page.locator('[data-action=captain]')).toHaveAttribute('data-id','C02');
+      if(width>800){await expect(page.locator('.formation-member:visible')).toHaveCount(8);await expect(page.locator('.portrait-guard')).not.toBeVisible();}
     }
   });
 });

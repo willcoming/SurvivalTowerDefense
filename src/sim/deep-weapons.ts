@@ -20,7 +20,7 @@ function packet(s:RunState,w:WeaponState):DamagePacket{
   const m=deepMods(s,w.id),n=deepWeaponStats(s,w),every=m.exposureEvery??(w.id==='C06'?4:0);
   const own=every&&w.attacks%every===0?{value:Math.min(.25,(w.id==='C06'?.1:0)+(m.exposureValue??0)),duration:ticks(((w.id==='C06'?4:0)+(m.exposureSeconds??0))*n.duration)}:undefined;
   const shared=deepMods(s,'common'),common=shared.teamMarkEvery&&w.attacks%shared.teamMarkEvery===0?{value:shared.teamMarkValue??.08,duration:ticks(3)}:undefined;
-  return {...(usesTacticalSkills(s)?{tacticalWeapon:true}:{}),source:w.id,skill:'weapon',raw:n.damage*(usesReworkedSkills(s)&&w.id==='C08'&&!isSummer(s,w.id)&&(w.ultimateBuffUntil??0)>s.tick?1.6:1)*(m.critEvery&&w.attacks%m.critEvery===0?1+(m.critPower??.5):1),damageType:attackType(s,w.id),armorIgnore:Math.min(1,(w.id==='C03'?.35:0)+(m.armor??0)),shieldMultiplier:(w.id==='C02'?1.25:1)+(m.shield??0),exposureBonus:(w.id==='C01'?.15:0)+(m.exposureDamage??0),exposure:own&&common?{value:Math.max(own.value,common.value),duration:Math.max(own.duration,common.duration)}:own??common,armorBreak:m.armorBreak,executeDamage:m.executeDamage,executeThreshold:m.executeThreshold,controlledBonus:m.controlledDamage};
+  return {...(usesTacticalSkills(s)?{tacticalWeapon:true}:{}),...(m.critEvery&&w.attacks%m.critEvery===0?{critical:true}:{}),source:w.id,skill:'weapon',raw:n.damage*(usesReworkedSkills(s)&&w.id==='C08'&&!isSummer(s,w.id)&&(w.ultimateBuffUntil??0)>s.tick?1.6:1)*(m.critEvery&&w.attacks%m.critEvery===0?1+(m.critPower??.5):1),damageType:attackType(s,w.id),armorIgnore:Math.min(1,(w.id==='C03'?.35:0)+(m.armor??0)),shieldMultiplier:(w.id==='C02'?1.25:1)+(m.shield??0),exposureBonus:(w.id==='C01'?.15:0)+(m.exposureDamage??0),exposure:own&&common?{value:Math.max(own.value,common.value),duration:Math.max(own.duration,common.duration)}:own??common,armorBreak:m.armorBreak,executeDamage:m.executeDamage,executeThreshold:m.executeThreshold,controlledBonus:m.controlledDamage};
 }
 function bullet(s:RunState,t:Enemy,p:DamagePacket,count:number){
   const dx=t.x-195,dy=t.y-490,len=Math.hypot(dx,dy)||1;
@@ -59,7 +59,7 @@ function attack(s:RunState,w:WeaponState){
     if(m.chainBurst&&seen.size>1)blast(s,target.x,target.y,60*n.radiusMultiplier,{...p,skill:'chain-burst',raw:p.raw*m.chainBurst});
   }
   if(w.id==='C03'){
-    target=all.sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];const targets=lineTargets(s,target,2+(m.pierce??0),w.id),end=targets.at(-1)??target;
+    target=all.find(e=>e.id===s.focusTargetId)??all.sort((a,b)=>b.maxHp-a.maxHp||a.id-b.id)[0];const targets=lineTargets(s,target,2+(m.pierce??0),w.id),end=targets.at(-1)??target;
     emit(s,{kind:'beam',x:195,y:490,x2:end.x,y2:end.y,source:w.id,...(s.contentVersion===CONTENT_VERSION?{areaShape:'line' as const,radius:7,affectedIds:targets.map(t=>t.id)}:{})});
     for(const [i,t] of targets.entries())hitEnemy(s,t,{...p,raw:p.raw*Math.min(1,Math.max(.5,1-.15*i)+(i?m.linePower??0:0))*(t.id===target.id?1+(m.mainDamage??0):1)*(['E07','E08','B01','B02','B03'].includes(t.defId)?1+(m.eliteDamage??0):1)});
     if(m.lineShock)blast(s,end.x,end.y,40,{...p,skill:'overpenetration',raw:p.raw*m.lineShock,secondary:true});

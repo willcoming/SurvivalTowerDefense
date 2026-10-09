@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850" width="100%" height="100%" style="background:#090d16; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="roadGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141c2e" />
+      <stop offset="100%" stop-color="#0a0f1d" />
+    </linearGradient>
+    <linearGradient id="critGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <radialGradient id="threatGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="80%" stop-color="rgba(239,68,68,0)" />
+      <stop offset="100%" stop-color="rgba(239,68,68,0.4)" />
+    </radialGradient>
+    <!-- Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="0" y="0" width="1200" height="70" fill="url(#headerGrad)" stroke="#1e293b" stroke-width="1" />
+  <text x="30" y="42" fill="#38bdf8" font-size="22" font-weight="900" letter-spacing="1">星骸防線：戰鬥畫面重構示意對比圖 (BATTLE HUD REDESIGN)</text>
+  <text x="1170" y="42" fill="#94a3b8" font-size="14" text-anchor="end">CODEX IMPLEMENTATION SPEC</text>
+
+  <!-- ================= LEFT: BEFORE (現況痛點) ================= -->
+  <g transform="translate(50, 90)">
+    <!-- Phone Frame -->
+    <rect x="0" y="0" width="480" height="720" rx="24" fill="#030712" stroke="#e11d48" stroke-width="2" />
+    <text x="20" y="-10" fill="#f43f5e" font-size="16" font-weight="bold">❌ 改動前：現況畫面痛點（文字塞車・純觀戰）</text>
+
+    <!-- Top HUD -->
+    <rect x="15" y="15" width="450" height="50" rx="8" fill="#0f172a" stroke="#1e293b" />
+    <text x="30" y="38" fill="#cbd5e1" font-size="12">防線 1000/1000</text>
+    <rect x="30" y="46" width="160" height="6" rx="3" fill="#10b981" />
+    <text x="240" y="45" fill="#f8fafc" font-size="13" font-weight="bold">WAVE 1 / 10</text>
+    <text x="440" y="45" fill="#94a3b8" font-size="12" text-anchor="end">1× Ⅱ</text>
+
+    <!-- Battlefield Road -->
+    <rect x="15" y="75" width="450" height="490" fill="url(#roadGrad)" />
+
+    <!-- Clutter Monster Group at Top -->
+    <g transform="translate(40, 95)">
+      <!-- Monster 1 with overlapping text -->
+      <rect x="20" y="30" width="44" height="44" rx="8" fill="#7f1d1d" stroke="#f87171" />
+      <text x="42" y="56" fill="#fff" font-size="16" text-anchor="middle">👾</text>
+      <!-- Clutter labels -->
+      <rect x="5" y="5" width="70" height="18" rx="3" fill="#1c1917" stroke="#b45309" />
+      <text x="40" y="18" fill="#f59e0b" font-size="10" text-anchor="middle">燃燒 20.3 ▲</text>
+
+      <!-- Monster 2 -->
+      <rect x="120" y="30" width="44" height="44" rx="8" fill="#7f1d1d" stroke="#f87171" />
+      <text x="142" y="56" fill="#fff" font-size="16" text-anchor="middle">👾</text>
+      <!-- Overlapping label -->
+      <rect x="95" y="10" width="70" height="18" rx="3" fill="#1c1917" stroke="#b45309" />
+      <text x="130" y="23" fill="#f59e0b" font-size="10" text-anchor="middle">燃燒 15.9 ◈</text>
+      <rect x="135" y="2" width="60" height="18" rx="3" fill="#1c1917" stroke="#b45309" />
+      <text x="165" y="15" fill="#f59e0b" font-size="10" text-anchor="middle">燃燒 4.0 ☉</text>
+
+      <!-- Monster 3 & 4 -->
+      <rect x="220" y="30" width="44" height="44" rx="8" fill="#7f1d1d" stroke="#f87171" />
+      <text x="242" y="56" fill="#fff" font-size="16" text-anchor="middle">👾</text>
+      <rect x="205" y="8" width="70" height="18" rx="3" fill="#1c1917" stroke="#b45309" />
+      <text x="240" y="21" fill="#f59e0b" font-size="10" text-anchor="middle">燃燒 3.2 ▲</text>
+
+      <rect x="320" y="30" width="44" height="44" rx="8" fill="#7f1d1d" stroke="#f87171" />
+      <text x="342" y="56" fill="#fff" font-size="16" text-anchor="middle">👾</text>
+      <rect x="310" y="12" width="65" height="18" rx="3" fill="#1c1917" stroke="#0284c7" />
+      <text x="342" y="25" fill="#38bdf8" font-size="10" text-anchor="middle">緩速 60%</text>
+    </g>
+
+    <!-- Empty Middle Space -->
+    <rect x="30" y="220" width="420" height="180" rx="8" fill="rgba(15,23,42,0.4)" stroke="#334155" stroke-dasharray="4,4" />
+    <text x="240" y="315" fill="#64748b" font-size="13" text-anchor="middle">中間 60% 螢幕為空曠柏油路，缺乏動態反饋</text>
+
+    <!-- Weak Defense Line -->
+    <line x1="20" y1="560" x2="460" y2="560" stroke="#10b981" stroke-width="3" />
+    <text x="240" y="550" fill="#10b981" font-size="11" text-anchor="middle">防線僅一條綠線（受創無震感、無危機警報）</text>
+
+    <!-- Bottom Squad -->
+    <rect x="15" y="575" width="450" height="80" rx="10" fill="#0f172a" stroke="#1e293b" />
+    <text x="50" y="620" fill="#fff" font-size="20">👧</text>
+    <text x="140" y="620" fill="#fff" font-size="20">👩</text>
+    <text x="230" y="620" fill="#fff" font-size="20">👱‍♀️</text>
+    <text x="320" y="620" fill="#fff" font-size="20">👩‍🦰</text>
+    <text x="410" y="620" fill="#fff" font-size="20">👱</text>
+    <text x="240" y="645" fill="#94a3b8" font-size="11" text-anchor="middle">角色全自動索敵／終極技自動冷卻施放（玩家純掛機）</text>
+
+    <!-- Bottom Bar -->
+    <rect x="15" y="665" width="450" height="40" rx="6" fill="#020617" />
+    <text x="240" y="690" fill="#64748b" font-size="12" text-anchor="middle">無主動戰術技能</text>
+  </g>
+
+  <!-- ================= RIGHT: AFTER (改進後極簡直觀) ================= -->
+  <g transform="translate(670, 90)">
+    <!-- Phone Frame with Subtle Threat Glow -->
+    <rect x="0" y="0" width="480" height="720" rx="24" fill="#030712" stroke="#38bdf8" stroke-width="2" />
+    <rect x="0" y="0" width="480" height="720" rx="24" fill="url(#threatGlow)" pointer-events="none" />
+    <text x="20" y="-10" fill="#38bdf8" font-size="16" font-weight="bold">✨ 改動後：極簡直觀・緊湊刺激又動腦</text>
+
+    <!-- Top HUD (High Contrast & Clear) -->
+    <rect x="15" y="15" width="450" height="50" rx="8" fill="#0f172a" stroke="#334155" />
+    <text x="30" y="36" fill="#38bdf8" font-size="13" font-weight="bold">防線 1000 / 1000</text>
+    <rect x="30" y="44" width="160" height="8" rx="4" fill="#1e293b" />
+    <rect x="30" y="44" width="160" height="8" rx="4" fill="#38bdf8" />
+    <rect x="220" y="24" width="90" height="32" rx="6" fill="#451a03" stroke="#f59e0b" />
+    <text x="265" y="45" fill="#fef08a" font-size="13" font-weight="900" text-anchor="middle">WAVE 1/10</text>
+    <rect x="400" y="25" width="55" height="30" rx="6" fill="#1e293b" />
+    <text x="427" y="45" fill="#f8fafc" font-size="13" font-weight="bold" text-anchor="middle">2×</text>
+
+    <!-- Battlefield Road -->
+    <rect x="15" y="75" width="450" height="490" fill="url(#roadGrad)" />
+
+    <!-- Clean Monsters (Tints & Particles, NO Text) -->
+    <g transform="translate(40, 95)">
+      <!-- Normal Monster with Flame Aura (No text!) -->
+      <circle cx="50" cy="50" r="28" fill="rgba(249,115,22,0.2)" filter="url(#glow)" />
+      <rect x="28" y="28" width="44" height="44" rx="8" fill="#9a3412" stroke="#ea580c" stroke-width="2" />
+      <text x="50" y="56" fill="#fff" font-size="20" text-anchor="middle">👾</text>
+      <!-- Small HP bar under monster -->
+      <rect x="30" y="76" width="40" height="4" rx="2" fill="#1e293b" />
+      <rect x="30" y="76" width="30" height="4" rx="2" fill="#ef4444" />
+
+      <!-- TARGET LOCKED MONSTER (Player Focus Fire) -->
+      <g transform="translate(180, 20)">
+        <circle cx="35" cy="35" r="45" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,4" />
+        <!-- Reticle -->
+        <path d="M 15 35 L 25 35 M 45 35 L 55 35 M 35 15 L 35 25 M 35 45 L 35 55" stroke="#ef4444" stroke-width="2" />
+        <rect x="10" y="10" width="50" height="50" rx="10" fill="#7f1d1d" stroke="#fca5a5" stroke-width="2" />
+        <text x="35" y="42" fill="#fff" font-size="24" text-anchor="middle">👹</text>
+        <rect x="10" y="-14" width="50" height="18" rx="4" fill="#dc2626" />
+        <text x="35" y="-1" fill="#fff" font-size="10" font-weight="bold" text-anchor="middle">集火鎖定</text>
+        <!-- CRIT FLOATING TEXT (Consolidated & Punchy) -->
+        <text x="80" y="10" fill="url(#critGrad)" font-size="20" font-weight="900" filter="url(#glow)">CRIT 1,480!</text>
+      </g>
+
+      <!-- Right Monster -->
+      <rect x="320" y="28" width="44" height="44" rx="8" fill="#1e293b" stroke="#475569" stroke-width="2" />
+      <text x="342" y="56" fill="#fff" font-size="20" text-anchor="middle">👾</text>
+    </g>
+
+    <!-- Focus Laser Beams from Squad to Target -->
+    <line x1="120" y1="575" x2="255" y2="150" stroke="#f43f5e" stroke-width="2" opacity="0.8" stroke-dasharray="4,2" />
+    <line x1="210" y1="575" x2="255" y2="150" stroke="#f59e0b" stroke-width="2" opacity="0.9" />
+    <line x1="300" y1="575" x2="255" y2="150" stroke="#38bdf8" stroke-width="2" opacity="0.8" />
+
+    <!-- Threat Danger Line (Alert System) -->
+    <line x1="20" y1="410" x2="460" y2="410" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,4" opacity="0.8" />
+    <text x="450" y="400" fill="#f87171" font-size="11" font-weight="bold" text-anchor="end">⚠ 突破警戒線 (突進倒數 3 秒)</text>
+
+    <!-- Energy Defense Wall (Rich Visuals) -->
+    <rect x="15" y="555" width="450" height="12" fill="rgba(56,189,248,0.2)" stroke="#38bdf8" stroke-width="2" rx="4" />
+    <text x="240" y="546" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">🛡️ 高能力場防線 (EMP 備用中)</text>
+
+    <!-- Bottom Squad with Ultimate Readiness Ring -->
+    <rect x="15" y="575" width="450" height="75" rx="10" fill="#0f172a" stroke="#1e293b" />
+    <!-- Character with Ultimate Ready -->
+    <circle cx="120" cy="610" r="24" fill="rgba(245,158,11,0.2)" stroke="#f59e0b" stroke-width="2" />
+    <text x="120" y="617" fill="#fff" font-size="20" text-anchor="middle">👧</text>
+    <text x="120" y="642" fill="#f59e0b" font-size="10" font-weight="bold" text-anchor="middle">璃音 ✦</text>
+
+    <!-- Leader with Active Focus Aura -->
+    <circle cx="210" cy="610" r="24" fill="rgba(56,189,248,0.2)" stroke="#38bdf8" stroke-width="2" />
+    <text x="210" y="617" fill="#fff" font-size="20" text-anchor="middle">👩</text>
+    <text x="210" y="642" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">★雷娜</text>
+
+    <text x="300" y="617" fill="#fff" font-size="20" text-anchor="middle">👱‍♀️</text>
+    <text x="300" y="642" fill="#94a3b8" font-size="10" text-anchor="middle">米菈</text>
+    <text x="370" y="617" fill="#fff" font-size="20" text-anchor="middle">👩‍🦰</text>
+    <text x="370" y="642" fill="#94a3b8" font-size="10" text-anchor="middle">芙蕾</text>
+    <text x="430" y="617" fill="#fff" font-size="20" text-anchor="middle">👱</text>
+    <text x="430" y="642" fill="#94a3b8" font-size="10" text-anchor="middle">希雅</text>
+
+    <!-- Commander Tactical Call-in Toolbar (ACTIVE PLAYER AGENCY) -->
+    <rect x="15" y="658" width="450" height="50" rx="8" fill="#0f172a" stroke="#0284c7" stroke-width="1.5" />
+    <text x="35" y="688" fill="#38bdf8" font-size="12" font-weight="bold">⚡ 指揮官主動戰術：</text>
+
+    <!-- Skill 1 -->
+    <rect x="180" y="666" width="125" height="34" rx="6" fill="#1e3a8a" stroke="#60a5fa" />
+    <text x="242" y="688" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">🛡️ 全息磁暴牆</text>
+
+    <!-- Skill 2 -->
+    <rect x="315" y="666" width="135" height="34" rx="6" fill="#78350f" stroke="#f59e0b" />
+    <text x="382" y="688" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">🚀 軌道集束砲</text>
+  </g>
+</svg>

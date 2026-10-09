@@ -26,6 +26,9 @@ export function importantEffect(event: VisualEvent) {
   return visualPriority(event) === 3;
 }
 export function effectLifetime(event: VisualEvent) {
+  if (event.kind.startsWith('combo_')) return 500;
+  if (event.kind === 'emp_wave' || event.kind === 'orbital-blast') return 650;
+  if (event.kind === 'barrier-spawn') return 350;
   if (event.kind === 'tactical') return SKILL_FX_MS;
   if (event.kind === 'evolution') return 600;
   if (event.kind === 'death') return event.enemyDefId?.startsWith('B') ? 650 : 360;
