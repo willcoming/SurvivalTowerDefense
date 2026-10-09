@@ -19,6 +19,8 @@ codex-rework/
 ├── 05-PHASE3_VISUAL_REFINEMENT_NO_LINES.md # 畫面精煉規格：去線條化 + 粒子光暈升級
 ├── 06-ULTIMATE_VFX_REWORK.md               # 終極技能視覺效果與能量累積徹底重構規格
 ├── ULTIMATE_VFX_CODEX_PROMPT.md            # 提供給 Codex 的大招視覺重構一鍵複製指令
+├── 07-SKILL_TREE_UI_REWORK.md              # 技能樹與星圖 UI/UX 徹底重構規格
+├── SKILL_TREE_CODEX_PROMPT.md              # 提供給 Codex 的技能樹 UI 重構一鍵複製指令
 └── mockups/
     ├── battle-redesign-mockup.svg      # 戰鬥畫面前後對比高解析度向量圖
     ├── skill-cards-mockup.svg          # 波末流派卡片視覺向量圖
