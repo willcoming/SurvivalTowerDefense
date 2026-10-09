@@ -1,14 +1,14 @@
 import {test,expect,type Page} from '@playwright/test';
 import {ready,startBattle,finishWave} from '../helpers/mobile-ui';
-async function node(page:Page,id:string){if(await page.locator('.skill-description-dialog[open]').count())await page.getByRole('button',{name:'關閉',exact:true}).click();const target=page.locator(`[data-action="deep-node"][data-id="${id}"]`);await page.keyboard.press('Tab');await target.focus();await target.click();}
+async function node(page:Page,id:string){const target=page.locator(`[data-action="deep-node"][data-id="${id}"]`);await page.keyboard.press('Tab');await target.focus();await target.click();await expect(page.locator('.skill-bottom-sheet[data-open=true]')).toBeVisible();}
 async function preview(page:Page){await page.routeWebSocket('**/*',s=>s.close());await page.goto('/');await page.waitForFunction(()=>!!window.__game);await page.evaluate(()=>window.__game.route('codex'));await page.getByRole('button',{name:'技能樹與節點',exact:true}).click();}
 for(const viewport of [{width:320,height:500},{width:390,height:844}])test(`complete mobile tree pans, zooms and retains camera at ${viewport.width}`,async({page},info)=>{
  await page.setViewportSize(viewport);await preview(page);const map=page.locator('.network-viewport');
  await expect(map.locator('.deep-node:visible')).toHaveCount(24);await expect(map).toHaveCSS('touch-action','none');
  const before=await page.evaluate(()=>structuredClone(window.__game.getSave()));
- const rect=(await map.boundingBox())!,start=await map.getAttribute('data-pan-x');
+ const rect=(await map.boundingBox())!,start=await map.getAttribute('data-pan-y');
  await page.mouse.move(rect.x+rect.width/2,rect.y+rect.height/2);await page.mouse.down();await page.mouse.move(rect.x+rect.width/2+70,rect.y+rect.height/2+25,{steps:8});await page.mouse.up();
- expect(await map.getAttribute('data-pan-x')).not.toBe(start);await expect(page.locator('.personnel-skill-detail')).toContainText('點選節點');
+ expect(await map.getAttribute('data-pan-y')).not.toBe(start);await expect(page.locator('.personnel-skill-detail')).toContainText('點選節點');
  const scale=Number(await map.getAttribute('data-scale'));await page.getByRole('button',{name:'放大技能樹',exact:true}).click();expect(Number(await map.getAttribute('data-scale'))).toBeGreaterThan(scale);
  const zoom=await map.getAttribute('data-scale');const target=page.locator('[data-action="personnel-skill-node"][data-id="C01-A4/4"]');await target.focus();await page.keyboard.press('Enter');
  await expect(target).toBeInViewport();await expect(page.locator('.personnel-skill-detail')).toContainText('星雨掃射');await expect(map).toHaveAttribute('data-scale',zoom!);
@@ -59,8 +59,8 @@ for(const viewport of [{width:1440,height:1000},{width:390,height:844}])test.des
  await expect(graph).toHaveAttribute('data-path-focus','C02-A4/6');
  expect(await graph.locator('.network-edges .focus-direct').evaluateAll(es=>es.map(e=>(e as SVGElement).dataset.parent).sort())).toEqual(['C02-A4/1','C02-A4/5','C02-B4/1']);
  await expect(graph.locator('.cross-route.focus-direct')).toHaveCount(1);
- await expect(graph.locator('[data-parent="C02-C4/0"][data-child="C02-C4/1"]')).toHaveCSS('opacity','0.45');
- await expect(page.locator('.personnel-skill-detail')).toContainText('或');
+ await expect(graph.locator('[data-parent="C02-C4/0"][data-child="C02-C4/1"]')).toHaveCSS('opacity','0.2');
+ await expect(page.locator('.personnel-skill-detail')).toContainText('任一即可');
  await expect(graph.locator('.path-parent')).toHaveCount(3);
  await page.screenshot({path:info.outputPath(`readable-selected-${viewport.width}.png`)});
 });

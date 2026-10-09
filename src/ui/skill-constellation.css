@@ -75,7 +75,7 @@
 #app .constellation-map .constellation-node.available { color:#ecd990; border-color:#dfc76e; background:radial-gradient(circle at 40% 30%,#514c31,#242c2a 70%); box-shadow:inset 0 0 0 3px #bdaa4220,0 0 0 3px #d8bd491a; }
 #app .constellation-map .constellation-node.pending { color:#18212a; border-color:#fff3b9; background:#efda92; box-shadow:inset 0 0 0 3px #ae8e3444,0 0 0 4px #e5ce7640,0 0 24px #d8bd4960; }
 #app .constellation-map .constellation-node.locked { border:1px solid #4b5d6c; color:#82939f; background:radial-gradient(circle at 40% 30%,#24313e,#12202c 75%); box-shadow:inset 0 0 0 3px #07131c60,0 0 0 3px #51657416; }
-#app .constellation-map .constellation-node.ultimate { --size:50px; border-style:double; border-width:3px; }
+#app .constellation-map .constellation-node.ultimate { --size:60px; border-style:double; border-width:3px; }
 #app .constellation-map .constellation-node.inspecting { outline:1px solid #f1e9c7; outline-offset:6px; border-color:#efe4b8; box-shadow:0 0 25px #d6c68038; }
 #app .constellation-map .constellation-node.inspecting strong { color:#f2e4b2; }
 #app .constellation-map .constellation-node:hover { border-color:#f5e4ad; color:#fff2c1; box-shadow:0 0 18px #dec77744; }
@@ -131,7 +131,7 @@
   #app .constellation-map .constellation-mobile-edges path:not(.active-route) { display:none; }
   #app .constellation-map .constellation-node:not(.active-branch) { display:none; }
   #app .constellation-map .constellation-node { left:var(--mobile-x); top:var(--mobile-y)!important; --size:46px; }
-  #app .constellation-map .constellation-node.ultimate { --size:50px; }
+  #app .constellation-map .constellation-node.ultimate { --size:60px; }
   #app .constellation-map .constellation-node strong { font-size:11px; width:100px; top:calc(100% + 7px); }
   #app .personnel-skill-scroll { padding:0 12px; }
   .constellation-intro { padding:12px 4px 0; gap:10px; flex-wrap:wrap; }
@@ -217,30 +217,46 @@
 #app .deep-graph.skill-network { position:absolute; left:0; top:0; display:block; width:var(--map-width)!important; height:var(--map-height)!important; max-width:none; min-width:0; margin:0; aspect-ratio:auto; transform-origin:0 0; will-change:transform; user-select:none; touch-action:none; }
 #app .skill-network .network-grid { position:absolute; inset:0; width:100%; height:100%; color:#4e6b7d; opacity:.13; pointer-events:none; }
 #app .skill-network .network-edges { display:block; position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
-#app .skill-network .network-edges path { stroke:#506875; opacity:1; stroke-width:1.3; stroke-linejoin:round; stroke-linecap:round; }
-#app .skill-network .network-edges path.cross-route { stroke:#3f5765; stroke-dasharray:3 6; stroke-width:1; }
-#app .skill-network .network-edges path.connected { stroke:#d4b757; stroke-width:2; }
-#app .skill-network .network-edges path.queued { stroke:#f2dea0; stroke-width:2; stroke-dasharray:5 4; }
-#app .skill-network[data-path-focus] .network-edges path { opacity:.15; }
-#app .skill-network[data-path-focus] .network-edges path.focus-ancestor { stroke:#a99a67; opacity:.8; stroke-width:1.6; }
-#app .skill-network[data-path-focus] .network-edges path.focus-direct { stroke:#f0d57b; opacity:1; stroke-width:2.2; }
+#app .skill-network .network-edges path { stroke:color-mix(in srgb,var(--atlas-accent) 25%,#415368); opacity:.68; stroke-width:1.3; stroke-linejoin:round; stroke-linecap:round; }
+#app .skill-network .network-edges path.cross-route { stroke:color-mix(in srgb,var(--atlas-accent) 25%,#6d7887); stroke-dasharray:1 7; stroke-width:1.4; opacity:.5; }
+#app .skill-network .network-edges path.outgoing-owned { stroke:var(--atlas-accent); stroke-width:2.5; opacity:.72; filter:drop-shadow(0 0 4px color-mix(in srgb,var(--atlas-accent) 40%,transparent)); }
+#app .skill-network .network-edges path.connected { stroke:var(--atlas-accent); stroke-width:2.5; opacity:1; filter:drop-shadow(0 0 5px color-mix(in srgb,var(--atlas-accent) 60%,transparent)); }
+#app .skill-network .network-edges path.queued { stroke:var(--atlas-gold); stroke-width:2.5; opacity:1; stroke-dasharray:5 4; animation:atlas-route-flow 2s linear infinite; }
+#app .skill-network .network-edges path.route-flow { stroke:#f6fcff; stroke-width:2.5; opacity:.65; stroke-dasharray:1 28; animation:atlas-route-flow 3s linear infinite; filter:drop-shadow(0 0 3px var(--atlas-accent)); }
+#app .skill-network[data-path-focus] .network-edges path:not(.route-underlay) { opacity:.2; }
+#app .skill-network[data-path-focus] .network-edges path.focus-ancestor { stroke:var(--atlas-accent); opacity:.8; stroke-width:2; }
+#app .skill-network[data-path-focus] .network-edges path.focus-direct { stroke:#fff0b4; opacity:1; stroke-width:2.5; }
+#app .skill-network[data-path-focus] .network-route:has(.focus-direct,.focus-ancestor) .route-flow { opacity:.8; }
 /* Small breaks distinguish crossings from prerequisite junctions. */
-#app .skill-network .network-edges path.route-underlay { stroke:#0d1b25; stroke-width:5; stroke-dasharray:none; opacity:1; filter:none; }
-#app .skill-network .constellation-node.path-parent { border-color:#d6c078; }
-#app .skill-network[data-path-focus] .constellation-node:not(.path-node):not(.owned):not(.pending):not(.ultimate) { opacity:.48; }
-#app .skill-network[data-path-focus] .constellation-node.path-node strong { color:#e3d9b4; }
-#app .skill-network .constellation-node { display:flex!important; --size:64px; left:var(--node-x)!important; top:var(--node-y)!important; width:64px; height:64px; min-height:64px; padding:13px; }
-#app .skill-network .constellation-node.ultimate { --size:76px; width:76px; height:76px; min-height:76px; border-width:3px; border-color:#dec777; box-shadow:0 0 0 5px #dec77720,inset 0 0 0 4px #dec77718; }
-#app .skill-network .constellation-node.ultimate.locked { color:#c5ad6b; border-color:#b29c61; }
-#app .skill-network .constellation-node.ultimate::before { content:'終極技'; position:absolute; left:50%; bottom:calc(100% + 14px); transform:translateX(-50%); padding:4px 10px; border:1px solid #b29c61; border-radius:3px; color:#f2dda0; background:#24251f; font-size:12px; font-weight:600; line-height:1.4; letter-spacing:.08em; white-space:nowrap; pointer-events:none; }
+#app .skill-network .network-edges path.route-underlay { stroke:var(--atlas-space,#07101d); stroke-width:6; stroke-dasharray:none; opacity:1; filter:none; animation:none; }
+#app .skill-network .constellation-node.path-parent { border-color:var(--atlas-accent); }
+#app .skill-network[data-path-focus] .constellation-node:not(.path-node):not(.owned):not(.pending):not(.ultimate) { opacity:.6; }
+#app .skill-network[data-path-focus] .constellation-node.path-node strong { color:#e6eff8; }
+#app .skill-network .constellation-node { display:flex!important; --size:var(--node-size,44px); left:var(--node-x)!important; top:var(--node-y)!important; width:var(--size); height:var(--size); min-height:var(--size); padding:8px; border:1px solid color-mix(in srgb,var(--atlas-accent) 50%,#43546c); color:color-mix(in srgb,var(--atlas-accent) 70%,#eaf3ff); background:radial-gradient(circle at 35% 25%,#263b55,#101c30 75%); box-shadow:inset 0 0 0 3px #07101d66,0 0 0 3px #b7d5f014; }
+#app .skill-network .constellation-node.owned { color:#07101d; border-color:color-mix(in srgb,var(--atlas-accent) 70%,white); background:radial-gradient(circle at 30% 20%,color-mix(in srgb,var(--atlas-accent) 75%,white),var(--atlas-accent)); box-shadow:inset 0 0 0 3px #07101d30,0 0 0 3px color-mix(in srgb,var(--atlas-accent) 20%,transparent),0 0 19px color-mix(in srgb,var(--atlas-accent) 42%,transparent); }
+#app .skill-network .constellation-node.owned strong { color:color-mix(in srgb,var(--atlas-accent) 65%,white); }
+#app .skill-network .constellation-node.available { color:var(--atlas-accent); border-color:var(--atlas-accent); background:radial-gradient(circle at 40% 20%,color-mix(in srgb,var(--atlas-accent) 22%,#142337),#101a2b 75%); animation:atlas-available .6s ease-in-out infinite alternate; }
+#app .skill-network .constellation-node.pending { color:var(--atlas-gold); border-color:var(--atlas-gold); background:linear-gradient(145deg,#574526,#1c2029); box-shadow:0 0 20px #f4d77e50; }
+#app .skill-network .constellation-node.pending .node-symbol::before { content:''; position:absolute; inset:-4px; border-radius:50%; padding:2px; background:conic-gradient(from 0deg,transparent 10%,#f4d77e 35%,transparent 55%,#f4d77e 80%,transparent); mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); mask-composite:exclude; animation:atlas-orbit 2.5s linear infinite; pointer-events:none; }
+#app .skill-network .constellation-node.locked { color:#7e8fa3; border-color:#50607888; background:linear-gradient(145deg,#27324199,#111b2b99); box-shadow:inset 0 0 0 3px #07101d55; }
+#app .skill-network .constellation-node.ultimate { --size:var(--node-size,60px); padding:12px; border:1px solid #dfbd68; color:var(--atlas-gold); background:radial-gradient(circle at 35% 20%,#554124,#211e19 52%,#0b111d); box-shadow:inset 0 0 0 4px #f4d77e12,0 0 25px #f4d77e25; }
+#app .skill-network .constellation-node.ultimate.locked { color:#cdb775; border-color:#9f895a; background:radial-gradient(circle at 35% 20%,#3a3122,#111724 80%); }
+#app .skill-network .constellation-node.ultimate::before { content:'終極技'; position:absolute; left:50%; bottom:calc(100% + 13px); transform:translateX(-50%); color:var(--atlas-gold); font-size:9px; font-weight:600; line-height:14px; letter-spacing:.1em; white-space:nowrap; pointer-events:none; }
 #app .skill-network .constellation-node.ultimate.locked::before { content:'終極技 · 未解鎖'; }
 #app .skill-network .constellation-node.ultimate.owned::before { content:'終極技 · 已取得'; }
 #app .skill-network .constellation-node.ultimate.pending::before { content:'終極技 · 待確認'; }
-#app .skill-network .constellation-node.ultimate strong { color:#e3ce91; font-weight:600; }
+#app .skill-network .constellation-node.ultimate strong { color:#f4d77e; font-weight:600; }
 #app .skill-network .constellation-node.capstone { border-style:double; border-width:3px; }
-#app .skill-network .constellation-node strong { width:140px; font-size:14px; top:calc(100% + 10px); text-shadow:0 0 5px #07111c,0 0 8px #07111c,0 0 12px #07111c; }
-#app .skill-network .constellation-node small { right:-7px; bottom:-5px; font-size:10px; border-radius:4px; padding:1px 4px; }
-#app .skill-network .node-symbol { width:32px; height:32px; }
+#app .skill-network .constellation-node strong { width:var(--map-label-width,100px); font-size:12px; line-height:16px; max-height:32px; top:calc(100% + 8px); white-space:normal; overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; font-weight:500; text-shadow:0 0 5px #07101d,0 0 8px #07101d,0 0 12px #07101d; }
+#app .skill-network .constellation-node small { right:-5px; bottom:-3px; min-width:16px; line-height:16px; font-size:10px; border-radius:5px; padding:0 3px; color:var(--atlas-gold); background:#111b2d; border:1px solid #f4d77e66; }
+#app .skill-network .constellation-node.owned small { font-weight:800; color:#f4d77e; border-color:#f4d77e; }
+#app .skill-network .constellation-node.available small { color:var(--atlas-accent); border-color:var(--atlas-accent); }
+#app .skill-network .constellation-node.pending small { color:#182033; background:var(--atlas-gold); font-weight:800; }
+#app .skill-network .constellation-node .node-symbol { width:26px; height:26px; transform:none; }
+#app .skill-network .constellation-node.ultimate .node-symbol { width:32px; height:32px; }
+#app .skill-network .constellation-node.inspecting { z-index:4; border-color:#fff6d4; outline:1px solid #fff3c0; outline-offset:5px; }
+#app .skill-network .constellation-node.inspecting::after { content:''; position:absolute; inset:-14px; border:1px solid color-mix(in srgb,var(--atlas-accent) 65%,transparent); border-radius:50%; background:radial-gradient(circle,transparent 45%,color-mix(in srgb,var(--atlas-accent) 14%,transparent) 65%,transparent 72%); box-shadow:0 0 24px color-mix(in srgb,var(--atlas-accent) 30%,transparent); pointer-events:none; }
+#app .skill-network .constellation-node.inspecting strong { color:#fff3cc; }
 #app .skill-network .constellation-node:focus-visible { outline:2px solid #fff0b4; outline-offset:7px; }
 .network-core { position:absolute; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; gap:6px; color:#d9c778; pointer-events:none; }
 .network-core span { display:grid; place-items:center; width:54px; height:54px; border:1px solid #bca766; border-radius:50%; background:#122431; font-size:36px; box-shadow:0 0 35px #e2c66615; }
@@ -268,7 +284,42 @@
  #app .network-panel .personnel-skill-detail{max-height:30dvh;overflow:auto;padding:8px 12px}
 }
 
-#app .network-gesture-hint { position:absolute; top:8px; right:10px; z-index:3; padding:3px 6px; border-radius:3px; color:#a2afb6; background:#0b1721cc; font-size:10px; pointer-events:none; }
+#app .network-controls [hidden],#app .network-map-help[hidden] { display:none!important; }
+#app .network-map-help { flex:none; margin:0; padding:2px 8px 8px; color:#93a2b6; font-size:10px; line-height:1.5; text-align:center; }
+
+/* Fixed-size vector crests retain their hierarchy while the map camera changes. */
+.ultimate-orbits { position:absolute; inset:-8px; border-radius:50%; pointer-events:none; color:var(--atlas-gold,#f4d77e); }
+.ultimate-orbits i { position:absolute; inset:0; display:block; border-radius:50%; border:1px solid #d8b85a66; border-top-color:#fff0b4; border-right-color:#e5c76d; animation:atlas-orbit 18s linear infinite; }
+.ultimate-orbits i + i { inset:4px; border-color:#d8b85a88; border-left-color:#fff4c5; border-bottom-color:transparent; animation-duration:12s; animation-direction:reverse; }
+.ultimate-orbits i::after { content:''; position:absolute; top:8px; left:8px; width:3px; height:3px; border-radius:50%; background:#ffe9a1; box-shadow:0 0 7px 2px #f4d77e77; }
+#app .skill-network .ultimate.available { animation:atlas-ultimate-glow 1.8s ease-in-out infinite alternate; }
+#app .skill-network .ultimate.available .ultimate-orbits { background:radial-gradient(circle at 5% 50%,#ffeab7 0 1px,transparent 2px),radial-gradient(circle at 90% 20%,#ffeab7 0 1px,transparent 2px),radial-gradient(circle at 70% 96%,#ffeab7 0 1px,transparent 2px); }
+#app .skill-network .ultimate.owned { border-color:#fff0ad; box-shadow:inset 0 0 0 4px #f4d77e20,0 0 28px #f4d77e55; }
+#app .skill-network .ultimate.locked .ultimate-orbits { opacity:.68; }
+#app .skill-network .constellation-node.ultimate small { right:-5px; bottom:-3px; min-width:16px; font-size:10px; }
+
+#app .skill-network .network-branch-badge { position:absolute; transform:translate(-50%,-50%); z-index:3; display:flex; align-items:center; justify-content:center; gap:5px; width:var(--map-label-width,100px); min-height:32px; padding:5px 4px; border:1px solid color-mix(in srgb,var(--atlas-accent) 28%,#33425c); border-radius:6px; background:#101b2cee; color:color-mix(in srgb,var(--atlas-accent) 65%,#e9eef5); font-size:10px; line-height:14px; white-space:normal; }
+#app .skill-network .network-branch-badge small { font:8px ui-monospace,monospace; color:var(--atlas-accent); opacity:.7; }
+#app .skill-network .network-branch-badge[aria-pressed=true] { border-color:var(--atlas-accent); color:#fff; background:color-mix(in srgb,var(--atlas-accent) 18%,#101b2c); box-shadow:0 0 14px color-mix(in srgb,var(--atlas-accent) 20%,transparent); }
+#app .skill-network .network-branch-badge:focus-visible { outline:2px solid #fff0b4; outline-offset:3px; }
+#app .skill-network[data-branch-focus] .constellation-node.branch-highlight { border-color:var(--atlas-accent); animation:atlas-branch-glow 1.8s ease-in-out infinite alternate; opacity:1; }
+#app .skill-network[data-branch-focus] .network-edges path.branch-highlight { stroke:var(--atlas-accent); stroke-width:2.5; opacity:1; animation:atlas-route-breathe 1.8s ease-in-out infinite alternate; }
+#app .skill-network[data-branch-focus] .network-edges path:not(.branch-highlight):not(.route-underlay):not(.focus-direct):not(.focus-ancestor) { opacity:.25; }
+#app .network-panel .network-viewport { background:radial-gradient(ellipse at 28% 30%,color-mix(in srgb,var(--atlas-accent,#81d6ff) 8%,transparent),transparent 60%),radial-gradient(ellipse at 80% 80%,#1a284c66,transparent 68%),#07101d; }
+#app .network-panel .network-viewport::before { content:''; position:absolute; inset:0; pointer-events:none; opacity:.35; background-image:radial-gradient(circle at 18% 29%,#c6d9ff 0 1px,transparent 1.5px),radial-gradient(circle at 78% 58%,#93b1db 0 1px,transparent 1.5px),radial-gradient(circle at 47% 82%,#728fb8 0 1px,transparent 1.5px); background-size:137px 163px,197px 211px,293px 251px; }
+#app .skill-network .network-core { color:var(--atlas-accent); }
+#app .skill-network .network-core span { border-color:color-mix(in srgb,var(--atlas-accent) 60%,transparent); background:#102038; box-shadow:0 0 30px color-mix(in srgb,var(--atlas-accent) 14%,transparent); }
+
+@keyframes atlas-orbit { to { transform:rotate(360deg); } }
+@keyframes atlas-route-flow { to { stroke-dashoffset:-58; } }
+@keyframes atlas-route-breathe { from { opacity:.66; } to { opacity:1; } }
+@keyframes atlas-available { from { box-shadow:inset 0 0 0 3px #07101d55,0 0 0 3px color-mix(in srgb,var(--atlas-accent) 10%,transparent),0 0 10px color-mix(in srgb,var(--atlas-accent) 15%,transparent); } to { box-shadow:inset 0 0 0 3px #07101d55,0 0 0 4px color-mix(in srgb,var(--atlas-accent) 28%,transparent),0 0 20px color-mix(in srgb,var(--atlas-accent) 42%,transparent); } }
+@keyframes atlas-branch-glow { from { filter:drop-shadow(0 0 2px color-mix(in srgb,var(--atlas-accent) 15%,transparent)); } to { filter:drop-shadow(0 0 7px color-mix(in srgb,var(--atlas-accent) 50%,transparent)); } }
+@keyframes atlas-ultimate-glow { from { box-shadow:inset 0 0 0 4px #f4d77e18,0 0 18px #f4d77e30; } to { box-shadow:inset 0 0 0 4px #f4d77e30,0 0 32px #f4d77e66; } }
+@media(prefers-reduced-motion:reduce) {
+  #app .skill-network *,#app .skill-network *::before,#app .skill-network *::after,.ultimate-orbits i { animation:none!important; transition:none!important; }
+  #app .skill-network .network-edges path.route-flow { opacity:.4; }
+}
 
 /* Wave-end confirmation and banking share a stable action column. */
 #app .tactical-tree.wave-allocation .node-preview > .wave-bank { background:transparent; color:#c7c2a7; border-color:#697979; box-shadow:none; }

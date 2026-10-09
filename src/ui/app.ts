@@ -55,6 +55,7 @@ export class GameApp {
   private saveQueue: Promise<void> = Promise.resolve(); private renderedOverlay = ''; private endedId = '';
   private lastFocused: HTMLElement | null = null; private ready = false;
   private personnelReturnScroll=0;
+  private skillMapSession=0;
   private lastRun: RunState | null = null; private temporary = false; private preservedSave: GameSave | null = null;
   private saveBoundary = '';
   private sceneReady = false; private assetFailure = false;
@@ -172,7 +173,7 @@ export class GameApp {
   private overlay() {
     const holder = document.getElementById(this.vm.page === 'battle' ? 'battle-overlay' : 'global-overlay'); if (!holder) return;
     const run = this.save.activeRun;
-    if(run&&this.vm.page==='battle'&&usesFreeSkills(run)&&run.draft&&!this.vm.treePanel){const ownerId=run.config.squadIds[0];this.vm.treePanel={ownerId,treeId:deepTreesFor(ownerId,run)[0].id,nodeId:null,mode:'choose'};}
+    if(run&&this.vm.page==='battle'&&usesFreeSkills(run)&&run.draft&&!this.vm.treePanel){const ownerId=run.config.squadIds[0];this.vm.treePanel={ownerId,treeId:deepTreesFor(ownerId,run)[0].id,nodeId:null,mode:'choose',mapSession:++this.skillMapSession};}
     const key = `${JSON.stringify(this.vm.personnelSkills)}:${this.vm.recruitPreview}:${this.vm.commandPanel}:${this.vm.navigationTarget}:${JSON.stringify(this.vm.treePanel)}:${JSON.stringify(this.vm.rosterPanel)}:${this.collecting}:${this.save.revision}:${this.vm.message}:${this.vm.page}:${this.vm.modal}:${this.vm.selectedCard}:${this.vm.showBuild}:${this.vm.saveStatus}:${run?.runId}:${run?.tick}:${run?.actionSeq}:${run?.draft?.id}:${JSON.stringify(run?.draft?.pendingNodeIds)}:${run?.pauseReasons.join(',')}:${this.save.preferences.musicVolume}:${this.save.preferences.sfxVolume}:${this.save.preferences.reducedEffects}:${this.save.preferences.autoTactical}`;
     if (key === this.overlayKey) return;
     this.overlayKey = key;
@@ -223,8 +224,11 @@ export class GameApp {
     this.prepareImages(holder);
     if (modal) {
       if (!wasOpen) this.lastFocused = focus;
-      const replacement = focusId ? holder.querySelector<HTMLElement>(`#${focusId}`) : focusAction ? [...holder.querySelectorAll<HTMLElement>('[data-action]')].find(el => el.dataset.action === focusAction && el.dataset.id === focusItem) : null;
-      (replacement && modal.contains(replacement) && !replacement.matches(':disabled') ? replacement : modal.querySelector<HTMLElement>('button:not(:disabled),select:not(:disabled),input:not(:disabled)'))?.focus({ preventScroll: true });
+      let replacement = focusId ? holder.querySelector<HTMLElement>(`#${focusId}`) : focusAction ? [...holder.querySelectorAll<HTMLElement>('[data-action]')].find(el => el.dataset.action === focusAction && el.dataset.id === focusItem) : null;
+      const canFocus = (element:HTMLElement|null|undefined):element is HTMLElement => !!element && modal.contains(element) && !element.matches(':disabled') && element.getClientRects().length > 0 && getComputedStyle(element).visibility !== 'hidden' && !element.closest('[inert]');
+      // The readable list forwards actions through its hidden graph counterpart.
+      if (!canFocus(replacement) && focusItem) replacement = [...modal.querySelectorAll<HTMLElement>('.skill-list-node')].find(element => element.dataset.id === focusItem && canFocus(element));
+      (canFocus(replacement) ? replacement : [...modal.querySelectorAll<HTMLElement>('button:not(:disabled),select:not(:disabled),input:not(:disabled)')].find(canFocus))?.focus({ preventScroll: true });
     } else if (wasOpen && this.lastFocused?.isConnected) this.lastFocused.focus({ preventScroll: true });
   }
   private prepareImages(root: HTMLElement) {
@@ -276,7 +280,7 @@ export class GameApp {
       this.tacticalTimeline.play(run);
       this.accumulator = 0;
     }
-    if (accepted) { if (cmd.type === 'choose' || cmd.type === 'buy-node' || cmd.type === 'confirm-node') { this.vm.selectedCard = null; if((cmd.type==='buy-node'||cmd.type==='confirm-node')&&!run.draft)this.vm.treePanel=undefined; else if(cmd.type==='buy-node'&&this.vm.treePanel)this.vm.treePanel.detailOpen=false; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); }
+    if (accepted) { if (cmd.type === 'choose' || cmd.type === 'buy-node' || cmd.type === 'confirm-node') { this.vm.selectedCard = null; if((cmd.type==='buy-node'||cmd.type==='confirm-node')&&!run.draft)this.vm.treePanel=undefined; else if(cmd.type==='buy-node'&&this.vm.treePanel)this.vm.treePanel.detailOpen=true; this.audio.feedback('choose'); } this.overlay(); updateHud(run, this.save.preferences.battleSpeed, this.save.preferences.autoTactical, this.selectedRange); void this.persist(); }
     return accepted;
   }
   private pauseFor(reason: 'hidden' | 'orientation') {
@@ -571,9 +575,15 @@ export class GameApp {
         const ownerId=this.vm.rosterPanel?.ownerId??this.vm.characterId;
         if(!['roster','codex'].includes(this.vm.page)||id!==ownerId)break;
         this.personnelReturnScroll=this.root.querySelector('.roster-panel-body')?.scrollTop??0;
-        this.vm.personnelSkills={ownerId,treeId:deepTreesFor(ownerId)[0].id,nodeId:null,formId:this.vm.rosterPanel?.previewFormId??ownedForm(this.rosterSave().collection,ownerId)??originalForm(ownerId)};this.overlay();break;
+        this.vm.personnelSkills={ownerId,treeId:deepTreesFor(ownerId)[0].id,nodeId:null,mapSession:++this.skillMapSession,formId:this.vm.rosterPanel?.previewFormId??ownedForm(this.rosterSave().collection,ownerId)??originalForm(ownerId)};this.overlay();break;
       }
       case 'personnel-skill-form': if(this.vm.personnelSkills&&[`${this.vm.personnelSkills.ownerId}-original`,`${this.vm.personnelSkills.ownerId}-summer`].includes(id!)){this.vm.personnelSkills.formId=id as import('../sim/types').FormId;this.overlay();}break;
+      case 'personnel-skill-detail-close': {
+        const panel=this.vm.personnelSkills;if(!panel)break;
+        const nodeId=panel.nodeId;panel.nodeId=null;this.overlay();
+        [...this.root.querySelectorAll<HTMLElement>('[data-action=personnel-skill-node],.skill-list-node')].find(node=>node.dataset.id===nodeId&&node.getClientRects().length&&getComputedStyle(node).visibility!=='hidden')?.focus({preventScroll:true});
+        break;
+      }
       case 'personnel-skills-close': this.closePersonnelSkills();break;
       case 'personnel-skill-tab': if(this.vm.personnelSkills&&DEEP_TREE_MAP[id!]?.ownerId===this.vm.personnelSkills.ownerId){this.vm.personnelSkills.treeId=id!;this.vm.personnelSkills.nodeId=null;this.overlay();this.root.querySelector<HTMLElement>(`#personnel-tab-${id}`)?.focus({preventScroll:true});}break;
       case 'personnel-skill-node': if(this.vm.personnelSkills&&DEEP_NODE_MAP[id!]?.ownerId===this.vm.personnelSkills.ownerId){this.vm.personnelSkills.treeId=DEEP_NODE_MAP[id!].treeId;this.vm.personnelSkills.nodeId=id!;this.overlay();}break;
@@ -615,7 +625,7 @@ export class GameApp {
   }
   private openTree(mode: 'choose'|'view', nodeId?: string) {
     const run=this.save.activeRun;if(!run||!usesSkillTrees(run))return;
-    if(usesFreeSkills(run)){const chosen=DEEP_NODE_MAP[nodeId??''],ownerId=chosen?.ownerId??run.config.squadIds[0];this.vm.treePanel={ownerId,treeId:chosen?.treeId??deepTreesFor(ownerId,run)[0].id,nodeId:chosen?.id??null,detailOpen:!!chosen,mode:run.draft?'choose':'view'};command(run,{type:'pause',reason:'tree'});this.overlay();void this.persist();return;}
+    if(usesFreeSkills(run)){const chosen=DEEP_NODE_MAP[nodeId??''],ownerId=chosen?.ownerId??run.config.squadIds[0];this.vm.treePanel={ownerId,treeId:chosen?.treeId??deepTreesFor(ownerId,run)[0].id,nodeId:chosen?.id??null,detailOpen:!!chosen,mapSession:++this.skillMapSession,mode:run.draft?'choose':'view'};command(run,{type:'pause',reason:'tree'});this.overlay();void this.persist();return;}
     const chosen=NODE_MAP[nodeId??run.draft?.customNodeId??''];const ownerId=chosen?.ownerId??run.config.squadIds[0];
     this.vm.treePanel={ownerId,treeId:chosen?.treeId??treesFor(ownerId)[0].id,nodeId:chosen?.id??null,mode:run.draft?mode:'view'};
     command(run,{type:'pause',reason:'tree'});this.overlay();void this.persist();
@@ -680,6 +690,11 @@ export class GameApp {
   private key(event: KeyboardEvent) {
     if (this.portraitGuard.active) return;
     if (this.mobile.handleKey(event)) return;
+    if(event.key==='Escape'&&this.root.querySelector('.skill-bottom-sheet[data-open=true]')){
+      event.preventDefault();
+      void this.action(this.vm.personnelSkills?'personnel-skill-detail-close':'tree-detail-close');
+      return;
+    }
     if(this.vm.personnelSkills&&(event.target as HTMLElement).matches('[data-action="personnel-skill-tab"]')&&['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){
       event.preventDefault();const trees=deepTreesFor(this.vm.personnelSkills.ownerId),index=trees.findIndex(t=>t.id===this.vm.personnelSkills!.treeId);
       const next=event.key==='Home'?0:event.key==='End'?trees.length-1:(index+(event.key==='ArrowRight'?1:trees.length-1))%trees.length;

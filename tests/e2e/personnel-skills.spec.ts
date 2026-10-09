@@ -33,15 +33,18 @@ for(const viewport of [{width:320,height:500},{width:390,height:844},{width:768,
       await expect(page.locator('#app')).toHaveAttribute('data-page','roster');
       await expect(page.getByRole('dialog')).toHaveCount(1);await expect(modal.locator('.tree-characters,.common-codex')).toHaveCount(0);
       await expect(modal.getByRole('tab')).toHaveCount(0);
+      let selectedId='';
       for(const tree of deepTreesFor(owner)){
         await expect(modal.locator('[data-action="personnel-skill-node"]')).toHaveCount(deepTreesFor(owner).flatMap(t=>t.nodes).length);
-        const last=tree.nodes.at(-1)!;await modal.locator(`[data-action="personnel-skill-node"][data-id="${last.id}"]`).focus();await modal.locator(`[data-action="personnel-skill-node"][data-id="${last.id}"]`).click();
+        const last=tree.nodes.at(-1)!;selectedId=last.id;await page.keyboard.press('Tab');await modal.locator(`[data-action="personnel-skill-node"][data-id="${last.id}"]`).focus();await modal.locator(`[data-action="personnel-skill-node"][data-id="${last.id}"]`).click();
         await expect(modal.locator('.personnel-skill-detail')).toContainText(last.description);
       }
       expect(await modal.evaluate(e=>e.scrollWidth-e.clientWidth)).toBeLessThanOrEqual(1);
       const close=page.getByRole('button',{name:'關閉技能樹',exact:true});await expect(close).toBeInViewport();
       if(owner==='C06')await page.screenshot({path:info.outputPath(`personnel-skills-${viewport.width}.png`)});
       await close.focus();await page.keyboard.press('Shift+Tab');expect(await modal.evaluate(e=>e.contains(document.activeElement))).toBe(true);
+      await page.keyboard.press('Escape');await expect(modal).toBeVisible();await expect(modal.locator('.skill-bottom-sheet')).toHaveAttribute('data-open','false');
+      await expect(modal.locator(`[data-action="personnel-skill-node"][data-id="${selectedId}"]`)).toBeFocused();
       await page.keyboard.press('Escape');await expect(details).toBeVisible();await expect(trigger).toBeFocused();
       expect(await page.locator('.roster-panel-body').evaluate(e=>e.scrollTop)).toBe(parentScroll);
       await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).toHaveCount(0);

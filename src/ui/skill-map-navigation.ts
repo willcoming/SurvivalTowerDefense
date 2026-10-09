@@ -5,7 +5,8 @@ const selections=new Map<string,NavigationState>();
 
 /** A readable alternative to the zoomable graph; it never purchases a skill. */
 export function mountSkillNavigation(map:HTMLElement,viewport:HTMLElement,focusBranch:(route:string)=>void){
-  const key=map.dataset.mapKey!,nodes=[...map.querySelectorAll<HTMLElement>('.deep-node')];
+  const session=map.closest<HTMLElement>('[data-map-session]')?.dataset.mapSession??'';
+  const key=`${map.dataset.mapKey!}:${session}`,nodes=[...map.querySelectorAll<HTMLElement>('.deep-node')];
   const routes=new Map(nodes.map(node=>[node.dataset.tree!,node.dataset.routeName!]));
   const state:NavigationState={...(selections.get(key)??{view:'map',branch:'',scroll:0})};
   if(!routes.has(state.branch))state.branch='';
@@ -32,13 +33,27 @@ export function mountSkillNavigation(map:HTMLElement,viewport:HTMLElement,focusB
     list.hidden=state.view!=='list';
     toolbar.querySelectorAll<HTMLElement>('[data-skill-view]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.skillView===state.view)));
     list.querySelectorAll<HTMLElement>('.skill-list-node').forEach(node=>node.hidden=!!state.branch&&node.dataset.tree!==state.branch);
-    nodes.forEach(node=>node.classList.toggle('outside-focused-branch',!!state.branch&&node.dataset.tree!==state.branch));
+    if(state.branch)map.dataset.branchFocus=state.branch;else delete map.dataset.branchFocus;
+    nodes.forEach(node=>{
+      node.classList.toggle('outside-focused-branch',!!state.branch&&node.dataset.tree!==state.branch);
+      node.classList.toggle('branch-highlight',!!state.branch&&node.dataset.tree===state.branch);
+    });
+    map.querySelectorAll<SVGPathElement>('.network-edges path[data-child]').forEach(edge=>{
+      edge.classList.toggle('branch-highlight',!!state.branch&&nodes.some(node=>node.dataset.id===edge.dataset.child&&node.dataset.tree===state.branch));
+    });
+    map.querySelectorAll<HTMLElement>('[data-map-branch]').forEach(badge=>badge.setAttribute('aria-pressed',String(badge.dataset.mapBranch===state.branch)));
   };
   toolbar.addEventListener('click',event=>{
     const view=(event.target as HTMLElement).closest<HTMLElement>('[data-skill-view]')?.dataset.skillView;
     if(view==='map'||view==='list'){if(state.view==='list')state.scroll=list.scrollTop;state.view=view;render();if(view==='list')list.scrollTop=state.scroll;else if(state.branch)focusBranch(state.branch);remember();}
   });
   select.addEventListener('change',()=>{state.branch=select.value;state.scroll=0;render();list.scrollTop=0;if(state.view==='map')focusBranch(state.branch);remember();});
+  map.addEventListener('click',event=>{
+    const badge=(event.target as HTMLElement).closest<HTMLElement>('[data-map-branch]');
+    if(!badge)return;
+    state.branch=state.branch===badge.dataset.mapBranch?'':badge.dataset.mapBranch!;
+    state.scroll=0;render();list.scrollTop=0;focusBranch(state.branch);remember();
+  });
   list.addEventListener('click',event=>{
     const selected=(event.target as HTMLElement).closest<HTMLElement>('.skill-list-node');
     if(selected){event.stopPropagation();nodes.find(node=>node.dataset.id===selected.dataset.id)?.click();}
