@@ -72,7 +72,7 @@ describe('one point per battle level', () => {
     const s=run();earn(s,30);s.choicesEarned=2;
     expect(()=>restoreRun(s)).toThrow('技能點計數');
     s.choicesEarned=1;
-    (s as unknown as {experienceVersion:number}).experienceVersion=4;
+    (s as unknown as {experienceVersion:number}).experienceVersion=5;
     expect(()=>restoreRun(s)).toThrow('戰鬥經驗版本');
   });
 });

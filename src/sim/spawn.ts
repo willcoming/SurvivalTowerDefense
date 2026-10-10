@@ -27,7 +27,7 @@ export function makeSpawnPlan(s:RunState):SpawnEntry[]{
     const extra=s.operationVersion!==undefined||wi<6?0:Math.ceil(ids.filter(id=>id==='E01').length*(pressure(s).numbers-1));
     for(let i=0;i<extra;i++)plan.push({at:ticks(wi*profile.interval+25),defId:'E01',x:[45,120,195,270,345][(wi+i)%5],xp:0,wave:wi+1});
   });
-  if((s.balanceVersion===3||s.balanceVersion===4||s.balanceVersion===5)){
+  if((s.balanceVersion===3||s.balanceVersion===4||s.balanceVersion===5||(s.balanceVersion===6||s.balanceVersion===7))){
     const count=profile.escortCount??0,xp=profile.escortXp??0,specialists=highPressure(s.config.stageId,pressureMode(s.config)).escortSpecialists;
     const types=['E03','E04','E05','E02','E06','E03','E05','E02','E04','E03','E05','E06'] as const;
     for(let i=0;i<count;i++){const candidate=i<specialists?types[i%types.length]:'E01';plan.push({at:ticks(profile.bossAt+(i<Math.ceil(count/2)?1:9)),defId:STAGE_MAP[s.config.stageId].enemyIds.includes(candidate)?candidate:'E01',x:24+(i%8)*48,y:20+Math.floor(i/8)*20,xp:Math.floor(xp/count)+(i<xp%count?1:0),wave:profile.waves.length+1});}

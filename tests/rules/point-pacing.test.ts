@@ -11,9 +11,10 @@ const config:RunConfig={stageId:'S01',difficulty:'easy',squadIds:['C01','C02','C
 function cumulative(s:RunState,wave:number){s.xp=operationProfile(s).waveXp.slice(0,wave).reduce((a,b)=>a+b,0);return battleExperience(s).earned;}
 describe('separate, versioned skill point pacing',()=>{
  it('keeps a first-wave choice and preserves growth through the hundred-wave final allocation',()=>{
-  const cfg={...config,stageId:'S03' as const,mode:'hundred' as const};const old=createRun(cfg,undefined,{experienceVersion:2}),s=createRun(cfg),profile=operationProfile(s);
+  const cfg={...config,stageId:'S03' as const,mode:'hundred' as const};const old=createRun(cfg,undefined,{experienceVersion:2}),versionThree=createRun(cfg,undefined,{experienceVersion:3}),s=createRun(cfg),profile=operationProfile(s);
   expect([1,10,25,50,99,100].map(w=>cumulative(old,w))).toEqual([5,24,38,46,59,60]);
-  expect([1,10,25,50,99,100].map(w=>cumulative(s,w))).toEqual([1,7,16,31,60,60]);
+  expect([1,10,25,50,99,100].map(w=>cumulative(versionThree,w))).toEqual([1,7,16,31,60,60]);
+  expect([1,10,25,50,99,100].map(w=>cumulative(s,w))).toEqual([1,6,15,30,60,60]);
   let previous=0,choices=0;for(let wave=1;wave<=99;wave++){const earned=cumulative(s,wave);if(earned>previous)choices++;previous=earned;expect(profile.waveXp[wave-1]).toBeGreaterThan(0);}
   expect(choices).toBe(60);expect(profile.waveXp[99]).toBe(0);expect(profile.points).toBe(60);
  });

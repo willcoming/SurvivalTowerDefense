@@ -1,0 +1,1124 @@
+[
+  {
+    "config": {
+      "stageId": "S01",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "c80a9fd3e8fcf358b04cdf71326d78136db30c3d434867a20c750651d76c1517",
+    "stateHash": "aecad0b1d18c6ea00a306c47c11b89b575257efa08b2a78ae3fb5d20bdc002b4"
+  },
+  {
+    "config": {
+      "stageId": "S01",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "fa5ab9202d75f042f344fd4a0e063c84446f0eb7eb0f164c53ebcc627f9c9200",
+    "stateHash": "162329483bc0f183204ab38d87b2ae053bdb0368a850d6329041ee3e49b91796"
+  },
+  {
+    "config": {
+      "stageId": "S01",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "9e0a63664d08e16b92b0f5ebcbde9f0886f897ba53f3e23f71b2761c8ea21b46",
+    "stateHash": "edd692c24b4dae772dc034d03640db4966574352cfe2fa48c30d149b979e166c"
+  },
+  {
+    "config": {
+      "stageId": "S01",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "d31153b8691ab64560ede87d4dcaf36e8d4484f0a90d3e75f8d5b0f8181460ae",
+    "stateHash": "cfcd11dc502c904de28e20b805d941f744d9d53b06ed82b3bc78686f84a4e68a"
+  },
+  {
+    "config": {
+      "stageId": "S01",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "8cd2c10c7f3c88d53c7c833c527f30b7cf79b01d77e3fa638c59b3b7f58a8177",
+    "stateHash": "18aec944697eb3746f0475cf10342b1c696cda5c4ae5c60aa1a770d166398f83"
+  },
+  {
+    "config": {
+      "stageId": "S02",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "94ff0c3d4f97822819dbdbae731987c99138476e15304638005be81042171db1",
+    "stateHash": "8dc7c91a3af2306e38a405cfb4b4599bd16af3d8c69583925713434e0bca592a"
+  },
+  {
+    "config": {
+      "stageId": "S02",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "a1819190e7e6f032762666f37c03006b48d6ead9638bf054596161c8c3dd1537",
+    "stateHash": "51daf7db6ed52f5a7d729bc8d74913b064a2789636976df3c766358ab72c9410"
+  },
+  {
+    "config": {
+      "stageId": "S02",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "444b4dd160ff37043e6f16e4794c3df8de6471b50dad9e14f54192887ea29618",
+    "stateHash": "d1970c3b6b5bd1e87073f6cebe8f00832e038daf6bf5b65eb2b1fbad7f17caf9"
+  },
+  {
+    "config": {
+      "stageId": "S02",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "2831a9fe31de0d764b17ed2246b87acc7f9b0ddca37de017b2c4642ccdacc3b2",
+    "stateHash": "0a417566b60ffee8bedcf798496edfe35e7289d26090b21e3e50b60be6a41286"
+  },
+  {
+    "config": {
+      "stageId": "S02",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "71300030f8290bb97aad2e831548082704e54e3a48b3b04bb7e710272f75cb2e",
+    "stateHash": "d0b6aa3e276814daeab4ab625771775752dd3bbfb15bd7395df616ef27b412bc"
+  },
+  {
+    "config": {
+      "stageId": "S03",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "8232d9f5b68dd44456383a1920281fa02f2a314878b401c07ed1afd6c577c0e9",
+    "stateHash": "0ebdbcbf5204030b786f4ec076af8f98877448b472afe7b824e6b423db4a9c62"
+  },
+  {
+    "config": {
+      "stageId": "S03",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "c0d1f31478fe6ab33fb71c31b6dac835d93df4c91f78f6b0b33d2b8eb9ef287b",
+    "stateHash": "217e896f3b48c7db35fff9d43e9a65538810e52c9344b8c2bf0904531248ed81"
+  },
+  {
+    "config": {
+      "stageId": "S03",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "69275a1b65c6cf41dc747766942396fb739e39616481b53c96312d08b1e156e9",
+    "stateHash": "760536a1d934d70c48305cef8f84a55c7c9c08f20a3bfb832ebfa3dabacd541c"
+  },
+  {
+    "config": {
+      "stageId": "S03",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "c52d3ff57a7056c94b36db5d073d70cca12e82fe20229ca9cc3461685abc2f04",
+    "stateHash": "39895adf4026da44b06c2c0626339bcc1ebb0eb64a056e4fb8495dda079cdccd"
+  },
+  {
+    "config": {
+      "stageId": "S03",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "d247f3a460b4748035001c3fa45e9297426700b9d648bae9587f622f516f1aba",
+    "stateHash": "91198cd96d661afc7aa4de2b44873f6b5a6c30135fdca68cd783f98450345231"
+  },
+  {
+    "config": {
+      "stageId": "S04",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "3e1766f5065e86189f51891e282d19ea9c9c042b0c85d76f79183c1b99bf212f",
+    "stateHash": "9b61a8eb2cde69927bec470b51e1308e1d5e65d31c1d65ba665e9bf029ad2e1a"
+  },
+  {
+    "config": {
+      "stageId": "S04",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "af4f51260868066625ae30f14337a98c16f75fa73c607d60e1146928ccf51764",
+    "stateHash": "81d73fba800b41cb8ea223449c5d4cbf12bfb0978e64223ceeb06c4cd98e5324"
+  },
+  {
+    "config": {
+      "stageId": "S04",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "c3cdce9400cb0310d63ca3c5c2163f533a9aaedb19a11aaad6a62f4719599e39",
+    "stateHash": "9f287513e99a9d5543ad58858b2d9d365febdb73bcfb8f637ec00c317a4c8a76"
+  },
+  {
+    "config": {
+      "stageId": "S04",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "c289a18272c01d4a9b3ad5e660bc90855ebaf152e8be60881607b67133e2b763",
+    "stateHash": "56e342fb7823b2501a8ac8ff0664d38f1f4fc4ae2cdb3609eb0e76074ccda11c"
+  },
+  {
+    "config": {
+      "stageId": "S04",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "55336a8fcf12e5d6388b113842240330881b8236850c202e07671145e20a4af6",
+    "stateHash": "bb95717cb9b673fb2ba5d0c13fd3cc442ce1a378a74b9a95788e918283b7546f"
+  },
+  {
+    "config": {
+      "stageId": "S05",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "6a5fc6b234ea43bbea751fa7cdcde3ce2636fb56d7ef40bae24d74dcb8d7042e",
+    "stateHash": "7bd098ec607425c9704b6784098e0c914569ecd0b337f859f56057a2b465095b"
+  },
+  {
+    "config": {
+      "stageId": "S05",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "7a6513f22e12e4928af5c87c7c91eb12655a5f28967fb5df970681aa20c0dc0a",
+    "stateHash": "b8f1c67af49d1135f2af022f1838193f421d1011fd3a059047e5601716bef419"
+  },
+  {
+    "config": {
+      "stageId": "S05",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "51dd52ab5e053ba2d6ac4f2f404edd69724ed809dc4e8087e8e0f7fda91e24f6",
+    "stateHash": "54caf2314b175062889d5c7660e3b7082d339f13bc986824277b39f4cd5d607e"
+  },
+  {
+    "config": {
+      "stageId": "S05",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "d5979425622c119da7a0a64fb4f2e559e6575b4193fbdf6a1b589752af6b669f",
+    "stateHash": "26321ff607df98c170d4f23fea1f7497cf27b2fd310c5d6c1ca1cdd36ce0a010"
+  },
+  {
+    "config": {
+      "stageId": "S05",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "16d8f133994ec8b95c540c1529a38b8c610178c1cc7d8866cf49302dfe308931",
+    "stateHash": "d9a65b62a6b202d7624cee547dbeef932bf2f09fa12054b672ced62040bb733d"
+  },
+  {
+    "config": {
+      "stageId": "S06",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "243cea307019778a0da62853fbcce2ae8c2ab6c448dee07312a741bc60987dba",
+    "stateHash": "05480124c4566cbef5d45a21dabeb919996a661d8bf1d7f489713b0fe27c273c"
+  },
+  {
+    "config": {
+      "stageId": "S06",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "8510a7afa908c420de54507db3133226cb04e9bbdde722cbd03ad076528d1ed5",
+    "stateHash": "c2f73e129b352b6770724f38d6de4c83a5a45c9728bd9209568276d5636be97f"
+  },
+  {
+    "config": {
+      "stageId": "S06",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "1e47c3101bb6d27509925adc885f9a76e9fb36890ae248d300a92192d7996198",
+    "stateHash": "f79990a375656d02b08227a29b1f5f16a05f02aaa3192de1d1c3c51fcd1092c2"
+  },
+  {
+    "config": {
+      "stageId": "S06",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "00ea675091f17fce65304e29d9ffe44fc7b6140d11f56bcc664f8f33417f6de2",
+    "stateHash": "5f02d332d99d87f451f55ece9643658d9edb592e9888f3b973344b8f072b1e30"
+  },
+  {
+    "config": {
+      "stageId": "S06",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "52bafd1d5649c92bed8d292f31b22f380b9889c8715e4c4149240f107132b7c9",
+    "stateHash": "0dafb74cd79d2ebb32127840948dd9b35f255d73f23533419aa0be57878deb5e"
+  },
+  {
+    "config": {
+      "stageId": "S07",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "7b1d78d64de3fd110c102eff19e0a2650d0369481f02726b3306227634c02dcc",
+    "stateHash": "12e21235053d0ffe5bbc30ee425209f593211bc8a128619902797d74519b2ed7"
+  },
+  {
+    "config": {
+      "stageId": "S07",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "693ce569e5e6f32a6109512f40f62a1c645c9582f35ef0c864f4fa65d3946500",
+    "stateHash": "0ca873f61d196a3c20c8a1859a5fe5bfd25a01b9e5608b0c6deae3cbd25b3f83"
+  },
+  {
+    "config": {
+      "stageId": "S07",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "e1d9be25ed7ac5a4b6e0d5163182793aaf503d7211aad07d790b9dbc3053016b",
+    "stateHash": "fd386ce272935129ba6d6c9ba2ddb3ae2f3b6d28234018cf7c3ddcbe9c6c1006"
+  },
+  {
+    "config": {
+      "stageId": "S07",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "7cf65b0e84cbdf5462423e64808007f5155c6b988618a4a264337d78caa7834c",
+    "stateHash": "c4c29a832c9ea985ad62e55d99d855aa2d2709d39518e4c12623fcf728639da3"
+  },
+  {
+    "config": {
+      "stageId": "S07",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "eb501dc550e1de25210ab2002ac6684b40c93651cfb98164b4514f205fafc3db",
+    "stateHash": "4b8e495ff2f1d5242e59c6c96fa5232ff567e94169a425daa6f2bc5f0aa2a6e0"
+  },
+  {
+    "config": {
+      "stageId": "S08",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "996968cf5b5343bec0a41648e9c500802cdb4a731b2059f4806de4e41cb27ac3",
+    "stateHash": "836c974d39de56162e1fca0aefe49d7db4512c81411e79183ee38719ff2bd531"
+  },
+  {
+    "config": {
+      "stageId": "S08",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "cd17b17b9f2ef4d46d50f2cd95aa1691a8ab61922192aab15e6c561f478ce7c5",
+    "stateHash": "8975190cbe9a576d739a26296990f45437ecda0cd420a3913954ab9128bc1c64"
+  },
+  {
+    "config": {
+      "stageId": "S08",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "713450a9aaaa544b10c64e37affcffde6824b1dc23762ca1bf93e6f104abb066",
+    "stateHash": "cc0d97f91589501c83820915012ef628457188d7864e62739d6b4704fb445241"
+  },
+  {
+    "config": {
+      "stageId": "S08",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "a12cf325c71c7fe8ab82cbed6e481088ad32cd328f4c6a8d16b1d94df4f3a8b3",
+    "stateHash": "b9b1381020c8da92b315b057120839084c8edf4f57582254310d6767817fc07e"
+  },
+  {
+    "config": {
+      "stageId": "S08",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "7bb4817985a9ab27aafb416dc4d79fbce55436378b34470997f44e18a2ba7d07",
+    "stateHash": "4ac93199d8672ce4166fb3f86b9af52dcb04cfff0ce96c69037cdc53ccce3ff3"
+  },
+  {
+    "config": {
+      "stageId": "S09",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "153da9e7aa0086f21d202a5932aadcf009ea7e00ad4a4dc2fe534acb090c4ac8",
+    "stateHash": "7d3c8f78b83fe7e860c970a5531efb102ae2307bfd3020474bbff58c094c2e41"
+  },
+  {
+    "config": {
+      "stageId": "S09",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "fa9e6493932c41ee274595f830caefe22ff3edb66bcffd34b332d3db1eb080a5",
+    "stateHash": "d26e077109a60a09dd2aaa1cc2e09a88805309c3c14bf60142a8bbff087561a8"
+  },
+  {
+    "config": {
+      "stageId": "S09",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "158f6a15f62529cc1f01a2312cc9dcfa9f8f571b0520f08da168eb2443767172",
+    "stateHash": "90d72abebf18b539245ee4c449e5143e10ca4e7bf6d1b98225228c40196b9107"
+  },
+  {
+    "config": {
+      "stageId": "S09",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "644daf9e329cca3a44da6e6f87c56e6d7f816fbf5d3110b1f5fb1e040895e6e0",
+    "stateHash": "d4bc8d8f9408841d0706e1a84f3ecee14804f9c8c1b9d74f46af60c5a355672f"
+  },
+  {
+    "config": {
+      "stageId": "S09",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "030025b11915d9f29b0b942aaeff08e067076e19100a7c266e1482b1d8444565",
+    "stateHash": "3859f15d88fbb8cbc518b9395272b917d3015d50b4a83a53225233a2fc0ec03f"
+  },
+  {
+    "config": {
+      "stageId": "S10",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "c31145aeb551dbd69be40fc5b6a986f26f9001c0e3aa2726fefcb132cdfcc35a",
+    "stateHash": "18f173d041646da7c6348ef94959c4121529039dc3a5b3881758d5893dbe89f2"
+  },
+  {
+    "config": {
+      "stageId": "S10",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "c66a4aeb6aaa2c638d71bb3b83f581617ecc90d3a494baef5269607520a91b2b",
+    "stateHash": "910bed750f3be7a47a37d1f329ec8eeda8ae3e7e80d43a361f29c5f9d5bad3f5"
+  },
+  {
+    "config": {
+      "stageId": "S10",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "c7a4ad0b31588adb64ae0e1685d7fcf4fd34b289f5f362760eaf55fb548d64e2",
+    "stateHash": "fe82ee6dc8212071cfb2ed490fcce450299dfdba764d5a2c8f52d17515a6939a"
+  },
+  {
+    "config": {
+      "stageId": "S10",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "f2e6b75a0ec2afb2a6f880cfe5b99440e04dce0ee15366e341f3269f791aa2c3",
+    "stateHash": "bd7cc71f53781924e3ec168220a9f7846495534290d78cec4f16dfba0b212ac2"
+  },
+  {
+    "config": {
+      "stageId": "S10",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "7a0651911d04d6680ebf559aad0758421d900362bc13cdf3a54cf9f269aaea6e",
+    "stateHash": "c6f5c799bfee4a8f590c807c727f3e47844b647b51bc4205b35599ea60dabe39"
+  },
+  {
+    "config": {
+      "stageId": "S11",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "28753dc60cb8622e278ae14d6653fba83cb45b9be7c86e5e3600e6246bc65f3f",
+    "stateHash": "7310c0313875ee767a41733fa3dc7cea193c987edccdacc233a918909dcc14b8"
+  },
+  {
+    "config": {
+      "stageId": "S11",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "412045b426eaa9c474bcf200396342f400086a58f6d5a091a787269907ef8ee8",
+    "stateHash": "73439605a375e19d9323f9ac6919279b62677ce8c00a6d4e0e6c836ad0586909"
+  },
+  {
+    "config": {
+      "stageId": "S11",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "365e7a05591654adfcb8bd8688da5efbadab2ce57964e136b6299fd3f547e513",
+    "stateHash": "d3ac6b9dd9d1eb8ab95ecf63a851d04f4eadd292047e49de65e8ac5009f242fe"
+  },
+  {
+    "config": {
+      "stageId": "S11",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "4bca0c7cf837cba82caa69cf5aa0af60dd88da99d799c8dc87c88004bc36b630",
+    "stateHash": "b1cc02ddfe76e39e873306d8e38dfb389eb89b4f8d8d3d5f92e7a70fa4da0423"
+  },
+  {
+    "config": {
+      "stageId": "S11",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "c42755494ebfb0c3ec697c0e80a545821bfe34bf5e35389366789ad2173e5c21",
+    "stateHash": "5ac0ff079db3d9a7f126a1dab81ba0b54e3308b514cfb7ea4c7067daf82e465e"
+  },
+  {
+    "config": {
+      "stageId": "S12",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "745b9de1b674390131bedbeea295c4ba356741a453bf67a7774f1737392e6137",
+    "stateHash": "de6731b10c9cd43361e064bf9d57ae3c9d54a0bfb72dfef9edf4b51509c46d6b"
+  },
+  {
+    "config": {
+      "stageId": "S12",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "841afe8f1a98e7cfbac5fac4d5c948af23cbae3f8b91194190c606f371608545",
+    "stateHash": "82516f434edff14bcd2b07258bd11bfdf104bf0bb6cc13110e4a5786d124b455"
+  },
+  {
+    "config": {
+      "stageId": "S12",
+      "difficulty": "hard",
+      "challengeId": "four",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "b3567b6f9c1dd49e17aae1c5344fa3406efca057e4a80ef96bec0db2204f28e5",
+    "stateHash": "eb4fcc7f70018e0a6fde209d5b0488e0f566eba5c909fa9de9337918582e94d7"
+  },
+  {
+    "config": {
+      "stageId": "S12",
+      "difficulty": "hard",
+      "challengeId": "no-skill",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "404226e8c44e748b58c3795dcb1d4c9e8feb2ac8fa9c727c593fe7cb9e9d9697",
+    "stateHash": "312726b462f12e8f534e272c79094367be1e9405a3307820bdc2c573e682b9b0"
+  },
+  {
+    "config": {
+      "stageId": "S12",
+      "difficulty": "hard",
+      "challengeId": "two-evolutions",
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "3fd6c04f4ea9cae6f314bb54ea1b5b153f9acf413dcde9bd6d1aef4f6b1d5295",
+    "stateHash": "056f9938a0b376f40835abe3b330780298bacaefa7e6fb60520ace3312b7167b"
+  },
+  {
+    "config": {
+      "stageId": "X01",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "aa43f48570a0aefe06e1670eae40a7c713727f08a9c610300cdec22a22526752",
+    "stateHash": "2346a5496bf8576bfdbd4aeef1dd6fbb3bbf60142f2dd60b887ddded17241bdb"
+  },
+  {
+    "config": {
+      "stageId": "X01",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "784f98127003631f7abe2d8727341a5752e4fe2823f9b6f272fc3d0a46a30d74",
+    "stateHash": "d9ec5098e8f46f47a3b0d8227606a48c62499a829fc7cabe78a30c48d7475bb0"
+  },
+  {
+    "config": {
+      "stageId": "X02",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "7089c9b88d2d81d3a0a01951d84d2a20959c6bce7173e1450d8b04d65c1ef2f6",
+    "stateHash": "2c5ffa12ebd62938c89d0cac94d9fc020986a034a611085ab4272c94716633a0"
+  },
+  {
+    "config": {
+      "stageId": "X02",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "9e0ec362cd578f6d725600f9d068d78cdb0c374af49cd1788b6ebfc558285029",
+    "stateHash": "61e9a3a63ac0f48c23900b99cc32a7b4c34249398929952b29fd4904668a6072"
+  },
+  {
+    "config": {
+      "stageId": "X03",
+      "difficulty": "easy",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "dbb981284e8529abe5556befb7dec2be653248d0a750331c405372a07e7c22b3",
+    "stateHash": "b16c04b741557c19684592680c4f58f698cbfba9e8a0fb658101630a848c9c8d"
+  },
+  {
+    "config": {
+      "stageId": "X03",
+      "difficulty": "hard",
+      "challengeId": null,
+      "squadIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "captainId": "C01",
+      "seed": 101
+    },
+    "profileHash": "995266fc3aa4a003e92b0b18a4a140e370f35123aaff25d9e4acea9fb36762db",
+    "stateHash": "145151eee2a2428efb1562415b186d6c2cb18812ed09686d029768651bdd5644"
+  }
+]

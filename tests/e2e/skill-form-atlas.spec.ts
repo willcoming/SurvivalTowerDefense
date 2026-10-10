@@ -31,7 +31,7 @@ test('all eight characters keep their selected ultimate and collection while pre
     await page.setViewportSize(viewport);
     for (const owner of CHARACTER_IDS) {
       const picker = page.getByRole('combobox', { name: '圖鑑角色', exact: true });
-      if (await picker.count()) await picker.selectOption(owner);
+      if (viewport.width < 921) await picker.selectOption(owner);
       else await page.locator(`.character-tabs [data-id="${owner}"]`).click();
       await page.getByRole('button', { name: '技能樹與節點', exact: true }).click();
       const panel = page.locator('.personnel-skills-dialog');

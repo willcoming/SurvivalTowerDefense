@@ -65,3 +65,7 @@ codex-rework/
    * 模擬平衡驗證：`npm run test:simulation`
    * 瀏覽器 E2E 測試：`npx playwright test tests/e2e/ui-review.spec.ts`
    * 建置驗證：`npm run build`
+├── 08-BALANCE_AND_EXPERIENCE_REWORK.md     # 升級經驗平滑化與高難度關卡容錯率下修規格
+├── BALANCE_CODEX_PROMPT.md                 # 提供給 Codex 的平衡修正一鍵複製指令
+├── 09-EARLY_DIFFICULTY_REWORK.md           # 提升第一關早期難度的配置規格
+├── EARLY_DIFFICULTY_CODEX_PROMPT.md        # 提供給 Codex 的提升早期難度一鍵複製指令

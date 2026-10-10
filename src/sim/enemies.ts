@@ -1,3 +1,4 @@
+import { bossPosition } from '../data/early-pressure';
 import { BARRIER_Y } from './commander';
 import { highPressure, pressureMode } from '../data/high-pressure';
 import { operationProfile } from '../data/progression';
@@ -9,7 +10,7 @@ import { waveAttackDamage } from './operations';
 export const BOSS_ESCORT_COUNT = 42;
 /** One-time entrance escorts share the authored skill budget; summons grant no XP. */
 export function spawnBossEscort(s: RunState, leader: Enemy) {
-  if((s.balanceVersion===3||s.balanceVersion===4||s.balanceVersion===5))return; // Entrance escorts are deterministic delayed spawn entries.
+  if((s.balanceVersion===3||s.balanceVersion===4||s.balanceVersion===5||(s.balanceVersion===6||s.balanceVersion===7)))return; // Entrance escorts are deterministic delayed spawn entries.
   const profile=operationProfile(s),count=profile.escortCount??32,xp=profile.escortXp??0;
   const specialist = leader.defId === 'B02' ? 'E03' : 'E02';
   const escortTypes = ['E03','E04','E05','E02','E06','E03','E05','E02','E04','E03','E05','E06'] as const;
@@ -30,16 +31,16 @@ function wallShot(s:RunState,e:Enemy,damage:number){
 function summon(s:RunState,e:Enemy){
   acted(s,e,'summon');
   const def=e.defId==='B01'?'E01':e.summonCount%2===0?'E02':'E03';const count=e.defId==='B01'?6:def==='E02'?4:2;
-  for(let i=0;i<count;i++)createEnemy(s,def,Math.max(20,Math.min(370,e.x+(i-(count-1)/2)*35)),Math.min(320,e.y+50),0,s.config.mode==='hundred'||(s.balanceVersion===4||s.balanceVersion===5)?e.wave:9,true);
+  for(let i=0;i<count;i++)createEnemy(s,def,Math.max(20,Math.min(370,e.x+(i-(count-1)/2)*35)),Math.min(320,e.y+50),0,s.config.mode==='hundred'||(s.balanceVersion===4||s.balanceVersion===5||(s.balanceVersion===6||s.balanceVersion===7))?e.wave:9,true);
   e.summonCount++;e.summonAt+=ticks(e.defId==='B01'?18:24);
 }
 export function stepEnemies(s:RunState){
-  const tuning=pressure(s);
+  const tuning=pressure(s),bossY=bossPosition(s).y;
   for(const e of alive(s)){
     const stunned=e.effects.some(f=>f.kind==='stun'&&f.expires>s.tick);
     const slow=Math.max(0,...e.effects.filter(f=>f.kind==='slow'&&f.expires>s.tick).map(f=>f.value));
     if(boss(e)){
-      if(!stunned)e.y+=Math.sign(150-e.y)*Math.min(Math.abs(150-e.y),8/30);
+      if(!stunned)e.y+=Math.sign(bossY-e.y)*Math.min(Math.abs(bossY-e.y),8/30);
       if(e.summonAt<=s.tick){if(e.defId==='B02'){acted(s,e,'shield');e.shield=Math.min(1800,e.shield+600);e.summonAt+=ticks(20);}else summon(s,e);}
       if(e.chargeKind&&e.chargeUntil<=s.tick){
         if(!e.chargeCancelled&&!stunned){acted(s,e,e.defId==='B02'?'burst':'blast');if(e.defId==='B02'){hitWall(s,25*tuning.bossDamage,e.defId);for(let i=1;i<3;i++)s.scheduled.push({at:s.tick+i*ticks(.3),packet:null,x:195,y:450,radius:0,enemyDamage:25*tuning.bossDamage,enemySource:e.defId});}else hitWall(s,ENEMY_MAP[e.defId].damage*tuning.bossDamage,e.defId);}

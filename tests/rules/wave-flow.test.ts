@@ -39,7 +39,7 @@ describe('wave allocation version 1', () => {
     it(`${stage.id}/${mode}: expands short encounters and preserves authored totals and combat tuning`, () => {
       const c: RunConfig = { ...config, stageId: stage.id, squadIds: config.squadIds.slice(0,4),
         difficulty: mode === 'easy' ? 'easy' : 'hard', challengeId: mode === 'easy' || mode === 'hard' ? null : mode };
-      const old = createRun(c, '0.6.0-dev.2'), s = createRun(c);
+      const old = createRun(c, '0.6.0-dev.2'), s = createRun(c, undefined, {balanceVersion:5,experienceVersion:3});
       const before = progression.operationProfile(old), p = progression.operationProfile(s);
       const ratio = Math.max(10, before.waves.length) / before.waves.length;
       expect(p.waves).toHaveLength(Math.max(10, before.waves.length));

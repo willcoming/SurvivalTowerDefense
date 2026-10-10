@@ -1,14 +1,16 @@
+import { earlyBossDamage } from '../data/early-pressure';
 import { highPressure, pressureMode } from '../data/high-pressure';
-import { OPENING_BOSS_DAMAGE } from '../data/assault-balance';
+import { ADVANCED_TUNING, OPENING_BOSS_DAMAGE, usesAdvancedRelief } from '../data/assault-balance';
 import { difficultyTuning as originalDifficulty, pressure as originalPressure } from './difficulty-v1';
 import type { RunState } from './types';
 export { usesPressureRules } from './difficulty-v1';
 
-export const difficultyTuning = (s: Pick<RunState, 'config'|'balanceVersion'>) => originalDifficulty((s.balanceVersion === 2 || s.balanceVersion === 3 || s.balanceVersion === 4 || s.balanceVersion === 5) ? {...s,balanceVersion:1} : s);
+export const difficultyTuning = (s: Pick<RunState, 'config'|'balanceVersion'>) => originalDifficulty((s.balanceVersion === 2 || s.balanceVersion === 3 || s.balanceVersion === 4 || s.balanceVersion === 5 || (s.balanceVersion === 6 || s.balanceVersion === 7)) ? {...s,balanceVersion:1} : s);
 export function pressure(s: Pick<RunState, 'contentVersion'|'config'|'balanceVersion'>) {
-  if (s.balanceVersion !== 2 && s.balanceVersion !== 3 && s.balanceVersion !== 4 && s.balanceVersion !== 5) return originalPressure(s);
+  if (s.balanceVersion !== 2 && s.balanceVersion !== 3 && s.balanceVersion !== 4 && s.balanceVersion !== 5 && s.balanceVersion !== 6 && s.balanceVersion !== 7) return originalPressure(s);
   const base = originalPressure({...s,balanceVersion:1});
   const tuning = highPressure(s.config.stageId, pressureMode(s.config));
-  return { ...base, health:base.health*tuning.health, speed:base.speed*tuning.speed,
-    bossHealth:base.bossHealth*tuning.bossHealth*((s.balanceVersion===3||s.balanceVersion===4||s.balanceVersion===5)?1.08:1), bossDamage:base.bossDamage*tuning.bossDamage*((s.balanceVersion===3||s.balanceVersion===4||s.balanceVersion===5)?1.03:1)*((s.balanceVersion===4||s.balanceVersion===5)&&s.config.stageId==='S01'?OPENING_BOSS_DAMAGE:1), bossInterval:base.bossInterval*tuning.bossInterval };
+  const relief = usesAdvancedRelief(s);
+  return { ...base, health:base.health*tuning.health*(relief?ADVANCED_TUNING.health:1), speed:base.speed*tuning.speed,
+    bossHealth:base.bossHealth*tuning.bossHealth*((s.balanceVersion===3||s.balanceVersion===4||s.balanceVersion===5||(s.balanceVersion===6||s.balanceVersion===7))?1.08:1)*(relief?ADVANCED_TUNING.health:1), bossDamage:base.bossDamage*tuning.bossDamage*((s.balanceVersion===3||s.balanceVersion===4||s.balanceVersion===5||(s.balanceVersion===6||s.balanceVersion===7))?1.03:1)*((s.balanceVersion===4||s.balanceVersion===5||(s.balanceVersion===6||s.balanceVersion===7))&&s.config.stageId==='S01'?OPENING_BOSS_DAMAGE:1)*(relief?ADVANCED_TUNING.damage:1)*earlyBossDamage(s), bossInterval:base.bossInterval*tuning.bossInterval };
 }

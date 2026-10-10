@@ -1,6 +1,6 @@
 import { CURRENT_BALANCE_VERSION } from '../data/assault-balance';
 import { isHundred, runName } from '../data/hundred';
-import { operationProfile, stageProfile } from '../data/progression';
+import { operationProfile } from '../data/progression';
 import { CHARACTER_MAP, ENEMY_MAP, ENEMY_CODE, STAGE_MAP } from '../data/content';
 import { stageArt } from '../data/campaign';
 import { nextIntel, VARIANT_INFO, EVENT_INFO } from '../sim/operations';
@@ -32,7 +32,7 @@ export function commandPanel(save: GameSave, vm: ViewModel, selectedRange: strin
   const hundred=run?isHundred(run):vm.page==='hundred';
   const stage = STAGE_MAP[hundred?'S03':run?.config.stageId ?? vm.stageId];
   const name=hundred?'百波挑戰':run?runName(run):stage.name;
-  const profile=run?operationProfile(run):hundred?operationProfile({config:{mode:'hundred',stageId:'S03',difficulty:'easy',squadIds:[],captainId:'C01',seed:0},balanceVersion:CURRENT_BALANCE_VERSION,operationVersion:3}):stageProfile(stage.id,vm.challengeId?'hard':selectedDifficulty(save,stage.id),{challengeId:vm.challengeId,balanceVersion:CURRENT_BALANCE_VERSION});
+  const profile=operationProfile(run??{config:{stageId:stage.id,mode:hundred?'hundred':undefined,difficulty:hundred?'easy':vm.challengeId?'hard':selectedDifficulty(save,stage.id),challengeId:hundred?null:vm.challengeId,squadIds:save.preferences.squadIds,captainId:save.preferences.captainId,seed:0},balanceVersion:CURRENT_BALANCE_VERSION,experienceVersion:4,operationVersion:3});
   const waveFlow=!run||!!run.waveFlow;
   const bossTiming=waveFlow?(hundred?'第 100 波':'完成常規波次後'):clock(profile.bossAt*30);
   const ids = run?.config.squadIds ?? save.preferences.squadIds;

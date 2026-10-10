@@ -128,10 +128,10 @@ export interface RunState {
   barrierUntil?: number;
   treeNodes?: string[];
   skillCostVersion?:2;
-  experienceVersion?:1|2|3;
+  experienceVersion?:1|2|3|4;
   operationVersion?:2|3;
   /** Authored encounters and combat tuning; absent keeps historical rules. */
-  balanceVersion?:1|2|3|4|5;
+  balanceVersion?:1|2|3|4|5|6|7;
   commanderSkillVersion?:1;
   /** Version 1 uses wave-local spawn times and one allocation between waves. */
   waveFlow?: { version: 1; wave: number; startedAt: number; phase: 'combat' | 'allocation' };

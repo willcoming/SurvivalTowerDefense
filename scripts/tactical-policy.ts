@@ -4,11 +4,17 @@ import {DEEP_NODE_MAP} from '../src/data/deep-trees';
 import {resolveSkillNode} from '../src/data/reworked-skills';
 import {operationProfile} from '../src/data/progression';
 import type {CharacterId,RunConfig,RunState} from '../src/sim/types';
-export type Policy='concentrated'|'balanced'|'adaptive';
+export type Policy='concentrated'|'balanced'|'adaptive'|'control-first';
 export const TEAMS:CharacterId[][]=[['C03','C05','C02','C06','C01'],['C08','C04','C07','C06','C01']];
 export function pathsTo(id:string):string[][]{const n=DEEP_NODE_MAP[id];return n.parents.length?n.parents.flatMap(p=>pathsTo(p).map(path=>[...path,id])):[[id]];}
 export function choose(s:RunState,policy:Policy){
  const legal=deepLegalNodes(s).filter(id=>deepNodeCost(id,s)<=s.draft!.pointTarget!-s.choicesSpent);
+ // A legal, fixed defensive opening for the campaign's smaller squads. Historical
+ // matrix policies keep their original allocations; this never inspects the seed.
+ if(policy==='control-first'){
+  const opening=['C06-C4/0','C02-C4/0'].find(id=>legal.includes(id));
+  if(opening)return opening;
+ }
  const spent=(id:string)=>deepPointCost((s.treeNodes??[]).filter(n=>DEEP_NODE_MAP[n].ownerId===id),s);
  const wave=s.spawnPlan[s.spawnCursor]?.wave??operationProfile(s).waves.length,kind=operationProfile(s).waveKinds?.[wave-1]??(wave%3===0?'armor':wave%3===1?'rush':'shield');
  const preferred:Record<CharacterId,string>={C01:kind==='shield'?'B':'A',C02:kind==='elite'?'B':'A',C03:kind==='rush'?'A':'B',C04:kind==='artillery'?'B':'A',C05:kind==='armor'?'A':'B',C06:kind==='artillery'?'C':'B',C07:kind==='rush'?'C':'A',C08:kind==='shield'?'C':'B'};
@@ -20,7 +26,7 @@ export function choose(s:RunState,policy:Policy){
  };
  return legal.sort((a,b)=>score(b)-score(a)||a.localeCompare(b))[0];
 }
-export function play(config:RunConfig,content:string,balanceVersion:2|3|4|5,policy:Policy,checkRestore=false){
+export function play(config:RunConfig,content:string,balanceVersion:2|3|4|5|6|7,policy:Policy,checkRestore=false){
  let s=createRun(config,content,{balanceVersion}),restored=false,peak=0,stall=0;
  const limit=s.waveFlow?(operationProfile(s).waves.length+1)*600*30:Math.round((operationProfile(s).bossAt+300)*30);
  for(let guard=0;guard<limit*2&&!s.outcome&&s.tick<limit;guard++){
@@ -42,5 +48,5 @@ export function play(config:RunConfig,content:string,balanceVersion:2|3|4|5,poli
   // Visual event history is consumed by the renderer in normal play and never affects the simulation.
   if(s.tick%300===0)s.events=[];
  }
- return {outcome:s.outcome??'timeout',hp:Math.round(s.wallHp),seconds:s.tick/30,shield:Math.round(s.stats.shieldAbsorbed),damage:s.stats.damageByCharacter,control:s.stats.controlTicks,casts:s.stats.casts.length,earned:s.choicesEarned,spent:s.choicesSpent,wave:s.waveFlow?.wave,allocations:[...new Set(s.stats.choices.map(c=>c.tick))].length,peak,restored,plan:s.treeNodes};
+ return {outcome:s.outcome??'timeout',hp:Math.round(s.wallHp),seconds:s.tick/30,shield:Math.round(s.stats.shieldAbsorbed),damage:s.stats.damageByCharacter,control:s.stats.controlTicks,casts:s.stats.casts.length,earned:s.choicesEarned,spent:s.choicesSpent,wave:s.waveFlow?.wave,allocations:[...new Set(s.stats.choices.map(c=>c.tick))].length,peak,restored,plan:s.treeNodes,pointBudget:operationProfile(s).points,contentVersion:s.contentVersion,balanceVersion:s.balanceVersion,experienceVersion:s.experienceVersion};
 }

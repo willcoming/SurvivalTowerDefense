@@ -7,8 +7,8 @@ import type { RunState } from './types';
 export function battleExperience(s: RunState) {
   const free = usesFreeSkills(s);
   const maximum = free ? operationProfile(s).points : 18;
-  if (s.experienceVersion === 2 || s.experienceVersion === 3) {
-    const mode=s.experienceVersion===3&&s.config.mode==='hundred'?'hundred':'campaign';
+  if (s.experienceVersion === 2 || s.experienceVersion === 3 || s.experienceVersion === 4) {
+    const mode=(s.experienceVersion===3||s.experienceVersion===4)&&s.config.mode==='hundred'?'hundred':'campaign';
     let earned = 0;
     while (earned < maximum && s.xp >= battleXpAt(earned + 2,mode)) earned++;
     const level = earned + 1, required = battleLevelCost(level,mode), capped = earned >= maximum;

@@ -40,3 +40,30 @@ export function pacedExperienceProfile(base: OperationProfile, mode: ExperienceM
   });
   const profile={...base,points,waveXp};variants.set(key,profile);return profile;
 }
+
+const steadyProfiles = new WeakMap<OperationProfile, Map<string, OperationProfile>>();
+/** Version 4: keep one opening point, then advance equally through the remaining level costs. */
+export function steadyExperienceProfile(base: OperationProfile, mode: ExperienceMode, capacity = base.points): OperationProfile {
+  const points = Math.min(base.points, capacity), key = `${mode}:${points}`;
+  let variants = steadyProfiles.get(base);
+  if (!variants) { variants = new Map(); steadyProfiles.set(base, variants); }
+  const cached = variants.get(key); if (cached) return cached;
+  // The last hundred-wave reward must be available during the allocation before its boss.
+  const allocationWaves = mode === 'hundred' ? Math.max(1, base.waves.length - 1) : base.waves.length;
+  const intervals = allocationWaves - 1;
+  let awarded = 0;
+  const waveXp = base.waves.map((_, index) => {
+    let cumulative = battleXpAt(points + 1, mode);
+    if (points > 0 && intervals > 0) {
+      // Use exact integer level boundaries, then fund the same fraction of the next level.
+      // This tracks 30, 35, 40... XP costs instead of giving every wave a flat XP amount.
+      const steps = (points - 1) * Math.min(index, intervals);
+      const wholePoints = 1 + Math.floor(steps / intervals);
+      cumulative = battleXpAt(wholePoints + 1, mode)
+        + Math.floor(battleLevelCost(wholePoints + 1, mode) * (steps % intervals) / intervals);
+    }
+    const reward = cumulative - awarded; awarded = cumulative; return reward;
+  });
+  const profile = { ...base, points, waveXp };
+  variants.set(key, profile); return profile;
+}

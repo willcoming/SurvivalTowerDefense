@@ -13,17 +13,20 @@ for(const width of [320,390,767,768,1024,1440])test.describe(`viewport ${width}`
     const before=await page.evaluate(()=>({spent:window.__game.state()!.choicesSpent,tick:window.__game.state()!.tick}));
     const node=page.locator('[data-action=deep-node][data-id="C01-A4/0"]');
     const activate=()=>width<768?node.tap():node.click();
-    const popup=page.locator('.skill-description-dialog[open]');
-    await activate();await expect(popup).toBeVisible();
+    const popup=page.locator('.skill-bottom-sheet');
+    await expect(page.locator('.skill-description-dialog')).toHaveCount(0);
+    await activate();await expect(popup).toBeVisible();await expect(popup).toHaveAttribute('data-open','true');
     expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(before.spent);
-    await popup.getByRole('button',{name:'關閉',exact:true}).click();await expect(popup).toHaveCount(0);
-    await activate();await page.keyboard.press('Escape');await expect(popup).toHaveCount(0);
+    await popup.getByRole('button',{name:'關閉',exact:true}).click();await expect(popup).toHaveAttribute('data-open','false');
+    await activate();await page.keyboard.press('Escape');await expect(popup).toHaveAttribute('data-open','false');
     expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(before.spent);
     await activate();
     // A resize must retain the inspected node, with no mobile card interception.
     await page.setViewportSize({width:width<768?1024:390,height:1366});
     await expect(popup).toBeVisible();await expect(page.locator('.skill-network .deep-node')).toHaveCount(24);
-    await popup.getByRole('button',{name:'確認配置',exact:true}).click();await expect(popup).toHaveCount(0);
+    await popup.getByRole('button',{name:'確認配置',exact:true}).click();
+    await expect(popup).toHaveAttribute('data-open','true');await expect(popup.locator('.node-status')).toHaveText('已取得');
+    await expect(popup.getByRole('button',{name:'確認配置',exact:true})).toBeDisabled();
     expect(await page.evaluate(()=>window.__game.state()!.treeNodes)).toEqual(['C01-A4/0']);
     expect(await page.evaluate(()=>window.__game.state()!.choicesSpent)).toBe(before.spent+1);
     expect(await page.evaluate(()=>window.__game.state()!.tick)).toBe(before.tick);

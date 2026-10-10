@@ -1,4 +1,4 @@
-import { pacedExperienceProfile, battlePointCapacity, battleXpAt } from '../data/battle-experience';
+import { steadyExperienceProfile, battlePointCapacity, battleXpAt } from '../data/battle-experience';
 import { CURRENT_BALANCE_VERSION } from '../data/assault-balance';
 import { STAGE_ENCOUNTERS } from '../data/encounters';
 import { stageProfile } from '../data/progression';
@@ -18,7 +18,7 @@ const labels:Record<TacticalView,string> = {intel:'情報',waves:'波次',enemie
 
 export function tacticalCommand(save:GameSave,vm:ViewModel) {
   const stage=STAGE_MAP[vm.stageId],view=vm.commandView??'intel';
-  const boss=ENEMY_MAP[stage.bossId],profile=pacedExperienceProfile(stageProfile(stage.id,vm.challengeId?'hard':selectedDifficulty(save,stage.id),{challengeId:vm.challengeId,balanceVersion:CURRENT_BALANCE_VERSION}),'campaign',battlePointCapacity({squadIds:save.preferences.squadIds,challengeId:vm.challengeId}));
+  const boss=ENEMY_MAP[stage.bossId],profile=steadyExperienceProfile(stageProfile(stage.id,vm.challengeId?'hard':selectedDifficulty(save,stage.id),{challengeId:vm.challengeId,balanceVersion:CURRENT_BALANCE_VERSION}),'campaign',battlePointCapacity({squadIds:save.preferences.squadIds,challengeId:vm.challengeId}));
   const content=view==='intel'?`
     <div class="tactical-location" style="background-image:url('${stageArt(stage.id)}')"><span>${stage.id}</span><h2>${esc(stage.name)}</h2></div>
     <p class="tactical-description">${esc(stage.description)}</p><p class="tactical-counter">${esc(STAGE_ENCOUNTERS[stage.id].focus)}</p>

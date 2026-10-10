@@ -39,7 +39,7 @@ export function startNextWave(s: RunState): void {
 
 export function validateWaveFlow(s: RunState): void {
   const flow = s.waveFlow;
-  if (s.balanceVersion !== 5) {
+  if (s.balanceVersion !== 5 && s.balanceVersion !== 6 && s.balanceVersion !== 7) {
     if (flow !== undefined) throw new Error('波次流程版本不相容');
     return;
   }
